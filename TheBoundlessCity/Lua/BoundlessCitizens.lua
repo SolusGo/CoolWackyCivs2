@@ -91,13 +91,14 @@ local function writeLedger(city,misc,terrain)
  local data=(plot:GetScriptData() or ''):gsub('|BCY1:[^|]*|',''):gsub('|BCY2:[^|]*|','')
  plot:SetScriptData(data..'|BCY2:'..table.concat(m,',')..';'..table.concat(t,',')..'|')
 end
-function B.ApplyLedger(city,gross,deduct)
+function B.ApplyLedger(city,gross,deduct,refresh)
  local misc,terrain=B.Ledger(city)
  local terrainChanged={}
  local function mutate(source,i,y,desired)
   local delta=desired-(source.values[i] or 0)
   if delta==0 then return end
   local before=city[source.get](city,y.id)
+  if not source.negative then assert(before+delta>=0,'Native terrain source cannot safely remove the saved ledger') end
   local ok,err=pcall(city[source.change],city,y.id,delta)
   local after=city[source.get](city,y.id)
   -- Journal even if a callback raises after a completed native mutation.
@@ -112,7 +113,7 @@ function B.ApplyLedger(city,gross,deduct)
    local delta=desired-(source.values[i] or 0)
    if not source.negative and delta~=0 then terrainChanged[i]=true end
    mutate(source,i,y,desired)
-   if source.negative and delta==0 and terrainChanged[i] then
+   if source.negative and delta==0 and (terrainChanged[i] or refresh) then
     -- Terrain's native setter does NOT update the cached city rate. The misc
     -- setter does, but ignores zero deltas: a journalled net-zero pulse refreshes
     -- that cache without leaving a bonus or changing any unrelated source.
@@ -121,6 +122,15 @@ function B.ApplyLedger(city,gross,deduct)
   end
  end
  writeLedger(city,misc,terrain)
+end
+function B.WorkforceFailure(s,city,err)
+ local cleared,cleanupError=pcall(B.ApplyLedger,city,{},{})
+ s.assignments={};s.reserved=0;s.phase='RECOVER';s.failure=tostring(err)
+ local cache=B.Cache(s)
+ cache.signature=nil;cache.scalar=nil;cache.perPlot={};cache.remoteYields={};cache.labourerYields={}
+ cache.viewRevision=(cache.viewRevision or 0)+1
+ B.Save(s);B.Index(s)
+ if not cleared then print('[BoundlessCity] Ledger cleanup requires retry: '..tostring(cleanupError)) end
 end
 function B.Index(s)
  local cache=B.Cache(s)
@@ -185,7 +195,8 @@ function B.Trim(s,touched)
  if s.incompatible then return end
  local scalar=cache.scalar
  if touched and scalar and cache.perPlot and city:GetPopulation()==scalar[1]
-  and city:GetTotalSpecialistCount()==scalar[2] and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==scalar[3] then
+  and city:GetTotalSpecialistCount()==scalar[2] and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==scalar[3]
+  and city:GetAutomatons()==(scalar[4] or 0) then
   local gross={};for i=1,#B.Yields do gross[i]=cache.remoteYields[i] or 0 end
   local changed=false;local count=s.reserved or 0
   for n in pairs(touched) do if s.assignments[n] then local p=Map.GetPlotByIndex(n)
@@ -201,7 +212,7 @@ function B.Trim(s,touched)
   B.Busy[s.pid]=true
   local ok,err=pcall(function() B.ApplyLedger(city,gross,deduct);s.reserved=count;cache.remoteYields=gross;cache.labourerYields=deduct;cache.viewRevision=(cache.viewRevision or 0)+1;B.Save(s) end)
   B.Busy[s.pid]=nil
-  if not ok then print('[BoundlessCity] Indexed trim failed: '..tostring(err));B.Schedule(s.pid,true) end
+  if not ok then B.WorkforceFailure(s,city,err);print('[BoundlessCity] Indexed trim failed: '..tostring(err));B.Schedule(s.pid,true) end
   if LuaEvents.BoundlessChanged then LuaEvents.BoundlessChanged(s.pid) end
   return true
  end
@@ -232,7 +243,7 @@ function B.Trim(s,touched)
  B.Busy[s.pid]=true
  local ok,err=pcall(function() B.Totals(s,city);B.Save(s) end)
  B.Busy[s.pid]=nil
- if not ok then print('[BoundlessCity] Trim failed: '..tostring(err));B.Schedule(s.pid,true) end
+ if not ok then B.WorkforceFailure(s,city,err);print('[BoundlessCity] Trim failed: '..tostring(err));B.Schedule(s.pid,true) end
  if LuaEvents.BoundlessChanged then LuaEvents.BoundlessChanged(s.pid) end
  return true
 end
@@ -300,14 +311,12 @@ function B.Reconcile(s)
   assert(final.remote<=final.realDefaults and final.localCount+final.remote+final.specialists+final.idle+final.unassigned==final.population+final.automata,'Invalid native citizen census')
   s.phase='IDLE';s.failure=nil;B.Save(s);cache.governorKey=final.governorKey
   cache.signature=B.Signature(s,city);cache.viewRevision=(cache.viewRevision or 0)+1
-  cache.scalar={final.population,final.specialists,final.defaults}
+  cache.scalar={final.population,final.specialists,final.defaults,final.automata}
   cache.aiDirty=true
  end)
  B.Busy[s.pid]=nil
  if not ok then
-  pcall(B.ApplyLedger,city,{},{})
-  s.assignments={};s.reserved=0;s.phase='RECOVER';s.failure=tostring(err);B.Save(s);B.Index(s)
-  cache.signature=nil
+  B.WorkforceFailure(s,city,err)
   print('[BoundlessCity] Reconciliation aborted safely: '..tostring(err))
  end
  if LuaEvents.BoundlessChanged then LuaEvents.BoundlessChanged(s.pid) end
@@ -316,6 +325,7 @@ end
 function B.Summary(s)
  local city=B.City(s);if not city then return end
  local a=B.Census(s,city);a.owned=B.Ownership(s).count
+ if s.phase=='RECOVER' or s.phase=='RECONCILE' then a.availableRemote=0 end
  a.progress=math.floor(s.progress or 0);a.cost=B.Cost(s)
  a.available=a.availableCitizens;return a
 end

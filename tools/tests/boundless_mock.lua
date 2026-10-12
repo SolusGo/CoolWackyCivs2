@@ -37,7 +37,8 @@ GameEvents={};for _,n in ipairs({'PlayerDoTurn','PlayerDoneTurn','PlayerCanFound
 Events={SerialEventCityInfoDirty=event(),LoadScreenClose=event()};LuaEvents={BoundlessChanged=event()}
 ContextPtr={SetUpdate=function(self,fn) deferred=fn end}
 function Pump() local fn=deferred;deferred=nil;if fn then fn() end end
-local saved={};Modding={OpenSaveData=function() return {GetValue=function(k) return saved[k] end,SetValue=function(k,v) saved[k]=v end} end}
+local saved={};SaveMirror={GetValue=function(k) return saved[k] end,SetValue=function(k,v) saved[k]=v end}
+Modding={OpenSaveData=function() return SaveMirror end}
 plots={};local W,H=80,20
 local plotMethods={}
 function plotMethods:GetPlotIndex() return self.n end
@@ -94,11 +95,14 @@ function cityMethods:IsOriginalCapital()
  return (self.original==0 and self.x==3 and self.y==5) or (self.original==1 and self.x==60 and self.y==5)
 end
 function cityMethods:IsHolyCityAnyReligion() return self.holy or false end
+function cityMethods:IsRevealed() return self.revealed~=false end
+function cityMethods:GetResistanceTurns() return self.resistance or 0 end
+function cityMethods:ChangeResistanceTurns(delta) self.resistance=(self.resistance or 0)+delta;assert(self.resistance>=0) end
 function cityMethods:IsRazing() return self.razing or false end
 function cityMethods:GetMaxHitPoints() return 200 end
 function cityMethods:GetDamage() return self.damage or 0 end
 function cityMethods:GetName() return self.name or 'Test settlement' end
-function cityMethods:GetAutomatons() return 0 end
+function cityMethods:GetAutomatons() return self.automatons or 0 end
 function cityMethods:GetPopulation() return self.pop end
 function cityMethods:SetName(name) self.name=name end
 function cityMethods:GetNumCityPlots() return #self.localPlots+1 end
@@ -123,13 +127,14 @@ function cityMethods:GetBaseYieldRateFromTerrain(y)
 end
 function cityMethods:ChangeBaseYieldRateFromTerrain(y,d) self.terrain[y]=(self.terrain[y] or 0)+d;mutations=mutations+1 end
 function cityMethods:NativeYield(y)
+ if self:GetResistanceTurns()>0 then return 0 end
  return (self:GetBaseYieldRateFromTerrain(y)+self:GetBaseYieldRateFromMisc(y)+self.defaults*((y==1 and 1 or 0)+(self.extra[y] or 0)))*(self.modifier or 100)/100
 end
 function cityMethods:GetJONSCulturePerTurn() return self.culture end
 function cityMethods:FoodDifference() return 1 end
 function cityMethods:Check()
  local count=0;for n,on in pairs(self.worked) do if on then count=count+1 end end
- assert(count+self.defaults+self.specialists==self.pop,'native census inconsistent')
+ assert(count+self.defaults+self.specialists+(self.unassigned or 0)==self.pop+self:GetAutomatons(),'native census inconsistent')
  assert(self.defaults>=0 and self.forcedDefault>=0 and self.forcedDefault<=self.defaults,'native labourer count inconsistent')
 end
 function cityMethods:AlterWorkingPlot(i)
@@ -174,7 +179,7 @@ local playerMethods={}
 function playerMethods:GetCivilizationType() return self.pid==0 and 100 or 99 end
 function playerMethods:GetCapitalCity() return self.cities[1] end
 function playerMethods:Cities() local i=0;return function() i=i+1;return self.cities[i] end end
-function playerMethods:Units() local i=0;return function() i=i+1;return self.units[i] end end
+function playerMethods:Units() local i=0;return function() repeat i=i+1 until not self.units[i] or not self.units[i].dead;return self.units[i] end end
 function playerMethods:GetNumCities() return #self.cities end
 function playerMethods:GetScriptData() return self.script or '' end
 function playerMethods:SetScriptData(v) self.script=v end
@@ -197,7 +202,7 @@ function playerMethods:IsTurnActive() return true end
 function playerMethods:GetCurrentEra() return 0 end
 function playerMethods:GetTeam() return self.pid end
 function playerMethods:AddNotification() end
-function playerMethods:GetUnitByID(id) for _,u in ipairs(self.units) do if u.id==id then return u end end end
+function playerMethods:GetUnitByID(id) for _,u in ipairs(self.units) do if u.id==id and not u.dead then return u end end end
 function playerMethods:ChangeJONSCulture(n) cultureAward=cultureAward+n end
 function playerMethods:GetNumMilitaryUnits() return 2 end
 function playerMethods:AcquireCity(c)

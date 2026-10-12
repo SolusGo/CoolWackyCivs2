@@ -1,7 +1,10 @@
 -- Player ScriptData travels with the native save, including when loading an older save.
 -- OpenSaveData is a redundant mirror, never the authority for restoring native yield ledgers.
 local B=MapModData.BoundlessCity
-local mirror=Modding.OpenSaveData()
+local mirrorOK,mirror=pcall(Modding.OpenSaveData)
+local mirrorError=not mirrorOK and tostring(mirror) or 'no optional save store'
+if not mirrorOK then mirror=nil end
+local mirrorWarned=false
 local function encode(v)
  local t=type(v)
  if t=='number' then return 'n'..tostring(v)..';'
@@ -43,7 +46,12 @@ function B.Save(s)
   data=data:sub(1,first-1)..data:sub(last+length+2)
  end
  p:SetScriptData(data..'|BCSTATE1:'..#raw..':'..raw..'|')
- mirror.SetValue('BOUNDLESS_v1_P'..s.pid,raw)
+ local ok,err=false,mirrorError
+ if mirror then ok,err=pcall(function() mirror.SetValue('BOUNDLESS_v1_P'..s.pid,raw) end) end
+ if not ok and not mirrorWarned then
+  mirrorWarned=true;print('[BoundlessCity] Optional save mirror unavailable; native ScriptData saved: '..tostring(err))
+ end
+ return true
 end
 function B.State(pid)
  if B.States[pid] then return B.States[pid] end
@@ -100,12 +108,15 @@ function B.State(pid)
   for _,name in ipairs({'pending','returned','sieges','aiTargets'}) do
    for k,r in pairs(s[name]) do
     local valid=type(k)=='number' and k>=0 and k==math.floor(k) and type(r)=='table'
-    if valid and name=='returned' then valid=type(r.founded)=='number' and type(r.recipient)=='number'
+    if valid and name=='returned' then
+     valid=type(r.founded)=='number' and type(r.recipient)=='number'
+      and (r.turn==nil or (type(r.turn)=='number' and r.turn==math.floor(r.turn)))
     elseif valid then
      valid=type(r.x)=='number' and type(r.y)=='number' and Map.GetPlot(r.x,r.y)~=nil
      if name=='aiTargets' then valid=valid and type(r.birth)=='number' and type(r.build)=='number'
      else valid=valid and type(r.founded)=='number' end
-     if name=='sieges' then valid=valid and type(r.owner)=='number' end
+     if name=='sieges' then valid=valid and type(r.owner)=='number'
+      and (r.city==nil or (type(r.city)=='number' and r.city>=0 and r.city==math.floor(r.city))) end
     end
     if not valid then s[name][k]=nil end
    end

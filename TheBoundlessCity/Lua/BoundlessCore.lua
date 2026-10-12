@@ -131,6 +131,7 @@ function B.Expand(s)
 end
 function B.Eligible(s,p)
  return p and p:GetOwner()==s.pid and not p:IsCity() and p:HasYield()
+  and not (B.Cache(s).quarantinedCities or {})[p:GetCityPurchaseID()]
   and (not p:IsWater() or Teams[Players[s.pid]:GetTeam()]:IsWaterWork())
   and not p:IsVisibleEnemyUnit(s.pid) and not p:IsBlockaded(s.pid)
 end

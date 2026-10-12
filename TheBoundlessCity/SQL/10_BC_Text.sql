@@ -2,6 +2,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_ADJECTIVE','
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_ANY','Any');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_ASSIGN','Assign');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_AUTO','Automatic');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_AUTOMATONS','Native automatons: {1_Num}. These are separate from population; remote credits are suspended.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_BALANCED','Balanced');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_BONUS','Registry territorial Culture');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_BONUS_HELP','Automatically maintained by The Grand Registry.');
@@ -36,8 +37,9 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_NO_CAPTURE_H
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_PENDING','Pending');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_PREVIOUS','Previous');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_PRODUCTION','Production');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_QUARANTINE','An unexpected additional city has no safe recipient. Its construction is blocked. See Lua.log and the engine-limitations guide; no protected city was destroyed.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_QUARANTINE','An unexpected additional city has no safe recipient. Its queues are cleared and resistance suppresses ordinary yields and purchases. See Lua.log and the limitations guide; no protected city was destroyed.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_RECOVERY','An additional city was returned to an eligible owner. The Heart remains your only city.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_RECOVERY_PENDING','Remote-work recovery is pending. New capacity is unavailable until the native ledger can be verified. Check Lua.log; an unverified source may still require cleanup.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_REGISTRY','The Grand Registry');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_REGISTRY_HELP','+3 Culture. +1 additional Culture per 10 owned plots, capped at +10. Reduces the separate frontier Culture cost by 15%. Retains the active Monument rules.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_REGISTRY_PEDIA','The Grand Registry records each district as part of the same city, whether it lies beside the heart or across a distant sea. The territorial Culture bonus is counted once and never exceeds ten.');
@@ -47,7 +49,19 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_RESOURCE','R
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SCIENCE','Science');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SHORT','The Boundless City');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE','Siege demolition');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_DAMAGE','Insufficient damage. Reduce the city to 1 HP.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_ENGINE_LIMIT','Native interface rejects the current owner’s own-founded city; demolition is unavailable.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_HELP','Only adjacent melee forces with moves remaining can demolish a city at 1 HP, at war, when its current owner can legally raze it. Original capitals, holy cities and city-states are excluded. Normal first-founded settlements usually fail this native check.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_INACTIVE','The original capital and an active player turn are required.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_INVALID','No eligible foreign settlement exists here.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_KNOWN_CITY','Previously revealed settlement');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_MELEE','No adjacent non-embarked melee unit with movement remaining.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_NATIVE_RULE','Native razing rules or another mod prohibit demolition.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_NOT_AT_WAR','Not at war with this settlement’s owner.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_NOT_VISIBLE','Not currently visible. Reveal the city to check its present condition.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_PROTECTED','Protected capital, holy city, city-state settlement or city already razing.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_QUEUED','Demolition is already queued for deferred revalidation.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SIEGE_READY','Ready for native-legal demolition.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SOUTH','South');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SPY_1','Registry Envoy 1');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_SPY_10','Registry Envoy 10');

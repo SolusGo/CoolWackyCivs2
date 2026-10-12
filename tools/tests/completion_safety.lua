@@ -51,6 +51,13 @@ assert(extra.owner==1 and s.reserved==remote and s.withdrawn==withdrawn)
 extra.protected=true;Players[0]:AcquireCity(extra);B.RecoverCities(s)
 assert(extra.owner==0 and s.pending[Map.GetPlot(52,10).n],'return ping-pong must quarantine instead of looping')
 assert(extra.automatedProduction==false and #extra.orders==0)
+assert(extra:GetResistanceTurns()==2 and capital:GetResistanceTurns()==0)
+assert(not B.Eligible(s,Map.GetPlot(53,10)),'quarantined city tiles must not supply remote work or Surveyor targets')
+for y=0,5 do assert(extra:NativeYield(y)==0 and extra.cached[y]==0,'quarantined ordinary economic rates must be zero') end
+extra:ChangeResistanceTurns(-1);assert(extra:GetResistanceTurns()==1)
+B.RecoverCities(s);assert(extra:GetResistanceTurns()==2,'resistance must remain positive after the next native decrement')
+now=now+1;B.RecoverCities(s)
+assert(extra.owner==1,'a legitimate later-turn transfer must not be treated as an eternal return loop')
 -- A legal orphan is removed with only its purchased tiles released.
 local orphan=MakeCity(0,50,12,2,2);orphan.original=3;orphan.previous=3;Players[0].cities[#Players[0].cities+1]=orphan
 local index=Map.GetPlot(51,12).n;B.Cache(s).territoryDirty=true;B.Cache(s).owned[index]=true

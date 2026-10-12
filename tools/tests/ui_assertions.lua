@@ -20,13 +20,15 @@ Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Summary','Yields','
 InstanceManager={}
 function InstanceManager:new()
  local manager={count=0}
- function manager:ResetInstances() self.count=0 end
- function manager:GetInstance() self.count=self.count+1;assert(self.count<=16,'UI rows must be paged');return {Text=control(),Assign=control(),Lock=control(),Locate=control()} end
+ function manager:ResetInstances() self.count=0;UIRows={} end
+ function manager:GetInstance() self.count=self.count+1;assert(self.count<=16,'UI rows must be paged');local row={Text=control(),Assign=control(),Lock=control(),Locate=control()};UIRows[#UIRows+1]=row;return row end
  return manager
 end
 LoadWorkforceUI()
 assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
 Controls.Open.callback();assert(not Controls.Panel.hidden)
+capital.automatons=1;capital.unassigned=1;LuaEvents.BoundlessChanged.Fire(0);assert(Controls.Summary.text:find('AUTOMATONS'))
+capital.automatons=0;capital.unassigned=0;LuaEvents.BoundlessChanged.Fire(0)
 Events.AILeaderMessage.Fire();assert(Controls.Panel.hidden and Controls.Launcher.hidden)
 Events.LeavingLeaderViewMode.Fire();assert(not Controls.Launcher.hidden)
 Controls.Open.callback();Events.SerialEventEnterCityScreen.Fire();assert(Controls.Panel.hidden and Controls.Launcher.hidden)
@@ -35,4 +37,15 @@ Events.SerialEventGameMessagePopupShown.Fire({Type=9});assert(Controls.Launcher.
 Events.SerialEventGameMessagePopupShown.Fire({Type=9});Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(not Controls.Launcher.hidden)
 Controls.Open.callback();assert(ContextPtr.input(1,27));assert(Controls.Panel.hidden)
 Pump();assert(deferred==nil,'UI must not install a permanent frame handler')
+Controls.Open.callback();Controls.Siege.callback()
+-- The benchmark reuses these controls on maps without a foreign city.
+if Map.GetPlot(60,5):GetPlotCity()==foreign then
+assert(#UIRows==1 and UIRows[1].Assign.disabled and UIRows[1].Text.text:find('SIEGE_PROTECTED'))
+foreign.revealed=false;Events.SerialEventCityInfoDirty.Fire();assert(#UIRows==0,'undiscovered city must not leak through siege UI')
+foreign.revealed=true;Map.GetPlot(60,5).visible=false;Events.SerialEventCityInfoDirty.Fire()
+assert(UIRows[1].Assign.disabled and UIRows[1].Text.text:find('SIEGE_NOT_VISIBLE') and UIRows[1].Text.text:find('SIEGE_KNOWN_CITY'))
+Map.GetPlot(60,5).visible=true
+end
+Controls.Siege.callback();Controls.Close.callback();Pump()
+assert(deferred==nil,'siege refresh must remain event-driven')
 print('PASS UI: launcher, paged rows, city/diplomacy/popup hiding and Escape with no idle polling')

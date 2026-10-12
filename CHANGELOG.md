@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.1.1 stability preview / mod version 3 — 2026-10-12
+
+- Added visible/previously revealed siege targets with explicit protection, damage, melee, war, visibility and native-limit reasons; invalid actions are disabled and AI queues only ready targets.
+- Added city-ID revalidation for new demolition records and protected other city centers during territory release.
+- Added native resistance and cached-rate refresh to quarantine, plus remote/Surveyor exclusion for its associated plots. Transient ownership and empire-level effects remain restrictions.
+- Removed created/converted Settlers outside native callbacks even after original-capital loss, while preserving the initial Settler.
+- Restricted return-loop suppression to the same turn and allowed a living empty Boundless player to receive only its recorded original capital.
+- Cleared workforce credits/cache immediately after indexed or full trim failures; included automatons in the fast-path census and exposed them separately in UI.
+- Made optional save-mirror open/write failures nonfatal to authoritative Player ScriptData.
+- Added stale/dead/upgraded AI target cleanup, native build-ID guards, busy-target reservations, three-turn unreachable cooldown, fair unit rotation and a shared 12-path budget per owner turn.
+- Passed eight simulation suites, actual SQL/package/art checks and 129 source assertions; expanded measurements to 22 major-player records, 40 minor-player slots and 200 military units at up to 10,000 owned plots.
+- Kept native save schema 2, BCY2 ledger and minimum compatible mod save version 1. Version 1 migration and version 2 progress remain supported; native upgrade testing is outstanding.
+
+Existing art, civilization mechanics and balance numbers are unchanged. Full population-only reservations and demolition of first-founded enemy settlements remain unsupported through the verified CP v151 APIs. See the [final report](TheBoundlessCity/docs/FinalStabilityReport.md).
+
 ## 1.1.0 implementation preview / mod version 2 — 2026-10-12
 
 - Added verified surplus labourers alongside forced local withdrawals. The 80/500 and 150/1,000 stress fixtures now support 50 and 120 remote citizens; full population-only capacity remains unavailable through CP Lua.

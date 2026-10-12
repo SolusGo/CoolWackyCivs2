@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="2">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="3">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
     <Teaser>One city. A world without an end.</Teaser>
@@ -59,18 +59,18 @@
     <File md5="9010AA6BFC477B88ED5B64B35F4FCB98" import="1">TheBoundlessCity/Art/BoundlessPortrait128.dds</File>
     <File md5="B2DBA4DD00B403EABA573909ABDC36E3" import="1">TheBoundlessCity/Art/BoundlessPortrait256.dds</File>
     <File md5="E3663F04BF6A93C7EAB50FE5E250CD9C" import="1">TheBoundlessCity/Art/BoundlessPortrait64.dds</File>
-    <File md5="FA592F2AD745F705D10DE2226F0CC0E3" import="1">TheBoundlessCity/Lua/BoundlessAI.lua</File>
-    <File md5="15B00DBD8AF6E8003A503C6E97EA9BEA" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
-    <File md5="49950FA2EA81AA4FC09B655CAEC7B998" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
-    <File md5="A2E478532C718BDF8711B189AE91AB38" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
-    <File md5="FD5C919CB63D0D1AF9B750F7B79C56ED" import="1">TheBoundlessCity/Lua/BoundlessPersistence.lua</File>
-    <File md5="4881CECF2A0E8ACDE647DF4A05CFE460" import="1">TheBoundlessCity/Lua/BoundlessSiege.lua</File>
+    <File md5="1EE1B4C1666A685743E3894366F9C11F" import="1">TheBoundlessCity/Lua/BoundlessAI.lua</File>
+    <File md5="79147111F88A8F9A07153E1D479274D4" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
+    <File md5="33615883EAC3ABB2E851D432C5362590" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
+    <File md5="755C3EEB37CEC142BC9EB9BF93EE8A48" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
+    <File md5="A9233B2EC22EB9BDEDBA099B6E2EFF43" import="1">TheBoundlessCity/Lua/BoundlessPersistence.lua</File>
+    <File md5="F74DADD48F5E9E2F4798B2C7E4557387" import="1">TheBoundlessCity/Lua/BoundlessSiege.lua</File>
     <File md5="7D38A2A0876B8707351171B2B0C5AAEA" import="0">TheBoundlessCity/SQL/00_BC_Core.sql</File>
     <File md5="36E736BD59C756960EFD3CD08BDACFD8" import="0">TheBoundlessCity/SQL/01_BC_Inheritance.sql</File>
     <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
     <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
-    <File md5="FB2D58EAD26D86FB5941656BF9709E75" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
-    <File md5="4033502616492EC48567B99AE58C6F2F" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
+    <File md5="222D83E44B56AF1D7EC9F5B45173AFD8" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
+    <File md5="CE7C3F669C944F084D4D72391BDF65BF" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
     <File md5="C291A98321D8A158063F4F27B4A830F1" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
   </Files>
   <Actions>

@@ -15,7 +15,8 @@ METHODS = {
          'GetSpecialistCount GetTotalSpecialistCount GetExtraSpecialistYieldOfType GetNumBuilding '
          'GetNumRealBuilding SetNumRealBuilding SetName GetJONSCulturePerTurn FoodDifference AlterWorkingPlot '
          'DoTask GetBaseYieldRateFromMisc ChangeBaseYieldRateFromMisc GetBaseYieldRateFromTerrain '
-         'ChangeBaseYieldRateFromTerrain IsHolyCityAnyReligion IsRazing GetDamage GetMaxHitPoints GetName',
+         'ChangeBaseYieldRateFromTerrain IsHolyCityAnyReligion IsRazing GetDamage GetMaxHitPoints GetName '
+         'GetResistanceTurns ChangeResistanceTurns IsRevealed',
  'Player': 'GetCivilizationType GetCapitalCity Cities Units GetNumCities GetScriptData SetScriptData IsHuman '
            'IsAlive IsBarbarian IsMinorCiv GetPlayerToLiberate CanLiberatePlayer CanRaze AcquireCity Disband '
            'IsTurnActive GetCurrentEra GetTeam AddNotification GetUnitByID ChangeJONSCulture GetNumMilitaryUnits',
@@ -58,6 +59,11 @@ def main():
     check('GeneratePath accepts native max turns', 'const int iMaxTurns = lua_tointeger(L, 3)' in sources['CvLuaUnit.cpp'])
     check('Misc source setter updates native static yield', bool(re.search(r'void CvCity::ChangeBaseYieldRateFromMisc.*?UpdateCityYields\(eIndex\)', sources['CvCity.cpp'], re.S)))
     check('CanMoveInto is per-unit opt-in', 'm_pUnitInfo->IsSendCanMoveIntoEvent()' in sources['CvUnit.cpp'])
+    check('Citizen automation task is a no-op', bool(re.search(r'case TASK_SET_AUTOMATED_CITIZENS:\s*break;', sources['CvCity.cpp'])))
+    check('Resistance blocks ordinary raw city yields', bool(re.search(r'IsAnarchy\(\) \|\| IsResistance\(\) \|\| IsRazing\(\).*?return 0;', sources['CvCity.cpp'], re.S)))
+    check('Resistance blocks purchase-cost legality', bool(re.search(r'if \(bTestPurchaseCost\).*?if \(IsResistance\(\) \|\| IsRazing\(\)\)\s*return false;', sources['CvCity.cpp'], re.S)))
+    check('Native city turn decrements resistance before production', bool(re.search(r'DoResistanceTurn\(\);.*?doProduction\(', sources['CvCity.cpp'], re.S)))
+    check('CanRaze has a native script protection veto', '"CanRaze", args.get(), bResult' in sources['CvPlayer.cpp'])
     for name, signature in {'PlayerBuilt':'iiiii', 'UnitConverted':'iiiib', 'TileOwnershipChanged':'iiii',
                             'TileImprovementChanged':'iiiiib', 'PlayerDoneTurn':'i', 'DeclareWar':'iib', 'MakePeace':'iib'}.items():
         check('CP event ABI '+name, bool(re.search(r'GAMEEVENT_'+name+r'\s+"'+name+r'",\s+"'+signature+'"', sources['CustomMods.h'])))

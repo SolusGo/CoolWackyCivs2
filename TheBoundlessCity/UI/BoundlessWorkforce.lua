@@ -26,15 +26,18 @@ refresh=function()
  Controls.Panel:SetHide(not opened)
  if not opened then refreshing=false;return end
  local info=B.Summary(s);local cache=B.Ownership(s);local locals=B.LocalPlots(city)
- Controls.Summary:SetText(B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.unassigned,info.availableCitizens,info.availableRemote,info.maximumRemote,info.pending,info.locks,info.progress,info.cost))
+ local summary=B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.unassigned,info.availableCitizens,info.availableRemote,info.maximumRemote,info.pending,info.locks,info.progress,info.cost)
+ if info.automata>0 then summary=summary..'[NEWLINE]'..B.Text('AUTOMATONS',info.automata) end
+ Controls.Summary:SetText(summary)
  local net={};for i=1,#B.Yields do net[i]=(cache.remoteYields and cache.remoteYields[i] or 0)-(cache.labourerYields and cache.labourerYields[i] or 0) end
  Controls.Yields:SetText(B.Text('YIELDS',yields(cache.remoteYields or {}),yields(cache.labourerYields or {}),yields(net)))
  Controls.Mode:SetText(B.Text(s.mode));Controls.Priority:SetText(B.Text(s.priority))
  Controls.Direction:SetText(B.Text('DIRECTION')..': '..B.Text(s.direction));Controls.Sort:SetText(B.Text(sort))
  Controls.Help:SetText(message~='' and message or B.Text('CAPACITY'))
+ if s.phase=='RECOVER' then Controls.Help:SetText(B.Text('RECOVERY_PENDING')) end
  Controls.Siege:SetText(B.Text(siege and 'WORKFORCE_VIEW' or 'SIEGE'))
  local rows=siege and B.SiegeRows(s) or B.RemoteRows(s,sort)
- if siege then Controls.Help:SetText(B.Text('SIEGE_HELP')) end
+ if siege then Controls.Help:SetText(message~='' and message or B.Text('SIEGE_HELP')) end
  local pages=math.max(1,math.ceil(#rows/B.Config.PageSize));page=math.max(1,math.min(page,pages))
  instances:ResetInstances()
  for i=(page-1)*B.Config.PageSize+1,math.min(page*B.Config.PageSize,#rows) do
@@ -42,10 +45,12 @@ refresh=function()
   local assigned=s.assignments[row.n]~=nil
   local locked=s.mode~='AUTO' and s.locks[row.n]~=nil
   if siege then
-   control.Text:SetText(row.name..'  ('..row.x..','..row.y..')')
+   control.Text:SetText(row.name..'  ('..row.x..','..row.y..')[NEWLINE]'..B.Text(row.reason))
    control.Assign:SetText(B.Text('DEMOLISH'));control.Lock:SetHide(true)
    local n=row.n
-   control.Assign:RegisterCallback(Mouse.eLClick,function() message=B.Action(pid,'SIEGE',n) and '' or B.Text('UNAVAILABLE');refresh() end)
+   control.Assign:RegisterCallback(Mouse.eLClick,function()
+    local ok,reason=B.Action(pid,'SIEGE',n);message=ok and '' or B.Text(reason or 'UNAVAILABLE');refresh()
+   end)
   else
    control.Lock:SetHide(false)
    local pending=(s.mode=='MANUAL' and s.selected[row.n] or s.mode=='HYBRID' and s.locks[row.n]) and not assigned
@@ -60,7 +65,7 @@ refresh=function()
    control.Assign:RegisterCallback(Mouse.eLClick,function() message=B.Action(pid,'PLOT',n) and '' or B.Text('UNAVAILABLE');refresh() end)
    control.Lock:RegisterCallback(Mouse.eLClick,function() B.Action(pid,'LOCK',n);refresh() end)
   end
-  control.Assign:SetDisabled(not p:IsTurnActive() or (not siege and not B.Eligible(s,row.plot) and not s.selected[row.n] and not assigned))
+  control.Assign:SetDisabled(not p:IsTurnActive() or (siege and not row.ready) or (not siege and not B.Eligible(s,row.plot) and not s.selected[row.n] and not assigned))
   local plot=row.plot
   control.Locate:RegisterCallback(Mouse.eLClick,function() UI.LookAt(plot,0) end)
  end
@@ -87,6 +92,7 @@ ContextPtr:SetInputHandler(function(msg,key)
  return false
 end)
 LuaEvents.BoundlessChanged.Add(function(pid) if pid==Game.GetActivePlayer() then refresh() end end)
+Events.SerialEventCityInfoDirty.Add(function() if opened and siege then refresh() end end)
 Events.GameplaySetActivePlayer.Add(function() opened=false;refresh() end)
 Events.ActivePlayerTurnStart.Add(refresh)
 Events.ActivePlayerTurnEnd.Add(function() opened=false;refresh() end)

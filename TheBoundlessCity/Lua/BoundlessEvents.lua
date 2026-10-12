@@ -12,9 +12,23 @@ function B.Schedule(pid,force)
  updateContext:SetUpdate(function()
   updateContext:SetUpdate(nil);armed=false;local pending=queued;queued={}
   for _,id in ipairs(B.Keys(pending)) do
-   local s=B.State(id);B.RecoverCities(s);B.ProcessSieges(s);B.Registry(s);B.Reconcile(s)
+   local s=B.State(id);B.CullSettlers(s);B.RecoverCities(s);B.ProcessSieges(s);B.Registry(s);B.Reconcile(s)
   end
  end)
+end
+function B.CullSettlers(s)
+ if not s.capital or s.incompatible then return end
+ local records={}
+ for unit in Players[s.pid]:Units() do local row=GameInfo.Units[unit:GetUnitType()]
+  if row and (row.Found==true or row.Found==1 or row.FoundAbroad==true or row.FoundAbroad==1) then
+   records[#records+1]={id=unit:GetID(),kind=unit:GetUnitType(),birth=unit:GetGameTurnCreated()}
+  end
+ end
+ for _,r in ipairs(records) do local unit=Players[s.pid]:GetUnitByID(r.id)
+  if unit and unit:GetUnitType()==r.kind and unit:GetGameTurnCreated()==r.birth then
+   B.UnitPositions[s.pid..':'..r.id]=nil;unit:Kill(false,-1)
+  end
+ end
 end
 local function hook(name,fn)
  if GameEvents[name] and GameEvents[name].Add then GameEvents[name].Add(fn)
@@ -32,6 +46,7 @@ function B.Initialize(pid)
   city:SetName(B.Text('CAPITAL'),false);B.Save(s)
  end
  for unit in Players[pid]:Units() do B.NoCapture(pid,unit) end
+ B.QuarantineIndex(s)
  if not s.incompatible then B.Ownership(s);B.Registry(s) end
  if s.incompatible then
   for owned in Players[pid]:Cities() do pcall(B.ApplyLedger,owned,{},{}) end
@@ -39,12 +54,22 @@ function B.Initialize(pid)
  if s.incompatible then B.Notify(s,'DISABLED') end
  return s
 end
+function B.QuarantineIndex(s)
+ local blocked={}
+ for n,r in pairs(s.pending or {}) do local plot=Map.GetPlotByIndex(n);local city=plot and plot:GetPlotCity()
+  if city and city:GetOwner()==s.pid and city:GetGameTurnFounded()==r.founded then blocked[city:GetID()]=true
+  else s.pending[n]=nil end
+ end
+ B.Cache(s).quarantinedCities=blocked
+end
 function B.RecoverCities(s)
  local player=Players[s.pid];local extras={}
+ B.QuarantineIndex(s)
  if player:GetNumCities()==0 or (player:GetNumCities()==1 and B.City(s)) then return end
  for city in player:Cities() do
   local nativeOriginal=s.incompatible and city:GetOriginalOwner()==s.pid and city:IsOriginalCapital()
-  if not nativeOriginal and (not s.capital or city:GetX()~=s.capital.x or city:GetY()~=s.capital.y or city:GetGameTurnFounded()~=s.capital.founded) then
+  if not nativeOriginal and (not s.capital or city:GetX()~=s.capital.x or city:GetY()~=s.capital.y or city:GetGameTurnFounded()~=s.capital.founded
+   or city:GetOriginalOwner()~=s.pid or not city:IsOriginalCapital()) then
    extras[#extras+1]={x=city:GetX(),y=city:GetY(),founded=city:GetGameTurnFounded(),previous=city:GetPreviousOwner(),original=city:GetOriginalOwner()}
   end
  end
@@ -56,8 +81,13 @@ function B.RecoverCities(s)
    local function legal(id)
     if type(id)~='number' or id<0 or id==s.pid or id>=(GameDefines.MAX_CIV_PLAYERS or 64) then return false end
     local p=Players[id]
-    return p and p:IsAlive() and not p:IsBarbarian() and not B.IsBoundless(id)
-     and not (prior and prior.founded==r.founded and prior.recipient==id)
+    if not p or not p:IsAlive() or p:IsBarbarian() then return false end
+    if B.IsBoundless(id) then
+     local recipientState=B.State(id);local cap=recipientState.capital
+     if recipientState.incompatible or p:GetNumCities()~=0 or not cap or cap.x~=r.x or cap.y~=r.y
+      or cap.founded~=r.founded or r.original~=id or not city:IsOriginalCapital() then return false end
+    end
+    return not (prior and prior.founded==r.founded and prior.recipient==id and prior.turn==B.Now())
    end
    for _,id in ipairs({r.previous,r.original}) do if legal(id) then recipient=id;break end end
    if not recipient then
@@ -66,7 +96,7 @@ function B.RecoverCities(s)
    end
    if recipient then
     -- Outside acquireCity's capture hook: coordinate records are resolved fresh each time.
-    s.returned=s.returned or {};s.returned[n]={founded=r.founded,recipient=recipient};B.Save(s)
+    s.returned=s.returned or {};s.returned[n]={founded=r.founded,recipient=recipient,turn=B.Now()};B.Save(s)
     Players[recipient]:AcquireCity(city,false,true)
     B.Notify(s,'RECOVERY');s.pending[n]=nil
    else
@@ -77,35 +107,34 @@ function B.RecoverCities(s)
      end
      player:Disband(city)
      for _,index in ipairs(released) do local tile=Map.GetPlotByIndex(index)
-      if tile:GetOwner()==s.pid then tile:SetOwner(-1,-1,true) end
+      if tile:GetOwner()==s.pid and not tile:IsCity() then tile:SetOwner(-1,-1,true) end
      end
      s.pending[n]=nil;B.Notify(s,'EXTRA_REMOVED')
     else
-     if not s.pending[n] then B.Notify(s,'QUARANTINE');print('[BoundlessCity] Extra city quarantined: no historical legal recipient at '..r.x..','..r.y) end
+     local newQuarantine=not s.pending[n] or s.pending[n].founded~=r.founded
+     if newQuarantine then B.Notify(s,'QUARANTINE');print('[BoundlessCity] Extra city quarantined: no historical legal recipient at '..r.x..','..r.y) end
      s.pending[n]={x=r.x,y=r.y,founded=r.founded}
      city:DoTask(TaskTypes.TASK_CLEAR_ORDERS,-1,-1,0)
      city:DoTask(TaskTypes.TASK_SET_AUTOMATED_PRODUCTION,-1,-1,0)
+     -- Native city turns decrement resistance before production. Keeping two
+     -- turns ensures one remains through the next economic cycle. Trade
+     -- acquisition creates a fresh city; this timer is not copied to a recipient.
+     local remaining=city:GetResistanceTurns()
+     if remaining<2 then city:ChangeResistanceTurns(2-remaining) end
+     if newQuarantine or remaining<2 then B.ApplyLedger(city,{},{},true) end
     end
    end
   end
  end
- for n in pairs(s.pending or {}) do local p=Map.GetPlotByIndex(n);local c=p and p:GetPlotCity()
-  if not c or c:GetOwner()~=s.pid then s.pending[n]=nil end
- end
+ B.QuarantineIndex(s)
  B.Save(s)
 end
 function B.Turn(pid)
  if not B.IsBoundless(pid) then return end
  local s=B.Initialize(pid)
- B.RecoverCities(s)
+ B.CullSettlers(s);B.RecoverCities(s)
  if s.incompatible or not B.City(s) or s.lastTurn==B.Now() then return end
  s.lastTurn=B.Now()
- local settlers={}
- for unit in Players[pid]:Units() do
-  local row=GameInfo.Units[unit:GetUnitType()]
-  if s.capital and row and (row.Found==true or row.Found==1 or row.FoundAbroad==true or row.FoundAbroad==1) then settlers[#settlers+1]=unit end
- end
- for _,unit in ipairs(settlers) do unit:Kill(false,-1) end
  if not Players[pid]:IsHuman() then
   s.mode='AUTO'
   local city=B.City(s)
@@ -113,7 +142,7 @@ function B.Turn(pid)
  end
  B.Busy[pid]=true;B.Expand(s);B.Busy[pid]=nil
  B.Cache(s).force=true;B.Reconcile(s);B.AIWorkers(s)
- if not Players[pid]:IsHuman() then for _,r in ipairs(B.SiegeRows(s)) do B.QueueSiege(s,r.n) end end
+ if not Players[pid]:IsHuman() then for _,r in ipairs(B.SiegeRows(s,true)) do if r.ready then B.QueueSiege(s,r.n) end end end
  B.Save(s)
 end
 include('BoundlessSiege')
@@ -156,12 +185,15 @@ hook('PlayerCityFounded',function(pid,x,y)
 end)
 hook('UnitCreated',function(pid,id)
  local u=Players[pid] and Players[pid]:GetUnitByID(id)
- if u then B.UnitPositions[pid..':'..id]=Map.GetPlot(u:GetX(),u:GetY()):GetPlotIndex() end
- if B.IsBoundless(pid) then B.NoCapture(pid,Players[pid]:GetUnitByID(id)) end
+ if u then local plot=Map.GetPlot(u:GetX(),u:GetY());B.UnitPositions[pid..':'..id]=plot and plot:GetPlotIndex() or nil end
+ if B.IsBoundless(pid) then B.NoCapture(pid,u);B.Schedule(pid) end
 end)
 hook('UnitConverted',function(old,new,oldID,newID)
  local unit=Players[new] and Players[new]:GetUnitByID(newID)
+ B.UnitPositions[old..':'..oldID]=nil
+ if unit then local plot=Map.GetPlot(unit:GetX(),unit:GetY());B.UnitPositions[new..':'..newID]=plot and plot:GetPlotIndex() or nil end
  if B.IsBoundless(old) or B.IsBoundless(new) then B.NoCapture(new,unit) end
+ if B.IsBoundless(new) then B.Schedule(new) end
 end)
 hook('CityCaptureComplete',function(old,capital,x,y,new)
  -- DO NOT AcquireCity, Kill, raze or liberate from this callback. The DLL still

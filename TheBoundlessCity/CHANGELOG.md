@@ -1,5 +1,18 @@
 # The Boundless City changelog
 
+## 1.1.1 stability preview / mod version 3 — 2026-10-12
+
+- Preserved the verified forced/surplus citizen model and all balance/art/unique mechanics.
+- Added siege rejection reasons, hidden-city protection, native dirty-event refresh and current city-ID checks; AI skips invalid targets.
+- Strengthened quarantine with native resistance, six cached-rate refreshes and associated remote/AI plot exclusion, without deleting protected cities.
+- Fixed Settler cleanup after capital loss, overly permanent return suppression and safe original-capital return to a living empty Boundless owner.
+- Fixed partial trim failure cleanup, automaton fast-path accounting and optional mirror failures.
+- Added AI lifecycle/build-ID guards, busy target ownership, unreachable cooldown and fair/shared per-turn path budgets.
+- Added repeated mode/source/rewind, sharp starvation, simultaneous eliminated-owner transfers, quarantine reload, native mirror/trim faults, AI lifecycle and fogged siege tests.
+- Updated all current guides and the [final stability report](docs/FinalStabilityReport.md); eight suites and 129 source assertions passed. Native playtesting remains outstanding.
+
+Save schema 2 and BCY2 remain unchanged; package version 3 distinguishes the update while retaining minimum save compatibility 1.
+
 ## 1.1.0 implementation preview — 2026-10-12
 
 - Extended real-citizen reservations using a conservative governor-proof surplus; no free workers, negative counts or population changes.

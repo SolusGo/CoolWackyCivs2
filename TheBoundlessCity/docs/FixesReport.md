@@ -2,6 +2,8 @@
 
 **Date:** 2026-10-12 · **Release:** 1.1.0 implementation preview / mod version 2 · **Target:** BNW + Community Patch v151
 
+This archives the preceding pass. Current changes, results and restrictions are in [FinalStabilityReport.md](FinalStabilityReport.md).
+
 All safe implemented corrections are in CoolWackyCivs2. Existing theme/art/uniques/personality/border formula/rewards and mode/direction controls are preserved. The original CoolWackyCivs collection was only read for comparison; its pre-existing project modification remains its only reported change. This report distinguishes code/source/mock verification from native playtesting, which was not available.
 
 ## Confirmed bugs and causes

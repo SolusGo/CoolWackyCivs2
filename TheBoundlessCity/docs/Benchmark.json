@@ -13,59 +13,72 @@
       "initial_owned": 100,
       "world_plots": 16000,
       "population": 150,
-      "initialization_ms": 7.233,
+      "major_player_records": 22,
+      "minor_player_slots": 40,
+      "foreign_military_units": 200,
+      "initialization_ms": 12.11,
       "full_reconcile": {
         "iterations": 9,
-        "median_ms": 1.821,
-        "max_ms": 2.367
+        "median_ms": 2.125,
+        "max_ms": 3.786
       },
       "assignment_change": {
         "iterations": 9,
-        "median_ms": 1.88,
-        "max_ms": 2.905
+        "median_ms": 2.112,
+        "max_ms": 3.752
       },
       "remote_workers": 69,
       "movement_1000_unrelated": {
         "iterations": 9,
-        "median_ms": 27.394,
-        "max_ms": 36.093
+        "median_ms": 36.924,
+        "max_ms": 52.504
       },
       "movement_1000_near_owned": {
         "iterations": 5,
-        "median_ms": 54.108,
-        "max_ms": 54.628
+        "median_ms": 73.988,
+        "max_ms": 85.406
+      },
+      "hostile_entry_departure_coalesced_batch": {
+        "iterations": 5,
+        "median_ms": 48.232,
+        "max_ms": 63.596
       },
       "frontier_single_claim": {
         "iterations": 9,
-        "median_ms": 0.746,
-        "max_ms": 1.111
+        "median_ms": 1.356,
+        "max_ms": 2.789
       },
       "ai_cache_rebuild_and_plan": {
         "iterations": 1,
-        "median_ms": 0.236,
-        "max_ms": 0.236
+        "median_ms": 0.615,
+        "max_ms": 0.615
       },
       "ai_cached_plan": {
         "iterations": 9,
-        "median_ms": 0.037,
-        "max_ms": 0.042
+        "median_ms": 0.072,
+        "max_ms": 0.099
       },
-      "ai_native_paths_per_pass_limit": 12,
+      "ai_same_turn_reentry": {
+        "iterations": 9,
+        "median_ms": 0.067,
+        "max_ms": 0.133
+      },
+      "ai_native_paths_per_turn_limit": 12,
       "ai_measured_path_calls_total": 120,
       "ui_first_rows_build": {
         "iterations": 3,
-        "median_ms": 0.86,
-        "max_ms": 0.965
+        "median_ms": 0.713,
+        "max_ms": 0.883
       },
       "ui_cached_open_refresh_100": {
         "iterations": 9,
-        "median_ms": 34.015,
-        "max_ms": 40.729
+        "median_ms": 46.19,
+        "max_ms": 55.881
       },
       "ui_closed_refresh_1000": {
         "iterations": 9,
-        "median_ms": 0.903,
-        "max_ms": 0.93
+        "median_ms": 1.485,
+        "max_ms": 2.554
       },
       "ui_remote_rows": 78
     },
@@ -73,59 +86,72 @@
       "initial_owned": 500,
       "world_plots": 16000,
       "population": 150,
-      "initialization_ms": 9.81,
+      "major_player_records": 22,
+      "minor_player_slots": 40,
+      "foreign_military_units": 200,
+      "initialization_ms": 12.282,
       "full_reconcile": {
         "iterations": 9,
-        "median_ms": 3.627,
-        "max_ms": 6.827
+        "median_ms": 4.464,
+        "max_ms": 12.376
       },
       "assignment_change": {
         "iterations": 9,
-        "median_ms": 4.235,
-        "max_ms": 7.047
+        "median_ms": 6.018,
+        "max_ms": 8.995
       },
       "remote_workers": 120,
       "movement_1000_unrelated": {
         "iterations": 9,
-        "median_ms": 23.416,
-        "max_ms": 34.321
+        "median_ms": 35.6,
+        "max_ms": 46.264
       },
       "movement_1000_near_owned": {
         "iterations": 5,
-        "median_ms": 42.038,
-        "max_ms": 43.308
+        "median_ms": 69.625,
+        "max_ms": 81.171
+      },
+      "hostile_entry_departure_coalesced_batch": {
+        "iterations": 5,
+        "median_ms": 82.596,
+        "max_ms": 95.99
       },
       "frontier_single_claim": {
         "iterations": 9,
-        "median_ms": 1.115,
-        "max_ms": 1.706
+        "median_ms": 0.977,
+        "max_ms": 2.44
       },
       "ai_cache_rebuild_and_plan": {
         "iterations": 1,
-        "median_ms": 0.97,
-        "max_ms": 0.97
+        "median_ms": 1.592,
+        "max_ms": 1.592
       },
       "ai_cached_plan": {
         "iterations": 9,
-        "median_ms": 0.042,
-        "max_ms": 0.097
+        "median_ms": 0.059,
+        "max_ms": 0.129
       },
-      "ai_native_paths_per_pass_limit": 12,
+      "ai_same_turn_reentry": {
+        "iterations": 9,
+        "median_ms": 0.052,
+        "max_ms": 0.064
+      },
+      "ai_native_paths_per_turn_limit": 12,
       "ai_measured_path_calls_total": 120,
       "ui_first_rows_build": {
         "iterations": 3,
-        "median_ms": 1.547,
-        "max_ms": 1.914
+        "median_ms": 2.109,
+        "max_ms": 2.301
       },
       "ui_cached_open_refresh_100": {
         "iterations": 9,
-        "median_ms": 31.595,
-        "max_ms": 43.452
+        "median_ms": 77.0,
+        "max_ms": 228.271
       },
       "ui_closed_refresh_1000": {
         "iterations": 9,
-        "median_ms": 0.989,
-        "max_ms": 1.231
+        "median_ms": 11.065,
+        "max_ms": 18.672
       },
       "ui_remote_rows": 478
     },
@@ -133,59 +159,72 @@
       "initial_owned": 1000,
       "world_plots": 16000,
       "population": 150,
-      "initialization_ms": 22.187,
+      "major_player_records": 22,
+      "minor_player_slots": 40,
+      "foreign_military_units": 200,
+      "initialization_ms": 45.671,
       "full_reconcile": {
         "iterations": 9,
-        "median_ms": 6.399,
-        "max_ms": 10.918
+        "median_ms": 12.35,
+        "max_ms": 20.298
       },
       "assignment_change": {
         "iterations": 9,
-        "median_ms": 5.409,
-        "max_ms": 7.592
+        "median_ms": 11.285,
+        "max_ms": 15.563
       },
       "remote_workers": 120,
       "movement_1000_unrelated": {
         "iterations": 9,
-        "median_ms": 22.86,
-        "max_ms": 25.264
+        "median_ms": 62.287,
+        "max_ms": 78.346
       },
       "movement_1000_near_owned": {
         "iterations": 5,
-        "median_ms": 40.084,
-        "max_ms": 42.375
+        "median_ms": 135.552,
+        "max_ms": 251.42
+      },
+      "hostile_entry_departure_coalesced_batch": {
+        "iterations": 5,
+        "median_ms": 161.835,
+        "max_ms": 444.101
       },
       "frontier_single_claim": {
         "iterations": 9,
-        "median_ms": 2.258,
-        "max_ms": 2.744
+        "median_ms": 3.843,
+        "max_ms": 4.903
       },
       "ai_cache_rebuild_and_plan": {
         "iterations": 1,
-        "median_ms": 1.813,
-        "max_ms": 1.813
+        "median_ms": 4.364,
+        "max_ms": 4.364
       },
       "ai_cached_plan": {
         "iterations": 9,
-        "median_ms": 0.063,
-        "max_ms": 0.089
+        "median_ms": 0.124,
+        "max_ms": 0.138
       },
-      "ai_native_paths_per_pass_limit": 12,
+      "ai_same_turn_reentry": {
+        "iterations": 9,
+        "median_ms": 0.082,
+        "max_ms": 0.133
+      },
+      "ai_native_paths_per_turn_limit": 12,
       "ai_measured_path_calls_total": 120,
       "ui_first_rows_build": {
         "iterations": 3,
-        "median_ms": 6.78,
-        "max_ms": 8.675
+        "median_ms": 5.066,
+        "max_ms": 10.375
       },
       "ui_cached_open_refresh_100": {
         "iterations": 9,
-        "median_ms": 33.07,
-        "max_ms": 38.232
+        "median_ms": 72.681,
+        "max_ms": 121.026
       },
       "ui_closed_refresh_1000": {
         "iterations": 9,
-        "median_ms": 0.928,
-        "max_ms": 1.439
+        "median_ms": 3.717,
+        "max_ms": 8.525
       },
       "ui_remote_rows": 978
     },
@@ -193,59 +232,72 @@
       "initial_owned": 2500,
       "world_plots": 16000,
       "population": 150,
-      "initialization_ms": 44.306,
+      "major_player_records": 22,
+      "minor_player_slots": 40,
+      "foreign_military_units": 200,
+      "initialization_ms": 238.149,
       "full_reconcile": {
         "iterations": 9,
-        "median_ms": 13.057,
-        "max_ms": 18.443
+        "median_ms": 28.825,
+        "max_ms": 63.208
       },
       "assignment_change": {
         "iterations": 9,
-        "median_ms": 13.346,
-        "max_ms": 29.969
+        "median_ms": 24.978,
+        "max_ms": 40.51
       },
       "remote_workers": 120,
       "movement_1000_unrelated": {
         "iterations": 9,
-        "median_ms": 45.113,
-        "max_ms": 54.132
+        "median_ms": 61.431,
+        "max_ms": 93.637
       },
       "movement_1000_near_owned": {
         "iterations": 5,
-        "median_ms": 100.375,
-        "max_ms": 127.21
+        "median_ms": 125.659,
+        "max_ms": 411.977
+      },
+      "hostile_entry_departure_coalesced_batch": {
+        "iterations": 5,
+        "median_ms": 162.2,
+        "max_ms": 231.937
       },
       "frontier_single_claim": {
         "iterations": 9,
-        "median_ms": 4.307,
-        "max_ms": 12.054
+        "median_ms": 4.447,
+        "max_ms": 5.826
       },
       "ai_cache_rebuild_and_plan": {
         "iterations": 1,
-        "median_ms": 15.463,
-        "max_ms": 15.463
+        "median_ms": 13.883,
+        "max_ms": 13.883
       },
       "ai_cached_plan": {
         "iterations": 9,
-        "median_ms": 0.098,
-        "max_ms": 0.168
+        "median_ms": 0.138,
+        "max_ms": 0.579
       },
-      "ai_native_paths_per_pass_limit": 12,
+      "ai_same_turn_reentry": {
+        "iterations": 9,
+        "median_ms": 0.087,
+        "max_ms": 0.137
+      },
+      "ai_native_paths_per_turn_limit": 12,
       "ai_measured_path_calls_total": 120,
       "ui_first_rows_build": {
         "iterations": 3,
-        "median_ms": 24.487,
-        "max_ms": 26.993
+        "median_ms": 11.7,
+        "max_ms": 11.935
       },
       "ui_cached_open_refresh_100": {
         "iterations": 9,
-        "median_ms": 66.735,
-        "max_ms": 79.038
+        "median_ms": 64.939,
+        "max_ms": 83.121
       },
       "ui_closed_refresh_1000": {
         "iterations": 9,
-        "median_ms": 2.469,
-        "max_ms": 3.127
+        "median_ms": 2.655,
+        "max_ms": 3.915
       },
       "ui_remote_rows": 2478
     },
@@ -253,59 +305,72 @@
       "initial_owned": 10000,
       "world_plots": 16000,
       "population": 150,
-      "initialization_ms": 295.465,
+      "major_player_records": 22,
+      "minor_player_slots": 40,
+      "foreign_military_units": 200,
+      "initialization_ms": 436.625,
       "full_reconcile": {
         "iterations": 9,
-        "median_ms": 84.382,
-        "max_ms": 88.746
+        "median_ms": 97.234,
+        "max_ms": 119.025
       },
       "assignment_change": {
         "iterations": 9,
-        "median_ms": 87.659,
-        "max_ms": 114.549
+        "median_ms": 83.229,
+        "max_ms": 200.495
       },
       "remote_workers": 120,
       "movement_1000_unrelated": {
         "iterations": 9,
-        "median_ms": 47.022,
-        "max_ms": 52.264
+        "median_ms": 63.788,
+        "max_ms": 106.526
       },
       "movement_1000_near_owned": {
         "iterations": 5,
-        "median_ms": 82.336,
-        "max_ms": 92.829
+        "median_ms": 87.543,
+        "max_ms": 91.924
+      },
+      "hostile_entry_departure_coalesced_batch": {
+        "iterations": 5,
+        "median_ms": 197.655,
+        "max_ms": 264.401
       },
       "frontier_single_claim": {
         "iterations": 9,
-        "median_ms": 3.272,
-        "max_ms": 5.313
+        "median_ms": 4.066,
+        "max_ms": 4.949
       },
       "ai_cache_rebuild_and_plan": {
         "iterations": 1,
-        "median_ms": 46.441,
-        "max_ms": 46.441
+        "median_ms": 49.752,
+        "max_ms": 49.752
       },
       "ai_cached_plan": {
         "iterations": 9,
-        "median_ms": 0.091,
-        "max_ms": 0.24
+        "median_ms": 0.129,
+        "max_ms": 0.283
       },
-      "ai_native_paths_per_pass_limit": 12,
+      "ai_same_turn_reentry": {
+        "iterations": 9,
+        "median_ms": 0.094,
+        "max_ms": 0.101
+      },
+      "ai_native_paths_per_turn_limit": 12,
       "ai_measured_path_calls_total": 120,
       "ui_first_rows_build": {
         "iterations": 3,
-        "median_ms": 73.362,
-        "max_ms": 74.117
+        "median_ms": 52.944,
+        "max_ms": 63.402
       },
       "ui_cached_open_refresh_100": {
         "iterations": 9,
-        "median_ms": 52.87,
-        "max_ms": 88.029
+        "median_ms": 61.485,
+        "max_ms": 247.701
       },
       "ui_closed_refresh_1000": {
         "iterations": 9,
-        "median_ms": 2.687,
-        "max_ms": 3.433
+        "median_ms": 2.411,
+        "max_ms": 2.935
       },
       "ui_remote_rows": 9978
     }

@@ -4,7 +4,7 @@
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
-**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.1.0 preview / mod v2
+**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.1.1 preview / mod v3
 
 ## Identity and uniques
 
@@ -38,7 +38,9 @@ Remote distance has no mod limit. Remote count now uses forced local withdrawals
 
 Military units cannot capture cities. **Siege demolition** is available at 1 HP with an adjacent melee unit, war and visibility, only if the current owner can natively raze the settlement. Capitals, holy cities and city-states are excluded. Own-founded enemy towns normally fail that ownership-dependent native check. The action consumes moves, releases that city's territory, and gives Boundless no city or capture rewards. Standard Domination remains unavailable through normal play.
 
-Unexpected transfers return to historical or native-identified living recipients after the acquisition finishes. No unrelated custodian is chosen. Native-legal orphans can be removed; protected extras are quarantined with production guards. A transient/quarantined second city remains possible under external scripts. Native gameplay has not been tested.
+Unexpected transfers return to historical or native-identified living recipients after acquisition finishes. No unrelated custodian is chosen. Same-turn return loops are blocked; a living empty Boundless owner may regain only its recorded original capital. Native-legal orphans can be removed; protected extras are quarantined with production guards, resistance and remote/Surveyor plot exclusion. Transient ownership and empire-level effects remain possible. Native gameplay has not been tested.
+
+The siege view explains why known targets are unavailable and hides undiscovered cities. Surveyors clean stale targets, preserve busy orders and share a fair path budget with unreachable-route retry delays. Version 3 preserves save schema 2 and supports version 1/2 upgrade paths subject to native testing.
 
 Native conditional effects that require a tile to be marked “worked” are not fully simulated. Read the [exact engine limitations](../../TheBoundlessCity/docs/EngineLimitations.md) before relying on a particular policy, belief or improvement mechanic.
 
@@ -50,3 +52,4 @@ Native conditional effects that require a tile to be marked “worked” are not
 - [Validation results and exact game tests](../../TheBoundlessCity/docs/Testing.md)
 - [Civilization changelog](../../TheBoundlessCity/CHANGELOG.md)
 - [Fixes report and measured verification](../../TheBoundlessCity/docs/FixesReport.md)
+- [Final stability pass](../../TheBoundlessCity/docs/FinalStabilityReport.md)
