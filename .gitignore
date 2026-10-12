@@ -7,3 +7,4 @@ bin/
 obj/
 *.user
 *.suo
+*.civ5suo

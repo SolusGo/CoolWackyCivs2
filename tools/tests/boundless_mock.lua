@@ -43,8 +43,17 @@ GameEvents={};for _,n in ipairs({'PlayerDoTurn','PlayerDoneTurn','PlayerCanFound
  'CityCanConstruct','CityCanCreate','CityCanMaintain','CityCanAcquirePlot','PlayerCanCreateTradeRoute','DeclareWar','MakePeace','PlayerCanBuyOut','PlayerCityFounded','UnitCreated','UnitConverted','CityCaptureComplete','TileOwnershipChanged',
  'PlayerBuilt','TileImprovementChanged','TileFeatureChanged','TileRouteChanged','SetPopulation','TeamTechResearched','CityConstructed','PlayerAdoptPolicy','UnitSetXY'}) do GameEvents[n]=event() end
 Events={SerialEventCityInfoDirty=event(),LoadScreenClose=event()};LuaEvents={BoundlessChanged=event()}
-ContextPtr={SetUpdate=function(self,fn) deferred=fn end}
-function Pump() local fn=deferred;deferred=nil;if fn then fn() end end
+ContextPtr={}
+function ContextPtr:SetUpdate(fn)
+ assert(type(fn)=='function','Native ContextPtr:SetUpdate requires a function; use ClearUpdate to detach')
+ self.updatesSet=(self.updatesSet or 0)+1;deferred=fn
+end
+function ContextPtr:ClearUpdate()
+ self.updatesCleared=(self.updatesCleared or 0)+1;deferred=nil
+end
+-- Native updates repeat each frame until explicitly cleared. The old mock's
+-- automatic detach hid the game's rejected SetUpdate(nil) call.
+function Pump() local fn=deferred;if fn then fn() end end
 local saved={};SaveMirror={GetValue=function(k) return saved[k] end,SetValue=function(k,v) saved[k]=v end}
 Modding={OpenSaveData=function() return SaveMirror end}
 plots={};local W,H=80,20

@@ -28,6 +28,7 @@ The source fetch is optional for building/playing. SQL tests use a read-only bac
 | `stability_assertions.lua` | Passed 48 mode switches/six-source conservation, simulated Golden Age/policy extras, repeated v2/ownership/frontier rewind, original-capital return, optional mirror open/write faults, indexed/full trim faults, negative-terrain reset guard, automaton fast-path invalidation, abrupt 80-to-6 loss, unassigned population, simultaneous dead-owner quarantine reload and deferred Settler cleanup after capital loss |
 | `ai_stability.lua` | Passed stale/dead/upgraded/reused identities, invalid saved build IDs, busy target reservation, unreachable cooldown/retry, shared turn budget, fair rotation and budget deferral |
 | `engine_completion.lua` | Passed modeled survival/dead-player rules, strict original reclaim/source rebuilding/reload, one-time protected/own-founded subjugation, rival/native-victory guards, derived Tourism removal, assigned-only development/reload/release, extra-city route/border vetoes and deferred AI movement dispatch |
+| `dispatcher_contract.lua` | Passed persistent native update contract, nil rejection, explicit detachment, 1,000-event coalescing/idle writes, reentrant scheduling, failure detachment, two-player batching and hostile movement settling |
 | Package | Passed 49 game-file manifest/project, hashes/VFS/load order, XML controls and all 34 decoded DDS textures; genuine 7z/LZMA Civ5Mod integrity checked |
 | Original collection | Read-only distinct UUID, imported basenames, globals and BC database identifiers; original working-tree status retains only its pre-existing project modification |
 | Native gameplay/save/FPS | **NOT RUN** |
@@ -55,11 +56,11 @@ Native calls are synthetic; unchanged near movement does not change eligibility,
 
 | Initial owned | Full reconcile median ms | 1,000 far / near moves ms | One claim ms | Cached AI pass ms | 100 cached open UI refreshes ms |
 | --- | --- | --- | --- | --- | --- |
-| 100 | 2.059 | 31.200 / 47.113 | 0.744 | 0.086 | 36.929 |
-| 500 | 3.816 | 30.070 / 47.296 | 0.660 | 0.051 | 33.766 |
-| 1,000 | 5.104 | 27.449 / 50.353 | 3.343 | 0.140 | 70.993 |
-| 2,500 | 24.276 | 49.528 / 82.335 | 3.832 | 0.105 | 70.865 |
-| 10,000 | 80.187 | 54.351 / 84.749 | 3.384 | 0.109 | 71.789 |
+| 100 | 1.851 | 22.245 / 41.062 | 0.712 | 0.055 | 31.084 |
+| 500 | 3.506 | 22.287 / 38.960 | 0.590 | 0.049 | 30.388 |
+| 1,000 | 4.830 | 20.987 / 34.876 | 1.437 | 0.051 | 30.792 |
+| 2,500 | 9.782 | 20.599 / 39.285 | 1.654 | 0.049 | 29.989 |
+| 10,000 | 35.236 | 21.733 / 37.806 | 1.497 | 0.051 | 28.539 |
 
 ## Live setup and logging
 
@@ -122,8 +123,12 @@ These are host Lupa medians, not native engine timings. Development fixtures hav
 
 | Initial owned | One development pass ms | 42-city military rows ms | 100 domination progress checks ms |
 | --- | --- | --- | --- |
-| 100 | 0.457 | 0.133 | 1.420 |
-| 500 | 0.648 | 0.132 | 1.423 |
-| 1,000 | 2.573 | 0.372 | 3.029 |
-| 2,500 | 4.996 | 0.421 | 5.249 |
-| 10,000 | 1.555 | 0.399 | 3.431 |
+| 100 | 0.461 | 0.137 | 1.385 |
+| 500 | 0.595 | 0.134 | 1.469 |
+| 1,000 | 1.302 | 0.131 | 1.387 |
+| 2,500 | 1.228 | 0.255 | 1.443 |
+| 10,000 | 0.637 | 0.131 | 1.355 |
+
+## Turn/movement hotfix replay
+
+The 1.2.1 preview keeps native mod version 4/schema 3. Fully restart the game, load a pre-crash test autosave, and replay the turn/movement through turn 13 and several later turns. The old update callback must no longer run indefinitely; fresh Lua.log must not flood with SetUpdate/Expected function but got nil. Test original-capital workforce/expansion, assignments and save/reload. Do not treat ten simulation passes as native crash confirmation. The preserved crash log also contains distinct older Cool Wacky Civs v21 failures; inspect a fresh log if a fatal crash repeats. See [CrashHotfixReport.md](CrashHotfixReport.md).

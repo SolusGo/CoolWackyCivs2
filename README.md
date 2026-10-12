@@ -2,9 +2,9 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 4 (collection release **1.2.0 preview**) starts with **The Boundless City**. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here.
+Mod version 4 (collection release **1.2.1 preview**) starts with **The Boundless City**. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here.
 
-**Status: implementation preview.** Nine gameplay/UI simulation suites, 176 pinned CP v151 source checks, actual-schema SQL and package/art validation pass. Live Civ V testing remains outstanding. This release adds survival while units remain, original-capital siege reclaim, one-time subjugation, a native Boundless Domination finish, remote improvement development and Tourism refresh. Full population-only remote allocation, general demolition and absolute ownership enforcement against scripts remain engine limited. Read the [final engine report](TheBoundlessCity/docs/EngineCompletionReport.md) and [precise limits](TheBoundlessCity/docs/EngineLimitations.md).
+**Status: implementation preview.** Ten gameplay/UI simulation suites, 176 pinned CP v151 source checks, actual-schema SQL and package/art validation pass. The turn/movement dispatcher hotfix replaces a rejected native update call; [crash investigation](TheBoundlessCity/docs/CrashHotfixReport.md). Native replay remains outstanding. This release adds survival while units remain, original-capital siege reclaim, one-time subjugation, a native Boundless Domination finish, remote improvement development and Tourism refresh. Full population-only remote allocation, general demolition and absolute ownership enforcement against scripts remain engine limited. Read the [final engine report](TheBoundlessCity/docs/EngineCompletionReport.md) and [precise limits](TheBoundlessCity/docs/EngineLimitations.md).
 
 ![The First Architect and the endless city](art-source/TheBoundlessCity/ArchitectAndWorld.png)
 

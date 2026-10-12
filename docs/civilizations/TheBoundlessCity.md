@@ -4,7 +4,7 @@
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
-**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.2.0 preview / mod v4
+**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.2.1 preview / mod v4
 
 ## Identity and uniques
 
@@ -58,3 +58,5 @@ Remote improvement upgrades advance once per owner turn only on assigned eligibl
 
 - [Current engine completion report](../../TheBoundlessCity/docs/EngineCompletionReport.md)
 - [Optional DLL interfaces](../../TheBoundlessCity/docs/OptionalDLLExtensions.md)
+
+- [Turn/movement crash hotfix](../../TheBoundlessCity/docs/CrashHotfixReport.md)

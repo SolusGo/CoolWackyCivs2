@@ -10,7 +10,7 @@ function B.Schedule(pid,force)
  if armed then return end
  armed=true
  updateContext:SetUpdate(function()
-  updateContext:SetUpdate(nil);armed=false;local pending=queued;queued={}
+  updateContext:ClearUpdate();armed=false;local pending=queued;queued={}
   for _,id in ipairs(B.Keys(pending)) do
    local s=B.State(id);B.CullSettlers(s);B.RecoverCities(s)
    if B.Cache(s).militaryDirty then B.Cache(s).militaryDirty=nil;B.QueueReadyMilitary(s,true) end

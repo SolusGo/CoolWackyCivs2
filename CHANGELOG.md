@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.1 dispatcher hotfix / mod version 4 — 2026-10-12
+
+- Fixed the rejected native SetUpdate(nil) call that left the deferred update installed and flooded the live game's Lua log. Use ClearUpdate before dispatch.
+- Corrected the mock to require function callbacks and keep updates registered until explicitly cleared; added a persistent-frame, event-storm, reentrant/failure/movement regression suite. Ten suites pass under the stricter contract.
+- Preserved native mod version 4, schema 3, UUID, yield ledger, gameplay values, user ModBuddy edits and save compatibility. Rebuilt hotfix archives; native crash replay remains outstanding. The original collection's separately logged errors are unchanged.
+
+
 ## 1.2.0 engine preview / mod version 4 — 2026-10-12
 
 - Added native civilization-scoped zero-city survival while units remain, and a deferred original-capital-only siege reclaim action. Ordinary NoCapture remains. Eliminated players are not revived; older native trait caches need upgrade verification.

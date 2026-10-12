@@ -73,3 +73,7 @@ Plot:IsBeingWorked/GetUpgradeProgress/ChangeUpgradeProgress/SetImprovementType/G
 CvTradeClasses uses test-all PlayerCanCreateTradeRoute(fromPlayer,fromCity,toPlayer,toCity,domain,type); CvCity native border selection uses test-all CityCanAcquirePlot(player,city,x,y). Extra-city guards use these actual vetoes. Airlift/sealift events are test-any enabling hooks, so they are not claimed as disabling vetoes. Native specialist GPP computation is separate from resisting-city raw yields and is not universally suppressed by resistance.
 
 See [EngineCompletionReport.md](EngineCompletionReport.md) for all six statuses and [OptionalDLLExtensions.md](OptionalDLLExtensions.md) for proposals only. No new interface is assumed callable.
+
+## Native UI context correction
+
+The live v151 log rejected SetUpdate(nil), which the previous mock incorrectly accepted. Installed official CP LUA/CityView.lua DoUpdate and Kit/Util/CPK.Util.Timer.lua Detach use ContextPtr:ClearUpdate to remove callbacks. Boundless now does the same before dispatch. The corrected mock leaves callbacks installed across frames unless ClearUpdate is called; dispatcher_contract.lua exercises the contract. These UI checks supplement the 176 pinned C++ assertions. See [CrashHotfixReport.md](CrashHotfixReport.md); the fatal campaign crash still requires replay confirmation.

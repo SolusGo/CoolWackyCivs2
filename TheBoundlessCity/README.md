@@ -4,7 +4,7 @@
 
 An original Civilization V civilization led by **The First Architect**, built for **Brave New World + Community Patch v151**. Its capital is **The Heart of the World**. The theme combines a medieval settlement, golden civic architecture and an interconnected metropolis spreading across the world.
 
-**Release 1.2.0 preview / mod version 4, awaiting native playtesting.** Unlimited potential border/remote distance and the safe forced/surplus citizen model remain. New military options reclaim the genuine original and subjugate protected major cities; native Domination completion, remote improvement development and Tourism refresh are implemented. See the [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md).
+**Release 1.2.1 preview / mod version 4, awaiting native playtesting.** Unlimited potential border/remote distance and the safe forced/surplus citizen model remain. New military options reclaim the genuine original and subjugate protected major cities; native Domination completion, remote improvement development and Tourism refresh are implemented. See the [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md).
 
 ## Unique ability — The World Is One City
 
@@ -109,3 +109,5 @@ Use the [root installation/build instructions](../README.md). The [civ page](../
 - [Original supplied specification](docs/OriginalRequest.md)
 
 The supplied specification referred to CoolWackyCivs; the user's requested destination supersedes that repository reference. The implementation is isolated in **CoolWackyCivs2**, following the existing Last City/Kingdoms/Shattered Empire conventions without modifying their source.
+
+- [Turn/movement crash hotfix](docs/CrashHotfixReport.md)
