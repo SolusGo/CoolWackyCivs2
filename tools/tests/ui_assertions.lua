@@ -16,7 +16,7 @@ local function control()
  function c:CalculateSize() end;function c:ReprocessAnchoring() end;function c:CalculateInternalSize() end
  return c
 end
-Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Summary','Yields','Mode','Priority','Direction','Sort','Help','Page','Previous','Next','Scroll','Open','Close'}) do Controls[name]=control() end
+Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Summary','Yields','Mode','Priority','Direction','Sort','Help','Page','Previous','Next','Scroll','Open','Close','Siege'}) do Controls[name]=control() end
 InstanceManager={}
 function InstanceManager:new()
  local manager={count=0}
@@ -34,5 +34,5 @@ Events.SerialEventExitCityScreen.Fire();assert(not Controls.Launcher.hidden)
 Events.SerialEventGameMessagePopupShown.Fire({Type=9});assert(Controls.Launcher.hidden)
 Events.SerialEventGameMessagePopupShown.Fire({Type=9});Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(not Controls.Launcher.hidden)
 Controls.Open.callback();assert(ContextPtr.input(1,27));assert(Controls.Panel.hidden)
-assert(deferred==nil,'UI must not install a permanent frame handler')
+Pump();assert(deferred==nil,'UI must not install a permanent frame handler')
 print('PASS UI: launcher, paged rows, city/diplomacy/popup hiding and Escape with no idle polling')

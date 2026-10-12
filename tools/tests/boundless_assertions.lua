@@ -1,26 +1,29 @@
 local B=MapModData.BoundlessCity;local s=B.State(0)
+local function Net(y) return (capital.misc[y] or 0)+(capital.terrain[y] or 0) end
 local mine=Remote(24,5,{1,8,0,0,0,0});local farm=Remote(34,5,{5,0,0,0,0,0})
-s.mode='MANUAL';s.locks[mine.n]=true;s.locks[farm.n]=true;B.Cache(s).force=true;B.Reconcile(s)
+s.mode='MANUAL';s.selected[mine.n]=true;s.selected[farm.n]=true;s.locks[mine.n]=true;s.locks[farm.n]=true;B.Cache(s).force=true;B.Reconcile(s)
 assert(s.reserved==2 and capital.defaults==2);capital:Check()
 assert(capital:GetPopulation()==8 and capital:GetTotalSpecialistCount()==0)
-assert(capital.misc[0]==6 and capital.misc[1]==6,'correct remote food/production minus two native labourer yields')
+assert(Net(0)==6 and Net(1)==6,'correct remote food/production minus two native labourer yields')
 assert(B.Cache(s).remoteYields[2]==8)
 local old=mutations;B.Reconcile(s);assert(mutations==old,'unchanged reconcile must not mutate native citizens')
-local script=Players[0]:GetScriptData();local misc=capital.misc[1]
+local script=Players[0]:GetScriptData();local misc=Net(1)
 B.States={};B.Caches={};B.Initialize(0);s=B.State(0)
-assert(s.reserved==2 and capital.misc[1]==misc,'reload must preserve exact yield ledger')
+assert(s.reserved==2 and Net(1)==misc,'reload must preserve exact yield ledger')
 assert(s.locks[mine.n] and s.locks[farm.n])
-mine.yields[2]=3;B.Cache(s).force=true;B.Reconcile(s);assert(capital.misc[1]==1,'pillaging must update net production')
+mine.yields[2]=3;B.Cache(s).force=true;B.Reconcile(s);assert(Net(1)==1,'pillaging must update net production')
 farm.owner=1;GameEvents.TileOwnershipChanged.Fire(farm.x,farm.y,1,0);Pump()
-assert(s.reserved==1 and not s.assignments[farm.n] and capital.misc[0]==1,'lost territory stops yielding')
-assert(B.Action(0,'PLOT',mine.n));assert(s.reserved==0 and capital.misc[0]==0 and capital.misc[1]==0,'release removes all remote yields')
+assert(s.reserved==1 and not s.assignments[farm.n] and Net(0)==1,'lost territory stops yielding')
+assert(B.Action(0,'PLOT',mine.n));assert(s.reserved==0 and Net(0)==0 and Net(1)==0,'release removes all remote yields')
 local water=Remote(44,5,{4,0,2,0,0,0});water.water=true
-s.locks[water.n]=true;B.Cache(s).force=true;B.Reconcile(s);assert(s.assignments[water.n])
+s.selected[water.n]=true;s.locks[water.n]=true;B.Cache(s).force=true;B.Reconcile(s);assert(s.assignments[water.n])
 water.blockaded=true;B.Cache(s).force=true;B.Reconcile(s);assert(not s.assignments[water.n])
-water.blockaded=false;water.mountain=true;B.Cache(s).force=true;B.Reconcile(s);assert(s.reserved==0)
+water.blockaded=false;Teams[0].waterWork=false;B.Cache(s).force=true;B.Reconcile(s);assert(s.reserved==0)
+Teams[0].waterWork=true;water.water=false;water.mountain=true;B.Cache(s).force=true;B.Reconcile(s);assert(s.assignments[water.n],'yielding mountain wonders are native-workable')
+water.yields={0,0,0,0,0,0};B.Cache(s).force=true;B.Reconcile(s);assert(s.reserved==0)
 -- Population-limited assignments and a genuine native reservation ceiling, never invented workers.
-s.locks={};s.excluded={};s.mode='MANUAL'
-for x=20,39 do local p=Remote(x,8);s.locks[p.n]=true end
+s.selected={};s.locks={};s.excluded={};s.mode='MANUAL'
+for x=20,39 do local p=Remote(x,8);s.selected[p.n]=true;s.locks[p.n]=true end
 B.Cache(s).force=true;B.Reconcile(s);assert(s.reserved<=capital.pop and s.reserved==8);capital:Check()
 -- Independent native starvation model removes a labourer before issuing the population event.
 capital.pop=7;capital.defaults=capital.defaults-1;capital.forcedDefault=capital.forcedDefault-1
@@ -62,7 +65,7 @@ B.AIWorkers(s);assert(unit.lastMission==mission,'busy Surveyor mission must not 
 Players[0].human=true
 -- No safe recipient is a documented quarantine, never a protected-city deletion.
 Players[1].IsAlive=function() return false end
-local orphan=MakeCity(0,51,12,2,2);orphan.original=1;orphan.previous=1;Players[0].cities[#Players[0].cities+1]=orphan
+local orphan=MakeCity(0,51,12,2,2);orphan.original=1;orphan.previous=1;orphan.protected=true;Players[0].cities[#Players[0].cities+1]=orphan
 B.RecoverCities(s);assert(orphan.owner==0 and s.pending[Map.GetPlot(51,12).n])
 -- Malformed native payload disables rather than creating a fresh workforce/reward bank.
 Players[0].script='|BCSTATE1:4:bad!|';B.States={};assert(B.State(0).incompatible)

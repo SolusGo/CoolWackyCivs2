@@ -1,6 +1,22 @@
 # The Boundless City changelog
 
+## 1.1.0 implementation preview — 2026-10-12
+
+- Extended real-citizen reservations using a conservative governor-proof surplus; no free workers, negative counts or population changes.
+- Corrected default specialist extras, native yield-cache ordering and terrain-Culture source handling; journalled both ordinary mutations and net-zero refresh pulses.
+- Added explicit Manual selections, independent unlocks, Automatic lock isolation, pending requests and precise UI census/capacity/yield figures.
+- Added native-legal siege demolition for qualifying captured settlements, with 1-HP/melee/war/visibility checks, protected-city exclusions, deferred revalidation and territory release.
+- Added historical/native liberation recovery, no arbitrary recipient, return-loop detection, legal orphan removal and protected quarantine. Returning an extra city preserves capital workforce records.
+- Added plot-indexed movement invalidation, eligibility caching, cached/budgeted Surveyor plans and event-driven cached UI rows.
+- Added state version 2 and BCY2 ledger migration, malformed/future state preservation, shape validation and partial-failure tests.
+- Added 10/40/80/150 population stress cases, adversarial governor/specialist/modifier checks, wrapped water growth, conquest safety and measured performance through 10,000 owned plots.
+- Preserved all original art, uniques, flavor, direction controls and balance numbers. Updated every gameplay/audit/testing guide; see [FixesReport.md](docs/FixesReport.md).
+
+Full population-only remote allocation, demolition of first-founded enemy settlements and immediate resolution of all external transfers remain engine restrictions. Native game testing is still required.
+
 ## 1.0.0 implementation preview — 2026-10-12
+
+Historical initial implementation; limitations below describe that version.
 
 - Added civilization, leader, original capital, localization, AI personality, Monument replacement and Worker replacement.
 - Added unlimited-distance contiguous cultural frontier expansion with a separate persistent pool, speed/era/territory costs, deterministic ranking and direction preferences.

@@ -26,7 +26,8 @@ end
 function B.City(s)
  if not s.capital then return end
  local p=Map.GetPlot(s.capital.x,s.capital.y);local c=p and p:GetPlotCity()
- if c and c:GetOwner()==s.pid and c:GetGameTurnFounded()==s.capital.founded then return c end
+ if c and c:GetOwner()==s.pid and c:GetOriginalOwner()==s.pid and c:IsOriginalCapital()
+  and c:GetGameTurnFounded()==s.capital.founded then return c end
 end
 function B.Notify(s,key)
  if Players[s.pid]:IsHuman() then Players[s.pid]:AddNotification(NotificationTypes.NOTIFICATION_GENERIC,B.Text(key),B.Text('WORKFORCE'),-1,-1) end
@@ -129,8 +130,9 @@ function B.Expand(s)
  B.Registry(s)
 end
 function B.Eligible(s,p)
- return p and p:GetOwner()==s.pid and not p:IsCity() and not p:IsMountain()
-  and not p:IsVisibleEnemyUnit(s.pid) and not (p:IsWater() and p:IsBlockaded(s.pid))
+ return p and p:GetOwner()==s.pid and not p:IsCity() and p:HasYield()
+  and (not p:IsWater() or Teams[Players[s.pid]:GetTeam()]:IsWaterWork())
+  and not p:IsVisibleEnemyUnit(s.pid) and not p:IsBlockaded(s.pid)
 end
 function B.LocalPlots(city)
  local result={}
@@ -139,177 +141,17 @@ function B.LocalPlots(city)
  end
  return result
 end
-function B.Ledger(city)
- local plot=Map.GetPlot(city:GetX(),city:GetY())
- local data=plot:GetScriptData() or '';local encoded=data:match('|BCY1:([^|]*)|')
- local result={};local i=1
- if encoded then for n in encoded:gmatch('[^,]+') do result[i]=tonumber(n) or 0;i=i+1 end end
- return result
-end
-function B.ApplyLedger(city,desired)
- local old=B.Ledger(city);local words={}
- for i,y in ipairs(B.Yields) do
-  local delta=(desired[i] or 0)-(old[i] or 0)
-  if delta~=0 then city:ChangeBaseYieldRateFromMisc(y.id,delta) end
-  words[i]=tostring(desired[i] or 0)
- end
- local plot=Map.GetPlot(city:GetX(),city:GetY())
- local data=(plot:GetScriptData() or ''):gsub('|BCY1:[^|]*|','')
- plot:SetScriptData(data..'|BCY1:'..table.concat(words,',')..'|')
-end
-function B.Signature(s,city)
- local words={s.mode or '',s.priority or '',s.direction or '',city:GetPopulation(),city:GetTotalSpecialistCount(),
-  city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN')),B.Ownership(s).count}
- local locals=B.LocalPlots(city)
- for _,n in ipairs(B.Keys(locals)) do local r=locals[n]
-  if city:IsWorkingPlot(r.plot) then words[#words+1]=n..':'..tostring(city:IsForcedWorkingPlot(r.plot)) end
- end
- for _,n in ipairs(B.Keys(s.assignments or {})) do local p=Map.GetPlotByIndex(n)
-  words[#words+1]=n..':'..tostring(B.Eligible(s,p))
-  if p then for _,y in ipairs(B.Yields) do words[#words+1]=p:GetYield(y.id) end end
- end
- for _,y in ipairs(B.Yields) do words[#words+1]=city:GetSpecialistYield(B.ID('SPECIALIST_CITIZEN'),y.id) end
- return table.concat(words,';')
-end
-function B.Trim(s)
- -- Remove invalid contributions synchronously without reallocating native citizens.
- -- Used when native population, tile ownership or local assignments change mid-action.
- local city=B.City(s);if not city or B.Busy[s.pid] then return end
- local cache=B.Cache(s);local signature=B.Signature(s,city)
- if cache.trimSignature==signature or cache.signature==signature then return end
- B.Busy[s.pid]=true
- local defaults=city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))
- local limit=math.min(s.reserved or 0,defaults,math.max(0,city:GetPopulation()-city:GetTotalSpecialistCount()))
- local total={};for i=1,#B.Yields do total[i]=0 end
- local keep={};local count=0
- for _,n in ipairs(B.Keys(s.assignments or {})) do local p=Map.GetPlotByIndex(n)
-  if count<limit and B.Eligible(s,p) and not city:IsWorkingPlot(p) then
-   count=count+1;keep[n]=s.assignments[n]
-   for i,y in ipairs(B.Yields) do total[i]=total[i]+p:GetYield(y.id) end
-  end
- end
- local net,deduct={},{ }
- for i,y in ipairs(B.Yields) do deduct[i]=count*city:GetSpecialistYield(B.ID('SPECIALIST_CITIZEN'),y.id);net[i]=total[i]-deduct[i] end
- B.ApplyLedger(city,net);s.assignments=keep
- -- Keep the number of native reservations until the deferred reallocation releases them.
- -- The credited list can shrink earlier; this never creates an extra citizen.
- cache.remoteYields=total;cache.labourerYields=deduct;cache.trimSignature=B.Signature(s,city);B.Save(s)
- B.Busy[s.pid]=nil
-end
-function B.Reconcile(s)
- if B.Busy[s.pid] then return end
- local city=B.City(s);if not city then return end
- local cache=B.Cache(s)
- local signature=B.Signature(s,city)
- if not cache.force and cache.signature==signature then return end
- cache.force=nil
- B.Busy[s.pid]=true
- local ok,err=pcall(function()
-  B.ApplyLedger(city,{})
-  if s.incompatible then return end
-  local locals=B.LocalPlots(city);local default=B.ID('SPECIALIST_CITIZEN')
-  -- Release only the reservations owned by this system, through the verified native task.
-  local release=math.min(s.reserved or 0,city:GetSpecialistCount(default))
-  for _=1,release do city:DoTask(TaskTypes.TASK_REMOVE_SLACKER,0,-1,false) end
-  s.reserved=0
-  local specialist=city:GetTotalSpecialistCount()
-  local capacity=math.max(0,city:GetPopulation()-specialist)
-  local candidates,selected,remote={},{},{}
-  local cache=B.Ownership(s)
-  for _,n in ipairs(B.Keys(cache.owned)) do local p=Map.GetPlotByIndex(n)
-   if B.Eligible(s,p) and not s.excluded[n] then
-    local localPlot=locals[n]
-    local locked=s.locks[n] and not localPlot
-    local forced=localPlot and city:IsForcedWorkingPlot(p) and s.mode~='AUTO'
-    candidates[#candidates+1]={plot=p,n=n,score=B.Score(s,p),locked=locked,forced=forced,localPlot=localPlot}
-   end
-  end
-  table.sort(candidates,function(a,b)
-   if a.locked~=b.locked then return a.locked and true or false end
-   if a.forced~=b.forced then return a.forced and true or false end
-   if a.score~=b.score then return a.score>b.score end;return a.n<b.n
-  end)
-  if s.mode=='MANUAL' then
-   for _,r in ipairs(candidates) do if r.locked and #remote<capacity then remote[#remote+1]=r end end
-  else
-   for i=1,math.min(capacity,#candidates) do local r=candidates[i];selected[r.n]=true
-    if not r.localPlot then remote[#remote+1]=r end
-   end
-  end
-  -- Each reservation is created by unworking a real native plot. No imaginary specialist slots,
-  -- negative automatons or population edits. Stop when the native pool cannot be reserved.
-  -- This exposes the precise DLL limitation documented in EngineLimitations.md.
-  local worked={}
-  for _,r in pairs(locals) do if city:IsWorkingPlot(r.plot) then worked[#worked+1]=r end end
-  table.sort(worked,function(a,b)
-   if selected[a.plot:GetPlotIndex()]~=selected[b.plot:GetPlotIndex()] then return not selected[a.plot:GetPlotIndex()] end
-   local x,y=B.Score(s,a.plot),B.Score(s,b.plot);if x~=y then return x<y end;return a.index<b.index
-  end)
-  local actual={}
-  for _,r in ipairs(worked) do
-   if #actual>=#remote then break end
-   if s.mode=='AUTO' or not city:IsForcedWorkingPlot(r.plot) then
-    local before=city:GetSpecialistCount(default)
-    city:AlterWorkingPlot(r.index)
-    if not city:IsWorkingPlot(r.plot) and city:GetSpecialistCount(default)==before+1 then actual[#actual+1]=remote[#actual+1] end
-   end
-  end
-  s.assignments={};s.reserved=#actual
-  local total,deduct={},{ }
-  for i,y in ipairs(B.Yields) do total[i]=0;deduct[i]=#actual*city:GetSpecialistYield(default,y.id) end
-  for _,r in ipairs(actual) do
-   if B.Eligible(s,r.plot) and not city:IsWorkingPlot(r.plot) then
-    s.assignments[r.n]={x=r.plot:GetX(),y=r.plot:GetY()}
-    for i,y in ipairs(B.Yields) do total[i]=total[i]+r.plot:GetYield(y.id) end
-   end
-  end
-  local count=0;for _ in pairs(s.assignments) do count=count+1 end
-  assert(count==s.reserved and city:GetSpecialistCount(default)>=count,'Remote workforce reservation mismatch')
-  local net={};for i=1,#B.Yields do net[i]=total[i]-deduct[i] end
-  B.ApplyLedger(city,net)
-  cache.remoteYields=total;cache.labourerYields=deduct
-  B.Save(s)
-  cache.signature=B.Signature(s,city)
- end)
- B.Busy[s.pid]=nil
- if not ok then B.ApplyLedger(city,{});error(err,0) end
- if LuaEvents.BoundlessChanged then LuaEvents.BoundlessChanged(s.pid) end
-end
-function B.Summary(s)
- local city=B.City(s);if not city then return end
- local locals=B.LocalPlots(city);local localCount=0
- for _,r in pairs(locals) do if city:IsWorkingPlot(r.plot) then localCount=localCount+1 end end
- local idle=city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))-(s.reserved or 0)
- local credited=0;for _ in pairs(s.assignments or {}) do credited=credited+1 end
- return {population=city:GetPopulation(),owned=B.Ownership(s).count,localCount=localCount,
-  remote=credited,specialists=city:GetTotalSpecialistCount(),idle=math.max(0,idle),
-  available=localCount,progress=math.floor(s.progress or 0),cost=B.Cost(s)}
-end
-function B.Action(pid,kind,value)
- if not B.IsBoundless(pid) or Game.GetActivePlayer()~=pid or not Players[pid]:IsHuman()
-  or not Players[pid]:IsTurnActive() then return false end
- local s=B.State(pid);if s.incompatible or not B.City(s) then return false end
- if kind=='MODE' and (value=='AUTO' or value=='MANUAL' or value=='HYBRID') then s.mode=value
- elseif kind=='PRIORITY' and B.Weights[value] then s.priority=value
- elseif kind=='DIRECTION' and ({ANY=true,NORTH=true,EAST=true,SOUTH=true,WEST=true})[value] then s.direction=value
- elseif kind=='PLOT' or kind=='LOCK' then
-  local p=type(value)=='number' and Map.GetPlotByIndex(value)
-  if not B.Eligible(s,p) or B.LocalPlots(B.City(s))[value] then return false end
-  if kind=='LOCK' then
-   s.locks[value]=not s.locks[value] or nil;s.excluded[value]=nil
-   if s.mode=='AUTO' then s.mode='HYBRID' end
-  elseif s.assignments[value] or s.locks[value] then
-   s.locks[value]=nil;s.excluded[value]=true
-  else
-   s.excluded[value]=nil;s.locks[value]=true
-   if s.mode=='AUTO' then s.mode='HYBRID' end
-  end
- else return false end
- B.Cache(s).force=true;B.Reconcile(s);B.Save(s);return true
-end
+include('BoundlessCitizens')
 include('BoundlessPersistence')
 include('BoundlessEvents')
 for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do
  if B.IsBoundless(pid) then B.Players[#B.Players+1]=pid;B.Initialize(pid) end
+end
+if #B.Players>0 then
+ for pid=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do local player=Players[pid]
+  if player and player:IsAlive() then for unit in player:Units() do local plot=Map.GetPlot(unit:GetX(),unit:GetY())
+   if plot then B.UnitPositions[pid..':'..unit:GetID()]=plot:GetPlotIndex() end
+  end end
+ end
 end
 print('[BoundlessCity] Runtime loaded for '..#B.Players..' player(s); native reservations only')

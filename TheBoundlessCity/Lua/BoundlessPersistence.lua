@@ -34,6 +34,7 @@ local function decode(raw)
  local value=read(0);assert(pos==#raw+1 and type(value)=='table');return value
 end
 function B.Save(s)
+ if s.incompatible then return false end -- Preserve newer/corrupt native payloads for recovery.
  local p=Players[s.pid];local data=p:GetScriptData() or ''
  local raw=encode(s)
  local first,last=data:find('|BCSTATE1:%d+:')
@@ -51,24 +52,62 @@ function B.State(pid)
  if first then
   local length=tonumber(data:sub(first,last):match(':(%d+):'))
   local ok,value=pcall(decode,data:sub(last+1,last+length))
-  if ok and value.version==1 and value.pid==pid and type(value.assignments)=='table'
+  if ok then
+   for _,name in ipairs({'locks','assignments','rewards','selected','excluded','pending','returned','history','sieges','aiTargets'}) do
+    if value[name]~=nil and type(value[name])~='table' then ok=false end
+   end
+   for _,name in ipairs({'reserved','withdrawn','lastTurn'}) do
+    if value[name]~=nil and (type(value[name])~='number' or value[name]~=math.floor(value[name])) then ok=false end
+   end
+   ok=ok and data:sub(last+length+1,last+length+1)=='|'
+  end
+  if ok and (value.version==1 or value.version==2) and value.pid==pid and type(value.assignments)=='table'
    and type(value.locks)=='table' and type(value.rewards)=='table' and type(value.progress)=='number' and value.progress>=0
    and (value.capital==nil or (type(value.capital)=='table' and type(value.capital.x)=='number'
     and type(value.capital.y)=='number' and type(value.capital.founded)=='number'
     and Map.GetPlot(value.capital.x,value.capital.y))) then s=value
-  else s={pid=pid,incompatible=true};print('[BoundlessCity] Invalid snapshot for '..pid) end
+  else s={pid=pid,incompatible=true,pending={},returned={},sieges={},assignments={}};print('[BoundlessCity] Invalid snapshot for '..pid) end
+ elseif data:find('|BCSTATE',1,true) then
+  s={pid=pid,incompatible=true,pending={},returned={},sieges={},assignments={}}
+  print('[BoundlessCity] Malformed snapshot envelope for '..pid)
  else
-  s={pid=pid,version=1,progress=0,mode='AUTO',priority='BALANCED',direction='ANY',
-   assignments={},locks={},excluded={},rewards={},reserved=0,lastTurn=-1,pending={},history={}}
+  s={pid=pid,version=2,progress=0,mode='AUTO',priority='BALANCED',direction='ANY',
+   assignments={},locks={},selected={},excluded={},rewards={},reserved=0,withdrawn=0,lastTurn=-1,pending={},history={},sieges={},phase='IDLE'}
  end
  if not s.incompatible then
+  if s.version==1 then
+   s.selected={};for n,v in pairs(s.locks) do if v then s.selected[n]=true end end
+   s.withdrawn=s.reserved or 0;s.version=2;s.phase='RECOVER'
+  end
+  s.selected=s.selected or {};s.withdrawn=math.max(0,tonumber(s.withdrawn) or 0)
+  s.sieges=s.sieges or {};s.returned=s.returned or {};s.aiTargets=s.aiTargets or {};s.history=s.history or {};s.phase=s.phase or 'RECOVER'
+  s.lastTurn=s.lastTurn or -1
   s.excluded=s.excluded or {};s.pending=s.pending or {};s.reserved=math.max(0,tonumber(s.reserved) or 0)
   if not B.Weights[s.priority] then s.priority='BALANCED' end
   if s.mode~='AUTO' and s.mode~='HYBRID' and s.mode~='MANUAL' then s.mode='AUTO' end
   if not ({ANY=true,NORTH=true,EAST=true,SOUTH=true,WEST=true})[s.direction] then s.direction='ANY' end
-  for _,tableName in ipairs({'locks','excluded','assignments','rewards'}) do
+  for _,tableName in ipairs({'locks','selected','excluded','assignments','rewards','sieges'}) do
    for n in pairs(s[tableName]) do
     if type(n)~='number' or n<0 or n>=Map.GetNumPlots() or n~=math.floor(n) then s[tableName][n]=nil end
+   end
+  end
+  for _,name in ipairs({'locks','selected','excluded','rewards'}) do
+   for n,v in pairs(s[name]) do if v~=true then s[name][n]=nil end end
+  end
+  for n,r in pairs(s.assignments) do local p=Map.GetPlotByIndex(n)
+   if type(r)~='table' or not p or r.x~=p:GetX() or r.y~=p:GetY() then s.assignments[n]=nil end
+  end
+  for _,name in ipairs({'pending','returned','sieges','aiTargets'}) do
+   for k,r in pairs(s[name]) do
+    local valid=type(k)=='number' and k>=0 and k==math.floor(k) and type(r)=='table'
+    if valid and name=='returned' then valid=type(r.founded)=='number' and type(r.recipient)=='number'
+    elseif valid then
+     valid=type(r.x)=='number' and type(r.y)=='number' and Map.GetPlot(r.x,r.y)~=nil
+     if name=='aiTargets' then valid=valid and type(r.birth)=='number' and type(r.build)=='number'
+     else valid=valid and type(r.founded)=='number' end
+     if name=='sieges' then valid=valid and type(r.owner)=='number' end
+    end
+    if not valid then s[name][k]=nil end
    end
   end
  end

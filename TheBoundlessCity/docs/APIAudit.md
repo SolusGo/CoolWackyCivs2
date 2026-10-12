@@ -1,33 +1,57 @@
-# Community Patch v151 API audit
+# Community Patch v151 source audit
 
-The implementation was checked against the official [Community-Patch-DLL source](https://github.com/LoneGazebo/Community-Patch-DLL/tree/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2) on 2026-10-12. `CustomMods.h` identifies the DLL as **Community Patch v151**. The installed Community Patch database changes and a read-only BNW debug cache supply the schema used by the SQL generator and validator. This confirms source/API availability; it does not establish runtime correctness in a launched game.
+Audited on 2026-10-12 against official commit **44c1e14ff75d80c1dba5c8a71e8289439a53aafb**. [CustomMods.h](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h) declares DLL version 151. `python tools/audit_cp.py --fetch` downloads these pinned sources; rerunning without `--fetch` uses the local copies. [SourceAudit.json](SourceAudit.json) records official URLs, SHA-256 hashes and **121 passed assertions**, including registered City/Player/Plot/Unit/Team methods used by the runtime. This proves source availability/ABI, not launched-game compatibility.
 
-## Accepted APIs
+## Citizen management
 
-| API | Source / decision |
+The decisive source is [CvCityCitizens.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCityCitizens.cpp).
+
+| Investigation | Source finding and implementation decision |
 | --- | --- |
-| `Plot:SetOwner(player, cityID, checkUnits)` | [CvLuaPlot.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlot.cpp): passes city ID to native ownership. No Lua distance restriction. Used only on validated unowned frontier tiles. |
-| `Plot:GetYield(yieldID)` | Same binding: returns the evaluated native plot yield. No fabricated terrain/improvement yield tables. |
-| `City:AlterWorkingPlot(cityPlotIndex)` | [CvLuaCity.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp) calls `DoAlterWorkingPlot`. Unworking a native tile creates one default specialist and one forced-default reservation. |
-| `City:DoTask(TASK_REMOVE_SLACKER, 0, -1, false)` | [CvCity.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp) removes a default specialist and reallocates the citizen. Used to release owned reservations. |
-| `GetSpecialistCount`, `GetTotalSpecialistCount`, `GetSpecialistYield` | Exposed city bindings. Native total specialists excludes default labourers. Default yields include player and city specialist-yield modifiers. |
-| `City:ChangeBaseYieldRateFromMisc` | Native base source setter supports signed deltas and updates city yields. The ledger records only this mod's contribution; other miscellaneous yields are preserved. |
-| `NoCapture` promotion | [CvUnit.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp) prohibits enemy-city entry/capture. No override of a global unit or combat rule is needed. |
-| `PlayerBuilt` | [CustomMods.h](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h): `(player, unit, x, y, build)`. Supports attributed improvement completion; repair Builds are excluded. |
-| `TileOwnershipChanged`, `TileImprovementChanged`, population/tech/policy hooks | Event-driven invalidation; current owner-turn reconciliation remains the scheduled fallback. Enabled CP event options affect hook availability, while handlers remain civilization-scoped. |
-| `Unit:CanBuild(plot, build, visible, testGold)` / `PushMission` / `IsBusy` | Verified [CvLuaUnit.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp) bindings. AI missions use native legality/pathfinding and numeric optional flags. |
-| Player/Plot ScriptData, `Modding.OpenSaveData` | Verified bindings provide native-save authority and a redundant mirror. The city's ledger is stored on its capital plot: City ScriptData methods are not exposed by this binding. No executable save content. |
+| Default labourers | Real population, with normal consumption. `GetTotalSpecialistCount` excludes defaults; census counts them separately. |
+| Local withdrawal | `DoAlterWorkingPlot` unworks a native tile and adds one forced default. Lua verifies both transitions before recording a withdrawal. |
+| Governor | Initial assignment clears unforced defaults and fills local/building jobs. Existing defaults alone are not proof of durable reservations. A lower bound is population minus all owned native local positions and static specialist slots in present buildings. Existing real defaults cap this bound. Forced withdrawals and surplus overlap: use their maximum, not their sum. |
+| Forced defaults | No registered Lua setter/getter for their count. End-turn reservations are renewed; invisible forced-count resets and native event order remain live test cases. |
+| Unassigned citizens | Inferred from population/automatons minus native workers/defaults/specialists. No credits until a genuine default or verified withdrawal exists. `TASK_ADD_SPECIALIST` with building -1 enters an inconsistent precondition and can consume nonexistent unassigned citizens; it is not used. |
+| Buildings | Specialist allowance is static and also capped by `MAX_SPECIALISTS_FROM_BUILDING`. Repeated copies do not provide unlimited slots. No hidden-city or generated-building reservoir is used. |
+| Automatons | Negative values violate native assertions. Positive external automatons make real-human attribution uncertain, so remote credits are disabled. |
+| Eligibility | Native `IsCanWorkWithOverride` checks owner, city, `hasYield`, water-working ability and blockade; it does not ban all mountains. The remote system mirrors these available checks and permits yielding mountain wonders, without claiming native effective-owner/worked status. |
 
-## Rejected alternatives
+## Yield and task bindings
 
-**Increasing working radius** does not implement unbounded citizen assignment: [CvCityCitizens.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCityCitizens.cpp) uses fixed native plot arrays/range checks. No global radius setting is changed.
+See [CvLuaCity.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp) and [CvCity.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp).
 
-**A single zero-yield specialist building** cannot provide arbitrary capacity. `GetNumSpecialistsAllowedByBuilding` returns the building's static SpecialistCount, and `IsCanAddSpecialistToBuilding` also imposes `MAX_SPECIALISTS_FROM_BUILDING`. Multiple copies do not multiply that returned slot count. No unverified capacity setter is assumed. Thousands of generated placeholder buildings would impose another artificial cap and excessive database/AI cost.
+- `DoTask(task, data1, data2, option)` reads option with **luaL_optint**. All calls use numeric 0, including reservation release and quarantine queue/automation controls. A Lua boolean would raise a native argument error.
+- `GetSpecialistYield(default, yield)` combines player extras with city extras inconsistently and cannot simply be multiplied by remote count. `GetExtraSpecialistYieldOfType(yield, specialist)` returns the total, count-multiplied extras. Correct per-labourer yield is the database base plus this total divided by actual default count; it includes specific policy/trait/event/religious extras and excludes generic boosts that do not apply to labourers.
+- Gross remote yields use `ChangeBaseYieldRateFromTerrain`; negative labourer compensation uses `ChangeBaseYieldRateFromMisc`. Ordinary modifiers apply natively once. The terrain-Culture source participates in native landmark/improvement Culture-to-Tourism conversion; worked-only Tourism remains unsupported.
+- The terrain setter only changes its source and marks the city screen dirty. It **does not** refresh static yield caches. The misc setter refreshes the corresponding cache only for nonzero deltas. Terrain is applied first, then compensation or a journalled +1/-1 misc pulse refreshes the six supported rates. The final pulse contribution is zero. Tourism caches refresh through subsequent native all-yield updates; immediate same-frame Tourism refresh is not certified.
+- `Plot:GetYield` reads the native evaluated value. [CvPlot.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlot.cpp) includes ordinary Golden Age additions. The mod adds no Golden Age multiplier. Conditional effects requiring native working remain outside this method, and remote plot recalculation timing needs live tests.
+- Misc supports negative contributions; terrain credits are nonnegative ordinary yields. The BCY2 ledger records only this mod's adjustments, preserving unrelated sources. Plot and Player ScriptData are exposed; **City ScriptData is absent**. No executable saved payload is evaluated.
 
-**Negative automatons** would reduce the effective worker pool, but `CvCity::setAutomatons` asserts that automatons remain nonnegative. That workaround is rejected.
+## Cities and military resolution
 
-**Adding default specialists through `TASK_ADD_SPECIALIST` with building -1** is not a safe reservation primitive when no unassigned citizen exists: it changes default and unassigned counts without first removing an occupied citizen. It would violate native accounting. Only verified transitions from actual worked plots are used.
+[CvPlayer.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp) continues using `pNewCity` after `CityCaptureComplete`. `AcquireCity` deletes/recreates city objects. The callback only retires old plot-ledger markers, records state and queues work; it never acquires, razes or destroys a city.
 
-**Razing or retransferring inside `CityCaptureComplete`** is unsafe. [CvPlayer.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp) continues dereferencing `pNewCity` after invoking that hook. Native `AcquireCity` deletes/recreates city objects. Military capture is blocked; exceptional city returns are deferred until the native stack unwinds. No `City:Kill` workaround or global conquest-rule change is used.
+`Player:CanRaze(city, false)` requires that player to own the city and rejects cities originally founded by that player. Calling it as Boundless on an enemy city is invalid; calling it as the current owner usually rejects first-founded enemy towns. Restricted siege demolition uses the **current owner's** real check, plus hard capital/holy/city-state exclusions. Native `Disband` does not enforce legality itself, so every invocation is gated immediately beforehand. It destroys through native `city.kill` and associated cleanup. This is an immediate demolition action, not capture or gradual razing; ordinary occupation remains blocked by NoCapture.
 
-`PlayerDoTurn` runs after native city turn processing. The implementation therefore maintains ongoing yield rates through events, initializes them at load, and reconciles on `PlayerDoneTurn`; it does not pretend an after-turn instant grant behaves exactly like native tile yields. Exact native ordering remains on the game test checklist.
+`GetPlayerToLiberate` and `CanLiberatePlayer` identify justified recipients, but this implementation transfers only to living eligible recipients. It does not resurrect eliminated civilizations. Historical previous/original living owners precede native liberation candidates. A missing recipient means native-legal removal or protected quarantine, never assignment to an arbitrary living civilization.
+
+The `CanMoveInto` event is per-unit opt-in (`SendCanMoveIntoEvent`), and movement has fallback logic outside a universal acquisition veto. No safe universal pre-acquisition hook was found. NoCapture is retained for normal enemy-city entry, including original-capital military recapture.
+
+## Events, AI and registration
+
+| Hook/API | Confirmed ABI / behavior |
+| --- | --- |
+| `PlayerBuilt` | player, unit, x, y, build; improvement rewards validate Surveyor and completed improvement, exclude repair/route and persist reward bit first |
+| `UnitConverted` | old player, new player, old unit, new unit, upgrade flag; promotion ownership corrected |
+| `TileOwnershipChanged` | x, y, new owner, old owner |
+| `TileImprovementChanged` | x, y, owner, old improvement, new improvement, pillaged; first three arguments sufficient for invalidation |
+| `PlayerDoneTurn` | player; always renews native reservations |
+| `DeclareWar`, `MakePeace` | CP player/team/bool, or vanilla team/team depending on event option; handler ignores positional interpretation and invalidates Boundless states. Peace reconciliation is deferred to observe final war state. |
+| `PlayerDoTurn` | After native city processing; never used to claim an instant award is a native per-turn source |
+| Native city vetoes | Founding/training/constructing plus CityCanCreate and CityCanMaintain; unrelated players pass through |
+| `Plot:SetOwner` | player, city ID, check units; no binding distance cap; frontier checks unowned adjacency first |
+| `Unit:GeneratePath` | plot, maximum turns; returns native path table and does no caching. Planner caps calls rather than imposing a distance limit. |
+| `CanBuild` / `PushMission` | Actual native legality and movement/build commands with numeric optional flags; no teleport or imaginary order API |
+
+The SQL enables CP hook options without changing native civilization rules. Namespaces, VFS basenames, one UI addin, SQL order, project imports, localization and all 34 DDS references are validated. Coexistence checks compare the separate original collection read-only. Gameplay coexistence remains untested.

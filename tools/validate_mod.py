@@ -55,7 +55,7 @@ def syntax():
     print('PASS every Lua source parses under Lua 5.1')
 
 def runtime():
-    for test in ['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua']:
+    for test in ['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua','workforce_stress.lua','completion_safety.lua','siege_safety.lua']:
         lua=LuaRuntime()
         def include(name):
             if name!='InstanceManager':lua.execute((V/'Lua'/f'{name}.lua').read_text(encoding='utf-8'))
@@ -70,6 +70,8 @@ def package():
     root=ET.parse(R/(NAME+'.modinfo')).getroot()
     actual={p.relative_to(R).as_posix():p for p in files()}
     declared={e.text:e for e in root.findall('Files/File')}
+    vfs=Counter(p.name.casefold() for p in actual.values() if imported(p))
+    assert not {name:count for name,count in vfs.items() if count>1},'Duplicate VFS basename would shadow a Lua include'
     assert set(actual)==set(declared),'manifest file mismatch'
     for name,p in actual.items():
         e=declared[name];assert e.get('md5')==hashlib.md5(p.read_bytes()).hexdigest().upper()
@@ -88,4 +90,22 @@ def package():
     assert refs<=ids,refs-ids
     print('PASS manifest/project load order, MD5, VFS, UI controls, XML and all 34 decoded DDS textures')
 
-if __name__=='__main__':sql();syntax();runtime();package()
+def coexist():
+    old=R.parent/'CoolWackyCivs'
+    manifests=list(old.glob('*.modinfo'))
+    if not manifests:
+        print('SKIP original-collection namespace audit: sibling repository unavailable');return
+    current=ET.parse(R/(NAME+'.modinfo')).getroot()
+    new_names={p.name.casefold() for p in files() if imported(p)}
+    for manifest in manifests:
+        prior=ET.parse(manifest).getroot()
+        assert prior.get('id')!=current.get('id'),'shared mod UUID'
+        old_names={Path(e.text).name.casefold() for e in prior.findall('Files/File') if e.get('import')=='1'}
+        assert not new_names & old_names,('shared VFS basename',new_names & old_names)
+    prior_sql='\n'.join(p.read_text(encoding='utf-8-sig') for p in old.rglob('*.sql'))
+    new_sql='\n'.join(p.read_text(encoding='utf-8') for p in (V/'SQL').glob('*.sql'))
+    types=set(re.findall(r"'((?:[A-Z_]+_BC_[A-Z_0-9]+|CIVILIZATION_BOUNDLESS_CITY|BC_[A-Z_0-9]+))'",new_sql))
+    for name in types:assert "'"+name+"'" not in prior_sql,('shared database namespace',name)
+    print('PASS read-only original-collection audit: distinct UUID, VFS filenames and '+str(len(types))+' BC database identifiers')
+
+if __name__=='__main__':sql();syntax();runtime();package();coexist()

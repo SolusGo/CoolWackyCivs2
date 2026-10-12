@@ -12,3 +12,10 @@ for n=1,10 do assert(capital.buildings[200+n]==1,'Registry cap exactly ten nonst
 local scansBefore=scans;B.Ownership(s);B.Reconcile(s);B.Ownership(s);assert(scans==scansBefore,'steady cache must not scan whole map')
 assert(s.reserved==0 and (capital.misc[0] or 0)==0,'owning an entire map does not grant unworked tile yields')
 print('PASS frontier: >30 hexes, water continuity, enemy protection, game-speed cost and zero unworked yields')
+-- Targeted wrapped-edge claim: high-yield water immediately across X=0.
+MakeMap(80,20,true);capital=MakeCity(0,0,5,2,2);capital.originalCapital=true;Players[0].cities={capital};Players[0].script=''
+B.States={};B.Caches={};B.Initialize(0);s=B.State(0)
+local edge=Map.GetPlot(79,5);edge.water=true;edge.yields={100,100,0,0,0,0}
+s.progress=B.Cost(s)-capital.culture;B.Busy[0]=true;B.Expand(s);B.Busy[0]=nil
+assert(edge.owner==0 and B.Ownership(s).connected[edge.n],'native adjacency must cross a wrapped coast')
+print('PASS targeted wrapped-edge adjacent water claim')

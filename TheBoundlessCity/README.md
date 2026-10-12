@@ -4,7 +4,7 @@
 
 An original Civilization V civilization led by **The First Architect**, built for **Brave New World + Community Patch v151**. Its capital is **The Heart of the World**. The theme combines a medieval settlement, golden civic architecture and an interconnected metropolis spreading across the world.
 
-**Release status: implementation preview, awaiting native playtesting.** Unlimited potential border distance and unlimited remote tile distance are implemented. Population-only unlimited remote-worker count and absolute synchronous one-city enforcement for every externally scripted transfer are **not** achieved. See [EngineLimitations.md](docs/EngineLimitations.md); these are explicit design gaps, not implied guarantees.
+**Release 1.1.0 preview / mod version 2, awaiting native playtesting.** Unlimited potential border distance and unlimited remote tile distance are implemented. Surplus native labourers now lift the old local-worker ceiling, with conservative accounting against governor reallocation. Full population-only remote capacity, ordinary enemy-city demolition and absolute immediate one-city enforcement against external transfers remain restricted. See the [fixes report](docs/FixesReport.md) and [engine limitations](docs/EngineLimitations.md).
 
 ## Unique ability — The World Is One City
 
@@ -27,26 +27,28 @@ Costs grow progressively and approximately linearly. There is no radius check, e
 
 A distant plot contributes **only when assigned**. The six supported plot yields are Food, Production, Gold, Science, Culture and Faith, read from the engine's evaluated `Plot:GetYield`. Terrain, improvements, resources and ordinary technology/policy yield changes enter through that native result. No distance penalty is added.
 
-For each credited plot, the mod unworks a real native tile through `City:AlterWorkingPlot`. The citizen becomes a **forced native labourer**, still part of the existing population, still eating as an ordinary citizen, and unavailable for simultaneous local tile or specialist work. The mod subtracts that labourer's complete current yield contribution and adds the assigned remote plot's yields to the city's miscellaneous base-yield source. City/global yield modifiers then apply through the normal engine calculations.
+Each credited plot uses one real native default labourer. A labourer is protected either by a verified withdrawal from a local plot (`City:AlterWorkingPlot`) or by a conservative surplus that cannot fit into all native local jobs and existing building specialist slots, even after governor reallocation. These are overlapping bounds, so they are never added together. The labourer remains in the existing population and consumes normal Food; its ordinary yields are subtracted from the miscellaneous base source. Gross remote plot yields enter the terrain base source, preserving ordinary city modifiers and the native terrain-Culture conversion to Tourism. The mod applies no second multiplier.
 
-For example, reserving two citizens for a 5-Food farm and an 8-Production mine yields those plots' gross 5 Food and 8 Production. If their native labourer replacements would produce 1 Production each, the added miscellaneous contribution is 5 Food and 6 Production: the remaining 2 Production already comes from the two native labourers. The original local tiles have been unworked. Nothing produces twice.
+For example, two assignments supplying 5 Food and 8 Production add those amounts to terrain yields. If their native labourers would produce 1 Production each, the miscellaneous adjustment is -2 Production. Their native specialist source still supplies that 2 Production, so the combined contribution is exactly the remote plots' 5 Food and 8 Production. The native source setters are journalled, and a net-zero miscellaneous pulse refreshes cached rates after terrain-only changes.
 
-Native labourer reservation is the central limit: the mod can reserve only citizens safely withdrawn from currently worked native plots. It does not increase the city's population, use negative automatons, invent specialist setters, raise global radius settings or grant yields from every owned plot. Native specialists are governed by the city interface/governor and subtracted from capacity. Extra unemployed population is not automatically converted to remote capacity.
+With 80 population, 30 owned native local jobs and no specialist buildings, the verified surplus is 50: those 50 defaults can work remote tiles while 30 citizens remain local. With 150 population the same bound is 120. At lower populations, forced withdrawals can still be useful: the stress tests reserve 30 of 40 citizens. CP exposes no arbitrary forced-default setter, so all 80 citizens cannot safely be reserved remotely in the first example. Real unassigned citizens wait for native allocation; positive worker automatons from another mod conservatively disable remote credits. Population is never increased.
 
-Assignments, exclusions and locks persist. Yield changes are handled through relevant game events and owner-turn reconciliation. Invalid ownership, mountains, city tiles, visible enemy units and blockaded water invalidate a remote plot. Mid-action population/citizen/ownership changes synchronously trim credited contributions; native reallocation follows through one deferred callback. The capital plot stores the city's yield ledger, so reinitialization replaces a previous contribution instead of adding another copy.
+Assignments, exclusions and locks persist. Yield changes are handled through relevant events and owner-turn reconciliation. Eligibility requires ownership, a non-city plot with yields, water-working technology where needed, no visible enemy and no blockade. Yielding mountain wonders are allowed. Mid-action population/citizen/ownership changes trim unsafe credits, followed by one deferred callback. The capital plot stores a versioned yield ledger, so reinitialization replaces the previous contribution. Worked-only counters and improvement evolution remain native limitations.
 
 ## The Boundless Workforce
 
 The upper-right world-map button opens a panel with:
 
 - Population, owned plots, local workers, credited remote workers, specialists and idle population.
-- Available additional reservations, frontier Culture and next-claim cost.
-- Gross remote plot yields and the labourer yields being replaced.
+- Available citizens, additional safe remote capacity, the structural remote limit, pending requests and locks, plus frontier Culture and next-claim cost.
+- Gross remote plot yields, labourer compensation and the net base contribution.
 - Automatic/Manual/Hybrid mode, Food/Production/Gold/Balanced priorities and border direction.
 - Remote plot rows with coordinates, distance, resource, improvement, yields, assignment state and lock state.
 - Sorting by distance, yield score, resource or improvement; **Assign/Release**, **Lock/Unlock** and **Locate** controls.
 
-**Automatic** compares local and remote plot scores using the available native population after specialists. **Manual** follows selected remote locks and leaves local decisions to the city screen. **Hybrid** prioritizes remote locks and native local locks before scoring other tiles. Releasing a plot excludes it from automatic selection until you assign or lock it again. A lock can remain pending when there is no safe reservation capacity; ownership of land alone never guarantees assignment.
+**Automatic** ignores old manual locks and ranks useful local/remote plots after specialists. **Manual** follows explicit selections; unlocking does not deselect a plot. **Hybrid** respects remote locks and native local locks before ranking other tiles. Releasing excludes a plot until selected again. Requests remain pending when capacity or eligibility is unavailable and retry after relevant changes. Native local/specialist allocation still belongs to the city governor, so Auto is a constrained approximation to a complete city optimizer.
+
+Available citizens means population outside current specialist and active locked roles, including movable local workers. Additional remote capacity is the number that the implemented reservation system can actually add, capped by eligible remote inventory. The figures can differ substantially. Idle labourers are defaults not credited remotely; unassigned citizens are shown separately. The displayed census includes both, rather than hiding unused population.
 
 Rows are paged in groups of sixteen. The interface closes/hides for city screens, leader diplomacy, other game popups, nonselection interface modes and inactive turns. It does not replace CityView and installs no idle frame-polling loop.
 
@@ -66,15 +68,17 @@ Completing a real improvement on an owned plot more than five hexes from the ori
 
 ## One-city ownership and victories
 
-Every Boundless unit receives the native **NoCapture** promotion. Starting, trained, created and converted units are covered; transfers to another civilization strip this civilization-specific promotion. Military attacks can weaken cities but cannot enter to occupy them. There is no conquest reward to farm. Ordinary conquered cities are not automatically destroyed because acquisition is prevented in the first place.
+Every Boundless unit receives native **NoCapture**. Starting, trained, created and converted units are covered; foreign recipients lose the promotion. Normal occupation remains blocked. The panel's **Siege demolition** view lists a restricted alternative: a visible enemy city at 1 HP, at war, with an adjacent non-embarked melee unit that still has moves, and whose current owner passes native `CanRaze`. Original capitals, holy cities and current/original city-state settlements are always excluded. Execution is deferred, revalidates city identity and legality, consumes the melee unit's remaining moves, invokes the current owner's native Disband, and releases that settlement's acquired plots. It gives no city, territory or capture reward to Boundless.
 
-If diplomacy or another script nevertheless transfers a city, recovery queues its coordinates and returns it through native `AcquireCity` after the original acquisition stack finishes. The previous/original eligible living owner is preferred, followed by a living non-Boundless custodian. The original capital is excluded by coordinates/founding identity. If there is no eligible recipient, construction/training in the additional city is blocked and a notification records quarantine; no city is illegally killed or razed. This fallback can temporarily leave an extra owned city and is explicitly outside the absolute one-city guarantee.
+CP's native `CanRaze` requires ownership and rejects cities founded by the current owner. Consequently, this action usually applies only to previously captured settlements. Normal first-founded enemy towns remain protected by NoCapture: unrestricted conquest/demolition is **not** implemented. Changing that requires a safe native pre-acquisition/legal-resolution API, not an ownership workaround.
+
+Unexpected transfers are recovered after the native acquisition stack finishes. The deterministic policy is previous legal living owner, original legal living owner, then a living recipient identified by native liberation APIs. An unrelated living custodian is never chosen. A repeated return to the same recipient is suppressed. If no recipient exists, a native-legal extra settlement can be disbanded and its acquired plots released; protected or own-founded extras are quarantined. Their queues and production automation are cleared, and training/building/project/process requests are vetoed. A transient or protected quarantined second city remains an unavoidable gap against external scripts; native yields and transfer UI are not certified harmless.
 
 Science, Culture and Diplomatic victories retain normal game rules, subject to live CP verification. Standard Domination cannot normally be won while foreign original capitals cannot be occupied. No global domination changes or special untested alternative victory have been added.
 
 ## AI and balance
 
-The AI is selectable and uses the same frontier, Registry, citizen reservations and one-city guards. Each owner turn chooses Food when growth is constrained, Production when defense is thin, and Balanced otherwise. Leader flavors emphasize growth, improvements, defense, Culture, Science and infrastructure; Settler expansion flavor is suppressed. Idle Surveyors receive legal deterministic improvement/movement missions on useful land in their current area.
+The AI is selectable and uses the same frontier, Registry, citizen reservations and one-city guards. Each owner turn chooses Food when growth is constrained, Production when defense is thin, and Balanced otherwise. Existing leader flavors are preserved. Surveyors share a cached list ranked by resources, yields and current remote use; saved targets are checked with native build legality/pathfinding. A rotating candidate budget avoids repeatedly scanning every plot/build per worker. At most 12 native paths are requested per planner pass, with no distance or land-area cutoff. Busy orders remain intact.
 
 Native pathfinding, later homeland-AI orders and distant cross-continent development still require live verification. The custom worker planner does not teleport units or promise ocean development with land Workers. **Full AI compatibility has not been verified.**
 
@@ -89,6 +93,8 @@ Use the [root installation/build instructions](../README.md). The [civ page](../
 - [Exact limitations and unmet original requirements](docs/EngineLimitations.md)
 - [Static/simulation results and CP v151 live test steps](docs/Testing.md)
 - [Civilization changelog](CHANGELOG.md)
+- [Fixes and completion report](docs/FixesReport.md)
+- [Supplied fixes specification](docs/FixesRequest.md)
 - [Original supplied specification](docs/OriginalRequest.md)
 
 The supplied specification referred to CoolWackyCivs; the user's requested destination supersedes that repository reference. The implementation is isolated in **CoolWackyCivs2**, following the existing Last City/Kingdoms/Shattered Empire conventions without modifying their source.

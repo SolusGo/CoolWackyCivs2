@@ -4,6 +4,7 @@ local B=MapModData.BoundlessCity
 local instances=InstanceManager:new('BoundlessPlotRow','Root',Controls.Rows)
 local opened,cityScreen,leaderScreen,refreshing=false,false,false,false
 local blocked={};local page=1;local sort='DISTANCE';local message=''
+local siege=false
 local mode=UI.GetInterfaceMode()
 local refresh
 local function world()
@@ -25,46 +26,42 @@ refresh=function()
  Controls.Panel:SetHide(not opened)
  if not opened then refreshing=false;return end
  local info=B.Summary(s);local cache=B.Ownership(s);local locals=B.LocalPlots(city)
- Controls.Summary:SetText(B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.available,info.progress,info.cost))
- Controls.Yields:SetText(B.Text('YIELDS',yields(cache.remoteYields or {}),yields(cache.labourerYields or {})))
+ Controls.Summary:SetText(B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.unassigned,info.availableCitizens,info.availableRemote,info.maximumRemote,info.pending,info.locks,info.progress,info.cost))
+ local net={};for i=1,#B.Yields do net[i]=(cache.remoteYields and cache.remoteYields[i] or 0)-(cache.labourerYields and cache.labourerYields[i] or 0) end
+ Controls.Yields:SetText(B.Text('YIELDS',yields(cache.remoteYields or {}),yields(cache.labourerYields or {}),yields(net)))
  Controls.Mode:SetText(B.Text(s.mode));Controls.Priority:SetText(B.Text(s.priority))
  Controls.Direction:SetText(B.Text('DIRECTION')..': '..B.Text(s.direction));Controls.Sort:SetText(B.Text(sort))
  Controls.Help:SetText(message~='' and message or B.Text('CAPACITY'))
- local rows={}
- for _,n in ipairs(B.Keys(cache.owned)) do local plot=Map.GetPlotByIndex(n)
-  if not locals[n] and B.Eligible(s,plot) then
-   local resource=GameInfo.Resources[plot:GetResourceType(p:GetTeam())]
-   local improvement=GameInfo.Improvements[plot:GetImprovementType()]
-   rows[#rows+1]={n=n,plot=plot,distance=Map.PlotDistance(city:GetX(),city:GetY(),plot:GetX(),plot:GetY()),
-    score=B.Score(s,plot),resource=resource and Locale.ConvertTextKey(resource.Description) or '',
-    improvement=improvement and Locale.ConvertTextKey(improvement.Description) or ''}
-  end
- end
- table.sort(rows,function(a,b)
-  local x,y
-  if sort=='YIELD' then x,y=-a.score,-b.score
-  elseif sort=='RESOURCE' then x,y=a.resource,b.resource
-  elseif sort=='IMPROVEMENT' then x,y=a.improvement,b.improvement
-  else x,y=a.distance,b.distance end
-  if x~=y then return x<y end;return a.n<b.n
- end)
+ Controls.Siege:SetText(B.Text(siege and 'WORKFORCE_VIEW' or 'SIEGE'))
+ local rows=siege and B.SiegeRows(s) or B.RemoteRows(s,sort)
+ if siege then Controls.Help:SetText(B.Text('SIEGE_HELP')) end
  local pages=math.max(1,math.ceil(#rows/B.Config.PageSize));page=math.max(1,math.min(page,pages))
  instances:ResetInstances()
  for i=(page-1)*B.Config.PageSize+1,math.min(page*B.Config.PageSize,#rows) do
-  local row=rows[i];local control=instances:GetInstance();local assigned=s.assignments[row.n]~=nil
-  local locked=s.locks[row.n]~=nil
-  control.Text:SetText((assigned and '[COLOR_POSITIVE_TEXT]' or '')..'('..row.plot:GetX()..','..row.plot:GetY()..')  '
-   ..B.Text('DISTANCE')..' '..row.distance..'  '..row.resource..'  '..row.improvement
-   ..(locked and ' [ICON_LOCKED]' or '')..(assigned and '[ENDCOLOR]' or '')..'[NEWLINE]'..yields(B.PlotYields(row.plot)))
-  control.Assign:SetText(B.Text((assigned or locked) and 'RELEASE' or 'ASSIGN'))
-  control.Lock:SetText(B.Text(locked and 'UNLOCK' or 'LOCK'))
-  control.Lock:SetDisabled(not p:IsTurnActive())
-  control.Assign:SetDisabled(not p:IsTurnActive())
-  local n=row.n;local plot=row.plot
-  control.Assign:RegisterCallback(Mouse.eLClick,function()
-   message=B.Action(pid,'PLOT',n) and '' or B.Text('UNAVAILABLE');refresh()
-  end)
-  control.Lock:RegisterCallback(Mouse.eLClick,function() B.Action(pid,'LOCK',n);refresh() end)
+  local row=rows[i];local control=instances:GetInstance();row.plot=row.plot or Map.GetPlotByIndex(row.n)
+  local assigned=s.assignments[row.n]~=nil
+  local locked=s.mode~='AUTO' and s.locks[row.n]~=nil
+  if siege then
+   control.Text:SetText(row.name..'  ('..row.x..','..row.y..')')
+   control.Assign:SetText(B.Text('DEMOLISH'));control.Lock:SetHide(true)
+   local n=row.n
+   control.Assign:RegisterCallback(Mouse.eLClick,function() message=B.Action(pid,'SIEGE',n) and '' or B.Text('UNAVAILABLE');refresh() end)
+  else
+   control.Lock:SetHide(false)
+   local pending=(s.mode=='MANUAL' and s.selected[row.n] or s.mode=='HYBRID' and s.locks[row.n]) and not assigned
+   control.Text:SetText((assigned and '[COLOR_POSITIVE_TEXT]' or '')..'('..row.plot:GetX()..','..row.plot:GetY()..')  '
+    ..B.Text('DISTANCE')..' '..row.distance..'  '..row.resource..'  '..row.improvement
+    ..(locked and ' [ICON_LOCKED]' or '')..(pending and ' '..B.Text('PENDING') or '')
+    ..(assigned and '[ENDCOLOR]' or '')..'[NEWLINE]'..yields(B.PlotYields(row.plot)))
+   control.Assign:SetText(B.Text((assigned or s.selected[row.n]) and 'RELEASE' or 'ASSIGN'))
+   control.Lock:SetText(B.Text(locked and 'UNLOCK' or 'LOCK'))
+   control.Lock:SetDisabled(not p:IsTurnActive() or (not B.Eligible(s,row.plot) and not s.locks[row.n]))
+   local n=row.n
+   control.Assign:RegisterCallback(Mouse.eLClick,function() message=B.Action(pid,'PLOT',n) and '' or B.Text('UNAVAILABLE');refresh() end)
+   control.Lock:RegisterCallback(Mouse.eLClick,function() B.Action(pid,'LOCK',n);refresh() end)
+  end
+  control.Assign:SetDisabled(not p:IsTurnActive() or (not siege and not B.Eligible(s,row.plot) and not s.selected[row.n] and not assigned))
+  local plot=row.plot
   control.Locate:RegisterCallback(Mouse.eLClick,function() UI.LookAt(plot,0) end)
  end
  Controls.Page:SetText(page..' / '..pages..'  ('..#rows..')')
@@ -77,6 +74,7 @@ local function cycle(list,current)
  return list[1]
 end
 Controls.Open:RegisterCallback(Mouse.eLClick,function() opened=not opened;page=1;message='';refresh() end)
+Controls.Siege:RegisterCallback(Mouse.eLClick,function() siege=not siege;page=1;message='';refresh() end)
 Controls.Close:RegisterCallback(Mouse.eLClick,function() opened=false;refresh() end)
 Controls.Mode:RegisterCallback(Mouse.eLClick,function() local pid=Game.GetActivePlayer();B.Action(pid,'MODE',cycle({'AUTO','MANUAL','HYBRID'},B.State(pid).mode));refresh() end)
 Controls.Priority:RegisterCallback(Mouse.eLClick,function() local pid=Game.GetActivePlayer();B.Action(pid,'PRIORITY',cycle({'BALANCED','FOOD','PRODUCTION','GOLD'},B.State(pid).priority));refresh() end)
@@ -93,7 +91,7 @@ Events.GameplaySetActivePlayer.Add(function() opened=false;refresh() end)
 Events.ActivePlayerTurnStart.Add(refresh)
 Events.ActivePlayerTurnEnd.Add(function() opened=false;refresh() end)
 Events.SerialEventEnterCityScreen.Add(function() cityScreen=true;opened=false;refresh() end)
-Events.SerialEventExitCityScreen.Add(function() cityScreen=false;if ButtonPopupTypes then blocked[ButtonPopupTypes.BUTTONPOPUP_CHOOSEPRODUCTION]=nil end;refresh() end)
+Events.SerialEventExitCityScreen.Add(function() cityScreen=false;B.Schedule(Game.GetActivePlayer(),true);if ButtonPopupTypes then blocked[ButtonPopupTypes.BUTTONPOPUP_CHOOSEPRODUCTION]=nil end;refresh() end)
 Events.AILeaderMessage.Add(function() leaderScreen=true;opened=false;refresh() end)
 Events.LeavingLeaderViewMode.Add(function() leaderScreen=false;refresh() end)
 Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=true;opened=false;refresh() end end)

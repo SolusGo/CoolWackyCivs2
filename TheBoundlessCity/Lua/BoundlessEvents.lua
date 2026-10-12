@@ -1,15 +1,18 @@
 local B=MapModData.BoundlessCity
 local queued={};local updateContext=ContextPtr
+local armed=false
 -- A dirty event schedules ONE callback. The callback removes itself before running.
 -- This is deferred dispatch after the native action, never an idle/frame polling loop.
 function B.Schedule(pid,force)
  if not B.IsBoundless(pid) or B.Busy[pid] then return end
  if force then B.Cache(B.State(pid)).force=true end
  queued[pid]=true
+ if armed then return end
+ armed=true
  updateContext:SetUpdate(function()
-  updateContext:SetUpdate(nil);local pending=queued;queued={}
+  updateContext:SetUpdate(nil);armed=false;local pending=queued;queued={}
   for _,id in ipairs(B.Keys(pending)) do
-   B.RecoverCities(B.State(id));B.Registry(B.State(id));B.Reconcile(B.State(id))
+   local s=B.State(id);B.RecoverCities(s);B.ProcessSieges(s);B.Registry(s);B.Reconcile(s)
   end
  end)
 end
@@ -24,20 +27,24 @@ function B.NoCapture(pid,unit)
 end
 function B.Initialize(pid)
  local s=B.State(pid);local city=Players[pid]:GetCapitalCity()
- if not s.incompatible and not s.capital and city and city:GetOriginalOwner()==pid then
+ if not s.incompatible and not s.capital and city and city:GetOriginalOwner()==pid and city:IsOriginalCapital() then
   s.capital={x=city:GetX(),y=city:GetY(),founded=city:GetGameTurnFounded()}
   city:SetName(B.Text('CAPITAL'),false);B.Save(s)
  end
  for unit in Players[pid]:Units() do B.NoCapture(pid,unit) end
  if not s.incompatible then B.Ownership(s);B.Registry(s) end
- B.Reconcile(s)
+ if s.incompatible then
+  for owned in Players[pid]:Cities() do pcall(B.ApplyLedger,owned,{},{}) end
+ else B.Reconcile(s) end
  if s.incompatible then B.Notify(s,'DISABLED') end
  return s
 end
 function B.RecoverCities(s)
  local player=Players[s.pid];local extras={}
+ if player:GetNumCities()==0 or (player:GetNumCities()==1 and B.City(s)) then return end
  for city in player:Cities() do
-  if not s.capital or city:GetX()~=s.capital.x or city:GetY()~=s.capital.y or city:GetGameTurnFounded()~=s.capital.founded then
+  local nativeOriginal=s.incompatible and city:GetOriginalOwner()==s.pid and city:IsOriginalCapital()
+  if not nativeOriginal and (not s.capital or city:GetX()~=s.capital.x or city:GetY()~=s.capital.y or city:GetGameTurnFounded()~=s.capital.founded) then
    extras[#extras+1]={x=city:GetX(),y=city:GetY(),founded=city:GetGameTurnFounded(),previous=city:GetPreviousOwner(),original=city:GetOriginalOwner()}
   end
  end
@@ -45,26 +52,45 @@ function B.RecoverCities(s)
   local plot=Map.GetPlot(r.x,r.y);local city=plot and plot:GetPlotCity()
   if city and city:GetOwner()==s.pid and city:GetGameTurnFounded()==r.founded then
    local recipient
-   for _,id in ipairs({r.previous,r.original}) do
+   local n=plot:GetPlotIndex();local prior=(s.returned or {})[n]
+   local function legal(id)
+    if type(id)~='number' or id<0 or id==s.pid or id>=(GameDefines.MAX_CIV_PLAYERS or 64) then return false end
     local p=Players[id]
-    if id~=s.pid and p and p:IsAlive() and not p:IsBarbarian() and not B.IsBoundless(id) then recipient=id;break end
+    return p and p:IsAlive() and not p:IsBarbarian() and not B.IsBoundless(id)
+     and not (prior and prior.founded==r.founded and prior.recipient==id)
    end
+   for _,id in ipairs({r.previous,r.original}) do if legal(id) then recipient=id;break end end
    if not recipient then
-    for id=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do local p=Players[id]
-     if id~=s.pid and p and p:IsAlive() and not p:IsBarbarian() and not B.IsBoundless(id) then recipient=id;break end
-    end
+    local native=player:GetPlayerToLiberate(city)
+    if legal(native) and player:CanLiberatePlayer(native) then recipient=native end
    end
    if recipient then
     -- Outside acquireCity's capture hook: coordinate records are resolved fresh each time.
+    s.returned=s.returned or {};s.returned[n]={founded=r.founded,recipient=recipient};B.Save(s)
     Players[recipient]:AcquireCity(city,false,true)
-    B.Notify(s,'RECOVERY');s.pending[plot:GetPlotIndex()]=nil
+    B.Notify(s,'RECOVERY');s.pending[n]=nil
    else
-    local n=plot:GetPlotIndex()
-    if not s.pending[n] then B.Notify(s,'QUARANTINE') end
-    s.pending[n]={x=r.x,y=r.y,founded=r.founded}
-    print('[BoundlessCity] No legal living custodian for extra city '..r.x..','..r.y..'; blocked, never killed')
+    if B.NativeRazable(city) then
+     local released={};local cityID=city:GetID()
+     for _,index in ipairs(B.Keys(B.Ownership(s).owned)) do local tile=Map.GetPlotByIndex(index)
+      if tile:GetOwner()==s.pid and tile:GetCityPurchaseID()==cityID then released[#released+1]=index end
+     end
+     player:Disband(city)
+     for _,index in ipairs(released) do local tile=Map.GetPlotByIndex(index)
+      if tile:GetOwner()==s.pid then tile:SetOwner(-1,-1,true) end
+     end
+     s.pending[n]=nil;B.Notify(s,'EXTRA_REMOVED')
+    else
+     if not s.pending[n] then B.Notify(s,'QUARANTINE');print('[BoundlessCity] Extra city quarantined: no historical legal recipient at '..r.x..','..r.y) end
+     s.pending[n]={x=r.x,y=r.y,founded=r.founded}
+     city:DoTask(TaskTypes.TASK_CLEAR_ORDERS,-1,-1,0)
+     city:DoTask(TaskTypes.TASK_SET_AUTOMATED_PRODUCTION,-1,-1,0)
+    end
    end
   end
+ end
+ for n in pairs(s.pending or {}) do local p=Map.GetPlotByIndex(n);local c=p and p:GetPlotCity()
+  if not c or c:GetOwner()~=s.pid then s.pending[n]=nil end
  end
  B.Save(s)
 end
@@ -86,41 +112,17 @@ function B.Turn(pid)
   s.priority=city:FoodDifference()<=2 and 'FOOD' or Players[pid]:GetNumMilitaryUnits()<3 and 'PRODUCTION' or 'BALANCED'
  end
  B.Busy[pid]=true;B.Expand(s);B.Busy[pid]=nil
- B.Cache(s).force=true;B.Reconcile(s);B.AIWorkers(s);B.Save(s)
+ B.Cache(s).force=true;B.Reconcile(s);B.AIWorkers(s)
+ if not Players[pid]:IsHuman() then for _,r in ipairs(B.SiegeRows(s)) do B.QueueSiege(s,r.n) end end
+ B.Save(s)
 end
-function B.AIWorkers(s)
- if Players[s.pid]:IsHuman() then return end
- -- Native builder AI can overlook distant land. Give idle Surveyors deterministic missions
- -- on the same land area, using real pathfinding and legal native build checks.
- local claimed={};local tasks={}
- for unit in Players[s.pid]:Units() do
-  if unit:GetUnitType()==B.ID('UNIT_BC_SURVEYOR') and unit:MovesLeft()>0 and not unit:IsBusy() then
-   local best,bestBuild,value
-   for _,n in ipairs(B.Keys(B.Ownership(s).owned)) do local p=Map.GetPlotByIndex(n)
-    if B.Eligible(s,p) and not p:IsWater() and p:GetArea()==unit:GetPlot():GetArea()
-     and not claimed[n] and (p:GetImprovementType()<0 or p:IsImprovementPillaged()) then
-     for build in GameInfo.Builds() do
-      if (build.ImprovementType or build.Repair==true or build.Repair==1) and unit:CanBuild(p,build.ID,0,1) then
-       local score=B.Score(s,p)+ (s.assignments[n] and 20 or 0)-Map.PlotDistance(unit:GetX(),unit:GetY(),p:GetX(),p:GetY())
-       if not value or score>value or (score==value and n<best:GetPlotIndex()) then best=p;bestBuild=build.ID;value=score end
-      end
-     end
-    end
-   end
-   if best then
-    claimed[best:GetPlotIndex()]=true
-    tasks[#tasks+1]={unit=unit,plot=best,build=bestBuild}
-   end
-  end
- end
- for _,r in ipairs(tasks) do
-  if r.unit:GetX()==r.plot:GetX() and r.unit:GetY()==r.plot:GetY() then
-   r.unit:PushMission(MissionTypes.MISSION_BUILD,r.build,-1,0,0,0)
-  else r.unit:PushMission(MissionTypes.MISSION_MOVE_TO,r.plot:GetX(),r.plot:GetY(),0,0,0) end
- end
-end
+include('BoundlessSiege')
+include('BoundlessAI')
 hook('PlayerDoTurn',B.Turn)
-hook('PlayerDoneTurn',function(pid) if B.IsBoundless(pid) then B.Reconcile(B.State(pid));B.Save(B.State(pid)) end end)
+hook('PlayerDoneTurn',function(pid) if B.IsBoundless(pid) then
+ -- Refresh forced reservations even after an otherwise invisible native city reset.
+ B.Cache(B.State(pid)).force=true;B.Reconcile(B.State(pid));B.Save(B.State(pid))
+end end)
 hook('PlayerCanFoundCity',function(pid)
  if not B.IsBoundless(pid) then return true end
  local s=B.State(pid);return not s.incompatible and not s.capital and Players[pid]:GetNumCities()==0
@@ -140,9 +142,21 @@ hook('CityCanConstruct',function(pid,id,building)
  if not B.IsBoundless(pid) then return true end
  local c=B.City(B.State(pid));return c and c:GetID()==id or false
 end)
+local function originalProduction(pid,id)
+ if not B.IsBoundless(pid) then return true end
+ local c=B.City(B.State(pid));return c and c:GetID()==id or false
+end
+hook('CityCanCreate',originalProduction)
+hook('CityCanMaintain',originalProduction)
 hook('PlayerCanBuyOut',function(pid) return not B.IsBoundless(pid) end)
-hook('PlayerCityFounded',function(pid) if B.IsBoundless(pid) then B.Initialize(pid);B.Schedule(pid) end end)
+hook('PlayerCityFounded',function(pid,x,y)
+ local plot=Map.GetPlot(x,y)
+ if plot then plot:SetScriptData((plot:GetScriptData() or ''):gsub('|BCY1:[^|]*|',''):gsub('|BCY2:[^|]*|','')) end
+ if B.IsBoundless(pid) then B.Initialize(pid);B.Schedule(pid) end
+end)
 hook('UnitCreated',function(pid,id)
+ local u=Players[pid] and Players[pid]:GetUnitByID(id)
+ if u then B.UnitPositions[pid..':'..id]=Map.GetPlot(u:GetX(),u:GetY()):GetPlotIndex() end
  if B.IsBoundless(pid) then B.NoCapture(pid,Players[pid]:GetUnitByID(id)) end
 end)
 hook('UnitConverted',function(old,new,oldID,newID)
@@ -157,10 +171,14 @@ hook('CityCaptureComplete',function(old,capital,x,y,new)
   -- Lua-added miscellaneous source. Plot ScriptData survives, so retire that
   -- old-object ledger without subtracting it from the freshly created city.
   local plot=Map.GetPlot(x,y)
-  if plot then plot:SetScriptData((plot:GetScriptData() or ''):gsub('|BCY1:[^|]*|','')) end
+  if plot then plot:SetScriptData((plot:GetScriptData() or ''):gsub('|BCY1:[^|]*|',''):gsub('|BCY2:[^|]*|','')) end
  end
  if B.IsBoundless(old) then
-  local s=B.State(old);s.reserved=0;s.assignments={};B.Save(s);B.Schedule(old)
+  local s=B.State(old)
+  if s.capital and s.capital.x==x and s.capital.y==y then
+   s.reserved=0;s.withdrawn=0;s.assignments={};B.Index(s)
+  end
+  B.Save(s);B.Schedule(old)
  end
  if B.IsBoundless(new) then B.Schedule(new) end
 end)
@@ -169,9 +187,18 @@ hook('TileOwnershipChanged',function(x,y,new,old)
  for _,pid in ipairs({old,new}) do
   if B.IsBoundless(pid) then
    local s=B.State(pid);local c=B.Cache(s)
-   c.owned[p:GetPlotIndex()]=new==pid and true or nil;c.territoryDirty=true;B.Trim(s);B.Schedule(pid,true)
+   c.owned[p:GetPlotIndex()]=new==pid and true or nil;c.territoryDirty=true;c.aiDirty=true
+   if new~=pid then s.selected[p:GetPlotIndex()]=nil;s.locks[p:GetPlotIndex()]=nil;s.excluded[p:GetPlotIndex()]=nil;if c.blocked then c.blocked[p:GetPlotIndex()]=nil end end
+   B.Trim(s);B.Schedule(pid,true)
   end
  end
+ -- An enemy tile becoming unowned can open the frontier without changing our owned set.
+ B.Neighbors(p,function(q)
+  local pid=q:GetOwner()
+  if B.IsBoundless(pid) then local cache=B.Cache(B.State(pid))
+   if cache.connected and cache.connected[q:GetPlotIndex()] then cache.frontier[p:GetPlotIndex()]=new==-1 and not p:IsCity() and true or nil end
+  end
+ end)
 end)
 hook('PlayerBuilt',function(pid,uid,x,y,buildID)
  if not B.IsBoundless(pid) then return end
@@ -186,9 +213,14 @@ hook('PlayerBuilt',function(pid,uid,x,y,buildID)
  end
  B.Schedule(pid,true)
 end)
-hook('TileImprovementChanged',function(x,y,owner) B.Schedule(owner,true) end)
-hook('TileFeatureChanged',function(x,y,owner) B.Schedule(owner,true) end)
-hook('TileRouteChanged',function(x,y,owner) B.Schedule(owner,true) end)
+local function changedPlot(x,y,owner)
+ if B.IsBoundless(owner) then local s=B.State(owner);B.Cache(s).aiDirty=true
+  B.Trim(s,{[Map.GetPlot(x,y):GetPlotIndex()]=true});B.Schedule(owner,true)
+ end
+end
+hook('TileImprovementChanged',changedPlot)
+hook('TileFeatureChanged',changedPlot)
+hook('TileRouteChanged',changedPlot)
 hook('SetPopulation',function(x,y)
  local plot=Map.GetPlot(x,y);local city=plot and plot:GetPlotCity()
  if city and B.IsBoundless(city:GetOwner()) then B.Trim(B.State(city:GetOwner()));B.Schedule(city:GetOwner()) end
@@ -196,18 +228,41 @@ end)
 hook('TeamTechResearched',function(team)
  for _,pid in ipairs(B.Players) do if Players[pid]:GetTeam()==team then B.Schedule(pid,true) end end
 end)
-hook('CityConstructed',function(pid) B.Schedule(pid,true) end)
-hook('PlayerAdoptPolicy',function(pid) B.Schedule(pid,true) end)
+hook('CityConstructed',function(pid) if B.IsBoundless(pid) then B.Trim(B.State(pid));B.Schedule(pid,true) end end)
+hook('PlayerAdoptPolicy',function(pid) if B.IsBoundless(pid) then B.Trim(B.State(pid));B.Schedule(pid,true) end end)
 if Events.SerialEventCityInfoDirty then Events.SerialEventCityInfoDirty.Add(function()
  for _,pid in ipairs(B.Players) do B.Trim(B.State(pid));B.Schedule(pid) end
 end) end
-hook('UnitSetXY',function(pid,uid,x,y)
- for _,id in ipairs(B.Players) do local s=B.State(id)
-  for _,r in pairs(s.assignments or {}) do
-   if Map.PlotDistance(r.x,r.y,x,y)<=1 then B.Trim(s);B.Schedule(id,true);break end
+function B.Movement(pid,uid,x,y)
+ if #B.Players==0 then return end
+ local unit=Players[pid] and Players[pid]:GetUnitByID(uid)
+ if unit and (B.IsBoundless(pid) or unit:IsHasPromotion(B.ID('PROMOTION_BC_NO_CAPTURE'))) then B.NoCapture(pid,unit) end
+ local key=pid..':'..uid;local p=Map.GetPlot(x,y);local old=B.UnitPositions[key]
+ B.UnitPositions[key]=p and p:GetPlotIndex() or nil
+ local affected={}
+ local function watch(q)
+  local n=q:GetPlotIndex()
+  for id in pairs(B.Watch[n] or {}) do affected[id]=affected[id] or {};affected[id][n]=true end
+ end
+ if p then watch(p);B.Neighbors(p,watch) end
+ local prior=old and Map.GetPlotByIndex(old)
+ if prior then watch(prior);B.Neighbors(prior,watch) end
+ for _,id in ipairs(B.Keys(affected)) do
+  if Players[pid] and Teams[Players[id]:GetTeam()]:IsAtWar(Players[pid]:GetTeam()) then
+   local s=B.State(id)
+   local eligibilityChanged=B.RefreshEligibility(s,affected[id])
+   local yieldsChanged=B.Trim(s,affected[id])
+   if eligibilityChanged or yieldsChanged then B.Schedule(id,true) end
   end
  end
-end)
+end
+hook('UnitSetXY',B.Movement)
+local function warChanged()
+ -- CP dispatches player/team/bool or vanilla team/team under the same name.
+ for _,pid in ipairs(B.Players) do B.Trim(B.State(pid));B.Schedule(pid,true) end
+end
+hook('DeclareWar',warChanged)
+hook('MakePeace',warChanged)
 if Events.LoadScreenClose then Events.LoadScreenClose.Add(function()
  for _,pid in ipairs(B.Players) do B.Initialize(pid);B.Schedule(pid) end
 end) end

@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>1</ModVersion>
+    <ModVersion>2</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -194,6 +194,12 @@
     <Content Include="TheBoundlessCity/Art/BoundlessPortrait64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="TheBoundlessCity/Lua/BoundlessAI.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Lua/BoundlessCitizens.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="TheBoundlessCity/Lua/BoundlessCore.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -201,6 +207,9 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheBoundlessCity/Lua/BoundlessPersistence.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Lua/BoundlessSiege.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheBoundlessCity/SQL/00_BC_Core.sql">

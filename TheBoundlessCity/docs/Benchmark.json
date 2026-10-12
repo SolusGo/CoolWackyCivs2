@@ -1,12 +1,313 @@
 {
-  "environment": "Python 3.11 + Lupa Lua 5.1; synthetic native calls, not Civ V",
-  "plots": 16000,
-  "population": 40,
-  "iterations": 20,
-  "initialization_ms": 254.05,
-  "reconcile_median_ms": 52.16,
-  "reconcile_max_ms": 71.85,
-  "remote_workers": 40,
+  "date": "2026-10-12",
+  "environment": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.0",
+  "runtime": "Lupa Lua 5.1; synthetic native calls",
+  "world_scan": "once per player initialization",
   "idle_frame_polling": false,
-  "in_game_huge_map_benchmark": "NOT RUN"
+  "native_Civ_V": "NOT RUN",
+  "native_pathfinding": "NOT MEASURED",
+  "native_FPS": "NOT MEASURED",
+  "scenarios": [
+    {
+      "initial_owned": 100,
+      "world_plots": 16000,
+      "population": 150,
+      "initialization_ms": 7.233,
+      "full_reconcile": {
+        "iterations": 9,
+        "median_ms": 1.821,
+        "max_ms": 2.367
+      },
+      "assignment_change": {
+        "iterations": 9,
+        "median_ms": 1.88,
+        "max_ms": 2.905
+      },
+      "remote_workers": 69,
+      "movement_1000_unrelated": {
+        "iterations": 9,
+        "median_ms": 27.394,
+        "max_ms": 36.093
+      },
+      "movement_1000_near_owned": {
+        "iterations": 5,
+        "median_ms": 54.108,
+        "max_ms": 54.628
+      },
+      "frontier_single_claim": {
+        "iterations": 9,
+        "median_ms": 0.746,
+        "max_ms": 1.111
+      },
+      "ai_cache_rebuild_and_plan": {
+        "iterations": 1,
+        "median_ms": 0.236,
+        "max_ms": 0.236
+      },
+      "ai_cached_plan": {
+        "iterations": 9,
+        "median_ms": 0.037,
+        "max_ms": 0.042
+      },
+      "ai_native_paths_per_pass_limit": 12,
+      "ai_measured_path_calls_total": 120,
+      "ui_first_rows_build": {
+        "iterations": 3,
+        "median_ms": 0.86,
+        "max_ms": 0.965
+      },
+      "ui_cached_open_refresh_100": {
+        "iterations": 9,
+        "median_ms": 34.015,
+        "max_ms": 40.729
+      },
+      "ui_closed_refresh_1000": {
+        "iterations": 9,
+        "median_ms": 0.903,
+        "max_ms": 0.93
+      },
+      "ui_remote_rows": 78
+    },
+    {
+      "initial_owned": 500,
+      "world_plots": 16000,
+      "population": 150,
+      "initialization_ms": 9.81,
+      "full_reconcile": {
+        "iterations": 9,
+        "median_ms": 3.627,
+        "max_ms": 6.827
+      },
+      "assignment_change": {
+        "iterations": 9,
+        "median_ms": 4.235,
+        "max_ms": 7.047
+      },
+      "remote_workers": 120,
+      "movement_1000_unrelated": {
+        "iterations": 9,
+        "median_ms": 23.416,
+        "max_ms": 34.321
+      },
+      "movement_1000_near_owned": {
+        "iterations": 5,
+        "median_ms": 42.038,
+        "max_ms": 43.308
+      },
+      "frontier_single_claim": {
+        "iterations": 9,
+        "median_ms": 1.115,
+        "max_ms": 1.706
+      },
+      "ai_cache_rebuild_and_plan": {
+        "iterations": 1,
+        "median_ms": 0.97,
+        "max_ms": 0.97
+      },
+      "ai_cached_plan": {
+        "iterations": 9,
+        "median_ms": 0.042,
+        "max_ms": 0.097
+      },
+      "ai_native_paths_per_pass_limit": 12,
+      "ai_measured_path_calls_total": 120,
+      "ui_first_rows_build": {
+        "iterations": 3,
+        "median_ms": 1.547,
+        "max_ms": 1.914
+      },
+      "ui_cached_open_refresh_100": {
+        "iterations": 9,
+        "median_ms": 31.595,
+        "max_ms": 43.452
+      },
+      "ui_closed_refresh_1000": {
+        "iterations": 9,
+        "median_ms": 0.989,
+        "max_ms": 1.231
+      },
+      "ui_remote_rows": 478
+    },
+    {
+      "initial_owned": 1000,
+      "world_plots": 16000,
+      "population": 150,
+      "initialization_ms": 22.187,
+      "full_reconcile": {
+        "iterations": 9,
+        "median_ms": 6.399,
+        "max_ms": 10.918
+      },
+      "assignment_change": {
+        "iterations": 9,
+        "median_ms": 5.409,
+        "max_ms": 7.592
+      },
+      "remote_workers": 120,
+      "movement_1000_unrelated": {
+        "iterations": 9,
+        "median_ms": 22.86,
+        "max_ms": 25.264
+      },
+      "movement_1000_near_owned": {
+        "iterations": 5,
+        "median_ms": 40.084,
+        "max_ms": 42.375
+      },
+      "frontier_single_claim": {
+        "iterations": 9,
+        "median_ms": 2.258,
+        "max_ms": 2.744
+      },
+      "ai_cache_rebuild_and_plan": {
+        "iterations": 1,
+        "median_ms": 1.813,
+        "max_ms": 1.813
+      },
+      "ai_cached_plan": {
+        "iterations": 9,
+        "median_ms": 0.063,
+        "max_ms": 0.089
+      },
+      "ai_native_paths_per_pass_limit": 12,
+      "ai_measured_path_calls_total": 120,
+      "ui_first_rows_build": {
+        "iterations": 3,
+        "median_ms": 6.78,
+        "max_ms": 8.675
+      },
+      "ui_cached_open_refresh_100": {
+        "iterations": 9,
+        "median_ms": 33.07,
+        "max_ms": 38.232
+      },
+      "ui_closed_refresh_1000": {
+        "iterations": 9,
+        "median_ms": 0.928,
+        "max_ms": 1.439
+      },
+      "ui_remote_rows": 978
+    },
+    {
+      "initial_owned": 2500,
+      "world_plots": 16000,
+      "population": 150,
+      "initialization_ms": 44.306,
+      "full_reconcile": {
+        "iterations": 9,
+        "median_ms": 13.057,
+        "max_ms": 18.443
+      },
+      "assignment_change": {
+        "iterations": 9,
+        "median_ms": 13.346,
+        "max_ms": 29.969
+      },
+      "remote_workers": 120,
+      "movement_1000_unrelated": {
+        "iterations": 9,
+        "median_ms": 45.113,
+        "max_ms": 54.132
+      },
+      "movement_1000_near_owned": {
+        "iterations": 5,
+        "median_ms": 100.375,
+        "max_ms": 127.21
+      },
+      "frontier_single_claim": {
+        "iterations": 9,
+        "median_ms": 4.307,
+        "max_ms": 12.054
+      },
+      "ai_cache_rebuild_and_plan": {
+        "iterations": 1,
+        "median_ms": 15.463,
+        "max_ms": 15.463
+      },
+      "ai_cached_plan": {
+        "iterations": 9,
+        "median_ms": 0.098,
+        "max_ms": 0.168
+      },
+      "ai_native_paths_per_pass_limit": 12,
+      "ai_measured_path_calls_total": 120,
+      "ui_first_rows_build": {
+        "iterations": 3,
+        "median_ms": 24.487,
+        "max_ms": 26.993
+      },
+      "ui_cached_open_refresh_100": {
+        "iterations": 9,
+        "median_ms": 66.735,
+        "max_ms": 79.038
+      },
+      "ui_closed_refresh_1000": {
+        "iterations": 9,
+        "median_ms": 2.469,
+        "max_ms": 3.127
+      },
+      "ui_remote_rows": 2478
+    },
+    {
+      "initial_owned": 10000,
+      "world_plots": 16000,
+      "population": 150,
+      "initialization_ms": 295.465,
+      "full_reconcile": {
+        "iterations": 9,
+        "median_ms": 84.382,
+        "max_ms": 88.746
+      },
+      "assignment_change": {
+        "iterations": 9,
+        "median_ms": 87.659,
+        "max_ms": 114.549
+      },
+      "remote_workers": 120,
+      "movement_1000_unrelated": {
+        "iterations": 9,
+        "median_ms": 47.022,
+        "max_ms": 52.264
+      },
+      "movement_1000_near_owned": {
+        "iterations": 5,
+        "median_ms": 82.336,
+        "max_ms": 92.829
+      },
+      "frontier_single_claim": {
+        "iterations": 9,
+        "median_ms": 3.272,
+        "max_ms": 5.313
+      },
+      "ai_cache_rebuild_and_plan": {
+        "iterations": 1,
+        "median_ms": 46.441,
+        "max_ms": 46.441
+      },
+      "ai_cached_plan": {
+        "iterations": 9,
+        "median_ms": 0.091,
+        "max_ms": 0.24
+      },
+      "ai_native_paths_per_pass_limit": 12,
+      "ai_measured_path_calls_total": 120,
+      "ui_first_rows_build": {
+        "iterations": 3,
+        "median_ms": 73.362,
+        "max_ms": 74.117
+      },
+      "ui_cached_open_refresh_100": {
+        "iterations": 9,
+        "median_ms": 52.87,
+        "max_ms": 88.029
+      },
+      "ui_closed_refresh_1000": {
+        "iterations": 9,
+        "median_ms": 2.687,
+        "max_ms": 3.433
+      },
+      "ui_remote_rows": 9978
+    }
+  ]
 }

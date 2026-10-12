@@ -1,6 +1,23 @@
 # Changelog
 
+## 1.1.0 implementation preview / mod version 2 — 2026-10-12
+
+- Added verified surplus labourers alongside forced local withdrawals. The 80/500 and 150/1,000 stress fixtures now support 50 and 120 remote citizens; full population-only capacity remains unavailable through CP Lua.
+- Corrected count-multiplied specialist extras, split gross terrain yields from labourer compensation, refreshed native cached rates, and journalled partial mutations.
+- Separated Manual selection from locks, made Automatic ignore old locks, and added accurate citizen/capacity/pending/lock/yield counters with eligible-inventory limits.
+- Added restricted native-legal siege demolition with deferred execution and protection checks. First-founded enemy settlements still fail native legality.
+- Replaced arbitrary extra-city recipients with historical/native liberation recipients, return-loop suppression, legal disband fallback and protected-city quarantine.
+- Preserved original capital identity and its workforce when returning another city; strengthened Settler, project/process and quarantine guards.
+- Added indexed movement checks, coalesced change dispatch, cached AI targets/build lists with path budgets, and cached paged UI rows.
+- Added explicit version 1 state/ledger migration, schema-shape validation and future/corrupt payload preservation.
+- Passed six Lua simulation suites, actual-schema SQL/package/art checks, 121 pinned source assertions and read-only original-collection namespace checks. Recorded benchmarks through 10,000 owned plots.
+- Updated the collection/civ guides, civ page, limitations, native test checklist and detailed [fixes report](TheBoundlessCity/docs/FixesReport.md). Existing art, uniques, personality and numeric balance remain unchanged.
+
+Native gameplay, save/load, AI path completion and FPS remain untested. Version 2 keeps the mod UUID and minimum compatible save version 1; back up old saves and do not downgrade migrated saves.
+
 ## 1.0.0 implementation preview — 2026-10-12
+
+The following records the original version's behavior; see 1.1.0 above for current limits.
 
 - Created CoolWackyCivs2 as an independent collection and Git repository with its own mod identity.
 - Added The Boundless City, led by The First Architect, with a single original capital.

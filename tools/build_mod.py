@@ -5,7 +5,8 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-NAME='Cool Wacky Civs 2 (v 1)'
+VERSION='2'
+NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
@@ -24,7 +25,7 @@ def relative(p): return p.relative_to(R).as_posix()
 def imported(p): return p.suffix!='.sql' and relative(p)!=ENTRY
 
 def manifests():
-    paths=files();root=ET.Element('Mod',id=MOD_ID,version='1');props=ET.SubElement(root,'Properties')
+    paths=files();root=ET.Element('Mod',id=MOD_ID,version=VERSION);props=ET.SubElement(root,'Properties')
     for k,v in PROPS.items(): ET.SubElement(props,k).text=v
     deps=ET.SubElement(root,'Dependencies')
     for typ,id,minimum,title in DEPS: ET.SubElement(deps,typ,id=id,minversion=minimum,maxversion='999',title=title)
@@ -42,7 +43,7 @@ def manifests():
         ET.ElementTree(root).write(output,encoding='utf-8',xml_declaration=True)
     def tag(name):return '{'+NS+'}'+name
     proj=ET.Element(tag('Project'),DefaultTargets='Deploy',ToolsVersion='4.0');group=ET.SubElement(proj,tag('PropertyGroup'))
-    properties={**PROPS,'Guid':MOD_ID,'ProjectGuid':'{'+PROJECT_ID.upper()+'}', 'ModVersion':'1',
+    properties={**PROPS,'Guid':MOD_ID,'ProjectGuid':'{'+PROJECT_ID.upper()+'}', 'ModVersion':VERSION,
      'Name':'Cool Wacky Civs 2','SafeName':'CoolWackyCivs2','AssemblyName':'CoolWackyCivs2','RootNamespace':'CoolWackyCivs2','Stability':'Alpha',
      'Civ5UserPath':"$(USERPROFILE)\\Documents\\My Games\\Sid Meier's Civilization 5"}
     boolean_keys={'AffectsSavedGames','SupportsSinglePlayer','SupportsMultiplayer','SupportsHotSeat','SupportsMac',
@@ -79,6 +80,7 @@ def main():
     if '--manifest-only' in sys.argv:return
     paths += [R/(NAME+'.modinfo'),R/'README.md',R/'CHANGELOG.md']
     paths += list((R/'TheBoundlessCity').rglob('*.md'))+list((R/'docs').rglob('*.md'))
+    paths += list((R/'TheBoundlessCity/docs').glob('*.json'))
     out=R/'dist';out.mkdir(exist_ok=True)
     with zipfile.ZipFile(out/(NAME+'.zip'),'w',compression=zipfile.ZIP_DEFLATED) as z:
         for p in paths:z.write(p,NAME+'/'+relative(p))

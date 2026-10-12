@@ -3,9 +3,11 @@
 MapModData={};GameInfoTypes={CIVILIZATION_BOUNDLESS_CITY=100,BUILDING_BC_REGISTRY=200,
  SPECIALIST_CITIZEN=0,PROMOTION_BC_NO_CAPTURE=300,UNIT_BC_SURVEYOR=400,UNIT_SETTLER=401,
  YIELD_FOOD=0,YIELD_PRODUCTION=1,YIELD_GOLD=2,YIELD_SCIENCE=3,YIELD_CULTURE=4,YIELD_FAITH=5,IMPROVEMENT_FARM=500}
+GameInfoTypes.BUILD_FARM=0;GameInfoTypes.BUILD_REPAIR=1
 for n=1,10 do GameInfoTypes['BUILDING_BC_REGISTRY_'..n]=200+n end
 GameDefines={MAX_MAJOR_CIVS=2,MAX_CIV_PLAYERS=3}
-TaskTypes={TASK_REMOVE_SLACKER=1};MissionTypes={MISSION_BUILD=1,MISSION_MOVE_TO=2}
+GameDefines.MAX_MAJOR_CIVS=3;GameDefines.MAX_CIV_PLAYERS=4;GameDefines.MAX_SPECIALISTS_FROM_BUILDING=4
+TaskTypes={TASK_REMOVE_SLACKER=1,TASK_CLEAR_ORDERS=2,TASK_SET_AUTOMATED_PRODUCTION=3};MissionTypes={MISSION_BUILD=1,MISSION_MOVE_TO=2}
 NotificationTypes={NOTIFICATION_GENERIC=1};Locale={ConvertTextKey=function(k,...) return k end}
 now=1;speed=100;scans=0;mutations=0;cultureAward=0
 Game={GetGameTurn=function() return now end,GetGameSpeedType=function() return 0 end,
@@ -13,10 +15,24 @@ Game={GetGameTurn=function() return now end,GetGameSpeedType=function() return 0
 GameInfo={GameSpeeds=setmetatable({},{__index=function() return {CulturePercent=speed} end}),
  Units={[400]={Found=0},[401]={Found=1}},Builds={[0]={ID=0,ImprovementType='IMPROVEMENT_FARM'},[1]={ID=1,Repair=1}},Resources={},Improvements={}}
 setmetatable(GameInfo.Builds,{__call=function(t) local i=-1;return function() i=i+1;return t[i] end end})
+local function rows(values)
+ return setmetatable(values,{__call=function(t,filter)
+  local i=0;return function()
+   while true do i=i+1;local r=t[i];if not r then return end
+    local valid=true;for k,v in pairs(filter or {}) do if r[k]~=v then valid=false end end
+    if valid then return r end
+   end
+  end
+ end})
+end
+GameInfo.SpecialistYields=rows({{SpecialistType='SPECIALIST_CITIZEN',YieldType='YIELD_PRODUCTION',Yield=1}})
+GameInfo.Unit_Builds=rows({{UnitType='UNIT_BC_SURVEYOR',BuildType='BUILD_FARM'},{UnitType='UNIT_BC_SURVEYOR',BuildType='BUILD_REPAIR'}})
+GameInfo.Buildings=rows({{ID=1000,SpecialistCount=4}})
+Teams={};for i=0,3 do Teams[i]={IsAtWar=function(self,other) return other~=i end,IsWaterWork=function(self) return self.waterWork~=false end} end
 local function event() local a={};local fire=function(...) for _,fn in ipairs(a) do fn(...) end end
  return setmetatable({Add=function(fn) a[#a+1]=fn end,Fire=fire},{__call=function(_,...) return fire(...) end}) end
 GameEvents={};for _,n in ipairs({'PlayerDoTurn','PlayerDoneTurn','PlayerCanFoundCity','PlayerCanTrain','CityCanTrain',
- 'CityCanConstruct','PlayerCanBuyOut','PlayerCityFounded','UnitCreated','UnitConverted','CityCaptureComplete','TileOwnershipChanged',
+ 'CityCanConstruct','CityCanCreate','CityCanMaintain','DeclareWar','MakePeace','PlayerCanBuyOut','PlayerCityFounded','UnitCreated','UnitConverted','CityCaptureComplete','TileOwnershipChanged',
  'PlayerBuilt','TileImprovementChanged','TileFeatureChanged','TileRouteChanged','SetPopulation','TeamTechResearched','CityConstructed','PlayerAdoptPolicy','UnitSetXY'}) do GameEvents[n]=event() end
 Events={SerialEventCityInfoDirty=event(),LoadScreenClose=event()};LuaEvents={BoundlessChanged=event()}
 ContextPtr={SetUpdate=function(self,fn) deferred=fn end}
@@ -34,11 +50,14 @@ function plotMethods:IsMountain() return self.mountain or false end
 function plotMethods:IsWater() return self.water or false end
 function plotMethods:IsVisibleEnemyUnit() return self.enemy or false end
 function plotMethods:IsBlockaded() return self.blockaded or false end
+function plotMethods:HasYield() for _,v in ipairs(self.yields) do if v>0 then return true end end;return false end
+function plotMethods:GetCityPurchaseID() return self.owningCity or -1 end
 function plotMethods:GetYield(id) return self.yields[id+1] or 0 end
 function plotMethods:GetResourceType() return -1 end
 function plotMethods:GetImprovementType() return self.improvement or -1 end
 function plotMethods:IsImprovementPillaged() return false end
 function plotMethods:GetArea() return 1 end
+function plotMethods:IsVisible() return self.visible~=false end
 function plotMethods:GetScriptData() return self.script or '' end
 function plotMethods:SetScriptData(value) self.script=value end
 function plotMethods:SetOwner(pid,id)
@@ -69,6 +88,17 @@ function cityMethods:GetID() return self.id end
 function cityMethods:GetOriginalOwner() return self.original end
 function cityMethods:GetPreviousOwner() return self.previous end
 function cityMethods:GetGameTurnFounded() return 0 end
+function cityMethods:GetGameTurnFounded() return self.founded or 0 end
+function cityMethods:IsOriginalCapital()
+ if self.originalCapital~=nil then return self.originalCapital end
+ return (self.original==0 and self.x==3 and self.y==5) or (self.original==1 and self.x==60 and self.y==5)
+end
+function cityMethods:IsHolyCityAnyReligion() return self.holy or false end
+function cityMethods:IsRazing() return self.razing or false end
+function cityMethods:GetMaxHitPoints() return 200 end
+function cityMethods:GetDamage() return self.damage or 0 end
+function cityMethods:GetName() return self.name or 'Test settlement' end
+function cityMethods:GetAutomatons() return 0 end
 function cityMethods:GetPopulation() return self.pop end
 function cityMethods:SetName(name) self.name=name end
 function cityMethods:GetNumCityPlots() return #self.localPlots+1 end
@@ -77,11 +107,24 @@ function cityMethods:IsWorkingPlot(p) return self.worked[p.n] or false end
 function cityMethods:IsForcedWorkingPlot(p) return self.forced[p.n] or false end
 function cityMethods:GetSpecialistCount(id) assert(id==0);return self.defaults end
 function cityMethods:GetTotalSpecialistCount() return self.specialists end
-function cityMethods:GetSpecialistYield(id,y) return y==1 and 1 or 0 end
+function cityMethods:GetSpecialistYield(id,y) return (y==1 and 1 or 0)+self.defaults*(self.extra[y] or 0) end
+function cityMethods:GetExtraSpecialistYieldOfType(y,id) assert(id==0);return self.defaults*(self.extra[y] or 0) end
 function cityMethods:GetNumBuilding(id) return self.buildings[id] or 0 end
 function cityMethods:GetNumRealBuilding(id) return self.buildings[id] or 0 end
 function cityMethods:SetNumRealBuilding(id,n) self.buildings[id]=n;mutations=mutations+1 end
-function cityMethods:ChangeBaseYieldRateFromMisc(y,d) self.misc[y]=(self.misc[y] or 0)+d;mutations=mutations+1 end
+function cityMethods:ChangeBaseYieldRateFromMisc(y,d)
+ self.misc[y]=(self.misc[y] or 0)+d;mutations=mutations+1
+ if d~=0 then self.cached=self.cached or {};self.cached[y]=self:NativeYield(y) end
+end
+function cityMethods:GetBaseYieldRateFromMisc(y) return self.misc[y] or 0 end
+function cityMethods:GetBaseYieldRateFromTerrain(y)
+ local total=self.terrain[y] or 0;for _,p in ipairs(self.localPlots) do if self.worked[p.n] then total=total+p:GetYield(y) end end
+ return total
+end
+function cityMethods:ChangeBaseYieldRateFromTerrain(y,d) self.terrain[y]=(self.terrain[y] or 0)+d;mutations=mutations+1 end
+function cityMethods:NativeYield(y)
+ return (self:GetBaseYieldRateFromTerrain(y)+self:GetBaseYieldRateFromMisc(y)+self.defaults*((y==1 and 1 or 0)+(self.extra[y] or 0)))*(self.modifier or 100)/100
+end
 function cityMethods:GetJONSCulturePerTurn() return self.culture end
 function cityMethods:FoodDifference() return 1 end
 function cityMethods:Check()
@@ -98,7 +141,10 @@ function cityMethods:AlterWorkingPlot(i)
  end
  mutations=mutations+1;self:Check()
 end
-function cityMethods:DoTask(task)
+function cityMethods:DoTask(task,data1,data2,option)
+ assert(type(option)=='number','CP v151 DoTask uses luaL_optint, not a boolean')
+ if task==TaskTypes.TASK_CLEAR_ORDERS then self.orders={};return end
+ if task==TaskTypes.TASK_SET_AUTOMATED_PRODUCTION then self.automatedProduction=option~=0;return end
  assert(task==TaskTypes.TASK_REMOVE_SLACKER)
  if self.defaults<=0 then return end
  self.defaults=self.defaults-1;self.forcedDefault=math.max(0,self.forcedDefault-1)
@@ -112,11 +158,13 @@ function cityMethods:DoTask(task)
  if best then self.worked[best.n]=true else self.defaults=self.defaults+1 end
  mutations=mutations+1;self:Check()
 end
+local nextCityID=0
 function MakeCity(pid,x,y,pop,localCount)
- local c=setmetatable({owner=pid,original=pid,previous=pid,id=pid+1,x=x,y=y,pop=pop,localPlots={},
- worked={},forced={},defaults=0,forcedDefault=0,specialists=0,buildings={},misc={},culture=8},{__index=cityMethods})
- local center=Map.GetPlot(x,y);center.city=c;center.owner=pid
- for i=1,localCount do local p=Map.GetPlot(x+i,y);p.owner=pid;c.localPlots[i]=p
+ nextCityID=nextCityID+1
+ local c=setmetatable({owner=pid,original=pid,previous=pid,id=nextCityID,x=x,y=y,pop=pop,localPlots={},
+ worked={},forced={},defaults=0,forcedDefault=0,specialists=0,buildings={},misc={},terrain={},extra={},culture=8},{__index=cityMethods})
+ local center=Map.GetPlot(x,y);center.city=c;center.owner=pid;center.owningCity=c.id
+ for i=1,localCount do local p=Map.GetPlot(x+i,y);p.owner=pid;p.owningCity=c.id;c.localPlots[i]=p
   if i<=pop then c.worked[p.n]=true end
  end
  c.defaults=math.max(0,pop-localCount);return c
@@ -132,7 +180,19 @@ function playerMethods:GetScriptData() return self.script or '' end
 function playerMethods:SetScriptData(v) self.script=v end
 function playerMethods:IsHuman() return self.human end
 function playerMethods:IsAlive() return true end
-function playerMethods:IsBarbarian() return self.pid==2 end
+function playerMethods:IsBarbarian() return self.pid==3 end
+function playerMethods:IsMinorCiv() return self.minor or false end
+function playerMethods:GetPlayerToLiberate(city) return city.original~=self.pid and city.original or -1 end
+function playerMethods:CanLiberatePlayer(pid) return Players[pid] and Players[pid]:IsAlive() end
+function playerMethods:CanRaze(city)
+ return city.owner==self.pid and city.original~=self.pid and not city:IsOriginalCapital() and not city.holy and not city.protected and not self.noRazing
+end
+function playerMethods:Disband(city)
+ assert(not insideCapture,'cannot demolish in a native capture stack')
+ assert(self:CanRaze(city),'native protected settlement destroyed')
+ for i=#self.cities,1,-1 do if self.cities[i]==city then table.remove(self.cities,i) end end
+ local p=Map.GetPlot(city.x,city.y);p.city=nil;local old=p.owner;p.owner=-1;GameEvents.TileOwnershipChanged.Fire(p.x,p.y,-1,old)
+end
 function playerMethods:IsTurnActive() return true end
 function playerMethods:GetCurrentEra() return 0 end
 function playerMethods:GetTeam() return self.pid end
@@ -146,7 +206,7 @@ function playerMethods:AcquireCity(c)
  c.previous=c.owner;c.owner=self.pid;self.cities[#self.cities+1]=c
 end
 Players={}
-for id=0,2 do Players[id]=setmetatable({pid=id,cities=id==0 and {capital} or id==1 and {foreign} or {},units={},human=id==0},{__index=playerMethods}) end
+for id=0,3 do Players[id]=setmetatable({pid=id,cities=id==0 and {capital} or id==1 and {foreign} or {},units={},human=id==0},{__index=playerMethods}) end
 function MakeUnit(id,kind)
  local u={id=id,kind=kind,promotions={},dead=false}
  function u:GetUnitType() return self.kind end
@@ -155,7 +215,27 @@ function MakeUnit(id,kind)
  function u:GetX() return 24 end;function u:GetY() return 5 end
  function u:Kill() self.dead=true end
  function u:MovesLeft() return 0 end
+ function u:GetID() return self.id end
+ function u:GetGameTurnCreated() return 0 end
+ function u:IsBusy() return false end
+ function u:IsCombatUnit() return self.kind==600 end
+ function u:IsRanged() return false end
+ function u:IsEmbarked() return false end
+ function u:FinishMoves() self.moves=0 end
+ function u:GeneratePath(plot) return {{X=plot.x,Y=plot.y}} end
+ function u:CanBuild(plot,build) return build==0 and plot.owner==0 and not plot.water end
+ function u:GetPlot() return Map.GetPlot(self:GetX(),self:GetY()) end
+ function u:PushMission(kind,a,b) self.lastMission={kind,a,b} end
  Players[0].units[#Players[0].units+1]=u;return u
+end
+function GovernorWorst(city)
+ -- Adversarial completed native allocation: keep only forced labourers,
+ -- consume every legal local position and built specialist slot before defaults.
+ city.worked={};city.forced={};city.specialists=0
+ local remaining=city.pop-city.forcedDefault
+ for _,p in ipairs(city.localPlots) do if remaining>0 and p.owner==city.owner and not p.mountain and not p.enemy then city.worked[p.n]=true;remaining=remaining-1 end end
+ if city.buildings[1000] then city.specialists=math.min(4,remaining);remaining=remaining-city.specialists end
+ city.defaults=city.forcedDefault+remaining;city:Check()
 end
 function Remote(x,y,values)
  local p=Map.GetPlot(x,y);p.owner=0;p.yields=values or {5,4,3,2,1,1}

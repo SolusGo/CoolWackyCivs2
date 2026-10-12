@@ -4,7 +4,7 @@
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
-**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** implementation preview
+**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.1.0 preview / mod v2
 
 ## Identity and uniques
 
@@ -22,10 +22,10 @@ The central advantage is the **choice of tiles**, rather than passive yields fro
 
 ## The Boundless Workforce
 
-Open the button at the upper right of the world map. The panel shows population, owned land, local workers, remote assignments, specialists, idle citizens, reservation capacity, frontier progress, gross remote yields and the labourer yields being replaced.
+Open the button at the upper right of the world map. The panel shows population, owned land, local/remote workers, specialists, idle labourers and unassigned citizens. It distinguishes movable citizens from additional safe remote capacity and lists pending/locked requests, frontier progress, gross remote yields, labourer compensation and net base contribution.
 
-- **Automatic:** ranks local and distant plots together while retaining the city's specialist population.
-- **Manual:** uses the remote assignments you choose; local management stays in the city screen.
+- **Automatic:** ignores old manual locks and ranks local/distant plots while retaining native specialists.
+- **Manual:** uses explicit selections; unlocking keeps a selection, while Release removes it.
 - **Hybrid:** preserves your remote locks and native local locks before ranking other plots.
 - Choose **Food**, **Production**, **Gold** or **Balanced** priorities; sort distant plots by distance, score, resource or improvement.
 - **Assign/Release** controls participation; **Lock/Unlock** controls preservation in Hybrid. **Locate** centers the map. A requested lock can wait for reservation capacity.
@@ -34,9 +34,11 @@ Rows are paged; the panel has no permanent frame polling and hides during city, 
 
 ## Limits you need to know
 
-This is a playable implementation candidate awaiting live game verification. Remote **distance** has no mod-imposed limit, but remote **count** is bounded by citizens safely withdrawn from native worked plots. Specialists are preserved, and excess unemployed population cannot be arbitrarily forced into remote reservations with the verified Lua APIs. The original population-only capacity requirement therefore remains unmet.
+Remote distance has no mod limit. Remote count now uses forced local withdrawals **or** a verified surplus that cannot fit into native local jobs and building specialist slots. With 80 population and 30 native jobs, the fixture works 50 remote plots rather than stopping at 30. With 150 population it works 120. These are conservative bounds, not a claim that all population can be reserved remotely: CP Lua has no arbitrary forced-labourer setter. Specialists and local locks consume capacity.
 
-Military units cannot capture cities. Protected capitals are never forcibly deleted, and standard Domination is unavailable while foreign capitals remain under other owners. Unexpected externally transferred cities are returned after the native acquisition finishes; a transfer with no eligible recipient is quarantined. That fallback does not satisfy an absolute one-city guarantee against every external script.
+Military units cannot capture cities. **Siege demolition** is available at 1 HP with an adjacent melee unit, war and visibility, only if the current owner can natively raze the settlement. Capitals, holy cities and city-states are excluded. Own-founded enemy towns normally fail that ownership-dependent native check. The action consumes moves, releases that city's territory, and gives Boundless no city or capture rewards. Standard Domination remains unavailable through normal play.
+
+Unexpected transfers return to historical or native-identified living recipients after the acquisition finishes. No unrelated custodian is chosen. Native-legal orphans can be removed; protected extras are quarantined with production guards. A transient/quarantined second city remains possible under external scripts. Native gameplay has not been tested.
 
 Native conditional effects that require a tile to be marked “worked” are not fully simulated. Read the [exact engine limitations](../../TheBoundlessCity/docs/EngineLimitations.md) before relying on a particular policy, belief or improvement mechanic.
 
@@ -47,3 +49,4 @@ Native conditional effects that require a tile to be marked “worked” are not
 - [CP API audit](../../TheBoundlessCity/docs/APIAudit.md)
 - [Validation results and exact game tests](../../TheBoundlessCity/docs/Testing.md)
 - [Civilization changelog](../../TheBoundlessCity/CHANGELOG.md)
+- [Fixes report and measured verification](../../TheBoundlessCity/docs/FixesReport.md)

@@ -1,0 +1,195 @@
+{
+  "official_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "dll_version": 151,
+  "scope": "source availability/ABI assertions; NOT launched-game verification",
+  "passed_assertions": 121,
+  "checks": [
+    "DLL version is 151",
+    "City:GetOwner registered",
+    "City:GetX registered",
+    "City:GetY registered",
+    "City:GetID registered",
+    "City:GetOriginalOwner registered",
+    "City:GetPreviousOwner registered",
+    "City:GetGameTurnFounded registered",
+    "City:IsOriginalCapital registered",
+    "City:GetPopulation registered",
+    "City:GetAutomatons registered",
+    "City:GetNumCityPlots registered",
+    "City:GetCityIndexPlot registered",
+    "City:IsWorkingPlot registered",
+    "City:IsForcedWorkingPlot registered",
+    "City:GetSpecialistCount registered",
+    "City:GetTotalSpecialistCount registered",
+    "City:GetExtraSpecialistYieldOfType registered",
+    "City:GetNumBuilding registered",
+    "City:GetNumRealBuilding registered",
+    "City:SetNumRealBuilding registered",
+    "City:SetName registered",
+    "City:GetJONSCulturePerTurn registered",
+    "City:FoodDifference registered",
+    "City:AlterWorkingPlot registered",
+    "City:DoTask registered",
+    "City:GetBaseYieldRateFromMisc registered",
+    "City:ChangeBaseYieldRateFromMisc registered",
+    "City:GetBaseYieldRateFromTerrain registered",
+    "City:ChangeBaseYieldRateFromTerrain registered",
+    "City:IsHolyCityAnyReligion registered",
+    "City:IsRazing registered",
+    "City:GetDamage registered",
+    "City:GetMaxHitPoints registered",
+    "City:GetName registered",
+    "Player:GetCivilizationType registered",
+    "Player:GetCapitalCity registered",
+    "Player:Cities registered",
+    "Player:Units registered",
+    "Player:GetNumCities registered",
+    "Player:GetScriptData registered",
+    "Player:SetScriptData registered",
+    "Player:IsHuman registered",
+    "Player:IsAlive registered",
+    "Player:IsBarbarian registered",
+    "Player:IsMinorCiv registered",
+    "Player:GetPlayerToLiberate registered",
+    "Player:CanLiberatePlayer registered",
+    "Player:CanRaze registered",
+    "Player:AcquireCity registered",
+    "Player:Disband registered",
+    "Player:IsTurnActive registered",
+    "Player:GetCurrentEra registered",
+    "Player:GetTeam registered",
+    "Player:AddNotification registered",
+    "Player:GetUnitByID registered",
+    "Player:ChangeJONSCulture registered",
+    "Player:GetNumMilitaryUnits registered",
+    "Plot:GetOwner registered",
+    "Plot:GetX registered",
+    "Plot:GetY registered",
+    "Plot:GetPlotIndex registered",
+    "Plot:GetPlotCity registered",
+    "Plot:IsCity registered",
+    "Plot:HasYield registered",
+    "Plot:IsWater registered",
+    "Plot:IsVisibleEnemyUnit registered",
+    "Plot:IsBlockaded registered",
+    "Plot:GetYield registered",
+    "Plot:GetResourceType registered",
+    "Plot:GetImprovementType registered",
+    "Plot:IsImprovementPillaged registered",
+    "Plot:IsVisible registered",
+    "Plot:GetScriptData registered",
+    "Plot:SetScriptData registered",
+    "Plot:SetOwner registered",
+    "Plot:GetCityPurchaseID registered",
+    "Unit:GetUnitType registered",
+    "Unit:GetID registered",
+    "Unit:GetX registered",
+    "Unit:GetY registered",
+    "Unit:IsHasPromotion registered",
+    "Unit:SetHasPromotion registered",
+    "Unit:Kill registered",
+    "Unit:MovesLeft registered",
+    "Unit:GetGameTurnCreated registered",
+    "Unit:IsBusy registered",
+    "Unit:IsCombatUnit registered",
+    "Unit:IsRanged registered",
+    "Unit:IsEmbarked registered",
+    "Unit:FinishMoves registered",
+    "Unit:GeneratePath registered",
+    "Unit:CanBuild registered",
+    "Unit:GetPlot registered",
+    "Unit:PushMission registered",
+    "Team:IsAtWar registered",
+    "Team:IsWaterWork registered",
+    "DoTask option uses luaL_optint",
+    "Labourer extra yield is count multiplied",
+    "Specialist extra binding order is yield then specialist",
+    "Default labourer excluded from generic extras",
+    "No exposed forced-default citizen setter",
+    "No City ScriptData binding",
+    "CanRaze requires ownership",
+    "CanRaze rejects own-founded settlements",
+    "GeneratePath accepts native max turns",
+    "Misc source setter updates native static yield",
+    "CanMoveInto is per-unit opt-in",
+    "CP event ABI PlayerBuilt",
+    "CP event ABI UnitConverted",
+    "CP event ABI TileOwnershipChanged",
+    "CP event ABI TileImprovementChanged",
+    "CP event ABI PlayerDoneTurn",
+    "CP event ABI DeclareWar",
+    "CP event ABI MakePeace",
+    "Native event call CityCaptureComplete",
+    "Native event call PlayerDoTurn",
+    "Native event call PlayerCityFounded",
+    "Native event call CityCanCreate",
+    "Native event call CityCanMaintain",
+    "Native event call SetPopulation"
+  ],
+  "sources": {
+    "CustomMods.h": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
+      "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+    },
+    "CvCityCitizens.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCityCitizens.cpp",
+      "sha256": "0811b958b9bad255420e9c18410ca91b3f8a21e670ee17219a3477d33176cac9"
+    },
+    "CvCityCitizens.h": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCityCitizens.h",
+      "sha256": "afbc5b3ebfc3b075c642f32adb73ec8e1d1e1d4f9422e522ebae6a3db591836c"
+    },
+    "CvCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp",
+      "sha256": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2"
+    },
+    "CvPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp",
+      "sha256": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87"
+    },
+    "CvPlot.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlot.cpp",
+      "sha256": "185fa04a5c9426da9d7d385ae8ee2520759ec83f9dffad939c8c2a4c200f48a5"
+    },
+    "CvUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
+      "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+    },
+    "CvUnitCombat.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitCombat.cpp",
+      "sha256": "cb4b2a1b3078afc5c5720a2a5e94048142155b4b1bf111798dc79b424c1a61c8"
+    },
+    "CvUnitMission.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitMission.cpp",
+      "sha256": "5ffdd5f595c50ae7305be704dbcc4b615e9fc65df8999345b5c8eb256879e83d"
+    },
+    "CvTeam.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTeam.cpp",
+      "sha256": "dc5b3f4b268498f94a45f3f9d4f1c427ed1eca63e0b8cfd8ee053621700f29a9"
+    },
+    "CvBuilderTaskingAI.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvBuilderTaskingAI.cpp",
+      "sha256": "8331d8682dacaeffc865ef2fc0608c4353816b3144210e014e844de55e482b86"
+    },
+    "Lua/CvLuaCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp",
+      "sha256": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24"
+    },
+    "Lua/CvLuaPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp",
+      "sha256": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a"
+    },
+    "Lua/CvLuaPlot.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlot.cpp",
+      "sha256": "eeed545294850b4bc69313caba1b4f1b3d8a0440eb7f5c432e242a36742c3e64"
+    },
+    "Lua/CvLuaUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp",
+      "sha256": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae"
+    },
+    "Lua/CvLuaTeam.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaTeam.cpp",
+      "sha256": "1842484317f5c6bba8dc6dc492d9a1a0d6015c25d506717d3b92d5891a9d5498"
+    }
+  }
+}
