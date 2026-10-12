@@ -40,11 +40,21 @@ Pump();assert(deferred==nil,'UI must not install a permanent frame handler')
 Controls.Open.callback();Controls.Siege.callback()
 -- The benchmark reuses these controls on maps without a foreign city.
 if Map.GetPlot(60,5):GetPlotCity()==foreign then
-assert(#UIRows==1 and UIRows[1].Assign.disabled and UIRows[1].Text.text:find('SIEGE_PROTECTED'))
+assert(#UIRows==1 and UIRows[1].Assign.disabled and UIRows[1].Text.text:find('SIEGE_CAPITAL'))
 foreign.revealed=false;Events.SerialEventCityInfoDirty.Fire();assert(#UIRows==0,'undiscovered city must not leak through siege UI')
 foreign.revealed=true;Map.GetPlot(60,5).visible=false;Events.SerialEventCityInfoDirty.Fire()
 assert(UIRows[1].Assign.disabled and UIRows[1].Text.text:find('SIEGE_NOT_VISIBLE') and UIRows[1].Text.text:find('SIEGE_KNOWN_CITY'))
 Map.GetPlot(60,5).visible=true
+local s=MapModData.BoundlessCity.State(0)
+local unit=MakeUnit(99,600);function unit:GetX() return 2 end;function unit:GetY() return 5 end
+function unit:MovesLeft() return 60 end
+capital.owner=1;capital.damage=199;Players[0].cities={};Players[1].cities[#Players[1].cities+1]=capital
+LuaEvents.BoundlessChanged.Fire(0);assert(not Controls.Launcher.hidden and Controls.Summary.text:find('CAPITAL_LOST'))
+local reclaim=false;for _,r in ipairs(UIRows) do if r.Assign.text:find('RECLAIM') then reclaim=not r.Assign.disabled end end
+assert(reclaim,'lost-capital panel must offer the eligible reclaim action')
+assert(Controls.Mode.disabled and Controls.Priority.disabled)
+capital.owner=0;Players[0].cities={capital};Players[1].cities[#Players[1].cities]=nil
+LuaEvents.BoundlessChanged.Fire(0);assert(not Controls.Mode.disabled)
 end
 Controls.Siege.callback();Controls.Close.callback();Pump()
 assert(deferred==nil,'siege refresh must remain event-driven')

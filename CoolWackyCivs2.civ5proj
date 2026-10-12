@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>3</ModVersion>
+    <ModVersion>4</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -204,6 +204,9 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheBoundlessCity/Lua/BoundlessEvents.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Lua/BoundlessMilitary.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheBoundlessCity/Lua/BoundlessPersistence.lua">

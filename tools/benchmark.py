@@ -102,9 +102,21 @@ B.Cache(s).aiDirty=true''')
     lua.execute('Controls.Close.callback()')
     row['ui_closed_refresh_1000'] = measure(lua, 'for i=1,1000 do LuaEvents.BoundlessChanged(0) end')
     row['ui_remote_rows'] = lua.eval("#B.RemoteRows(s,'DISTANCE')")
+    row['remote_development_owner_turn'] = measure(lua, 'now=now+1;B.DevelopRemotePlots(s)')
+    lua.execute('''for i=0,41 do
+ local pid=1+math.floor(i/2);local x=140+8*(i%7);local y=50+5*math.floor(i/7)
+ local city=MakeCity(pid,x,y,3,0);city.damage=199;city.originalCapital=i%2==0
+ Players[pid].cities[#Players[pid].cities+1]=city
+ if i%2==0 then Players[pid].originalX=x;Players[pid].originalY=y end
+end
+local siegeUnit=MakeUnit(700,600)
+function siegeUnit:GetX() return 139 end;function siegeUnit:GetY() return 50 end
+function siegeUnit:MovesLeft() return 60 end''')
+    row['military_rows_42_enemy_cities'] = measure(lua, 'assert(#B.SiegeRows(s)==42)')
+    row['domination_progress_100_checks'] = measure(lua, 'for i=1,100 do B.DominationProgress(s) end')
     results.append(row)
 
-result = {'date': '2026-10-12', 'environment': platform.platform(), 'python': platform.python_version(),
+result = {'date': '2026-10-12', 'mod_version': 4, 'environment': platform.platform(), 'python': platform.python_version(),
           'runtime': 'Lupa Lua 5.1; synthetic native calls', 'world_scan': 'once per player initialization',
           'idle_frame_polling': False, 'native_Civ_V': 'NOT RUN', 'native_pathfinding': 'NOT MEASURED',
           'native_FPS': 'NOT MEASURED', 'scenarios': results}

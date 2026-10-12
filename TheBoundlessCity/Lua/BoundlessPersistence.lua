@@ -61,15 +61,15 @@ function B.State(pid)
   local length=tonumber(data:sub(first,last):match(':(%d+):'))
   local ok,value=pcall(decode,data:sub(last+1,last+length))
   if ok then
-   for _,name in ipairs({'locks','assignments','rewards','selected','excluded','pending','returned','history','sieges','aiTargets'}) do
+   for _,name in ipairs({'locks','assignments','rewards','selected','excluded','pending','returned','history','sieges','aiTargets','subjugated'}) do
     if value[name]~=nil and type(value[name])~='table' then ok=false end
    end
-   for _,name in ipairs({'reserved','withdrawn','lastTurn'}) do
+   for _,name in ipairs({'reserved','withdrawn','lastTurn','developmentTurn'}) do
     if value[name]~=nil and (type(value[name])~='number' or value[name]~=math.floor(value[name])) then ok=false end
    end
    ok=ok and data:sub(last+length+1,last+length+1)=='|'
   end
-  if ok and (value.version==1 or value.version==2) and value.pid==pid and type(value.assignments)=='table'
+  if ok and (value.version==1 or value.version==2 or value.version==3) and value.pid==pid and type(value.assignments)=='table'
    and type(value.locks)=='table' and type(value.rewards)=='table' and type(value.progress)=='number' and value.progress>=0
    and (value.capital==nil or (type(value.capital)=='table' and type(value.capital.x)=='number'
     and type(value.capital.y)=='number' and type(value.capital.founded)=='number'
@@ -79,7 +79,7 @@ function B.State(pid)
   s={pid=pid,incompatible=true,pending={},returned={},sieges={},assignments={}}
   print('[BoundlessCity] Malformed snapshot envelope for '..pid)
  else
-  s={pid=pid,version=2,progress=0,mode='AUTO',priority='BALANCED',direction='ANY',
+  s={pid=pid,version=3,progress=0,mode='AUTO',priority='BALANCED',direction='ANY',
    assignments={},locks={},selected={},excluded={},rewards={},reserved=0,withdrawn=0,lastTurn=-1,pending={},history={},sieges={},phase='IDLE'}
  end
  if not s.incompatible then
@@ -87,6 +87,8 @@ function B.State(pid)
    s.selected={};for n,v in pairs(s.locks) do if v then s.selected[n]=true end end
    s.withdrawn=s.reserved or 0;s.version=2;s.phase='RECOVER'
   end
+  if s.version==2 then s.version=3 end -- new optional military records; no progress reset
+  s.subjugated=s.subjugated or {}
   s.selected=s.selected or {};s.withdrawn=math.max(0,tonumber(s.withdrawn) or 0)
   s.sieges=s.sieges or {};s.returned=s.returned or {};s.aiTargets=s.aiTargets or {};s.history=s.history or {};s.phase=s.phase or 'RECOVER'
   s.lastTurn=s.lastTurn or -1
@@ -105,7 +107,7 @@ function B.State(pid)
   for n,r in pairs(s.assignments) do local p=Map.GetPlotByIndex(n)
    if type(r)~='table' or not p or r.x~=p:GetX() or r.y~=p:GetY() then s.assignments[n]=nil end
   end
-  for _,name in ipairs({'pending','returned','sieges','aiTargets'}) do
+  for _,name in ipairs({'pending','returned','sieges','aiTargets','subjugated'}) do
    for k,r in pairs(s[name]) do
     local valid=type(k)=='number' and k>=0 and k==math.floor(k) and type(r)=='table'
     if valid and name=='returned' then
@@ -116,7 +118,12 @@ function B.State(pid)
      if name=='aiTargets' then valid=valid and type(r.birth)=='number' and type(r.build)=='number'
      else valid=valid and type(r.founded)=='number' end
      if name=='sieges' then valid=valid and type(r.owner)=='number'
-      and (r.city==nil or (type(r.city)=='number' and r.city>=0 and r.city==math.floor(r.city))) end
+      and (r.city==nil or (type(r.city)=='number' and r.city>=0 and r.city==math.floor(r.city)))
+      and (r.action==nil or r.action=='DEMOLISH' or r.action=='RECLAIM' or r.action=='SUBJUGATE') end
+     if name=='subjugated' then valid=valid and type(r.original)=='number' and r.original>=0
+      and r.original<(GameDefines.MAX_MAJOR_CIVS or 22) and r.original==math.floor(r.original)
+      and type(r.civ)=='number' and type(r.turn)=='number'
+      and (r.capital==true or r.capital==false) and Map.GetPlot(r.x,r.y):GetPlotIndex()==k end
     end
     if not valid then s[name][k]=nil end
    end

@@ -40,7 +40,7 @@ local words={};for i=1,#B.Yields do words[i]=tostring(oldMisc[i]) end
 Map.GetPlot(3,5):SetScriptData('unrelated-plot;|BCY1:'..table.concat(words,',')..'|')
 local raw=B.Encode(legacy);Players[0].script='unrelated-player;|BCSTATE1:'..#raw..':'..raw..'|'
 B.States={};B.Caches={};B.Initialize(0);s=B.State(0)
-assert(s.version==2 and s.progress==4321 and s.direction=='EAST' and s.rewards[low.n] and s.selected[high.n])
+assert(s.version==3 and s.progress==4321 and s.direction=='EAST' and s.rewards[low.n] and s.selected[high.n])
 assert(capital.misc[1]==120 and capital.terrain[1]==8)
 assert(Map.GetPlot(3,5):GetScriptData():find('unrelated%-plot;') and Players[0].script:find('unrelated%-player;'))
 -- Returning an EXTRA city must preserve the CAPITAL's citizen reservation records.
@@ -74,7 +74,7 @@ local corrupt=B.Decode(B.Encode(s));corrupt.selected='wrong table shape';local b
 Players[0].script='|BCSTATE1:'..#badRaw..':'..badRaw..'|';B.States={};assert(B.State(0).incompatible)
 B.Save(B.State(0));assert(Players[0].script:find(badRaw,1,true));B.States[0]=s
 -- Future payloads remain intact; disabled state must not overwrite progress for another version.
-local future=B.Decode(B.Encode(s));future.version=3;local rawFuture=B.Encode(future)
+local future=B.Decode(B.Encode(s));future.version=4;local rawFuture=B.Encode(future)
 Players[0].script='|BCSTATE1:'..#rawFuture..':'..rawFuture..'|';B.States={};local blocked=B.State(0)
 assert(blocked.incompatible);B.Save(blocked);assert(Players[0].script:find(rawFuture,1,true))
 print('PASS mode isolation, CP specialist extras, partial native fault journal, v1 migration, extra-city workforce and future saves')

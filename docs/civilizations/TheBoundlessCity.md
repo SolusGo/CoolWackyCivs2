@@ -4,7 +4,7 @@
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
-**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.1.1 preview / mod v3
+**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.2.0 preview / mod v4
 
 ## Identity and uniques
 
@@ -36,13 +36,15 @@ Rows are paged; the panel has no permanent frame polling and hides during city, 
 
 Remote distance has no mod limit. Remote count now uses forced local withdrawals **or** a verified surplus that cannot fit into native local jobs and building specialist slots. With 80 population and 30 native jobs, the fixture works 50 remote plots rather than stopping at 30. With 150 population it works 120. These are conservative bounds, not a claim that all population can be reserved remotely: CP Lua has no arbitrary forced-labourer setter. Specialists and local locks consume capacity.
 
-Military units cannot capture cities. **Siege demolition** is available at 1 HP with an adjacent melee unit, war and visibility, only if the current owner can natively raze the settlement. Capitals, holy cities and city-states are excluded. Own-founded enemy towns normally fail that ownership-dependent native check. The action consumes moves, releases that city's territory, and gives Boundless no city or capture rewards. Standard Domination remains unavailable through normal play.
+Units retain NoCapture. At 1 HP, war and visibility with an adjacent eligible melee force, use the military panel to **Reclaim** your genuine original capital, **Demolish** a current-owner native-legal settlement, or **Subjugate** a protected major settlement once without occupation/rewards. Capitals and holy cities are never demolished; city-state settlements remain excluded. No-raze rules and native vetoes continue to govern destruction.
 
-Unexpected transfers return to historical or native-identified living recipients after acquisition finishes. No unrelated custodian is chosen. Same-turn return loops are blocked; a living empty Boundless owner may regain only its recorded original capital. Native-legal orphans can be removed; protected extras are quarantined with production guards, resistance and remote/Surveyor plot exclusion. Transient ownership and empire-level effects remain possible. Native gameplay has not been tested.
+Boundless survives capital loss while units remain through its own native trait. Zero units/max-city-elimination can still defeat it; already eliminated players cannot reclaim. Older native saves may need a normal technology/policy trait refresh. Reclaim restores the saved original and UA through deferred native conquest; ordinary attack-click capture remains blocked.
 
-The siege view explains why known targets are unavailable and hides undiscovered cities. Surveyors clean stale targets, preserve busy orders and share a fair path budget with unreachable-route retry delays. Version 3 preserves save schema 2 and supports version 1/2 upgrade paths subject to native testing.
+Subjugate every ever-alive rival other-team original capital to use the optional native Domination finish. Original civilization/founding identity persists through liberation/transfers. Missing/replaced originals prevent victory; prior winners and other civilizations' rules are untouched. This path is implemented and simulation-tested, awaiting native gameplay verification.
 
-Native conditional effects that require a tile to be marked “worked” are not fully simulated. Read the [exact engine limitations](../../TheBoundlessCity/docs/EngineLimitations.md) before relying on a particular policy, belief or improvement mechanic.
+Unexpected cities follow historical/native living recipients, legal removal, then quarantine. New trade routes and border selection are vetoed for extras; resistance/production guards and remote/Surveyor exclusion remain. Resources, Happiness, global buildings, existing routes, specialist GPP and native city counts still limit an absolute guarantee.
+
+Remote improvement upgrades advance once per owner turn only on assigned eligible remotes. Terrain Culture-to-Tourism now refreshes through the native cache API. Virtual assignments still do not count as native worked plots for all policy/belief/GP effects. Version 4 migrates prior Lua state to schema 3, preserving Culture, original identity, assignments and reward history; BCY2 remains unchanged. See the [six-limitation report](../../TheBoundlessCity/docs/EngineCompletionReport.md) and [effect matrix](../../TheBoundlessCity/docs/WorkedTileEffects.md).
 
 ## Further reading
 
@@ -53,3 +55,6 @@ Native conditional effects that require a tile to be marked “worked” are not
 - [Civilization changelog](../../TheBoundlessCity/CHANGELOG.md)
 - [Fixes report and measured verification](../../TheBoundlessCity/docs/FixesReport.md)
 - [Final stability pass](../../TheBoundlessCity/docs/FinalStabilityReport.md)
+
+- [Current engine completion report](../../TheBoundlessCity/docs/EngineCompletionReport.md)
+- [Optional DLL interfaces](../../TheBoundlessCity/docs/OptionalDLLExtensions.md)

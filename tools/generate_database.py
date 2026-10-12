@@ -8,10 +8,10 @@ TEXT = {
  'CIV': 'The Boundless City', 'SHORT': 'The Boundless City', 'ADJECTIVE': 'Boundless',
  'LEADER': 'The First Architect', 'CAPITAL': 'The Heart of the World',
  'TRAIT': 'The World Is One City',
- 'TRAIT_HELP': 'Keep your original capital. Culture funds contiguous frontier expansion without a distance limit. Assign real citizens to distant owned tiles using forced labourers and verified surplus labourers. Military units cannot capture cities; restricted siege demolition requires native legal razing checks. See the civilization guide for remaining capacity and transfer limits.',
+ 'TRAIT_HELP': 'One original capital, unlimited contiguous cultural reach, and real citizens working distant owned tiles. Survive capital loss while units remain. At 1 HP with an adjacent melee force, reclaim your original, demolish native-legal targets, or subjugate protected major settlements once. Subjugating every rival original capital can win Domination. See the guide for workforce and external-transfer limits.',
  'CIV_PEDIA': 'There shall be no second city. For the first shall have no end.[NEWLINE][NEWLINE]The Boundless City measures civilization in streets, bridges and the citizens who walk them. Every new frontier becomes another district of the same capital. Its one production queue and one population remain the price of that ambition.',
  'LEADER_PEDIA': 'The First Architect is an original fictional master builder. Their vision unites settlement, coast and distant island within one continuously growing city. Infrastructure and patient defense matter more than occupation.',
- 'STRATEGY': 'Grow your capital, build The Grand Registry, and use Surveyors to develop the frontier. Choose remote tiles in The Boundless Workforce. Science, Culture and Diplomatic victories use normal rules; foreign capitals cannot be occupied for Domination.',
+ 'STRATEGY': 'Grow your capital, build The Grand Registry, and use Surveyors to develop the frontier. Choose remote tiles in The Boundless Workforce. Science, Culture and Diplomatic victories use normal rules. Subjugate every rival original capital through siege to win Domination without occupation.',
  'DAWN': 'There shall be no second city. For the first shall have no end.[NEWLINE][NEWLINE]First Architect, the foundations are laid. Grow the Heart of the World, send your Surveyors beyond the familiar streets, and let every bridge join another district to your one great city.',
  'REGISTRY': 'The Grand Registry',
  'REGISTRY_HELP': '+3 Culture. +1 additional Culture per 10 owned plots, capped at +10. Reduces the separate frontier Culture cost by 15%. Retains the active Monument rules.',
@@ -35,7 +35,7 @@ TEXT = {
  'CAPACITY': 'Remote citizens use forced native labourers or a governor-proof surplus. Available citizens and additional safe remote capacity differ. Pending requests wait for capacity. Specialists remain native. See the guide for remaining engine restrictions.',
  'SIEGE': 'Siege demolition', 'WORKFORCE_VIEW': 'Remote districts', 'DEMOLISH': 'Demolish',
  'DEMOLISHED': 'A besieged settlement was demolished through its current owner’s native legal operation. No city or territory was acquired.',
- 'SIEGE_HELP': 'Only adjacent melee forces with moves remaining can demolish a city at 1 HP, at war, when its current owner can legally raze it. Original capitals, holy cities and city-states are excluded. Normal first-founded settlements usually fail this native check.',
+ 'SIEGE_HELP': 'At war, reduce a visible city to 1 HP and bring an adjacent eligible melee force. Reclaim only your recorded original; demolish only native-legal targets; otherwise subjugate major settlements once without ownership or rewards. City-states cannot be demolished or subjugated.',
  'SIEGE_READY': 'Ready for native-legal demolition.',
  'SIEGE_INACTIVE': 'The original capital and an active player turn are required.',
  'SIEGE_INVALID': 'No eligible foreign settlement exists here.',
@@ -48,6 +48,18 @@ TEXT = {
  'SIEGE_NATIVE_RULE': 'Native razing rules or another mod prohibit demolition.',
  'SIEGE_QUEUED': 'Demolition is already queued for deferred revalidation.',
  'SIEGE_KNOWN_CITY': 'Previously revealed settlement',
+ 'SIEGE_CITY_STATE': 'Protected city-state settlement; military resolution unavailable.',
+ 'SIEGE_CAPITAL': 'Protected original capital.',
+ 'SIEGE_SUBJUGATE': 'Native destruction restriction: ready for one-time subjugation.',
+ 'SIEGE_SUBJUGATE_CAPITAL': 'Protected original capital: ready for one-time subjugation.',
+ 'SIEGE_SUBJUGATE_HOLY': 'Protected holy city: ready for one-time subjugation.',
+ 'SIEGE_SUBJUGATED': 'Already subjugated; no repeat action or reward.',
+ 'SIEGE_RECLAIM': 'Ready to reclaim your genuine original capital through native conquest.',
+ 'RECLAIM': 'Reclaim', 'SUBJUGATE': 'Subjugate',
+ 'RECLAIMED': 'The Heart of the World has been reclaimed. Frontier and workforce restored.',
+ 'SUBJUGATED': 'Settlement subjugated once. Ownership is unchanged; no economic reward.',
+ 'CAPITAL_LOST': 'The Heart of the World is occupied. Surviving units can besiege and reclaim it. Frontier and remote work pause until it returns.',
+ 'SUBJUGATION_PROGRESS': 'Original capitals subjugated: {1_Num} / {2_Num}.',
  'PENDING': 'Pending',
  'RECOVERY_PENDING': 'Remote-work recovery is pending. New capacity is unavailable until the native ledger can be verified. Check Lua.log; an unverified source may still require cleanup.',
  'EXTRA_REMOVED': 'An unexpected additional settlement was removed after native razing checks allowed it. Its acquired plots were released; no additional city was retained.',
@@ -81,10 +93,10 @@ def main():
     core = """-- BNW and CP v151. Event options expose hooks; handlers remain civilization-scoped.
 UPDATE CustomModOptions SET Value=1 WHERE Name IN
  ('EVENTS_CITY','EVENTS_CITY_FOUNDING','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS','EVENTS_UNIT_UPGRADES',
-  'EVENTS_PLOT','EVENTS_TILE_IMPROVEMENTS','EVENTS_PLAYER_TURN');
+  'EVENTS_PLOT','EVENTS_TILE_IMPROVEMENTS','EVENTS_PLAYER_TURN','EVENTS_CITY_BORDERS','EVENTS_TRADE_ROUTES');
 INSERT INTO Colors VALUES ('COLOR_BC_BLUE',0.035,0.09,0.20,1),('COLOR_BC_GOLD',0.88,0.72,0.35,1);
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PLAYERCOLOR_BC','COLOR_BC_BLUE','COLOR_BC_GOLD','COLOR_PLAYER_WHITE_TEXT');
-INSERT INTO Traits(Type,Description,ShortDescription,NoAnnexing) VALUES ('TRAIT_BC_ONE_WORLD','TXT_KEY_BC_TRAIT_HELP','TXT_KEY_BC_TRAIT',1);
+INSERT INTO Traits(Type,Description,ShortDescription,NoAnnexing,StaysAliveZeroCities) VALUES ('TRAIT_BC_ONE_WORLD','TXT_KEY_BC_TRAIT_HELP','TXT_KEY_BC_TRAIT',1,1);
 """
     # Use explicit columns for Colors: the active database can contain an ID column.
     core = core.replace('INSERT INTO Colors VALUES', 'INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES')

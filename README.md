@@ -2,9 +2,9 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 3 (collection release **1.1.1 preview**) starts with **The Boundless City**. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here.
+Mod version 4 (collection release **1.2.0 preview**) starts with **The Boundless City**. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here.
 
-**Status: implementation preview.** SQL, Lua 5.1, eight gameplay/UI simulation suites, package references and pinned CP v151 source bindings have been validated. Live Civ V playtesting has **not** been performed. With 30 native local jobs and no specialist slots, the 80-population/500-plot fixture assigns 50 citizens remotely. Full population-only capacity, ordinary enemy-city demolition and immediate correction of every external transfer remain limited by native APIs. This patch improves siege explanations, AI retry/budget behavior, quarantine, partial failures and native-save stability. Read the [final stability report](TheBoundlessCity/docs/FinalStabilityReport.md) and [precise limitations](TheBoundlessCity/docs/EngineLimitations.md) before starting a campaign.
+**Status: implementation preview.** Nine gameplay/UI simulation suites, 176 pinned CP v151 source checks, actual-schema SQL and package/art validation pass. Live Civ V testing remains outstanding. This release adds survival while units remain, original-capital siege reclaim, one-time subjugation, a native Boundless Domination finish, remote improvement development and Tourism refresh. Full population-only remote allocation, general demolition and absolute ownership enforcement against scripts remain engine limited. Read the [final engine report](TheBoundlessCity/docs/EngineCompletionReport.md) and [precise limits](TheBoundlessCity/docs/EngineLimitations.md).
 
 ![The First Architect and the endless city](art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
@@ -20,11 +20,11 @@ Every future civilization should receive a dedicated roster page, a gameplay REA
 
 1. Install Civilization V with Brave New World and the Windows Community Patch **v151**. The Community Patch dependency is declared in the modinfo; no replacement DLL is included.
 2. Build the release archives as below, or use a provided archive from this repository's distribution output.
-3. Extract `dist/Cool Wacky Civs 2 (v 3).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 3).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
+3. Extract `dist/Cool Wacky Civs 2 (v 4).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 4).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
 4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and start a new game as **The First Architect**.
 5. Found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
 
-The initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Version 1 saves migrate explicitly, while version 2 save schema remains supported without resetting progress. Back up both versions before upgrading; native save testing is outstanding. Downgrading is unsupported.
+The initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Version 1 saves migrate explicitly, while version 2 state migrates to schema 3 without resetting progress. Back up version 1–3 saves before upgrading; native save testing is outstanding. Downgrading is unsupported. Older native saves can retain the previous survival-trait cache until a normal technology or policy refresh; test that separately before relying on capital-loss survival.
 
 ## Building and checking
 
@@ -41,7 +41,7 @@ python tools/build_mod.py
 
 `validate_mod.py` reads the installed game's backup debug database and Community Patch schema **read-only**, then runs SQL in an in-memory clone. See [Testing.md](TheBoundlessCity/docs/Testing.md) for paths, prerequisites, exact live test steps and the distinction between simulation and game verification. `generate_database.py` is for regenerating schema-derived SQL during development; it is unnecessary for installing the committed files.
 
-Optional source audit: `python tools/audit_cp.py --fetch` downloads the pinned official v151 sources into ignored `tools/reference/` and verifies 129 API/signature assertions. Later runs can omit `--fetch`. A read-only coexistence check compares UUIDs, VFS files, database identifiers and globals when the original collection is available as a sibling folder; combined live gameplay still needs testing.
+Optional source audit: `python tools/audit_cp.py --fetch` downloads the pinned official v151 sources into ignored `tools/reference/` and verifies 176 API/signature assertions. Later runs can omit `--fetch`. A read-only coexistence check compares UUIDs, VFS files, database identifiers and globals when the original collection is available as a sibling folder; combined live gameplay still needs testing.
 
 Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, written to `dist/`. They are ignored by Git. ModBuddy users can open `CoolWackyCivs2.civ5sln`; `tools/build_mod.py` keeps its project and modinfo file lists, SQL ordering and VFS flags in sync.
 

@@ -40,7 +40,7 @@ s.progress=54321;s.rewards[p.n]=true;B.Save(s);playerRaw=Players[0].script
 for _=1,10 do
  local restored=B.Decode(nativeRaw);for k,v in pairs(restored) do capital[k]=v end
  Players[0].script=playerRaw;Map.GetPlot(3,5):SetScriptData(plotRaw);B.States={};B.Caches={};B.Initialize(0);s=B.State(0)
- assert(s.progress==54321 and s.rewards[p.n] and s.version==2);verify()
+ assert(s.progress==54321 and s.rewards[p.n] and s.version==3);verify()
 end
 -- Native rewind must restore ownership/progress as well as source accounting.
 local lost=next(s.assignments);plots[lost]:SetOwner(1,foreign.id);Pump();assert(not s.assignments[lost]);verify()

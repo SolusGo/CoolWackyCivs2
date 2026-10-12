@@ -1,6 +1,6 @@
 # Community Patch v151 source audit
 
-Audited on 2026-10-12 against official commit **44c1e14ff75d80c1dba5c8a71e8289439a53aafb**. [CustomMods.h](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h) declares DLL version 151. `python tools/audit_cp.py --fetch` downloads these pinned sources; rerunning without `--fetch` uses the local copies. [SourceAudit.json](SourceAudit.json) records official URLs, SHA-256 hashes and **129 passed assertions**, including registered City/Player/Plot/Unit/Team methods used by the runtime. This proves source availability/ABI, not launched-game compatibility.
+Audited on 2026-10-12 against official commit **44c1e14ff75d80c1dba5c8a71e8289439a53aafb**. [CustomMods.h](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h) declares DLL version 151. `python tools/audit_cp.py --fetch` downloads these pinned sources; rerunning without `--fetch` uses the local copies. [SourceAudit.json](SourceAudit.json) records official URLs, SHA-256 hashes and **176 passed assertions**, including registered City/Player/Plot/Unit/Team methods used by the runtime. This proves source availability/ABI, not launched-game compatibility.
 
 ## Citizen management
 
@@ -24,7 +24,7 @@ See [CvLuaCity.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e
 - `DoTask(task, data1, data2, option)` reads option with **luaL_optint**. All calls use numeric 0, including reservation release and quarantine queue/automation controls. A Lua boolean would raise a native argument error.
 - `GetSpecialistYield(default, yield)` combines player extras with city extras inconsistently and cannot simply be multiplied by remote count. `GetExtraSpecialistYieldOfType(yield, specialist)` returns the total, count-multiplied extras. Correct per-labourer yield is the database base plus this total divided by actual default count; it includes specific policy/trait/event/religious extras and excludes generic boosts that do not apply to labourers.
 - Gross remote yields use `ChangeBaseYieldRateFromTerrain`; negative labourer compensation uses `ChangeBaseYieldRateFromMisc`. Ordinary modifiers apply natively once. The terrain-Culture source participates in native landmark/improvement Culture-to-Tourism conversion; worked-only Tourism remains unsupported.
-- The terrain setter only changes its source and marks the city screen dirty. It **does not** refresh static yield caches. The misc setter refreshes the corresponding cache only for nonzero deltas. Terrain is applied first, then compensation or a journalled +1/-1 misc pulse refreshes the six supported rates. The final pulse contribution is zero. Tourism caches refresh through subsequent native all-yield updates; immediate same-frame Tourism refresh is not certified.
+- The terrain setter only changes its source and marks the city screen dirty. It **does not** refresh static yield caches. The misc setter refreshes the corresponding cache only for nonzero deltas. Terrain is applied first, then compensation or a journalled +1/-1 misc pulse refreshes the six supported rates. The final pulse contribution is zero. City:RefreshTourism explicitly calls UpdateCityYields(YIELD_TOURISM); it now runs after terrain Culture changes/removal or explicit cache refresh. Native event ordering still needs gameplay tests.
 - `Plot:GetYield` reads the native evaluated value. [CvPlot.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlot.cpp) includes ordinary Golden Age additions. The mod adds no Golden Age multiplier. Conditional effects requiring native working remain outside this method, and remote plot recalculation timing needs live tests.
 - Misc supports negative contributions; terrain credits are nonnegative ordinary yields. The BCY2 ledger records only this mod's adjustments, preserving unrelated sources. Plot and Player ScriptData are exposed; **City ScriptData is absent**. No executable saved payload is evaluated.
 
@@ -42,7 +42,7 @@ The final pass rechecked the distinction between native interface restrictions a
 
 Return-loop records now include an optional game-turn stamp. A same-turn repeat is blocked, while legitimate later returns can proceed. A living Boundless recipient is eligible only with zero cities and a matching saved original-capital coordinate/founding identity. This uses the same native trade acquisition outside callbacks; no resurrection or substitute-capital identification is inferred.
 
-The `CanMoveInto` event is per-unit opt-in (`SendCanMoveIntoEvent`), and movement has fallback logic outside a universal acquisition veto. No safe universal pre-acquisition hook was found. NoCapture is retained for normal enemy-city entry, including original-capital military recapture.
+The `CanMoveInto` event is per-unit opt-in (`SendCanMoveIntoEvent`), and movement has fallback logic outside a universal acquisition veto. No safe universal pre-acquisition hook was found. NoCapture is retained for normal enemy-city entry. The new deferred original-only siege reclaim uses native AcquireCity(true,false) with zero-city and full original identity checks; it does not remove the promotion.
 
 ## Events, AI and registration
 
@@ -61,3 +61,15 @@ The `CanMoveInto` event is per-unit opt-in (`SendCanMoveIntoEvent`), and movemen
 | `CanBuild` / `PushMission` | Actual native legality and movement/build commands with numeric optional flags; no teleport or imaginary order API |
 
 The SQL enables CP hook options without changing native civilization rules. Namespaces, VFS basenames, one UI addin, SQL order, project imports, localization and all 34 DDS references are validated. Coexistence checks compare the separate original collection read-only. Gameplay coexistence remains untested.
+
+## Final engine investigation additions
+
+[CvTraitClasses.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTraitClasses.cpp) loads/aggregates StaysAliveZeroCities, serializes it, and reads the cached native value without InitPlayerTraits. CvPlayer::verifyAlive uses that scoped flag but still eliminates zero-unit/max-city-elimination cases. Policy/technology processing rebuilds traits; older-save survival must therefore be verified separately.
+
+[CvLuaGame.cpp](https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaGame.cpp) registers GetWinner/GetVictory/IsVictoryValid/SetWinner and GetImprovementUpgradeTime. CvGame::setWinner performs replay, notifications and game-state completion. The mod gates that call to Boundless with verified one-time rival-capital records; no global validity/ownership changes. Live manager/UI ordering is outstanding.
+
+Plot:IsBeingWorked/GetUpgradeProgress/ChangeUpgradeProgress/SetImprovementType/GetPlayerThatBuiltImprovement and Player:GetImprovementUpgradeRate are registered. Native city turns develop only their native worked arrays; the remote adapter mirrors rate/threshold once per owner turn. Worked counter setters and a general doImprovement binding are absent; resource discovery/GPP/per-X/third-party worked effects remain limited.
+
+CvTradeClasses uses test-all PlayerCanCreateTradeRoute(fromPlayer,fromCity,toPlayer,toCity,domain,type); CvCity native border selection uses test-all CityCanAcquirePlot(player,city,x,y). Extra-city guards use these actual vetoes. Airlift/sealift events are test-any enabling hooks, so they are not claimed as disabling vetoes. Native specialist GPP computation is separate from resisting-city raw yields and is not universally suppressed by resistance.
+
+See [EngineCompletionReport.md](EngineCompletionReport.md) for all six statuses and [OptionalDLLExtensions.md](OptionalDLLExtensions.md) for proposals only. No new interface is assumed callable.

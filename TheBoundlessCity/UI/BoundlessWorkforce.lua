@@ -20,18 +20,22 @@ refresh=function()
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local visible=B.IsBoundless(pid) and p:IsHuman() and p:IsAlive() and world()
  local s=visible and B.State(pid);local city=s and B.City(s)
- visible=visible and city~=nil and not s.incompatible
+ visible=visible and s.capital~=nil and not s.incompatible
  Controls.Launcher:SetHide(not visible)
  if not visible then opened=false end
  Controls.Panel:SetHide(not opened)
  if not opened then refreshing=false;return end
- local info=B.Summary(s);local cache=B.Ownership(s);local locals=B.LocalPlots(city)
- local summary=B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.unassigned,info.availableCitizens,info.availableRemote,info.maximumRemote,info.pending,info.locks,info.progress,info.cost)
- if info.automata>0 then summary=summary..'[NEWLINE]'..B.Text('AUTOMATONS',info.automata) end
+ if not city then siege=true end
+ local info=city and B.Summary(s);local cache=B.Ownership(s)
+ local summary=info and B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.unassigned,info.availableCitizens,info.availableRemote,info.maximumRemote,info.pending,info.locks,info.progress,info.cost) or B.Text('CAPITAL_LOST')
+ if info and info.automata>0 then summary=summary..'[NEWLINE]'..B.Text('AUTOMATONS',info.automata) end
+ local done,total=B.DominationProgress(s)
+ summary=summary..'[NEWLINE]'..B.Text('SUBJUGATION_PROGRESS',done,total)
  Controls.Summary:SetText(summary)
  local net={};for i=1,#B.Yields do net[i]=(cache.remoteYields and cache.remoteYields[i] or 0)-(cache.labourerYields and cache.labourerYields[i] or 0) end
  Controls.Yields:SetText(B.Text('YIELDS',yields(cache.remoteYields or {}),yields(cache.labourerYields or {}),yields(net)))
  Controls.Mode:SetText(B.Text(s.mode));Controls.Priority:SetText(B.Text(s.priority))
+ Controls.Mode:SetDisabled(not city);Controls.Priority:SetDisabled(not city);Controls.Direction:SetDisabled(not city)
  Controls.Direction:SetText(B.Text('DIRECTION')..': '..B.Text(s.direction));Controls.Sort:SetText(B.Text(sort))
  Controls.Help:SetText(message~='' and message or B.Text('CAPACITY'))
  if s.phase=='RECOVER' then Controls.Help:SetText(B.Text('RECOVERY_PENDING')) end
@@ -45,8 +49,8 @@ refresh=function()
   local assigned=s.assignments[row.n]~=nil
   local locked=s.mode~='AUTO' and s.locks[row.n]~=nil
   if siege then
-   control.Text:SetText(row.name..'  ('..row.x..','..row.y..')[NEWLINE]'..B.Text(row.reason))
-   control.Assign:SetText(B.Text('DEMOLISH'));control.Lock:SetHide(true)
+   control.Text:SetText(row.name..'  ('..row.x..','..row.y..')[NEWLINE]'..(row.protection and B.Text(row.protection)..' ' or '')..B.Text(row.reason))
+   control.Assign:SetText(B.Text(row.action or 'DEMOLISH'));control.Lock:SetHide(true)
    local n=row.n
    control.Assign:RegisterCallback(Mouse.eLClick,function()
     local ok,reason=B.Action(pid,'SIEGE',n);message=ok and '' or B.Text(reason or 'UNAVAILABLE');refresh()

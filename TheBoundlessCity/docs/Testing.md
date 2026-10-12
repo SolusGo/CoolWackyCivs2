@@ -16,7 +16,7 @@ The source fetch is optional for building/playing. SQL tests use a read-only bac
 
 | Check | Result / scope |
 | --- | --- |
-| Source audit | 129 assertions passed against official v151 commit; hashes/URLs in SourceAudit.json |
+| Source audit | 176 assertions passed against official v151 commit; hashes/URLs in SourceAudit.json |
 | Actual database | Passed in-memory BNW/CP SQL, identity, starting Settler, native Worker/Monument companion inheritance, unchanged native rows, uniques, localization and atlas references |
 | Lua syntax | All gameplay/UI/test Lua parse under Lua 5.1 |
 | `boundless_assertions.lua` | Passed census/yields, growth/starvation, losses, pillage, water tech/blockade, mountain wonders, release, rewards, save rewind, city transfer and worker order checks |
@@ -27,7 +27,8 @@ The source fetch is optional for building/playing. SQL tests use a read-only bac
 | `siege_safety.lua` | Passed native-legal demolition, move cost/no reward, territory release, native veto/own-founded/no-raze, capital/holy/city-state protections and replacement identity |
 | `stability_assertions.lua` | Passed 48 mode switches/six-source conservation, simulated Golden Age/policy extras, repeated v2/ownership/frontier rewind, original-capital return, optional mirror open/write faults, indexed/full trim faults, negative-terrain reset guard, automaton fast-path invalidation, abrupt 80-to-6 loss, unassigned population, simultaneous dead-owner quarantine reload and deferred Settler cleanup after capital loss |
 | `ai_stability.lua` | Passed stale/dead/upgraded/reused identities, invalid saved build IDs, busy target reservation, unreachable cooldown/retry, shared turn budget, fair rotation and budget deferral |
-| Package | Passed 48 game-file manifest/project, hashes/VFS/load order, XML controls and all 34 decoded DDS textures; genuine 7z/LZMA Civ5Mod integrity checked |
+| `engine_completion.lua` | Passed modeled survival/dead-player rules, strict original reclaim/source rebuilding/reload, one-time protected/own-founded subjugation, rival/native-victory guards, derived Tourism removal, assigned-only development/reload/release, extra-city route/border vetoes and deferred AI movement dispatch |
+| Package | Passed 49 game-file manifest/project, hashes/VFS/load order, XML controls and all 34 decoded DDS textures; genuine 7z/LZMA Civ5Mod integrity checked |
 | Original collection | Read-only distinct UUID, imported basenames, globals and BC database identifiers; original working-tree status retains only its pre-existing project modification |
 | Native gameplay/save/FPS | **NOT RUN** |
 
@@ -54,15 +55,15 @@ Native calls are synthetic; unchanged near movement does not change eligibility,
 
 | Initial owned | Full reconcile median ms | 1,000 far / near moves ms | One claim ms | Cached AI pass ms | 100 cached open UI refreshes ms |
 | --- | --- | --- | --- | --- | --- |
-| 100 | 2.125 | 36.924 / 73.988 | 1.356 | 0.072 | 46.190 |
-| 500 | 4.464 | 35.600 / 69.625 | 0.977 | 0.059 | 77.000 |
-| 1,000 | 12.350 | 62.287 / 135.552 | 3.843 | 0.124 | 72.681 |
-| 2,500 | 28.825 | 61.431 / 125.659 | 4.447 | 0.138 | 64.939 |
-| 10,000 | 97.234 | 63.788 / 87.543 | 4.066 | 0.129 | 61.485 |
+| 100 | 2.059 | 31.200 / 47.113 | 0.744 | 0.086 | 36.929 |
+| 500 | 3.816 | 30.070 / 47.296 | 0.660 | 0.051 | 33.766 |
+| 1,000 | 5.104 | 27.449 / 50.353 | 3.343 | 0.140 | 70.993 |
+| 2,500 | 24.276 | 49.528 / 82.335 | 3.832 | 0.105 | 70.865 |
+| 10,000 | 80.187 | 54.351 / 84.749 | 3.384 | 0.109 | 71.789 |
 
 ## Live setup and logging
 
-1. Back up version 1/2 test saves. Install Windows BNW + CP v151. Extract `Cool Wacky Civs 2 (v 3)` into the standard MODS directory after removing the previous version's install folder. Package version changes; native save schema stays 2.
+1. Back up version 1–3 test saves. Install Windows BNW + CP v151. Extract `Cool Wacky Civs 2 (v 4)` into the standard MODS directory after removing the previous version's install folder. Package version changes; Lua state migrates explicitly to schema 3; BCY2 stays unchanged.
 2. Enable game logging (`LoggingEnabled = 1`, plus AI logging when needed). Start through Mods with CP + this collection. Begin Standard speed/small map, then Huge/wrapped and Epic/Marathon.
 3. Select the First Architect and found the Heart with the initial Settler. Check Database.log/Lua.log for SQL, missing-hook, native-method or ledger errors. Verify art/icons/leader scene/Civilopedia.
 4. Build the Registry: Culture 3 plus 1/2/10 territorial bonus at 10/20/100 owned plots. Compare Worker/Surveyor build points under equal modifiers; base ratio 125%, Movement 3. Repairs/replacements/routes must not repeat distant +5 Culture rewards.
@@ -77,9 +78,9 @@ Test growth/starvation including an abrupt 80-to-6 loss, specialists, new specia
 
 ## City identity and conquest
 
-Test trained/purchased/gifted/scripted/captured Settlers, normal founding, buyouts, peace/diplomatic transfers, city-state gifts and mod-created acquisitions. Verify the initial Settler works and extra production/project/process requests are denied. Original-capital loss must suspend all UA activity; a replacement Palace must not reactivate it. Test a legal matching transfer back; military recapture remains NoCapture-blocked.
+Test trained/purchased/gifted/scripted/captured Settlers, normal founding, buyouts, peace/diplomatic transfers, city-state gifts and mod-created acquisitions. Verify the initial Settler works and extra production/project/process requests are denied. Original-capital loss must suspend all UA activity; a replacement Palace must not reactivate it. Test a legal matching transfer back and the original-only siege reclaim action below. Ordinary attack-click capture still has NoCapture.
 
-For siege, prepare a city originally founded by A but now owned by enemy B, with B's CanRaze true. At 1 HP/adjacent melee/moves/war/visibility, queue demolition. Check no capture-stack mutation, acquired city/territory or repeated reward; moves are consumed and associated plots released. Repeat with first-founded enemy towns, capitals, holy/city-state cities, native veto/no-raze, missing visibility/moves, 2 HP and replacement owner/founding/city ID. Check every rejection reason and disabled action, hidden undiscovered cities, generic fogged known names, and immediate native city-info refresh after damage. AI must queue only ready rows. Save around queue/execution and load after demolition.
+For siege, prepare a city originally founded by A but now owned by enemy B, with B's CanRaze true. At 1 HP/adjacent melee/moves/war/visibility, queue demolition. Check no capture-stack mutation, acquired city/territory or repeated reward; moves are consumed and associated plots released. Repeat with first-founded/protected major settlements: demolition is forbidden but one-time Subjugate may be ready. City-states remain unavailable. Test native veto/no-raze, missing visibility/moves, 2 HP and replacement owner/founding/city ID. Check every protection/action/rejection reason and disabled invalid action, hidden undiscovered cities, generic fogged known names, and immediate native city-info refresh after damage. AI must queue only ready rows. Save around queue/execution and load after demolition.
 
 For extras, test historical/native recipients, dead owners, simultaneous transfers and reload immediately afterwards. No arbitrary recipient or resurrection is allowed. Same-turn return loops stop, while later legitimate returns recover again. A living empty Boundless owner may regain only its recorded original capital. Legal orphans are removed; protected/own-founded orphans have empty queues/automation off, resistance maintained through the native decrement, zero ordinary cached rates/purchases, and excluded remote/AI plots. Verify other city centers cannot be released via stale purchase IDs. Observe pre-dispatch yields/UI, empire resources and building/trade effects: absolute one-city enforcement is still not certified.
 
@@ -89,6 +90,40 @@ Load v1 and v2 saves into package v3; progress, direction, priority, selections,
 
 Grow past 5/10/20/30 hexes, across water and wrapped edges. Block frontier with enemy tiles; it must not steal them. Test disconnected citadel holdings and direction ties after reload, ordinary policy Culture/Tourism and exact custom progress consumption.
 
-Run AI Boundless for 100+ turns/era transition on mainland/islands. Inspect Surveyor target cleanup on death/upgrade/ID reuse, unreachable retry after three turns, busy reservations, unit rotation and a shared 12-path budget across repeated calls. Confirm budget exhaustion preserves valid targets and native homeland AI is not overwritten. Test Science/Culture/Diplomatic victories; standard Domination has no custom exception.
+Run AI Boundless for 100+ turns/era transition on mainland/islands. Inspect Surveyor target cleanup on death/upgrade/ID reuse, unreachable retry after three turns, busy reservations, unit rotation and a shared 12-path budget across repeated calls. Confirm budget exhaustion preserves valid targets and native homeland AI is not overwritten. Test Science/Culture/Diplomatic victories; also test the native subjugation Domination path below and another civilization winning under unchanged native rules.
 
 On Huge late-game saves with thousands of plots, measure native turn time, open/closed FPS, event cost, ScriptData/save size and load duration. Log hardware/mod roster and results. Enable the original collection and exercise its civilizations/UI/saves alongside Boundless; static namespace separation does not certify combined gameplay. Archive actual game logs before calling this a stable release.
+
+## Required v4 native regressions A–I — NOT RUN
+
+Use separate backed-up FireTuner test saves with CP v151 and logs enabled. The standard executable/Steam path probe did not locate a controllable game session; no game was launched. Automated simulations do not certify these results.
+
+**A — Original recapture/elimination.** In a new v4 game, found the Heart and leave a melee army alive. Let an enemy take the only city. Record IsAlive, unit count and native original owner/flag/founding coordinates immediately and after the turn. Expect survival with units when max-city-elimination does not apply. Verify frontier/remote credits stop. Reduce the occupied Heart to 1 HP with ranged forces, put an eligible melee adjacent, open the military panel and choose Reclaim. Verify zero→one city, native conquest callback/Palace, no foreign second city, moves consumed, preferences/Culture/reward bits preserved, one fresh ledger and valid capital-connected expansion. Try a replacement, foreign capital, false original flag, second external city, exhausted/defensive/busy/air/embarked force and peace: reclaim must reject. Kill every surviving unit or test max-city-elimination: elimination is allowed, and no reclaim/resurrection is advertised. Repeat in upgraded v1–3 saves both before and after normal technology/policy refresh; record the cached-trait caveat.
+
+**B — Ordinary military resolution.** Attack an enemy's own-founded noncapital at 1 HP. Native CanRaze should reject demolition; Subjugate records one defeat without city/territory/economic reward and consumes melee moves. Retry after transfer/liberation/reload: no repeat subjugation. Attack a previously captured native-razable city: Demolish uses native cleanup, releases its associated plots, preserves unrelated city centers/valid unit handling and grants no second city. Change owner/founding/native city ID/action permission or actor birth between queue and dispatch: cancel the saved action.
+
+**C — Protection.** Repeat against genuine original capitals, holy cities, current/original city-state towns, CP unique-luxury cities, no-raze/OCC rules and an explicit CanRaze veto. Protected major settlements may be acknowledged once; they must never be destroyed. City-state settlements remain unavailable. Test 2 HP, missing melee, no attacks, war/peace, visibility/fog and already queued/subjugated UI labels. Unknown cities stay hidden.
+
+**D — Population 80/500.** Count thirty owned native positions and zero specialist slots, request 80 remotes. Expect 50 safe credits plus thirty pending in this fixture; account for all eighty citizens, center free, native Food consumption unchanged. Governor reallocations before callbacks must not reuse credited citizens. Add/remove slots, locks, defaults and external automatons; test 80→6 starvation and all six effective rates. Full 80-remote allocation remains engine blocked, not an acceptance claim.
+
+**E — Worked effects.** Compare equal native and remote farms/mines/trading posts and a modded ImprovementUpgrade chain. Read plot yields, source ledgers, Tourism, upgrade progress and native worked/GP/per-X counters. With landmark conversion, assigning/releasing remote Culture must refresh Tourism once without extra sources. Progress uses native rate/plot threshold once per owner turn; release/starvation/blockade/capture stops invalid remotes, reload never doubles progress, and local/other-civ/unassigned plots receive no extra step. Native worked counters/GPP/resource discovery can differ; record those limits. Test pillage and policy/religion/Golden Age context separately.
+
+**F — External extras/quarantine.** Force scripted/gift/peace/city-state/special-ability transfers, including simultaneous protected cities whose historical owners are eliminated. Verify deterministic living historical/native recipients or legal removal/quarantine, never an arbitrary custodian. Test same-turn loops and later legal returns. After quarantine, inspect production, six rates, purchases, specialists, remote/Surveyor eligibility, border growth and attempts to create routes to/from the extra. Those new routes/border selections must reject while capital/foreign-only routes remain legal. Measure resources/Happiness/global buildings/existing routes/GPP/city count/prerequisites/bombard/rebase; remaining effects are known gaps, not silently certified inert. Record any economic callback before deferred resolution.
+
+**G — Native Domination.** In a three-plus-major game with Domination enabled, subjugate genuine rival originals once through wartime siege. Check original civ/founding identity through enemy transfers/liberation and save/reload. Every ever-alive other-team major counts, including eliminated rivals; missing/replaced originals must block. Hold only the Heart and finish the last required original: inspect normal winner/victory, popup, notification/replay and saved result. Repeat with disabled Domination, Config.SubjugationDomination=false, a prior Science/Culture/Diplomatic winner, missing own capital and a quarantined extra: no forced result/overwrite. Test allied teammates excluded, two Boundless players and another civilization's native Domination unchanged.
+
+**H — Saves/faults.** Save before/after every queue, subjugation, reclaim, upgrade and quarantine. Load twice and rewind older saves; no repeat awards/progress/duplicate sources. Upgrade known v1/v2/v3 state to schema 3 without resetting original/Culture/preferences/rewards; malformed/future state stays preserved/disabled. Test new-game versus old native survival cache separately. Native capture creates a fresh city object; mocks only model that boundary. Inspect logs for ledger, stale-object or missing-method errors.
+
+**I — Huge maps and AI.** Use 1,000+ owned plots, population 150+, 22 majors/many units/several wars and multiple known siege targets. Measure native owner turns, military panel/closed UI FPS, improvement development, victory checks, path completion, save size and load time. Confirm no permanent update handler/world scan on ordinary movement. Watch AI siege actions after native city damage and adjacent movement; verify it spends moves, avoids protected destruction/rewards and retains existing Surveyor path budget/personality. Run 100+ turns and coexistence with the original collection. Capture logs/hardware/roster and actual results before calling the release stable.
+
+### New mechanism simulation timings
+
+These are host Lupa medians, not native engine timings. Development fixtures have assigned jobs but no upgrade chain; native upgrade cost must be measured in E/I. Military fixtures contain 42 revealed enemy cities and 21 rival original identities. Existing maxima, initialization and other measures remain in Benchmark.json.
+
+| Initial owned | One development pass ms | 42-city military rows ms | 100 domination progress checks ms |
+| --- | --- | --- | --- |
+| 100 | 0.457 | 0.133 | 1.420 |
+| 500 | 0.648 | 0.132 | 1.423 |
+| 1,000 | 2.573 | 0.372 | 3.029 |
+| 2,500 | 4.996 | 0.421 | 5.249 |
+| 10,000 | 1.555 | 0.399 | 3.431 |

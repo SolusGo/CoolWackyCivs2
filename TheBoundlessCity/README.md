@@ -4,7 +4,7 @@
 
 An original Civilization V civilization led by **The First Architect**, built for **Brave New World + Community Patch v151**. Its capital is **The Heart of the World**. The theme combines a medieval settlement, golden civic architecture and an interconnected metropolis spreading across the world.
 
-**Release 1.1.1 preview / mod version 3, awaiting native playtesting.** Unlimited potential border distance and unlimited remote tile distance are implemented. The verified forced/surplus workforce model is preserved; this patch improves failure cleanup, siege explanations, quarantine, AI and save handling. Full population-only remote capacity, ordinary enemy-city demolition and absolute immediate one-city enforcement against external transfers remain restricted. See the [final stability report](docs/FinalStabilityReport.md) and [engine limitations](docs/EngineLimitations.md).
+**Release 1.2.0 preview / mod version 4, awaiting native playtesting.** Unlimited potential border/remote distance and the safe forced/surplus citizen model remain. New military options reclaim the genuine original and subjugate protected major cities; native Domination completion, remote improvement development and Tourism refresh are implemented. See the [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md).
 
 ## Unique ability — The World Is One City
 
@@ -33,7 +33,7 @@ For example, two assignments supplying 5 Food and 8 Production add those amounts
 
 With 80 population, 30 owned native local jobs and no specialist buildings, the verified surplus is 50: those 50 defaults can work remote tiles while 30 citizens remain local. With 150 population the same bound is 120. At lower populations, forced withdrawals can still be useful: the stress tests reserve 30 of 40 citizens. CP exposes no arbitrary forced-default setter, so all 80 citizens cannot safely be reserved remotely in the first example. Real unassigned citizens wait for native allocation; positive worker automatons from another mod conservatively disable remote credits. Population is never increased.
 
-Assignments, exclusions and locks persist. Yield changes are handled through relevant events and owner-turn reconciliation. Eligibility requires ownership, a non-city plot with yields, water-working technology where needed, no visible enemy and no blockade. Yielding mountain wonders are allowed. Mid-action population/citizen/ownership changes trim unsafe credits, followed by one deferred callback. The capital plot stores a versioned yield ledger, so reinitialization replaces the previous contribution. Worked-only counters and improvement evolution remain native limitations.
+Assignments, exclusions and locks persist. Yield changes are handled through relevant events and owner-turn reconciliation. Eligibility requires ownership, a non-city plot with yields, water-working technology where needed, no visible enemy and no blockade. Yielding mountain wonders are allowed. Mid-action population/citizen/ownership changes trim unsafe credits, followed by one deferred callback. The capital plot stores a versioned yield ledger, so reinitialization replaces the previous contribution. Remote improvement upgrades advance once per owner turn using native rate/threshold APIs, while unassigned plots do not. Terrain-Culture Tourism is refreshed explicitly. Native worked counters and other worked-only effects remain limited; see the [effect matrix](docs/WorkedTileEffects.md).
 
 ## The Boundless Workforce
 
@@ -68,15 +68,19 @@ Completing a real improvement on an owned plot more than five hexes from the ori
 
 ## One-city ownership and victories
 
-Every Boundless unit receives native **NoCapture**. Starting, trained, created and converted units are covered; foreign recipients lose the promotion. Normal occupation remains blocked. The panel's **Siege demolition** view lists currently visible and previously revealed settlements, with explicit reasons for rejected targets. Unknown cities are hidden; fogged known cities expose no current damage/name/protection detail. The restricted action requires a visible city at 1 HP, war, an adjacent non-embarked melee unit with moves, and current-owner native `CanRaze`. Original capitals, holy cities and current/original city-state settlements are always excluded. Deferred execution revalidates identity/native legality, consumes remaining moves, invokes the current owner's Disband, and releases associated plots while preserving any other city center. It gives no city, territory or capture reward to Boundless.
+Every Boundless unit keeps **NoCapture**, including created/converted units. The military view lists revealed cities and hides current details behind fog. At war, reduce a visible target to **1 HP** and bring an adjacent melee unit with movement and attacks remaining. Busy, defensive-only, embarked and air units are excluded; naval forces need a coastal city.
 
-CP's native `CanRaze` requires ownership and rejects cities founded by the current owner. Consequently, this action usually applies only to previously captured settlements. Normal first-founded enemy towns remain protected by NoCapture: unrestricted conquest/demolition is **not** implemented. Changing that requires a safe native pre-acquisition/legal-resolution API, not an ownership workaround.
+- **Reclaim:** available only to a living Boundless with zero cities, against its saved genuine original capital. Deferred native conquest reinstates the Heart and rebuilds frontier/workforce state while preserving saved Culture progress, preferences and Surveyor rewards. Native conquest effects apply. Normal attack-click recapture remains blocked; use this siege action.
+- **Demolish:** only when the current owner passes native CanRaze and the city is not an original capital, holy city or city-state settlement. Deferred native Disband releases associated territory without giving Boundless another city or reward. Own-founded enemy towns generally fail the native check.
+- **Subjugate:** acknowledges a defeated major settlement once when demolition is prohibited, including protected original capitals and holy cities. Ownership/territory stay with the enemy. It consumes moves, persists through transfer/liberation/reload, and awards no economic bonus. City-state settlements cannot be subjugated.
 
-Unexpected transfers are recovered after the native acquisition stack finishes. The deterministic policy is previous legal living owner, original legal living owner, then a living recipient identified by native liberation APIs. An unrelated custodian is never chosen. Repeated same-turn returns are suppressed; legitimate later-turn transfers may recover again. Another Boundless owner may receive only its recorded original capital while alive and holding no cities. Eliminated owners are not resurrected.
+The native **StaysAliveZeroCities** trait lets Boundless survive capital loss while units remain. Losing the last unit or applicable max-city-elimination rules can still eliminate it. No eliminated player is revived and no hidden city is created. In upgraded v1–3 saves, the cached native trait may remain false until a normal technology/policy refresh; verify this in a backed-up test save. New v4 games initialize the flag normally.
 
-Without a recipient, native-legal extras can be disbanded and their acquired plots released; protected or own-founded extras remain quarantined. Queues/automation are cleared and training/building/project/process requests are vetoed. Two turns of native resistance are maintained to keep one through the next economic cycle, suppressing ordinary yield rates and normal purchases. Associated plots cannot supply remote work or custom Surveyor targets. Transient ownership, empire resources/building effects and some city infrastructure remain native limitations, so quarantine does not guarantee an inert or absent second city. Native event ordering still requires testing.
+With Domination enabled, subjugating **every ever-alive rival other-team major civilization's genuine original capital** can finish through the normal native winner API. Eliminated rivals still count; missing/replaced capitals block completion. Boundless must own its Heart and no extra city. Previous victories are preserved. Other civilizations' victory conditions/ownership are unchanged. This optional feature is enabled by `SubjugationDomination` in BoundlessCore.lua and remains unverified in a live game. Science, Culture and Diplomatic victories retain their normal rules.
 
-Science, Culture and Diplomatic victories retain normal game rules, subject to live CP verification. Standard Domination cannot normally be won while foreign original capitals cannot be occupied. No global domination changes or special untested alternative victory have been added.
+Unexpected transfers resolve after acquisition: previous living legal owner, original living legal owner, then native living liberation recipient, native-legal removal, or quarantine. No unrelated custodian or forced resurrection is used. Same-turn return loops are blocked. Any Boundless recipient must be empty and regain only its own recorded original.
+
+Quarantine clears queues/automation, blocks production and new trade routes involving extras, vetoes extra-city native border selection, maintains resistance to suppress ordinary rates/purchases, and excludes associated plots from remote work/Surveyors. Absolute one-city ownership remains limited: external transfers can be transient, and resources, Happiness, global buildings, existing routes, specialist GPP, city counts and military infrastructure are not comprehensively suppressed. Read [the exact limitations](docs/EngineLimitations.md).
 
 ## AI and balance
 
@@ -96,7 +100,10 @@ Use the [root installation/build instructions](../README.md). The [civ page](../
 - [Static/simulation results and CP v151 live test steps](docs/Testing.md)
 - [Civilization changelog](CHANGELOG.md)
 - [Fixes and completion report](docs/FixesReport.md)
-- [Final mechanics and stability report](docs/FinalStabilityReport.md)
+- [Current engine completion report](docs/EngineCompletionReport.md)
+- [Worked-tile effect matrix](docs/WorkedTileEffects.md)
+- [Optional DLL extension proposal](docs/OptionalDLLExtensions.md)
+- [Archived final stability report](docs/FinalStabilityReport.md)
 - [Supplied final-pass specification](docs/FinalStabilityRequest.md)
 - [Supplied fixes specification](docs/FixesRequest.md)
 - [Original supplied specification](docs/OriginalRequest.md)

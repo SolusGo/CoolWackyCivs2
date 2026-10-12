@@ -1,10 +1,10 @@
 -- BNW and CP v151. Event options expose hooks; handlers remain civilization-scoped.
 UPDATE CustomModOptions SET Value=1 WHERE Name IN
  ('EVENTS_CITY','EVENTS_CITY_FOUNDING','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS','EVENTS_UNIT_UPGRADES',
-  'EVENTS_PLOT','EVENTS_TILE_IMPROVEMENTS','EVENTS_PLAYER_TURN');
+  'EVENTS_PLOT','EVENTS_TILE_IMPROVEMENTS','EVENTS_PLAYER_TURN','EVENTS_CITY_BORDERS','EVENTS_TRADE_ROUTES');
 INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES ('COLOR_BC_BLUE',0.035,0.09,0.20,1),('COLOR_BC_GOLD',0.88,0.72,0.35,1);
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PLAYERCOLOR_BC','COLOR_BC_BLUE','COLOR_BC_GOLD','COLOR_PLAYER_WHITE_TEXT');
-INSERT INTO Traits(Type,Description,ShortDescription,NoAnnexing) VALUES ('TRAIT_BC_ONE_WORLD','TXT_KEY_BC_TRAIT_HELP','TXT_KEY_BC_TRAIT',1);
+INSERT INTO Traits(Type,Description,ShortDescription,NoAnnexing,StaysAliveZeroCities) VALUES ('TRAIT_BC_ONE_WORLD','TXT_KEY_BC_TRAIT_HELP','TXT_KEY_BC_TRAIT',1,1);
 CREATE TEMP TABLE BCClone AS SELECT * FROM "Civilizations" WHERE Type='CIVILIZATION_AMERICA';
 UPDATE BCClone SET "ID"=NULL,"Type"='CIVILIZATION_BOUNDLESS_CITY',"Description"='TXT_KEY_BC_CIV',"ShortDescription"='TXT_KEY_BC_SHORT',"Adjective"='TXT_KEY_BC_ADJECTIVE',"Civilopedia"='TXT_KEY_BC_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_CIV5_BC',"Strategy"='TXT_KEY_BC_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_BC',"Playable"=1,"AIPlayable"=1,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_BC_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='BoundlessDawn.dds',"MapImage"='BoundlessMap.dds',"PortraitIndex"=0,"IconAtlas"='BC_CIV_ATLAS',"AlphaIconAtlas"='BC_ALPHA_ATLAS';
 INSERT INTO "Civilizations" SELECT * FROM BCClone;

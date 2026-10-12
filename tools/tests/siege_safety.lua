@@ -19,7 +19,7 @@ for _,kind in ipairs({'original','holy','minor','protected','own-founded','not-d
  elseif kind=='minor' then Players[1].minor=true elseif kind=='protected' then c.protected=true
  elseif kind=='own-founded' then c.original=1 elseif kind=='not-defeated' then c.damage=198
  elseif kind=='no-razing' then Players[1].noRazing=true end
- local ok,reason=B.QueueSiege(s,n);assert(not ok,kind..' must remain protected')
+ local ok,_,reason=B.SiegeCheck(s,n);assert(not ok,kind..' must remain protected from demolition')
  if kind=='own-founded' then assert(reason=='SIEGE_ENGINE_LIMIT')
  elseif kind=='not-defeated' then assert(reason=='SIEGE_DAMAGE')
  elseif kind=='protected' or kind=='no-razing' then assert(reason=='SIEGE_NATIVE_RULE')
@@ -35,7 +35,8 @@ Map.GetPlot(16,5).visible=false;ok,_,reason=B.SiegeCheck(s,n);assert(not ok and 
 Map.GetPlot(16,5).visible=true;c.original=1;Players[1].cities[#Players[1].cities+1]=c
 local queued=0;local oldQueue=B.QueueSiege;B.QueueSiege=function(...) queued=queued+1;return oldQueue(...) end
 for _=1,4 do for _,r in ipairs(B.SiegeRows(s,true)) do if r.ready then B.QueueSiege(s,r.n) end end end
-assert(queued==0,'AI must not queue rejected demolition targets');B.QueueSiege=oldQueue
+assert(queued==1 and s.sieges[n].action=='SUBJUGATE','AI queues one safe subjugation instead of rejected demolition');B.QueueSiege=oldQueue
+Pump();assert(c.owner==1 and Map.GetPlot(16,5):GetPlotCity()==c);unit.moves=60
 local oldCity=MakeCity(1,16,5,3,2);oldCity.original=2;oldCity.damage=199;assert(B.QueueSiege(s,n))
 local replacement=MakeCity(1,16,5,3,2);replacement.original=2;replacement.damage=199
 Pump();assert(Map.GetPlot(16,5):GetPlotCity()==replacement and unit.moves==60,'same-turn replacement ID must reject an old queued action')

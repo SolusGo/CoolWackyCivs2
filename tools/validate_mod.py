@@ -11,6 +11,7 @@ V=R/'TheBoundlessCity'
 
 def sql():
     d=database()
+    native_traits=[tuple(r) for r in d.execute('SELECT * FROM Traits ORDER BY ID')]
     before={t:d.execute('SELECT * FROM '+t+' WHERE Type=?',(n,)).fetchone() for t,n in
             [('Civilizations','CIVILIZATION_AMERICA'),('Units','UNIT_WORKER'),('Buildings','BUILDING_MONUMENT')]}
     for path in sorted((V/'SQL').glob('*.sql')):d.executescript(path.read_text(encoding='utf-8'))
@@ -36,6 +37,8 @@ def sql():
     assert row[0]==3 and row[1]==int(before['Units']['WorkRate']*1.25)
     assert d.execute("SELECT Yield FROM Building_YieldChanges WHERE BuildingType='BUILDING_BC_REGISTRY' AND YieldType='YIELD_CULTURE'").fetchone()[0]==3
     assert d.execute("SELECT NoAnnexing FROM Traits WHERE Type='TRAIT_BC_ONE_WORLD'").fetchone()[0]==1
+    assert d.execute("SELECT StaysAliveZeroCities FROM Traits WHERE Type='TRAIT_BC_ONE_WORLD'").fetchone()[0]==1
+    assert native_traits==[tuple(r) for r in d.execute("SELECT * FROM Traits WHERE Type!='TRAIT_BC_ONE_WORLD' ORDER BY ID")]
     assert d.execute("SELECT NoCapture FROM UnitPromotions WHERE Type='PROMOTION_BC_NO_CAPTURE'").fetchone()[0]==1
     assert d.execute("SELECT Count FROM Civilization_FreeUnits WHERE CivilizationType='CIVILIZATION_BOUNDLESS_CITY' AND UnitClassType='UNITCLASS_SETTLER'").fetchone()[0]==1
     for table,old in [('Civilizations','CIVILIZATION_AMERICA'),('Units','UNIT_WORKER'),('Buildings','BUILDING_MONUMENT')]:
@@ -56,7 +59,7 @@ def syntax():
     print('PASS every Lua source parses under Lua 5.1')
 
 def runtime():
-    for test in ['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua','workforce_stress.lua','completion_safety.lua','siege_safety.lua','stability_assertions.lua','ai_stability.lua']:
+    for test in ['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua','workforce_stress.lua','completion_safety.lua','siege_safety.lua','stability_assertions.lua','ai_stability.lua','engine_completion.lua']:
         lua=LuaRuntime()
         def include(name):
             if name!='InstanceManager':lua.execute((V/'Lua'/f'{name}.lua').read_text(encoding='utf-8'))

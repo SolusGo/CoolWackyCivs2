@@ -9,9 +9,15 @@ GameDefines={MAX_MAJOR_CIVS=2,MAX_CIV_PLAYERS=3}
 GameDefines.MAX_MAJOR_CIVS=3;GameDefines.MAX_CIV_PLAYERS=4;GameDefines.MAX_SPECIALISTS_FROM_BUILDING=4
 TaskTypes={TASK_REMOVE_SLACKER=1,TASK_CLEAR_ORDERS=2,TASK_SET_AUTOMATED_PRODUCTION=3};MissionTypes={MISSION_BUILD=1,MISSION_MOVE_TO=2}
 NotificationTypes={NOTIFICATION_GENERIC=1};Locale={ConvertTextKey=function(k,...) return k end}
+DomainTypes={DOMAIN_LAND=0,DOMAIN_SEA=1,DOMAIN_AIR=2}
 now=1;speed=100;scans=0;mutations=0;cultureAward=0
 Game={GetGameTurn=function() return now end,GetGameSpeedType=function() return 0 end,
  IsNetworkMultiPlayer=function() return false end,GetActivePlayer=function() return 0 end}
+Game.GetWinner=function() return winner or -1 end;Game.GetVictory=function() return victory or -1 end
+Game.IsVictoryValid=function() return dominationEnabled~=false end
+Game.SetWinner=function(t,v) assert(not insideCapture);winner=t;victory=v;winnerCalls=(winnerCalls or 0)+1 end
+Game.GetImprovementUpgradeTime=function() return 2 end
+GameInfoTypes.VICTORY_DOMINATION=2
 GameInfo={GameSpeeds=setmetatable({},{__index=function() return {CulturePercent=speed} end}),
  Units={[400]={Found=0},[401]={Found=1}},Builds={[0]={ID=0,ImprovementType='IMPROVEMENT_FARM'},[1]={ID=1,Repair=1}},Resources={},Improvements={}}
 setmetatable(GameInfo.Builds,{__call=function(t) local i=-1;return function() i=i+1;return t[i] end end})
@@ -28,11 +34,13 @@ end
 GameInfo.SpecialistYields=rows({{SpecialistType='SPECIALIST_CITIZEN',YieldType='YIELD_PRODUCTION',Yield=1}})
 GameInfo.Unit_Builds=rows({{UnitType='UNIT_BC_SURVEYOR',BuildType='BUILD_FARM'},{UnitType='UNIT_BC_SURVEYOR',BuildType='BUILD_REPAIR'}})
 GameInfo.Buildings=rows({{ID=1000,SpecialistCount=4}})
+GameInfo.UnitPromotions=rows({{ID=300,NoCapture=1},{ID=301,NoCapture=1}})
 Teams={};for i=0,3 do Teams[i]={IsAtWar=function(self,other) return other~=i end,IsWaterWork=function(self) return self.waterWork~=false end} end
 local function event() local a={};local fire=function(...) for _,fn in ipairs(a) do fn(...) end end
- return setmetatable({Add=function(fn) a[#a+1]=fn end,Fire=fire},{__call=function(_,...) return fire(...) end}) end
+ local test=function(...) for _,fn in ipairs(a) do if fn(...)==false then return false end end;return true end
+ return setmetatable({Add=function(fn) a[#a+1]=fn end,Fire=fire,Test=test},{__call=function(_,...) return fire(...) end}) end
 GameEvents={};for _,n in ipairs({'PlayerDoTurn','PlayerDoneTurn','PlayerCanFoundCity','PlayerCanTrain','CityCanTrain',
- 'CityCanConstruct','CityCanCreate','CityCanMaintain','DeclareWar','MakePeace','PlayerCanBuyOut','PlayerCityFounded','UnitCreated','UnitConverted','CityCaptureComplete','TileOwnershipChanged',
+ 'CityCanConstruct','CityCanCreate','CityCanMaintain','CityCanAcquirePlot','PlayerCanCreateTradeRoute','DeclareWar','MakePeace','PlayerCanBuyOut','PlayerCityFounded','UnitCreated','UnitConverted','CityCaptureComplete','TileOwnershipChanged',
  'PlayerBuilt','TileImprovementChanged','TileFeatureChanged','TileRouteChanged','SetPopulation','TeamTechResearched','CityConstructed','PlayerAdoptPolicy','UnitSetXY'}) do GameEvents[n]=event() end
 Events={SerialEventCityInfoDirty=event(),LoadScreenClose=event()};LuaEvents={BoundlessChanged=event()}
 ContextPtr={SetUpdate=function(self,fn) deferred=fn end}
@@ -56,7 +64,13 @@ function plotMethods:GetCityPurchaseID() return self.owningCity or -1 end
 function plotMethods:GetYield(id) return self.yields[id+1] or 0 end
 function plotMethods:GetResourceType() return -1 end
 function plotMethods:GetImprovementType() return self.improvement or -1 end
-function plotMethods:IsImprovementPillaged() return false end
+function plotMethods:IsImprovementPillaged() return self.pillaged or false end
+function plotMethods:IsBeingWorked() return self.city~=nil or (capital and capital.worked[self.n]) or false end
+function plotMethods:IsCoastalLand() return self.coastal or false end
+function plotMethods:GetUpgradeProgress() return self.upgradeProgress or 0 end
+function plotMethods:ChangeUpgradeProgress(delta) self.upgradeProgress=(self.upgradeProgress or 0)+delta end
+function plotMethods:GetPlayerThatBuiltImprovement() return self.builder or 0 end
+function plotMethods:SetImprovementType(id,builder) self.improvement=id;self.builder=builder;self.upgradeProgress=0;GameEvents.TileImprovementChanged.Fire(self.x,self.y,id) end
 function plotMethods:GetArea() return 1 end
 function plotMethods:IsVisible() return self.visible~=false end
 function plotMethods:GetScriptData() return self.script or '' end
@@ -131,6 +145,7 @@ function cityMethods:NativeYield(y)
  return (self:GetBaseYieldRateFromTerrain(y)+self:GetBaseYieldRateFromMisc(y)+self.defaults*((y==1 and 1 or 0)+(self.extra[y] or 0)))*(self.modifier or 100)/100
 end
 function cityMethods:GetJONSCulturePerTurn() return self.culture end
+function cityMethods:RefreshTourism() self.tourism=self:GetBaseYieldRateFromTerrain(4)*(self.landmarkPercent or 0);self.tourismRefresh=(self.tourismRefresh or 0)+1 end
 function cityMethods:FoodDifference() return 1 end
 function cityMethods:Check()
  local count=0;for n,on in pairs(self.worked) do if on then count=count+1 end end
@@ -185,6 +200,9 @@ function playerMethods:GetScriptData() return self.script or '' end
 function playerMethods:SetScriptData(v) self.script=v end
 function playerMethods:IsHuman() return self.human end
 function playerMethods:IsAlive() return true end
+function playerMethods:IsEverAlive() return self.everAlive~=false end
+function playerMethods:GetOriginalCapitalPlot() return Map.GetPlot(self.originalX or (self.pid==0 and 3 or self.pid==1 and 60 or -1),self.originalY or 5) end
+function playerMethods:GetImprovementUpgradeRate() return self.upgradeRate or 100 end
 function playerMethods:IsBarbarian() return self.pid==3 end
 function playerMethods:IsMinorCiv() return self.minor or false end
 function playerMethods:GetPlayerToLiberate(city) return city.original~=self.pid and city.original or -1 end
@@ -205,10 +223,11 @@ function playerMethods:AddNotification() end
 function playerMethods:GetUnitByID(id) for _,u in ipairs(self.units) do if u.id==id and not u.dead then return u end end end
 function playerMethods:ChangeJONSCulture(n) cultureAward=cultureAward+n end
 function playerMethods:GetNumMilitaryUnits() return 2 end
-function playerMethods:AcquireCity(c)
+function playerMethods:AcquireCity(c,conquest,gift)
  assert(not insideCapture,'unsafe recursive capture transfer')
  for _,p in pairs(Players) do for i=#p.cities,1,-1 do if p.cities[i]==c then table.remove(p.cities,i) end end end
  c.previous=c.owner;c.owner=self.pid;self.cities[#self.cities+1]=c
+ self.lastAcquire={conquest=conquest,gift=gift}
 end
 Players={}
 for id=0,3 do Players[id]=setmetatable({pid=id,cities=id==0 and {capital} or id==1 and {foreign} or {},units={},human=id==0},{__index=playerMethods}) end
@@ -217,6 +236,10 @@ function MakeUnit(id,kind)
  function u:GetUnitType() return self.kind end
  function u:SetHasPromotion(p,v) self.promotions[p]=v end
  function u:IsHasPromotion(p) return self.promotions[p] or false end
+ function u:GetDomainType() return self.domain or 0 end
+ function u:IsDead() return self.dead end;function u:IsDelayedDeath() return false end
+ function u:IsOnlyDefensive() return self.defensive or false end
+ function u:IsOutOfAttacks() return self.outOfAttacks or false end
  function u:GetX() return 24 end;function u:GetY() return 5 end
  function u:Kill() self.dead=true end
  function u:MovesLeft() return 0 end

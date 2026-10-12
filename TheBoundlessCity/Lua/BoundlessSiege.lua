@@ -36,17 +36,21 @@ function B.SiegeCheck(s,n,melees)
  end
  return false,nil,'SIEGE_MELEE'
 end
-function B.QueueSiege(s,n)
+function B.QueueSiege(s,n,dispatched)
  if s.sieges[n] then return false,'SIEGE_QUEUED' end
- local ok,r,reason=B.SiegeCheck(s,n);if not ok then return false,reason end
- s.sieges[n]=r;B.Save(s);B.Schedule(s.pid);return true
+ local ok,r,reason=B.MilitaryCheck(s,n);if not ok then return false,reason end
+ s.sieges[n]=r;B.Save(s);if not dispatched then B.Schedule(s.pid) end;return true
 end
 function B.ProcessSieges(s)
  if s.incompatible then return end
  for _,n in ipairs(B.Keys(s.sieges)) do local record=s.sieges[n]
-  local ok,current=B.SiegeCheck(s,n)
+  local ok,current=B.MilitaryCheck(s,n,nil,record.action or 'DEMOLISH')
   s.sieges[n]=nil;B.Save(s)
-  if ok and current.owner==record.owner and current.founded==record.founded and (not record.city or current.city==record.city) then
+  if ok and current.owner==record.owner and current.founded==record.founded and (not record.city or current.city==record.city)
+   and (not record.original or current.original==record.original)
+   and (not record.birth or (current.unit==record.unit and current.birth==record.birth)) then
+   if current.action~='DEMOLISH' then B.ResolveMilitary(s,current)
+   else
    local plot=Map.GetPlotByIndex(n);local city=plot:GetPlotCity()
    local unit=Players[s.pid]:GetUnitByID(current.unit)
    -- Rare demolition may inspect the map once; opening the UI never does.
@@ -63,6 +67,7 @@ function B.ProcessSieges(s)
    end
    s.history[#s.history+1]={kind='DEMOLITION',x=current.x,y=current.y,turn=B.Now()}
    B.Save(s);B.Notify(s,'DEMOLISHED')
+   end
   end
  end
 end
@@ -72,10 +77,11 @@ function B.SiegeRows(s,onlyReady)
   if p and p:IsAlive() and pid~=s.pid and not p:IsBarbarian() then
    for city in p:Cities() do local plot=Map.GetPlot(city:GetX(),city:GetY());local n=plot:GetPlotIndex()
     if city:IsRevealed(team,false) then
-     local ready,_,reason=B.SiegeCheck(s,n,melees)
+     local ready,record,reason=B.MilitaryCheck(s,n,melees)
      if not onlyReady or ready then
       if s.sieges[n] then ready=false;reason='SIEGE_QUEUED' end
-      result[#result+1]={n=n,x=city:GetX(),y=city:GetY(),ready=ready,reason=reason,
+      result[#result+1]={n=n,x=city:GetX(),y=city:GetY(),ready=ready,reason=reason,action=record and record.action,
+       protection=plot:IsVisible(team,false) and city:IsOriginalCapital() and 'SIEGE_CAPITAL' or nil,
        name=plot:IsVisible(team,false) and city:GetName() or B.Text('SIEGE_KNOWN_CITY')}
      end
     end
@@ -84,3 +90,8 @@ function B.SiegeRows(s,onlyReady)
  end
  table.sort(result,function(a,b) return a.n<b.n end);return result
 end
+function B.QueueReadyMilitary(s,dispatched)
+ if s.incompatible or Players[s.pid]:IsHuman() or not Players[s.pid]:IsAlive() then return end
+ for _,r in ipairs(B.SiegeRows(s,true)) do if r.ready then B.QueueSiege(s,r.n,dispatched) end end
+end
+include('BoundlessMilitary')

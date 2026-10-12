@@ -5,7 +5,7 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='3'
+VERSION='4'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
 NS='http://schemas.microsoft.com/developer/msbuild/2003'

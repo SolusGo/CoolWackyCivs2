@@ -12,7 +12,9 @@ function B.Schedule(pid,force)
  updateContext:SetUpdate(function()
   updateContext:SetUpdate(nil);armed=false;local pending=queued;queued={}
   for _,id in ipairs(B.Keys(pending)) do
-   local s=B.State(id);B.CullSettlers(s);B.RecoverCities(s);B.ProcessSieges(s);B.Registry(s);B.Reconcile(s)
+   local s=B.State(id);B.CullSettlers(s);B.RecoverCities(s)
+   if B.Cache(s).militaryDirty then B.Cache(s).militaryDirty=nil;B.QueueReadyMilitary(s,true) end
+   B.ProcessSieges(s);B.Registry(s);B.Reconcile(s)
   end
  end)
 end
@@ -133,6 +135,7 @@ function B.Turn(pid)
  if not B.IsBoundless(pid) then return end
  local s=B.Initialize(pid)
  B.CullSettlers(s);B.RecoverCities(s)
+ B.QueueReadyMilitary(s)
  if s.incompatible or not B.City(s) or s.lastTurn==B.Now() then return end
  s.lastTurn=B.Now()
  if not Players[pid]:IsHuman() then
@@ -141,8 +144,8 @@ function B.Turn(pid)
   s.priority=city:FoodDifference()<=2 and 'FOOD' or Players[pid]:GetNumMilitaryUnits()<3 and 'PRODUCTION' or 'BALANCED'
  end
  B.Busy[pid]=true;B.Expand(s);B.Busy[pid]=nil
- B.Cache(s).force=true;B.Reconcile(s);B.AIWorkers(s)
- if not Players[pid]:IsHuman() then for _,r in ipairs(B.SiegeRows(s,true)) do if r.ready then B.QueueSiege(s,r.n) end end end
+ B.Cache(s).force=true;B.Reconcile(s);B.DevelopRemotePlots(s);B.AIWorkers(s)
+ B.CheckDomination(s)
  B.Save(s)
 end
 include('BoundlessSiege')
@@ -177,6 +180,10 @@ local function originalProduction(pid,id)
 end
 hook('CityCanCreate',originalProduction)
 hook('CityCanMaintain',originalProduction)
+hook('CityCanAcquirePlot',originalProduction)
+hook('PlayerCanCreateTradeRoute',function(from,fromCity,to,toCity)
+ return originalProduction(from,fromCity) and originalProduction(to,toCity)
+end)
 hook('PlayerCanBuyOut',function(pid) return not B.IsBoundless(pid) end)
 hook('PlayerCityFounded',function(pid,x,y)
  local plot=Map.GetPlot(x,y)
@@ -263,13 +270,21 @@ end)
 hook('CityConstructed',function(pid) if B.IsBoundless(pid) then B.Trim(B.State(pid));B.Schedule(pid,true) end end)
 hook('PlayerAdoptPolicy',function(pid) if B.IsBoundless(pid) then B.Trim(B.State(pid));B.Schedule(pid,true) end end)
 if Events.SerialEventCityInfoDirty then Events.SerialEventCityInfoDirty.Add(function()
- for _,pid in ipairs(B.Players) do B.Trim(B.State(pid));B.Schedule(pid) end
+ for _,pid in ipairs(B.Players) do
+  local s=B.State(pid);if not Players[pid]:IsHuman() then B.Cache(s).militaryDirty=true end
+  B.Trim(s);B.Schedule(pid)
+ end
 end) end
 function B.Movement(pid,uid,x,y)
  if #B.Players==0 then return end
  local unit=Players[pid] and Players[pid]:GetUnitByID(uid)
  if unit and (B.IsBoundless(pid) or unit:IsHasPromotion(B.ID('PROMOTION_BC_NO_CAPTURE'))) then B.NoCapture(pid,unit) end
  local key=pid..':'..uid;local p=Map.GetPlot(x,y);local old=B.UnitPositions[key]
+ if unit and p and B.IsBoundless(pid) and not Players[pid]:IsHuman() and unit:IsCombatUnit() then
+  B.Neighbors(p,function(q)
+   if q:IsCity() and q:GetOwner()~=pid then B.Cache(B.State(pid)).militaryDirty=true;B.Schedule(pid) end
+  end)
+ end
  B.UnitPositions[key]=p and p:GetPlotIndex() or nil
  local affected={}
  local function watch(q)

@@ -122,6 +122,10 @@ function B.ApplyLedger(city,gross,deduct,refresh)
   end
  end
  writeLedger(city,misc,terrain)
+ -- The six ordinary rate refreshes do not refresh the native Tourism cache.
+ -- RefreshTourism recalculates it from terrain Culture and existing modifiers;
+ -- it adds no yield and needs no separate persistent contribution.
+ if terrainChanged[5] or refresh then city:RefreshTourism() end
 end
 function B.WorkforceFailure(s,city,err)
  local cleared,cleanupError=pcall(B.ApplyLedger,city,{},{})
@@ -351,8 +355,9 @@ function B.RemoteRows(s,sort)
 end
 function B.Action(pid,kind,value)
  if not B.IsBoundless(pid) or Game.GetActivePlayer()~=pid or not Players[pid]:IsHuman() or not Players[pid]:IsTurnActive() then return false end
- local s=B.State(pid);if s.incompatible or not B.City(s) then return false end
+ local s=B.State(pid);if s.incompatible then return false end
  if kind=='SIEGE' then return B.QueueSiege(s,value) end
+ if not B.City(s) then return false end
  if kind=='MODE' and ({AUTO=true,MANUAL=true,HYBRID=true})[value] then s.mode=value
  elseif kind=='PRIORITY' and B.Weights[value] then s.priority=value
  elseif kind=='DIRECTION' and ({ANY=true,NORTH=true,EAST=true,SOUTH=true,WEST=true})[value] then s.direction=value

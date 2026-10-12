@@ -2,7 +2,7 @@
   "official_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
   "dll_version": 151,
   "scope": "source availability/ABI assertions; NOT launched-game verification",
-  "passed_assertions": 129,
+  "passed_assertions": 176,
   "checks": [
     "DLL version is 151",
     "City:GetOwner registered",
@@ -42,6 +42,7 @@
     "City:GetResistanceTurns registered",
     "City:ChangeResistanceTurns registered",
     "City:IsRevealed registered",
+    "City:RefreshTourism registered",
     "Player:GetCivilizationType registered",
     "Player:GetCapitalCity registered",
     "Player:Cities registered",
@@ -65,6 +66,9 @@
     "Player:GetUnitByID registered",
     "Player:ChangeJONSCulture registered",
     "Player:GetNumMilitaryUnits registered",
+    "Player:IsEverAlive registered",
+    "Player:GetOriginalCapitalPlot registered",
+    "Player:GetImprovementUpgradeRate registered",
     "Plot:GetOwner registered",
     "Plot:GetX registered",
     "Plot:GetY registered",
@@ -84,6 +88,12 @@
     "Plot:SetScriptData registered",
     "Plot:SetOwner registered",
     "Plot:GetCityPurchaseID registered",
+    "Plot:IsBeingWorked registered",
+    "Plot:IsCoastalLand registered",
+    "Plot:GetUpgradeProgress registered",
+    "Plot:ChangeUpgradeProgress registered",
+    "Plot:SetImprovementType registered",
+    "Plot:GetPlayerThatBuiltImprovement registered",
     "Unit:GetUnitType registered",
     "Unit:GetID registered",
     "Unit:GetX registered",
@@ -102,8 +112,18 @@
     "Unit:CanBuild registered",
     "Unit:GetPlot registered",
     "Unit:PushMission registered",
+    "Unit:GetDomainType registered",
+    "Unit:IsDead registered",
+    "Unit:IsDelayedDeath registered",
+    "Unit:IsOnlyDefensive registered",
+    "Unit:IsOutOfAttacks registered",
     "Team:IsAtWar registered",
     "Team:IsWaterWork registered",
+    "Game:GetWinner registered",
+    "Game:GetVictory registered",
+    "Game:SetWinner registered",
+    "Game:IsVictoryValid registered",
+    "Game:GetImprovementUpgradeTime registered",
     "DoTask option uses luaL_optint",
     "Labourer extra yield is count multiplied",
     "Specialist extra binding order is yield then specialist",
@@ -120,6 +140,31 @@
     "Resistance blocks purchase-cost legality",
     "Native city turn decrements resistance before production",
     "CanRaze has a native script protection veto",
+    "Zero-city survival uses civilization trait",
+    "Zero-city survival cannot bypass no units or max-city-elimination",
+    "Trait loads native StaysAliveZeroCities column",
+    "Trait aggregation preserves scoped zero-city survival",
+    "Elimination kills remaining units",
+    "Native save serializes survival trait cache",
+    "Trait read does not rebuild survival from updated SQL",
+    "Natural policy and technology refresh native traits",
+    "Native acquisition has no pre-acquisition test veto",
+    "Native acquisition recognizes reclaimed original capital",
+    "Native acquisition validates displaced units",
+    "NoCapture rejection precedes movement Lua hook",
+    "Own-founded rejection precedes all raze vetoes",
+    "CanRaze preserves option and unique-civilization luxury rules",
+    "Tourism refresh binding recalculates native tourism source",
+    "Native Tourism converts terrain Culture once",
+    "Native improvement development is limited to native working array",
+    "Native development rate and threshold are plot-specific",
+    "Worked improvement counters lack exposed mutator",
+    "City has no Lua worked-counter mutators",
+    "New-route hook is a veto",
+    "City border selection hook is a veto",
+    "Resistance alone does not universally suppress specialist GPP",
+    "Native winner setter completes replay notification and game state",
+    "Native conquest considers ever-alive original capitals",
     "CP event ABI PlayerBuilt",
     "CP event ABI UnitConverted",
     "CP event ABI TileOwnershipChanged",
@@ -127,6 +172,8 @@
     "CP event ABI PlayerDoneTurn",
     "CP event ABI DeclareWar",
     "CP event ABI MakePeace",
+    "CP event ABI PlayerCanCreateTradeRoute",
+    "CP event ABI CityCanAcquirePlot",
     "Native event call CityCaptureComplete",
     "Native event call PlayerDoTurn",
     "Native event call PlayerCityFounded",
@@ -198,6 +245,34 @@
     "Lua/CvLuaTeam.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaTeam.cpp",
       "sha256": "1842484317f5c6bba8dc6dc492d9a1a0d6015c25d506717d3b92d5891a9d5498"
+    },
+    "CvGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvGame.cpp",
+      "sha256": "6dad41a144c98a15d94d59ee0d4effb0ff92190586074adb7e5c03bb1815b205"
+    },
+    "Lua/CvLuaGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaGame.cpp",
+      "sha256": "a2bee0ef0210f71eae8e09f3209755f7bf64ee6177dc8f52ee01de8fa893655b"
+    },
+    "CvTraitClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTraitClasses.cpp",
+      "sha256": "ce7700b643a47674216691f112ab61bb767925be044b6e1de7566fe7365f503b"
+    },
+    "CvTraitClasses.h": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTraitClasses.h",
+      "sha256": "05a5ee143a8361d9daea543317d94449f7d8e297e64175603f120ebc273913e5"
+    },
+    "CvCultureClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCultureClasses.cpp",
+      "sha256": "aeff13fad53045a8afc5dd84908d8244e4335c99bef60890ae4bb1b5a0d1f99c"
+    },
+    "CvTradeClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTradeClasses.cpp",
+      "sha256": "c645883745438c0bf9a1261aa4eedd50ba67899adb9701a0e7c75df2af8dc4fd"
+    },
+    "CvDllNetMessageHandler.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvDllNetMessageHandler.cpp",
+      "sha256": "6f748a0f38b8a71b5e08258aed04adfe1420a6f537d5a3ccf1b5659f04be730d"
     }
   }
 }

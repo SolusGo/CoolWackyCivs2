@@ -7,7 +7,7 @@ B.ID=function(name) return GameInfoTypes[name] end
 B.Text=function(key,...) return Locale.ConvertTextKey('TXT_KEY_BC_'..key,...) end
 B.Now=function() return Game.GetGameTurn() end
 B.Keys=function(t) local a={};for k in pairs(t) do a[#a+1]=k end;table.sort(a);return a end
-B.Config={BaseCost=20,TileCost=.20,RootCost=2.5,EraCost=.05,RegistryDiscount=.15,PageSize=16}
+B.Config={BaseCost=20,TileCost=.20,RootCost=2.5,EraCost=.05,RegistryDiscount=.15,PageSize=16,SubjugationDomination=true}
 B.Weights={BALANCED={3,3,2,3,3,2},FOOD={8,2,1,2,2,1},PRODUCTION={3,8,1,2,2,1},GOLD={3,2,8,2,2,1}}
 B.Yields={}
 for _,name in ipairs({'FOOD','PRODUCTION','GOLD','SCIENCE','CULTURE','FAITH'}) do

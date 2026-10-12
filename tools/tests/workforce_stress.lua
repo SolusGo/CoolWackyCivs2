@@ -35,7 +35,7 @@ for _,case in ipairs(cases) do
  local snapshot=Players[0].script;local ledger=Map.GetPlot(3,5):GetScriptData()
  local production=capital:NativeYield(1)
  B.States={};B.Caches={};B.Initialize(0);s=B.State(0);verify()
- assert(capital:NativeYield(1)==production and s.version==2,'v2 native save reloaded twice')
+ assert(capital:NativeYield(1)==production and s.version==3,'native save reloaded twice after schema migration')
  local a=B.Summary(s);assert(a.pending==case[1]-case[3]);assert(a.availableRemote==0)
  print('PASS population '..case[1]..' / owned '..case[2]..' / safe remote '..a.remote..' / pending '..a.pending)
  -- Building capacity is accounted for BEFORE the governor can fill the new slots.
