@@ -45,7 +45,7 @@
     <File md5="D2D3938CE0A3851194456FD12BFAC9FE" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
     <File md5="970328011B24D9E2F3152FD1210DD276" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
     <File md5="7EC3F5625C0ACD4FEC40FA95A9F8DD9B" import="1">TheBoundlessCity/Art/BoundlessLeader.dds</File>
-    <File md5="91D4F6C5BE9A993A2635E16E1D4A6A42" import="1">TheBoundlessCity/Art/BoundlessLeaderScene.xml</File>
+    <File md5="6911E551F70C4357D0EAAE442428CF28" import="1">TheBoundlessCity/Art/BoundlessLeaderScene.xml</File>
     <File md5="4339C5183AC269C1F8D75B4CC27F98B9" import="1">TheBoundlessCity/Art/BoundlessMap.dds</File>
     <File md5="5D4E1E4EB08F7FA5921E4C95B5DCC541" import="1">TheBoundlessCity/Art/BoundlessObjects128.dds</File>
     <File md5="806DCBCC3733842FCB503E0044D14576" import="1">TheBoundlessCity/Art/BoundlessObjects16.dds</File>
@@ -62,11 +62,11 @@
     <File md5="46D3404C96FF9728B73D5104747A8246" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
     <File md5="61BBE57821BACADB472F1362536A66C0" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
     <File md5="54C1489D0C80A1C73EF2EE714206CCC4" import="1">TheBoundlessCity/Lua/BoundlessPersistence.lua</File>
-    <File md5="FFA379BBC5441CD0A86A127DBBBCFBB2" import="0">TheBoundlessCity/SQL/00_BC_Core.sql</File>
-    <File md5="F57B54E0FE2801277C34EA790F72304A" import="0">TheBoundlessCity/SQL/01_BC_Inheritance.sql</File>
-    <File md5="6EF6227C0F5B33B38AFFD4E6B85F1796" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
-    <File md5="16C5F6A6397BFA5135FB8F7A6442B663" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
-    <File md5="266B19E75330E30A3917167CFE4A212B" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
+    <File md5="7D38A2A0876B8707351171B2B0C5AAEA" import="0">TheBoundlessCity/SQL/00_BC_Core.sql</File>
+    <File md5="36E736BD59C756960EFD3CD08BDACFD8" import="0">TheBoundlessCity/SQL/01_BC_Inheritance.sql</File>
+    <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
+    <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
+    <File md5="243D9D6FBB116B8B4D78D4A03C48AB1E" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
     <File md5="BE75E99EA7660B9632B4FA4B5D353476" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
     <File md5="E155E668C801D36AEDB0CF4E20EF0877" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
   </Files>

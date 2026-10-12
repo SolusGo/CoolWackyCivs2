@@ -121,7 +121,7 @@ UPDATE Leader_Flavors SET Flavor=7 WHERE LeaderType='LEADER_BC_ARCHITECT' AND Fl
     art += "INSERT INTO IconTextureAtlases VALUES ('BC_FLAG_ATLAS',32,'BoundlessFlag32.dds',1,1);\n"
     text = '\n'.join("INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_"+k+"','"+v.replace("'","''")+"');" for k,v in sorted(TEXT.items()))+'\n'
     for name, content in [('00_BC_Core',core),('01_BC_Inheritance',inherit),('02_BC_Effects',effects),('03_BC_Art',art),('10_BC_Text',text)]:
-        (V/'SQL'/f'{name}.sql').write_text(content,encoding='utf-8')
+        (V/'SQL'/f'{name}.sql').write_text(content,encoding='utf-8',newline='\n')
     print('Generated inherited civilization, Worker, Monument, art and localization SQL')
 
 if __name__ == '__main__': main()

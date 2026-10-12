@@ -12,6 +12,7 @@
 - Added native no-capture promotions, founding/training vetoes, Settler cleanup and deferred safe transfer recovery.
 - Added player-save persistence, a native city yield ledger, deterministic AI allocation and idle Surveyor missions.
 - Added original illustration and 34 DDS assets, ModBuddy solution/project, load-ordered modinfo, ZIP/Civ5Mod builders and focused SQL/Lua/UI/package tests.
+- Fixed LF line endings for text assets so committed manifest checksums remain valid on Windows and fresh checkouts.
 - Added a detailed collection README, dedicated civilization page, civ README/changelog, API audit, implementation guide, limitations and CP v151 testing checklist.
 
 ### Remaining verification and design gaps

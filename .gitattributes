@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.dds binary
+*.png binary
+*.zip binary
+*.civ5mod binary

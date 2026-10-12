@@ -57,7 +57,7 @@ def main():
         mask=Image.new('L',(size,size),0);ImageDraw.Draw(mask).ellipse((1,1,size-2,size-2),fill=255)
         icon.putalpha(mask);icon.save(V/f'BoundlessPortrait{size}.dds')
     save(emblem('surveyor',True),'BoundlessFlag32.dds',(32,32))
-    (V/'BoundlessLeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="BoundlessLeader.dds" />\n',encoding='utf-8')
+    (V/'BoundlessLeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="BoundlessLeader.dds" />\n',encoding='utf-8',newline='\n')
     preview=Image.new('RGBA',(512*3,512),BLUE)
     for i,kind in enumerate(['civ','registry','surveyor']):preview.paste(emblem(kind),(i*512,0))
     preview.convert('RGB').save(R/'art-source/TheBoundlessCity/InsigniaPreview.png')

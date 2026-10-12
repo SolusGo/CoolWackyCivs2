@@ -23,4 +23,4 @@ result={'environment':'Python 3.11 + Lupa Lua 5.1; synthetic native calls, not C
  'remote_workers':lua.eval('MapModData.BoundlessCity.State(0).reserved'),
  'idle_frame_polling':False,'in_game_huge_map_benchmark':'NOT RUN'}
 print(json.dumps(result,indent=2))
-(V/'docs/Benchmark.json').write_text(json.dumps(result,indent=2)+'\n')
+(V/'docs/Benchmark.json').write_text(json.dumps(result,indent=2)+'\n',newline='\n')
