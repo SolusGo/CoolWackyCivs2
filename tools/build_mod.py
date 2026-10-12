@@ -37,7 +37,9 @@ def manifests():
     entry=ET.SubElement(ET.SubElement(root,'EntryPoints'),'EntryPoint',type='InGameUIAddin',file=ENTRY)
     ET.SubElement(entry,'Name').text='The Boundless Workforce'
     ET.SubElement(entry,'Description').text='One simulation owner and an event-driven workforce panel.'
-    ET.indent(root,'  ');ET.ElementTree(root).write(R/(NAME+'.modinfo'),encoding='utf-8',xml_declaration=True)
+    ET.indent(root,'  ')
+    with (R/(NAME+'.modinfo')).open('wb') as output:
+        ET.ElementTree(root).write(output,encoding='utf-8',xml_declaration=True)
     def tag(name):return '{'+NS+'}'+name
     proj=ET.Element(tag('Project'),DefaultTargets='Deploy',ToolsVersion='4.0');group=ET.SubElement(proj,tag('PropertyGroup'))
     properties={**PROPS,'Guid':MOD_ID,'ProjectGuid':'{'+PROJECT_ID.upper()+'}', 'ModVersion':'1',
@@ -66,7 +68,9 @@ def manifests():
     for p in paths:
         c=ET.SubElement(items,tag('Content'),Include=relative(p));ET.SubElement(c,tag('ImportIntoVFS')).text=str(imported(p))
     ET.SubElement(proj,tag('Import'),Project='$(MSBuildExtensionsPath)\\Firaxis\\ModBuddy\\Civ5Mod.targets')
-    ET.indent(proj,'  ');ET.ElementTree(proj).write(R/'CoolWackyCivs2.civ5proj',encoding='utf-8',xml_declaration=True)
+    ET.indent(proj,'  ')
+    with (R/'CoolWackyCivs2.civ5proj').open('wb') as output:
+        ET.ElementTree(proj).write(output,encoding='utf-8',xml_declaration=True)
     print('Updated modinfo and ModBuddy project for',len(paths),'game files')
     return paths
 
