@@ -1,0 +1,12 @@
+{
+  "environment": "Python 3.11 + Lupa Lua 5.1; synthetic native calls, not Civ V",
+  "plots": 16000,
+  "population": 40,
+  "iterations": 20,
+  "initialization_ms": 254.05,
+  "reconcile_median_ms": 52.16,
+  "reconcile_max_ms": 71.85,
+  "remote_workers": 40,
+  "idle_frame_polling": false,
+  "in_game_huge_map_benchmark": "NOT RUN"
+}

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="1">
+  <Properties>
+    <Name>Cool Wacky Civs 2</Name>
+    <Teaser>One city. A world without an end.</Teaser>
+    <Description>The Boundless City: contiguous cultural frontier growth, real citizen reservations for distant tiles, the Grand Registry, Frontier Surveyors and The Boundless Workforce. Requires BNW and Community Patch v151. See the included guide for native engine limits.</Description>
+    <Authors>SolusGo</Authors>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
+    <AffectsSavedGames>1</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>1</SupportsSinglePlayer>
+    <SupportsMultiplayer>0</SupportsMultiplayer>
+    <SupportsHotSeat>0</SupportsHotSeat>
+    <SupportsMac>0</SupportsMac>
+    <ReloadAudioSystem>0</ReloadAudioSystem>
+    <ReloadLandmarkSystem>0</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>0</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>0</ReloadUnitSystem>
+  </Properties>
+  <Dependencies>
+    <Dlc id="6DA07636-4123-4018-B643-6575B4EC336B" minversion="0" maxversion="999" title="Expansion - Brave New World" />
+    <Mod id="d1b6328c-ff44-4b0d-aad7-c657f83610cd" minversion="151" maxversion="999" title="(1) Community Patch" />
+  </Dependencies>
+  <References />
+  <Blocks />
+  <Files>
+    <File md5="D3588A7BC9AB350EACDA84921EBAF924" import="1">TheBoundlessCity/Art/BoundlessAlpha128.dds</File>
+    <File md5="AFC07018A9BAAC46FA381C936A49E74F" import="1">TheBoundlessCity/Art/BoundlessAlpha16.dds</File>
+    <File md5="989AB9944B0CB53943CDB28AB2705D51" import="1">TheBoundlessCity/Art/BoundlessAlpha24.dds</File>
+    <File md5="065907D29C8B4AD52BD2550E38A32B40" import="1">TheBoundlessCity/Art/BoundlessAlpha256.dds</File>
+    <File md5="86C749B95F98436F2CA1E6289CE959EE" import="1">TheBoundlessCity/Art/BoundlessAlpha32.dds</File>
+    <File md5="47F03741BBD3C63656E50C8A3AF2B457" import="1">TheBoundlessCity/Art/BoundlessAlpha45.dds</File>
+    <File md5="F0FB38C394F660EADE8D3E5F9143AA4C" import="1">TheBoundlessCity/Art/BoundlessAlpha48.dds</File>
+    <File md5="33FA4D42164633A35F8C6FE940AC0EED" import="1">TheBoundlessCity/Art/BoundlessAlpha64.dds</File>
+    <File md5="DDC5E1FCC52F6B2867F4649F83C4D0E6" import="1">TheBoundlessCity/Art/BoundlessAlpha80.dds</File>
+    <File md5="B6F11D9F8CB83E7A4F4F7809DE348CFD" import="1">TheBoundlessCity/Art/BoundlessDawn.dds</File>
+    <File md5="A51A77982BD11CD273F40223D9EEF195" import="1">TheBoundlessCity/Art/BoundlessFlag32.dds</File>
+    <File md5="7C47371EF06D827D99A9B5565EEA2134" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
+    <File md5="D66E74D6E91917D1F2298718A28C805C" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
+    <File md5="F8F54D865C55A7CF93C9D6D4A0AF7FD0" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
+    <File md5="3B0821DB643EA706C36BBABE1F3BB9E8" import="1">TheBoundlessCity/Art/BoundlessIcon256.dds</File>
+    <File md5="1B8890D6648115AE4E6D6E18A2E3A661" import="1">TheBoundlessCity/Art/BoundlessIcon32.dds</File>
+    <File md5="17085ECEC8303E54137EA97EBDF8FEA2" import="1">TheBoundlessCity/Art/BoundlessIcon45.dds</File>
+    <File md5="D4CA25047ACA56A8E29EDEA07D700FB5" import="1">TheBoundlessCity/Art/BoundlessIcon48.dds</File>
+    <File md5="D2D3938CE0A3851194456FD12BFAC9FE" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
+    <File md5="970328011B24D9E2F3152FD1210DD276" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
+    <File md5="7EC3F5625C0ACD4FEC40FA95A9F8DD9B" import="1">TheBoundlessCity/Art/BoundlessLeader.dds</File>
+    <File md5="91D4F6C5BE9A993A2635E16E1D4A6A42" import="1">TheBoundlessCity/Art/BoundlessLeaderScene.xml</File>
+    <File md5="4339C5183AC269C1F8D75B4CC27F98B9" import="1">TheBoundlessCity/Art/BoundlessMap.dds</File>
+    <File md5="5D4E1E4EB08F7FA5921E4C95B5DCC541" import="1">TheBoundlessCity/Art/BoundlessObjects128.dds</File>
+    <File md5="806DCBCC3733842FCB503E0044D14576" import="1">TheBoundlessCity/Art/BoundlessObjects16.dds</File>
+    <File md5="DB98F54D6A6AA148E4E74AE3B6B18F6B" import="1">TheBoundlessCity/Art/BoundlessObjects24.dds</File>
+    <File md5="A28C1959D83391DF7AF61423AE95880D" import="1">TheBoundlessCity/Art/BoundlessObjects256.dds</File>
+    <File md5="2E8346C6C1FA0C99D5311C0EC9E059B6" import="1">TheBoundlessCity/Art/BoundlessObjects32.dds</File>
+    <File md5="1AD2FCE9D23D4C8A842A05DDBF89AF36" import="1">TheBoundlessCity/Art/BoundlessObjects45.dds</File>
+    <File md5="9A4E4F6ADBAEA642DED4F8B88C88DD5F" import="1">TheBoundlessCity/Art/BoundlessObjects48.dds</File>
+    <File md5="5908DEC781A6C69DBC06A05E311E0850" import="1">TheBoundlessCity/Art/BoundlessObjects64.dds</File>
+    <File md5="86192AA1196C4FE29B7F99C7A2202380" import="1">TheBoundlessCity/Art/BoundlessObjects80.dds</File>
+    <File md5="9010AA6BFC477B88ED5B64B35F4FCB98" import="1">TheBoundlessCity/Art/BoundlessPortrait128.dds</File>
+    <File md5="B2DBA4DD00B403EABA573909ABDC36E3" import="1">TheBoundlessCity/Art/BoundlessPortrait256.dds</File>
+    <File md5="E3663F04BF6A93C7EAB50FE5E250CD9C" import="1">TheBoundlessCity/Art/BoundlessPortrait64.dds</File>
+    <File md5="46D3404C96FF9728B73D5104747A8246" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
+    <File md5="61BBE57821BACADB472F1362536A66C0" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
+    <File md5="54C1489D0C80A1C73EF2EE714206CCC4" import="1">TheBoundlessCity/Lua/BoundlessPersistence.lua</File>
+    <File md5="FFA379BBC5441CD0A86A127DBBBCFBB2" import="0">TheBoundlessCity/SQL/00_BC_Core.sql</File>
+    <File md5="F57B54E0FE2801277C34EA790F72304A" import="0">TheBoundlessCity/SQL/01_BC_Inheritance.sql</File>
+    <File md5="6EF6227C0F5B33B38AFFD4E6B85F1796" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
+    <File md5="16C5F6A6397BFA5135FB8F7A6442B663" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
+    <File md5="266B19E75330E30A3917167CFE4A212B" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
+    <File md5="BE75E99EA7660B9632B4FA4B5D353476" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
+    <File md5="E155E668C801D36AEDB0CF4E20EF0877" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
+  </Files>
+  <Actions>
+    <OnModActivated>
+      <UpdateDatabase>TheBoundlessCity/SQL/00_BC_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoundlessCity/SQL/01_BC_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoundlessCity/SQL/02_BC_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoundlessCity/SQL/03_BC_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoundlessCity/SQL/10_BC_Text.sql</UpdateDatabase>
+    </OnModActivated>
+  </Actions>
+  <EntryPoints>
+    <EntryPoint type="InGameUIAddin" file="TheBoundlessCity/UI/BoundlessWorkforce.xml">
+      <Name>The Boundless Workforce</Name>
+      <Description>One simulation owner and an event-driven workforce panel.</Description>
+    </EntryPoint>
+  </EntryPoints>
+</Mod>
