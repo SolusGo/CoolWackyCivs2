@@ -1,22 +1,31 @@
 local B=MapModData.BoundlessCity
 local queued={};local updateContext=ContextPtr
-local armed=false
+local armed=false;local uiRefresh
 -- A dirty event schedules ONE callback. The callback removes itself before running.
 -- This is deferred dispatch after the native action, never an idle/frame polling loop.
-function B.Schedule(pid,force)
- if not B.IsBoundless(pid) or B.Busy[pid] then return end
- if force then B.Cache(B.State(pid)).force=true end
- queued[pid]=true
+local function arm()
  if armed then return end
  armed=true
  updateContext:SetUpdate(function()
   updateContext:ClearUpdate();armed=false;local pending=queued;queued={}
+  local refresh=uiRefresh;uiRefresh=nil
   for _,id in ipairs(B.Keys(pending)) do
    local s=B.State(id);B.CullSettlers(s);B.RecoverCities(s)
    if B.Cache(s).militaryDirty then B.Cache(s).militaryDirty=nil;B.QueueReadyMilitary(s,true) end
    B.ProcessSieges(s);B.Registry(s);B.Reconcile(s)
   end
+  if refresh then refresh() end
  end)
+end
+function B.Schedule(pid,force)
+ if not B.IsBoundless(pid) or B.Busy[pid] then return end
+ if force then B.Cache(B.State(pid)).force=true end
+ queued[pid]=true;arm()
+end
+-- UI transitions share this dispatcher instead of replacing its native update.
+-- A UI-only request performs no gameplay work; repeated requests coalesce.
+function B.DeferUI(refresh)
+ uiRefresh=refresh;arm()
 end
 function B.CullSettlers(s)
  if not s.capital or s.incompatible then return end

@@ -4,7 +4,7 @@
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
-**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.2.1 preview / mod v4
+**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.2.2 preview / mod v4
 
 ## Identity and uniques
 
@@ -30,7 +30,7 @@ Open the button at the upper right of the world map. The panel shows population,
 - Choose **Food**, **Production**, **Gold** or **Balanced** priorities; sort distant plots by distance, score, resource or improvement.
 - **Assign/Release** controls participation; **Lock/Unlock** controls preservation in Hybrid. **Locate** centers the map. A requested lock can wait for reservation capacity.
 
-Rows are paged; the panel has no permanent frame polling and hides during city, diplomacy and other incompatible screens.
+Rows are paged; the panel has no permanent frame polling and hides during city, diplomacy and other incompatible screens. The launcher checks actual screen visibility and refreshes after returning to the map, even while the panel is closed. The [1.2.2 UI hotfix](../../TheBoundlessCity/docs/UIVisibilityHotfix.md) keeps existing saves and assignments compatible; restart Civ V after installing it.
 
 ## Limits you need to know
 

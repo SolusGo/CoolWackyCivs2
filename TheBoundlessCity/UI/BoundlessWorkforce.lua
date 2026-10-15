@@ -2,29 +2,81 @@ include('InstanceManager')
 include('BoundlessCore')
 local B=MapModData.BoundlessCity
 local instances=InstanceManager:new('BoundlessPlotRow','Root',Controls.Rows)
-local opened,cityScreen,leaderScreen,refreshing=false,false,false,false
+local opened,leaderScreen,refreshing,transition=false,false,false,false
 local blocked={};local page=1;local sort='DISTANCE';local message=''
 local siege=false
-local mode=UI.GetInterfaceMode()
-local refresh
-local function world()
- return not cityScreen and not leaderScreen and not next(blocked)
-  and not UI.IsCityScreenUp() and mode==InterfaceModeTypes.INTERFACEMODE_SELECTION
+local refresh;local lastVisibility,lastError;local contexts={};local transitionRevision=0
+-- Context IDs from BNW InGame.xml. Query actual visibility: popup notifications
+-- can be missed, or (DeclareWarPopup) report Processed while still displayed.
+local screens={
+ 'CivilopediaScreen','TechTree','GenericPopup','TextPopup','DeclareWarPopup','SocialPolicyPopup',
+ 'NotificationLogPopup','WhosWinningPopup','NewEraPopup','NaturalWonderPopup','GoodyHutPopup',
+ 'BarbarianCampPopup','GoldenAgePopup','GreatPersonRewardPopup','CityStateGreetingPopup','CityStateDiploPopup',
+ 'DiploVotePopup','VoteResultsPopup','TechAwardPopup','WonderPopup','AdvisorInfoPopup','AdvisorCounselPopup',
+ 'AdvisorModal','EconomicOverview','DiploOverview','MilitaryOverview','EndGameMenu','Demographics',
+ 'VictoryProgress','ChooseFreeItem','ChoosePantheon','ChooseReligion','EspionageOverview','ReligionOverview',
+ 'ChooseMayaBonus','ChooseFaithGreatPerson','SetUnitName','SetCityName','ProductionPopup','LeagueOverviewPopup',
+ 'ChooseArchaeology','ChooseIdeology','ChooseInternationalTradeRoute','CultureOverview','ChooseTradeRouteNewHome',
+ 'GreatWorkSplash','TradeRouteOverview','LeagueProjectPopup','ChooseGoodyHutRewardPopup','ChooseAdmiralNewPort',
+ 'LeagueSplash','GameMenu','PlayerChange','ContentSwitch'
+}
+local function context(path)
+ local c=contexts[path]
+ if c==nil then c=ContextPtr:LookUpControl(path);contexts[path]=c or false end
+ return c
+end
+local function worldReason()
+ if transition then return 'screen transition' end
+ local showing={};local popup
+ for _,name in ipairs(screens) do local c=context('/InGame/'..name)
+  if c and not c:IsHidden() then showing[name]=true;popup=popup or name end
+ end
+ for kind,record in pairs(blocked) do
+  -- Bind Shown to the screens visible after that transition, never to a
+  -- permanent flag. Unrecognized mod popups retain event/turn fallback.
+  if record.capture then record.capture=nil;if popup then record.screens=showing end end
+  if record.screens then
+   local visible=false;for name in pairs(record.screens) do if showing[name] then visible=true;break end end
+   if not visible then blocked[kind]=nil end
+  end
+ end
+ if UI.IsCityScreenUp() then return 'city screen' end
+ if UI.GetInterfaceMode()~=InterfaceModeTypes.INTERFACEMODE_SELECTION then return 'interface mode '..tostring(UI.GetInterfaceMode()) end
+ local leader=context('/LeaderHeadRoot')
+ if (leader and not leader:IsHidden()) or (not leader and leaderScreen)
+  or (UI.GetLeaderHeadRootUp and UI.GetLeaderHeadRootUp()) then return 'leader diplomacy' end
+ if popup then return 'popup '..popup end
+ if next(blocked) then return 'popup event '..tostring(next(blocked)) end
+end
+local function deferRefresh()
+ local revision=transitionRevision
+ B.DeferUI(function() if revision==transitionRevision then transition=false end;refresh() end)
+end
+local function closeForTransition()
+ opened=false;transition=true;transitionRevision=transitionRevision+1;refresh();deferRefresh()
+end
+local function resetVisibility()
+ blocked={};contexts={};leaderScreen=false;closeForTransition()
 end
 local function yields(values)
  local words={};for i,y in ipairs(B.Yields) do words[#words+1]=(values[i] or 0)..' '..B.Text(y.name) end
  return table.concat(words,' / ')
 end
-refresh=function()
- if refreshing then return end;refreshing=true
+local function render()
  local pid=Game.GetActivePlayer();local p=Players[pid]
- local visible=B.IsBoundless(pid) and p:IsHuman() and p:IsAlive() and world()
+ local reason
+ if not B.IsBoundless(pid) or not p:IsHuman() or not p:IsAlive() then reason='inactive civilization'
+ elseif not p:IsTurnActive() then reason='inactive turn'
+ else reason=worldReason() end
+ local visible=reason==nil
  local s=visible and B.State(pid);local city=s and B.City(s)
- visible=visible and s.capital~=nil and not s.incompatible
+ if visible and (not s.capital or s.incompatible) then visible=false;reason=s.incompatible and 'incompatible state' or 'capital not founded' end
+ local status=tostring(pid)..': '..(reason or 'visible')
+ if status~=lastVisibility then print('[BoundlessCity] Workforce visibility: '..status);lastVisibility=status end
  Controls.Launcher:SetHide(not visible)
  if not visible then opened=false end
  Controls.Panel:SetHide(not opened)
- if not opened then refreshing=false;return end
+ if not opened then return end
  if not city then siege=true end
  local info=city and B.Summary(s);local cache=B.Ownership(s)
  local summary=info and B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.unassigned,info.availableCitizens,info.availableRemote,info.maximumRemote,info.pending,info.locks,info.progress,info.cost) or B.Text('CAPITAL_LOST')
@@ -76,7 +128,14 @@ refresh=function()
  Controls.Page:SetText(page..' / '..pages..'  ('..#rows..')')
  Controls.Previous:SetDisabled(page<=1);Controls.Next:SetDisabled(page>=pages)
  Controls.Rows:CalculateSize();Controls.Rows:ReprocessAnchoring();Controls.Scroll:CalculateInternalSize()
- refreshing=false
+end
+refresh=function()
+ if refreshing then return end;refreshing=true
+ local ok,err=pcall(render);refreshing=false
+ if ok then lastError=nil else
+  opened=false;Controls.Panel:SetHide(true)
+  if err~=lastError then print('[BoundlessCity] Workforce refresh failed: '..tostring(err));lastError=err end
+ end
 end
 local function cycle(list,current)
  for i,value in ipairs(list) do if value==current then return list[i%#list+1] end end
@@ -96,16 +155,26 @@ ContextPtr:SetInputHandler(function(msg,key)
  return false
 end)
 LuaEvents.BoundlessChanged.Add(function(pid) if pid==Game.GetActivePlayer() then refresh() end end)
-Events.SerialEventCityInfoDirty.Add(function() if opened and siege then refresh() end end)
-Events.GameplaySetActivePlayer.Add(function() opened=false;refresh() end)
-Events.ActivePlayerTurnStart.Add(refresh)
-Events.ActivePlayerTurnEnd.Add(function() opened=false;refresh() end)
-Events.SerialEventEnterCityScreen.Add(function() cityScreen=true;opened=false;refresh() end)
-Events.SerialEventExitCityScreen.Add(function() cityScreen=false;B.Schedule(Game.GetActivePlayer(),true);if ButtonPopupTypes then blocked[ButtonPopupTypes.BUTTONPOPUP_CHOOSEPRODUCTION]=nil end;refresh() end)
-Events.AILeaderMessage.Add(function() leaderScreen=true;opened=false;refresh() end)
-Events.LeavingLeaderViewMode.Add(function() leaderScreen=false;refresh() end)
-Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=true;opened=false;refresh() end end)
-Events.SerialEventGameMessagePopupProcessed.Add(function(kind) blocked[kind]=nil;refresh() end)
-Events.InterfaceModeChanged.Add(function(_,value) mode=value;if not world() then opened=false end;refresh() end)
-Events.LoadScreenClose.Add(function() opened=false;blocked={};cityScreen=false;leaderScreen=false;mode=UI.GetInterfaceMode();refresh() end)
+Events.SerialEventCityInfoDirty.Add(function() if opened and siege then refresh() end;deferRefresh() end)
+Events.SerialEventGameDataDirty.Add(deferRefresh)
+Events.GameplaySetActivePlayer.Add(resetVisibility)
+Events.ActivePlayerTurnStart.Add(resetVisibility)
+Events.ActivePlayerTurnEnd.Add(closeForTransition)
+Events.SerialEventEnterCityScreen.Add(closeForTransition)
+Events.SerialEventExitCityScreen.Add(function()
+ B.Schedule(Game.GetActivePlayer(),true)
+ if ButtonPopupTypes then blocked[ButtonPopupTypes.BUTTONPOPUP_CHOOSEPRODUCTION]=nil end
+ closeForTransition()
+end)
+Events.AILeaderMessage.Add(function() leaderScreen=true;closeForTransition() end)
+Events.LeavingLeaderViewMode.Add(function() leaderScreen=false;closeForTransition() end)
+Events.SerialEventGameMessagePopupShown.Add(function(info)
+ if info and info.Type then blocked[info.Type]={capture=true};closeForTransition() end
+end)
+Events.SerialEventGameMessagePopupProcessed.Add(function(kind) blocked[kind]=nil;deferRefresh() end)
+Events.InterfaceModeChanged.Add(closeForTransition)
+Events.LoadScreenClose.Add(resetVisibility)
+ContextPtr:SetShowHideHandler(function(hidden)
+ if hidden then opened=false;Controls.Panel:SetHide(true) else resetVisibility() end
+end)
 refresh()

@@ -62,7 +62,7 @@
     <File md5="1EE1B4C1666A685743E3894366F9C11F" import="1">TheBoundlessCity/Lua/BoundlessAI.lua</File>
     <File md5="1981623829CF403132ECC069B4D57B2B" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
     <File md5="AD10D54ECAC9E3B44D92E723BCE7B3E1" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
-    <File md5="AF88D1C306AAFD44BAEDF95040F4FBE8" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
+    <File md5="14326E2FCF6627B264AC81992669ADF6" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
     <File md5="B79832C8069B5D844EFF0951198EB026" import="1">TheBoundlessCity/Lua/BoundlessMilitary.lua</File>
     <File md5="AE4A39AB098C366700D0182AB6A7783C" import="1">TheBoundlessCity/Lua/BoundlessPersistence.lua</File>
     <File md5="978C390D87AC26B1B8FCB60D7A012339" import="1">TheBoundlessCity/Lua/BoundlessSiege.lua</File>
@@ -71,7 +71,7 @@
     <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
     <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
     <File md5="F82118AA9DE7AA44C4DE2B83EABEEC69" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
-    <File md5="D6FE4D8F0C9DF4104F8F20A3053865C8" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
+    <File md5="E480EEAEEAFFA99B220ADBAD1A0599B6" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
     <File md5="C291A98321D8A158063F4F27B4A830F1" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
   </Files>
   <Actions>

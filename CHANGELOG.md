@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.2 Workforce UI hotfix / mod version 4 — 2026-10-15
+
+- Replaced cached city-screen/interface-mode decisions with current native queries. Observe actual BNW popup and leader context visibility so missed close notifications recover and early Processed notifications cannot expose the launcher over a visible screen.
+- Refresh the closed launcher after game/city UI changes and screen transitions. Reset unrecognized popup event flags on load, player/turn start and context return; actual native screens still take precedence.
+- Coalesce one-shot UI refreshes through the existing ClearUpdate dispatcher, without replacing queued gameplay work. Guard newer transitions during dispatch; release the rendering guard after failures and log visibility changes for diagnosis.
+- Expanded the ten simulation suites with missed/early/nested popup, native city/mode/diplomacy, lifecycle, rendering-fault, UI/gameplay/reentrant dispatch and 1,000-event/idle regressions. Updated guides and rebuilt archives. Native UI retry remains required.
+- Recorded the player's successful replay of the prior crash. Native mod version 4, schema 3, UUID, BCY2 and existing saves remain compatible.
+
 ## 1.2.1 dispatcher hotfix / mod version 4 — 2026-10-12
 
 - Fixed the rejected native SetUpdate(nil) call that left the deferred update installed and flooded the live game's Lua log. Use ClearUpdate before dispatch.

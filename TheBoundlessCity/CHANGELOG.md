@@ -1,5 +1,13 @@
 # The Boundless City changelog
 
+## 1.2.2 Workforce UI hotfix / mod version 4 — 2026-10-15
+
+- Fixed visibility decisions that could leave the Workforce button hidden after a missed popup, city or diplomacy close notification. Read current native screen/mode state and actual BNW popup contexts.
+- Added a deferred launcher refresh after transitions and game/city UI changes, including while the panel is closed. Turn/load/player/context return clears stale unknown-popup flags while respecting visible native screens.
+- Shared the one-shot ClearUpdate dispatcher with gameplay; UI refreshes cannot replace simulation work or clear a newer transition. Rendering failures release the refresh guard; visibility changes identify their reason in Lua.log.
+- Expanded the existing UI/dispatcher regression suites, updated documentation and rebuilt packages. Ten simulation suites pass; native UI replay is pending. The player confirmed the earlier crash replay succeeded.
+- Kept mod version 4, schema 3, UUID, BCY2 and gameplay values. Existing campaign assignments need no migration.
+
 ## 1.2.1 dispatcher hotfix / mod version 4 — 2026-10-12
 
 - Fixed the rejected native SetUpdate(nil) call that left the deferred update installed and flooded the live game's Lua log. Use ClearUpdate before dispatch.

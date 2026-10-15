@@ -55,4 +55,10 @@ assert(deferred~=nil);Pump();assert(movementCalls==1 and deferred==nil)
 before=mutations;for i=1,500 do Pump() end
 assert(movementCalls==1 and mutations==before,'movement batch must settle without a permanent update')
 B.Reconcile=reconcile
+-- UI-only work uses the same owner without overwriting a gameplay batch, and
+-- work queued by a UI callback survives to the next frame as well.
+local uiCalls=0
+B.DeferUI(function() uiCalls=uiCalls+1;B.DeferUI(function() uiCalls=uiCalls+1 end) end)
+Pump();assert(uiCalls==1 and deferred~=nil)
+Pump();assert(uiCalls==2 and deferred==nil)
 print('PASS native persistent-update contract, nil rejection, ClearUpdate, 1,000-event coalescing/idle frames, reentrancy, failure detach and two-player batch isolation')

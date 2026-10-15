@@ -1,6 +1,6 @@
 # Turn/movement crash investigation — 2026-10-12
 
-**Hotfix:** 1.2.1 preview, native mod version 4 / state schema 3 unchanged. Baseline `8ff0225`. This fixes a confirmed native UI contract error; a replay of the actual campaign is still needed to establish whether every cause of its fatal crash is resolved.
+**Hotfix:** 1.2.1 preview, native mod version 4 / state schema 3 unchanged. Baseline `8ff0225`. This fixes a confirmed native UI contract error. The player subsequently confirmed that the pre-crash turn/movement replay completed successfully; that is a campaign replay result, not certification of every gameplay path.
 
 ## Evidence
 
@@ -26,6 +26,6 @@ Raw crash logs and pre-hotfix installed files are retained locally in ignored `d
 
 The same session loaded **Cool Wacky Civs v21**, whose TokenPanel reported 845 repeated nil-state errors at lines 119/120. Several of that collection's runtimes failed startup because `rawget` was unavailable, and other unrelated mod/SQL errors were present. These are distinct issues and were not modified by this Boundless hotfix. The log alone cannot assign the fatal native crash to one of them.
 
-## Native confirmation still required
+## Native replay follow-up — 2026-10-15
 
-Fully restart Civ V so the old callback/context is gone, load a backed-up pre-crash autosave, and replay the movement/turn through turn 13 and several later turns. Check the new Lua.log for absence of the SetUpdate/nil flood and verify workforce, territory, UI and save/load behavior. If the fatal crash recurs, preserve that fresh log and exact action/turn; the older collection's separate errors and any native crash dump are the next evidence to investigate. A corrected simulation does not certify crash-free native gameplay.
+When asked whether the turn/movement still crashed after a full restart and replay, the player answered **“Replay completes successfully.”** The subsequent log has no Boundless SetUpdate/nil flood. The player then reported that the Workforce button/panel disappeared; this is investigated separately in [UIVisibilityHotfix.md](UIVisibilityHotfix.md). If a fatal crash recurs, preserve its fresh log and exact action/turn. The successful replay and corrected simulation do not establish crash-free behavior for every native path.

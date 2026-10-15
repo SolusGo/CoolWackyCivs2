@@ -4,7 +4,7 @@
 
 An original Civilization V civilization led by **The First Architect**, built for **Brave New World + Community Patch v151**. Its capital is **The Heart of the World**. The theme combines a medieval settlement, golden civic architecture and an interconnected metropolis spreading across the world.
 
-**Release 1.2.1 preview / mod version 4, awaiting native playtesting.** Unlimited potential border/remote distance and the safe forced/surplus citizen model remain. New military options reclaim the genuine original and subjugate protected major cities; native Domination completion, remote improvement development and Tourism refresh are implemented. See the [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md).
+**Release 1.2.2 preview / mod version 4, awaiting full native playtesting.** The player confirmed the earlier crash replay succeeds; the latest [Workforce visibility fix](docs/UIVisibilityHotfix.md) still needs an in-game retry. Unlimited potential border/remote distance and the safe forced/surplus citizen model remain. New military options reclaim the genuine original and subjugate protected major cities; native Domination completion, remote improvement development and Tourism refresh are implemented. See the [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md).
 
 ## Unique ability — The World Is One City
 
@@ -50,7 +50,9 @@ The upper-right world-map button opens a panel with:
 
 Available citizens means population outside current specialist and active locked roles, including movable local workers. Additional remote capacity is the number that the implemented reservation system can actually add, capped by eligible remote inventory. The figures can differ substantially. Idle labourers are defaults not credited remotely; unassigned citizens are shown separately. Native automatons are listed separately when present, and remote credits are suspended until ordinary population can be attributed safely. The displayed census includes these adjustments rather than hiding unused population.
 
-Rows are paged in groups of sixteen. The interface closes/hides for city screens, leader diplomacy, other game popups, nonselection interface modes and inactive turns. It does not replace CityView and installs no idle frame-polling loop.
+Rows are paged in groups of sixteen. The interface closes/hides for city screens, leader diplomacy, other game popups, nonselection interface modes and inactive turns. The launcher refreshes after returning to the map, including while the panel is closed. Native screen checks and turn/load recovery prevent missed notifications from leaving it hidden. It does not replace CityView and installs no idle frame-polling loop.
+
+After updating the UI scripts, fully restart Civ V and reload your existing modded save. Open the upper-right Workforce button, enter and leave CityView, a policy popup and diplomacy, then reopen it. If it disappears again, the latest `Lua.log` includes `[BoundlessCity] Workforce visibility:` with its hiding reason. See the [UI hotfix report and exact retry steps](docs/UIVisibilityHotfix.md).
 
 ## The Grand Registry — Monument replacement
 

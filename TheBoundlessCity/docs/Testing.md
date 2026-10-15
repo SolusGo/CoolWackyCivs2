@@ -1,6 +1,6 @@
 # Validation and native CP v151 test guide
 
-## Automated results — 2026-10-12
+## Automated results — 2026-10-15
 
 Run from the repository root with Python 3.11 and `requirements-dev.txt` dependencies:
 
@@ -21,7 +21,7 @@ The source fetch is optional for building/playing. SQL tests use a read-only bac
 | Lua syntax | All gameplay/UI/test Lua parse under Lua 5.1 |
 | `boundless_assertions.lua` | Passed census/yields, growth/starvation, losses, pillage, water tech/blockade, mountain wonders, release, rewards, save rewind, city transfer and worker order checks |
 | `frontier_assertions.lua` | Passed claims beyond 30 hexes and 1,000 plots, water, enemy exclusion, game speed, Registry cap, no unworked yields, plus targeted wrapped-edge water claim |
-| `ui_assertions.lua` | Passed panel/launcher, sixteen-row paging, city/diplomacy/popup hiding, Escape and no permanent update |
+| `ui_assertions.lua` | Passed panel/launcher, sixteen-row paging, missed/early/nested popup close, native city/mode/leader recovery, turn/load/player/context return, render fault recovery, 1,000 coalesced UI requests without gameplay writes, shared/reentrant dispatch, siege and no idle polling |
 | `workforce_stress.lua` | Passed four requested population/territory cases, adversarial governor allocation before delayed Lua, specialist slots, extras, 150% modifiers, unrelated sources, reload, growth/starvation |
 | `completion_safety.lua` | Passed independent Manual selection/unlock, Auto lock isolation, partial mutations/cache pulses raising after change, v1 state/ledger migration, capital workforce preservation, return-loop quarantine, legal orphan territory release, movement departure retry, future/corrupt payload preservation |
 | `siege_safety.lua` | Passed native-legal demolition, move cost/no reward, territory release, native veto/own-founded/no-raze, capital/holy/city-state protections and replacement identity |
@@ -31,7 +31,7 @@ The source fetch is optional for building/playing. SQL tests use a read-only bac
 | `dispatcher_contract.lua` | Passed persistent native update contract, nil rejection, explicit detachment, 1,000-event coalescing/idle writes, reentrant scheduling, failure detachment, two-player batching and hostile movement settling |
 | Package | Passed 49 game-file manifest/project, hashes/VFS/load order, XML controls and all 34 decoded DDS textures; genuine 7z/LZMA Civ5Mod integrity checked |
 | Original collection | Read-only distinct UUID, imported basenames, globals and BC database identifiers; original working-tree status retains only its pre-existing project modification |
-| Native gameplay/save/FPS | **NOT RUN** |
+| Native gameplay/save/FPS | Player confirmed the pre-crash turn/movement replay succeeds after 1.2.1; automated native UI/gameplay/save/FPS tests **NOT RUN**, 1.2.2 UI retry pending |
 
 The tool environment has no controllable native Civ V gameplay session. The game was not launched for these tests. Mocks approximate native accounting and cannot prove DLL governor, capture, pathfinding, UI layout or save behavior. Injected exceptions are expected safety tests, not unexplained runtime failures.
 
@@ -131,4 +131,8 @@ These are host Lupa medians, not native engine timings. Development fixtures hav
 
 ## Turn/movement hotfix replay
 
-The 1.2.1 preview keeps native mod version 4/schema 3. Fully restart the game, load a pre-crash test autosave, and replay the turn/movement through turn 13 and several later turns. The old update callback must no longer run indefinitely; fresh Lua.log must not flood with SetUpdate/Expected function but got nil. Test original-capital workforce/expansion, assignments and save/reload. Do not treat ten simulation passes as native crash confirmation. The preserved crash log also contains distinct older Cool Wacky Civs v21 failures; inspect a fresh log if a fatal crash repeats. See [CrashHotfixReport.md](CrashHotfixReport.md).
+The 1.2.1 preview keeps native mod version 4/schema 3. The player reported that the pre-crash replay completed successfully. The later log contains no Boundless update-call flood. Full native regression coverage remains outstanding; the original collection's separate failures remain in that log. See [CrashHotfixReport.md](CrashHotfixReport.md).
+
+### Workforce UI hotfix replay
+
+The 1.2.2 preview keeps the same native version/schema. Fully restart Civ V and reload the existing modded campaign. Confirm the upper-right Workforce launcher opens; check the saved mode, locks and remote assignments. Enter/exit CityView, production, Social Policies, Declare War and leader root/discussion/trade, then reopen the panel. The launcher should stay hidden over those screens and return on the map. End a turn, reload and repeat. Check `Lua.log` for visibility reasons and any refresh errors. Native rendering/event timing and other mods' custom popup contexts require this live retry. See [UIVisibilityHotfix.md](UIVisibilityHotfix.md).
