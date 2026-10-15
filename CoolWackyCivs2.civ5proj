@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
@@ -236,6 +236,13 @@
     <Content Include="TheBoundlessCity/UI/BoundlessWorkforce.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TheBoundlessCity\" />
+    <Folder Include="TheBoundlessCity\Art\" />
+    <Folder Include="TheBoundlessCity\Lua\" />
+    <Folder Include="TheBoundlessCity\SQL\" />
+    <Folder Include="TheBoundlessCity\UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
 </Project>
