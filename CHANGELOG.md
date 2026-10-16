@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.0 Pigeon Republic / mod version 5 — 2026-10-16
+
+- Added The Republic of Pigeons under Postmaster General Coo, with Coopolis and 23 additional original city names, full English Civilopedia/strategy/diplomacy text and trade-oriented AI flavors.
+- Messages on the Wing gives each outgoing land route's origin +2 Science/+2 Culture, increasing to +3 each in the Renaissance. Domestic/international routes stack; sea/incoming routes do not qualify. Native counts are rebuilt on turns, load and coalesced route/city/era/war events.
+- Carrier Pigeon inherits the active Scout and all companion rows, preserves its existing ignore-terrain promotion and adds +1 Sight. Rooftop Roost inherits the complete active Caravansary, adds +1 Culture and a binary +2 Production while dispatching land trade.
+- Included original Coo leader/loading artwork, 34 DDS textures, postal civ/unit/building/alpha/flag atlases and an original postal map. The standard Scout 3D model is retained.
+- Extended package/project generation to both civilizations and two isolated addin contexts. Retained the collection UUID, minimum compatible save version and Boundless gameplay/persistence files. Existing native saves and new Pigeon games require the documented manual verification.
+- Added actual-schema inheritance/regression checks, Lua 5.1 simulations including fresh-context load and five game speeds, and 14 pinned CP v151 route/building/event contracts. Existing Boundless suites remain part of collection validation. See the Pigeon validation record for actual results and native test requirements.
+
 ## 1.2.2 Workforce UI hotfix / mod version 4 — 2026-10-15
 
 - Replaced cached city-screen/interface-mode decisions with current native queries. Observe actual BNW popup and leader context visibility so missed close notifications recover and early Processed notifications cannot expose the launcher over a visible screen.

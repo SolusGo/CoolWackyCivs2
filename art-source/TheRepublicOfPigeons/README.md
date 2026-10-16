@@ -1,0 +1,11 @@
+# Original Pigeon artwork
+
+`CooAndCoopolis.png` is original artwork generated on 2026-10-16 with the built-in imagegen tool for this mod. It depicts Postmaster General Coo in ceremonial postal attire above Coopolis. No third-party image was used as a reference. `tools/prepare_pigeon_art.py` converts it into the leader scene, loading image and circular portraits.
+
+The postal pigeon, carrier envelope, Rooftop Roost, alpha silhouettes, flag and stylized postal map are original code-drawn graphics, following the collection's existing insignia system. `InsigniaPreview.png` shows the civ, building and unit marks. Runtime DDS textures use legacy RGBA encoding and are validated by decoding. The map is an original fictional network map, not a cropped leader illustration. The standard in-game Scout model and ordinary city building art are referenced from the installed game, without copying third-party assets.
+
+Final imagegen prompt:
+
+> Use case: stylized-concept. Asset type: original Civilization V custom civilization leader diplomacy scene and loading illustration, landscape 3:2 composition. Primary request: Postmaster General Coo, an absurdly dignified GREY PIGEON statesman in ceremonial slate blue postal attire with soft cream trim, small brass seal and a leather messenger satchel, standing on a stone rooftop balcony overlooking an enormous medieval city of towers, tiled roofs and pigeon messenger stations. A few courier pigeons wing over the city carrying tiny sealed messages. Painterly historical strategy game loading art, detailed but readable, warm late afternoon light, whimsical yet majestic and polished. Pigeon anatomy and pigeon face, feathers and wings, no human face or human hands. Put Coo on the left third, full upper body, ample view of the city across the right half; head away from edges so it can be cropped for a circular leader portrait. Slate blue-grey and soft cream palette with warm terracotta roofs. No lettering, no interface, no watermark.
+
+Built-in mode was used; the selected master is saved here and all runtime consumers reference files in `TheRepublicOfPigeons/Art`. No external/generated-image cache path is needed to build or play. No artwork remains to be supplied. In-game visual QA is listed in the civilization's testing guide.

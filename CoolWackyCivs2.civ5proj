@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>One city. A world without an end.</Teaser>
-    <Description>The Boundless City: contiguous cultural frontier growth, real citizen reservations for distant tiles, the Grand Registry, Frontier Surveyors and The Boundless Workforce. Requires BNW and Community Patch v151. See the included guide for native engine limits.</Description>
+    <Teaser>An endless city and a republic on the wing.</Teaser>
+    <Description>The Boundless City and The Republic of Pigeons, led by Postmaster General Coo. Explore, connect cities by land trade, and raise Rooftop Roosts. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>4</ModVersion>
+    <ModVersion>5</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -51,13 +51,44 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheBoundlessCity/SQL/10_BC_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfPigeons/SQL/01_PIGEON_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfPigeons/SQL/03_PIGEON_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
         <Type>InGameUIAddin</Type>
         <Name>The Boundless Workforce</Name>
-        <Description>Boundless gameplay and UI</Description>
+        <Description>One simulation owner and an event-driven workforce panel.</Description>
         <FileName>TheBoundlessCity/UI/BoundlessWorkforce.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Messages on the Wing</Name>
+        <Description>Pigeon trade-route yields and Rooftop Roost production.</Description>
+        <FileName>TheRepublicOfPigeons/UI/PigeonTrade.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -236,6 +267,132 @@
     <Content Include="TheBoundlessCity/UI/BoundlessWorkforce.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonDawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonFlag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonIcon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonLeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonPortrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonPortrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/Art/PigeonPortrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/SQL/01_PIGEON_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/SQL/03_PIGEON_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/UI/PigeonTrade.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/UI/PigeonTrade.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TheBoundlessCity\" />
@@ -243,6 +400,10 @@
     <Folder Include="TheBoundlessCity\Lua\" />
     <Folder Include="TheBoundlessCity\SQL\" />
     <Folder Include="TheBoundlessCity\UI\" />
+    <Folder Include="TheRepublicOfPigeons\" />
+    <Folder Include="TheRepublicOfPigeons\Art\" />
+    <Folder Include="TheRepublicOfPigeons\SQL\" />
+    <Folder Include="TheRepublicOfPigeons\UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
 </Project>

@@ -2,7 +2,9 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 4 (collection release **1.2.2 preview**) starts with **The Boundless City**. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here.
+Mod version 5 (collection release **1.3.0 preview**) includes **The Boundless City** and **The Republic of Pigeons**. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here.
+
+**New: The Republic of Pigeons**, led by **Postmaster General Coo**. Outgoing land Trade Routes grant their origin cities stacking Science and Culture. Carrier Pigeons explore with extra sight; Rooftop Roosts retain Caravansary benefits, add Culture, and gain Production while dispatching caravans. Original leader/loading art, postal icons, AI flavors and English Civilopedia text are included. Pigeon SQL, Lua simulations and pinned CP source checks pass; native gameplay verification is still required. See the [civilization guide](TheRepublicOfPigeons/README.md) and [validation record](TheRepublicOfPigeons/docs/Testing.md).
 
 **Status: implementation preview.** Ten gameplay/UI simulation suites, 176 pinned CP v151 source checks, actual-schema SQL and package/art validation pass. The player confirmed that the pre-crash turn/movement replay completed after the dispatcher hotfix; [crash investigation](TheBoundlessCity/docs/CrashHotfixReport.md). The latest [Workforce UI hotfix](TheBoundlessCity/docs/UIVisibilityHotfix.md) repairs stale screen visibility and awaits an in-game retry. This release adds survival while units remain, original-capital siege reclaim, one-time subjugation, a native Boundless Domination finish, remote improvement development and Tourism refresh. Full population-only remote allocation, general demolition and absolute ownership enforcement against scripts remain engine limited. Read the [final engine report](TheBoundlessCity/docs/EngineCompletionReport.md) and [precise limits](TheBoundlessCity/docs/EngineLimitations.md).
 
@@ -13,6 +15,7 @@ Mod version 4 (collection release **1.2.2 preview**) starts with **The Boundless
 | Civilization | Leader | Unique ability | Unique building | Unique unit | Guide |
 | --- | --- | --- | --- | --- | --- |
 | The Boundless City | The First Architect | The World Is One City | The Grand Registry, replacing Monument | Frontier Surveyor, replacing Worker | [Civ page](docs/civilizations/TheBoundlessCity.md) · [Detailed README](TheBoundlessCity/README.md) |
+| The Republic of Pigeons | Postmaster General Coo | Messages on the Wing | Rooftop Roost, replacing Caravansary | Carrier Pigeon, replacing Scout | [Civ page](docs/civilizations/TheRepublicOfPigeons.md) · [Detailed README](TheRepublicOfPigeons/README.md) |
 
 Every future civilization should receive a dedicated roster page, a gameplay README, a changelog and a validation record. The [documentation convention](docs/AddingCivilizations.md) describes the layout.
 
@@ -20,11 +23,11 @@ Every future civilization should receive a dedicated roster page, a gameplay REA
 
 1. Install Civilization V with Brave New World and the Windows Community Patch **v151**. The Community Patch dependency is declared in the modinfo; no replacement DLL is included.
 2. Build the release archives as below, or use a provided archive from this repository's distribution output.
-3. Extract `dist/Cool Wacky Civs 2 (v 4).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 4).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
-4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and start a new game as **The First Architect**.
-5. Found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
+3. Extract `dist/Cool Wacky Civs 2 (v 5).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 5).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
+4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose either leader.
+5. As **Postmaster General Coo**, found **Coopolis**, explore with Carrier Pigeons, and establish outgoing land Trade Routes. As **The First Architect**, found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
 
-The initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Version 1 saves migrate explicitly, while version 2 state migrates to schema 3 without resetting progress. Back up version 1–3 saves before upgrading; native save testing is outstanding. Downgrading is unsupported. Older native saves can retain the previous survival-trait cache until a normal technology or policy refresh; test that separately before relying on capital-loss survival.
+For The Boundless City, the initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. The Pigeon Republic follows ordinary settlement rules. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Boundless version 1 saves migrate explicitly, while version 2 state migrates to schema 3 without resetting progress. Back up older saves before upgrading; native save testing is outstanding. Downgrading is unsupported. Older native saves can retain the previous survival-trait cache until a normal technology or policy refresh; test that separately before relying on capital-loss survival.
 
 ## Building and checking
 
@@ -54,8 +57,10 @@ Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, writte
 | `TheBoundlessCity/UI` | The Boundless Workforce XML/Lua addin; one simulation owner |
 | `TheBoundlessCity/Art` | 34 referenced DDS textures and static diplomacy scene |
 | `TheBoundlessCity/docs` | API audit, implementation, limitations, live test checklist, benchmark and original specification |
+| `TheRepublicOfPigeons` | Pigeon SQL, event-driven trade addin, 34 DDS textures, gameplay and validation guides |
 | `docs/civilizations` | One dedicated Markdown page per civilization |
 | `art-source/TheBoundlessCity` | Original generated illustration, insignia preview and asset provenance |
+| `art-source/TheRepublicOfPigeons` | Original Coo illustration, postal insignia preview and generation prompt |
 | `tools` | Reproducible SQL/art/project/package builders and focused validation |
 
 Read the [collection changelog](CHANGELOG.md), [civilization changelog](TheBoundlessCity/CHANGELOG.md), and [implementation notes](TheBoundlessCity/docs/Implementation.md) for mechanics, invariants and performance details.

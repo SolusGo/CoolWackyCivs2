@@ -62,5 +62,7 @@ def main():
     for i,kind in enumerate(['civ','registry','surveyor']):preview.paste(emblem(kind),(i*512,0))
     preview.convert('RGB').save(R/'art-source/TheBoundlessCity/InsigniaPreview.png')
     print('Prepared',len(list(V.glob('*.dds'))),'real DDS textures and the 2D leader scene')
+    from prepare_pigeon_art import main as prepare_pigeons
+    prepare_pigeons()
 
 if __name__=='__main__':main()

@@ -4,7 +4,7 @@ from xml.etree import ElementTree as ET
 from collections import Counter
 import hashlib,re,struct,time
 from database import database,quote
-from build_mod import R,files,NAME,NS,ENTRY,imported,MOD_ID,VERSION,DEPS
+from build_mod import R,files,NAME,NS,ENTRY,ENTRIES,imported,MOD_ID,VERSION,DEPS
 from generate_database import TEXT
 from lupa.lua51 import LuaRuntime
 V=R/'TheBoundlessCity'
@@ -55,7 +55,7 @@ def sql():
 
 def syntax():
     lua=LuaRuntime();check=lua.eval('function(s,n) local f,e=loadstring(s,n);assert(f,e) end')
-    for path in list(V.rglob('*.lua'))+list((R/'tools/tests').glob('*.lua')):check(path.read_text(encoding='utf-8'),str(path))
+    for path in [p for p in files() if p.suffix=='.lua']+list((R/'tools/tests').glob('*.lua')):check(path.read_text(encoding='utf-8'),str(path))
     print('PASS every Lua source parses under Lua 5.1')
 
 def runtime():
@@ -90,7 +90,7 @@ def package():
             from PIL import Image
             with Image.open(p) as im:im.load();assert im.width>0 and im.height>0
     assert [e.text for e in root.findall('Actions/OnModActivated/UpdateDatabase')]==sorted(n for n in actual if n.endswith('.sql'))
-    assert len(root.findall('EntryPoints/EntryPoint'))==1 and root.find('EntryPoints/EntryPoint').get('file')==ENTRY
+    assert [(e.get('file'),e.findtext('Name'),e.findtext('Description')) for e in root.findall('EntryPoints/EntryPoint')]==ENTRIES
     project=ET.parse(R/'CoolWackyCivs2.civ5proj').getroot();prefix='{'+NS+'}'
     assert project.findtext(prefix+'PropertyGroup/'+prefix+'ModVersion')==VERSION
     assert project.findtext(prefix+'PropertyGroup/'+prefix+'Guid')==MOD_ID
@@ -98,7 +98,7 @@ def package():
     xml=ET.parse(V/'UI/BoundlessWorkforce.xml');ids={e.get('ID') for e in xml.iter() if e.get('ID')}
     refs=set(re.findall(r'Controls\.([A-Za-z_]+)',(V/'UI/BoundlessWorkforce.lua').read_text()))
     assert refs<=ids,refs-ids
-    print('PASS manifest/project load order, MD5, VFS, UI controls, XML and all 34 decoded DDS textures')
+    print('PASS manifest/project load order, MD5, VFS, UI controls, XML and all decoded DDS textures')
 
 def coexist():
     old=R.parent/'CoolWackyCivs'
@@ -113,11 +113,14 @@ def coexist():
         old_names={Path(e.text).name.casefold() for e in prior.findall('Files/File') if e.get('import')=='1'}
         assert not new_names & old_names,('shared VFS basename',new_names & old_names)
     prior_sql='\n'.join(p.read_text(encoding='utf-8-sig') for p in old.rglob('*.sql'))
-    new_sql='\n'.join(p.read_text(encoding='utf-8') for p in (V/'SQL').glob('*.sql'))
-    types=set(re.findall(r"'((?:[A-Z_]+_BC_[A-Z_0-9]+|CIVILIZATION_BOUNDLESS_CITY|BC_[A-Z_0-9]+))'",new_sql))
+    new_sql='\n'.join(p.read_text(encoding='utf-8') for p in files() if p.suffix=='.sql')
+    types=set(re.findall(r"'((?:[A-Z_]+_(?:BC|PIGEON)_[A-Z_0-9]+|CIVILIZATION_BOUNDLESS_CITY|(?:BC|PIGEON)_[A-Z_0-9]+))'",new_sql))
     for name in types:assert "'"+name+"'" not in prior_sql,('shared database namespace',name)
     prior_lua='\n'.join(p.read_text(encoding='utf-8-sig') for p in old.rglob('*.lua'))
     for name in ['MapModData.BoundlessCity','__BOUNDLESS_CITY_LOADED']:assert name not in prior_lua,('shared runtime namespace',name)
-    print('PASS read-only original-collection audit: distinct UUID, VFS, globals and '+str(len(types))+' BC database identifiers')
+    print('PASS read-only original-collection audit: distinct UUID, VFS, globals and '+str(len(types))+' collection database identifiers')
 
-if __name__=='__main__':sql();syntax();runtime();package();coexist()
+if __name__=='__main__':
+    sql();syntax();runtime();package();coexist()
+    from validate_pigeons import validate
+    validate()

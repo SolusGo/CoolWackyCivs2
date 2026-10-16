@@ -5,13 +5,16 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='4'
+VERSION='5'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
+CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons')
+ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-driven workforce panel.'),
+ ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
-PROPS={'Name':'Cool Wacky Civs 2','Teaser':'One city. A world without an end.',
- 'Description':'The Boundless City: contiguous cultural frontier growth, real citizen reservations for distant tiles, the Grand Registry, Frontier Surveyors and The Boundless Workforce. Requires BNW and Community Patch v151. See the included guide for native engine limits.',
+PROPS={'Name':'Cool Wacky Civs 2','Teaser':'An endless city and a republic on the wing.',
+ 'Description':'The Boundless City and The Republic of Pigeons, led by Postmaster General Coo. Explore, connect cities by land trade, and raise Rooftop Roosts. Requires BNW and Community Patch v151. See the included civilization guides.',
  'Authors':'SolusGo','Homepage':'https://github.com/SolusGo/CoolWackyCivs2',
  'AffectsSavedGames':'1','MinCompatibleSaveVersion':'1','SupportsSinglePlayer':'1','SupportsMultiplayer':'0',
  'SupportsHotSeat':'0','SupportsMac':'0','ReloadAudioSystem':'0','ReloadLandmarkSystem':'0',
@@ -20,9 +23,9 @@ DEPS=[('Dlc','6DA07636-4123-4018-B643-6575B4EC336B','0','Expansion - Brave New W
  ('Mod','d1b6328c-ff44-4b0d-aad7-c657f83610cd','151','(1) Community Patch')]
 
 def files():
-    return sorted(p for p in (R/'TheBoundlessCity').rglob('*') if p.is_file() and p.suffix in ['.sql','.lua','.xml','.dds'])
+    return sorted(p for civ in CIVILIZATIONS for p in (R/civ).rglob('*') if p.is_file() and p.suffix in ['.sql','.lua','.xml','.dds'])
 def relative(p): return p.relative_to(R).as_posix()
-def imported(p): return p.suffix!='.sql' and relative(p)!=ENTRY
+def imported(p): return p.suffix!='.sql' and relative(p) not in {e[0] for e in ENTRIES}
 
 def manifests():
     paths=files();root=ET.Element('Mod',id=MOD_ID,version=VERSION);props=ET.SubElement(root,'Properties')
@@ -35,9 +38,11 @@ def manifests():
     actions=ET.SubElement(ET.SubElement(root,'Actions'),'OnModActivated')
     for p in paths:
         if p.suffix=='.sql': ET.SubElement(actions,'UpdateDatabase').text=relative(p)
-    entry=ET.SubElement(ET.SubElement(root,'EntryPoints'),'EntryPoint',type='InGameUIAddin',file=ENTRY)
-    ET.SubElement(entry,'Name').text='The Boundless Workforce'
-    ET.SubElement(entry,'Description').text='One simulation owner and an event-driven workforce panel.'
+    entries=ET.SubElement(root,'EntryPoints')
+    for path,title,description in ENTRIES:
+        entry=ET.SubElement(entries,'EntryPoint',type='InGameUIAddin',file=path)
+        ET.SubElement(entry,'Name').text=title
+        ET.SubElement(entry,'Description').text=description
     ET.indent(root,'  ')
     with (R/(NAME+'.modinfo')).open('wb') as output:
         ET.ElementTree(root).write(output,encoding='utf-8',xml_declaration=True)
@@ -55,8 +60,10 @@ def manifests():
         if p.suffix=='.sql':
             a=ET.SubElement(act,tag('Action'))
             for k,v in [('Set','OnModActivated'),('Type','UpdateDatabase'),('FileName',relative(p))]: ET.SubElement(a,tag(k)).text=v
-    contents=ET.SubElement(group,tag('ModContent'));entry=ET.SubElement(contents,tag('Content'))
-    for k,v in [('Type','InGameUIAddin'),('Name','The Boundless Workforce'),('Description','Boundless gameplay and UI'),('FileName',ENTRY)]:ET.SubElement(entry,tag(k)).text=v
+    contents=ET.SubElement(group,tag('ModContent'))
+    for path,title,description in ENTRIES:
+        entry=ET.SubElement(contents,tag('Content'))
+        for k,v in [('Type','InGameUIAddin'),('Name',title),('Description',description),('FileName',path)]:ET.SubElement(entry,tag(k)).text=v
     deps=ET.SubElement(group,tag('ModDependencies'))
     for typ,id,minimum,title in DEPS:
         a=ET.SubElement(deps,tag('Association'))
@@ -68,6 +75,11 @@ def manifests():
     items=ET.SubElement(proj,tag('ItemGroup'))
     for p in paths:
         c=ET.SubElement(items,tag('Content'),Include=relative(p));ET.SubElement(c,tag('ImportIntoVFS')).text=str(imported(p))
+    folders=ET.SubElement(proj,tag('ItemGroup'))
+    # ModBuddy saves explicit Folder items for its Solution Explorer layout.
+    directories={parent for p in paths for parent in p.parents if parent!=R and R in parent.parents}
+    for directory in sorted(directories):
+        ET.SubElement(folders,tag('Folder'),Include=relative(directory).replace('/','\\')+'\\')
     ET.SubElement(proj,tag('Import'),Project='$(MSBuildExtensionsPath)\\Firaxis\\ModBuddy\\Civ5Mod.targets')
     ET.indent(proj,'  ')
     with (R/'CoolWackyCivs2.civ5proj').open('wb') as output:
@@ -79,8 +91,8 @@ def main():
     paths=manifests()
     if '--manifest-only' in sys.argv:return
     paths += [R/(NAME+'.modinfo'),R/'README.md',R/'CHANGELOG.md']
-    paths += list((R/'TheBoundlessCity').rglob('*.md'))+list((R/'docs').rglob('*.md'))
-    paths += list((R/'TheBoundlessCity/docs').glob('*.json'))
+    paths += [p for civ in CIVILIZATIONS for p in (R/civ).rglob('*.md')]+list((R/'docs').rglob('*.md'))
+    paths += [p for civ in CIVILIZATIONS for p in (R/civ/'docs').glob('*.json')]
     out=R/'dist';out.mkdir(exist_ok=True)
     with zipfile.ZipFile(out/(NAME+'.zip'),'w',compression=zipfile.ZIP_DEFLATED) as z:
         for p in paths:z.write(p,NAME+'/'+relative(p))

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="4">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="5">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>One city. A world without an end.</Teaser>
-    <Description>The Boundless City: contiguous cultural frontier growth, real citizen reservations for distant tiles, the Grand Registry, Frontier Surveyors and The Boundless Workforce. Requires BNW and Community Patch v151. See the included guide for native engine limits.</Description>
+    <Teaser>An endless city and a republic on the wing.</Teaser>
+    <Description>The Boundless City and The Republic of Pigeons, led by Postmaster General Coo. Explore, connect cities by land trade, and raise Rooftop Roosts. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -73,6 +73,48 @@
     <File md5="F82118AA9DE7AA44C4DE2B83EABEEC69" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
     <File md5="E480EEAEEAFFA99B220ADBAD1A0599B6" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
     <File md5="C291A98321D8A158063F4F27B4A830F1" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
+    <File md5="37E27BF1A38FB5781EF47F768DE26057" import="1">TheRepublicOfPigeons/Art/PigeonAlpha128.dds</File>
+    <File md5="2A949A15E447F4BAC1B36C1FD87F7CC2" import="1">TheRepublicOfPigeons/Art/PigeonAlpha16.dds</File>
+    <File md5="A89BF29B420A7338A67429A0840AC00C" import="1">TheRepublicOfPigeons/Art/PigeonAlpha24.dds</File>
+    <File md5="484D3FAEE8FEB56EA0310DA336BD8397" import="1">TheRepublicOfPigeons/Art/PigeonAlpha256.dds</File>
+    <File md5="AEEF22BF111CF14357246870881530E2" import="1">TheRepublicOfPigeons/Art/PigeonAlpha32.dds</File>
+    <File md5="CAD07EA87BCA0911435F3768C031EA77" import="1">TheRepublicOfPigeons/Art/PigeonAlpha45.dds</File>
+    <File md5="E0A6E3FC7E4897D1E88413B77EF61DB8" import="1">TheRepublicOfPigeons/Art/PigeonAlpha48.dds</File>
+    <File md5="E1883F59770DA0463D3432A5D449C155" import="1">TheRepublicOfPigeons/Art/PigeonAlpha64.dds</File>
+    <File md5="4B4C754B0811B5630B885171CDC37BB0" import="1">TheRepublicOfPigeons/Art/PigeonAlpha80.dds</File>
+    <File md5="6A111CC686469AA8CE6939D1D18C77F8" import="1">TheRepublicOfPigeons/Art/PigeonDawn.dds</File>
+    <File md5="10474831C60069F3CCC8AFEF8B137C05" import="1">TheRepublicOfPigeons/Art/PigeonFlag32.dds</File>
+    <File md5="9BE512A45D59E90D1FC964D460A5C2D5" import="1">TheRepublicOfPigeons/Art/PigeonIcon128.dds</File>
+    <File md5="88877464DA89F6DE97F99E28D2E7051E" import="1">TheRepublicOfPigeons/Art/PigeonIcon16.dds</File>
+    <File md5="CFA0CE6DEE200C78EEDB7F0CFF5F4080" import="1">TheRepublicOfPigeons/Art/PigeonIcon24.dds</File>
+    <File md5="52F2D46A7D59C37972B8CB46CA94EF23" import="1">TheRepublicOfPigeons/Art/PigeonIcon256.dds</File>
+    <File md5="5F7F97A1CFABCD94BC2CC1CF80134D45" import="1">TheRepublicOfPigeons/Art/PigeonIcon32.dds</File>
+    <File md5="C7E5395C6887A8BB98AACAE6DC781232" import="1">TheRepublicOfPigeons/Art/PigeonIcon45.dds</File>
+    <File md5="E1B440E93E8132FE3C5E495FB6020542" import="1">TheRepublicOfPigeons/Art/PigeonIcon48.dds</File>
+    <File md5="F266A95CAC1832D2558F80F42FC29813" import="1">TheRepublicOfPigeons/Art/PigeonIcon64.dds</File>
+    <File md5="E6561336939EBD8A1A2735A928E71DFC" import="1">TheRepublicOfPigeons/Art/PigeonIcon80.dds</File>
+    <File md5="E7CFE51F57868E9AC434A4F5D5995C31" import="1">TheRepublicOfPigeons/Art/PigeonLeader.dds</File>
+    <File md5="68FFF7A54771E7F702B4382262A66767" import="1">TheRepublicOfPigeons/Art/PigeonLeaderScene.xml</File>
+    <File md5="7BAADF7B2AD480C3A54E61A92FC9BF9E" import="1">TheRepublicOfPigeons/Art/PigeonMap.dds</File>
+    <File md5="5BE52404F6FA3D53FD3F8B4EE0077613" import="1">TheRepublicOfPigeons/Art/PigeonObjects128.dds</File>
+    <File md5="9827F35C2191C10E6D89AECFD618EABE" import="1">TheRepublicOfPigeons/Art/PigeonObjects16.dds</File>
+    <File md5="CF99153170E3546CC4EF9897EE53860C" import="1">TheRepublicOfPigeons/Art/PigeonObjects24.dds</File>
+    <File md5="DFDB2633EE575BF96DFBAE0ACDDF7330" import="1">TheRepublicOfPigeons/Art/PigeonObjects256.dds</File>
+    <File md5="10030ECD6939A036F3CB45A669787C16" import="1">TheRepublicOfPigeons/Art/PigeonObjects32.dds</File>
+    <File md5="77871E9E8246D6060A19572B71762FD5" import="1">TheRepublicOfPigeons/Art/PigeonObjects45.dds</File>
+    <File md5="9D2B713B56F4A53E9F0F52511F5BA541" import="1">TheRepublicOfPigeons/Art/PigeonObjects48.dds</File>
+    <File md5="19F61D2771B091761C3CF96468144F5D" import="1">TheRepublicOfPigeons/Art/PigeonObjects64.dds</File>
+    <File md5="D1924A9672E3293FF4ADF8D6529D8F53" import="1">TheRepublicOfPigeons/Art/PigeonObjects80.dds</File>
+    <File md5="3E2AF77ED562C56F9AAB903FF05350BC" import="1">TheRepublicOfPigeons/Art/PigeonPortrait128.dds</File>
+    <File md5="17679852D1DF55DD0FCF5D844AA12691" import="1">TheRepublicOfPigeons/Art/PigeonPortrait256.dds</File>
+    <File md5="61224E39426423FB12D31B71796545A0" import="1">TheRepublicOfPigeons/Art/PigeonPortrait64.dds</File>
+    <File md5="991EC06BDC512F26D6CB0935163A30B2" import="0">TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql</File>
+    <File md5="2BE691D64203B5B5000BEC147BFEE154" import="0">TheRepublicOfPigeons/SQL/01_PIGEON_Inheritance.sql</File>
+    <File md5="8C6005C7FF9E39E8FE372E8618337280" import="0">TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</File>
+    <File md5="83627C53CEADA38647091BAA56FA8C50" import="0">TheRepublicOfPigeons/SQL/03_PIGEON_Art.sql</File>
+    <File md5="85DCB9A62B9FE64FB8C1C2B675B17A5B" import="0">TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</File>
+    <File md5="77596118D9F9574F4463FAB136C7C409" import="1">TheRepublicOfPigeons/UI/PigeonTrade.lua</File>
+    <File md5="F892C2991855F86FB3BA7CAD2BB1DB94" import="0">TheRepublicOfPigeons/UI/PigeonTrade.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -81,12 +123,21 @@
       <UpdateDatabase>TheBoundlessCity/SQL/02_BC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/03_BC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/10_BC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfPigeons/SQL/01_PIGEON_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfPigeons/SQL/03_PIGEON_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
     <EntryPoint type="InGameUIAddin" file="TheBoundlessCity/UI/BoundlessWorkforce.xml">
       <Name>The Boundless Workforce</Name>
       <Description>One simulation owner and an event-driven workforce panel.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheRepublicOfPigeons/UI/PigeonTrade.xml">
+      <Name>Messages on the Wing</Name>
+      <Description>Pigeon trade-route yields and Rooftop Roost production.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

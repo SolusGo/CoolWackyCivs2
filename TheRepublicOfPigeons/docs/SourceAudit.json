@@ -1,0 +1,28 @@
+{
+  "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "checks": {
+    "outgoing ownership filter": true,
+    "integer domain": true,
+    "FromID is owner": true,
+    "FromCity is userdata": true,
+    "no count clamp": true,
+    "count delta processed": true,
+    "yield times count": true,
+    "no-bonus Lua argument": true,
+    "completion before clear": true,
+    "plunder signature": true,
+    "route established before unit consumed": true,
+    "UnitPrekill signature": true,
+    "correct completion event name": true,
+    "dummy excluded from building total": true
+  },
+  "sha256": {
+    "CvLuaPlayer.cpp": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a",
+    "CvLuaCity.cpp": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24",
+    "CvTradeClasses.cpp": "c645883745438c0bf9a1261aa4eedd50ba67899adb9701a0e7c75df2af8dc4fd",
+    "CvBuildingClasses.cpp": "44959390632ce9646dbfc77752c22d965fadc53ff049098594a18477e3dd8a25",
+    "CvCity.cpp": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2",
+    "CvUnit.cpp": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875",
+    "CustomMods.h": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+  }
+}
