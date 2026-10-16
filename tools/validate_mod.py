@@ -71,6 +71,8 @@ def runtime():
         print(f'PASS {test}: {time.perf_counter()-started:.3f}s (mock, not Civ V timing)')
 
 def package():
+    from standardize_icons import validate as validate_icons
+    validate_icons(R)
     root=ET.parse(R/(NAME+'.modinfo')).getroot()
     assert root.get('id')==MOD_ID and root.get('version')==VERSION
     assert root.findtext('Properties/MinCompatibleSaveVersion')=='1'

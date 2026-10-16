@@ -5,7 +5,7 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='5'
+VERSION='6'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
 CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons')
@@ -28,6 +28,8 @@ def relative(p): return p.relative_to(R).as_posix()
 def imported(p): return p.suffix!='.sql' and relative(p) not in {e[0] for e in ENTRIES}
 
 def manifests():
+    from standardize_icons import standardize
+    standardize(R)
     paths=files();root=ET.Element('Mod',id=MOD_ID,version=VERSION);props=ET.SubElement(root,'Properties')
     for k,v in PROPS.items(): ET.SubElement(props,k).text=v
     deps=ET.SubElement(root,'Dependencies')

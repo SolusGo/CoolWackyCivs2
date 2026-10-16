@@ -2,7 +2,7 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 5 (collection release **1.3.0 preview**) includes **The Boundless City** and **The Republic of Pigeons**. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here.
+Mod version 6 (collection release **1.3.1 preview**) includes **The Boundless City** and **The Republic of Pigeons**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
 
 **New: The Republic of Pigeons**, led by **Postmaster General Coo**. Outgoing land Trade Routes grant their origin cities stacking Science and Culture. Carrier Pigeons explore with extra sight; Rooftop Roosts retain Caravansary benefits, add Culture, and gain Production while dispatching caravans. Original leader/loading art, postal icons, AI flavors and English Civilopedia text are included. Pigeon SQL, Lua simulations and pinned CP source checks pass; native gameplay verification is still required. See the [civilization guide](TheRepublicOfPigeons/README.md) and [validation record](TheRepublicOfPigeons/docs/Testing.md).
 
@@ -23,7 +23,7 @@ Every future civilization should receive a dedicated roster page, a gameplay REA
 
 1. Install Civilization V with Brave New World and the Windows Community Patch **v151**. The Community Patch dependency is declared in the modinfo; no replacement DLL is included.
 2. Build the release archives as below, or use a provided archive from this repository's distribution output.
-3. Extract `dist/Cool Wacky Civs 2 (v 5).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 5).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
+3. Extract `dist/Cool Wacky Civs 2 (v 6).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 6).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
 4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose either leader.
 5. As **Postmaster General Coo**, found **Coopolis**, explore with Carrier Pigeons, and establish outgoing land Trade Routes. As **The First Architect**, found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
 

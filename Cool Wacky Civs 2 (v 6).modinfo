@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="5">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="6">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
     <Teaser>An endless city and a republic on the wing.</Teaser>
@@ -35,30 +35,30 @@
     <File md5="DDC5E1FCC52F6B2867F4649F83C4D0E6" import="1">TheBoundlessCity/Art/BoundlessAlpha80.dds</File>
     <File md5="B6F11D9F8CB83E7A4F4F7809DE348CFD" import="1">TheBoundlessCity/Art/BoundlessDawn.dds</File>
     <File md5="A51A77982BD11CD273F40223D9EEF195" import="1">TheBoundlessCity/Art/BoundlessFlag32.dds</File>
-    <File md5="7C47371EF06D827D99A9B5565EEA2134" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
-    <File md5="D66E74D6E91917D1F2298718A28C805C" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
-    <File md5="F8F54D865C55A7CF93C9D6D4A0AF7FD0" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
-    <File md5="3B0821DB643EA706C36BBABE1F3BB9E8" import="1">TheBoundlessCity/Art/BoundlessIcon256.dds</File>
-    <File md5="1B8890D6648115AE4E6D6E18A2E3A661" import="1">TheBoundlessCity/Art/BoundlessIcon32.dds</File>
-    <File md5="17085ECEC8303E54137EA97EBDF8FEA2" import="1">TheBoundlessCity/Art/BoundlessIcon45.dds</File>
-    <File md5="D4CA25047ACA56A8E29EDEA07D700FB5" import="1">TheBoundlessCity/Art/BoundlessIcon48.dds</File>
-    <File md5="D2D3938CE0A3851194456FD12BFAC9FE" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
-    <File md5="970328011B24D9E2F3152FD1210DD276" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
+    <File md5="088CD481B8A76664CF6B8E314D75DE13" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
+    <File md5="1D6F33D78E54249E311A9C0AB9FB57C2" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
+    <File md5="AC1141A14B0D66E798BDA36554A8B30B" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
+    <File md5="951A815D945883391A4CAA4531E91CA5" import="1">TheBoundlessCity/Art/BoundlessIcon256.dds</File>
+    <File md5="C044C5869C40702A881780F1E6816668" import="1">TheBoundlessCity/Art/BoundlessIcon32.dds</File>
+    <File md5="F5E142D9C553A4DA22A5277127FDCA52" import="1">TheBoundlessCity/Art/BoundlessIcon45.dds</File>
+    <File md5="8DCE14AD48D76E12091B341101A56FCD" import="1">TheBoundlessCity/Art/BoundlessIcon48.dds</File>
+    <File md5="7A6DD8EB8922454FFB7F8AA2536A52D2" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
+    <File md5="FCD230BFDBD7A5C6E232DD46AAAA0126" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
     <File md5="7EC3F5625C0ACD4FEC40FA95A9F8DD9B" import="1">TheBoundlessCity/Art/BoundlessLeader.dds</File>
     <File md5="6911E551F70C4357D0EAAE442428CF28" import="1">TheBoundlessCity/Art/BoundlessLeaderScene.xml</File>
     <File md5="4339C5183AC269C1F8D75B4CC27F98B9" import="1">TheBoundlessCity/Art/BoundlessMap.dds</File>
-    <File md5="5D4E1E4EB08F7FA5921E4C95B5DCC541" import="1">TheBoundlessCity/Art/BoundlessObjects128.dds</File>
-    <File md5="806DCBCC3733842FCB503E0044D14576" import="1">TheBoundlessCity/Art/BoundlessObjects16.dds</File>
-    <File md5="DB98F54D6A6AA148E4E74AE3B6B18F6B" import="1">TheBoundlessCity/Art/BoundlessObjects24.dds</File>
-    <File md5="A28C1959D83391DF7AF61423AE95880D" import="1">TheBoundlessCity/Art/BoundlessObjects256.dds</File>
-    <File md5="2E8346C6C1FA0C99D5311C0EC9E059B6" import="1">TheBoundlessCity/Art/BoundlessObjects32.dds</File>
-    <File md5="1AD2FCE9D23D4C8A842A05DDBF89AF36" import="1">TheBoundlessCity/Art/BoundlessObjects45.dds</File>
-    <File md5="9A4E4F6ADBAEA642DED4F8B88C88DD5F" import="1">TheBoundlessCity/Art/BoundlessObjects48.dds</File>
-    <File md5="5908DEC781A6C69DBC06A05E311E0850" import="1">TheBoundlessCity/Art/BoundlessObjects64.dds</File>
-    <File md5="86192AA1196C4FE29B7F99C7A2202380" import="1">TheBoundlessCity/Art/BoundlessObjects80.dds</File>
-    <File md5="9010AA6BFC477B88ED5B64B35F4FCB98" import="1">TheBoundlessCity/Art/BoundlessPortrait128.dds</File>
-    <File md5="B2DBA4DD00B403EABA573909ABDC36E3" import="1">TheBoundlessCity/Art/BoundlessPortrait256.dds</File>
-    <File md5="E3663F04BF6A93C7EAB50FE5E250CD9C" import="1">TheBoundlessCity/Art/BoundlessPortrait64.dds</File>
+    <File md5="7893727CA99A68C0D7DAD820491F4A4D" import="1">TheBoundlessCity/Art/BoundlessObjects128.dds</File>
+    <File md5="46629031222F420739771CDCBE673C32" import="1">TheBoundlessCity/Art/BoundlessObjects16.dds</File>
+    <File md5="23E59AC9E78558A98819665637C29D2C" import="1">TheBoundlessCity/Art/BoundlessObjects24.dds</File>
+    <File md5="FC453D7CBE062D849A0DD1C4DF86E8AC" import="1">TheBoundlessCity/Art/BoundlessObjects256.dds</File>
+    <File md5="4D032EDA6ED43E0B333E392263D0FDC1" import="1">TheBoundlessCity/Art/BoundlessObjects32.dds</File>
+    <File md5="14AA96E6C75CB627D95A22AA9F494C50" import="1">TheBoundlessCity/Art/BoundlessObjects45.dds</File>
+    <File md5="AE35D5A150BA03748C82B00114484128" import="1">TheBoundlessCity/Art/BoundlessObjects48.dds</File>
+    <File md5="952CC24DB685EFCC0961647BA415F35B" import="1">TheBoundlessCity/Art/BoundlessObjects64.dds</File>
+    <File md5="031E0955590303F1377DC897DF69257D" import="1">TheBoundlessCity/Art/BoundlessObjects80.dds</File>
+    <File md5="FAF86BF55A401B2E892DB83F4CD8A3C8" import="1">TheBoundlessCity/Art/BoundlessPortrait128.dds</File>
+    <File md5="5EC1FDD623C5BF3BAC9A271DED1C5B2F" import="1">TheBoundlessCity/Art/BoundlessPortrait256.dds</File>
+    <File md5="1299EE7970AE78B0DEC0F26E12162E4C" import="1">TheBoundlessCity/Art/BoundlessPortrait64.dds</File>
     <File md5="1EE1B4C1666A685743E3894366F9C11F" import="1">TheBoundlessCity/Lua/BoundlessAI.lua</File>
     <File md5="1981623829CF403132ECC069B4D57B2B" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
     <File md5="AD10D54ECAC9E3B44D92E723BCE7B3E1" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
@@ -84,30 +84,30 @@
     <File md5="4B4C754B0811B5630B885171CDC37BB0" import="1">TheRepublicOfPigeons/Art/PigeonAlpha80.dds</File>
     <File md5="6A111CC686469AA8CE6939D1D18C77F8" import="1">TheRepublicOfPigeons/Art/PigeonDawn.dds</File>
     <File md5="10474831C60069F3CCC8AFEF8B137C05" import="1">TheRepublicOfPigeons/Art/PigeonFlag32.dds</File>
-    <File md5="9BE512A45D59E90D1FC964D460A5C2D5" import="1">TheRepublicOfPigeons/Art/PigeonIcon128.dds</File>
-    <File md5="88877464DA89F6DE97F99E28D2E7051E" import="1">TheRepublicOfPigeons/Art/PigeonIcon16.dds</File>
-    <File md5="CFA0CE6DEE200C78EEDB7F0CFF5F4080" import="1">TheRepublicOfPigeons/Art/PigeonIcon24.dds</File>
-    <File md5="52F2D46A7D59C37972B8CB46CA94EF23" import="1">TheRepublicOfPigeons/Art/PigeonIcon256.dds</File>
-    <File md5="5F7F97A1CFABCD94BC2CC1CF80134D45" import="1">TheRepublicOfPigeons/Art/PigeonIcon32.dds</File>
-    <File md5="C7E5395C6887A8BB98AACAE6DC781232" import="1">TheRepublicOfPigeons/Art/PigeonIcon45.dds</File>
-    <File md5="E1B440E93E8132FE3C5E495FB6020542" import="1">TheRepublicOfPigeons/Art/PigeonIcon48.dds</File>
-    <File md5="F266A95CAC1832D2558F80F42FC29813" import="1">TheRepublicOfPigeons/Art/PigeonIcon64.dds</File>
-    <File md5="E6561336939EBD8A1A2735A928E71DFC" import="1">TheRepublicOfPigeons/Art/PigeonIcon80.dds</File>
+    <File md5="A33E9631336F7D6FB674D16AF51A1085" import="1">TheRepublicOfPigeons/Art/PigeonIcon128.dds</File>
+    <File md5="1109D96A7D9FB4B7C3E42EB5613B75F4" import="1">TheRepublicOfPigeons/Art/PigeonIcon16.dds</File>
+    <File md5="AE5CB6559376514EAA97E92983A74040" import="1">TheRepublicOfPigeons/Art/PigeonIcon24.dds</File>
+    <File md5="E2EFA065A289708CB21BF2D5983C0F6F" import="1">TheRepublicOfPigeons/Art/PigeonIcon256.dds</File>
+    <File md5="5ADD8FC4E9D066D422933551113B41C6" import="1">TheRepublicOfPigeons/Art/PigeonIcon32.dds</File>
+    <File md5="FA9023B3C0AB18D4AC215E1EAA26893A" import="1">TheRepublicOfPigeons/Art/PigeonIcon45.dds</File>
+    <File md5="EF7832FD4EAC5CB19262179614939B0D" import="1">TheRepublicOfPigeons/Art/PigeonIcon48.dds</File>
+    <File md5="1EF4FFD554B012B538E52A6BB9384FDC" import="1">TheRepublicOfPigeons/Art/PigeonIcon64.dds</File>
+    <File md5="C2255B0AEA5ADF5A81BBC0CABCAF6AF3" import="1">TheRepublicOfPigeons/Art/PigeonIcon80.dds</File>
     <File md5="E7CFE51F57868E9AC434A4F5D5995C31" import="1">TheRepublicOfPigeons/Art/PigeonLeader.dds</File>
     <File md5="68FFF7A54771E7F702B4382262A66767" import="1">TheRepublicOfPigeons/Art/PigeonLeaderScene.xml</File>
     <File md5="7BAADF7B2AD480C3A54E61A92FC9BF9E" import="1">TheRepublicOfPigeons/Art/PigeonMap.dds</File>
-    <File md5="5BE52404F6FA3D53FD3F8B4EE0077613" import="1">TheRepublicOfPigeons/Art/PigeonObjects128.dds</File>
-    <File md5="9827F35C2191C10E6D89AECFD618EABE" import="1">TheRepublicOfPigeons/Art/PigeonObjects16.dds</File>
-    <File md5="CF99153170E3546CC4EF9897EE53860C" import="1">TheRepublicOfPigeons/Art/PigeonObjects24.dds</File>
-    <File md5="DFDB2633EE575BF96DFBAE0ACDDF7330" import="1">TheRepublicOfPigeons/Art/PigeonObjects256.dds</File>
-    <File md5="10030ECD6939A036F3CB45A669787C16" import="1">TheRepublicOfPigeons/Art/PigeonObjects32.dds</File>
-    <File md5="77871E9E8246D6060A19572B71762FD5" import="1">TheRepublicOfPigeons/Art/PigeonObjects45.dds</File>
-    <File md5="9D2B713B56F4A53E9F0F52511F5BA541" import="1">TheRepublicOfPigeons/Art/PigeonObjects48.dds</File>
-    <File md5="19F61D2771B091761C3CF96468144F5D" import="1">TheRepublicOfPigeons/Art/PigeonObjects64.dds</File>
-    <File md5="D1924A9672E3293FF4ADF8D6529D8F53" import="1">TheRepublicOfPigeons/Art/PigeonObjects80.dds</File>
-    <File md5="3E2AF77ED562C56F9AAB903FF05350BC" import="1">TheRepublicOfPigeons/Art/PigeonPortrait128.dds</File>
-    <File md5="17679852D1DF55DD0FCF5D844AA12691" import="1">TheRepublicOfPigeons/Art/PigeonPortrait256.dds</File>
-    <File md5="61224E39426423FB12D31B71796545A0" import="1">TheRepublicOfPigeons/Art/PigeonPortrait64.dds</File>
+    <File md5="1029A93837DCDC97264AA2B7CA3AEC6E" import="1">TheRepublicOfPigeons/Art/PigeonObjects128.dds</File>
+    <File md5="A0A18C9E5DBFBECF26A6CB44395175D8" import="1">TheRepublicOfPigeons/Art/PigeonObjects16.dds</File>
+    <File md5="423AD191525AE1B08AF9611FDCF03141" import="1">TheRepublicOfPigeons/Art/PigeonObjects24.dds</File>
+    <File md5="00C4BC1C60CC9924E8FB90023F1F577B" import="1">TheRepublicOfPigeons/Art/PigeonObjects256.dds</File>
+    <File md5="BBD1CE0D11BDE05E2500EDD8B7A5586B" import="1">TheRepublicOfPigeons/Art/PigeonObjects32.dds</File>
+    <File md5="1C69D318A300E128FB1E34D18161CB78" import="1">TheRepublicOfPigeons/Art/PigeonObjects45.dds</File>
+    <File md5="E6AA162B41F96432675CC500D9893A8E" import="1">TheRepublicOfPigeons/Art/PigeonObjects48.dds</File>
+    <File md5="8E67AD81ED6750F15B44720B10537622" import="1">TheRepublicOfPigeons/Art/PigeonObjects64.dds</File>
+    <File md5="9B518A539DDA44A93FEC7178D5BBF8A2" import="1">TheRepublicOfPigeons/Art/PigeonObjects80.dds</File>
+    <File md5="0D0064CB9B2A0ADD6FF70E182853F827" import="1">TheRepublicOfPigeons/Art/PigeonPortrait128.dds</File>
+    <File md5="291486F9B856290A87472ACFA1364CA6" import="1">TheRepublicOfPigeons/Art/PigeonPortrait256.dds</File>
+    <File md5="7B4C46EA302A09984142DA26A004968A" import="1">TheRepublicOfPigeons/Art/PigeonPortrait64.dds</File>
     <File md5="991EC06BDC512F26D6CB0935163A30B2" import="0">TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql</File>
     <File md5="2BE691D64203B5B5000BEC147BFEE154" import="0">TheRepublicOfPigeons/SQL/01_PIGEON_Inheritance.sql</File>
     <File md5="8C6005C7FF9E39E8FE372E8618337280" import="0">TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</File>

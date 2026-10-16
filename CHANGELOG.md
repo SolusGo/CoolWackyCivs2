@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1 Icon consistency / mod version 6 — 2026-10-16
+
+- Added matching beveled gold rims to both leader portraits, civilization emblems and unique unit/building icons.
+- Centred leader artwork in 75% of each slot, giving a 96px visible portrait in the native 128px selection slot. Other colour icons use 90%; every registered atlas keeps its exact dimensions and cell indices.
+- Retained lossless atlas masters and added automatic build finishing plus decoded DDS dimension, padding and gold-rim checks. Player-colour masks and unit flags remain monochrome.
+
 ## 1.3.0 Pigeon Republic / mod version 5 — 2026-10-16
 
 - Added The Republic of Pigeons under Postmaster General Coo, with Coopolis and 23 additional original city names, full English Civilopedia/strategy/diplomacy text and trade-oriented AI flavors.
