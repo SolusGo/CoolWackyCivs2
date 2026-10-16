@@ -12,8 +12,14 @@
     "Ten Boundless regression suites",
     "Pigeon gameplay/source contracts",
     "Workforce summary regressions",
-    "Four Red suites: state/lifecycle, edge cases, six abilities, read-only panel",
-    "109 Red native Lua method names and CP event ABI/ordering checks",
+    "Seven Red suites: state/lifecycle, edge cases, six abilities, read-only panel, absent-Red gates, runtime stability, interrupted recovery",
+    "120 Red native Lua method names, exact critical binding/ABI/argument/result and ordering checks",
+    "Project restrictions with no Red, non-Red, era/roster/rank requirements, completion and reload",
+    "AI project scheduling in 1/5/20 cities with inactive/active/interrupted queues, capture and reload",
+    "Asynchronous, canceled, invalid, duplicate and reloaded native airlift request simulations",
+    "All-six snapshot-before-kill, third-turn reload, interrupted partial return, exact veteran and Ace recovery fault simulations",
+    "Snorlax safe/occupied/remote/deferred/single-use anchors, item step ledger, exceptional ZOC and native nonnegative clamp",
+    "Promotion eligibility/expiry, terrain restrictions, aura idempotence, immediate Range, native init/recycled-ID ordering",
     "176 existing pinned CP source assertions",
     "58 Red DDS files decoded with mipmaps",
     "117 collection atlas sizes and three leader portraits",
@@ -22,5 +28,11 @@
     "Existing synthetic benchmark completed; original result file preserved",
     "Collection SQL loads after removing optional JFD/SharedTraits metadata tables"
   ],
+  "save_ledger_version": 1,
+  "save_migration": "Additive optional fields; existing serials, snapshots and claims retained",
+  "critical_source_reference": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "snorlax_absolute_displacement_immunity": "UNAVAILABLE through supported Lua; safe observed-combat correction only",
+  "native_corrective_checklist": "Testing.md: Outstanding corrective-pass checks (all NOT RUN)",
+  "audit_report": "StabilityAudit.md",
   "limitations_report": "ImplementationReport.md"
 }

@@ -8,7 +8,7 @@ from database import database,quote
 from build_mod import R,files
 
 V=R/'TrainerRed'
-TABLES=['Eras','Units','UnitPromotions','GameSpeeds','Buildings','BuildingClasses','UnitClasses','Unit_ClassUpgrades','Civilization_UnitClassOverrides','Civilizations','Projects']
+TABLES=['Eras','Units','UnitPromotions','GameSpeeds','Buildings','BuildingClasses','UnitClasses','Unit_ClassUpgrades','Civilization_UnitClassOverrides','Civilizations','Projects','Terrains','Features','Technologies','Unit_FreePromotions','UnitPromotions_Terrains','UnitPromotions_Features']
 
 def db():
  d=database()
@@ -23,6 +23,8 @@ def sql(d):
  assert tuple(d.execute("SELECT GoldMaintenance,FoodKept,Airlift FROM Buildings WHERE Type='BUILDING_RED_POKEMON_CENTER'").fetchone())==(4,25,0)
  assert d.execute("SELECT Cost FROM Buildings WHERE Type='BUILDING_RED_POKEMON_CENTER'").fetchone()[0]==d.execute("SELECT Cost FROM Buildings WHERE Type='BUILDING_HOSPITAL'").fetchone()[0]
  assert d.execute("SELECT Cost FROM Projects WHERE Type='PROJECT_RED_MT_SILVER'").fetchone()[0]==int(d.execute("SELECT Cost FROM Buildings WHERE Type='BUILDING_STATUE_OF_LIBERTY'").fetchone()[0]*.65+.5)
+ assert d.execute("SELECT MaxTeamInstances FROM Projects WHERE Type='PROJECT_RED_MT_SILVER'").fetchone()[0]==1
+ assert d.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_AIRLIFT'").fetchone()[0]==1
  # Inherit all native General commands, roles, names and Citadel permissions.
  for table in ['Unit_Builds','Unit_AITypes','Unit_FreePromotions','Unit_UniqueNames']:
   fields=[r[1] for r in d.execute('PRAGMA table_info('+table+')') if r[1] not in ['ID','UnitType']]
@@ -57,7 +59,7 @@ def source_audit():
  ref=R/'tools/reference'
  sources={p.stem:p.read_text(encoding='utf-8-sig') for p in ref.glob('*.cpp')}
  # Check every method invoked on a known native object; no undocumented shims.
- bindings={kind:set(re.findall(r'Method\(\s*(\w+)\s*\)',sources['CvLua'+kind])) for kind in ['Unit','Player','City','Plot']}
+ bindings={kind:set(re.findall(r'Method\(\s*(\w+)\s*\)',sources['CvLua'+kind])) for kind in ['Unit','Player','City','Plot','Team']}
  unions=set.union(*bindings.values())
  ignored={'Add','SetUpdate','ClearUpdate','SetText','SetHide','SetDisabled','SetSizeX','SetToolTipString','RegisterCallback','CalculateSize','ReprocessAnchoring','CalculateInternalSize','LookUpControl','IsHidden','ResetInstances','GetInstance','SetInputHandler','new'}
  used=set()
@@ -65,7 +67,7 @@ def source_audit():
   for name in re.findall(r':([A-Z]\w+)\(',path.read_text(encoding='utf-8')):
    if name not in ignored:assert name in unions,('Unverified native Lua method',name,path);used.add(name)
  h=(ref/'CustomMods.h').read_text(encoding='utf-8-sig')
- for name,signature in {'BattleStarted':'iii','BattleJoined':'iiib','BattleFinished':'','BattleDamageDelta':'ii','UnitUpgraded':'iiib','UnitConverted':'iiiib','CityProjectComplete':'iii','BarbariansCampCleared':'iii','UnitCreated':'iiiii','UnitPrekill':'iiiiibi','PlayerDoneTurn':'i'}.items():
+ for name,signature in {'BattleStarted':'iii','BattleJoined':'iiib','BattleFinished':'','BattleDamageDelta':'ii','UnitUpgraded':'iiib','UnitConverted':'iiiib','CityProjectComplete':'iii','BarbariansCampCleared':'iii','UnitCreated':'iiiii','UnitPrekill':'iiiiibi','PlayerDoneTurn':'i','CanAirliftFrom':'iiii','CanAirliftTo':'iiii','CityCanAirlift':'ii','UnitPromoted':'iii'}.items():
   assert re.search(r'GAMEEVENT_'+name+r'\s+"'+name+r'",\s+"'+signature+'"',h),(name,signature)
  structs=sources.get('CvGameCoreStructs','')
  assert 'GAMEEVENT_BattleDamageDelta, unitType, iDamage' in structs
@@ -73,7 +75,41 @@ def source_audit():
  assert 'm_pUnits[unitType]->GetCurrHitPoints() - iDamage' in structs,'source-HP positive-delta clamp workaround'
  assert 'GAMEEVENT_BarbariansCampCleared, pPlot->getX(), pPlot->getY(), ePlayer' in sources['CvBarbarians']
  assert sources['CvUnit'].index('GAMEEVENT_UnitConverted')<sources['CvUnit'].index('pUnit->kill(true, NO_PLAYER)',sources['CvUnit'].index('GAMEEVENT_UnitConverted'))
- print('PASS Red CP v151: '+str(len(used))+' native method names, event ABIs, damage role semantics and pre-death conversion order')
+ def body(file,signature):
+  start=sources[file].index(signature);end=sources[file].index('\n}',start)
+  return sources[file][start:end+2]
+ # Exact object bindings and actual argument/result conversions for the corrective pass.
+ for kind,names in {'City':['GetOrderQueueLength','GetOrderFromQueue','PushOrder','GetYieldRate','IsRazing','IsResistance'],
+                    'Unit':['HasMoved','GetGameTurnCreated','CanAirliftAt','PushMission','SetXY','IsPromotionValid','CanMoveOrAttackInto'],
+                    'Team':['IsHasTech']}.items():
+  for name in names:assert name in bindings[kind],(kind,name)
+ queue=body('CvLuaCity','int CvLuaCity::lGetOrderFromQueue(')
+ assert 'pkOrder->eOrderType' in queue and 'pkOrder->iData1' in queue and 'return 5;' in queue
+ push=body('CvLuaCity','int CvLuaCity::lPushOrder(')
+ assert re.search(r'bPop\s*= lua_toboolean\(L, 6\)',push) and re.search(r'bAppend\s*= lua_toboolean\(L, 7\)',push)
+ for file,signature,arguments in [
+  ('CvCity','bool CvCity::canCreate(',['getOwner()','GetID()','eProject']),
+  ('CvPlayer','bool CvPlayer::canCreate(',['GetID()','eProject']),
+  ('CvUnit','void CvUnit::setXY(',['getOwner()','GetID()','getX()','getY()'])]:
+  section=body(file,signature)
+  event={'CvCity':'CityCanCreate','CvPlayer':'PlayerCanCreate','CvUnit':'UnitSetXY'}[file]
+  at=section.index('"'+event+'"');prefix=section[max(0,at-650):at]
+  offsets=[prefix.index('args->Push('+arg+');') for arg in arguments]
+  assert offsets==sorted(offsets),(event,'native argument order')
+  if event!='UnitSetXY':assert 'CallTestAll' in section and 'return false;' in section[at:at+250]
+ airlift=body('CvUnit','bool CvUnit::airlift(')
+ assert airlift.index('finishMoves();')<airlift.index('setXY('),'airlift movement exhausted before position notification'
+ can=body('CvUnit','bool CvUnit::canAirliftAt(')
+ for token in ['MOVEFLAG_DESTINATION','canMoveInto(*pTargetPlot, iMoveFlags)','pTargetPlot->isWater()','getBestDefender','getAirliftToPlot']:
+  assert token in can,token
+ fromplot=body('CvUnit','const CvPlot* CvUnit::getAirliftFromPlot(')
+ assert fromplot.index('GAMEEVENT_CanAirliftFrom')<fromplot.index('DOMAIN_LAND')<fromplot.index('hasMoved()')
+ assert 'GAMEEVENT_CanAirliftTo, getOwner(), GetID(), pPlot->getX(), pPlot->getY()' in body('CvUnit','const CvPlot* CvUnit::getAirliftToPlot(')
+ assert 'max(0,iNewValue)' in body('CvUnit','void CvUnit::setMoves('),'native nonnegative movement clamp'
+ fallback=body('CvUnit','bool CvUnit::DoFallBack(')
+ assert 'canMoveInto' in fallback and 'setXY' in fallback and 'GAMEEVENT' not in fallback,'no Lua fallback veto in pinned native path'
+ assert 'pkUnit->isPromotionValid(ePromotion)' in body('CvLuaUnit','int CvLuaUnit::lIsPromotionValid(')
+ print('PASS Red CP v151: '+str(len(used))+' method names, exact critical bindings/ABIs, project vetoes, queue tuples/booleans, airlift ordering/legality, fallback and movement clamp')
 
 def table(lua,values):
  if isinstance(values,dict):return lua.table_from({k:table(lua,v) for k,v in values.items()})
@@ -82,7 +118,7 @@ def table(lua,values):
 
 def runtime(d):
  data={t:[dict(r) for r in d.execute('SELECT * FROM '+t)] for t in TABLES}
- for test in ['red_scenarios.lua','red_edge_cases.lua','red_abilities.lua','red_ui.lua']:
+ for test in ['red_scenarios.lua','red_edge_cases.lua','red_abilities.lua','red_ui.lua','red_no_red.lua','red_stability.lua','red_recovery.lua']:
   lua=LuaRuntime(unpack_returned_tuples=True)
   lua.globals().RED_DATABASE=table(lua,data)
   def include(name):
@@ -91,6 +127,7 @@ def runtime(d):
    lua.execute(paths[0].read_text(encoding='utf-8'))
   lua.globals().include=include
   lua.execute((R/'tools/tests/red_mock.lua').read_text(encoding='utf-8'))
+  if test=='red_no_red.lua':lua.execute('Players[0].civ=GameInfoTypes.CIVILIZATION_AMERICA')
   include('RED_Core')
   lua.globals().TEST.LoadPanel=lambda:lua.execute((V/'UI/RED_TeamPanel.lua').read_text(encoding='utf-8'))
   lua.execute((R/'tools/tests'/test).read_text(encoding='utf-8'))

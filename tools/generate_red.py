@@ -75,7 +75,7 @@ def main():
 UPDATE CustomModOptions SET Value=1 WHERE Name IN
  ('EVENTS_CITY','EVENTS_NEW_ERA','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS','EVENTS_UNIT_UPGRADES',
   'EVENTS_PLAYER_TURN','EVENTS_BARBARIANS','EVENTS_BATTLES','EVENTS_BATTLES_DAMAGE',
-  'EVENTS_RED_COMBAT','EVENTS_RED_COMBAT_RESULT','EVENTS_RED_COMBAT_ENDED','EVENTS_CITY_AIRLIFT');
+  'EVENTS_RED_COMBAT','EVENTS_RED_COMBAT_RESULT','EVENTS_RED_COMBAT_ENDED','EVENTS_CITY_AIRLIFT','EVENTS_AIRLIFT');
 INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES
  ('COLOR_RED_CRIMSON',0.68,0.055,0.09,1),('COLOR_RED_SILVER',0.93,0.95,0.97,1);
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES
@@ -96,14 +96,14 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_RED_LIVING_
  effects="""DELETE FROM Building_YieldChanges WHERE BuildingType='BUILDING_RED_POKEMON_CENTER' AND YieldType='YIELD_FOOD';
 INSERT INTO Building_YieldChanges VALUES ('BUILDING_RED_POKEMON_CENTER','YIELD_FOOD',5);
 -- Native CanAirlift performs plot, movement, enemy adjacency and city checks.
--- The per-source-city allowance is gated by CityCanAirlift and explicit commands.
+-- Unit-specific CanAirliftFrom/To grants and explicit commands gate the allowance.
 UPDATE Buildings SET Airlift=0 WHERE Type='BUILDING_RED_POKEMON_CENTER';
 """
  for i in range(1,len(CITIES)+1):effects+=insert('Civilization_CityNames',CivilizationType=CIV,CityName=f'TXT_KEY_RED_CITY_{i}')
  for i in range(1,len(SPIES)+1):effects+=insert('Civilization_SpyNames',CivilizationType=CIV,SpyName=f'TXT_KEY_RED_SPY_{i}')
  # Modern Statue of Liberty baseline, resolved at activation after other balance mods.
  effects+="""INSERT INTO Projects(Type,Description,Help,Civilopedia,Strategy,MaxGlobalInstances,MaxTeamInstances,Cost,TechPrereq,PortraitIndex,IconAtlas)
-SELECT 'PROJECT_RED_MT_SILVER','TXT_KEY_RED_JOURNEY','TXT_KEY_RED_JOURNEY_HELP','TXT_KEY_RED_JOURNEY_PEDIA','TXT_KEY_RED_JOURNEY_HELP',-1,-1,CAST(Cost*0.65+0.5 AS INTEGER),NULL,3,'RED_OBJECT_ATLAS' FROM Buildings WHERE Type='BUILDING_STATUE_OF_LIBERTY';
+SELECT 'PROJECT_RED_MT_SILVER','TXT_KEY_RED_JOURNEY','TXT_KEY_RED_JOURNEY_HELP','TXT_KEY_RED_JOURNEY_PEDIA','TXT_KEY_RED_JOURNEY_HELP',-1,1,CAST(Cost*0.65+0.5 AS INTEGER),NULL,3,'RED_OBJECT_ATLAS' FROM Buildings WHERE Type='BUILDING_STATUE_OF_LIBERTY';
 """
  flavors={'OFFENSE':7,'DEFENSE':9,'CITY_DEFENSE':9,'MILITARY_TRAINING':10,'RECON':7,'DIPLOMACY':3,'EXPANSION':4,'SCIENCE':8,'CULTURE':5,'GOLD':5,'WONDER':6,'SPACESHIP':8,'GROWTH':5,'MOBILE':7,'AIR':6}
  for name,n in flavors.items():effects+=f"DELETE FROM Leader_Flavors WHERE LeaderType='{LEADER}' AND FlavorType='FLAVOR_{name}';\nINSERT INTO Leader_Flavors SELECT '{LEADER}',Type,{n} FROM Flavors WHERE Type='FLAVOR_{name}';\n"

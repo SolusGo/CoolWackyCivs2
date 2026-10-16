@@ -47,6 +47,8 @@ function R.State(pid)
   else error('[Red] Refusing to overwrite incompatible/corrupt save for player '..pid) end
  elseif data:find('|REDSTATE',1,true) then error('[Red] Invalid save envelope for '..pid)
  else s={version=1,pid=pid,nextSerial=1,units={},slots={},claims={},capitals={},hall=0,full=false,lastTurn=-1,lastDone=-1,airlifts={},silver={phase='READY',snapshots={}},identities={}} end
+ -- Additive version-1 migration; older saves keep every existing ledger entry.
+ s.pendingAirlifts=s.pendingAirlifts or {};s.auraTurns=s.auraTurns or {}
  R.States[pid]=s;return s
 end
 function R.Tag(u,serial)
@@ -100,11 +102,16 @@ function R.Snapshot(u)
 end
 function R.Restore(u,snap)
  local expiry={}
+ local upgraded=GameInfo.Units[u:GetUnitType()].Type~=snap.unitType
  u:SetExperienceTimes100(snap.xp or 0);u:SetLevel(snap.level or 1)
  if snap.baseHP then u:SetMaxHitPointsBase(snap.baseHP) end
  for _,typ in ipairs(snap.promotions or {}) do
   local id=GameInfoTypes[typ];local expires=snap.promotionExpiry and snap.promotionExpiry[typ]
-  if id and (not expires or expires>Game.GetGameTurn()) and typ~='PROMOTION_RED_BLOOM_STATUS' and typ~='PROMOTION_RED_HORIZON' and typ~='PROMOTION_RED_PIKACHU_STRONGER' then
+  local promotion=id and GameInfo.UnitPromotions[id]
+  local private=typ:find('PROMOTION_RED_',1,true)==1
+  local valid=promotion and (not upgraded or private or
+   ((not promotion.LostWithUpgrade or promotion.LostWithUpgrade==0) and (u:IsHasPromotion(id) or u:IsPromotionValid(id))))
+  if valid and (not expires or expires>Game.GetGameTurn()) and typ~='PROMOTION_RED_BLOOM_STATUS' and typ~='PROMOTION_RED_HORIZON' and typ~='PROMOTION_RED_PIKACHU_STRONGER' then
    u:SetHasPromotion(id,true);if expires then expiry[typ]=expires end
   end
  end

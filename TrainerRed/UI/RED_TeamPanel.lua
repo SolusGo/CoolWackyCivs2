@@ -118,8 +118,9 @@ refresh=function()
   Controls.Item:SetDisabled(not u or not R.CanItem(s,u))
   local dest=destination and p:GetCityByID(destination)
   Controls.Destination:SetText(dest and dest:GetName() or text('DESTINATION'))
-  Controls.Airlift:SetDisabled(not u or not dest)
-  Controls.Details:SetText(detail(s,u))
+  local airlift=s.pendingAirlifts and u and s.pendingAirlifts[R.Serial(u)]
+  Controls.Airlift:SetDisabled(not u or not dest or airlift~=nil)
+  Controls.Details:SetText(detail(s,u)..(airlift and '[NEWLINE]Airlift pending; the source allowance is consumed after arrival.' or ''))
  end)
  rendering=false;if not ok then print('[Red] Team panel: '..tostring(err));Controls.Panel:SetHide(true);opened=false end
 end

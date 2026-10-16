@@ -29,7 +29,8 @@ function R.Apply(u,r)
  if r.identity=='SNORLAX' then
   -- One tile per turn including roads: movement expenditure is capped separately.
   local limit=GameDefines.MOVE_DENOMINATOR or 60
-  if u:MovesLeft()>limit then u:SetMoves(limit) end
+  if r.stepTurn==Game.GetGameTurn() then u:FinishMoves()
+  elseif u:MovesLeft()>limit then u:SetMoves(limit) end
  end
 end
 function R.Passive(s,ending)

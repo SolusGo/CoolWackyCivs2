@@ -1,7 +1,7 @@
 DELETE FROM Building_YieldChanges WHERE BuildingType='BUILDING_RED_POKEMON_CENTER' AND YieldType='YIELD_FOOD';
 INSERT INTO Building_YieldChanges VALUES ('BUILDING_RED_POKEMON_CENTER','YIELD_FOOD',5);
 -- Native CanAirlift performs plot, movement, enemy adjacency and city checks.
--- The per-source-city allowance is gated by CityCanAirlift and explicit commands.
+-- Unit-specific CanAirliftFrom/To grants and explicit commands gate the allowance.
 UPDATE Buildings SET Airlift=0 WHERE Type='BUILDING_RED_POKEMON_CENTER';
 INSERT INTO Civilization_CityNames(CivilizationType,CityName) VALUES ('CIVILIZATION_RED_INDIGO_CHAMPION','TXT_KEY_RED_CITY_1');
 INSERT INTO Civilization_CityNames(CivilizationType,CityName) VALUES ('CIVILIZATION_RED_INDIGO_CHAMPION','TXT_KEY_RED_CITY_2');
@@ -34,7 +34,7 @@ INSERT INTO Civilization_SpyNames(CivilizationType,SpyName) VALUES ('CIVILIZATIO
 INSERT INTO Civilization_SpyNames(CivilizationType,SpyName) VALUES ('CIVILIZATION_RED_INDIGO_CHAMPION','TXT_KEY_RED_SPY_9');
 INSERT INTO Civilization_SpyNames(CivilizationType,SpyName) VALUES ('CIVILIZATION_RED_INDIGO_CHAMPION','TXT_KEY_RED_SPY_10');
 INSERT INTO Projects(Type,Description,Help,Civilopedia,Strategy,MaxGlobalInstances,MaxTeamInstances,Cost,TechPrereq,PortraitIndex,IconAtlas)
-SELECT 'PROJECT_RED_MT_SILVER','TXT_KEY_RED_JOURNEY','TXT_KEY_RED_JOURNEY_HELP','TXT_KEY_RED_JOURNEY_PEDIA','TXT_KEY_RED_JOURNEY_HELP',-1,-1,CAST(Cost*0.65+0.5 AS INTEGER),NULL,3,'RED_OBJECT_ATLAS' FROM Buildings WHERE Type='BUILDING_STATUE_OF_LIBERTY';
+SELECT 'PROJECT_RED_MT_SILVER','TXT_KEY_RED_JOURNEY','TXT_KEY_RED_JOURNEY_HELP','TXT_KEY_RED_JOURNEY_PEDIA','TXT_KEY_RED_JOURNEY_HELP',-1,1,CAST(Cost*0.65+0.5 AS INTEGER),NULL,3,'RED_OBJECT_ATLAS' FROM Buildings WHERE Type='BUILDING_STATUE_OF_LIBERTY';
 DELETE FROM Leader_Flavors WHERE LeaderType='LEADER_RED_TRAINER' AND FlavorType='FLAVOR_OFFENSE';
 INSERT INTO Leader_Flavors SELECT 'LEADER_RED_TRAINER',Type,7 FROM Flavors WHERE Type='FLAVOR_OFFENSE';
 DELETE FROM Leader_Flavors WHERE LeaderType='LEADER_RED_TRAINER' AND FlavorType='FLAVOR_DEFENSE';

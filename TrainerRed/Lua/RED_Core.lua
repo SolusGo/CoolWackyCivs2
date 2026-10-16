@@ -27,6 +27,12 @@ end
 function R.Changed(s)
  R.Save(s);if LuaEvents.RED_TeamChanged then LuaEvents.RED_TeamChanged(s.pid) end
 end
+-- Native calls can reenter Lua or fail. Never leave suppression enabled afterwards.
+function R.Internal(fn)
+ R.internal=R.internal+1;local ok,result=pcall(fn);R.internal=R.internal-1
+ if not ok then print('[Red] Native transaction deferred: '..tostring(result)) end
+ return ok,result
+end
 function R.Heal(u,amount)
  if not R.Alive(u) or amount<=0 or u:GetDamage()<=0 then return end
  local r=R.IsRed(u:GetOwner()) and R.Record(u)
@@ -106,7 +112,7 @@ function R.Reconcile(s)
    if seen[r.serial] then
     R.Tag(u,s.nextSerial);r={serial=s.nextSerial,training=0,ribbons=0,lineage={},itemReady=0,withdrawReady=0};s.nextSerial=s.nextSerial+1;s.units[r.serial]=r
    end
-   seen[r.serial]=true;r.id=u:GetID();R.Apply(u,r)
+   seen[r.serial]=true;r.id=u:GetID();if not r.withdrawn then R.Apply(u,r) end
   end
  end
  for n,r in pairs(s.units) do
@@ -121,12 +127,29 @@ function R.Reconcile(s)
  R.National(s);R.Yields(s);R.Save(s)
 end
 -- Deterministic full-map search ONLY for return/detach, never once per unit per turn.
-function R.SpawnPlot(pid,typ,x,y,ignore)
+function R.SpawnPlot(pid,typ,x,y,ignore,snapshot)
  local info=GameInfo.Units[typ];if not info then return end
+ local promotions,terrains,features={},{},{}
+ for row in GameInfo.Unit_FreePromotions{UnitType=info.Type} do promotions[row.PromotionType]=true end
+ for _,name in ipairs(snapshot and snapshot.promotions or {}) do
+  local promotion=GameInfo.UnitPromotions[name]
+  local expires=snapshot.promotionExpiry and snapshot.promotionExpiry[name]
+  if promotion and (not expires or expires>Game.GetGameTurn()) and
+   (info.Type==snapshot.unitType or not promotion.LostWithUpgrade or promotion.LostWithUpgrade==0) then promotions[name]=true end
+ end
+ local team=Teams[Players[pid]:GetTeam()]
+ for _,pair in ipairs({{GameInfo.UnitPromotions_Terrains,terrains,'TerrainType'},{GameInfo.UnitPromotions_Features,features,'FeatureType'}}) do
+  for row in pair[1]() do
+   if promotions[row.PromotionType] and row.Impassable~=0 and row.Impassable and
+    (not row.PassableTech or not team:IsHasTech(GameInfoTypes[row.PassableTech])) then pair[2][GameInfoTypes[row[pair[3]]]]=true end
+  end
+ end
  local candidates={}
  for i=0,Map.GetNumPlots()-1 do
   local p=Map.GetPlotByIndex(i)
   if p:GetOwner()==pid and not p:IsImpassable() and not p:IsMountain() and not p:IsVisibleEnemyUnit(pid)
+   and not terrains[p:GetTerrainType()] and not features[p:GetFeatureType()]
+   and (not ignore or ignore:CanMoveOrAttackInto(p,0,1))
    and ((info.Domain=='DOMAIN_SEA' and p:IsWater()) or (info.Domain=='DOMAIN_LAND' and not p:IsWater())) then
    local occupied=false
    for j=0,p:GetNumUnits()-1 do local v=p:GetUnit(j)

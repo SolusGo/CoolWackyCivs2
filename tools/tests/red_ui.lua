@@ -37,4 +37,8 @@ local u=TEST.new('UNIT_WARRIOR',4,4);TEST.flush();local r=R.Record(u);r.training
 Controls.Open.click();assert(TEST.rows[1].Name.text:find('UNIT_WARRIOR',1,true))
 TEST.rows[1].Release.click();assert(not r.slot and s.manual,'explicit release enables manual vacancies')
 local snapshot=Players[0].script;LuaEvents.RED_TeamChanged(0);assert(Players[0].script==snapshot)
+TEST.selected=u;s.pendingAirlifts[r.serial]={id=u.id};R.Save(s);snapshot=Players[0].script
+LuaEvents.RED_TeamChanged(0)
+assert(Controls.Airlift.disabled and Controls.Details.text:find('Airlift pending',1,true))
+assert(Players[0].script==snapshot,'pending-mission rendering is read-only')
 print('PASS Red panel: six rows, read-only open/refresh, explicit release, city/diplomacy/popup transitions')

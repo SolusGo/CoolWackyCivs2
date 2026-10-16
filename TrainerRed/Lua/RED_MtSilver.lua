@@ -7,17 +7,16 @@ function R.SilverEligible(s)
 end
 function R.BeginSilver(s)
  if not R.SilverEligible(s) then return false end
- local silver=s.silver;silver.phase='ABSENT';silver.started=Game.GetGameTurn();silver.due=silver.started+R.Turns(8);silver.snapshots={}
- local toRemove={}
+ local silver=s.silver;local snapshots,toRemove={},{}
  for _,r in ipairs(R.Team(s)) do local u=R.Unit(s,r.serial)
   if u then
-   silver.snapshots[r.serial]=R.Snapshot(u);toRemove[#toRemove+1]=u;r.withdrawn=true
+   snapshots[r.serial]=R.Snapshot(u);toRemove[#toRemove+1]=u
   end
  end
- -- Entire party is recoverable BEFORE the first removal.
- R.Save(s);R.internal=R.internal+1
- for _,u in ipairs(toRemove) do u:Kill(false,-1) end
- R.internal=R.internal-1
+ silver.phase='ABSENT';silver.started=Game.GetGameTurn();silver.due=silver.started+R.Turns(8);silver.snapshots=snapshots
+ for serial in pairs(snapshots) do s.units[serial].withdrawn=true end
+ -- Entire party is recoverable BEFORE the first removal, even if a kill fails.
+ R.Save(s);R.Internal(function() for _,u in ipairs(toRemove) do u:Kill(false,-1) end end)
  R.Yields(s);R.Changed(s);R.Notify(s.pid,'VANISHED');return true
 end
 local function roleScore(u,name)
@@ -56,7 +55,7 @@ function R.AdvancedType(pid,base)
  local p=Players[pid];local queue={base};local seen={[base]=true};local best=base;local bestScore=-1
  for i=1,100 do
   local typ=queue[i];if not typ then break end
-  local info=GameInfo.Units[typ]
+  local info=GameInfo.Units[typ];if not info then break end
   if typ==base or p:CanTrain(info.ID,false,false,true) then
    local score=math.max(info.Combat or 0,info.RangedCombat or 0)*100+(info.Cost or 0)
    if score>bestScore then best=typ;bestScore=score end
@@ -65,7 +64,8 @@ function R.AdvancedType(pid,base)
   for up in GameInfo.Unit_ClassUpgrades{UnitType=typ} do
    local cls=GameInfo.UnitClasses[up.UnitClassType];local nextType=cls and cls.DefaultUnit
    for override in GameInfo.Civilization_UnitClassOverrides{CivilizationType=R.CIV,UnitClassType=up.UnitClassType} do nextType=override.UnitType end
-   if nextType and not seen[nextType] and GameInfo.Units[nextType].Domain==info.Domain then seen[nextType]=true;queue[#queue+1]=nextType end
+   local nextInfo=nextType and GameInfo.Units[nextType]
+   if nextInfo and not seen[nextType] and nextInfo.Domain==info.Domain and ((nextInfo.Combat or 0)>0 or (nextInfo.RangedCombat or 0)>0) then seen[nextType]=true;queue[#queue+1]=nextType end
   end
  end
  return best
@@ -77,11 +77,12 @@ function R.ResumeSilver(s)
  if not p:IsAlive() then silver.phase='ELIMINATED';R.Yields(s);R.Save(s);return end
  -- Recovery of a save taken during withdrawal: retire any still-present originals.
  if silver.phase=='ABSENT' then
-  R.internal=R.internal+1
+  local originals={}
   for u in p:Units() do local n=R.Serial(u);local r=n and s.units[n]
-   if r and r.withdrawn and silver.snapshots[n] then u:Kill(false,-1) end
+   if r and r.withdrawn and silver.snapshots[n] then originals[#originals+1]=u end
   end
-  R.internal=R.internal-1
+  local ok=R.Internal(function() for _,u in ipairs(originals) do u:Kill(false,-1) end end)
+  if not ok then return end
   if Game.GetGameTurn()<silver.due then return end
   silver.phase='RETURNING';R.Save(s);R.Yields(s)
  end
@@ -91,18 +92,35 @@ function R.ResumeSilver(s)
  local pending=false
  for _,r in ipairs(R.Team(s)) do local snap=silver.snapshots[r.serial]
   if snap and r.withdrawn then
-   local typ=R.AdvancedType(s.pid,snap.unitType);local id=GameInfoTypes[typ]
-   local plot=R.SpawnPlot(s.pid,id,home:GetX(),home:GetY())
-   if plot then
-    R.internal=R.internal+1
-    local u=p:InitUnit(id,plot:GetX(),plot:GetY(),snap.unitAI or -1,snap.facing or -1,false)
-    if u then
-     r.promotionExpiry=R.Restore(u,snap);R.Tag(u,r.serial);r.id=u:GetID();r.withdrawn=nil;r.training=math.max(100,r.training);r.summit=true
-     r.lineage[#r.lineage+1]=snap.unitType;r.unitType=typ;R.Apply(u,r)
-     -- Original damage is preserved; no hidden full heal is added to transformation.
+   local journal=r.returning;local u=journal and p:GetUnitByID(journal.id)
+   if journal and (not R.Alive(u) or R.Serial(u)~=r.serial or u:GetGameTurnCreated()~=journal.born) then
+    -- A created returnee that subsequently died must never be created a second time.
+    r.dead=true;r.withdrawn=nil;r.returning=nil;s.slots[r.slot]=nil;r.slot=nil;R.RescueAce(s,r);R.Save(s)
+   else
+    local typ=journal and journal.typ or R.AdvancedType(s.pid,snap.unitType);local id=GameInfoTypes[typ]
+    local plot=not journal and R.SpawnPlot(s.pid,id,home:GetX(),home:GetY(),nil,snap)
+    if journal or plot then
+     local ok=R.Internal(function()
+      if not u then
+       u=p:InitUnit(id,plot:GetX(),plot:GetY(),snap.unitAI or -1,snap.facing or -1,false)
+       if not u then return end
+       R.Tag(u,r.serial);u:FinishMoves();r.id=u:GetID()
+       r.returning={id=u:GetID(),born=u:GetGameTurnCreated(),typ=typ};R.Save(s)
+      end
+      r.promotionExpiry=R.Restore(u,snap);R.Tag(u,r.serial)
+      r.training=math.max(100,r.training);r.summit=true;r.unitType=typ;R.Apply(u,r)
+      if not u:CanMoveOrAttackInto(u:GetPlot(),0,1) then
+       local legal=R.SpawnPlot(s.pid,id,home:GetX(),home:GetY(),u,snap)
+       if not legal then error('Return plot became invalid; retaining journal') end
+       u:SetXY(legal:GetX(),legal:GetY(),0,1,0);u:FinishMoves()
+      end
+      r.lineage[#r.lineage+1]=snap.unitType;r.withdrawn=nil;r.returning=nil
+      -- Original damage, veteran ledger and attached Ace are retained.
+     end)
+     if not ok or r.withdrawn then pending=true end
+     R.Save(s)
     else pending=true end
-    R.internal=R.internal-1;R.Save(s)
-   else pending=true end
+   end
   end
  end
  if pending then R.Changed(s);return end

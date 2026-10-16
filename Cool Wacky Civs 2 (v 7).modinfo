@@ -175,22 +175,22 @@
     <File md5="B5E1E43C5545CDF720A2764108910463" import="1">TrainerRed/Art/RED_Promotions48.dds</File>
     <File md5="B08BCFD1E5AA4D738BD1F2CB916096F9" import="1">TrainerRed/Art/RED_Promotions64.dds</File>
     <File md5="6F820FAE1B4D36817C6DCB0D312A7A7A" import="1">TrainerRed/Art/RED_Promotions80.dds</File>
-    <File md5="991CE2EE63A8FD77DFD073FC9DD16519" import="1">TrainerRed/Lua/RED_AI.lua</File>
-    <File md5="E539C1D42366120429C9420421E78028" import="1">TrainerRed/Lua/RED_Combat.lua</File>
-    <File md5="CF23C85E727A1AEF6943FF6DDB77C2BD" import="1">TrainerRed/Lua/RED_Core.lua</File>
-    <File md5="ACEFBAAA2CDB7356FA35708504D55608" import="1">TrainerRed/Lua/RED_Events.lua</File>
-    <File md5="7F0FF4FD59E76C4B5A7637F11ADB2D5C" import="1">TrainerRed/Lua/RED_MtSilver.lua</File>
-    <File md5="1ADCD6F0AC630EF090E8E5803CF305A2" import="1">TrainerRed/Lua/RED_PokemonAbilities.lua</File>
-    <File md5="D1780337707C73B61499D256C0EC8F5A" import="1">TrainerRed/Lua/RED_PokemonAce.lua</File>
-    <File md5="D143A0C7A0035E68A82726781A51A1F9" import="1">TrainerRed/Lua/RED_SaveData.lua</File>
-    <File md5="B4A3C685A0081B27CF15F056C921063C" import="1">TrainerRed/Lua/RED_Training.lua</File>
-    <File md5="0088CB0E590511599093299890D9D0A3" import="0">TrainerRed/SQL/00_RED_Core.sql</File>
+    <File md5="86C57C53C48F1994A1A9215F9D6A3C39" import="1">TrainerRed/Lua/RED_AI.lua</File>
+    <File md5="CCE50F1340063F567BA1F24F8D7390E3" import="1">TrainerRed/Lua/RED_Combat.lua</File>
+    <File md5="C2F67B6A9AE6E90ABD59087C62444F7A" import="1">TrainerRed/Lua/RED_Core.lua</File>
+    <File md5="AE3998B4011E2AB02F563550700E10C5" import="1">TrainerRed/Lua/RED_Events.lua</File>
+    <File md5="F387962F9EAF769FC4FD6066A3FBCEE4" import="1">TrainerRed/Lua/RED_MtSilver.lua</File>
+    <File md5="5F80D0DD5389CAD362A059231657FB50" import="1">TrainerRed/Lua/RED_PokemonAbilities.lua</File>
+    <File md5="AE4E574B8600FA48BD35E05717E537A2" import="1">TrainerRed/Lua/RED_PokemonAce.lua</File>
+    <File md5="040197C4F25BCC5099F44E9AA5B5C478" import="1">TrainerRed/Lua/RED_SaveData.lua</File>
+    <File md5="745F077D648E4357B069A948CFBE94F3" import="1">TrainerRed/Lua/RED_Training.lua</File>
+    <File md5="E4360C3568D08D12BA7A2CF7525B942C" import="0">TrainerRed/SQL/00_RED_Core.sql</File>
     <File md5="9A108A41663BB2A148573E9E950AAD7F" import="0">TrainerRed/SQL/01_RED_Inheritance.sql</File>
-    <File md5="EA3CA22B49F90478B533F57CE096FC26" import="0">TrainerRed/SQL/02_RED_Effects.sql</File>
+    <File md5="59FFDA4162B3C724EEE44AA482B6A5E5" import="0">TrainerRed/SQL/02_RED_Effects.sql</File>
     <File md5="ACFA058558313CA1F843E92C9B8BF00B" import="0">TrainerRed/SQL/03_RED_Promotions.sql</File>
     <File md5="6CF5482011F99978F8708288E992C1A9" import="0">TrainerRed/SQL/04_RED_Art.sql</File>
     <File md5="8BFBBF6756D32D06B8B173014C09315E" import="0">TrainerRed/SQL/10_RED_Text.sql</File>
-    <File md5="3C6C51A29C80D14D761555B24414A094" import="1">TrainerRed/UI/RED_TeamPanel.lua</File>
+    <File md5="8872B3D93C1CFC15517B41CDFFB7C814" import="1">TrainerRed/UI/RED_TeamPanel.lua</File>
     <File md5="8E86F1E5F1B7F439E653638AB26A885F" import="0">TrainerRed/UI/RED_TeamPanel.xml</File>
   </Files>
   <Actions>

@@ -1,19 +1,35 @@
 local R=MapModData.RED_Legend
 local H=R.Hook
+-- A global project needs global vetoes, including games with no Red player.
+H(GameEvents,'CityCanCreate',function(pid,city,project)
+ if project~=R.PROJECT then return true end
+ return R.IsRed(pid) and R.SilverEligible(R.State(pid))
+end)
+H(GameEvents,'PlayerCanCreate',function(pid,project)
+ if project~=R.PROJECT then return true end
+ return R.IsRed(pid) and R.SilverEligible(R.State(pid))
+end)
 local participating=false
 for pid=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do if R.IsRed(pid) then participating=true end end
 if not participating then return end
-local pending,armed={},false
-function R.Defer(pid)
- if not R.IsRed(pid) or R.internal>0 then return end
- pending[pid]=true
+local pending,callbacks,armed={},{},false
+local function arm()
  if armed then return end;armed=true
- ContextPtr:SetUpdate(function()
-  ContextPtr:ClearUpdate();armed=false;local todo=pending;pending={}
+ ContextPtr:SetUpdate(function(dt)
+  ContextPtr:ClearUpdate();armed=false;local todo,work=pending,callbacks;pending={};callbacks={}
+  for _,fn in pairs(work) do local ok,err=pcall(fn,dt);if not ok then print('[Red] Deferred action: '..tostring(err)) end end
   for id=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do if todo[id] then
-   local s=R.State(id);R.Reconcile(s);R.ResumeSilver(s);R.RecoverAces(s);R.AutoAssign(s);R.Changed(s)
+   local ok,err=pcall(function()
+    local s=R.State(id);R.RecoverAirlifts(s);R.Reconcile(s);R.ResumeSilver(s);R.RecoverAces(s);R.AutoAssign(s);R.Changed(s)
+   end)
+   if not ok then print('[Red] Reconcile: '..tostring(err)) end
   end end
  end)
+end
+function R.AfterNative(key,fn) callbacks[key]=fn;arm() end
+function R.Defer(pid)
+ if not R.IsRed(pid) or R.internal>0 then return end
+ pending[pid]=true;arm()
 end
 function R.Attacked(u)
  if not R.IsRed(u:GetOwner()) then return u:IsOutOfAttacks() end
@@ -29,8 +45,18 @@ H(GameEvents,'CombatResult',function(...)
  end
 end)
 H(GameEvents,'CombatEnded',R.FinishCombat)
-H(GameEvents,'UnitCreated',function(pid) R.Defer(pid) end)
+H(GameEvents,'UnitCreated',function(pid,id)
+ local u=Players[pid] and Players[pid]:GetUnitByID(id)
+ if u then R.positions[pid..':'..id]={x=u:GetX(),y=u:GetY()} end
+ R.Defer(pid)
+end)
+H(GameEvents,'UnitPromoted',function(pid,id)
+ if R.internal>0 or not R.IsRed(pid) then return end
+ local u=Players[pid]:GetUnitByID(id);local r=R.Peek(u)
+ if r then R.Apply(u,r);R.Changed(R.State(pid)) end
+end)
 H(GameEvents,'UnitPrekill',function(pid,id,typ,x,y,delay,killer)
+ R.positions[pid..':'..id]=nil
  if R.internal>0 then return end
  if R.battle then R.battle.dead[pid..':'..id]=true end
  if not R.IsRed(pid) then return end
@@ -85,21 +111,14 @@ H(GameEvents,'CityConstructed',function(pid,cityID,bld)
   R.AutoAssign(s);R.Yields(s);R.Changed(s)
  end
 end)
-H(GameEvents,'CityCanCreate',function(pid,city,project)
- if project~=R.PROJECT then return true end
- return R.IsRed(pid) and R.SilverEligible(R.State(pid))
-end)
-H(GameEvents,'PlayerCanCreate',function(pid,project)
- if project~=R.PROJECT then return true end
- return R.IsRed(pid) and R.SilverEligible(R.State(pid))
-end)
 H(GameEvents,'CityProjectComplete',function(pid,city,project)
  if project==R.PROJECT and R.IsRed(pid) then R.BeginSilver(R.State(pid)) end
 end)
 H(GameEvents,'CityCanAirlift',function(pid,cityID)
- local q=R.airliftQuery
- return q and q.pid==pid and (q.from==cityID or q.to==cityID) or false
+ return false -- Center grants are unit-specific; ordinary Airports remain native.
 end)
+H(GameEvents,'CanAirliftFrom',function(pid,id,x,y) return R.AirliftPermission(pid,id,x,y,false) end)
+H(GameEvents,'CanAirliftTo',function(pid,id,x,y) return R.AirliftPermission(pid,id,x,y,true) end)
 H(GameEvents,'BarbariansCampCleared',function(x,y,pid)
  if not R.IsRed(pid) then return end
  local plot=Map.GetPlot(x,y);if not plot then return end
@@ -145,7 +164,7 @@ H(GameEvents,'PlayerDoTurn',function(pid)
  if not Players[pid] or not Players[pid]:IsAlive() then return end
  R.PartnerAura(pid)
  if not R.IsRed(pid) then return end
- local s=R.State(pid);R.Reconcile(s);R.ResumeSilver(s);R.RecoverAces(s);R.HealingFallback(s)
+ local s=R.State(pid);R.RecoverAirlifts(s);R.Reconcile(s);R.ResumeSilver(s);R.RecoverAces(s);R.HealingFallback(s)
  if s.lastTurn~=Game.GetGameTurn() then
   s.lastTurn=Game.GetGameTurn();R.Save(s);R.Passive(s,false);R.AutoAssign(s);R.AITurn(s)
  end

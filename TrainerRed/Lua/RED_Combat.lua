@@ -10,7 +10,7 @@ local function combatant(pid,id,city)
   strongest=0,cost=math.max(0,p:GetUnitProductionNeeded(u:GetUnitType())),x=u:GetX(),y=u:GetY(),ww={}}
 end
 function R.BattleStart(kind,x,y)
- R.battle={kind=kind,x=x,y=y,actors={},dead={},delta={}}
+ R.battle={kind=kind,x=x,y=y,turn=Game.GetGameTurn(),actors={},dead={},delta={}}
 end
 function R.BattleJoin(pid,id,role,city)
  local b=R.battle;if not b or role>1 then return end
@@ -32,7 +32,7 @@ function R.BattleJoin(pid,id,role,city)
   local other=c==a and d or a
   if c.serial then local u=Players[c.pid]:GetUnitByID(c.id)
    R.Set(u,'PIKACHU_STRONGER',c.identity=='PIKACHU' and other.base>c.base)
-   if c.identity=='SNORLAX' then c.anchor={x=u:GetX(),y=u:GetY()} end
+   if c==d and b.kind==0 and c.identity=='SNORLAX' then c.anchor={x=u:GetX(),y=u:GetY()} end
    c.ww[other.pid]=Players[c.pid]:GetWarWeariness(other.pid)
   end
  end
@@ -101,8 +101,8 @@ function R.FinishCombat()
  if b.escape and R.Alive(du) then
   local plot=Map.GetPlot(b.escape.x,b.escape.y)
   if plot and du:CanMoveOrAttackInto(plot,0,1) and not plot:IsVisibleEnemyUnit(d.pid) then
-   R.internal=R.internal+1;du:SetXY(plot:GetX(),plot:GetY(),0,1,0);du:FinishMoves();R.internal=R.internal-1
-   local s=R.State(d.pid);s.units[d.serial].withdrawReady=Game.GetGameTurn()+R.Turns(5);R.Changed(s)
+   local ok=R.Internal(function() du:SetXY(plot:GetX(),plot:GetY(),0,1,0);du:FinishMoves() end)
+   if ok then local s=R.State(d.pid);s.units[d.serial].withdrawReady=Game.GetGameTurn()+R.Turns(5);R.Changed(s) end
   end
  end
  -- Pikachu's flat full-health bonus is post-combat to avoid CP's positive-delta
@@ -129,10 +129,7 @@ function R.FinishCombat()
    end
    if role==1 and c.identity=='BLASTOISE' and b.kind==0 and R.Alive(au) and not b.escape then au:ChangeDamage(10,c.pid) end
    -- Best-effort positional anchoring after native heavy charge. Never displace allies.
-   if c.identity=='SNORLAX' and c.anchor and (u:GetX()~=c.anchor.x or u:GetY()~=c.anchor.y) then
-    local plot=Map.GetPlot(c.anchor.x,c.anchor.y)
-    if plot and u:CanMoveOrAttackInto(plot,0,1) and not plot:IsVisibleEnemyUnit(c.pid) then R.internal=R.internal+1;u:SetXY(c.anchor.x,c.anchor.y,0,1,0);R.internal=R.internal-1 end
-   end
+   if c.identity=='SNORLAX' then R.RestoreAnchor(u,c) end
    R.Apply(u,r);r.lastDamage=u:GetDamage();R.Changed(s)
   end
  end

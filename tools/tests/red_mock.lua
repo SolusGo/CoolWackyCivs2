@@ -21,11 +21,12 @@ GameEvents,Events,LuaEvents=eventList(),eventList(),eventList()
 MapModData={};NotificationTypes={NOTIFICATION_GENERIC=1};DomainTypes={DOMAIN_LAND=0,DOMAIN_SEA=1,DOMAIN_AIR=2}
 MissionTypes={MISSION_AIRLIFT=1,MISSION_MOVE_TO=2,MISSION_HEAL=3,MISSION_RANGE_ATTACK=4}
 OrderTypes={ORDER_CREATE=1,ORDER_CONSTRUCT=2};ActivityTypes={ACTIVITY_SLEEP=1};GameDefines={MAX_CIV_PLAYERS=4,MOVE_DENOMINATOR=60}
+YieldTypes={YIELD_PRODUCTION=1}
 Locale={ConvertTextKey=function(s)return s end}
 TEST={turn=0,units={},nextID=0,speed=GameInfoTypes.GAMESPEED_STANDARD,techs={}}
 Game={GetGameTurn=function()return TEST.turn end,GetGameSpeedType=function()return TEST.speed end,GetActivePlayer=function()return 0 end}
 ContextPtr={SetUpdate=function(self,fn)self.update=fn end,ClearUpdate=function(self)self.update=nil end}
-function TEST.flush()local n=0;while ContextPtr.update do n=n+1;assert(n<20,'infinite deferred dispatch');ContextPtr.update() end end
+function TEST.flush()local n=0;while ContextPtr.update do n=n+1;assert(n<200,'infinite deferred dispatch');ContextPtr.update(0.1) end end
 local plots={};local width,height=12,10
 Map={}
 function Map.PlotDistance(x,y,a,b)local dx,dy=x-a,y-b;return math.max(math.abs(dx),math.abs(dy),math.abs(dx+dy))end
@@ -45,6 +46,8 @@ function Plot:IsWater()return self.water or false end
 function Plot:IsMountain()return false end
 function Plot:IsImpassable()return self.blocked or false end
 function Plot:IsVisible()return true end
+function Plot:GetTerrainType()return self.terrain or (self.water and GameInfoTypes.TERRAIN_COAST or GameInfoTypes.TERRAIN_GRASS) end
+function Plot:GetFeatureType()return -1 end
 function Plot:list()
  local a={};for _,u in pairs(TEST.units) do if not u.dead and u.x==self.x and u.y==self.y then a[#a+1]=u end end;table.sort(a,function(x,y)return x.id<y.id end);return a
 end
@@ -64,13 +67,16 @@ function Unit:SetScriptData(v)self.script=v end
 function Unit:IsDead()return self.dead or false end
 function Unit:IsDelayedDeath()return self.dead or false end
 function Unit:IsBusy()return false end
+function Unit:HasMoved()return self.moved or false end
+function Unit:GetGameTurnCreated()return self.born end
+function Unit:IsPromotionValid(id)return not (self.invalidPromotions and self.invalidPromotions[id]) end
 function Unit:IsCombatUnit()local i=GameInfo.Units[self.typ];return (i.Combat or 0)>0 or (i.RangedCombat or 0)>0 end
 function Unit:GetDomainType()return DomainTypes[GameInfo.Units[self.typ].Domain] end
 function Unit:GetBaseCombatStrength()return GameInfo.Units[self.typ].Combat or 0 end
 function Unit:GetBaseRangedCombatStrength()return GameInfo.Units[self.typ].RangedCombat or 0 end
 function Unit:IsRanged()return self:GetBaseRangedCombatStrength()>0 end
 function Unit:IsHasPromotion(i)return self.promotions[i] or false end
-function Unit:SetHasPromotion(i,on)assert(i~=nil);self.promotions[i]=on and true or nil end
+function Unit:SetHasPromotion(i,on)assert(i~=nil and not self.initializing,'promotion mutation during native InitUnit');self.promotions[i]=on and true or nil end
 function Unit:GetPromotionDuration()return 0 end
 function Unit:GetTurnPromotionGained()return 0 end
 function Unit:GetLeaderUnitType()return self.leader or -1 end
@@ -91,8 +97,8 @@ end
 function Unit:ChangeDamage(n,pid)self:SetDamage(self.damage+n)end
 function Unit:MaxMoves()return math.max(0,((GameInfo.Units[self.typ].Moves or 2)+self:sum('MovesChange'))*60)end
 function Unit:MovesLeft()return self.moves end
-function Unit:SetMoves(n)self.moves=n end
-function Unit:FinishMoves()self.moves=0 end
+function Unit:SetMoves(n)self.moves=math.max(0,n) end
+function Unit:FinishMoves()self.moves=0;self.moved=true end
 function Unit:GetExperienceTimes100()return self.xp end
 function Unit:SetExperienceTimes100(n)self.xp=n end
 function Unit:GetExperience()return self.xp/100 end
@@ -116,16 +122,23 @@ function Unit:CanMoveOrAttackInto(plot,declare,destination)
  return not plot:IsImpassable() and not plot:IsVisibleEnemyUnit(self.pid) and (self:GetDomainType()==1 and plot:IsWater() or self:GetDomainType()==0 and not plot:IsWater())
 end
 function Unit:GeneratePath()return true end
+function Unit:CanMoveThrough(plot)return self:CanMoveOrAttackInto(plot) end
 function Unit:Range()return (GameInfo.Units[self.typ].Range or 0)+self:sum('RangeChange')end
 function Unit:CanRangeStrikeAt(x,y)return self:IsRanged() and Map.PlotDistance(self.x,self.y,x,y)<=self:Range()end
 function Unit:SetXY(x,y)self.x=x;self.y=y;GameEvents.UnitSetXY(self.pid,self.id,x,y)end
 function Unit:UpgradePrice()return 200 end
 function Unit:CanAirliftAt(plot,x,y)
  local from=plot:GetPlotCity();local dest=Map.GetPlot(x,y):GetPlotCity()
- return from and dest and from.id~=dest.id and GameEvents.CityCanAirlift(self.pid,from.id) and GameEvents.CityCanAirlift(self.pid,dest.id) and self:CanMoveOrAttackInto(dest:Plot())
+ if not from or not dest or from.id==dest.id or not self:CanMoveOrAttackInto(dest:Plot()) then return false end
+ for _,v in ipairs(dest:Plot():list()) do if v~=self and v:IsCombatUnit()==self:IsCombatUnit() then return false end end
+ for d=0,5 do local p=Map.PlotDirection(x,y,d);if p and p:IsVisibleEnemyUnit(self.pid) then return false end end
+ local start=GameEvents.CanAirliftFrom(self.pid,self.id,plot.x,plot.y) or (not self:HasMoved() and self:GetDomainType()==0 and from:GetNumBuilding(GameInfoTypes.BUILDING_AIRPORT)>0)
+ local finish=GameEvents.CanAirliftTo(self.pid,self.id,x,y) or dest:GetNumBuilding(GameInfoTypes.BUILDING_AIRPORT)>0
+ return start and finish
 end
 function Unit:PushMission(m,x,y)
- if m==MissionTypes.MISSION_AIRLIFT and self:CanAirliftAt(self:GetPlot(),x,y) then self:SetXY(x,y);self:FinishMoves()
+ if m==MissionTypes.MISSION_AIRLIFT and self.async then self.mission={m,x,y}
+ elseif m==MissionTypes.MISSION_AIRLIFT and self:CanAirliftAt(self:GetPlot(),x,y) then self:FinishMoves();self:SetXY(x,y)
  elseif m==MissionTypes.MISSION_MOVE_TO then self:SetXY(x,y);self:FinishMoves() end
 end
 function Unit:Kill(delay,killer)
@@ -155,8 +168,9 @@ function Player:GetCapitalCity()return self.cities[1]end
 function Player:GetOriginalCapitalPlot()return self.originalCapital end
 function Player:CanTrain(id)local i=GameInfo.Units[id];return not i.PrereqTech or TEST.techs[i.PrereqTech] end
 function Player:InitUnit(typ,x,y)
- local u=setmetatable({pid=self.pid,id=TEST.nextID,typ=typ,x=x,y=y,script='',promotions={},baseHP=100,damage=0,moves=120,xp=0,level=1,name='',original=self.pid,activity=0},Unit)
- TEST.nextID=TEST.nextID+1;TEST.units[u.id]=u;u.moves=u:MaxMoves()
+ local u=setmetatable({pid=self.pid,id=TEST.nextID,typ=typ,x=x,y=y,script='',promotions={},baseHP=100,damage=0,moves=120,xp=0,level=1,name='',original=self.pid,activity=0,born=TEST.turn},Unit)
+ TEST.nextID=TEST.nextID+1;TEST.units[u.id]=u
+ u.initializing=true;GameEvents.UnitSetXY(self.pid,u.id,x,y);u.initializing=nil;u.moves=u:MaxMoves()
  GameEvents.UnitCreated(self.pid,u.id,typ,x,y);return u
 end
 function Player:GetUnitProductionNeeded(typ)return math.max(0,GameInfo.Units[typ].Cost or 0)end
@@ -170,7 +184,7 @@ function Player:AddNotification()self.notifications=self.notifications+1 end
 Players,Teams={},{}
 for id=0,3 do
  Players[id]=setmetatable({pid=id,civ=id==0 and GameInfoTypes.CIVILIZATION_RED_INDIGO_CHAMPION or GameInfoTypes.CIVILIZATION_AMERICA,script='',era=0,cities={},human=true,gold=0,culture=0,science=0,general=0,ww={},notifications=0},Player)
- Teams[id]={IsAtWar=function(_,other)return other~=id end}
+ Teams[id]={IsAtWar=function(_,other)return other~=id end,IsHasTech=function(_,tech)return TEST.techs[GameInfo.Technologies[tech] and GameInfo.Technologies[tech].Type or tech] or false end}
 end
 local City={};City.__index=City
 function City:GetOwner()return self.pid end
@@ -189,9 +203,19 @@ function City:GetProductionProject()return self.project or -1 end
 function City:GetProductionBuilding()return self.building or -1 end
 function City:GetProduction()return 10 end
 function City:GetProductionNeeded()return 100 end
+function City:GetYieldRate()return self.production or 10 end
+function City:IsRazing()return self.razing or false end
+function City:IsResistance()return self.resistance or false end
+function City:GetOrderQueueLength()return #(self.queue or {}) end
+function City:GetOrderFromQueue(i)local o=(self.queue or {})[i+1];if o then return o[1],o[2],-1,false,false end;return -1,0,0,false,false end
 function City:CanCreate()return true end
 function City:CanConstruct()return true end
-function City:PushOrder(kind,id)if kind==1 then self.project=id else self.building=id end end
+function City:PushOrder(kind,id,data,save,pop,append)
+ assert(type(pop)=='boolean' and type(append)=='boolean','CP PushOrder booleans')
+ self.queue=self.queue or {};if pop then table.remove(self.queue,1) end
+ if append then self.queue[#self.queue+1]={kind,id} else table.insert(self.queue,1,{kind,id}) end
+ local head=self.queue[1];self.project=head and head[1]==1 and head[2] or nil;self.building=head and head[1]==2 and head[2] or nil
+end
 function TEST.city(pid,x,y)
  local p=Players[pid];local c=setmetatable({pid=pid,id=#p.cities,x=x,y=y,buildings={},original=pid,name='City '..pid},City)
  p.cities[#p.cities+1]=c;Map.GetPlot(x,y).city=c;Map.GetPlot(x,y).owner=pid;p.originalCapital=p.originalCapital or c:Plot();return c
@@ -200,6 +224,11 @@ TEST.cap=TEST.city(0,4,4);TEST.enemyCap=TEST.city(1,9,7)
 function TEST.new(typ,x,y,pid)return Players[pid or 0]:InitUnit(GameInfoTypes[typ],x or 4,y or 4)end
 function TEST.reload()
  local R=MapModData.RED_Legend;R.Save(R.State(0));R.States={};R.Index={};local s=R.State(0);R.Reconcile(s);return s
+end
+function TEST.reloadContext()
+ local old=MapModData.RED_Legend;for _,s in pairs(old.States) do old.Save(s) end
+ ContextPtr.update=nil;GameEvents,Events,LuaEvents=eventList(),eventList(),eventList()
+ include('RED_Core');TEST.flush();return MapModData.RED_Legend
 end
 function TEST.convert(u,typ)
  local R=MapModData.RED_Legend;local p=Players[u.pid];local new=p:InitUnit(GameInfoTypes[typ],u.x,u.y)

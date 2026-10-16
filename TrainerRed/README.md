@@ -60,11 +60,11 @@ At Biology, with the active Hospital Production cost: **4 Gold maintenance, +5 F
 
 Stationed team members gain **3 Training per Standard-speed turn, capped at 65**. A Center cannot passively train Legendary partners. Newly trained or purchased military units start with **15 Training**, once. Normal paid upgrades on the city tile refund **25% of the native upgrade price**, once per upgrade; free goody upgrades do not refund Gold.
 
-The panel can airlift **one unmoved land unit per source Center per turn**, to another owned Center or Airport city. Choose the destination explicitly. Native `CanAirliftAt` and `MISSION_AIRLIFT` enforce legal movement, stacking and hostile destination adjacency. The allowance does not enable a general teleport command or an unlimited Airport action. Naval, embarked, busy and post-attack units are excluded.
+The panel can airlift **one unmoved land unit per source Center per turn**, to another owned Center or Airport city. Choose the destination explicitly. Native `CanAirliftAt` and `MISSION_AIRLIFT` enforce legal movement, stacking and hostile destination adjacency. A saved pending request reserves the source and unit; matching native arrival consumes the allowance. Canceled requests release it after a bounded follow-up (at most three seconds or 180 callbacks), and loading revokes unfinished permissions without resubmitting missions. Unit-specific permission hooks keep the Center's ordinary native action disabled. Naval, embarked, moved, busy and post-attack units are excluded, even if an item has refilled their Movement.
 
 ## Journey to Mt. Silver
 
-In the **Modern Era**, with **four living team members and at least one Legendary**, the one-time project appears in city Production. No particular Modern technology beyond reaching the era is required. Its standard baseline is **65% of the active Statue of Liberty cost** (689 from the validation database's 1060); native `CreatePercent` scales Production cost.
+In the **Modern Era**, with **four living team members and at least one Legendary**, the one-time project appears in Red's city Production. Global eligibility vetoes remain registered in games without Red; other civilizations cannot build it. The engine also enforces one completion per team. No particular Modern technology beyond reaching the era is required. Its standard baseline is **65% of the active Statue of Liberty cost** (689 from the validation database's 1060); native `CreatePercent` scales Production cost.
 
 Completing the project journals every current partner, then removes those units from the map. For **8 Standard-speed turns**, each city has **-10% Gold and Production**. New cities and captured cities reconcile the modifier. Withdrawn units cannot fight, move, upgrade or be selected. Vacancies are not filled during withdrawal/return.
 
@@ -74,7 +74,7 @@ At the due turn, the same serials return near the capital, or a surviving friend
 
 The project needs four partners, so four- or five-member journeys return only that many units. The panel still displays all six identity symbols, with the unused identities reserved for later eligible recruits; recruits do not receive free Legendary Training or Summit-Trained. A full six-member journey returns all six. This resolves the specification's four-member eligibility without inventing replacement companions.
 
-Crowded friendly territory causes a deterministic nearest-plot search. If no legal domain-compatible plot exists, the partner remains safely recorded and retries on later turns; already returned partners do not duplicate. Absence penalties end when the countdown ends. Eliminated Red is never revived.
+Crowded friendly territory causes a deterministic nearest-plot search that checks domain, occupancy and promotion terrain restrictions. If no legal plot exists, the partner remains safely recorded and retries on later turns. Created returnees are tagged and journaled before restoring details; interrupted restoration adopts that unit on reload. Eligible promotions survive upgrades; expired, invalid and lost-on-upgrade effects do not. Absence penalties end when the countdown ends. Eliminated Red is never revived.
 
 | Identity | Effects |
 | --- | --- |
@@ -85,11 +85,15 @@ Crowded friendly territory causes a deterministic nearest-plot search. If no leg
 | Snorlax | +40% fortified Defence; 15 HP per fortified turn; maximum 1 Movement; anchor recovery against forced retreat; movement-based ZOC also stops normally immune land units |
 | Lapras | Ocean access for naval units; safe native embarkation/amphibious access for land units; nonstacking +1 Range; embarked friends within two tiles gain +1 Movement/+15% Defence; +25% damage against naval/embarked targets |
 
+Snorlax's saved one-tile allowance also applies after Battle Items. Known melee displacement is corrected after native placement or combat only when the adjacent original tile is legal and unoccupied. CP v151 has no universal Lua retreat veto: an occupied anchor or movement outside an observed battle cannot safely be undone. Fortification Defence and healing retain their original values.
+
 ## Interface, AI and compatibility
 
 The upper-right **Champion Team** button opens six scrolling party slots, including names, icons, types, HP/max HP, Training/rank, XP/level, Ribbons, Ace and Summit status. It shows capacity and project/countdown state. Select, inspect, assign/release, bond, item and airlift commands are explicit. Opening/refreshing is read-only. The panel closes for city, diplomacy, popup and nonselection contexts. No permanent frame loop runs.
 
-AI uses the same Training, assignments, bonds, Battle Items, project eligibility and return logic. It favors role diversity, retreats badly hurt veterans when a city path is available, prioritizes the Plateau and queues Mt. Silver when its capital is reasonably safe. Native tactical AI retains army command; returning ranged partners also choose legal visible high-value shots. AI-only gameplay remains a required native test.
+AI uses the same Training, assignments, bonds, Battle Items, project eligibility and return logic. It favors role diversity, retreats badly hurt veterans when a city path is available, prioritizes the Plateau and queues Mt. Silver when its capital is reasonably safe. It searches every city's full queue, then appends one project to a safe city with strong Production, preserving existing orders and invested Production. Native tactical AI retains army command; returning ranged partners also choose legal visible high-value shots. AI-only gameplay remains a required native test.
+
+The [stability audit](docs/StabilityAudit.md) records confirmed defects, corrective changes, regression evidence and remaining native checks. Existing version-1 save ledgers migrate additively. Gameplay bonuses, cooldowns, project cost and journey duration are unchanged.
 
 Single-player Windows **BNW + CP v151** is the supported target. No replacement DLL, global top-panel file or other civilization's gameplay is replaced. Multiplayer/hotseat/Mac are not advertised. Other versions of CP and full Vox Populi are unverified. Native ScriptData persistence follows the selected game save; a newer sidecar cannot overwrite an older save's ledger. Existing Boundless/Pigeon state formats and the collection UUID are preserved. Existing collection saves do not automatically acquire a new playable civilization.
 

@@ -38,12 +38,15 @@ function R.PartnerAura(pid)
  end
  for redID=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do if R.IsRed(redID) and Players[redID]:IsAlive() then
   local s=R.State(redID)
+  local healTurn=pid==redID and s.auraTurns[pid]~=Game.GetGameTurn()
+  -- Persist before healing: repeated turn notifications/reload cannot heal twice.
+  if healTurn then s.auraTurns[pid]=Game.GetGameTurn();R.Save(s) end
   for _,r in ipairs(R.Team(s)) do local u=R.Unit(s,r.serial)
    if u and r.identity=='VENUSAUR' then
     R.Adjacent(u,function(v)
      if v:GetID()~=u:GetID() or v:GetOwner()~=u:GetOwner() then
       local key=v:GetOwner()..':'..v:GetID()
-      if pid==redID and Players[v:GetOwner()]:GetTeam()==Players[redID]:GetTeam() and not healed[key] then healed[key]=true;R.Heal(v,10)
+      if healTurn and pid==redID and Players[v:GetOwner()]:GetTeam()==Players[redID]:GetTeam() and not healed[key] then healed[key]=true;R.Heal(v,10)
       elseif v:GetOwner()==pid and R.AtWar(pid,redID) then R.Set(v,'BLOOM_STATUS',true) end
      end
     end)
@@ -89,15 +92,31 @@ function R.EscapePlot(u,enemy)
  return plots[1] and plots[1].p
 end
 function R.Moved(pid,id,x,y)
- if R.internal>0 then return end
  local p=Players[pid];local u=p and p:GetUnitByID(id);if not R.Alive(u) then return end
  local key=pid..':'..id;local old=R.positions[key];R.positions[key]={x=x,y=y}
+ if R.internal>0 then return end -- still track internal moves, preventing stale origins
+ if R.ObserveAirlift then R.ObserveAirlift(pid,id,x,y) end
+ -- InitUnit calls SetXY before native initialization finishes. UnitCreated will reconcile.
+ if not old or (old.x==x and old.y==y) then return end
  if u:IsEmbarked() then R.LaprasAuraFor(u) end
  if R.IsRed(pid) then
   local r,s=R.Record(u)
   if r then
    if old and (old.x~=x or old.y~=y) and r.quickFortify then r.quickFortify=nil;R.Set(u,'BLASTOISE_FORTIFY',false) end
-   if r.identity=='SNORLAX' and old and (old.x~=x or old.y~=y) then u:FinishMoves() end
+   if r.identity=='SNORLAX' then
+    r.stepTurn=Game.GetGameTurn();u:FinishMoves()
+    local battle=R.battle;local defender=battle and battle.turn==Game.GetGameTurn() and battle.actors[1]
+    if defender and defender.pid==pid and defender.id==id and defender.serial==r.serial and defender.anchor then
+     local born=u:GetGameTurnCreated();local saved={pid=pid,anchor=defender.anchor};local turn=Game.GetGameTurn()
+     defender.anchor=nil -- consume this observation; a stale battle must never undo a later move
+     -- Pre-combat withdrawal may bypass CombatEnded. Wait until native movement
+     -- and escort placement finish; never move reentrantly from UnitSetXY.
+     R.AfterNative('anchor:'..key,function()
+      local current=p:GetUnitByID(id)
+      if Game.GetGameTurn()==turn and R.Alive(current) and R.Serial(current)==r.serial and current:GetGameTurnCreated()==born then R.RestoreAnchor(current,saved) end
+     end)
+    end
+   end
    if r.ace and u:IsDead() then r.ace=nil end
    R.Apply(u,r);R.Changed(s)
    if r.identity=='LAPRAS' then
@@ -107,12 +126,22 @@ function R.Moved(pid,id,x,y)
   end
  end
  -- A movement event is needed only for Snorlax's exceptional ZOC.
- if old and u:GetDomainType()==DomainTypes.DOMAIN_LAND and not u:IsEmbarked() then
+ if Map.PlotDistance(old.x,old.y,x,y)==1 and u:GetDomainType()==DomainTypes.DOMAIN_LAND and not u:IsEmbarked() then
   for redID,s in pairs(R.States) do if R.AtWar(pid,redID) then
    for _,r in ipairs(R.Team(s)) do local anchor=R.Unit(s,r.serial)
     if anchor and r.identity=='SNORLAX' and Map.PlotDistance(old.x,old.y,anchor:GetX(),anchor:GetY())==1 and R.Distance(u,anchor)==1 then u:FinishMoves();return end
    end
   end end
  end
+end
+function R.RestoreAnchor(u,c)
+ -- Only a known melee defender displaced exactly one tile may be corrected.
+ if not c.anchor or Map.PlotDistance(u:GetX(),u:GetY(),c.anchor.x,c.anchor.y)~=1 then return false end
+ local plot=Map.GetPlot(c.anchor.x,c.anchor.y)
+ if not plot or plot:IsVisibleEnemyUnit(c.pid) or not u:CanMoveOrAttackInto(plot,0,1) then return false end
+ for i=0,plot:GetNumUnits()-1 do
+  if plot:GetUnit(i)~=u and plot:GetUnit(i):IsCombatUnit()==u:IsCombatUnit() then return false end
+ end
+ return R.Internal(function() u:SetXY(c.anchor.x,c.anchor.y,0,1,0);u:FinishMoves() end)
 end
 R.positions={}

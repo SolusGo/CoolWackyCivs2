@@ -22,6 +22,32 @@ local function safeEmpire(s)
  R.Adjacent(cap,function(u) if u:IsCombatUnit() and R.AtWar(s.pid,u:GetOwner()) then enemy=enemy+1 end end,5)
  return enemy<=1
 end
+function R.HasOrder(p,kind,typ)
+ for city in p:Cities() do
+  -- CP returns five scalar values, not an OrderData table.
+  for i=0,city:GetOrderQueueLength()-1 do
+   local order,data=city:GetOrderFromQueue(i)
+   if order==kind and data==typ then return true end
+  end
+ end
+ return false
+end
+local function queueProject(s)
+ local p=Players[s.pid]
+ if R.HasOrder(p,OrderTypes.ORDER_CREATE,R.PROJECT) then return end
+ local best,score
+ for city in p:Cities() do
+  if not city:IsRazing() and not city:IsResistance() and city:CanCreate(R.PROJECT) then
+   local danger=0;R.Adjacent(city,function(u) if u:IsCombatUnit() and R.AtWar(s.pid,u:GetOwner()) then danger=danger+1 end end,3)
+   if danger==0 and city:GetDamage()<=city:GetMaxHitPoints()/4 then
+    local n=city:GetYieldRate(YieldTypes.YIELD_PRODUCTION)
+    if not score or n>score or (n==score and city:GetID()<best:GetID()) then best=city;score=n end
+   end
+  end
+ end
+ -- Append without popping: preserve invested Production and all existing orders.
+ if best then best:PushOrder(OrderTypes.ORDER_CREATE,R.PROJECT,-1,0,false,true) end
+end
 function R.AITurn(s)
  local p=Players[s.pid];if p:IsHuman() then return end
  R.AutoAssign(s)
@@ -59,12 +85,11 @@ function R.AITurn(s)
  end
  if safeEmpire(s) then
   if R.SilverEligible(s) then
-   for city in p:Cities() do
-    if city:CanCreate(R.PROJECT) and city:GetProductionProject()~=R.PROJECT then city:PushOrder(OrderTypes.ORDER_CREATE,R.PROJECT,-1,0,true,false);break end
-   end
+   queueProject(s)
   else
+   if R.HasOrder(p,OrderTypes.ORDER_CONSTRUCT,R.PLATEAU) then return end
    for city in p:Cities() do
-    if city:CanConstruct(R.PLATEAU) and city:GetProductionBuilding()~=R.PLATEAU then city:PushOrder(OrderTypes.ORDER_CONSTRUCT,R.PLATEAU,-1,0,true,false);break end
+    if city:CanConstruct(R.PLATEAU) and city:GetProductionBuilding()~=R.PLATEAU then city:PushOrder(OrderTypes.ORDER_CONSTRUCT,R.PLATEAU,-1,0,false,true);break end
    end
   end
  end

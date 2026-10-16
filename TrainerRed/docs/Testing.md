@@ -18,7 +18,11 @@ python tools/build_mod.py
 
 The second initial manifest pass lets the shared icon finisher discover a newly added civilization; subsequent builds need only one pass. The retained `art-source/IconAtlasMasters/RED_*.png` masters make later builds deterministic. Regenerating original icons requires refreshing those masters with `standardize_icons.py --refresh-sources` for the relevant atlas, as described in the shared icon notes.
 
-`validate_red.py` checks the actual installed schema and all six SQL actions, General inheritance/overrides, Heroic Epic prerequisites, Hospital cost, project cost, English references and icon bounds. It audits 101+ native method names and exact CP signatures, parses Lua as 5.1 and executes shipped gameplay against an engine double. The state, edge, ability and panel suites are **simulations**, not game sessions. Art checks decode every Red DDS, require mipmaps, and resolve scene/atlas paths. `validate_mod.py` also runs existing Boundless/Pigeon/summary regression suites and collection package/coexistence checks.
+`validate_red.py` checks the actual installed schema and all six SQL actions, General inheritance/overrides, Heroic Epic prerequisites, Hospital/project costs, native one-completion restriction, English references and icon bounds. It audits 120 native method names and exact critical CP contracts, parses Lua as 5.1 and executes shipped gameplay against an engine double. All seven Red suites are **simulations**, not game sessions. Art checks decode every Red DDS, require mipmaps, and resolve scene/atlas paths. `validate_mod.py` also runs existing Boundless/Pigeon/summary regression suites and collection package/coexistence checks.
+
+The additional suites are `red_no_red.lua` (global vetoes without Red), `red_stability.lua` (project prerequisites, 1/5/20-city queues, asynchronous/canceled/reloaded airlift, legal spawn terrain, Snorlax item/anchor/ZOC, aura/Range and unit creation/reused IDs), and `red_recovery.lua` (all-six snapshot commit, third-turn reload, partial return, preserved veteran data, filtered upgrade promotions, injected failures during withdrawal/return/Ace restoration/detachment). Injected failures deliberately print deferred-transaction diagnostics; assertions require suppression to return to zero and recovery to avoid duplicate units.
+
+Exact source assertions cover the five-value city queue tuple, actual boolean pop/append parameters, global project-veto argument order and TESTALL semantics, unit-specific airlift hook ABIs/early bypass, destination checks, movement-before-arrival ordering, native nonnegative movement and absence of a fallback veto. These establish pinned API contracts; they do not prove live engine scheduling, UI behavior or native serialization.
 
 ## Required native checks
 
@@ -36,3 +40,14 @@ The second initial manifest pass lets the shared icon finisher discover a newly 
 12. Enable the original Cool Wacky Civs alongside the collection. Check separate identifiers and live coexistence. Back up a version-6 collection save before upgrading. Multiplayer/hotseat remain disabled and untested.
 
 Record actual game version, mod list, speed, save/replay and logs when completing these checks. No native checkbox is implied complete by an automated result.
+
+## Outstanding corrective-pass checks — all NOT RUN
+
+- Start a game without Red and inspect every production menu; repeat with Red Ancient/Modern/eligible/completed and after reload. Confirm the project stays exclusive, scales with native CreatePercent and cannot complete twice.
+- Observe AI Red with 1/5/20 cities: active project, inactive queued project, interrupted production, captured producer, reload and completion. Confirm one project and preserved invested Production.
+- Use Center-to-Center and Center-to-Airport, including a mission that executes after the Lua callback. Check pending UI/reservations, occupied/hostile-adjacent/invalid targets, insufficient or refilled-but-used movement, post-attack, cancellation, timeout and save/reload before/after arrival. Verify no permanent Center native action. Existing Airports retain native behavior.
+- Native melee heavy charge, morale retreat, normal withdrawal, escorted units and AI push/swap against Snorlax: check occupied/impassable anchors, attacker advance, no remote correction, no stacked units, no recursion, maximum one tile after an item, +40% fortified Defence, 15 fortified HP and ZOC against immune opponents.
+- Native save round trips on absence turn three, all-six and all-four return, partial return, blocked land/naval terrain, capital loss, elimination and obsolete upgrade intermediates. Confirm every serial, Training value, Ribbon, Ace, XP/level, eligible promotion, identity and cooldown; inspect logs for recovery diagnostics.
+- Duplicate turn/visibility notifications around Venusaur, Range acquired midturn, upgraded/captured/recycled IDs and all roster screen transitions. Verify no render mutations or persistent frame polling after bounded work ends.
+
+Results and limits are recorded in [StabilityAudit.md](StabilityAudit.md) and [Validation.json](Validation.json). No native result has been inferred from simulation success.
