@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="6">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="7">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>An endless city and a republic on the wing.</Teaser>
-    <Description>The Boundless City and The Republic of Pigeons, led by Postmaster General Coo. Explore, connect cities by land trade, and raise Rooftop Roosts. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>An endless city, a republic on the wing, and a living legend.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, and The Indigo Champion led by Trainer Red. Train an elite Champion Team, bond with Pokémon Aces and journey to Mt. Silver. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -24,6 +24,7 @@
   <References />
   <Blocks />
   <Files>
+    <File md5="188E65005794110029E955ED090F3ADD" import="0">Shared/SQL/00_OptionalCompatibility.sql</File>
     <File md5="D3588A7BC9AB350EACDA84921EBAF924" import="1">TheBoundlessCity/Art/BoundlessAlpha128.dds</File>
     <File md5="AFC07018A9BAAC46FA381C936A49E74F" import="1">TheBoundlessCity/Art/BoundlessAlpha16.dds</File>
     <File md5="989AB9944B0CB53943CDB28AB2705D51" import="1">TheBoundlessCity/Art/BoundlessAlpha24.dds</File>
@@ -115,9 +116,86 @@
     <File md5="85DCB9A62B9FE64FB8C1C2B675B17A5B" import="0">TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</File>
     <File md5="77596118D9F9574F4463FAB136C7C409" import="1">TheRepublicOfPigeons/UI/PigeonTrade.lua</File>
     <File md5="F892C2991855F86FB3BA7CAD2BB1DB94" import="0">TheRepublicOfPigeons/UI/PigeonTrade.xml</File>
+    <File md5="5BC252079BA2B7BFE063F42EFA7BC5DC" import="1">TrainerRed/Art/RED_Alpha128.dds</File>
+    <File md5="14668E30298886C758F4EDE1F37C1094" import="1">TrainerRed/Art/RED_Alpha16.dds</File>
+    <File md5="37628F54D2EC8A630E73B8038599A81F" import="1">TrainerRed/Art/RED_Alpha24.dds</File>
+    <File md5="119643E99D7C8590CA88412E23AD350F" import="1">TrainerRed/Art/RED_Alpha256.dds</File>
+    <File md5="B810155C1550E4FC450DB09A2FA32C5F" import="1">TrainerRed/Art/RED_Alpha32.dds</File>
+    <File md5="678CA11AE6577C32405CD582BA0F94B5" import="1">TrainerRed/Art/RED_Alpha45.dds</File>
+    <File md5="B320F0236589861725BBDD5C4E04B381" import="1">TrainerRed/Art/RED_Alpha48.dds</File>
+    <File md5="0FE6439A3E6656563A319CC35297520B" import="1">TrainerRed/Art/RED_Alpha64.dds</File>
+    <File md5="BA96D790545802B4946C95BA103092B2" import="1">TrainerRed/Art/RED_Alpha80.dds</File>
+    <File md5="CA1670A0071501C41A1073953D4EF499" import="1">TrainerRed/Art/RED_Dawn.dds</File>
+    <File md5="F6776AE76A0690BC3789687A3EB75DBB" import="1">TrainerRed/Art/RED_Flag32.dds</File>
+    <File md5="C1FC747A287EF085A0B1F4C9DCF561FA" import="1">TrainerRed/Art/RED_Icon128.dds</File>
+    <File md5="9DD84778F8E644BC916D2914F92E94FC" import="1">TrainerRed/Art/RED_Icon16.dds</File>
+    <File md5="0273BBC12859FC970671968CC5D654C6" import="1">TrainerRed/Art/RED_Icon24.dds</File>
+    <File md5="A1D1D6A51693486FAC68F4ECD67EF9CC" import="1">TrainerRed/Art/RED_Icon256.dds</File>
+    <File md5="937F1E6EACE82B515E6C0B9FE2C9578D" import="1">TrainerRed/Art/RED_Icon32.dds</File>
+    <File md5="0B07869362033F36FF2F132020C801F3" import="1">TrainerRed/Art/RED_Icon45.dds</File>
+    <File md5="F2857598AD5BFC2738687753444CFCBF" import="1">TrainerRed/Art/RED_Icon48.dds</File>
+    <File md5="00E054BF06F9840585829A85926F578D" import="1">TrainerRed/Art/RED_Icon64.dds</File>
+    <File md5="8493C27F104F3F0791BA051FBAA405F1" import="1">TrainerRed/Art/RED_Icon80.dds</File>
+    <File md5="222D221A7EB824CA5566B7F20AD68E67" import="1">TrainerRed/Art/RED_Identities128.dds</File>
+    <File md5="7741B5A8B5F637DC31747FEB95A944E4" import="1">TrainerRed/Art/RED_Identities16.dds</File>
+    <File md5="0BA1B3C41CC76681C4F54BE527E5DACC" import="1">TrainerRed/Art/RED_Identities24.dds</File>
+    <File md5="48562DA8DB72AB084D2D806232B6E570" import="1">TrainerRed/Art/RED_Identities256.dds</File>
+    <File md5="102EA01C9DD5FC85B9FF29C92887326D" import="1">TrainerRed/Art/RED_Identities32.dds</File>
+    <File md5="A40DD64483F8430D070A4B66177A5645" import="1">TrainerRed/Art/RED_Identities45.dds</File>
+    <File md5="41A99E8E42160EC49CC8026E0F1916C5" import="1">TrainerRed/Art/RED_Identities48.dds</File>
+    <File md5="BEDB53378840E7EF9180D59380189312" import="1">TrainerRed/Art/RED_Identities64.dds</File>
+    <File md5="52CA791CBC20C523AFCD959CE83326F6" import="1">TrainerRed/Art/RED_Identities80.dds</File>
+    <File md5="6FAC6862C577958C407F058CA70FDAE7" import="1">TrainerRed/Art/RED_Leader.dds</File>
+    <File md5="EA7BCDCDB3741625E7DEE85FB1927391" import="1">TrainerRed/Art/RED_LeaderScene.xml</File>
+    <File md5="2EDB14FF741B5FF230E7070614F05C9F" import="1">TrainerRed/Art/RED_Map.dds</File>
+    <File md5="D4809484CF8C38AE7971353B71D5D2BA" import="1">TrainerRed/Art/RED_Objects128.dds</File>
+    <File md5="9A5A6C8BD9A2F3240B5E7877CC826CE5" import="1">TrainerRed/Art/RED_Objects16.dds</File>
+    <File md5="817D36918A26E02AC43E546276C98CAE" import="1">TrainerRed/Art/RED_Objects24.dds</File>
+    <File md5="81F3D1FAF4CCCFA1EB65EE393CE17311" import="1">TrainerRed/Art/RED_Objects256.dds</File>
+    <File md5="884B4F242B57FBD3604DDA95C3660CB9" import="1">TrainerRed/Art/RED_Objects32.dds</File>
+    <File md5="898EE3BA9A7D337BBBC4208F4A7293E0" import="1">TrainerRed/Art/RED_Objects45.dds</File>
+    <File md5="3D22FFCFC61FCA9F089488315ECE47EF" import="1">TrainerRed/Art/RED_Objects48.dds</File>
+    <File md5="FC3865388C0A08267A0C8E210BAD172B" import="1">TrainerRed/Art/RED_Objects64.dds</File>
+    <File md5="ECBEBFA70DBBCD6B458CB290761A821B" import="1">TrainerRed/Art/RED_Objects80.dds</File>
+    <File md5="021D77995CA264F774448B4317019D90" import="1">TrainerRed/Art/RED_Portrait128.dds</File>
+    <File md5="7AACF5FF58A146D755F6976253373D62" import="1">TrainerRed/Art/RED_Portrait16.dds</File>
+    <File md5="88220A23841CCD7E98BD2CB99326307C" import="1">TrainerRed/Art/RED_Portrait24.dds</File>
+    <File md5="7679BF8D7E8C64B97E7D36A461F66999" import="1">TrainerRed/Art/RED_Portrait256.dds</File>
+    <File md5="585B9D1C56EE07832DD4150039A1ED32" import="1">TrainerRed/Art/RED_Portrait32.dds</File>
+    <File md5="2F39E7BB30ECAF636D0C0AE8894E09C6" import="1">TrainerRed/Art/RED_Portrait45.dds</File>
+    <File md5="D3892912582D5B4AF57CC288E9480803" import="1">TrainerRed/Art/RED_Portrait48.dds</File>
+    <File md5="8CEF3D77E2153E06C75BA76B3EACAC88" import="1">TrainerRed/Art/RED_Portrait64.dds</File>
+    <File md5="FBD30FEAB0F1C734AD5A9CF29EAE67AA" import="1">TrainerRed/Art/RED_Portrait80.dds</File>
+    <File md5="C9A7AAE9E042A7678CCEEF5E3C29056E" import="1">TrainerRed/Art/RED_Promotions128.dds</File>
+    <File md5="E4EBF27C35E7AE3AE1AEC4B10FB09DFE" import="1">TrainerRed/Art/RED_Promotions16.dds</File>
+    <File md5="D6A6E04AB0FB686EAFBCDFA337C609E7" import="1">TrainerRed/Art/RED_Promotions24.dds</File>
+    <File md5="4F5F47F69ED3F5A7A28B4B14E20A9356" import="1">TrainerRed/Art/RED_Promotions256.dds</File>
+    <File md5="C911795EB35510447D045A747BAA20F0" import="1">TrainerRed/Art/RED_Promotions32.dds</File>
+    <File md5="DBDAE68A7941300968FDC732E901C143" import="1">TrainerRed/Art/RED_Promotions45.dds</File>
+    <File md5="B5E1E43C5545CDF720A2764108910463" import="1">TrainerRed/Art/RED_Promotions48.dds</File>
+    <File md5="B08BCFD1E5AA4D738BD1F2CB916096F9" import="1">TrainerRed/Art/RED_Promotions64.dds</File>
+    <File md5="6F820FAE1B4D36817C6DCB0D312A7A7A" import="1">TrainerRed/Art/RED_Promotions80.dds</File>
+    <File md5="991CE2EE63A8FD77DFD073FC9DD16519" import="1">TrainerRed/Lua/RED_AI.lua</File>
+    <File md5="E539C1D42366120429C9420421E78028" import="1">TrainerRed/Lua/RED_Combat.lua</File>
+    <File md5="CF23C85E727A1AEF6943FF6DDB77C2BD" import="1">TrainerRed/Lua/RED_Core.lua</File>
+    <File md5="ACEFBAAA2CDB7356FA35708504D55608" import="1">TrainerRed/Lua/RED_Events.lua</File>
+    <File md5="7F0FF4FD59E76C4B5A7637F11ADB2D5C" import="1">TrainerRed/Lua/RED_MtSilver.lua</File>
+    <File md5="1ADCD6F0AC630EF090E8E5803CF305A2" import="1">TrainerRed/Lua/RED_PokemonAbilities.lua</File>
+    <File md5="D1780337707C73B61499D256C0EC8F5A" import="1">TrainerRed/Lua/RED_PokemonAce.lua</File>
+    <File md5="D143A0C7A0035E68A82726781A51A1F9" import="1">TrainerRed/Lua/RED_SaveData.lua</File>
+    <File md5="B4A3C685A0081B27CF15F056C921063C" import="1">TrainerRed/Lua/RED_Training.lua</File>
+    <File md5="0088CB0E590511599093299890D9D0A3" import="0">TrainerRed/SQL/00_RED_Core.sql</File>
+    <File md5="9A108A41663BB2A148573E9E950AAD7F" import="0">TrainerRed/SQL/01_RED_Inheritance.sql</File>
+    <File md5="EA3CA22B49F90478B533F57CE096FC26" import="0">TrainerRed/SQL/02_RED_Effects.sql</File>
+    <File md5="ACFA058558313CA1F843E92C9B8BF00B" import="0">TrainerRed/SQL/03_RED_Promotions.sql</File>
+    <File md5="6CF5482011F99978F8708288E992C1A9" import="0">TrainerRed/SQL/04_RED_Art.sql</File>
+    <File md5="8BFBBF6756D32D06B8B173014C09315E" import="0">TrainerRed/SQL/10_RED_Text.sql</File>
+    <File md5="3C6C51A29C80D14D761555B24414A094" import="1">TrainerRed/UI/RED_TeamPanel.lua</File>
+    <File md5="8E86F1E5F1B7F439E653638AB26A885F" import="0">TrainerRed/UI/RED_TeamPanel.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
+      <UpdateDatabase>Shared/SQL/00_OptionalCompatibility.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/00_BC_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/01_BC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/02_BC_Effects.sql</UpdateDatabase>
@@ -128,6 +206,12 @@
       <UpdateDatabase>TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/03_PIGEON_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TrainerRed/SQL/00_RED_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TrainerRed/SQL/01_RED_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TrainerRed/SQL/02_RED_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TrainerRed/SQL/03_RED_Promotions.sql</UpdateDatabase>
+      <UpdateDatabase>TrainerRed/SQL/04_RED_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TrainerRed/SQL/10_RED_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -138,6 +222,10 @@
     <EntryPoint type="InGameUIAddin" file="TheRepublicOfPigeons/UI/PigeonTrade.xml">
       <Name>Messages on the Wing</Name>
       <Description>Pigeon trade-route yields and Rooftop Roost production.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TrainerRed/UI/RED_TeamPanel.xml">
+      <Name>Champion Team</Name>
+      <Description>Trainer Red simulation and event-driven Champion Team panel.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

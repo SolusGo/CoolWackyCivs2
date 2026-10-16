@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="REDTeamPanel">
+ <Grid ID="Launcher" Anchor="R,T" Offset="14,190" Size="245,36" Style="GridBlackIndent8" Hidden="1">
+  <GridButton ID="Open" Anchor="C,C" Size="235,30" Style="BaseButton" String="TXT_KEY_RED_TEAM" />
+ </Grid>
+ <Grid ID="Panel" Anchor="C,C" Size="1000,690" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+  <Label ID="Title" Anchor="L,T" Offset="24,16" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_RED_TEAM" />
+  <GridButton ID="Close" Anchor="R,T" Offset="22,16" Size="70,30" Style="BaseButton" String="TXT_KEY_RED_CLOSE" />
+  <GridButton ID="RosterMode" Anchor="R,T" Offset="104,16" Size="180,30" Style="BaseButton" />
+  <Label ID="Summary" Anchor="L,T" Offset="24,54" WrapWidth="950" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <ScrollPanel ID="PartyScroll" Anchor="L,T" Offset="24,112" Size="950,350" Vertical="1">
+   <Stack ID="PartyRows" Anchor="L,T" StackGrowth="Bottom" Padding="5" />
+  </ScrollPanel>
+  <GridButton ID="Candidate" Anchor="L,T" Offset="24,472" Size="230,32" Style="BaseButton" String="TXT_KEY_RED_CANDIDATE" />
+  <Label ID="CandidateInfo" Anchor="L,T" Offset="264,478" WrapWidth="700" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <GridButton ID="Attach" Anchor="L,T" Offset="24,514" Size="180,32" Style="BaseButton" String="TXT_KEY_RED_ATTACH" />
+  <GridButton ID="Detach" Anchor="L,T" Offset="214,514" Size="180,32" Style="BaseButton" String="TXT_KEY_RED_DETACH" />
+  <GridButton ID="Item" Anchor="L,T" Offset="404,514" Size="180,32" Style="BaseButton" String="TXT_KEY_RED_ITEM" />
+  <GridButton ID="Airlift" Anchor="L,T" Offset="594,514" Size="180,32" Style="BaseButton" String="TXT_KEY_RED_AIRLIFT" />
+  <GridButton ID="Destination" Anchor="L,T" Offset="784,514" Size="190,32" Style="BaseButton" String="TXT_KEY_RED_DESTINATION" />
+  <Label ID="Details" Anchor="L,T" Offset="24,558" WrapWidth="950" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Label ID="Help" Anchor="L,T" Offset="24,624" WrapWidth="950" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="TXT_KEY_RED_PANEL_HELP" />
+ </Grid>
+ <Instance Name="REDPartnerRow">
+  <Grid ID="Root" Size="924,102" Style="GridBlackIndent8">
+   <Image ID="Portrait" Anchor="L,C" Offset="10,0" Size="64,64" />
+   <Image ID="IdentityIcon" Anchor="L,T" Offset="78,8" Size="32,32" />
+   <Label ID="Name" Anchor="L,T" Offset="120,8" WrapWidth="570" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Stats" Anchor="L,T" Offset="120,34" WrapWidth="570" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" />
+   <Grid ID="TrainingTrack" Anchor="L,B" Offset="120,10" Size="540,5" Style="GridBlackIndent8">
+    <Grid ID="TrainingFill" Anchor="L,C" Size="1,5" Style="Grid9DetailFive140" />
+   </Grid>
+   <GridButton ID="Select" Anchor="R,T" Offset="12,5" Size="185,28" Style="BaseButton" String="TXT_KEY_RED_SELECT" />
+   <GridButton ID="Inspect" Anchor="R,T" Offset="12,37" Size="185,28" Style="BaseButton" String="TXT_KEY_RED_DETAILS" />
+   <GridButton ID="Release" Anchor="R,T" Offset="12,69" Size="185,28" Style="BaseButton" String="Release from team" />
+  </Grid>
+ </Instance>
+</Context>

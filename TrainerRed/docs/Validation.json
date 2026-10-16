@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-16",
+  "target": "Windows BNW + CP v151",
+  "collection_mod_version": 7,
+  "native_gameplay": "NOT RUN",
+  "native_AI_only": "NOT RUN",
+  "multiplayer": "NOT RUN; disabled",
+  "lua": "Lua 5.1 via Lupa",
+  "sql": "Installed BNW backup/CP schema; in-memory execution",
+  "passed": [
+    "All collection SQL and Lua parse checks",
+    "Ten Boundless regression suites",
+    "Pigeon gameplay/source contracts",
+    "Workforce summary regressions",
+    "Four Red suites: state/lifecycle, edge cases, six abilities, read-only panel",
+    "109 Red native Lua method names and CP event ABI/ordering checks",
+    "176 existing pinned CP source assertions",
+    "58 Red DDS files decoded with mipmaps",
+    "117 collection atlas sizes and three leader portraits",
+    "Manifest/project/MD5/VFS/coexistence checks",
+    "ZIP runtime-byte parity; genuine 7z Civ5Mod testzip",
+    "Existing synthetic benchmark completed; original result file preserved",
+    "Collection SQL loads after removing optional JFD/SharedTraits metadata tables"
+  ],
+  "limitations_report": "ImplementationReport.md"
+}

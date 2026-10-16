@@ -158,10 +158,14 @@ def standardize(root=ROOT, refresh=()):
                     pngs.append(str(png))
                 else:
                     stream = io.BytesIO()
-                    output.save(stream, format="DDS")
-                    encoded[atlas.path] = stream.getvalue()
+                    if name.startswith('RED_'):
+                        from prepare_red_art import raw_mips
+                        encoded[atlas.path] = raw_mips(output)
+                    else:
+                        output.save(stream, format="DDS")
+                        encoded[atlas.path] = stream.getvalue()
             if pngs:
-                result = subprocess.run([texconv, "-nologo", "-y", "-dx9", "-f", "DXT5", "-m", "1",
+                result = subprocess.run([texconv, "-nologo", "-y", "-dx9", "-f", "DXT5", "-m", "0" if name.startswith('RED_') else "1",
                                          "-o", str(stage), *pngs], capture_output=True, text=True)
                 if result.returncode:
                     raise RuntimeError(result.stdout + result.stderr)

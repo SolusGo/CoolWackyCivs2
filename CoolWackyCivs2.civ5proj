@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>An endless city and a republic on the wing.</Teaser>
-    <Description>The Boundless City and The Republic of Pigeons, led by Postmaster General Coo. Explore, connect cities by land trade, and raise Rooftop Roosts. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>An endless city, a republic on the wing, and a living legend.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, and The Indigo Champion led by Trainer Red. Train an elite Champion Team, bond with Pokémon Aces and journey to Mt. Silver. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>6</ModVersion>
+    <ModVersion>7</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -26,6 +26,11 @@
     <Civ5UserPath>$(USERPROFILE)\Documents\My Games\Sid Meier's Civilization 5</Civ5UserPath>
     <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
     <ModActions>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>Shared/SQL/00_OptionalCompatibility.sql</FileName>
+      </Action>
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
@@ -76,6 +81,36 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TrainerRed/SQL/00_RED_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TrainerRed/SQL/01_RED_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TrainerRed/SQL/02_RED_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TrainerRed/SQL/03_RED_Promotions.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TrainerRed/SQL/04_RED_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TrainerRed/SQL/10_RED_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -89,6 +124,12 @@
         <Name>Messages on the Wing</Name>
         <Description>Pigeon trade-route yields and Rooftop Roost production.</Description>
         <FileName>TheRepublicOfPigeons/UI/PigeonTrade.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Champion Team</Name>
+        <Description>Trainer Red simulation and event-driven Champion Team panel.</Description>
+        <FileName>TrainerRed/UI/RED_TeamPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -120,6 +161,9 @@
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Shared/SQL/00_OptionalCompatibility.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheBoundlessCity/Art/BoundlessAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -393,8 +437,238 @@
     <Content Include="TheRepublicOfPigeons/UI/PigeonTrade.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Identities80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/RED_Promotions80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_AI.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_Combat.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_Core.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_Events.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_MtSilver.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_PokemonAbilities.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_PokemonAce.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_SaveData.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Lua/RED_Training.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/SQL/00_RED_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/SQL/01_RED_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/SQL/02_RED_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/SQL/03_RED_Promotions.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/SQL/04_RED_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/SQL/10_RED_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/UI/RED_TeamPanel.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/UI/RED_TeamPanel.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Shared\" />
+    <Folder Include="Shared\SQL\" />
     <Folder Include="TheBoundlessCity\" />
     <Folder Include="TheBoundlessCity\Art\" />
     <Folder Include="TheBoundlessCity\Lua\" />
@@ -404,6 +678,11 @@
     <Folder Include="TheRepublicOfPigeons\Art\" />
     <Folder Include="TheRepublicOfPigeons\SQL\" />
     <Folder Include="TheRepublicOfPigeons\UI\" />
+    <Folder Include="TrainerRed\" />
+    <Folder Include="TrainerRed\Art\" />
+    <Folder Include="TrainerRed\Lua\" />
+    <Folder Include="TrainerRed\SQL\" />
+    <Folder Include="TrainerRed\UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
 </Project>

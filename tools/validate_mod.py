@@ -128,3 +128,5 @@ if __name__=='__main__':
     validate()
     from validate_summary import validate as validate_summary
     validate_summary()
+    from validate_red import validate as validate_red
+    validate_red()

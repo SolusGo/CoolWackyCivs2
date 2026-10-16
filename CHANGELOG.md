@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 Trainer Red preview / mod version 7 — 2026-10-16
+
+- Added The Indigo Champion under Trainer Red with persistent Training, a six-slot Champion Team, Momentum/Ribbons, Pokémon Ace/Center, Indigo Plateau and journalled Journey to Mt. Silver.
+- Added Summit-Trained and six distinct role-assigned Pokémon identities, explicit roster/bond/item/airlift actions, AI progression and game-speed support.
+- Included original leader/Dawn paintings, original map and symbols, 58 mipmapped DDS assets, full English help/Civilopedia and an installed-game peace/war audio fallback.
+- Added actual-schema/source/Lua-state/ability/UI/art validation and extended the collection builder/project/manifests. Existing Boundless/Pigeon gameplay and save schemas remain intact.
+- Preview: native gameplay, AI-only matches, rendering and native save round trips still require verification. The report documents CP damage/fortification/airlift workarounds and the limit on universal forced-displacement immunity. See [the Red report](TrainerRed/docs/ImplementationReport.md).
+
 ## Unreleased — Workforce summary display — 2026-10-16
 
 - Fixed the summary's literal pipe separators, which Civ V interprets as alternative localized text forms. The first form ended at Population, hiding Owned Plots and subsequent fields.

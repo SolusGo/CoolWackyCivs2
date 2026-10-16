@@ -5,16 +5,17 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='6'
+VERSION='7'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
-CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons')
+CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed')
 ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-driven workforce panel.'),
- ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.')]
+ ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.'),
+ ('TrainerRed/UI/RED_TeamPanel.xml','Champion Team','Trainer Red simulation and event-driven Champion Team panel.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
-PROPS={'Name':'Cool Wacky Civs 2','Teaser':'An endless city and a republic on the wing.',
- 'Description':'The Boundless City and The Republic of Pigeons, led by Postmaster General Coo. Explore, connect cities by land trade, and raise Rooftop Roosts. Requires BNW and Community Patch v151. See the included civilization guides.',
+PROPS={'Name':'Cool Wacky Civs 2','Teaser':'An endless city, a republic on the wing, and a living legend.',
+ 'Description':'The Boundless City, The Republic of Pigeons, and The Indigo Champion led by Trainer Red. Train an elite Champion Team, bond with Pokémon Aces and journey to Mt. Silver. Requires BNW and Community Patch v151. See the included civilization guides.',
  'Authors':'SolusGo','Homepage':'https://github.com/SolusGo/CoolWackyCivs2',
  'AffectsSavedGames':'1','MinCompatibleSaveVersion':'1','SupportsSinglePlayer':'1','SupportsMultiplayer':'0',
  'SupportsHotSeat':'0','SupportsMac':'0','ReloadAudioSystem':'0','ReloadLandmarkSystem':'0',
@@ -23,7 +24,7 @@ DEPS=[('Dlc','6DA07636-4123-4018-B643-6575B4EC336B','0','Expansion - Brave New W
  ('Mod','d1b6328c-ff44-4b0d-aad7-c657f83610cd','151','(1) Community Patch')]
 
 def files():
-    return sorted(p for civ in CIVILIZATIONS for p in (R/civ).rglob('*') if p.is_file() and p.suffix in ['.sql','.lua','.xml','.dds'])
+    return sorted(p for civ in ('Shared',)+CIVILIZATIONS for p in (R/civ).rglob('*') if p.is_file() and p.suffix in ['.sql','.lua','.xml','.dds'])
 def relative(p): return p.relative_to(R).as_posix()
 def imported(p): return p.suffix!='.sql' and relative(p) not in {e[0] for e in ENTRIES}
 
