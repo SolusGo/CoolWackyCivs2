@@ -1,6 +1,6 @@
 # Validation and native CP v151 test guide
 
-## Automated results — 2026-10-15
+## Automated results — 2026-10-16
 
 Run from the repository root with Python 3.11 and `requirements-dev.txt` dependencies:
 
@@ -22,6 +22,7 @@ The source fetch is optional for building/playing. SQL tests use a read-only bac
 | `boundless_assertions.lua` | Passed census/yields, growth/starvation, losses, pillage, water tech/blockade, mountain wonders, release, rewards, save rewind, city transfer and worker order checks |
 | `frontier_assertions.lua` | Passed claims beyond 30 hexes and 1,000 plots, water, enemy exclusion, game speed, Registry cap, no unworked yields, plus targeted wrapped-edge water claim |
 | `ui_assertions.lua` | Passed panel/launcher, sixteen-row paging, missed/early/nested popup close, native city/mode/leader recovery, turn/load/player/context return, render fault recovery, 1,000 coalesced UI requests without gameplay writes, shared/reentrant dispatch, siege and no idle polling |
+| `validate_summary.py` / `summary_assertions.lua` | Passed actual SQL text, first-form/positional-token model, all fifteen fields, zero/32-bit-large values, long text and measured stack-height growth, XML wrapping/scroll/action boundaries, live census/ownership/frontier/Registry/row actions, mode controls, load/capital return and screen transitions without extra map scans or idle polling |
 | `workforce_stress.lua` | Passed four requested population/territory cases, adversarial governor allocation before delayed Lua, specialist slots, extras, 150% modifiers, unrelated sources, reload, growth/starvation |
 | `completion_safety.lua` | Passed independent Manual selection/unlock, Auto lock isolation, partial mutations/cache pulses raising after change, v1 state/ledger migration, capital workforce preservation, return-loop quarantine, legal orphan territory release, movement departure retry, future/corrupt payload preservation |
 | `siege_safety.lua` | Passed native-legal demolition, move cost/no reward, territory release, native veto/own-founded/no-raze, capital/holy/city-state protections and replacement identity |
@@ -29,11 +30,13 @@ The source fetch is optional for building/playing. SQL tests use a read-only bac
 | `ai_stability.lua` | Passed stale/dead/upgraded/reused identities, invalid saved build IDs, busy target reservation, unreachable cooldown/retry, shared turn budget, fair rotation and budget deferral |
 | `engine_completion.lua` | Passed modeled survival/dead-player rules, strict original reclaim/source rebuilding/reload, one-time protected/own-founded subjugation, rival/native-victory guards, derived Tourism removal, assigned-only development/reload/release, extra-city route/border vetoes and deferred AI movement dispatch |
 | `dispatcher_contract.lua` | Passed persistent native update contract, nil rejection, explicit detachment, 1,000-event coalescing/idle writes, reentrant scheduling, failure detachment, two-player batching and hostile movement settling |
-| Package | Passed 49 game-file manifest/project, hashes/VFS/load order, XML controls and all 34 decoded DDS textures; genuine 7z/LZMA Civ5Mod integrity checked |
+| Package | Passed collection manifest/project, hashes/VFS/load order, XML controls and decoded DDS textures; genuine 7z/LZMA Civ5Mod integrity checked |
 | Original collection | Read-only distinct UUID, imported basenames, globals and BC database identifiers; original working-tree status retains only its pre-existing project modification |
 | Native gameplay/save/FPS | Player confirmed the pre-crash turn/movement replay succeeds after 1.2.1; automated native UI/gameplay/save/FPS tests **NOT RUN**, 1.2.2 UI retry pending |
 
 The tool environment has no controllable native Civ V gameplay session. The game was not launched for these tests. Mocks approximate native accounting and cannot prove DLL governor, capture, pathfinding, UI layout or save behavior. Injected exceptions are expected safety tests, not unexplained runtime failures.
+
+The summary regression reads the committed localization SQL and models only the first text form and plain named positional tokens. It checks native layout contracts using XML bounds and injected measured stack heights; it does not execute the localization DLL or measure native fonts. The read-only merged localization database contained the old pipe-separated summary, while shipped native plural entries demonstrate the form separator. See [SummaryDisplayFix.md](SummaryDisplayFix.md) for the source evidence and exact native acceptance checklist.
 
 With 30 native local positions, no specialist slots and sufficient legal remote inventory:
 

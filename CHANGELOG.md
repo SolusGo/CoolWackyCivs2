@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — Workforce summary display — 2026-10-16
+
+- Fixed the summary's literal pipe separators, which Civ V interprets as alternative localized text forms. The first form ended at Population, hiding Owned Plots and subsequent fields.
+- Displayed all fifteen statistics in individual localized labels under Territory, Workforce and Management. Frontier Culture and next-claim cost are explicit; occupied-capital census values show an unavailable message while territory and siege information remain accessible.
+- Added natural-height wrapped columns and a scrollable overview containing the summary and yields. Kept the 900×700 panel, existing controls, row paging, visibility/refresh behavior, gameplay and save schema.
+- Added SQL-backed localization, all-field/zero/large-value, layout-boundary, live-data, action, load and transition regression checks. Native font rendering and in-game confirmation remain manual; see the summary display report.
+
 ## 1.3.1 Icon consistency / mod version 6 — 2026-10-16
 
 - Added matching beveled gold rims to both leader portraits, civilization emblems and unique unit/building icons.

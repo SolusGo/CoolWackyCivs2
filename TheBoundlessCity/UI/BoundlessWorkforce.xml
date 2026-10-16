@@ -7,13 +7,44 @@
   <Label ID="Title" Anchor="L,T" Offset="22,18" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_BC_WORKFORCE" />
   <GridButton ID="Close" Anchor="R,T" Offset="20,16" Size="50,32" Style="BaseButton" String="X" />
   <GridButton ID="Siege" Anchor="R,T" Offset="80,16" Size="190,32" Style="BaseButton" String="TXT_KEY_BC_SIEGE" />
-  <Label ID="Summary" Anchor="L,T" Offset="22,58" Size="852,110" WrapWidth="852" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <Label ID="Yields" Anchor="L,T" Offset="22,174" Size="852,72" WrapWidth="852" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Mode" Anchor="L,T" Offset="22,258" Size="204,34" Style="BaseButton" />
-  <GridButton ID="Priority" Anchor="L,T" Offset="234,258" Size="204,34" Style="BaseButton" />
-  <GridButton ID="Direction" Anchor="L,T" Offset="446,258" Size="204,34" Style="BaseButton" />
-  <GridButton ID="Sort" Anchor="L,T" Offset="658,258" Size="216,34" Style="BaseButton" />
-  <ScrollPanel ID="Scroll" Anchor="L,T" Offset="22,306" Size="856,258" Vertical="1">
+  <ScrollPanel ID="OverviewScroll" Anchor="L,T" Offset="22,58" Size="856,236" Vertical="1">
+   <Stack ID="Overview" Anchor="L,T" StackGrowth="Bottom" Padding="8">
+    <Label ID="CapitalStatus" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Hidden="1" />
+    <Grid ID="SummaryBody" Size="836,1">
+     <Stack ID="TerritoryStack" Anchor="L,T" StackGrowth="Bottom" Padding="4">
+      <Label WrapWidth="264" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="TXT_KEY_BC_SUMMARY_TERRITORY" />
+      <Label ID="Population" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="OwnedPlots" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="FrontierCulture" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="FrontierCost" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+     </Stack>
+     <Stack ID="WorkforceStack" Anchor="L,T" Offset="282,0" StackGrowth="Bottom" Padding="4">
+      <Label WrapWidth="264" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="TXT_KEY_BC_SUMMARY_WORKFORCE" />
+      <Label ID="LocalWorkers" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="RemoteWorkers" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="Specialists" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="IdleLabourers" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="UnassignedCitizens" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+     </Stack>
+     <Stack ID="ManagementStack" Anchor="L,T" Offset="564,0" StackGrowth="Bottom" Padding="4">
+      <Label WrapWidth="264" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="TXT_KEY_BC_SUMMARY_MANAGEMENT" />
+      <Label ID="AvailableCitizens" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="AdditionalRemoteCapacity" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="MaximumRemoteCapacity" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="PendingRequests" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="LockedRequests" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label ID="SubjugationProgress" WrapWidth="264" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+     </Stack>
+    </Grid>
+    <Label ID="Automatons" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Hidden="1" />
+    <Label ID="Yields" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   </Stack>
+  </ScrollPanel>
+  <GridButton ID="Mode" Anchor="L,T" Offset="22,306" Size="204,34" Style="BaseButton" />
+  <GridButton ID="Priority" Anchor="L,T" Offset="234,306" Size="204,34" Style="BaseButton" />
+  <GridButton ID="Direction" Anchor="L,T" Offset="446,306" Size="204,34" Style="BaseButton" />
+  <GridButton ID="Sort" Anchor="L,T" Offset="658,306" Size="216,34" Style="BaseButton" />
+  <ScrollPanel ID="Scroll" Anchor="L,T" Offset="22,354" Size="856,210" Vertical="1">
    <Stack ID="Rows" Anchor="L,T" StackGrowth="Bottom" Padding="4" />
   </ScrollPanel>
   <GridButton ID="Previous" Anchor="L,T" Offset="22,576" Size="160,34" Style="BaseButton" String="TXT_KEY_BC_PREVIOUS" />

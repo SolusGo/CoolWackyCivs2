@@ -62,6 +62,37 @@ local function yields(values)
  local words={};for i,y in ipairs(B.Yields) do words[#words+1]=(values[i] or 0)..' '..B.Text(y.name) end
  return table.concat(words,' / ')
 end
+local summaryFields={
+ {'Population','SUMMARY_POPULATION','population'}, {'OwnedPlots','SUMMARY_OWNED','owned'},
+ {'FrontierCulture','SUMMARY_FRONTIER','progress'}, {'FrontierCost','SUMMARY_FRONTIER_COST','cost'},
+ {'LocalWorkers','SUMMARY_LOCAL','localCount'}, {'RemoteWorkers','SUMMARY_REMOTE','remote'},
+ {'Specialists','SUMMARY_SPECIALISTS','specialists'}, {'IdleLabourers','SUMMARY_IDLE','idle'},
+ {'UnassignedCitizens','SUMMARY_UNASSIGNED','unassigned'}, {'AvailableCitizens','SUMMARY_AVAILABLE','availableCitizens'},
+ {'AdditionalRemoteCapacity','SUMMARY_ADDITIONAL','availableRemote'}, {'MaximumRemoteCapacity','SUMMARY_MAXIMUM','maximumRemote'},
+ {'PendingRequests','SUMMARY_PENDING','pending'}, {'LockedRequests','SUMMARY_LOCKED','locks'}
+}
+local function summary(s,info,cache)
+ -- A literal pipe in a localized base string separates grammatical forms.
+ -- Keep each statistic in its own short localized label, with natural height.
+ local values=info or {owned=cache.count,progress=math.floor(s.progress or 0),cost=B.Cost(s)}
+ for _,field in ipairs(summaryFields) do
+  local value=values[field[3]]
+  Controls[field[1]]:SetText(B.Text(field[2],value~=nil and value or B.Text('SUMMARY_UNAVAILABLE')))
+ end
+ local done,total=B.DominationProgress(s)
+ Controls.SubjugationProgress:SetText(B.Text('SUBJUGATION_PROGRESS',done,total))
+ Controls.CapitalStatus:SetHide(info~=nil)
+ if not info then Controls.CapitalStatus:SetText(B.Text('CAPITAL_LOST')) end
+ Controls.Automatons:SetHide(not info or info.automata<=0)
+ if info and info.automata>0 then Controls.Automatons:SetText(B.Text('AUTOMATONS',info.automata)) end
+ -- Grow the shared body to its tallest column, then let the overview scroll.
+ -- Long translations/large numbers cannot push into the fixed action controls.
+ local height=0
+ for _,name in ipairs({'TerritoryStack','WorkforceStack','ManagementStack'}) do
+  local stack=Controls[name];stack:CalculateSize();stack:ReprocessAnchoring();height=math.max(height,stack:GetSizeY())
+ end
+ Controls.SummaryBody:SetSizeY(height)
+end
 local function render()
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local reason
@@ -79,13 +110,10 @@ local function render()
  if not opened then return end
  if not city then siege=true end
  local info=city and B.Summary(s);local cache=B.Ownership(s)
- local summary=info and B.Text('SUMMARY',info.population,info.owned,info.localCount,info.remote,info.specialists,info.idle,info.unassigned,info.availableCitizens,info.availableRemote,info.maximumRemote,info.pending,info.locks,info.progress,info.cost) or B.Text('CAPITAL_LOST')
- if info and info.automata>0 then summary=summary..'[NEWLINE]'..B.Text('AUTOMATONS',info.automata) end
- local done,total=B.DominationProgress(s)
- summary=summary..'[NEWLINE]'..B.Text('SUBJUGATION_PROGRESS',done,total)
- Controls.Summary:SetText(summary)
+ summary(s,info,cache)
  local net={};for i=1,#B.Yields do net[i]=(cache.remoteYields and cache.remoteYields[i] or 0)-(cache.labourerYields and cache.labourerYields[i] or 0) end
  Controls.Yields:SetText(B.Text('YIELDS',yields(cache.remoteYields or {}),yields(cache.labourerYields or {}),yields(net)))
+ Controls.Overview:CalculateSize();Controls.Overview:ReprocessAnchoring();Controls.OverviewScroll:CalculateInternalSize()
  Controls.Mode:SetText(B.Text(s.mode));Controls.Priority:SetText(B.Text(s.priority))
  Controls.Mode:SetDisabled(not city);Controls.Priority:SetDisabled(not city);Controls.Direction:SetDisabled(not city)
  Controls.Direction:SetText(B.Text('DIRECTION')..': '..B.Text(s.direction));Controls.Sort:SetText(B.Text(sort))

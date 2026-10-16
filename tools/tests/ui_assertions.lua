@@ -20,6 +20,8 @@ local function control()
  function c:SetDisabled(value) self.disabled=value end
  function c:RegisterCallback(kind,fn) self.callback=fn end
  function c:CalculateSize() end;function c:ReprocessAnchoring() end;function c:CalculateInternalSize() end
+ function c:GetSizeY() return self.height or 1 end
+ function c:SetSizeY(value) self.height=value end
  return c
 end
 local nativeScreens={}
@@ -27,7 +29,10 @@ for _,path in ipairs({'/InGame/SocialPolicyPopup','/InGame/DeclareWarPopup','/In
  nativeScreens[path]=control();nativeScreens[path].hidden=true
 end
 function ContextPtr:LookUpControl(path) return nativeScreens[path] end
-Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Summary','Yields','Mode','Priority','Direction','Sort','Help','Page','Previous','Next','Scroll','Open','Close','Siege'}) do Controls[name]=control() end
+Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Yields','Mode','Priority','Direction','Sort','Help','Page','Previous','Next','Scroll','Open','Close','Siege',
+ 'Population','OwnedPlots','FrontierCulture','FrontierCost','LocalWorkers','RemoteWorkers','Specialists','IdleLabourers',
+ 'UnassignedCitizens','AvailableCitizens','AdditionalRemoteCapacity','MaximumRemoteCapacity','PendingRequests','LockedRequests',
+ 'SubjugationProgress','CapitalStatus','Automatons','TerritoryStack','WorkforceStack','ManagementStack','SummaryBody','Overview','OverviewScroll'}) do Controls[name]=control() end
 InstanceManager={}
 function InstanceManager:new()
  local manager={count=0}
@@ -38,7 +43,7 @@ end
 LoadWorkforceUI()
 assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
 Controls.Open.callback();assert(not Controls.Panel.hidden)
-capital.automatons=1;capital.unassigned=1;LuaEvents.BoundlessChanged.Fire(0);assert(Controls.Summary.text:find('AUTOMATONS'))
+capital.automatons=1;capital.unassigned=1;LuaEvents.BoundlessChanged.Fire(0);assert(not Controls.Automatons.hidden and Controls.Automatons.text:find('AUTOMATONS'))
 capital.automatons=0;capital.unassigned=0;LuaEvents.BoundlessChanged.Fire(0)
 native.leader=true;nativeScreens['/LeaderHeadRoot'].hidden=false
 Events.AILeaderMessage.Fire();Pump();assert(Controls.Panel.hidden and Controls.Launcher.hidden)
@@ -132,12 +137,12 @@ local s=MapModData.BoundlessCity.State(0)
 local unit=MakeUnit(99,600);function unit:GetX() return 2 end;function unit:GetY() return 5 end
 function unit:MovesLeft() return 60 end
 capital.owner=1;capital.damage=199;Players[0].cities={};Players[1].cities[#Players[1].cities+1]=capital
-LuaEvents.BoundlessChanged.Fire(0);assert(not Controls.Launcher.hidden and Controls.Summary.text:find('CAPITAL_LOST'))
+LuaEvents.BoundlessChanged.Fire(0);assert(not Controls.Launcher.hidden and not Controls.CapitalStatus.hidden and Controls.CapitalStatus.text:find('CAPITAL_LOST'))
 local reclaim=false;for _,r in ipairs(UIRows) do if r.Assign.text:find('RECLAIM') then reclaim=not r.Assign.disabled end end
 assert(reclaim,'lost-capital panel must offer the eligible reclaim action')
 assert(Controls.Mode.disabled and Controls.Priority.disabled)
 capital.owner=0;Players[0].cities={capital};Players[1].cities[#Players[1].cities]=nil
-LuaEvents.BoundlessChanged.Fire(0);assert(not Controls.Mode.disabled)
+LuaEvents.BoundlessChanged.Fire(0);assert(not Controls.Mode.disabled and Controls.CapitalStatus.hidden)
 end
 Controls.Siege.callback();Controls.Close.callback();Pump()
 assert(deferred==nil,'siege refresh must remain event-driven')

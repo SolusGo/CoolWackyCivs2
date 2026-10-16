@@ -70,9 +70,9 @@
     <File md5="36E736BD59C756960EFD3CD08BDACFD8" import="0">TheBoundlessCity/SQL/01_BC_Inheritance.sql</File>
     <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
     <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
-    <File md5="F82118AA9DE7AA44C4DE2B83EABEEC69" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
-    <File md5="E480EEAEEAFFA99B220ADBAD1A0599B6" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
-    <File md5="C291A98321D8A158063F4F27B4A830F1" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
+    <File md5="2C894E80142AED7729D60D618F85E2BE" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
+    <File md5="1E42F85BE2B809DA6AE190C1C9FF9705" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
+    <File md5="1A966A90AB1619354264878D2A29B7E0" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
     <File md5="37E27BF1A38FB5781EF47F768DE26057" import="1">TheRepublicOfPigeons/Art/PigeonAlpha128.dds</File>
     <File md5="2A949A15E447F4BAC1B36C1FD87F7CC2" import="1">TheRepublicOfPigeons/Art/PigeonAlpha16.dds</File>
     <File md5="A89BF29B420A7338A67429A0840AC00C" import="1">TheRepublicOfPigeons/Art/PigeonAlpha24.dds</File>

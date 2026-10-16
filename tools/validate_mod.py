@@ -126,3 +126,5 @@ if __name__=='__main__':
     sql();syntax();runtime();package();coexist()
     from validate_pigeons import validate
     validate()
+    from validate_summary import validate as validate_summary
+    validate_summary()

@@ -1,5 +1,12 @@
 # The Boundless City changelog
 
+## Workforce summary display — 2026-10-16
+
+- Removed display pipes from the legacy summary key: Civ V uses them to select alternative text forms, so the old first form contained only Population.
+- Replaced the single summary label with fifteen short localized fields across Territory, Workforce and Management. All census, ownership, Frontier Culture/cost and subjugation values come from current existing APIs; unavailable capital statistics are identified explicitly.
+- Put naturally wrapped summary columns, automaton/capital warnings and yields inside one overview scroll area. Preserved the 900×700 panel, action controls, paged plot list, military interface and event-driven refresh.
+- Added focused SQL/formatter, zero/large-value, layout, live census/territory/Registry/action, load/capital-return and screen-transition regressions. No gameplay, balance, package version or save-schema change. Native rendering still needs the documented live check.
+
 ## 1.2.2 Workforce UI hotfix / mod version 4 — 2026-10-15
 
 - Fixed visibility decisions that could leave the Workforce button hidden after a missed popup, city or diplomacy close notification. Read current native screen/mode state and actual BNW popup contexts.
