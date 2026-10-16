@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>An endless city, a republic on the wing, and a living legend.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, and The Indigo Champion led by Trainer Red. Train an elite Champion Team, bond with Pokémon Aces and journey to Mt. Silver. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>An endless city, a republic on the wing, a living legend and an endless lobby.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion and McPvP - The Endless Lobby. Compete in Hardcore Games, Capture the Flag and Sabotage as The Old Guard. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -30,6 +30,31 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>Shared/SQL/00_OptionalCompatibility.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>McPvP/SQL/00_MCP_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>McPvP/SQL/01_MCP_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>McPvP/SQL/02_MCP_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>McPvP/SQL/03_MCP_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>McPvP/SQL/10_MCP_Text.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -131,6 +156,12 @@
         <Description>Trainer Red simulation and event-driven Champion Team panel.</Description>
         <FileName>TrainerRed/UI/RED_TeamPanel.xml</FileName>
       </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>McPvP Server Browser</Name>
+        <Description>Persistent matches, kits, objectives and Server Legacy.</Description>
+        <FileName>McPvP/UI/MCP_ServerBrowser.xml</FileName>
+      </Content>
     </ModContent>
     <ModDependencies>
       <Association>
@@ -162,6 +193,192 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Shared/SQL/00_OptionalCompatibility.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/MCP_Promotions80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Lua/MCP_AI.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Lua/MCP_Core.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Lua/MCP_Events.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Lua/MCP_Kits.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Lua/MCP_Matches.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Lua/MCP_SaveData.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/SQL/00_MCP_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/SQL/01_MCP_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/SQL/02_MCP_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/SQL/03_MCP_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/SQL/10_MCP_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/UI/MCP_ServerBrowser.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/UI/MCP_ServerBrowser.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheBoundlessCity/Art/BoundlessAlpha128.dds">
@@ -667,6 +884,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="McPvP\" />
+    <Folder Include="McPvP\Art\" />
+    <Folder Include="McPvP\Lua\" />
+    <Folder Include="McPvP\SQL\" />
+    <Folder Include="McPvP\UI\" />
     <Folder Include="Shared\" />
     <Folder Include="Shared\SQL\" />
     <Folder Include="TheBoundlessCity\" />

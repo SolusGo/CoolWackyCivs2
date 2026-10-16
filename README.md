@@ -2,7 +2,9 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 7 (collection release **1.4.0 preview**) includes **The Boundless City**, **The Republic of Pigeons** and **The Indigo Champion**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+Mod version 7 (collection release **1.4.0 preview**) includes **The Boundless City**, **The Republic of Pigeons**, **The Indigo Champion** and **McPvP — The Endless Lobby**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+
+**New: McPvP — The Endless Lobby**, led by **The Old Guard**. Choose Kangaroo, Stomper, Endermage, Thor or Viper, then queue Hardcore Games, Capture the Flag or Sabotage in the Server Browser. Contested Feasts, returned flags and warned infiltrations build persistent Server Legacy. Veteran PvPers keep their identity through upgrades; Original Server Hubs preserve Barracks benefits and train kit-ready units. Information Era brings Legacy Unforgotten while play continues. SQL, pinned CP v151 APIs, original art and four Lua simulation suites pass; native gameplay/rendering/save round trips remain unverified. See the [guide](McPvP/README.md), [report](McPvP/docs/ImplementationReport.md) and [native checklist](McPvP/docs/Testing.md).
 
 **New: Trainer Red — The Indigo Champion.** Train persistent military partners, assemble a six-slot Champion Team, bond Pokémon Aces and complete Journey to Mt. Silver. Includes Pokémon Centers, Indigo Plateau, six legendary identities, original artwork and a roster/actions panel. Red SQL, CP source-contract checks and four Lua simulation suites pass; native gameplay and AI-only matches remain unverified. See the [civ guide](TrainerRed/README.md), [implementation report](TrainerRed/docs/ImplementationReport.md) and [native checklist](TrainerRed/docs/Testing.md).
 
@@ -19,6 +21,7 @@ Mod version 7 (collection release **1.4.0 preview**) includes **The Boundless Ci
 | The Boundless City | The First Architect | The World Is One City | The Grand Registry, replacing Monument | Frontier Surveyor, replacing Worker | [Civ page](docs/civilizations/TheBoundlessCity.md) · [Detailed README](TheBoundlessCity/README.md) |
 | The Republic of Pigeons | Postmaster General Coo | Messages on the Wing | Rooftop Roost, replacing Caravansary | Carrier Pigeon, replacing Scout | [Civ page](docs/civilizations/TheRepublicOfPigeons.md) · [Detailed README](TheRepublicOfPigeons/README.md) |
 | The Indigo Champion | Trainer Red | The Living Legend | Pokémon Center (Hospital), Indigo Plateau (Heroic Epic), Journey to Mt. Silver project | Pokémon Ace, replacing Great General | [Civ page](docs/civilizations/TrainerRed.md) · [Detailed README](TrainerRed/README.md) |
+| McPvP — The Endless Lobby | The Old Guard | Just One More Game | Original Server Hub, replacing Barracks | Veteran PvPer, replacing Scout | [Civ page](docs/civilizations/McPvP.md) · [Detailed README](McPvP/README.md) |
 
 Every future civilization should receive a dedicated roster page, a gameplay README, a changelog and a validation record. The [documentation convention](docs/AddingCivilizations.md) describes the layout.
 
@@ -27,8 +30,9 @@ Every future civilization should receive a dedicated roster page, a gameplay REA
 1. Install Civilization V with Brave New World and the Windows Community Patch **v151**. The Community Patch dependency is declared in the modinfo; no replacement DLL is included.
 2. Build the release archives as below, or use a provided archive from this repository's distribution output.
 3. Extract `dist/Cool Wacky Civs 2 (v 7).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 7).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
-4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the three leaders.
+4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the four leaders.
 5. As **Trainer Red**, found **Pallet Town**, preserve trained military partners and open **Champion Team** from the upper-right button. As **Postmaster General Coo**, found **Coopolis**, explore with Carrier Pigeons, and establish outgoing land Trade Routes. As **The First Architect**, found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
+6. As **The Old Guard**, found **Lobby One** and open **McPvP Server Browser** at the upper right. Select a Veteran on the map, choose a kit and queue the next match. Train military units in Original Server Hubs to unlock more kits and earn Legacy.
 
 For The Boundless City, the initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. The Pigeon Republic and Indigo Champion follow ordinary settlement rules. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Boundless version 1 saves migrate explicitly, while version 2 state migrates to schema 3 without resetting progress. Back up older saves before upgrading; native save testing is outstanding. Downgrading is unsupported. Older native saves can retain the previous survival-trait cache until a normal technology or policy refresh; test that separately before relying on capital-loss survival.
 
@@ -62,6 +66,8 @@ Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, writte
 | `TheBoundlessCity/docs` | API audit, implementation, limitations, live test checklist, benchmark and original specification |
 | `TheRepublicOfPigeons` | Pigeon SQL, event-driven trade addin, 34 DDS textures, gameplay and validation guides |
 | `TrainerRed` | Red SQL, persistent Training/roster/combat/Ace/Mt. Silver/AI Lua, party panel, 58 mipmapped DDS assets and gameplay/testing documentation |
+| `McPvP` | Three persistent match modes, five kits, Server Browser, Legacy/remembrance, conservative AI, 48 DDS assets and validation/report guides |
+| `art-source/McPvP` | Original deterministic geometric lobby, Old Guard portrait and kit/object symbols |
 | `art-source/TrainerRed` | Original generated summit leader/loading paintings, icon preview and provenance |
 | `docs/civilizations` | One dedicated Markdown page per civilization |
 | `art-source/TheBoundlessCity` | Original generated illustration, insignia preview and asset provenance |

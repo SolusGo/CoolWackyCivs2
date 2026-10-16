@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="MCPServerBrowser">
+ <Grid ID="Launcher" Anchor="R,T" Offset="14,232" Size="245,36" Style="GridBlackIndent8" Hidden="1">
+  <GridButton ID="Open" Anchor="C,C" Size="235,30" Style="BaseButton" String="TXT_KEY_MCPVP_BROWSER" />
+ </Grid>
+ <Grid ID="Panel" Anchor="C,C" Size="980,700" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+  <Label Anchor="L,T" Offset="24,18" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_MCPVP_BROWSER" />
+  <GridButton ID="Close" Anchor="R,T" Offset="22,16" Size="80,30" Style="BaseButton" String="TXT_KEY_MCPVP_CLOSE" />
+  <GridButton ID="QueueHG" Anchor="L,T" Offset="24,58" Size="280,32" Style="BaseButton" String="TXT_KEY_MCPVP_QUEUE_HG" />
+  <GridButton ID="QueueCTF" Anchor="L,T" Offset="314,58" Size="280,32" Style="BaseButton" String="TXT_KEY_MCPVP_QUEUE_CTF" />
+  <GridButton ID="QueueSAB" Anchor="L,T" Offset="604,58" Size="280,32" Style="BaseButton" String="TXT_KEY_MCPVP_QUEUE_SAB" />
+  <ScrollPanel ID="StatusScroll" Anchor="L,T" Offset="24,102" Size="928,220" Vertical="1">
+   <Stack ID="StatusStack" Anchor="L,T" StackGrowth="Bottom" Padding="8">
+    <Label ID="Summary" WrapWidth="900" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
+    <Label ID="Objective" WrapWidth="900" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    <Label ID="LastMatch" WrapWidth="900" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   </Stack>
+  </ScrollPanel>
+  <GridButton ID="Locate" Anchor="L,T" Offset="24,332" Size="200,32" Style="BaseButton" String="TXT_KEY_MCPVP_LOCATE" />
+  <Label ID="UnitInfo" Anchor="L,T" Offset="236,337" WrapWidth="700" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
+  <GridButton ID="Kangaroo" Anchor="L,T" Offset="24,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_KANGAROO" />
+  <GridButton ID="Stomper" Anchor="L,T" Offset="208,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_STOMPER" />
+  <GridButton ID="Endermage" Anchor="L,T" Offset="392,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_ENDERMAGE" />
+  <GridButton ID="Thor" Anchor="L,T" Offset="576,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_THOR" />
+  <GridButton ID="Viper" Anchor="L,T" Offset="760,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_VIPER" />
+  <Label ID="UnitDetails" Anchor="L,T" Offset="24,420" WrapWidth="924" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <GridButton ID="Target" Anchor="L,T" Offset="24,518" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_TARGET" />
+  <Label ID="TargetInfo" Anchor="L,T" Offset="254,524" WrapWidth="680" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <GridButton ID="Activate" Anchor="L,T" Offset="24,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_ACTIVATE" />
+  <GridButton ID="Steal" Anchor="L,T" Offset="254,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_STEAL" />
+  <GridButton ID="Return" Anchor="L,T" Offset="484,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_RETURN" />
+  <GridButton ID="Infiltrate" Anchor="L,T" Offset="714,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_INFILTRATE" />
+  <Label Anchor="L,T" Offset="24,618" WrapWidth="924" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TXT_KEY_MCPVP_PANEL_HELP" />
+ </Grid>
+</Context>

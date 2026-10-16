@@ -1,5 +1,13 @@
 # Changelog
 
+## McPvP implementation preview / mod version 7 — 2026-10-17
+
+- Added McPvP — The Endless Lobby under The Old Guard, with a persistent Server Browser, queued match cycles, contested Hardcore Games Feasts, Capture the Flag and warned Sabotage.
+- Added five distinct kits, persistent Veteran Scout upgrades/retraining, Original Server Hub, capped Server Legacy, capital Culture milestones and Information Era remembrance.
+- Added conservative AI using real objectives, original geometric artwork, 48 DDS assets, English presentation and complete player/implementation/testing documentation.
+- Added actual-schema SQL, pinned CP v151 API/event checks and four Lua 5.1 simulation suites to the collection validator. The builder now loads Shared compatibility before every civilization, including names sorting before Shared.
+- Full collection regressions and package/art checks pass. Native Civ V gameplay, rendering, save round trips and AI-only games remain unverified; multiplayer/hotseat remain unsupported. See the [McPvP report](McPvP/docs/ImplementationReport.md).
+
 ## 1.4.0 Trainer Red preview / mod version 7 — 2026-10-16
 
 - Added The Indigo Champion under Trainer Red with persistent Training, a six-slot Champion Team, Momentum/Ribbons, Pokémon Ace/Center, Indigo Plateau and journalled Journey to Mt. Silver.

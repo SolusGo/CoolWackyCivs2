@@ -91,7 +91,7 @@ def package():
             header=p.read_bytes()[:128];assert header[:4]==b'DDS ' and struct.unpack_from('<I',header,4)[0]==124
             from PIL import Image
             with Image.open(p) as im:im.load();assert im.width>0 and im.height>0
-    assert [e.text for e in root.findall('Actions/OnModActivated/UpdateDatabase')]==sorted(n for n in actual if n.endswith('.sql'))
+    assert [e.text for e in root.findall('Actions/OnModActivated/UpdateDatabase')]==[n for n in actual if n.endswith('.sql')]
     assert [(e.get('file'),e.findtext('Name'),e.findtext('Description')) for e in root.findall('EntryPoints/EntryPoint')]==ENTRIES
     project=ET.parse(R/'CoolWackyCivs2.civ5proj').getroot();prefix='{'+NS+'}'
     assert project.findtext(prefix+'PropertyGroup/'+prefix+'ModVersion')==VERSION
@@ -130,3 +130,5 @@ if __name__=='__main__':
     validate_summary()
     from validate_red import validate as validate_red
     validate_red()
+    from validate_mcpvp import validate as validate_mcpvp
+    validate_mcpvp()

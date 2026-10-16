@@ -2,8 +2,8 @@
 <Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="7">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>An endless city, a republic on the wing, and a living legend.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, and The Indigo Champion led by Trainer Red. Train an elite Champion Team, bond with Pokémon Aces and journey to Mt. Silver. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>An endless city, a republic on the wing, a living legend and an endless lobby.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion and McPvP - The Endless Lobby. Compete in Hardcore Games, Capture the Flag and Sabotage as The Old Guard. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -25,6 +25,68 @@
   <Blocks />
   <Files>
     <File md5="188E65005794110029E955ED090F3ADD" import="0">Shared/SQL/00_OptionalCompatibility.sql</File>
+    <File md5="10EC40062A849C440D5B3ACB96DC7EB2" import="1">McPvP/Art/MCP_Alpha128.dds</File>
+    <File md5="EDB0ED396DD24563641575079608D4F1" import="1">McPvP/Art/MCP_Alpha16.dds</File>
+    <File md5="7AF183BD6C4B4E32A0650B5DEF44348F" import="1">McPvP/Art/MCP_Alpha24.dds</File>
+    <File md5="F608E660B0F704136976268E5249D5DA" import="1">McPvP/Art/MCP_Alpha256.dds</File>
+    <File md5="EDBC941E8ACEF9C53665A0A7A704CD53" import="1">McPvP/Art/MCP_Alpha32.dds</File>
+    <File md5="311301E7DA7E137D10C0A104EB4C3D55" import="1">McPvP/Art/MCP_Alpha45.dds</File>
+    <File md5="0B71617F8F0477135DC722CDCF68E0B9" import="1">McPvP/Art/MCP_Alpha48.dds</File>
+    <File md5="77000965571D8164384248177F7BAF09" import="1">McPvP/Art/MCP_Alpha64.dds</File>
+    <File md5="890CCB2615F17EC2736C99A0EC650C03" import="1">McPvP/Art/MCP_Alpha80.dds</File>
+    <File md5="8F61593F4E10C72B330AA8856295A3C2" import="1">McPvP/Art/MCP_Dawn.dds</File>
+    <File md5="1A244F873D8F1096EC4DE7BD9D40C2E0" import="1">McPvP/Art/MCP_Icon128.dds</File>
+    <File md5="E1E9A3D3A8FED1E3CB23CE9086316999" import="1">McPvP/Art/MCP_Icon16.dds</File>
+    <File md5="42970AC854F24D9A74845D35B432CECB" import="1">McPvP/Art/MCP_Icon24.dds</File>
+    <File md5="623E56C23DA17EC1A3AD614D2AF532E0" import="1">McPvP/Art/MCP_Icon256.dds</File>
+    <File md5="236E28C41D4848EA3F2DFF4F19939667" import="1">McPvP/Art/MCP_Icon32.dds</File>
+    <File md5="413E1A5624CA8AE09EAB0FE88AB0C076" import="1">McPvP/Art/MCP_Icon45.dds</File>
+    <File md5="99F4679C23B453312E5D6E48E4E1D418" import="1">McPvP/Art/MCP_Icon48.dds</File>
+    <File md5="AA4F40EFBFA241B6F7DE55ED3F16C94D" import="1">McPvP/Art/MCP_Icon64.dds</File>
+    <File md5="89E7ED946BA702C5BF432D7485A767E2" import="1">McPvP/Art/MCP_Icon80.dds</File>
+    <File md5="8F61593F4E10C72B330AA8856295A3C2" import="1">McPvP/Art/MCP_Leader.dds</File>
+    <File md5="B9946594D73107A7E159998D975D0D95" import="1">McPvP/Art/MCP_LeaderScene.xml</File>
+    <File md5="90AA883EF3CDFB4ED2A8DBBD63DBA0F6" import="1">McPvP/Art/MCP_Map.dds</File>
+    <File md5="071B51828507F29BA6513E2FFCA25D6A" import="1">McPvP/Art/MCP_Objects128.dds</File>
+    <File md5="94A889E954DB4E7ABABC7BC3808F0FE2" import="1">McPvP/Art/MCP_Objects16.dds</File>
+    <File md5="F6F6654532C433FEEB7A1A1C0997B1BC" import="1">McPvP/Art/MCP_Objects24.dds</File>
+    <File md5="386CBE39435DA22C91CC204BF97C4D7E" import="1">McPvP/Art/MCP_Objects256.dds</File>
+    <File md5="992916CEF7903C394413C409E2C3EFAB" import="1">McPvP/Art/MCP_Objects32.dds</File>
+    <File md5="1D702D9ACFB506BDFCDC1042FF8D3AD6" import="1">McPvP/Art/MCP_Objects45.dds</File>
+    <File md5="DA698DEAC473E5D8E85D39974B98C27A" import="1">McPvP/Art/MCP_Objects48.dds</File>
+    <File md5="7CC92FBFADEA3CF55541472015391CB1" import="1">McPvP/Art/MCP_Objects64.dds</File>
+    <File md5="32567A04C15258108163B71C8E5A4248" import="1">McPvP/Art/MCP_Objects80.dds</File>
+    <File md5="7D1871559F16F01A3AB7267F7FF17421" import="1">McPvP/Art/MCP_Portrait128.dds</File>
+    <File md5="841A2DFB240B36E545C7DFFCF94E4FFA" import="1">McPvP/Art/MCP_Portrait16.dds</File>
+    <File md5="5818FDE233881F9C6E51E52B4F2AFC2F" import="1">McPvP/Art/MCP_Portrait24.dds</File>
+    <File md5="F8B1EFFE734B47438073BF3FA1E874FA" import="1">McPvP/Art/MCP_Portrait256.dds</File>
+    <File md5="8B55304162A1EEE2B97D9B371E084C23" import="1">McPvP/Art/MCP_Portrait32.dds</File>
+    <File md5="083DF546E91B26B83B393301501A293B" import="1">McPvP/Art/MCP_Portrait45.dds</File>
+    <File md5="AB64011DC23A96208399DB76CDF52C58" import="1">McPvP/Art/MCP_Portrait48.dds</File>
+    <File md5="4CB972E5EBCDE9DCB9F336B163AC1391" import="1">McPvP/Art/MCP_Portrait64.dds</File>
+    <File md5="9FFC23AA863B6CD75A622E4C909DBBC9" import="1">McPvP/Art/MCP_Portrait80.dds</File>
+    <File md5="52EABEE5ADB790E2937FA15A6464B44F" import="1">McPvP/Art/MCP_Promotions128.dds</File>
+    <File md5="F0EA4ED8DC4062EF50CCB9FD515AF224" import="1">McPvP/Art/MCP_Promotions16.dds</File>
+    <File md5="E2A2553DE39B6815FCE63C98F0975711" import="1">McPvP/Art/MCP_Promotions24.dds</File>
+    <File md5="CBD1825232216E2B45B4984F79C28D65" import="1">McPvP/Art/MCP_Promotions256.dds</File>
+    <File md5="289D580C02B793FAEAF6E5F476222AE4" import="1">McPvP/Art/MCP_Promotions32.dds</File>
+    <File md5="D2CD41097CD5CFB5EBD78B883F0BBAA5" import="1">McPvP/Art/MCP_Promotions45.dds</File>
+    <File md5="2756A6654B36C01F98DA8D8C0B0124E6" import="1">McPvP/Art/MCP_Promotions48.dds</File>
+    <File md5="9753FFE3A43EA440DCA7BE5F614E93E3" import="1">McPvP/Art/MCP_Promotions64.dds</File>
+    <File md5="A1A367C626329354E428327ED7A4C5E7" import="1">McPvP/Art/MCP_Promotions80.dds</File>
+    <File md5="77D44CB6B722F2F9E3FB5A4B21D0FFF3" import="1">McPvP/Lua/MCP_AI.lua</File>
+    <File md5="EF922F2C00983916D864D035235E4F2A" import="1">McPvP/Lua/MCP_Core.lua</File>
+    <File md5="310A26D73B262B1F42C67FF076F546EC" import="1">McPvP/Lua/MCP_Events.lua</File>
+    <File md5="5E291B7FBC7AD219687FE475AE529973" import="1">McPvP/Lua/MCP_Kits.lua</File>
+    <File md5="369D4DB61764D519EC8A19D79DAEE078" import="1">McPvP/Lua/MCP_Matches.lua</File>
+    <File md5="CA93DD356926B461C08410F60D3590D0" import="1">McPvP/Lua/MCP_SaveData.lua</File>
+    <File md5="CF3C0D80BB85F2A8695432665BCCB7B9" import="0">McPvP/SQL/00_MCP_Core.sql</File>
+    <File md5="2107793520C1C24B53D1A136A20AE75C" import="0">McPvP/SQL/01_MCP_Inheritance.sql</File>
+    <File md5="202C7EF74E5C5375DC79008285FB3C28" import="0">McPvP/SQL/02_MCP_Effects.sql</File>
+    <File md5="89565490B22006C312444DB3463DC4C1" import="0">McPvP/SQL/03_MCP_Art.sql</File>
+    <File md5="95741DE84A63B86599FFCE094F99F2AB" import="0">McPvP/SQL/10_MCP_Text.sql</File>
+    <File md5="32783585B584122D0EEC01B1196BFA15" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
+    <File md5="6607246C4E4B801E80BEC662372B5B44" import="0">McPvP/UI/MCP_ServerBrowser.xml</File>
     <File md5="D3588A7BC9AB350EACDA84921EBAF924" import="1">TheBoundlessCity/Art/BoundlessAlpha128.dds</File>
     <File md5="AFC07018A9BAAC46FA381C936A49E74F" import="1">TheBoundlessCity/Art/BoundlessAlpha16.dds</File>
     <File md5="989AB9944B0CB53943CDB28AB2705D51" import="1">TheBoundlessCity/Art/BoundlessAlpha24.dds</File>
@@ -196,6 +258,11 @@
   <Actions>
     <OnModActivated>
       <UpdateDatabase>Shared/SQL/00_OptionalCompatibility.sql</UpdateDatabase>
+      <UpdateDatabase>McPvP/SQL/00_MCP_Core.sql</UpdateDatabase>
+      <UpdateDatabase>McPvP/SQL/01_MCP_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>McPvP/SQL/02_MCP_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>McPvP/SQL/03_MCP_Art.sql</UpdateDatabase>
+      <UpdateDatabase>McPvP/SQL/10_MCP_Text.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/00_BC_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/01_BC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/02_BC_Effects.sql</UpdateDatabase>
@@ -226,6 +293,10 @@
     <EntryPoint type="InGameUIAddin" file="TrainerRed/UI/RED_TeamPanel.xml">
       <Name>Champion Team</Name>
       <Description>Trainer Red simulation and event-driven Champion Team panel.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="McPvP/UI/MCP_ServerBrowser.xml">
+      <Name>McPvP Server Browser</Name>
+      <Description>Persistent matches, kits, objectives and Server Legacy.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>
