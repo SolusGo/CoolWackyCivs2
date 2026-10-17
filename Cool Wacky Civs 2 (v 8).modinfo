@@ -178,9 +178,9 @@
     <File md5="315516DF2C7AE70ABBDA7AFB146F417E" import="1">TheChildrenOfTheKingdom/Lua/CK_State.lua</File>
     <File md5="B70120427A50091F8AF4D79B9942F906" import="0">TheChildrenOfTheKingdom/SQL/00_CK_Core.sql</File>
     <File md5="C1CB324618EC947DF4C0441D1068590A" import="0">TheChildrenOfTheKingdom/SQL/01_CK_Inheritance.sql</File>
-    <File md5="07C6E738199F60301CBE7D0C1F2699D4" import="0">TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</File>
+    <File md5="559B5F373E7E70DCF567AAC8585F7273" import="0">TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</File>
     <File md5="31BF4D2D447EB1C8A23D5AA59DDF7B6F" import="0">TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</File>
-    <File md5="8AE5B29B4FAB0B6B57D47CBE41C69BB4" import="0">TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</File>
+    <File md5="CC571DA98041E22CCA83291565DB3A91" import="0">TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</File>
     <File md5="062063722DF625385C8BB7356B086940" import="1">TheChildrenOfTheKingdom/UI/CK_Prayer.lua</File>
     <File md5="EF42C212EF94C066122AC233E6FC52BD" import="0">TheChildrenOfTheKingdom/UI/CK_Prayer.xml</File>
     <File md5="37E27BF1A38FB5781EF47F768DE26057" import="1">TheRepublicOfPigeons/Art/PigeonAlpha128.dds</File>

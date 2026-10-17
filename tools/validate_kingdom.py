@@ -37,7 +37,7 @@ def sql():
     assert not d.execute('SELECT 1 FROM Unit_FreePromotions WHERE UnitType=? AND PromotionType LIKE ?',(UNIT,'PROMOTION_CK_%')).fetchone()
     for name,defense,heal,lost in [('STAND',0,5,0),('DEFENDER',15,0,1),('SHIELD',15,0,1)]:
         p=d.execute('SELECT * FROM UnitPromotions WHERE Type=?',('PROMOTION_CK_'+name,)).fetchone()
-        assert (p['DefenseMod'],p['FriendlyHealChange'],p['LostWithUpgrade'],p['AttackMod'],p['FriendlyLandsModifier'])==(defense,heal,lost,0,0)
+        assert (p['DefenseMod'],p['EmbarkDefenseModifier'],p['FriendlyHealChange'],p['LostWithUpgrade'],p['AttackMod'],p['FriendlyLandsModifier'])==(defense,defense,heal,lost,0,0)
     assert d.execute("SELECT CultureRateModifier FROM Buildings WHERE Type='BUILDING_CK_SEEK'").fetchone()[0]==15
     assert d.execute("SELECT ExtraHappiness FROM Policies WHERE Type='POLICY_CK_REPENT'").fetchone()[0]==2
     assert d.execute("SELECT CityStrengthMod FROM Policies WHERE Type='POLICY_CK_PROTECTION'").fetchone()[0]==20
@@ -86,6 +86,9 @@ def source_audit():
     assert re.search(r'else\s*\{\s*// Regular defense modifier\s*iModifier \+= getDefenseModifier',ranged)
     assert 'm_iDefenseMod = kResults.GetInt("DefenseMod")' in sources['CvPromotionClasses']
     assert 'm_iFriendlyHealChange = kResults.GetInt("FriendlyHealChange")' in sources['CvPromotionClasses']
+    embarked=unit[unit.index('int CvUnit::GetEmbarkedUnitDefense()'):unit.index('int CvUnit::GetResistancePower(')]
+    assert 'int iModifier = GetEmbarkDefensiveModifier()' in embarked
+    assert 'ChangeEmbarkDefensiveModifier((thisPromotion.GetEmbarkDefenseModifier()) * iChange)' in unit
     assert 'GetNumPolicies' not in (V/'Lua/CK_Blessings.lua').read_text()
     policies=city[city.index('int CvCity::GetHappinessFromPolicies'):city.index('int CvCity::GetHappinessFromReligion')]
     assert re.search(r'if \(isCapital\(\)\)\s*\{\s*iTotalHappiness \+=.*POLICYMOD_EXTRA_HAPPINESS',policies)

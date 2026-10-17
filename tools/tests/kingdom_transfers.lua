@@ -29,6 +29,7 @@ for i=2,6 do TEST.advance();TEST.pray() end
 assert(upgraded:IsHasPromotion(k.SHIELD) and upgraded:IsHasPromotion(k.DEFENDER))
 local defender=GameInfo.UnitPromotions[k.DEFENDER];local shield=GameInfo.UnitPromotions[k.SHIELD]
 assert(defender.DefenseMod+shield.DefenseMod==30 and defender.AttackMod==0 and shield.AttackMod==0)
+assert(defender.EmbarkDefenseModifier+shield.EmbarkDefenseModifier==30,'native embarked defense has its own path')
 TEST.move(upgraded,TEST.plot(9,9,-1));assert(not upgraded:IsHasPromotion(k.DEFENDER) and not upgraded:IsHasPromotion(k.SHIELD))
 TEST.move(upgraded,old.plot);TEST.advance();assert(upgraded:IsHasPromotion(k.DEFENDER) and not upgraded:IsHasPromotion(k.SHIELD))
 -- AI-forced identity and foreign humans cannot activate, acquire progress, or retain bonuses.

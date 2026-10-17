@@ -57,7 +57,7 @@ TEXT = {
  'GRACE_CAP':'A full prayer is complete. Grace remains 7/7; receive {1_GAP} additional Golden Age Points.',
  'HOUSE_REWARD':'Completed Houses of Prayer: {1_Count}. Closing Glory grants {2_Faith} additional Faith.',
  'RESERVE':'Daily bread Production reserve: {1_Amount}. Applied safely to a finite capital queue; it moves with the capital.',
- 'CYCLE_HELP':'Petitions follow this fixed order: Address, Opening Glory, Seek, Ask, Repent, Protection, Closing Glory. Cycle shows the NEXT petition. Era level is 1 in Ancient, 2 in Classical, and so on. Durations and cooldown use the active speed\'s TrainPercent.',
+ 'CYCLE_HELP':'Petitions follow this fixed order: Address, Opening Glory, Seek, Ask, Repent, Protection, Closing Glory. Cycle shows the NEXT petition. Era level is 1 in Ancient, 2 in Classical, and so on. Blessing durations and the prayer cooldown scale with the active game speed.',
 }
 TEXT['FAITHFUL_TEXT_1']=TEXT['LEADER_PEDIA']; TEXT['CIV5_TEXT_1']=TEXT['CIV_PEDIA']
 for i,(name,quote,effect) in enumerate(STAGES,1):
@@ -89,7 +89,7 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_CK_KINGDOM'
     # The Temple remains an exact native clone. Human-only extras use a removable dummy.
     effects='-- No native free Stand Firm: Lua grants it only to human Kingdom Keepers.\n'
     for name,defense,heal,lost in [('STAND',0,5,0),('DEFENDER',15,0,1),('SHIELD',15,0,1)]:
-        effects+=f"INSERT INTO UnitPromotions(Type,Description,Help,DefenseMod,FriendlyHealChange,CannotBeChosen,LostWithUpgrade,PortraitIndex,IconAtlas,PediaType,PediaEntry) VALUES ('PROMOTION_CK_{name}','TXT_KEY_CK_{name}','TXT_KEY_CK_{name}_HELP',{defense},{heal},1,{lost},1,'CK_OBJECT_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_CK_{name}');\n"
+        effects+=f"INSERT INTO UnitPromotions(Type,Description,Help,DefenseMod,EmbarkDefenseModifier,FriendlyHealChange,CannotBeChosen,LostWithUpgrade,PortraitIndex,IconAtlas,PediaType,PediaEntry) VALUES ('PROMOTION_CK_{name}','TXT_KEY_CK_{name}','TXT_KEY_CK_{name}_HELP',{defense},{defense},{heal},1,{lost},1,'CK_OBJECT_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_CK_{name}');\n"
     for name in ['ADDRESS','SEEK','HOUSE_BONUS','GRACE_0','GRACE_1','GRACE_2']:
         effects+=f"INSERT INTO BuildingClasses(Type,DefaultBuilding,Description) VALUES ('BUILDINGCLASS_CK_{name}','BUILDING_CK_{name}','TXT_KEY_CK_DUMMY');\nINSERT INTO Buildings(Type,BuildingClass,Description,Help,Cost,FaithCost,GreatWorkCount,NeverCapture,NukeImmune,IsDummy,ShowInPedia,ConquestProb,IconAtlas,PortraitIndex) VALUES ('BUILDING_CK_{name}','BUILDINGCLASS_CK_{name}','TXT_KEY_CK_DUMMY','TXT_KEY_CK_DUMMY_HELP',-1,-1,-1,1,1,1,0,0,'CK_OBJECT_ATLAS',2);\n"
     for name,yields in [('ADDRESS',{'FAITH':2,'FOOD':1}),('HOUSE_BONUS',{'FAITH':1,'CULTURE':1})]+[(f'GRACE_{i}',{'FAITH':2**i,'CULTURE':2**i}) for i in range(3)]:
