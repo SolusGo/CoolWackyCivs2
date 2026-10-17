@@ -2,7 +2,9 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 7 (collection release **1.4.0 preview**) includes **The Boundless City**, **The Republic of Pigeons**, **The Indigo Champion** and **McPvP — The Endless Lobby**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+Mod version 8 (collection release **1.5.0 preview**) includes **The Boundless City**, **The Republic of Pigeons**, **The Indigo Champion**, **McPvP — The Endless Lobby** and **The Children of the Kingdom**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+
+**New: The Children of the Kingdom**, led by **The Faithful**. This human-only civilization follows seven petitions of the Lord's Prayer through an event-driven Prayer panel. Complete cycles for permanent capital Faith/Culture through Grace, preserve upgrade-retained Keepers of the Faith, and raise Houses of Prayer. Original leader/loading art, complete localization, CP v151 source contracts and four shipped-Lua simulation suites are included. Native gameplay/rendering/save round trips remain unverified. See the [guide](TheChildrenOfTheKingdom/README.md), [implementation and engine limits](TheChildrenOfTheKingdom/docs/Implementation.md) and [native checklist](TheChildrenOfTheKingdom/docs/Testing.md).
 
 **New: McPvP — The Endless Lobby**, led by **The Old Guard**. Choose Kangaroo, Stomper, Endermage, Thor or Viper, then queue Hardcore Games, Capture the Flag or Sabotage in the Server Browser. Contested Feasts, returned flags and warned infiltrations build persistent Server Legacy. Veteran PvPers keep their identity through upgrades; Original Server Hubs preserve Barracks benefits and train kit-ready units. Information Era brings Legacy Unforgotten while play continues. The reliability update fixes Viper's native combat argument handling, adds bounded AI detours and checks real Feast accessibility. SQL, pinned CP v151 APIs, original art and eight Lua simulation suites pass; native gameplay/rendering/save round trips remain unverified. See the [guide](McPvP/README.md), [reliability report](McPvP/docs/ReliabilityReport.md) and [native checklist](McPvP/docs/Testing.md).
 
@@ -22,6 +24,7 @@ Mod version 7 (collection release **1.4.0 preview**) includes **The Boundless Ci
 | The Republic of Pigeons | Postmaster General Coo | Messages on the Wing | Rooftop Roost, replacing Caravansary | Carrier Pigeon, replacing Scout | [Civ page](docs/civilizations/TheRepublicOfPigeons.md) · [Detailed README](TheRepublicOfPigeons/README.md) |
 | The Indigo Champion | Trainer Red | The Living Legend | Pokémon Center (Hospital), Indigo Plateau (Heroic Epic), Journey to Mt. Silver project | Pokémon Ace, replacing Great General | [Civ page](docs/civilizations/TrainerRed.md) · [Detailed README](TrainerRed/README.md) |
 | McPvP — The Endless Lobby | The Old Guard | Just One More Game | Original Server Hub, replacing Barracks | Veteran PvPer, replacing Scout | [Civ page](docs/civilizations/McPvP.md) · [Detailed README](McPvP/README.md) |
+| The Children of the Kingdom | The Faithful | Thy Kingdom Come | House of Prayer, replacing Temple | Keeper of the Faith, replacing Pikeman | [Civ page](docs/civilizations/TheChildrenOfTheKingdom.md) · [Detailed README](TheChildrenOfTheKingdom/README.md) |
 
 Every future civilization should receive a dedicated roster page, a gameplay README, a changelog and a validation record. The [documentation convention](docs/AddingCivilizations.md) describes the layout.
 
@@ -29,10 +32,11 @@ Every future civilization should receive a dedicated roster page, a gameplay REA
 
 1. Install Civilization V with Brave New World and the Windows Community Patch **v151**. The Community Patch dependency is declared in the modinfo; no replacement DLL is included.
 2. Build the release archives as below, or use a provided archive from this repository's distribution output.
-3. Extract `dist/Cool Wacky Civs 2 (v 7).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 7).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
-4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the four leaders.
+3. Extract `dist/Cool Wacky Civs 2 (v 8).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 8).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
+4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the five leaders.
 5. As **Trainer Red**, found **Pallet Town**, preserve trained military partners and open **Champion Team** from the upper-right button. As **Postmaster General Coo**, found **Coopolis**, explore with Carrier Pigeons, and establish outgoing land Trade Routes. As **The First Architect**, found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
 6. As **The Old Guard**, found **Lobby One** and open **McPvP Server Browser** at the upper right. Select a Veteran on the map, choose a kit and queue the next match. Train military units in Original Server Hubs to unlock more kits and earn Legacy.
+7. As **The Faithful**, found **Sanctuary** and open **Prayer** at the upper right. Activate the next petition when its cooldown is ready. Complete seven petitions to gain permanent Grace; Houses of Prayer add Faith to every completed cycle. The civilization is excluded from normal AI assignment.
 
 For The Boundless City, the initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. The Pigeon Republic and Indigo Champion follow ordinary settlement rules. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Boundless version 1 saves migrate explicitly, while version 2 state migrates to schema 3 without resetting progress. Back up older saves before upgrading; native save testing is outstanding. Downgrading is unsupported. Older native saves can retain the previous survival-trait cache until a normal technology or policy refresh; test that separately before relying on capital-loss survival.
 
@@ -53,6 +57,8 @@ python tools/build_mod.py
 
 Optional source audit: `python tools/audit_cp.py --fetch` and `python tools/validate_red.py --fetch` downloads the pinned official v151 sources into ignored `tools/reference/` and verifies 176 API/signature assertions. Later runs can omit `--fetch`. A read-only coexistence check compares UUIDs, VFS files, database identifiers and globals when the original collection is available as a sibling folder; combined live gameplay still needs testing.
 
+Kingdom-specific checks: `python tools/validate_kingdom.py` (also included in `validate_mod.py`). Use `python tools/validate_kingdom.py --fetch` to fetch its additional pinned policy source when updating an existing source cache. The [Kingdom test record](TheChildrenOfTheKingdom/docs/Testing.md) distinguishes static checks/simulations from the outstanding native checklist.
+
 Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, written to `dist/`. They are ignored by Git. ModBuddy users can open `CoolWackyCivs2.civ5sln`; `tools/build_mod.py` keeps its project and modinfo file lists, SQL ordering and VFS flags in sync.
 
 ## Repository layout
@@ -68,6 +74,8 @@ Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, writte
 | `TrainerRed` | Red SQL, persistent Training/roster/combat/Ace/Mt. Silver/AI Lua, party panel, 58 mipmapped DDS assets and gameplay/testing documentation |
 | `McPvP` | Three persistent match modes, five kits, Server Browser, Legacy/remembrance, conservative AI, 48 DDS assets and validation/report guides |
 | `art-source/McPvP` | Original deterministic geometric lobby, Old Guard portrait and kit/object symbols |
+| `TheChildrenOfTheKingdom` | Human-only seven-stage Prayer, persistent Grace/reserve, Keepers/Houses, 34 DDS textures and detailed implementation/native testing guides |
+| `art-source/TheChildrenOfTheKingdom` | Original Faithful/Sanctuary painting, drawn prayer/book/shield/sanctuary icons, map and exact generation prompt |
 | `art-source/TrainerRed` | Original generated summit leader/loading paintings, icon preview and provenance |
 | `docs/civilizations` | One dedicated Markdown page per civilization |
 | `art-source/TheBoundlessCity` | Original generated illustration, insignia preview and asset provenance |

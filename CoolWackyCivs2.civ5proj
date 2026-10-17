@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>An endless city, a republic on the wing, a living legend and an endless lobby.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion and McPvP - The Endless Lobby. Compete in Hardcore Games, Capture the Flag and Sabotage as The Old Guard. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Five civilizations: an endless city, wings, a champion, a lobby and a kingdom of prayer.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby and The Children of the Kingdom. Pray seven petitions as The Faithful and build permanent Grace. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>7</ModVersion>
+    <ModVersion>8</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -80,6 +80,31 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheBoundlessCity/SQL/10_BC_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheChildrenOfTheKingdom/SQL/00_CK_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheChildrenOfTheKingdom/SQL/01_CK_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -161,6 +186,12 @@
         <Name>McPvP Server Browser</Name>
         <Description>Persistent matches, kits, objectives and Server Legacy.</Description>
         <FileName>McPvP/UI/MCP_ServerBrowser.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Prayer</Name>
+        <Description>Human-only prayer petitions, permanent Grace and event-driven blessings.</Description>
+        <FileName>TheChildrenOfTheKingdom/UI/CK_Prayer.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -531,6 +562,144 @@
     <Content Include="TheBoundlessCity/UI/BoundlessWorkforce.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKAlpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKDawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKFlag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKIcon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKLeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKPortrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKPortrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CKPortrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Lua/CK_Blessings.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Lua/CK_Core.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Lua/CK_Events.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Lua/CK_State.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/SQL/00_CK_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/SQL/01_CK_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/SQL/03_CK_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/SQL/10_CK_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/UI/CK_Prayer.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/UI/CK_Prayer.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheRepublicOfPigeons/Art/PigeonAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -899,6 +1068,11 @@
     <Folder Include="TheBoundlessCity\Lua\" />
     <Folder Include="TheBoundlessCity\SQL\" />
     <Folder Include="TheBoundlessCity\UI\" />
+    <Folder Include="TheChildrenOfTheKingdom\" />
+    <Folder Include="TheChildrenOfTheKingdom\Art\" />
+    <Folder Include="TheChildrenOfTheKingdom\Lua\" />
+    <Folder Include="TheChildrenOfTheKingdom\SQL\" />
+    <Folder Include="TheChildrenOfTheKingdom\UI\" />
     <Folder Include="TheRepublicOfPigeons\" />
     <Folder Include="TheRepublicOfPigeons\Art\" />
     <Folder Include="TheRepublicOfPigeons\SQL\" />

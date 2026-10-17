@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="7">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="8">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>An endless city, a republic on the wing, a living legend and an endless lobby.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion and McPvP - The Endless Lobby. Compete in Hardcore Games, Capture the Flag and Sabotage as The Old Guard. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Five civilizations: an endless city, wings, a champion, a lobby and a kingdom of prayer.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby and The Children of the Kingdom. Pray seven petitions as The Faithful and build permanent Grace. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -137,6 +137,52 @@
     <File md5="2C894E80142AED7729D60D618F85E2BE" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
     <File md5="1E42F85BE2B809DA6AE190C1C9FF9705" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
     <File md5="1A966A90AB1619354264878D2A29B7E0" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
+    <File md5="6C112DA6BB2E1AF045D6CBE2C517B788" import="1">TheChildrenOfTheKingdom/Art/CKAlpha128.dds</File>
+    <File md5="FA27E04B9CDD0F512CBEA584BC066238" import="1">TheChildrenOfTheKingdom/Art/CKAlpha16.dds</File>
+    <File md5="3F8C8B0E51EED3367B878A7DA520A4D0" import="1">TheChildrenOfTheKingdom/Art/CKAlpha24.dds</File>
+    <File md5="0F87D90FF00C32D56B5D9F502F53A532" import="1">TheChildrenOfTheKingdom/Art/CKAlpha256.dds</File>
+    <File md5="508B529299BAFB64E8E9A96929ABDEF1" import="1">TheChildrenOfTheKingdom/Art/CKAlpha32.dds</File>
+    <File md5="E3714B377FC5D946E1E36CECD9F4FEFC" import="1">TheChildrenOfTheKingdom/Art/CKAlpha45.dds</File>
+    <File md5="268732BEEE7A8CBDA33C0A1DCB6D6DF6" import="1">TheChildrenOfTheKingdom/Art/CKAlpha48.dds</File>
+    <File md5="09EE53C0C438DD20D59CD893C0D1B698" import="1">TheChildrenOfTheKingdom/Art/CKAlpha64.dds</File>
+    <File md5="19BA5E27EC18EC2E103FA97EA4DCD28B" import="1">TheChildrenOfTheKingdom/Art/CKAlpha80.dds</File>
+    <File md5="5681C4C799E2221F549A5773F834B10D" import="1">TheChildrenOfTheKingdom/Art/CKDawn.dds</File>
+    <File md5="2F70695AF91A829C059E9F245BB7BE4F" import="1">TheChildrenOfTheKingdom/Art/CKFlag32.dds</File>
+    <File md5="1715E19F4CA92E227620C22142A20260" import="1">TheChildrenOfTheKingdom/Art/CKIcon128.dds</File>
+    <File md5="1B2CFA27D429FE382960E83FF83303EA" import="1">TheChildrenOfTheKingdom/Art/CKIcon16.dds</File>
+    <File md5="8589C763681AD0539D190825A88142EC" import="1">TheChildrenOfTheKingdom/Art/CKIcon24.dds</File>
+    <File md5="5E5CC5110311FFA67E98AAA92437D7CE" import="1">TheChildrenOfTheKingdom/Art/CKIcon256.dds</File>
+    <File md5="07C0E60FF7A51DFEE39A303F43D54B9B" import="1">TheChildrenOfTheKingdom/Art/CKIcon32.dds</File>
+    <File md5="78822E91F845D5EEBE4AB620D8CA205C" import="1">TheChildrenOfTheKingdom/Art/CKIcon45.dds</File>
+    <File md5="9020B4CBCF8B8CEA4EAA614A10FAA0A0" import="1">TheChildrenOfTheKingdom/Art/CKIcon48.dds</File>
+    <File md5="951C9F28F70E8F427AB9168AE9C81163" import="1">TheChildrenOfTheKingdom/Art/CKIcon64.dds</File>
+    <File md5="D78BBDAA450BCFF44D8825B2843845B2" import="1">TheChildrenOfTheKingdom/Art/CKIcon80.dds</File>
+    <File md5="8BF57135C77A2CA0248C120400902A2E" import="1">TheChildrenOfTheKingdom/Art/CKLeader.dds</File>
+    <File md5="9800BB5AB8FE90F9F51B47A2F4560F78" import="1">TheChildrenOfTheKingdom/Art/CKLeaderScene.xml</File>
+    <File md5="243670B83187937D5BE3FDD46E099030" import="1">TheChildrenOfTheKingdom/Art/CKMap.dds</File>
+    <File md5="23FE3C120B2EA5B4032B72366E3582D8" import="1">TheChildrenOfTheKingdom/Art/CKObjects128.dds</File>
+    <File md5="49E5A5217D4F76028812B3215A242698" import="1">TheChildrenOfTheKingdom/Art/CKObjects16.dds</File>
+    <File md5="621C15085DC305CFF4468E3DA8DE2781" import="1">TheChildrenOfTheKingdom/Art/CKObjects24.dds</File>
+    <File md5="33E7F981224FFF0CC6DEE86DF9BB939D" import="1">TheChildrenOfTheKingdom/Art/CKObjects256.dds</File>
+    <File md5="23BABB553C9A7103D779191D46146500" import="1">TheChildrenOfTheKingdom/Art/CKObjects32.dds</File>
+    <File md5="D51736C300A5D84F932BC1862A89D455" import="1">TheChildrenOfTheKingdom/Art/CKObjects45.dds</File>
+    <File md5="3D0D40DD3F01C863DCCFF48BD72D280E" import="1">TheChildrenOfTheKingdom/Art/CKObjects48.dds</File>
+    <File md5="4CBF35905320F4E45BA8DC92047DE57C" import="1">TheChildrenOfTheKingdom/Art/CKObjects64.dds</File>
+    <File md5="D3F3DF3EEC05DF3D8B7134F3D6266D08" import="1">TheChildrenOfTheKingdom/Art/CKObjects80.dds</File>
+    <File md5="1415151AFA3E0B874D9B0A1E2F40B0E1" import="1">TheChildrenOfTheKingdom/Art/CKPortrait128.dds</File>
+    <File md5="2A67CAAD4EB6BDEF9C2134477CA0845D" import="1">TheChildrenOfTheKingdom/Art/CKPortrait256.dds</File>
+    <File md5="82C4B7F1BC1D1367FAF280D6E64C0D5A" import="1">TheChildrenOfTheKingdom/Art/CKPortrait64.dds</File>
+    <File md5="DEACBE4FB9EBC132F769E67F9C42017D" import="1">TheChildrenOfTheKingdom/Lua/CK_Blessings.lua</File>
+    <File md5="195DAA28BB927BF1F300ED8AAA50B654" import="1">TheChildrenOfTheKingdom/Lua/CK_Core.lua</File>
+    <File md5="096B478F8FB85A99EB8FF839E47F780D" import="1">TheChildrenOfTheKingdom/Lua/CK_Events.lua</File>
+    <File md5="315516DF2C7AE70ABBDA7AFB146F417E" import="1">TheChildrenOfTheKingdom/Lua/CK_State.lua</File>
+    <File md5="B70120427A50091F8AF4D79B9942F906" import="0">TheChildrenOfTheKingdom/SQL/00_CK_Core.sql</File>
+    <File md5="C1CB324618EC947DF4C0441D1068590A" import="0">TheChildrenOfTheKingdom/SQL/01_CK_Inheritance.sql</File>
+    <File md5="07C6E738199F60301CBE7D0C1F2699D4" import="0">TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</File>
+    <File md5="31BF4D2D447EB1C8A23D5AA59DDF7B6F" import="0">TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</File>
+    <File md5="8AE5B29B4FAB0B6B57D47CBE41C69BB4" import="0">TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</File>
+    <File md5="062063722DF625385C8BB7356B086940" import="1">TheChildrenOfTheKingdom/UI/CK_Prayer.lua</File>
+    <File md5="EF42C212EF94C066122AC233E6FC52BD" import="0">TheChildrenOfTheKingdom/UI/CK_Prayer.xml</File>
     <File md5="37E27BF1A38FB5781EF47F768DE26057" import="1">TheRepublicOfPigeons/Art/PigeonAlpha128.dds</File>
     <File md5="2A949A15E447F4BAC1B36C1FD87F7CC2" import="1">TheRepublicOfPigeons/Art/PigeonAlpha16.dds</File>
     <File md5="A89BF29B420A7338A67429A0840AC00C" import="1">TheRepublicOfPigeons/Art/PigeonAlpha24.dds</File>
@@ -269,6 +315,11 @@
       <UpdateDatabase>TheBoundlessCity/SQL/02_BC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/03_BC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/10_BC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheChildrenOfTheKingdom/SQL/00_CK_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheChildrenOfTheKingdom/SQL/01_CK_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/01_PIGEON_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</UpdateDatabase>
@@ -298,6 +349,10 @@
     <EntryPoint type="InGameUIAddin" file="McPvP/UI/MCP_ServerBrowser.xml">
       <Name>McPvP Server Browser</Name>
       <Description>Persistent matches, kits, objectives and Server Legacy.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheChildrenOfTheKingdom/UI/CK_Prayer.xml">
+      <Name>Prayer</Name>
+      <Description>Human-only prayer petitions, permanent Grace and event-driven blessings.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

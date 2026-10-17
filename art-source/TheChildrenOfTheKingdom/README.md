@@ -1,0 +1,13 @@
+# Original Kingdom visual identity
+
+`FaithfulAndSanctuary.png` is original artwork created on 2026-10-18 with the built-in **imagegen** tool. Its final project location is this directory; no game asset depends on the tool's cache. `InsigniaPreview.png` and the map are original deterministic artwork compiled by `tools/prepare_kingdom_art.py`, following the existing collection's drawn-symbol convention.
+
+The civilization/Prayer symbol is a cross over an open book; House uses a sanctuary, and Keeper uses a shield/cross and pike. All use muted blue, ivory and soft gold. The alpha/flag versions contain a white silhouette on genuine transparent alpha. `art-source/IconAtlasMasters/CK*.png` retains the three original atlas masters for repeatable collection gold finishing.
+
+## Final imagegen prompt
+
+> Create original Civilization V fantasy strategy-game loading artwork, a sincere reverent Christian-inspired fictional civilization called The Children of the Kingdom. Wide landscape composition 16:9. A humble adult faithful leader in ivory and muted blue robes, with natural ordinary human face, hands gently joined in prayer, standing on the right third of a marble terrace. Behind and left: a beautiful peaceful white-stone hilltop sanctuary and a small city of marble arches, gardens, wheat, warm gold morning light pouring through high clouds, soft blue atmosphere. A small open prayer book in foreground and understated cross motif on sanctuary. Painterly high-end historical strategy-game concept art, readable elegant architecture, quiet dignity and spiritual perseverance. No depiction of God, no halo, no weapon brandishing, no text, no lettering, no logos, no UI, no borders. Keep face fully visible and upper body within right-center so it can be cropped into a circular leader portrait. Palette ivory, soft gold, muted blue. Save generated artwork for a game mod.
+
+## Game exports
+
+34 DDS textures: nine civilization icons, nine alpha icons, nine three-slot object atlases (House, Keeper, Prayer), three leader portraits, one unit flag, Dawn of Man, static leader image and a 512px original symbolic map. DDS files use legacy game-supported RGBA or DXT5; the collection finisher applies the same gold frames and portrait padding as the other civilizations. The painting/master exports include mipmaps; collection-finished icons follow the collection's normal texture settings. `CKLeaderScene.xml` points to the included static leader texture. The battlefield uses the inherited standard Pikeman model, with no broken custom model references. No external sound/music assets are introduced.

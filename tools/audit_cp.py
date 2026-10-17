@@ -9,7 +9,7 @@ FILES = ['CustomMods.h', 'CvCityCitizens.cpp', 'CvCityCitizens.h', 'CvCity.cpp',
          'CvPlot.cpp', 'CvUnit.cpp', 'CvUnitCombat.cpp', 'CvUnitMission.cpp', 'CvTeam.cpp',
          'CvBuilderTaskingAI.cpp', 'Lua/CvLuaCity.cpp', 'Lua/CvLuaPlayer.cpp', 'Lua/CvLuaPlot.cpp',
          'Lua/CvLuaUnit.cpp', 'Lua/CvLuaTeam.cpp', 'CvGame.cpp', 'Lua/CvLuaGame.cpp',
-         'CvTraitClasses.cpp', 'CvTraitClasses.h', 'CvCultureClasses.cpp', 'CvTradeClasses.cpp', 'CvDllNetMessageHandler.cpp', 'CvBuildingClasses.cpp']
+         'CvTraitClasses.cpp', 'CvTraitClasses.h', 'CvCultureClasses.cpp', 'CvTradeClasses.cpp', 'CvDllNetMessageHandler.cpp', 'CvBuildingClasses.cpp', 'CvPolicyClasses.cpp']
 METHODS = {
  'City': 'GetOwner GetX GetY GetID GetOriginalOwner GetPreviousOwner GetGameTurnFounded IsOriginalCapital '
          'GetPopulation GetAutomatons GetNumCityPlots GetCityIndexPlot IsWorkingPlot IsForcedWorkingPlot '

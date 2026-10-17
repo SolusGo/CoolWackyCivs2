@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0 Kingdom implementation preview / mod version 8 — 2026-10-18
+
+- Added The Children of the Kingdom under The Faithful: human-only seven-stage Prayer, permanent Grace capped at seven, scaled deadlines, saved temporary blessings, safe ASK Production reserves and completed-House rewards.
+- Added Keeper of the Faith with upgrade-retained native healing and separately gated friendly-territory defense; House of Prayer preserves the active Temple and adds human-only Faith/Culture. Normal AI assignment is disabled, with no AI prayer/strategy implementation.
+- Added a dedicated event-driven panel, original generated/drawn artwork and 34 DDS textures, full English presentation, CP source audits, actual-schema inheritance checks, four shipped-Lua simulation suites and native test documentation.
+- Updated builder/project/manifest and package version while retaining the collection UUID and existing civilization save formats. Native gameplay/rendering/save continuation remains unverified; see the [Kingdom guide](TheChildrenOfTheKingdom/README.md) and [precise implementation limits](TheChildrenOfTheKingdom/docs/Implementation.md).
+
 ## McPvP reliability and AI update — 2026-10-17
 
 - Fixed Viper's reversed damage test using both verified CP v151 combat callbacks; added melee/ranged, survival, refresh, duplicate-event and poison save regressions.

@@ -132,3 +132,5 @@ if __name__=='__main__':
     validate_red()
     from validate_mcpvp import validate as validate_mcpvp
     validate_mcpvp()
+    from validate_kingdom import validate as validate_kingdom
+    validate_kingdom()

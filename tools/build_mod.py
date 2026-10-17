@@ -5,18 +5,19 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='7'
+VERSION='8'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
-CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP')
+CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom')
 ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-driven workforce panel.'),
  ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.'),
  ('TrainerRed/UI/RED_TeamPanel.xml','Champion Team','Trainer Red simulation and event-driven Champion Team panel.'),
- ('McPvP/UI/MCP_ServerBrowser.xml','McPvP Server Browser','Persistent matches, kits, objectives and Server Legacy.')]
+ ('McPvP/UI/MCP_ServerBrowser.xml','McPvP Server Browser','Persistent matches, kits, objectives and Server Legacy.'),
+ ('TheChildrenOfTheKingdom/UI/CK_Prayer.xml','Prayer','Human-only prayer petitions, permanent Grace and event-driven blessings.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
-PROPS={'Name':'Cool Wacky Civs 2','Teaser':'An endless city, a republic on the wing, a living legend and an endless lobby.',
- 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion and McPvP - The Endless Lobby. Compete in Hardcore Games, Capture the Flag and Sabotage as The Old Guard. Requires BNW and Community Patch v151. See the included civilization guides.',
+PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Five civilizations: an endless city, wings, a champion, a lobby and a kingdom of prayer.',
+ 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby and The Children of the Kingdom. Pray seven petitions as The Faithful and build permanent Grace. Requires BNW and Community Patch v151. See the included civilization guides.',
  'Authors':'SolusGo','Homepage':'https://github.com/SolusGo/CoolWackyCivs2',
  'AffectsSavedGames':'1','MinCompatibleSaveVersion':'1','SupportsSinglePlayer':'1','SupportsMultiplayer':'0',
  'SupportsHotSeat':'0','SupportsMac':'0','ReloadAudioSystem':'0','ReloadLandmarkSystem':'0',
