@@ -120,21 +120,36 @@ H(GameEvents,'UnitSetXY',function(pid,id,x,y)
   for _,owner in ipairs(order) do local s=M.states[owner]
    if s.mode=='HG' and s.feast and M.FeastPlot(s)==v:GetPlot() then M.UpdateFeast(s);M.ClaimFeast(s,v) end
   end
+  if M.IsCiv(pid) then M.AIContinue(M.State(pid),v) end
  end)
 end)
-local combat,sequence=nil,0
-H(GameEvents,'CombatResult',function(ap,ai,damage,finalA,maxA,dp,di,retaliation,finalD,maxD)
- combat=nil
- if not M.IsCiv(ap) or damage<=0 or finalD>=maxD then return end
+local combats,sequence={},0
+local function combatKey(ap,ai,dp,di) return tostring(ap)..':'..tostring(ai)..':'..tostring(dp)..':'..tostring(di) end
+-- CP v151 CvUnitCombat.cpp pushes DAMAGE RECEIVED, not damage dealt:
+-- 3 = getDamageInflicted(DEFENDER), 8 = getDamageInflicted(ATTACKER).
+-- Arguments 4/9 are predicted cumulative damage, not remaining HP. Result is
+-- pre-resolution; Ended follows native resolution with the same 15 arguments.
+H(GameEvents,'CombatResult',function(ap,ai,attackerDamage,finalA,maxA,dp,di,defenderDamage,finalD,maxD)
+ local key=combatKey(ap,ai,dp,di);combats[key]=nil
+ for k,hit in pairs(combats) do if hit.turn~=M.Turn() then combats[k]=nil end end
+ if not M.IsCiv(ap) or type(defenderDamage)~='number' or defenderDamage<=0 then return end
  local a=Players[ap]:GetUnitByID(ai);local d=Players[dp] and Players[dp]:GetUnitByID(di)
  local r=a and M.Peek(M.State(ap),a)
- if r and r.kit=='VIPER' and not r.flag and M.Military(d) and M.AtWar(ap,dp) then combat={source=ap,owner=dp,id=di,born=d:GetGameTurnCreated()} end
+ if r and r.kit=='VIPER' and not r.flag and M.Land(a) and M.Military(d) and M.AtWar(ap,dp) then
+  combats[key]={source=ap,owner=dp,id=di,born=d:GetGameTurnCreated(),turn=M.Turn()}
+ end
 end)
-H(GameEvents,'CombatEnded',function()
- local hit=combat;combat=nil;if not hit then return end
+H(GameEvents,'CombatEnded',function(ap,ai,attackerDamage,finalA,maxA,dp,di,defenderDamage,finalD,maxD)
+ local key=combatKey(ap,ai,dp,di);local hit=combats[key];combats[key]=nil
+ if not hit or hit.turn~=M.Turn() or type(defenderDamage)~='number' or defenderDamage<=0 then return end
+ local d=Players[hit.owner]:GetUnitByID(hit.id)
+ -- Ended's damage-received argument confirms the resolved hit. Comparing net
+ -- wounds instead would miss a defender healed by killing its attacker.
+ if not M.Military(d) or d:GetGameTurnCreated()~=hit.born or not M.AtWar(hit.source,hit.owner) then return end
  sequence=sequence+1
- M.After('poison:'..sequence,function() local u=Players[hit.owner]:GetUnitByID(hit.id)
-  if M.Alive(u) and u:GetGameTurnCreated()==hit.born then M.Poison(u,hit.source) end
+ -- The dispatcher sorts keys; padding preserves combat order across 9/10/etc.
+ M.After(string.format('poison:%012d',sequence),function() local u=Players[hit.owner]:GetUnitByID(hit.id)
+  if M.Military(u) and u:GetGameTurnCreated()==hit.born and M.AtWar(hit.source,hit.owner) then M.Poison(u,hit.source) end
  end)
 end)
 H(GameEvents,'PlayerDoTurn',function(pid)

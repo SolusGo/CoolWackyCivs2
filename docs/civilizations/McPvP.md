@@ -11,6 +11,6 @@ Manage a PvP server through changing turn-based objectives. Queue Hardcore Games
 
 Kangaroo provides mobility, Stomper rewards hills, Endermage disrupts positioning, Thor strikes one exposed target and Viper poisons direct-attack survivors. Every 25 Lifetime Legacy gives capital Culture, capped at +8. Information Era's **Legacy Unforgotten** adds permanent military XP and up to +10 more Culture while every match system continues.
 
-The civilization rewards positioning and active competition. Isolation and peace limit objectives; cooldowns, caps and vulnerable carriers limit brute-force rewards. AI uses real actions with conservative native movement; difficult paths may stall it.
+The civilization rewards positioning and active competition. Isolation and peace limit objectives; cooldowns, caps and vulnerable carriers limit brute-force rewards. AI uses validated native routes and bounded detours, with safer flag returns and infiltration holds; difficult or changing routes may still be deferred. See the [reliability report](../../McPvP/docs/ReliabilityReport.md).
 
 The [player guide](../../McPvP/README.md), [implementation report](../../McPvP/docs/ImplementationReport.md) and [native checklist](../../McPvP/docs/Testing.md) describe exact mechanics and limitations. File/schema/source validation and Lua simulations pass. Native gameplay and rendering have not been tested; multiplayer is unsupported.

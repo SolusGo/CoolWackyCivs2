@@ -1,5 +1,11 @@
 # Changelog
 
+## McPvP reliability and AI update — 2026-10-17
+
+- Fixed Viper's reversed damage test using both verified CP v151 combat callbacks; added melee/ranged, survival, refresh, duplicate-event and poison save regressions.
+- Added validated native objective routes, bounded weighted detours, planning budgets, failed-movement cooldowns, carrier survival and infiltration holds. Feast placement now checks legal access, rival approaches and practical arrival without a full-map scan.
+- Added four McPvP regression suites and updated native testing/report documentation. Fixed Stomper mountain targets and Browser screen/status issues. Saved formats, original assets/localization, numerical balance, UUID and other civilizations are preserved.
+
 ## McPvP implementation preview / mod version 7 — 2026-10-17
 
 - Added McPvP — The Endless Lobby under The Old Guard, with a persistent Server Browser, queued match cycles, contested Hardcore Games Feasts, Capture the Flag and warned Sabotage.

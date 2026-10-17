@@ -357,6 +357,9 @@
     <Content Include="McPvP/Lua/MCP_Matches.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="McPvP/Lua/MCP_Navigation.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="McPvP/Lua/MCP_SaveData.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>

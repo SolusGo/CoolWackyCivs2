@@ -5,31 +5,61 @@ function M.ValidFeast(plot)
 end
 function M.ChooseFeast(s)
  local p=Players[s.pid];local cap=p:GetCapitalCity();if not cap then return end
- local best,bestScore
- -- Bounded preparation searches only, never UI polling. Same area avoids islands.
- for i=0,Map.GetNumPlots()-1 do local plot=Map.GetPlotByIndex(i)
-  if M.ValidFeast(plot) and plot:GetArea()==cap:Plot():GetArea() and plot:IsRevealed(p:GetTeam()) then
-   local d=M.Distance(plot,cap);local owner=plot:GetOwner()
+ M.navStats.feasts=M.navStats.feasts+1
+ local units={};for u in p:Units() do if M.Land(u) then units[#units+1]=u end end
+ table.sort(units,function(a,b) local ad,bd=M.Distance(a,cap),M.Distance(b,cap);if ad~=bd then return ad<bd end;return a:GetID()<b:GetID() end)
+ -- One bounded reachable region replaces the old full-map geometric scan.
+ -- Friendly occupants may move before activation; enemy blockers still matter.
+ local reach=M.NavFlood(s.pid,units[1],cap:Plot(),{nodes=768,radius=22,steps=40,cost=60,ignoreUnits=true})
+ local rivals={}
+ for pid=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do local other=Players[pid]
+  if other and other:IsAlive() and other:GetTeam()~=p:GetTeam() and not other:IsBarbarian() and not other:IsMinorCiv() then
+   for city in other:Cities() do if M.Distance(cap,city)<=24 then rivals[#rivals+1]={pid=pid,city=city} end end
+  end
+ end
+ table.sort(rivals,function(a,b) local ad,bd=M.Distance(cap,a.city),M.Distance(cap,b.city);if ad~=bd then return ad<bd end;return a.pid..':'..M.CityKey(a.city)<b.pid..':'..M.CityKey(b.city) end)
+ local opposition,seen={},{}
+ for _,rival in ipairs(rivals) do if not seen[rival.pid] then
+  seen[rival.pid]=true
+  local routes=M.NavFlood(rival.pid,nil,rival.city:Plot(),{nodes=384,radius=22,steps=40,cost=60,ignoreUnits=true})
+  opposition[#opposition+1]=routes;if #opposition>=2 then break end
+ end end
+ local remaining=s.start+M.Turns(15)-M.Turn()
+ if remaining<1 then return end
+ local candidates={}
+ for i,r in pairs(reach) do local plot=r.plot;local d=M.Distance(cap,plot)
+  if M.ValidFeast(plot) and d>=4 and d<=16 and plot:GetArea()==cap:Plot():GetArea() and r.cost<=remaining*math.max(1,units[1] and units[1]:MaxMoves()/(GameDefines.MOVE_DENOMINATOR or 60) or 2) then
    local reserved=false
    for otherID,other in pairs(M.states) do local f=other.feast
     if otherID~=s.pid and f and f.plot==i and f.status~='EXPIRED' and f.status~='CLAIMED' then reserved=true;break end
    end
-   if not reserved and d>=4 and d<=16 and (owner<0 or owner==s.pid or M.AtWar(s.pid,owner)) then
-    local exits=0;for dir=0,5 do if M.ValidFeast(Map.PlotDirection(plot:GetX(),plot:GetY(),dir)) then exits=exits+1 end end
-    if exits>=3 then
-     local nearest=30
-     for pid=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do local other=Players[pid]
-      if pid~=s.pid and other and other:IsAlive() and not other:IsBarbarian() and not other:IsMinorCiv() then
-       for city in other:Cities() do if city:Plot():GetArea()==plot:GetArea() then nearest=math.min(nearest,M.Distance(city,plot)) end end
-      end
-     end
-     local score=exits*3-math.abs(d-8)*2-math.abs(nearest-d)+((i+s.cycle*17+s.pid*7)%19)/19
-     if not bestScore or score>bestScore then best,bestScore=plot,score end
+   local approaches=0
+   for dir=0,5 do local near=Map.PlotDirection(plot:GetX(),plot:GetY(),dir)
+    if M.ValidFeast(near) and reach[near:GetPlotIndex()] then approaches=approaches+1 end
+   end
+   if not reserved and approaches>=3 then
+    local rivalCost
+    for _,routes in ipairs(opposition) do local route=routes[i]
+     if route and route.cost<=remaining*2 and (not rivalCost or route.cost<rivalCost) then rivalCost=route.cost end
     end
+    local score=approaches*3-math.abs(d-8)*2-math.max(0,r.cost-d)
+      +(rivalCost and 24-math.abs(rivalCost-r.cost) or 0)+(plot:GetOwner()<0 and 6 or 0)
+      +((i+s.cycle*17+s.pid*7)%19)/19
+    candidates[#candidates+1]={plot=plot,score=score}
    end
   end
  end
- return best
+ table.sort(candidates,function(a,b) if a.score~=b.score then return a.score>b.score end;return a.plot:GetPlotIndex()<b.plot:GetPlotIndex() end)
+ local budget={calls=6,nodes=384}
+ for i=1,math.min(8,#candidates) do local plot=candidates[i].plot
+  if #units==0 then return plot end -- a legal capital route permits future trainees and rival claims
+  table.sort(units,function(a,b) local ad,bd=M.Distance(a,plot),M.Distance(b,plot);if ad~=bd then return ad<bd end;return a:GetID()<b:GetID() end)
+  for j=1,math.min(2,#units) do
+   local plan=M.NavPlan(units[j],{{plot=plot,key='FEAST_SITE:'..plot:GetPlotIndex()}},{turns=remaining},budget)
+   if plan then return plot end
+  end
+  if budget.calls<=0 and budget.nodes<=0 then break end
+ end
 end
 function M.StartMatch(s)
  s.cycle=s.cycle+1;s.mode=s.queued or 'HG';s.start=M.Turn();s.finish=s.start+M.Turns(20)

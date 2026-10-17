@@ -39,7 +39,7 @@ function M.AbilityTargets(s,u)
  for dx=-range,range do for dy=-range,range do local plot=Map.GetPlot(u:GetX()+dx,u:GetY()+dy)
   if plot and M.Distance(u,plot)<=range and not plot:IsCity() and plot:IsVisible(Players[s.pid]:GetTeam()) then
    for i=0,plot:GetNumUnits()-1 do local v=plot:GetUnit(i)
-    if M.VisibleEnemy(s.pid,v) and (kit=='THOR' or (M.Land(v) and (kit~='STOMPER' or not plot:IsHills()))) then
+    if M.VisibleEnemy(s.pid,v) and (kit=='THOR' or (M.Land(v) and (kit~='STOMPER' or (not plot:IsHills() and not plot:IsMountain())))) then
      if kit~='ENDERMAGE' or M.PullPlot(u,v) then out[#out+1]={owner=v:GetOwner(),id=v:GetID(),born=v:GetGameTurnCreated(),key=v:GetOwner()..':'..v:GetID()..':'..v:GetGameTurnCreated(),x=v:GetX(),y=v:GetY()} end
     end
    end
@@ -77,7 +77,7 @@ function M.Ability(s,u,target)
  return false
 end
 function M.Poison(v,source)
- if not M.Military(v) then return end
+ if not M.Military(v) or not M.IsCiv(source) or not M.AtWar(source,v:GetOwner()) then return end
  local poison={owner=v:GetOwner(),born=v:GetGameTurnCreated(),source=source,applied=M.Turn(),left=2,last=-1}
  local previous=M.Block(v:GetScriptData(),'MCPPOISON1')
  if previous then poison.last=previous.last end

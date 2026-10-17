@@ -74,18 +74,19 @@
     <File md5="2756A6654B36C01F98DA8D8C0B0124E6" import="1">McPvP/Art/MCP_Promotions48.dds</File>
     <File md5="9753FFE3A43EA440DCA7BE5F614E93E3" import="1">McPvP/Art/MCP_Promotions64.dds</File>
     <File md5="A1A367C626329354E428327ED7A4C5E7" import="1">McPvP/Art/MCP_Promotions80.dds</File>
-    <File md5="77D44CB6B722F2F9E3FB5A4B21D0FFF3" import="1">McPvP/Lua/MCP_AI.lua</File>
-    <File md5="EF922F2C00983916D864D035235E4F2A" import="1">McPvP/Lua/MCP_Core.lua</File>
-    <File md5="310A26D73B262B1F42C67FF076F546EC" import="1">McPvP/Lua/MCP_Events.lua</File>
-    <File md5="5E291B7FBC7AD219687FE475AE529973" import="1">McPvP/Lua/MCP_Kits.lua</File>
-    <File md5="369D4DB61764D519EC8A19D79DAEE078" import="1">McPvP/Lua/MCP_Matches.lua</File>
+    <File md5="2C97C3C79C9047EEA335034B2D97B746" import="1">McPvP/Lua/MCP_AI.lua</File>
+    <File md5="E89F06B30DD834648EF9C62283DD078D" import="1">McPvP/Lua/MCP_Core.lua</File>
+    <File md5="21EEAC080BB67D55D547E8FBD56E4EF3" import="1">McPvP/Lua/MCP_Events.lua</File>
+    <File md5="E47B5908F2BA9B6B5AD11392E2579FD5" import="1">McPvP/Lua/MCP_Kits.lua</File>
+    <File md5="BF265D92B875220412CEC1B4E4AC89F1" import="1">McPvP/Lua/MCP_Matches.lua</File>
+    <File md5="26A2F782B3432F06FB36B5394533D650" import="1">McPvP/Lua/MCP_Navigation.lua</File>
     <File md5="CA93DD356926B461C08410F60D3590D0" import="1">McPvP/Lua/MCP_SaveData.lua</File>
     <File md5="CF3C0D80BB85F2A8695432665BCCB7B9" import="0">McPvP/SQL/00_MCP_Core.sql</File>
     <File md5="2107793520C1C24B53D1A136A20AE75C" import="0">McPvP/SQL/01_MCP_Inheritance.sql</File>
     <File md5="202C7EF74E5C5375DC79008285FB3C28" import="0">McPvP/SQL/02_MCP_Effects.sql</File>
     <File md5="89565490B22006C312444DB3463DC4C1" import="0">McPvP/SQL/03_MCP_Art.sql</File>
     <File md5="95741DE84A63B86599FFCE094F99F2AB" import="0">McPvP/SQL/10_MCP_Text.sql</File>
-    <File md5="32783585B584122D0EEC01B1196BFA15" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
+    <File md5="532A1863EEC7ABA1627BC637DD218DFF" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
     <File md5="6607246C4E4B801E80BEC662372B5B44" import="0">McPvP/UI/MCP_ServerBrowser.xml</File>
     <File md5="D3588A7BC9AB350EACDA84921EBAF924" import="1">TheBoundlessCity/Art/BoundlessAlpha128.dds</File>
     <File md5="AFC07018A9BAAC46FA381C936A49E74F" import="1">TheBoundlessCity/Art/BoundlessAlpha16.dds</File>

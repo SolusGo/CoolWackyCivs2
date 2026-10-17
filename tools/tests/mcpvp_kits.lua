@@ -21,6 +21,7 @@ TEST.turnTo(25);enemy.invisible=true;assert(#M.AbilityTargets(s,v)==0);enemy.inv
 r.kit='STOMPER';r.ready=0;M.Apply(s,v,r)
 assert(#M.AbilityTargets(s,v)==0);v:GetPlot().hill=true
 enemy:GetPlot().hill=true;assert(#M.AbilityTargets(s,v)==0);enemy:GetPlot().hill=false
+enemy:GetPlot().mountain=true;assert(#M.AbilityTargets(s,v)==0);enemy:GetPlot().mountain=false
 enemy.damage=85;assert(M.Ability(s,v,M.AbilityTargets(s,v)[1]));assert(enemy.dead)
 -- Endermage uses victim legality, never occupied terrain or cities.
 r.kit='ENDERMAGE';r.ready=0;v.moves=120;M.Apply(s,v,r)
@@ -32,12 +33,14 @@ enemy:Kill(false,-1)
 -- Poison is applied only after a successful direct hit, and refreshes without stacking.
 r.kit='VIPER';r.ready=0;v.moves=120;M.Apply(s,v,r)
 enemy=TEST.new('UNIT_WARRIOR',7,5,1);TEST.flush()
-GameEvents.CombatResult(0,v.id,12,0,100,1,enemy.id,0,12,100)
+-- Actual CP ABI: argument 3 is incoming retaliation; argument 8 hits defender.
+GameEvents.CombatResult(0,v.id,0,0,100,1,enemy.id,12,12,100,-1,-1,0,7,5)
 assert(not enemy:IsHasPromotion(GameInfoTypes.PROMOTION_MCPVP_POISON))
-GameEvents.CombatEnded();TEST.flush();assert(enemy:IsHasPromotion(GameInfoTypes.PROMOTION_MCPVP_POISON))
-M.PoisonTurn(1);assert(enemy.damage==5);M.PoisonTurn(1);assert(enemy.damage==5)
-M.Poison(enemy,0);TEST.turn=26;M.PoisonTurn(1);assert(enemy.damage==10)
-TEST.turn=27;M.PoisonTurn(1);assert(enemy.damage==15 and not enemy:IsHasPromotion(GameInfoTypes.PROMOTION_MCPVP_POISON))
+enemy:ChangeDamage(12,0)
+GameEvents.CombatEnded(0,v.id,0,0,100,1,enemy.id,12,12,100,-1,-1,0,7,5);TEST.flush();assert(enemy:IsHasPromotion(GameInfoTypes.PROMOTION_MCPVP_POISON))
+M.PoisonTurn(1);assert(enemy.damage==17);M.PoisonTurn(1);assert(enemy.damage==17)
+M.Poison(enemy,0);TEST.turn=26;M.PoisonTurn(1);assert(enemy.damage==22)
+TEST.turn=27;M.PoisonTurn(1);assert(enemy.damage==27 and not enemy:IsHasPromotion(GameInfoTypes.PROMOTION_MCPVP_POISON))
 -- Dead attackers do not orphan poison; expired entries are removed from ScriptData.
 M.Poison(enemy,0);v:Kill(false,-1);enemy.damage=96;TEST.turn=28;M.PoisonTurn(1);assert(enemy.dead)
 -- Standard kill Legacy is capped and the bonus near an ACTIVE Feast is capped separately.

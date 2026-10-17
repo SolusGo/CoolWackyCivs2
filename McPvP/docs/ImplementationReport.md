@@ -1,5 +1,7 @@
 # McPvP implementation report — 2026-10-17
 
+This records the initial implementation. The subsequent [reliability and AI report](ReliabilityReport.md) supersedes its Viper detection, greedy movement, Feast accessibility and validation-count descriptions. Gameplay balance, artwork, localization and save formats remain as described here.
+
 McPvP is integrated as the fourth isolated civilization in Cool Wacky Civs 2, keeping the collection UUID, mod version 7 and minimum compatible save version. Existing civilization identities, gameplay files and persistence formats are unchanged. New games can select The Old Guard; live selection and gameplay still require the native checks below.
 
 ## Created files

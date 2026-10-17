@@ -43,15 +43,16 @@ def source_audit():
  sources={p.stem:p.read_text(encoding='utf-8-sig') for p in ref.glob('*.cpp')}
  bindings={k:set(re.findall(r'Method\(\s*(\w+)\s*\)',sources['CvLua'+k])) for k in ['Unit','Player','City','Plot','Team','Game']}
  native=set.union(*bindings.values())
- ui={'SetUpdate','ClearUpdate','SetHide','SetText','SetDisabled','SetToolTipString','RegisterCallback','CalculateSize','ReprocessAnchoring','CalculateInternalSize','SetInputHandler'}
+ ui={'SetUpdate','ClearUpdate','SetHide','SetText','SetDisabled','SetToolTipString','RegisterCallback','CalculateSize','ReprocessAnchoring','CalculateInternalSize','SetInputHandler','LookUpControl','IsHidden'}
  used=set()
  for p in V.rglob('*.lua'):
   for name in re.findall(r':([A-Z]\w+)\(',p.read_text(encoding='utf-8')):
    if name not in ui:assert name in native,('Unknown native method',name,p);used.add(name)
- for kind,names in {'Unit':['CanMoveOrAttackInto','SetXY','ChangeDamage','ChangeExperience','SetMadeAttack','IsOutOfAttacks','GetGameTurnCreated','IsInvisible'],
+ for kind,names in {'Unit':['CanMoveOrAttackInto','CanMoveThrough','GeneratePath','LastMissionPlot','PopMission','MaxMoves','SetXY','ChangeDamage','ChangeExperience','SetMadeAttack','IsOutOfAttacks','GetGameTurnCreated','IsInvisible'],
                     'City':['GetGameTurnFounded','GetOriginalOwner','SetNumRealBuilding','Plot'],
-                    'Player':['GetScriptData','SetScriptData','ChangeGoldenAgeProgressMeter'],
-                    'Plot':['GetWorkingCity','IsVisible','IsRevealed','GetArea']}.items():
+                    'Player':['GetScriptData','SetScriptData','ChangeGoldenAgeProgressMeter','GetPlotDanger'],
+                    'Team':['IsAllowsOpenBordersToTeam'],
+                    'Plot':['GetWorkingCity','IsVisible','IsRevealed','GetArea','MovementCost','IsFighting']}.items():
   for name in names:assert name in bindings[kind],(kind,name)
  h=(ref/'CustomMods.h').read_text(encoding='utf-8-sig')
  for name,sig in {'UnitPrekill':'iiiiibi','UnitConverted':'iiiib','CityTrained':'iiibb','UnitCreated':'iiiii','TeamSetEra':'iib','CanDoCommand':'iiiiiiib','UnitCanHaveAnyUpgrade':'ii'}.items():assert re.search(r'GAMEEVENT_'+name+r'\s+"'+name+r'",\s+"'+sig+'"',h),(name,sig)
@@ -59,11 +60,28 @@ def source_audit():
  assert 'getNumAttacksMadeThisTurn() >= getNumAttacks()' in sources['CvUnit']
  assert 'return IsCanAttackRanged() || (IsCombatUnit() && !isOnlyDefensive())' in sources['CvUnit']
  assert 'luaL_optint(L, 4, 0)' in sources['CvLuaUnit'] and 'pkUnit->changeDamage(iChange, ePlayer)' in sources['CvLuaUnit']
+ combat=sources['CvUnitCombat']
+ expected=['iAttackingPlayer','iAttackingUnit','attackerDamage','attackerFinalDamage','attackerMaxHP','iDefendingPlayer','iDefendingUnit','defenderDamage','defenderFinalDamage','defenderMaxHP','iInterceptingPlayer','iInterceptingUnit','interceptorDamage','plotX','plotY']
+ # Check BOTH emissions, including the misleading native local variable names.
+ for label in ['CombatResult','CombatEnded']:
+  start=combat.index('// '+('CombatResult' if label=='CombatResult' else 'RED : CombatEnded'))
+  section=combat[start:combat.index('"'+label+'"',start)]
+  assert re.search(r'int attackerDamage\s*=\s*kInfo.getDamageInflicted\(\s*BATTLE_UNIT_DEFENDER\s*\)',section)
+  assert re.search(r'int defenderDamage\s*=\s*kInfo.getDamageInflicted\(\s*BATTLE_UNIT_ATTACKER\s*\)',section)
+  assert re.findall(r'args->Push\((\w+)\)',section)==expected,(label,'15-argument order')
+ assert 'setFinalDamage(BATTLE_UNIT_DEFENDER, iAttackerDamageInflicted + pkDefender->getDamage())' in combat
+ assert 'pkDefender->changeDamage(iAttackerDamageInflicted, pkAttacker->getOwner())' in combat
+ unit=sources['CvLuaUnit'];path=unit[unit.index('int CvLuaUnit::lGeneratePath('):unit.index('int CvLuaUnit::lGetActivePath(')]
+ for token in ['lua_createtable','MOVEFLAG_IGNORE_STACKING_SELF','iMaxTurns','"X"','"Y"','"RemainingMovement"','"Turn"','return 1;']:assert token in path,token
+ assert 'pkUnit->canMoveInto(*pkPlot)' in unit[unit.index('int CvLuaUnit::lCanMoveThrough('):unit.index('int CvLuaUnit::lJumpToNearestValidPlot(')]
+ assert 'int CvPlot::movementCost(const CvUnit* pUnit, const CvPlot* pFromPlot, int iMovesRemaining)' in sources['CvPlot']
+ assert 'pkPlayer->GetPlotDanger(*pkPlot,false)' in sources['CvLuaPlayer']
+ assert 'GetPlotDanger(*pCheck,false) < GetCurrHitPoints()' in sources['CvUnit'],'native danger proxy is comparable with remaining HP'
  print('PASS McPvP pinned CP v151: '+str(len(used))+' Lua methods, critical object bindings, event ABIs and ranged-carrier guard')
 
 def runtime(d):
  data={t:[dict(r) for r in d.execute('SELECT * FROM '+t)] for t in TABLES}
- for test in ['mcpvp_matches.lua','mcpvp_kits.lua','mcpvp_persistence.lua','mcpvp_ai_ui.lua']:
+ for test in ['mcpvp_matches.lua','mcpvp_kits.lua','mcpvp_persistence.lua','mcpvp_ai_ui.lua','mcpvp_viper.lua','mcpvp_navigation.lua','mcpvp_objectives.lua','mcpvp_feasts.lua']:
   lua=LuaRuntime(unpack_returned_tuples=True);lua.globals().RED_DATABASE=table(lua,data)
   loaded=set()
   def include(name):

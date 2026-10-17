@@ -10,12 +10,17 @@ local function selected(s)
 end
 local function eligible()
  local pid=Game.GetActivePlayer();local p=Players[pid]
- return p and M.IsCiv(pid) and p:IsHuman() and p:IsTurnActive() and not leader and not blocked and not UI.IsCityScreenUp() and not Game.IsNetworkMultiPlayer()
+ if not p or not M.IsCiv(pid) or not p:IsHuman() or not p:IsTurnActive() or leader or blocked or UI.IsCityScreenUp() or Game.IsNetworkMultiPlayer() then return false end
+ if UI.GetInterfaceMode()~=InterfaceModeTypes.INTERFACEMODE_SELECTION then return false end
+ for _,name in ipairs({'CivilopediaScreen','TechTree','GenericPopup','SocialPolicyPopup','EconomicOverview','MilitaryOverview','DiploOverview','ProductionPopup','GameMenu','CultureOverview','ReligionOverview'}) do
+  local control=ContextPtr:LookUpControl('/InGame/'..name);if control and not control:IsHidden() then return false end
+ end
+ return true
 end
 local function refresh()
  if rendering then return end;rendering=true
  local ok,err=pcall(function()
-  local s=state();local show=eligible() and s and s.mode~=nil
+  local s=state();local show=s and s.mode~=nil and eligible()
   Controls.Launcher:SetHide(not show);Controls.Panel:SetHide(not (show and opened))
   if not show or not opened then return end
   Controls.Summary:SetText('Current: '..M.Text(s.mode)..'    Queued: '..M.Text(s.queued)..'    Turns remaining: '..math.max(0,s.finish-M.Turn())..'[NEWLINE]Server Legacy: '..s.current..'    Lifetime: '..s.lifetime..'    Completed matches: '..s.completed..'[NEWLINE]Victories - HG: '..s.wins.HG..'    CTF: '..s.wins.CTF..'    Sabotage: '..s.wins.SAB)
@@ -24,7 +29,7 @@ local function refresh()
    local f=s.feast;local plot=f and M.FeastPlot(s)
    local phase=M.Turn()<s.start+M.Turns(3) and 'Grace Period' or M.Turn()<s.start+M.Turns(10) and 'Feast preparations' or 'Final Battle'
    objective=phase..'. Secure the contested Feast to win. Kills: '..s.kills..'; kill Legacy: '..s.killLegacy..'/15; near-Feast Legacy: '..s.nearLegacy..'/10.[NEWLINE]'
-   objective=objective..(f and plot and (f.announced and 'Feast: ('..plot:GetX()..', '..plot:GetY()..') - '..f.status or 'Feast coordinates announced '..M.Turns(3)..' turns before activation.') or 'No accessible Feast site this match.')
+   objective=objective..(f and plot and (f.announced and 'Feast: ('..plot:GetX()..', '..plot:GetY()..') - '..f.status or 'Feast coordinates announced '..M.Turns(3)..' turns before activation.') or s.feastPending and 'Feast preparations: awaiting an accessible explored site.' or 'No accessible Feast site this match.')
   elseif s.mode=='CTF' then objective='Steal a flag adjacent to a visible enemy city at war. Return it to a land tile belonging to one of your cities. Each city may be raided once per match. Captures: '..s.captures..'.'
   else objective='A Veteran or recon unit can infiltrate a visible enemy city within two tiles. Stay nearby for '..M.Turns(3)..' turns; the defender is warned after the first turn. Successful missions: '..s.missions..'.' end
   Controls.Objective:SetText(objective..'[NEWLINE]Legacy earned this match: '..s.earned..(s.remembered and '[NEWLINE]Legacy Unforgotten: +10% military XP; memory Culture active.' or ''))

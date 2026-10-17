@@ -79,6 +79,7 @@ function M.Reconcile(s)
  for serial,r in pairs(s.units) do if not seen[serial] then s.units[serial]=nil end end
  M.Remember(s);M.Save(s)
 end
+include('MCP_Navigation')
 include('MCP_Matches')
 include('MCP_Kits')
 include('MCP_AI')

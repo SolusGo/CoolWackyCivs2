@@ -20,6 +20,8 @@ rival:Kill(false,-1);v:SetXY(6,5);v.damage=60;TEST.flush()
 assert(s.feast.claimant==0 and s.current==15 and v.damage==35)
 assert(not M.ClaimFeast(s,v) and s.current==15)
 TEST.turnTo(20);assert(s.completed==1 and s.wins.HG==1 and s.mode=='CTF' and s.current==25)
+assert(not v:IsHasPromotion(GameInfoTypes.PROMOTION_MCPVP_FINAL) and not v:IsHasPromotion(GameInfoTypes.PROMOTION_MCPVP_GRACE))
+GameEvents.PlayerDoTurn(0);TEST.flush();assert(s.completed==1 and s.current==25,'Repeated turn callbacks cannot pay a completed match twice')
 -- CTF acquisition, attack restrictions, return and once-per-city ledger.
 v:SetXY(8,7);v.moves=120;TEST.flush()
 local cities=M.ObjectiveTargets(s,v,'STEAL');assert(#cities==1)
