@@ -6,6 +6,8 @@ A sincere, fictional civilization inspired by the Lord's Prayer (Matthew 6:9–1
 
 This civilization is **human-playable only**. `Civilizations.AIPlayable=0` prevents ordinary random AI assignment. Every custom reward, building bonus and promotion is restricted to a living human Kingdom player. Forced AI instances receive ordinary inherited Pikeman/Temple functionality without custom extras. There is no prayer automation or AI strategy implementation. Multiplayer and hotseat are unsupported by the collection.
 
+The [implementation audit](docs/AuditReport.md) fixes authoritative screen validation, temporary-control expiry and missed-popup panel behavior, and verifies native healing/movement eligibility. Seven shipped-Lua suites now cover these cases. Numerical balance, prayer order/rewards, Grace, uniques, artwork and the save schema are unchanged; native gameplay/save round trips remain unverified.
+
 ## Prayer
 
 Choose The Faithful in modded single-player setup, found Sanctuary, then select **Prayer** at the upper right of the map. The panel shows the next petition, its words and effect, all seven stages, cooldown, Grace, temporary blessings and any saved Production reserve. Select **PRAY** once to receive the current blessing and advance. A notification confirms the action. The panel closes for city view, diplomacy, interface-mode changes and modal screens; it can be reopened on the world map.

@@ -28,13 +28,27 @@ Events.SerialEventGameMessagePopupProcessed(10);TEST.pump();assert(Controls.Laun
 TEST.screens['/InGame/DeclareWarPopup']=nil;Events.SerialEventGameDataDirty();TEST.pump();assert(not Controls.Launcher.hidden)
 Events.SerialEventGameMessagePopupShown({Type=11});TEST.screens['/InGame/CultureOverview']={IsHidden=function()return false end};TEST.pump()
 TEST.screens['/InGame/CultureOverview']=nil;Events.SerialEventGameDataDirty();TEST.pump();assert(not Controls.Launcher.hidden,'missed Processed recovers from real visibility')
+Controls.Open.click();assert(not Controls.Panel.hidden)
+TEST.screens['/InGame/CultureOverview']={IsHidden=function()return false end};Events.SerialEventGameDataDirty();TEST.pump()
+assert(Controls.Panel.hidden)
+TEST.screens['/InGame/CultureOverview']=nil;Events.SerialEventCityInfoDirty();TEST.pump()
+assert(not Controls.Launcher.hidden and Controls.Panel.hidden,'missed popup event unexpectedly reopened Prayer')
+for i=1,50 do
+ TEST.cityScreen=true;Events.SerialEventEnterCityScreen()
+ TEST.cityScreen=false;Events.SerialEventExitCityScreen()
+ TEST.mode=2;Events.InterfaceModeChanged();TEST.mode=1;Events.InterfaceModeChanged()
+ Events.AILeaderMessage();Events.LeavingLeaderViewMode()
+ Events.SerialEventGameMessagePopupShown({Type=100+i});Events.SerialEventGameMessagePopupProcessed(100+i)
+ assert(not k.InterfaceReady() and not k.CanPray(0),'pending rapid transition must reject direct commands')
+end
+TEST.pump();assert(not Controls.Launcher.hidden and Controls.Panel.hidden and k.InterfaceReady(),'rapid screen transitions recover')
 TEST.showhide(true);TEST.pump();assert(Controls.Launcher.hidden);TEST.showhide(false);TEST.pump();assert(not Controls.Launcher.hidden)
 local setter=Controls.Current.SetText
 Controls.Current.SetText=function()error('injected display fault')end
 Controls.Open.click();assert(Controls.Panel.hidden,'display faults close only this panel')
 Controls.Current.SetText=setter;Controls.Open.click();assert(not Controls.Panel.hidden,'display recovers after a fault')
 local updates=TEST.updates or 0
-for i=1,1000 do Events.SerialEventGameDataDirty() end
+for i=1,1000 do Events.SerialEventGameDataDirty();Events.SerialEventCityInfoDirty() end
 assert(TEST.updates==updates+1,'coalesce dirty events');TEST.pump();assert(not TEST.update)
 local saved=Players[0].script
 for i=1,1000 do TEST.pump() end

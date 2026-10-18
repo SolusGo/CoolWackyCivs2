@@ -3,6 +3,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_ACTIVE_LINE'
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_ADJECTIVE','Kingdom');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_AVAILABLE','Next Prayer: Available');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_BLESSING','Blessing: {1_Effect}');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_BUSY_HELP','A prayer or blessing update is already being processed.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_CITY_1','Sanctuary');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_CITY_10','Gracehaven');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_CITY_11','Covenant');
@@ -42,7 +43,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_EFFECT_2','I
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_EFFECT_3','Every owned city: +15% Culture for {1_Turns} turns.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_EFFECT_4','Capital: immediately gain {3_Yield} Food and {3_Yield} Production (8 each per Era level). Production beyond the current item, or without a finite queue, is safely held in a saved reserve.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_EFFECT_5','+2 Global Happiness for {1_Turns} turns.');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_EFFECT_6','All owned cities: +20% City Strength for {1_Turns} turns. Military units: +15% strength only when defending in friendly territory for the same duration.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_EFFECT_6','All owned cities: +20% City Strength for {1_Turns} turns. CP also increases city ranged-strike strength. Military units: +15% strength only when defending in friendly territory for the same duration.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_EFFECT_7','Gain {4_GAP} Golden Age Points (20 per Era level), one permanent Grace (maximum 7), and 10 Faith per completed House of Prayer. At 7 Grace, gain {5_Excess} extra Golden Age Points (25 per Era level) instead. The next petition is Address.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_FAITHFUL_HEADING_1','Prayer and service');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_FAITHFUL_LIVED','The age of faithful perseverance');
@@ -57,6 +58,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_HOUSE_HELP',
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_HOUSE_PEDIA','A House of Prayer is a place for devotion, reconciliation and the sharing of daily bread. Within its stone walls, neighbors learn that humility and forgiveness are practices to renew throughout a lifetime. The building preserves the Temple''s ordinary role while supporting the prayer cycle.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_HOUSE_REWARD','Completed Houses of Prayer: {1_Count}. Closing Glory grants {2_Faith} additional Faith.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_HOUSE_STRATEGY','Build Houses where you can support the normal Temple maintenance. Their additional Faith and Culture support cultural and diplomatic development; completing prayer cycles rewards every House currently owned.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_INTERFACE_HELP','Close City View, Diplomacy and other screens, then return to normal selection on the world map before praying.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_LEADER','The Faithful');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_LEADER_PEDIA','The Faithful represents a community''s shared commitment to prayer and service. This fictional leader seeks neither personal glory nor a kingdom built by violence. Their task is to preserve a people who can ask for daily bread, forgive their neighbors and persevere through hardship.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_NONE','No temporary blessings are active.');
@@ -65,7 +67,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_PERMANENT','
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_PRAY','PRAY');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_PROGRESS','Grace: {1_Grace}/7     Cycle: {2_Stage}/7');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_PROTECTION_POLICY','Deliverance');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_PROTECTION_POLICY_HELP','+20% City Strength in all owned cities during Protection.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_PROTECTION_POLICY_HELP','+20% City Strength in all owned cities during Protection. CP also increases city ranged-strike strength.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_QUOTE_1','Our Father in heaven.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_QUOTE_2','Hallowed be Your name.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_CK_QUOTE_3','Your kingdom come, Your will be done.');

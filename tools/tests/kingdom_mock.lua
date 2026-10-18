@@ -39,6 +39,7 @@ function TEST.plot(x,y,owner)
 end
 local City={};City.__index=City
 function City:GetID() return self.id end
+function City:GetOwner() return self.plot.owner end
 function City:GetNumRealBuilding(id) return self.buildings[id] or 0 end
 function City:SetNumRealBuilding(id,n) self.buildings[id]=n end
 function City:IsProductionUnit() return self.queue=='unit' end

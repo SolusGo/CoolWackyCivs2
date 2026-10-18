@@ -1,46 +1,16 @@
 include('CK_Core')
 local K=MapModData.CKPrayer
-local opened,leader,rendering=false,false,false
-local blocked={}
-local transition,queued,contextHidden=false,false,false
+local opened,rendering,queued=false,false,false
+local interface=K.interface
 local refresh
 local expectedStage,expectedReady
--- BNW InGame.xml context names, matching the collection's modal visibility fix.
-local screens={
- 'CivilopediaScreen','TechTree','GenericPopup','TextPopup','DeclareWarPopup','SocialPolicyPopup',
- 'NotificationLogPopup','WhosWinningPopup','NewEraPopup','NaturalWonderPopup','GoodyHutPopup',
- 'BarbarianCampPopup','GoldenAgePopup','GreatPersonRewardPopup','CityStateGreetingPopup','CityStateDiploPopup',
- 'DiploVotePopup','VoteResultsPopup','TechAwardPopup','WonderPopup','AdvisorInfoPopup','AdvisorCounselPopup',
- 'AdvisorModal','EconomicOverview','DiploOverview','MilitaryOverview','EndGameMenu','Demographics',
- 'VictoryProgress','ChooseFreeItem','ChoosePantheon','ChooseReligion','EspionageOverview','ReligionOverview',
- 'ChooseMayaBonus','ChooseFaithGreatPerson','SetUnitName','SetCityName','ProductionPopup','LeagueOverviewPopup',
- 'ChooseArchaeology','ChooseIdeology','ChooseInternationalTradeRoute','CultureOverview','ChooseTradeRouteNewHome',
- 'GreatWorkSplash','TradeRouteOverview','LeagueProjectPopup','ChooseGoodyHutRewardPopup','ChooseAdmiralNewPort',
- 'LeagueSplash','GameMenu','PlayerChange','ContentSwitch'
-}
 local function eligible()
  local pid=Game.GetActivePlayer();local p=Players[pid]
- if not K.Alive(pid) or not p:IsTurnActive() or transition or contextHidden or UI.IsCityScreenUp() then return false end
- if UI.GetInterfaceMode()~=InterfaceModeTypes.INTERFACEMODE_SELECTION then return false end
- local leaderRoot=ContextPtr:LookUpControl('/LeaderHeadRoot')
- if (leaderRoot and not leaderRoot:IsHidden()) or (not leaderRoot and leader)
-  or (UI.GetLeaderHeadRootUp and UI.GetLeaderHeadRootUp()) then return false end
- local visible={}
- for _,name in ipairs(screens) do
-  local control=ContextPtr:LookUpControl('/InGame/'..name)
-  if control and not control:IsHidden() then visible[name]=true end
- end
- for kind,record in pairs(blocked) do
-  if record.capture and next(visible) then record.capture=nil;record.screens=visible end
-  if record.screens then
-   local showing=false;for name in pairs(record.screens) do if visible[name] then showing=true end end
-   if not showing then blocked[kind]=nil end
-  end
- end
- return not next(visible) and not next(blocked)
+ return K.Alive(pid) and p:IsTurnActive() and K.InterfaceReady()
 end
 local function render()
  local pid=Game.GetActivePlayer();local show=eligible();local s=K.states[pid]
+ if not show then opened=false end
  Controls.Launcher:SetHide(not show);Controls.Panel:SetHide(not (show and opened))
  if show and opened then
   if not s then
@@ -87,11 +57,11 @@ end
 local function deferRefresh()
  if queued then return end;queued=true
  ContextPtr:SetUpdate(function()
-  ContextPtr:ClearUpdate();queued=false;transition=false;refresh()
+  ContextPtr:ClearUpdate();queued=false;interface.transition=false;refresh()
  end)
 end
 local function close() opened=false;refresh() end
-local function closeTransition() opened=false;transition=true;refresh();deferRefresh() end
+local function closeTransition() opened=false;interface.transition=true;refresh();deferRefresh() end
 Controls.Open:RegisterCallback(Mouse.eLClick,function() opened=not opened;refresh() end)
 Controls.Close:RegisterCallback(Mouse.eLClick,close)
 Controls.Pray:RegisterCallback(Mouse.eLClick,function()
@@ -99,25 +69,25 @@ Controls.Pray:RegisterCallback(Mouse.eLClick,function()
 end)
 K.Hook(LuaEvents,'CKPrayer_Changed',function(pid) if pid==Game.GetActivePlayer() then refresh() end end)
 K.Hook(Events,'SerialEventGameDataDirty',deferRefresh)
-K.Hook(Events,'SerialEventCityInfoDirty',function() if opened then refresh() end end)
+K.Hook(Events,'SerialEventCityInfoDirty',deferRefresh)
 K.Hook(Events,'SerialEventEnterCityScreen',closeTransition)
 K.Hook(Events,'SerialEventExitCityScreen',function()
- if ButtonPopupTypes then blocked[ButtonPopupTypes.BUTTONPOPUP_CHOOSEPRODUCTION]=nil end
+ if ButtonPopupTypes then interface.blocked[ButtonPopupTypes.BUTTONPOPUP_CHOOSEPRODUCTION]=nil end
  closeTransition()
 end)
-K.Hook(Events,'AILeaderMessage',function() leader=true;closeTransition() end)
-K.Hook(Events,'LeavingLeaderViewMode',function() leader=false;closeTransition() end)
+K.Hook(Events,'AILeaderMessage',function() interface.leader=true;closeTransition() end)
+K.Hook(Events,'LeavingLeaderViewMode',function() interface.leader=false;closeTransition() end)
 K.Hook(Events,'SerialEventGameMessagePopupShown',function(info)
- if info and info.Type then blocked[info.Type]={capture=true} end
+ if info and info.Type then interface.blocked[info.Type]={capture=true} end
  closeTransition()
 end)
-K.Hook(Events,'SerialEventGameMessagePopupProcessed',function(kind) blocked[kind]=nil;closeTransition() end)
+K.Hook(Events,'SerialEventGameMessagePopupProcessed',function(kind) interface.blocked[kind]=nil;closeTransition() end)
 for _,name in ipairs({'GameplaySetActivePlayer','ActivePlayerTurnStart','LoadScreenClose'}) do
- K.Hook(Events,name,function() blocked={};leader=false;closeTransition() end)
+ K.Hook(Events,name,function() interface.blocked={};interface.leader=false;closeTransition() end)
 end
 K.Hook(Events,'ActivePlayerTurnEnd',closeTransition)
 K.Hook(Events,'InterfaceModeChanged',closeTransition)
-ContextPtr:SetShowHideHandler(function(hidden) contextHidden=hidden;closeTransition() end)
+ContextPtr:SetShowHideHandler(function(hidden) interface.hidden=hidden;closeTransition() end)
 ContextPtr:SetInputHandler(function(msg,key)
  if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then close();return true end
  return false

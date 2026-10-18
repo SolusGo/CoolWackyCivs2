@@ -8,7 +8,24 @@
 - `kingdom_cycle.lua`: all seven petitions, exact rewards/eras, five economic ticks, cities founded during Seek, post-creation Protection, civilians excluded, ranged-only military included, one empire Happiness bonus, seven Grace, further-cycle rewards, repeated reconciliation and Quick/Standard/Epic/Marathon/custom speed minimum.
 - `kingdom_persistence.lua`: repeated controller reload with preserved native player data, cooldown and temporary effect deadlines, permanent Grace without rewards on reload, unrelated ScriptData preserved, empty/process/unit/project and nearly-complete queues, fractional progress preserved without overrun, unspent Production saved and applied once, final economic tick protected from early events, corrupt/future version fails closed.
 - `kingdom_transfers.lua`: capital movement, captured old capital/dummy cleanup, recapture without extra Grace, friendly/neutral/foreign territory, border ownership, war/open-border/minor-access/diplomacy events, native promotion retention on upgrade, foreign gifts stripped, independent combined defense, AI/other human rejection, elimination and multiplayer/hotseat guards.
-- `kingdom_ui.lua`: real panel Lua, localized dynamic values, all XML controls, activation/double click, active blessing durations, leader view, city view, nested/early/missed popups, Culture/Religion/Tech/Civilopedia/Game Menu contexts, interface mode, Escape, active-player switching, load/context closure, 1,000-event coalescing and 1,000 idle frames without callbacks or state changes.
+- `kingdom_ui.lua`: real panel Lua, localized dynamic values, all XML controls, activation/double click, active blessing durations, leader view, city view, nested/early/missed popups, Culture/Religion/Tech/Civilopedia/Game Menu contexts, interface mode, Escape, active-player switching, load/context closure, missed-popup panel closure, 50 rapid transition sequences, mixed city/game dirty-event coalescing and 1,000 idle frames without callbacks or state changes.
+- `kingdom_activation.lua`: direct controller/LuaEvents requests during native City View, diplomacy, mode changes, visible/pending modals, early Processed events and hidden contexts; missing required UI APIs; capital ownership, turn/player eligibility, stale/malformed requests, reentrancy, rapid duplicate clicks and cooldown expiry. Invalid requests preserve exact saved progression and resources.
+- `kingdom_unit_rules.lua`: verified native movement/healing eligibility before the friendly/neutral healing branches, rejected foreign-city destinations, no healing after movement, upgrade retention, two independent defensive bonuses and AI/foreign cleanup. Existing promotion definitions remain unchanged.
+- `kingdom_lifecycle.lua`: temporary nonhuman-control clock expiry without prayer progression, unchanged ASK reserve behavior across capital relocation/capture/reload and stale requests, Grace and elimination.
+
+The audit also checks native city-strength cache ordering: `CityStrengthMod=20` affects defense **and ranged strikes**. The existing policy is retained; no safe equivalent unconditional defense-only percentage was found. See [the audit findings and alternatives](AuditReport.md).
+
+## Audit execution record — 2026-10-18
+
+| Executed check | Result |
+| --- | --- |
+| `tools/validate_kingdom.py` | PASS: seven shipped-Lua suites, actual-schema collection SQL, 54 method-name/source contracts, native defense/healing/save branches, XML/localization and 34 DDS references |
+| `tools/validate_mod.py` | PASS: full collection regression suite, project/manifest/VFS/icon checks and original-collection coexistence audit |
+| `tools/audit_cp.py` | PASS: 176 assertions against official CP v151 commit `44c1e14ff75d80c1dba5c8a71e8289439a53aafb` |
+
+The three confirmed defects were reproduced before their fixes. Deliberately injected corrupt saves and display faults in successful tests print diagnostic messages; they are expected test inputs. Full local logs are `dist/KingdomAuditValidation.log`, `dist/KingdomAuditCollection.log` and `dist/KingdomAuditCP.log`. Final build/archive verification is recorded in `dist/KingdomAuditBuild.log` and `dist/KingdomAuditPackage.log` alongside the generated v8 distributions.
+
+No native Civilization V gameplay, rendering or saved-game round trip was executed. All native checklist items below remain outstanding.
 
 The collection validator also reruns the existing Boundless City, Pigeon, Trainer Red and McPvP suites and verifies manifest checksums, SQL order, VFS names, project entries and coexistence with the original collection. A ZIP install folder and genuine 7z/LZMA `.civ5mod` are produced by `build_mod.py`; no ModBuddy install is needed.
 
@@ -53,6 +70,8 @@ These are **automated source/schema checks and simulations**, not live Civ V gam
 ## Native interface and long games
 
 - [ ] Verify legibility at 1366×768 and larger resolutions, scroll behavior, artwork cropping, transparent atlas edges and unit flags.
+- [ ] Issue direct prayer requests during City View, diplomacy and modal/mode transitions; confirm rejection leaves all saved state and resources unchanged. Test a leader message before its visible root appears and rapidly enter/leave overview screens.
+- [ ] Load a pre-audit Kingdom save with Stand Firm already active, move across legal friendly/open-border tiles, upgrade/gift the unit and save/reload. Confirm exactly +5 eligible healing, normal movement restrictions and no foreign/AI retention.
 - [ ] Open/close city screens, Culture/Religion/Technology/Civilopedia/Game Menu and all diplomacy/trade/popups. The launcher/panel hide safely and return on the world map without leaking clicks or intercepting another modal.
 - [ ] Load an existing Kingdom save and open Prayer before/after ending a turn. Check current petition, every duration, reserve and Grace label; attempt double clicks.
 - [ ] Play a long cultural/diplomatic campaign on every speed with the other Wack2 modules enabled. Check Lua.log, performance, new-unit/territory events and save round trips repeatedly. The one-shot UI transition callback must detach before rendering; there is no periodic/idle polling or frame-based gameplay work.

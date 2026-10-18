@@ -37,7 +37,8 @@ def sql():
     assert not d.execute('SELECT 1 FROM Unit_FreePromotions WHERE UnitType=? AND PromotionType LIKE ?',(UNIT,'PROMOTION_CK_%')).fetchone()
     for name,defense,heal,lost in [('STAND',0,5,0),('DEFENDER',15,0,1),('SHIELD',15,0,1)]:
         p=d.execute('SELECT * FROM UnitPromotions WHERE Type=?',('PROMOTION_CK_'+name,)).fetchone()
-        assert (p['DefenseMod'],p['EmbarkDefenseModifier'],p['FriendlyHealChange'],p['LostWithUpgrade'],p['AttackMod'],p['FriendlyLandsModifier'])==(defense,defense,heal,lost,0,0)
+        assert (p['DefenseMod'],p['EmbarkDefenseModifier'],p['FriendlyHealChange'],p['NeutralHealChange'],p['LostWithUpgrade'],p['AttackMod'],p['FriendlyLandsModifier'])==(defense,defense,heal,0,lost,0,0)
+    assert d.execute("SELECT COUNT(*) FROM UnitPromotions WHERE Type LIKE 'PROMOTION_CK_%'").fetchone()[0]==3,'keep existing promotion definitions'
     assert d.execute("SELECT CultureRateModifier FROM Buildings WHERE Type='BUILDING_CK_SEEK'").fetchone()[0]==15
     assert d.execute("SELECT ExtraHappiness FROM Policies WHERE Type='POLICY_CK_REPENT'").fetchone()[0]==2
     assert d.execute("SELECT CityStrengthMod FROM Policies WHERE Type='POLICY_CK_PROTECTION'").fetchone()[0]==20
@@ -72,7 +73,7 @@ def source_audit():
         if path.parent.name=='Lua': assert 'SetUpdate' not in source and 'ClearUpdate' not in source,path
         else:
             assert source.count('ContextPtr:SetUpdate(')==1
-            assert re.search(r'ContextPtr:SetUpdate\(function\(\)\s*ContextPtr:ClearUpdate\(\);queued=false;transition=false;refresh\(\)',source)
+            assert re.search(r'ContextPtr:SetUpdate\(function\(\)\s*ContextPtr:ClearUpdate\(\);queued=false;interface.transition=false;refresh\(\)',source)
         for name in re.findall(r':([A-Z]\w+)\(',source):
             assert name in native|ui,('unknown method',path,name);used.add(name)
     for method in ['IsNetworkMultiPlayer','IsHotSeat','GetGameTurn','GetGameSpeedType','GetActivePlayer']:
@@ -89,6 +90,20 @@ def source_audit():
     embarked=unit[unit.index('int CvUnit::GetEmbarkedUnitDefense()'):unit.index('int CvUnit::GetResistancePower(')]
     assert 'int iModifier = GetEmbarkDefensiveModifier()' in embarked
     assert 'ChangeEmbarkDefensiveModifier((thisPromotion.GetEmbarkDefenseModifier()) * iChange)' in unit
+    can_heal=unit[unit.index('bool CvUnit::canHeal('):unit.index('int CvUnit::healRate(')]
+    assert 'bCheckMovement && hasMoved() && !isAlwaysHeal()' in can_heal
+    assert 'if (!canEndTurnAtPlot(pPlot))' in can_heal
+    movement=unit[unit.index('bool CvUnit::canMoveInto('):unit.index('bool CvUnit::canMoveInto(')+24000]
+    assert re.search(r'if\(plot.isCity\(\) && plot.getPlotCity\(\)->getOwner\(\) != getOwner\(\)\)\s*return false;',movement)
+    assert '!IsCivilianUnit() && plot.isCity() && plot.getTeam() != getTeam()' in movement
+    end_turn=unit[unit.index('bool CvUnit::canEndTurnAtPlot('):unit.index('bool CvUnit::canEndTurnAtPlot(')+600]
+    assert 'return canMoveInto(*pPlot, MOVEFLAG_DESTINATION)' in end_turn
+    healing=unit[unit.index('int CvUnit::healRate('):unit.index('void CvUnit::doHeal(')]
+    assert '(pPlot->getTeam()==getTeam()) ? iExtraFriendlyHeal : iExtraNeutralHeal' in healing
+    assert re.search(r'if \(pPlot->IsFriendlyTerritory\(getOwner\(\)\)\).*?iExtraHeal \+= iExtraFriendlyHeal;',healing,re.S)
+    assert 'changeExtraNeutralHeal(thisPromotion.GetNeutralHealChange() * iChange)' in unit
+    assert 'visitor(unit.m_iExtraNeutralHeal)' in unit,'native modifier counters are serialized'
+    assert '(!bIsUpgrade || !pkPromotionInfo->IsLostWithUpgrade())' in unit
     assert 'GetNumPolicies' not in (V/'Lua/CK_Blessings.lua').read_text()
     policies=city[city.index('int CvCity::GetHappinessFromPolicies'):city.index('int CvCity::GetHappinessFromReligion')]
     assert re.search(r'if \(isCapital\(\)\)\s*\{\s*iTotalHappiness \+=.*POLICYMOD_EXTRA_HAPPINESS',policies)
@@ -103,22 +118,33 @@ def source_audit():
     assert 'IsAllowsOpenBordersToTeam' in friendly and 'IsPlayerHasOpenBorders' in friendly
     assert 'ChangeCityStrengthMod(pkPolicyInfo->GetCityStrengthMod() * iChange)' in player
     assert 'int iStrengthMod = GET_PLAYER(getOwner()).GetCityStrengthMod()' in city
+    city_strength=city[city.index('void CvCity::updateStrengthValue()'):city.index('int CvCity::getStrengthValue(')]
+    ranged_strength=city[city.index('int CvCity::getStrengthValue('):city.index('int CvCity::getStrengthValue(')+13500]
+    assert city_strength.index('iStrengthValue *= (100 + iStrengthMod)')<city_strength.index('int iStrengthValueRanged = iStrengthValue')
+    assert city_strength.index('POLICYMOD_CITY_DEFENSE_BOOST')<city_strength.index('int iStrengthValueRanged = iStrengthValue')
+    assert city_strength.index('int iStrengthValueRanged = iStrengthValue')<city_strength.index('int iAdjacentUnitsDefenseMod = getAdjacentUnitsDefenseMod()')
+    assert 'int iValue = m_iStrengthValueRanged' in ranged_strength and 'int iValue = m_iStrengthValue;' in ranged_strength
+    assert 'if (HasGarrison())' in ranged_strength and 'GetGarrisonedCityRangeStrikeModifier()' in ranged_strength
+    city_bindings=set(re.findall(r'Method\s*\(\s*(\w+)\s*\)',sources['CvLuaCity']))
+    assert {'GetStrengthValue','UpdateStrengthValue'}<=city_bindings and not {'SetStrengthValue','ChangeStrengthValue'}&city_bindings
     assert 'm_piYieldModifier[YIELD_CULTURE] += m_iCultureRateModifier' in sources['CvBuildingClasses']
     assert player.index('pLoopCity->doTurn();',player.index('void CvPlayer::doTurn()'))<player.index('"PlayerDoTurn"',player.index('void CvPlayer::doTurn()'))
     production=city[city.index('void CvCity::setProduction(int'):city.index('void CvCity::changeProduction(int')]
     assert all(n in production for n in ['isProductionUnit','isProductionBuilding','isProductionProject']) and 'popOrder' not in production
     delta=city[city.index('void CvCity::changeProduction(int'):city.index('void CvCity::setProductionTimes100(int')]
     assert all(n in delta for n in ['isProductionUnit','isProductionBuilding','isProductionProject','changeOverflowProduction'])
-    print('PASS Kingdom pinned CP v151:',len(used),'Lua methods, event ABIs, defense-only paths, native culture/policy/production and city tick ordering')
+    print('PASS Kingdom pinned CP v151:',len(used),'Lua methods, event ABIs, defense/healing/save branches, native culture/policy/production and city tick ordering')
+    print('PASS Protection source contract: CityStrengthMod boosts defense AND ranged cache; defense-only aura requires nearby units, flat building/policy boosts are not an equivalent blanket percentage')
 
 def table(lua,v):
     if isinstance(v,dict): return lua.table_from({k:table(lua,x) for k,x in v.items()})
     if isinstance(v,list): return lua.table_from([table(lua,x) for x in v])
     return v
 
-def runtime(d):
+def runtime(d,tests=None):
     data={t:[dict(r) for r in d.execute('SELECT * FROM '+t)] for t in TABLES}
-    for test in ['kingdom_cycle.lua','kingdom_persistence.lua','kingdom_transfers.lua','kingdom_ui.lua']:
+    for test in tests or ['kingdom_cycle.lua','kingdom_persistence.lua','kingdom_transfers.lua','kingdom_ui.lua',
+                         'kingdom_activation.lua','kingdom_unit_rules.lua','kingdom_lifecycle.lua']:
         lua=LuaRuntime(unpack_returned_tuples=True)
         lua.globals().CK_DATABASE=table(lua,data)
         lua.globals().CK_TEXT=table(lua,{'TXT_KEY_CK_'+k:v for k,v in TEXT.items()})

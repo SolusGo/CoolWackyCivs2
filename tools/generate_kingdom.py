@@ -15,7 +15,7 @@ STAGES = [
  ('SEEK', 'Your kingdom come, Your will be done.', 'Every owned city: +15% Culture for {1_Turns} turns.'),
  ('ASK', 'Give us this day our daily bread.', 'Capital: immediately gain {3_Yield} Food and {3_Yield} Production (8 each per Era level). Production beyond the current item, or without a finite queue, is safely held in a saved reserve.'),
  ('REPENT', 'Forgive us our debts, as we forgive our debtors.', '+2 Global Happiness for {1_Turns} turns.'),
- ('PROTECTION', 'Lead us not into temptation, but deliver us from evil.', 'All owned cities: +20% City Strength for {1_Turns} turns. Military units: +15% strength only when defending in friendly territory for the same duration.'),
+ ('PROTECTION', 'Lead us not into temptation, but deliver us from evil.', 'All owned cities: +20% City Strength for {1_Turns} turns. CP also increases city ranged-strike strength. Military units: +15% strength only when defending in friendly territory for the same duration.'),
  ('CLOSING GLORY', 'For Yours is the kingdom, the power, and the glory forever.', 'Gain {4_GAP} Golden Age Points (20 per Era level), one permanent Grace (maximum 7), and 10 Faith per completed House of Prayer. At 7 Grace, gain {5_Excess} extra Golden Age Points (25 per Era level) instead. The next petition is Address.'),
 ]
 TEXT = {
@@ -35,7 +35,7 @@ TEXT = {
  'SHIELD':'Protection — defending at home', 'SHIELD_HELP':'+15% strength when defending in friendly territory during Protection. Separate from Stand Firm. No attack bonus.',
  'DUMMY':'Kingdom blessing', 'DUMMY_HELP':'Automatically maintained by Prayer; cannot be built or purchased.',
  'REPENT_POLICY':'Forgiveness', 'REPENT_POLICY_HELP':'+2 Global Happiness during Repent; counted once in the empire.',
- 'PROTECTION_POLICY':'Deliverance', 'PROTECTION_POLICY_HELP':'+20% City Strength in all owned cities during Protection.',
+ 'PROTECTION_POLICY':'Deliverance', 'PROTECTION_POLICY_HELP':'+20% City Strength in all owned cities during Protection. CP also increases city ranged-strike strength.',
  'CIV_PEDIA':'The Children of the Kingdom are a fictional community inspired by the Lord\'s Prayer in Matthew 6:9–13. Their common life begins in Sanctuary and grows through devotion, humility, forgiveness and trust in God\'s will. Their strength comes from steady prayer rather than conquest.[NEWLINE][NEWLINE]The seven petitions move from addressing the Father, through praise, seeking, daily provision, repentance and protection, to a closing doxology. The familiar closing words belong to the traditional doxology; Christian traditions differ in their liturgical use and textual placement. The seven-stage cycle is a gameplay structure, not a claim that every tradition divides the prayer in this way.[NEWLINE][NEWLINE]Grace represents enduring spiritual growth within this fictional civilization. It is not an assertion that divine favor can be measured or earned as a game currency.',
  'LEADER_PEDIA':'The Faithful represents a community\'s shared commitment to prayer and service. This fictional leader seeks neither personal glory nor a kingdom built by violence. Their task is to preserve a people who can ask for daily bread, forgive their neighbors and persevere through hardship.',
  'STRATEGY':'Pray consistently, develop Houses of Prayer, and defend your cities while Grace slowly strengthens the capital. Culture and Diplomatic victories suit this patient civilization. Early blessings are modest; protecting experienced Keepers and completing seven-stage cycles matters more than conquest.',
@@ -50,6 +50,8 @@ TEXT = {
  'ACTIVE_LINE':'{1_Name}: {2_Turns} turns remaining', 'BLESSING':'Blessing: {1_Effect}',
  'READY_HELP':'Pray the current petition once. The next petition becomes available after {1_Turns} turns.',
  'WAIT_HELP':'This petition is not yet available. Wait {1_Turns} turns; changing screens or reloading does not reset the cooldown.',
+ 'BUSY_HELP':'A prayer or blessing update is already being processed.',
+ 'INTERFACE_HELP':'Close City View, Diplomacy and other screens, then return to normal selection on the world map before praying.',
  'UNAVAILABLE':'Prayer requires an active human Kingdom turn and an owned capital. Multiplayer and hotseat are unsupported.',
  'DISABLED':'Prayer state could not be read safely. Effects are disabled; see Lua.log. The original saved data has been preserved.',
  'CONFIRM':'{1_Name} prayed. The next petition is {2_Next}; available in {3_Turns} turns.',

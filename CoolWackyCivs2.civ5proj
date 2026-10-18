@@ -676,6 +676,9 @@
     <Content Include="TheChildrenOfTheKingdom/Lua/CK_Events.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="TheChildrenOfTheKingdom/Lua/CK_Interface.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="TheChildrenOfTheKingdom/Lua/CK_State.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>

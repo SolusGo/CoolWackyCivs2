@@ -172,16 +172,17 @@
     <File md5="1415151AFA3E0B874D9B0A1E2F40B0E1" import="1">TheChildrenOfTheKingdom/Art/CKPortrait128.dds</File>
     <File md5="2A67CAAD4EB6BDEF9C2134477CA0845D" import="1">TheChildrenOfTheKingdom/Art/CKPortrait256.dds</File>
     <File md5="82C4B7F1BC1D1367FAF280D6E64C0D5A" import="1">TheChildrenOfTheKingdom/Art/CKPortrait64.dds</File>
-    <File md5="DEACBE4FB9EBC132F769E67F9C42017D" import="1">TheChildrenOfTheKingdom/Lua/CK_Blessings.lua</File>
-    <File md5="195DAA28BB927BF1F300ED8AAA50B654" import="1">TheChildrenOfTheKingdom/Lua/CK_Core.lua</File>
-    <File md5="096B478F8FB85A99EB8FF839E47F780D" import="1">TheChildrenOfTheKingdom/Lua/CK_Events.lua</File>
+    <File md5="A839422F47A29EC089384FDB2A0F7A5B" import="1">TheChildrenOfTheKingdom/Lua/CK_Blessings.lua</File>
+    <File md5="603F0B7FE2FFB62325EF75E8BBA6BFAA" import="1">TheChildrenOfTheKingdom/Lua/CK_Core.lua</File>
+    <File md5="F0A230C450EE93D2FD9D88D8C607211C" import="1">TheChildrenOfTheKingdom/Lua/CK_Events.lua</File>
+    <File md5="F08CC920F1074E2CDEBF5ABFBACA9952" import="1">TheChildrenOfTheKingdom/Lua/CK_Interface.lua</File>
     <File md5="315516DF2C7AE70ABBDA7AFB146F417E" import="1">TheChildrenOfTheKingdom/Lua/CK_State.lua</File>
     <File md5="B70120427A50091F8AF4D79B9942F906" import="0">TheChildrenOfTheKingdom/SQL/00_CK_Core.sql</File>
     <File md5="C1CB324618EC947DF4C0441D1068590A" import="0">TheChildrenOfTheKingdom/SQL/01_CK_Inheritance.sql</File>
     <File md5="559B5F373E7E70DCF567AAC8585F7273" import="0">TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</File>
     <File md5="31BF4D2D447EB1C8A23D5AA59DDF7B6F" import="0">TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</File>
-    <File md5="CC571DA98041E22CCA83291565DB3A91" import="0">TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</File>
-    <File md5="062063722DF625385C8BB7356B086940" import="1">TheChildrenOfTheKingdom/UI/CK_Prayer.lua</File>
+    <File md5="5D9D790B65884D6FD5028E648322BC38" import="0">TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</File>
+    <File md5="1B85939C91FC5CFAD880747E8E55B516" import="1">TheChildrenOfTheKingdom/UI/CK_Prayer.lua</File>
     <File md5="EF42C212EF94C066122AC233E6FC52BD" import="0">TheChildrenOfTheKingdom/UI/CK_Prayer.xml</File>
     <File md5="37E27BF1A38FB5781EF47F768DE26057" import="1">TheRepublicOfPigeons/Art/PigeonAlpha128.dds</File>
     <File md5="2A949A15E447F4BAC1B36C1FD87F7CC2" import="1">TheRepublicOfPigeons/Art/PigeonAlpha16.dds</File>

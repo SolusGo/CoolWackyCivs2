@@ -1,5 +1,11 @@
 # Changelog
 
+## Kingdom implementation audit — 2026-10-18
+
+- Fixed direct prayer activation across incompatible screens, frozen blessing expiry during temporary nonhuman control and Prayer reopening after missed popup events.
+- Added three Kingdom regression suites, shared controller/panel interface validation, native healing/movement checks and explicit city-strength/ranged-strike source contracts. Retained the native +20% city-strength policy after reviewing defense-only alternatives.
+- Preserved all gameplay values, seven petitions, Grace, uniques, human-only restrictions, IDs, save schema, artwork and other civilizations. See [the audit report](TheChildrenOfTheKingdom/docs/AuditReport.md) for severities, exact files and native verification still required.
+
 ## 1.5.0 Kingdom implementation preview / mod version 8 — 2026-10-18
 
 - Added The Children of the Kingdom under The Faithful: human-only seven-stage Prayer, permanent Grace capped at seven, scaled deadlines, saved temporary blessings, safe ASK Production reserves and completed-House rewards.

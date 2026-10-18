@@ -29,5 +29,6 @@ function K.Promotion(u,id,value)
  if u:IsHasPromotion(id)~=value then u:SetHasPromotion(id,value) end
 end
 include('CK_State')
+include('CK_Interface')
 include('CK_Blessings')
 include('CK_Events')

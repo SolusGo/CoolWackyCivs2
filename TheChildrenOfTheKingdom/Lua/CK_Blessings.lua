@@ -74,9 +74,13 @@ function K.Sync(pid,units)
  if s then K.Bread(s) end
 end
 function K.CanPray(pid)
- if not K.Alive(pid) or Game.GetActivePlayer()~=pid or not Players[pid]:IsTurnActive() or not Players[pid]:GetCapitalCity() then return false,'UNAVAILABLE' end
+ if not K.Alive(pid) or Game.GetActivePlayer()~=pid or not Players[pid]:IsTurnActive() then return false,'UNAVAILABLE' end
+ local cap=Players[pid]:GetCapitalCity()
+ if not cap or cap:GetOwner()~=pid then return false,'UNAVAILABLE' end
  local s=K.State(pid);if not s then return false,'DISABLED' end
- if K.busy[pid] or K.Turn()<s.ready then return false,'WAIT_HELP' end
+ if K.busy[pid] or K.syncing[pid] then return false,'BUSY_HELP' end
+ if K.Turn()<s.ready then return false,'WAIT_HELP' end
+ if not K.InterfaceReady() then return false,'INTERFACE_HELP' end
  return true
 end
 function K.Pray(pid,expectedStage,expectedReady)

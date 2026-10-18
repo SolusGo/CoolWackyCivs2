@@ -12,9 +12,11 @@ H(LuaEvents,'CKPrayer_Pray',K.Pray)
 H(GameEvents,'PlayerDoTurn',function(pid)
  local p=Players[pid];if not p then return end
  if K.Human(pid) or K.states[pid] then
-  local s=K.Human(pid) and K.State(pid) or nil
+  local s=K.states[pid] or (K.Human(pid) and K.State(pid))
   -- CP calls PlayerDoTurn AFTER city yields, before units. Keep blessings through
   -- their final economic tick; reconcile/expire before the human can act again.
+  -- Existing tracked deadlines still age during temporary nonhuman control;
+  -- only K.Sync's human guard can apply benefits. Never initialize an AI prayer.
   if s then s.clock=K.Turn();K.Save(s) end
   K.Sync(pid,true);LuaEvents.CKPrayer_Changed(pid)
  end
