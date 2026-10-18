@@ -72,6 +72,15 @@ def main():
     def body(filename, signature):
         source = sources[filename]; start = source.index(signature)
         return source[start:source.index('\n}', start)+2]
+    city_turn = body('CvCity.cpp', 'void CvCity::doTurn(')
+    player_turn = body('CvPlayer.cpp', 'void CvPlayer::doTurnPostDiplomacy(')
+    growth = body('CvCity.cpp', 'void CvCity::doGrowth(')
+    check('Native governor optimization precedes city growth', city_turn.index('OptimizeWorkedPlots(false)') < city_turn.index('doGrowth();'))
+    check('PlayerDoTurn is after native city economic turns', player_turn.index('pLoopCity->doTurn();') < player_turn.index('"PlayerDoTurn"'))
+    check('Growth harvests the ordinary cached Food rate in hundredths', 'int iFoodPerTurn100 = getYieldRateTimes100(YIELD_FOOD);' in growth and 'changeFoodTimes100(iFoodPerTurn100);' in growth)
+    check('Initial native allocation preserves forced default labourers', 'GetNumDefaultSpecialists() - GetNumForcedDefaultSpecialists()' in body('CvCityCitizens.cpp', 'void CvCityCitizens::DoInitialAssigment('))
+    check('Native optimization cannot remove forced default labourers', 'iNumLaborers = max(0, GetNumDefaultSpecialists() - GetNumForcedDefaultSpecialists());' in body('CvCityCitizens.cpp', 'vector<TileChange> CvCityCitizens::GetBestOptionsQuick('))
+    check('Native local working changes refresh city rates', 'UpdateAllNonPlotYields(false)' in body('CvCityCitizens.cpp', 'void CvCityCitizens::SetWorkingPlot('))
     alive = body('CvPlayer.cpp', 'void CvPlayer::verifyAlive(')
     check('Zero-city survival uses civilization trait', '!GetPlayerTraits()->IsStaysAliveZeroCities()' in alive)
     check('Zero-city survival cannot bypass no units or max-city-elimination', 'getNumUnits() == 0 ||' in alive and 'getMaxCityElimination() > 0' in alive)

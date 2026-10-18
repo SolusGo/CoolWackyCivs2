@@ -1,5 +1,11 @@
 # Changelog
 
+## Boundless Food growth hotfix — 2026-10-19
+
+- Preserve existing remote yields through harmless native governor changes while actual default citizens still back them. This closes a reproduced pre-growth gap between the displayed and harvested Food rate.
+- Keep conservative admission for new remote jobs and immediate removal for real citizen/eligibility losses. No Food-storage/population edits, balance changes, save migration or package-version change.
+- Add the Food turn-order regression, six CP source contracts and updated guides. See [the hotfix report](TheBoundlessCity/docs/FoodGrowthHotfix.md) for evidence and the remaining native replay check.
+
 ## Kingdom implementation audit — 2026-10-18
 
 - Fixed direct prayer activation across incompatible screens, frozen blessing expiry during temporary nonhuman control and Prayer reopening after missed popup events.

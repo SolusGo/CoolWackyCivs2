@@ -20,6 +20,8 @@ Early play favors population, the Registry, improved local land and a defensible
 
 The central advantage is the **choice of tiles**, rather than passive yields from territory. A distant mine, farm or fishing improvement can contribute to the same capital, but each assigned plot needs one real reserved citizen. All production still passes through one queue, workers must travel to distant districts, and losing the original capital leaves no replacement settlement.
 
+The [Food growth hotfix](../../TheBoundlessCity/docs/FoodGrowthHotfix.md) preserves remote yields across harmless local governor changes, so the reproduced pre-growth callback sequence harvests the displayed rate. Credits remain bounded by actual default citizens; existing saves need no migration. In-game confirmation remains pending.
+
 ## The Boundless Workforce
 
 Open the button at the upper right of the world map. The panel shows population, owned land, local/remote workers, specialists, idle labourers and unassigned citizens. It distinguishes movable citizens from additional safe remote capacity and lists pending/locked requests, frontier progress, gross remote yields, labourer compensation and net base contribution.

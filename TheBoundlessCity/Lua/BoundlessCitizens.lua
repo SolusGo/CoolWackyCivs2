@@ -234,8 +234,14 @@ function B.Trim(s,touched)
    end
   end
  end
- if count>census.protected then
-  for _,n in ipairs(B.Keys(s.assignments)) do if count<=census.protected then break end
+ -- Admission and retention have different bounds. New remote jobs require a
+ -- forced/surplus reservation (Reconcile), but existing jobs remain backed by
+ -- the actual ordinary default labourers counted NOW. A harmless local swap
+ -- changes governorKey and invalidates the old forced proof, not those people.
+ -- Dropping their yields here can starve doGrowth before deferred Reconcile.
+ -- Real default losses still retire credits immediately; automata give zero.
+ if count>census.realDefaults then
+  for _,n in ipairs(B.Keys(s.assignments)) do if count<=census.realDefaults then break end
    s.assignments[n]=nil;count=count-1;changed=true
   end
  end

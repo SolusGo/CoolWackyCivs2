@@ -124,7 +124,7 @@
     <File md5="5EC1FDD623C5BF3BAC9A271DED1C5B2F" import="1">TheBoundlessCity/Art/BoundlessPortrait256.dds</File>
     <File md5="1299EE7970AE78B0DEC0F26E12162E4C" import="1">TheBoundlessCity/Art/BoundlessPortrait64.dds</File>
     <File md5="1EE1B4C1666A685743E3894366F9C11F" import="1">TheBoundlessCity/Lua/BoundlessAI.lua</File>
-    <File md5="1981623829CF403132ECC069B4D57B2B" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
+    <File md5="7154D3558123D9ED9D2FF31104D33E6F" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
     <File md5="AD10D54ECAC9E3B44D92E723BCE7B3E1" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
     <File md5="14326E2FCF6627B264AC81992669ADF6" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
     <File md5="B79832C8069B5D844EFF0951198EB026" import="1">TheBoundlessCity/Lua/BoundlessMilitary.lua</File>

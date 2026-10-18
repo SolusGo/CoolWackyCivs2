@@ -35,6 +35,8 @@ With 80 population, 30 owned native local jobs and no specialist buildings, the 
 
 Assignments, exclusions and locks persist. Yield changes are handled through relevant events and owner-turn reconciliation. Eligibility requires ownership, a non-city plot with yields, water-working technology where needed, no visible enemy and no blockade. Yielding mountain wonders are allowed. Mid-action population/citizen/ownership changes trim unsafe credits, followed by one deferred callback. The capital plot stores a versioned yield ledger, so reinitialization replaces the previous contribution. Remote improvement upgrades advance once per owner turn using native rate/threshold APIs, while unassigned plots do not. Terrain-Culture Tourism is refreshed explicitly. Native worked counters and other worked-only effects remain limited; see the [effect matrix](docs/WorkedTileEffects.md).
 
+The [Food growth hotfix](docs/FoodGrowthHotfix.md) keeps existing remote yields active through local governor changes while their real default citizens remain. This repairs a reproduced turn-order gap that could harvest less Food than the city displayed. Actual worker/specialist reclaims still remove excess credits immediately. Restart after installing; existing saves retain their assignments and progress. Native campaign confirmation is pending.
+
 ## The Boundless Workforce
 
 The upper-right world-map button opens a panel with:

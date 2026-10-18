@@ -1,5 +1,11 @@
 # The Boundless City changelog
 
+## Remote Food turn-order hotfix — 2026-10-19
+
+- Fixed existing remote credits disappearing on a harmless native local-worker change before growth. Retain them while real default citizens remain; new assignments still require the forced/surplus reservation proof.
+- Preserve immediate trimming for actual worker/specialist losses, invalid plots and automatons. No stored Food/population edits, catch-up grants, balance or save-schema changes.
+- Added a regression reproducing +37.50 displayed versus +13.75 harvested with the old code and verifying three corrected cycles, plus six native source contracts. Eleven Boundless suites pass; native campaign confirmation remains pending. See [the report](docs/FoodGrowthHotfix.md).
+
 ## Workforce summary display — 2026-10-16
 
 - Removed display pipes from the legacy summary key: Civ V uses them to select alternative text forms, so the old first form contained only Population.

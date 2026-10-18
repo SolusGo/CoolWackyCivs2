@@ -2,7 +2,7 @@
   "official_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
   "dll_version": 151,
   "scope": "source availability/ABI assertions; NOT launched-game verification",
-  "passed_assertions": 176,
+  "passed_assertions": 182,
   "checks": [
     "DLL version is 151",
     "City:GetOwner registered",
@@ -140,6 +140,12 @@
     "Resistance blocks purchase-cost legality",
     "Native city turn decrements resistance before production",
     "CanRaze has a native script protection veto",
+    "Native governor optimization precedes city growth",
+    "PlayerDoTurn is after native city economic turns",
+    "Growth harvests the ordinary cached Food rate in hundredths",
+    "Initial native allocation preserves forced default labourers",
+    "Native optimization cannot remove forced default labourers",
+    "Native local working changes refresh city rates",
     "Zero-city survival uses civilization trait",
     "Zero-city survival cannot bypass no units or max-city-elimination",
     "Trait loads native StaysAliveZeroCities column",
@@ -277,6 +283,10 @@
     "CvBuildingClasses.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvBuildingClasses.cpp",
       "sha256": "44959390632ce9646dbfc77752c22d965fadc53ff049098594a18477e3dd8a25"
+    },
+    "CvPolicyClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPolicyClasses.cpp",
+      "sha256": "4fdf38c60e2cc7bc77d38991af04a2b1c13b858f003298365b95fa1f3cde9f22"
     }
   }
 }
