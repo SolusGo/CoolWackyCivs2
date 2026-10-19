@@ -1,5 +1,6 @@
 {
   "date": "2026-10-19",
+  "audit_baseline": "d59c4ebb240e02cc3dd6f377f7ba8a5361f00d6d",
   "civilization": "CIVILIZATION_TWELFTH_HOUR",
   "environment": "Civilization V BNW / installed Community Patch v151 database schema",
   "static_validation": {
@@ -9,7 +10,10 @@
     "sql_activation": "Installed BNW/CP schema and read-only copy of active Civ5DebugDatabase.db, all modifications in memory",
     "inheritance": "All active Pikeman/Workshop scalar and direct companion rows; changed baseline, extra scalar columns and additive Culture tested",
     "lua_syntax": "All packaged and fixture Lua parsed under Lua 5.1",
-    "twelfth_source_contracts": 17,
+    "twelfth_source_contracts": 43,
+    "yield_arithmetic": "CP-derived integer arithmetic models for additive/category/Golden Age modifiers, post-modifier/trade yields, suppression, zero yields, overflow and rounding; not compiled DLL execution",
+    "save_api_evidence": "Installed Firaxis dot-call examples and read-only save-database schema; closed native binding execution and serializer round trip unperformed",
+    "save_call_native_rejection": "unconfirmed; the strict shipped-call-form model rejects colon calls, but shipped examples alone do not prove a permissive native binding rejects both forms",
     "collection_atlas_size_entries": 230,
     "packaged_gameplay_files": 327,
     "unrelated_gameplay_file_hashes_and_vfs_unchanged": 278,
@@ -18,11 +22,13 @@
   },
   "mocked_lua_tests": {
     "status": "passed",
-    "runs": 10,
+    "runs": 20,
+    "configurations": 10,
+    "suites_per_configuration": ["twelfth_assertions.lua", "twelfth_audit_assertions.lua"],
     "game_speeds": ["QUICK", "STANDARD", "EPIC", "MARATHON", "CUSTOM"],
     "saved_start_turns": [0, 150],
     "consecutive_turns_per_run": 24,
-    "scope": "Pre-PlayerDoTurn illustrative SQL-backed harvests, active/interturn context reloads, notifications, multiple cities, founding, ownership, Clocktower lifecycle, dirty events, invalid/dead/unusual AI players",
+    "scope": "Pre-PlayerDoTurn illustrative harvests, context reloads plus actual fixture snapshot rewinds, same-turn independent games, pre-staging autosaves at 5/6 and 11/12, absent keys, native-shaped post-sale lifecycle, transient/persistent faults, notification recovery, ownership, deletion, corruption cleanup and dirty events",
     "is_native_engine_proof": false
   },
   "actual_civ_v_runtime_tests": {
@@ -39,7 +45,8 @@
   },
   "documented_limits": [
     "Next-turn dummies are staged during the interturn because PlayerDoTurn follows economic settlement",
-    "Native end-turn autosave resumption before PlayerDoneTurn needs empirical verification",
+    "Native end-turn autosave resumption before PlayerDoneTurn is source-traced and modeled but still needs empirical verification",
+    "Persistent engine/database/setter failures beyond the bounded synchronous retry can still affect a harvest and are logged explicitly",
     "First-time activation after a Chime harvest cannot retroactively credit that harvest",
     "Notifications only; no continuous countdown UI",
     "Standard Pikeman battlefield model and static illustrated diplomacy scene"

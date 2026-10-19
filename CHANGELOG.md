@@ -1,5 +1,12 @@
 # Changelog
 
+## Twelfth Hour second-pass technical audit — 2026-10-19
+
+- Corrected the OpenSaveData dot-call contract hidden by the original fixture, retaining existing save keys and all gameplay values.
+- Added bounded synchronous recovery, isolated per-player repair, reliable notification persistence and verified post-sale cleanup.
+- Added real fixture snapshot rewinds, identical-turn independent games, pre-staging autosaves and failure regressions; expanded source/yield/persistence evidence. See [the ranked audit report](TheTwelfthHour/docs/AuditReport.md).
+- Preserved all SQL, artwork, identities, human-only flags and unrelated civilizations. Native yield/save/rendering acceptance remains outstanding.
+
 ## The Twelfth Hour implementation preview — 2026-10-19
 
 - Added the human-only Keeper of Seconds and the Grand Chime: +75% city Production/+50% city Science every sixth played turn, synchronized with two native dummy buildings and CP next-turn staging.

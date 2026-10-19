@@ -19,7 +19,33 @@
     "saved raw game turn increments once": true,
     "start turn bound for advanced starts": true,
     "game start turn initialized from actual turn": true,
-    "dummy excluded from normal building totals": true
+    "dummy excluded from normal building totals": true,
+    "autosave precedes turn-state change and Done hook": true,
+    "ordinary deactivation waits for completed automoves": true,
+    "next player activation follows Done event return": true,
+    "active end and automove flags serialized": true,
+    "processed automoves deliberately not serialized": true,
+    "load restores active count without calling doTurn": true,
+    "updateMoves rebuilds processed flag from restored automoves": true,
+    "city yield short circuits resistance anarchy and razing": true,
+    "city base yield is multiplied once then truncated": true,
+    "process and food-conversion yields enter after city modifiers": true,
+    "multiplicative modifiers precede trade additions": true,
+    "building flat yields enter base before modifiers": true,
+    "general and item production modifiers are additive": true,
+    "Golden Age yield modifiers are additive": true,
+    "all current construction classes use item modifiers": true,
+    "production overflow bypasses current yield multiplication": true,
+    "science overflow added after ordinary city rates": true,
+    "changing modifiers refreshes cached yields immediately": true,
+    "sale hook is post-removal": true,
+    "constructed hook is after building exists": true,
+    "purchase hooks are after building creation": true,
+    "capture ABI new owner is fifth argument": true,
+    "promotion movement changes exactly one native extra-move field": true,
+    "promotion strength uses one native friendly modifier": true,
+    "upgrade preserves retainable promotions not marked lost": true,
+    "friendly modifier shared by melee attack and defense": true
   },
   "sources": {
     "CvPlayer.cpp": {
@@ -49,6 +75,14 @@
     "CvLuaGame.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaGame.cpp",
       "sha256": "a2bee0ef0210f71eae8e09f3209755f7bf64ee6177dc8f52ee01de8fa893655b"
+    },
+    "CvLuaPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp",
+      "sha256": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a"
+    },
+    "CvDllNetMessageHandler.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvDllNetMessageHandler.cpp",
+      "sha256": "6f748a0f38b8a71b5e08258aed04adfe1420a6f537d5a3ccf1b5659f04be730d"
     },
     "CustomMods.h": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",

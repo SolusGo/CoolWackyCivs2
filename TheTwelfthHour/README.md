@@ -27,4 +27,6 @@ Use the collection's generated ZIP or `.civ5mod`; enable BNW, CP v151 and Cool W
 
 See [implementation and native timing limits](docs/Implementation.md), [all 20 required test scenarios](docs/Testing.md), and [source contracts](docs/SourceAudit.json).
 
+The [second-pass technical audit](docs/AuditReport.md) fixes the Firaxis save-function calling convention, adds bounded synchronous error recovery and reliable notification marking, and removes unnecessary post-sale delay. Its 20 Lua suite runs include real fixture snapshots, separate same-turn games and pre-staging autosaves; 43 pinned CP contracts and installed save-API evidence support the implementation. All gameplay numbers, SQL, art, human-only flags and existing save keys are preserved.
+
 **Verification status:** SQL on BNW/CP schemas and a read-only copy of the active cache, Lua 5.1 simulations and source contracts pass. Native Civ V was **not launched** for this implementation. Actual construction/research settlement, rendered UI, and native save/load round trips remain manual acceptance checks. A mock is not proof of engine behavior.

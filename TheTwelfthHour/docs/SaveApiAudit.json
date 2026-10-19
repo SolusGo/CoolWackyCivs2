@@ -1,0 +1,10 @@
+{
+  "scope": "Installed shipped-script API contract and read-only schema, NOT native API execution",
+  "firaxis_script": "Assets/DLC/DLC_01/Scenarios/Mongol Scenario/CivsAlive.lua",
+  "sha256": "eb719bac055f701702524e8466d3216258c5d219ab69f4c29edda7404812f61b",
+  "api_calls": "OpenSaveData returned functions use dot notation",
+  "persistence": "Savegame database, shared among mods within one save; OpenUserData is the separate per-user store",
+  "save_container_primary_source": "https://forums.civfanatics.com/threads/tablesaverloader-for-persisting-lua-table-data-through-game-save-load.442249/",
+  "native_round_trip_performed": false,
+  "installed_save_database_schema": "CREATE TABLE SimpleValues(Name TEXT Primary Key, Value VARIANT)"
+}

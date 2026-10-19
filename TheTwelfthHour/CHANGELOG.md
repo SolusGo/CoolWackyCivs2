@@ -1,5 +1,13 @@
 # The Twelfth Hour changelog
 
+## 2026-10-19 — Second-pass technical audit
+
+- Match Firaxis's dot-call OpenSaveData function contract; retain all existing v1 keys and per-save data without migration/reset.
+- Open lazily inside protected work, retry idempotent synchronization once synchronously, and isolate player failures during initialization/load/batches.
+- Mark notifications after successful delivery, preserving deduplication if persistence must retry. Reconcile Clocktower sales immediately in the verified post-removal hook.
+- Replace permissive save/sale mock assumptions and add snapshot rewinds, same-turn independent games, absent-key saves, pre-staging autosaves, deletion/corrupt-count cleanup and fault regressions.
+- Expand to 20 Lua suite runs, 43 freshly reviewed pinned CP contracts, CP-derived yield arithmetic and installed Firaxis save-API/schema evidence. No SQL, balance, art, identity or unrelated-civilization changes. Native gameplay/serializer acceptance remains pending; see [the audit](docs/AuditReport.md).
+
 ## 2026-10-19 — Initial implementation
 
 - Added the human-only Keeper of Seconds, Last Minute and all twenty city names, When the Clock Strikes, Pendulum Guard and Municipal Clocktower.

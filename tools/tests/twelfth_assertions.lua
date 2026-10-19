@@ -35,14 +35,14 @@ for played=1,24 do
 end
 
 -- Founding, conquest, gifting, liberation, same local ID under different owners.
-rawTurn=startTurn+29 -- sixth Chime; existing stale phase marker must be ignored
+rawTurn=startTurn+29 -- played turn 30; existing stale phase marker must be ignored
 GameEvents.PlayerDoTurn.Fire(0)
 local founded=NewCity(p,2,false);GameEvents.PlayerCityFounded.Fire(0,4,4)
 AssertBonus(founded,1,0)
 founded.buildings[103]=1;GameEvents.CityConstructed.Fire(0,2,103)
 AssertBonus(founded,1,1)
--- Sale notification BEFORE removal, then dirty fallback AFTER removal.
-GameEvents.CitySoldBuilding.Fire(0,2,103);founded.buildings[103]=0;Flush()
+-- CP ResponseSellBuilding invokes the hook AFTER DoSellBuilding removes it.
+founded.buildings[103]=0;GameEvents.CitySoldBuilding.Fire(0,2,103)
 AssertBonus(founded,1,0)
 founded.buildings[103]=1;Events.SerialEventGameDataDirty.Fire();Flush();AssertBonus(founded,1,1)
 p.cities[2]=nil;foreign.cities[2]=founded;founded.owner=1

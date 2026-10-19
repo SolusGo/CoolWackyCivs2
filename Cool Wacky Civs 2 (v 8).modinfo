@@ -343,7 +343,7 @@
     <File md5="20925D5A24749FA16C1DCE9CB57545C0" import="1">TheTwelfthHour/Art/TWELFTH_Portrait48.dds</File>
     <File md5="B1A26D8A772F1222AD3EE81ED4C149C6" import="1">TheTwelfthHour/Art/TWELFTH_Portrait64.dds</File>
     <File md5="5C5323E1106BAC841FF2B24391D21DD8" import="1">TheTwelfthHour/Art/TWELFTH_Portrait80.dds</File>
-    <File md5="34624C2C7530B2D1C7C385942A89B05A" import="1">TheTwelfthHour/Lua/TWELFTH_Chime.lua</File>
+    <File md5="79A8A85DB2B9F8B38883C0099C16EC43" import="1">TheTwelfthHour/Lua/TWELFTH_Chime.lua</File>
     <File md5="2CCD17D1A9B3E9C5EEA71384AC182932" import="0">TheTwelfthHour/SQL/00_TWELFTH_Core.sql</File>
     <File md5="990334D917DDFB9A86137111479174E7" import="0">TheTwelfthHour/SQL/01_TWELFTH_Inheritance.sql</File>
     <File md5="45C7F82A60BF2138487BB6812BC9833D" import="0">TheTwelfthHour/SQL/02_TWELFTH_Effects.sql</File>

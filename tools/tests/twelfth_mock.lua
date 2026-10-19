@@ -6,10 +6,38 @@ NotificationTypes={NOTIFICATION_GENERIC=1}
 Locale={ConvertTextKey=function(key) return key end}
 rawTurn=0;startTurn=0
 Game={GetGameTurn=function() return rawTurn end,GetStartTurn=function() return startTurn end}
-Players={};GameEvents={};Events={};saved={};saveWrites=0
-Modding={OpenSaveData=function() return {
- GetValue=function(_,k) return saved[k] end,
- SetValue=function(_,k,v) saved[k]=v;saveWrites=saveWrites+1 end} end}
+Players={};GameEvents={};Events={};saved={};saveWrites=0;saveOpens=0
+faults={}
+Modding={OpenSaveData=function()
+ saveOpens=saveOpens+1
+ if faults.open then faults.open=false;error('injected save open fault') end
+ local storage=saved -- A connection belongs to the current save, not a global ledger.
+ return {
+ GetValue=function(k,...)
+  assert(type(k)=='string' and select('#',...)==0,'GetValue uses native dot syntax')
+  if faults.read then faults.read=false;error('injected save read fault') end
+  return storage[k]
+ end,
+ SetValue=function(k,v,...)
+  assert(type(k)=='string' and select('#',...)==0,'SetValue uses native dot syntax')
+  if faults.write then faults.write=false;error('injected save write fault') end
+  storage[k]=v;saveWrites=saveWrites+1
+ end}
+end}
+function DeepCopy(value)
+ if type(value)~='table' then return value end
+ local result={};for k,v in pairs(value) do result[k]=DeepCopy(v) end;return result
+end
+function SaveSnapshot()
+ return DeepCopy({players=Players,data=saved,raw=rawTurn,start=startTurn})
+end
+function LoadSnapshot(snapshot)
+ local s=DeepCopy(snapshot)
+ Players=s.players;saved=s.data;rawTurn=s.raw;startTurn=s.start;faults={}
+ -- ProcessedAutoMoves is NOT serialized by CP; updateMoves rebuilds it.
+ for _,p in pairs(Players) do p.processedAutoMoves=false end
+ ResetContext();LoadTwelfth()
+end
 function NewEvent()
  local list={}
  return {Add=function(fn) list[#list+1]=fn end,
@@ -33,7 +61,8 @@ function Flush()
  end
 end
 function NewPlayer(id,clock)
- local p={id=id,civ=clock and 100 or 1,alive=true,human=true,active=false,cities={},notices=0}
+ local p={id=id,civ=clock and 100 or 1,alive=true,human=true,active=false,cities={},notices=0,
+  endTurn=false,autoMoves=false,processedAutoMoves=false}
  function p:GetCivilizationType() return self.civ end
  function p:IsAlive() return self.alive end
  function p:IsHuman() return self.human end
@@ -42,7 +71,10 @@ function NewPlayer(id,clock)
   local keys={};for k in pairs(self.cities) do keys[#keys+1]=k end;table.sort(keys)
   local i=0;return function() i=i+1;return self.cities[keys[i]] end
  end
- function p:AddNotification() self.notices=self.notices+1 end
+ function p:AddNotification()
+  if faults.notice then faults.notice=false;error('injected notification fault') end
+  self.notices=self.notices+1
+ end
  Players[id]=p;return p
 end
 function NewCity(p,id,hasTower)
@@ -54,6 +86,7 @@ function NewCity(p,id,hasTower)
   assert(noBonus==true and (n==0 or n==1),'stacking or construction rewards')
   self.buildings[b]=n;self.writes=self.writes+1
   Events.SerialEventGameDataDirty.Fire()
+  if faults.setter then faults.setter=false;error('injected fault AFTER native mutation') end
  end
  p.cities[id]=c;return c
 end
