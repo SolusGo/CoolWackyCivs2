@@ -1,5 +1,13 @@
 # Changelog
 
+## The Twelfth Hour implementation preview — 2026-10-19
+
+- Added the human-only Keeper of Seconds and the Grand Chime: +75% city Production/+50% city Science every sixth played turn, synchronized with two native dummy buildings and CP next-turn staging.
+- Added Pendulum Guard (full Pikeman inheritance, upgrade-retained +1 Movement/+15% friendly-territory strength) and Municipal Clocktower (full Workshop inheritance, +1 Culture, +2 flat Chime Production).
+- Added original paintings, atlas/alpha/flag DDS assets, complete English Civilopedia/diplomacy text, all city names and event-driven notifications/load/ownership repair.
+- Extended the builder, generated project/modinfo and collection validator; appended new SQL after the complete released inventory. Existing civilization gameplay/art files remain unchanged.
+- Actual-schema SQL and active-cache activation, ten Lua 5.1 model runs, seventeen pinned source contracts and collection regression/package checks pass. Civ V was not launched; actual yield settlement, native saves/autosave resumption and rendering remain pending. See [timing limitations](TheTwelfthHour/docs/Implementation.md) and [all twenty acceptance scenarios](TheTwelfthHour/docs/Testing.md).
+
 ## Boundless Food growth hotfix — 2026-10-19
 
 - Preserve existing remote yields through harmless native governor changes while actual default citizens still back them. This closes a reproduced pre-growth gap between the displayed and harvested Food rate.

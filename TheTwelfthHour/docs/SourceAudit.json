@@ -1,0 +1,58 @@
+{
+  "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "dll_version": 151,
+  "scope": "source contracts, NOT launched-game verification",
+  "checks": {
+    "DLL v151": true,
+    "city harvest then research then PlayerDoTurn": true,
+    "PlayerDoneTurn during deactivation": true,
+    "PlayerDoneTurn gated by EVENTS_PLAYER_TURN": true,
+    "PlayerDoneTurn ABI": true,
+    "city production uses normal yield rate": true,
+    "research credits real progress": true,
+    "player research includes city yields": true,
+    "building yield modifier changes native city modifier": true,
+    "building changes process native yields": true,
+    "real building setter supports no construction rewards": true,
+    "friendly territory strength is common modifier": true,
+    "friendly modifier also used in ranged/general strength": true,
+    "saved raw game turn increments once": true,
+    "start turn bound for advanced starts": true,
+    "game start turn initialized from actual turn": true,
+    "dummy excluded from normal building totals": true
+  },
+  "sources": {
+    "CvPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp",
+      "sha256": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87"
+    },
+    "CvCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp",
+      "sha256": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2"
+    },
+    "CvBuildingClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvBuildingClasses.cpp",
+      "sha256": "44959390632ce9646dbfc77752c22d965fadc53ff049098594a18477e3dd8a25"
+    },
+    "CvUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
+      "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+    },
+    "CvGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvGame.cpp",
+      "sha256": "6dad41a144c98a15d94d59ee0d4effb0ff92190586074adb7e5c03bb1815b205"
+    },
+    "CvLuaCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp",
+      "sha256": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24"
+    },
+    "CvLuaGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaGame.cpp",
+      "sha256": "a2bee0ef0210f71eae8e09f3209755f7bf64ee6177dc8f52ee01de8fa893655b"
+    },
+    "CustomMods.h": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
+      "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+    }
+  }
+}

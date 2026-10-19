@@ -134,3 +134,5 @@ if __name__=='__main__':
     validate_mcpvp()
     from validate_kingdom import validate as validate_kingdom
     validate_kingdom()
+    from validate_twelfth import validate as validate_twelfth
+    validate_twelfth()

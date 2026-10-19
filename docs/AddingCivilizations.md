@@ -2,6 +2,8 @@
 
 Each civilization gets its own directory, globally unique `CIVILIZATION_*` identity, database prefix, Lua namespace and event handlers restricted to its own players. Use these files:
 
+New civilizations default to **human-playable only** (`Playable=1`, `AIPlayable=0`) unless the user explicitly requests AI playability. Preserve the flags of already released civilizations.
+
 ```text
 CivilizationName/
   README.md

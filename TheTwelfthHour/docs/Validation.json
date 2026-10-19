@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-19",
+  "civilization": "CIVILIZATION_TWELFTH_HOUR",
+  "environment": "Civilization V BNW / installed Community Patch v151 database schema",
+  "static_validation": {
+    "status": "passed",
+    "full_collection_command": ".venv/Scripts/python.exe tools/validate_mod.py",
+    "full_collection_exit_code": 0,
+    "sql_activation": "Installed BNW/CP schema and read-only copy of active Civ5DebugDatabase.db, all modifications in memory",
+    "inheritance": "All active Pikeman/Workshop scalar and direct companion rows; changed baseline, extra scalar columns and additive Culture tested",
+    "lua_syntax": "All packaged and fixture Lua parsed under Lua 5.1",
+    "twelfth_source_contracts": 17,
+    "collection_atlas_size_entries": 230,
+    "packaged_gameplay_files": 327,
+    "unrelated_gameplay_file_hashes_and_vfs_unchanged": 278,
+    "released_sql_actions_preserved_as_prefix": 27,
+    "package_integrity": "ZIP CRC and 327 game-file MD5 values checked; genuine 7z Civ5Mod testzip passed"
+  },
+  "mocked_lua_tests": {
+    "status": "passed",
+    "runs": 10,
+    "game_speeds": ["QUICK", "STANDARD", "EPIC", "MARATHON", "CUSTOM"],
+    "saved_start_turns": [0, 150],
+    "consecutive_turns_per_run": 24,
+    "scope": "Pre-PlayerDoTurn illustrative SQL-backed harvests, active/interturn context reloads, notifications, multiple cities, founding, ownership, Clocktower lifecycle, dirty events, invalid/dead/unusual AI players",
+    "is_native_engine_proof": false
+  },
+  "actual_civ_v_runtime_tests": {
+    "status": "not performed",
+    "game_launched": false,
+    "checklist": "Testing.md",
+    "required_acceptance": [
+      "Actual stored Production and research deltas entering played turns 6, 7, 12 and 13",
+      "Native active-turn and interturn save/load round trips, including pre-PlayerDoneTurn engine autosaves",
+      "Native capture/founding/Clocktower completion and removal",
+      "Guard friendly-territory attack, defense and upgrade retention",
+      "Native localization, icons, static leader scene and Dawn of Man rendering"
+    ]
+  },
+  "documented_limits": [
+    "Next-turn dummies are staged during the interturn because PlayerDoTurn follows economic settlement",
+    "Native end-turn autosave resumption before PlayerDoneTurn needs empirical verification",
+    "First-time activation after a Chime harvest cannot retroactively credit that harvest",
+    "Notifications only; no continuous countdown UI",
+    "Standard Pikeman battlefield model and static illustrated diplomacy scene"
+  ]
+}

@@ -8,16 +8,17 @@ PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
 VERSION='8'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
-CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom')
+CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom','TheTwelfthHour')
 ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-driven workforce panel.'),
  ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.'),
  ('TrainerRed/UI/RED_TeamPanel.xml','Champion Team','Trainer Red simulation and event-driven Champion Team panel.'),
  ('McPvP/UI/MCP_ServerBrowser.xml','McPvP Server Browser','Persistent matches, kits, objectives and Server Legacy.'),
- ('TheChildrenOfTheKingdom/UI/CK_Prayer.xml','Prayer','Human-only prayer petitions, permanent Grace and event-driven blessings.')]
+ ('TheChildrenOfTheKingdom/UI/CK_Prayer.xml','Prayer','Human-only prayer petitions, permanent Grace and event-driven blessings.'),
+ ('TheTwelfthHour/UI/TWELFTH_Clock.xml','The Grand Clock','Human-only six-turn Grand Chime, staged before native yield settlement.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
-PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Five civilizations: an endless city, wings, a champion, a lobby and a kingdom of prayer.',
- 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby and The Children of the Kingdom. Pray seven petitions as The Faithful and build permanent Grace. Requires BNW and Community Patch v151. See the included civilization guides.',
+PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Six civilizations: an endless city, wings, a champion, a lobby, prayer and clockwork.',
+ 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom and The Twelfth Hour. Synchronize every city with the Grand Chime as the Keeper of Seconds. Requires BNW and Community Patch v151. See the included civilization guides.',
  'Authors':'SolusGo','Homepage':'https://github.com/SolusGo/CoolWackyCivs2',
  'AffectsSavedGames':'1','MinCompatibleSaveVersion':'1','SupportsSinglePlayer':'1','SupportsMultiplayer':'0',
  'SupportsHotSeat':'0','SupportsMac':'0','ReloadAudioSystem':'0','ReloadLandmarkSystem':'0',
@@ -28,7 +29,10 @@ DEPS=[('Dlc','6DA07636-4123-4018-B643-6575B4EC336B','0','Expansion - Brave New W
 def files():
     paths=(p for civ in ('Shared',)+CIVILIZATIONS for p in (R/civ).rglob('*') if p.is_file() and p.suffix in ['.sql','.lua','.xml','.dds'])
     # Shared compatibility tables must exist even for module names before S.
-    return sorted(paths,key=lambda p:(p.relative_to(R).parts[0]!='Shared',p.as_posix()))
+    # Append new database content after the entire released inventory. Preserve
+    # existing insertion order/IDs rather than alphabetically interleaving a civ.
+    return sorted(paths,key=lambda p:(p.relative_to(R).parts[0]!='Shared',
+                                     p.relative_to(R).parts[0]=='TheTwelfthHour',p.as_posix()))
 def relative(p): return p.relative_to(R).as_posix()
 def imported(p): return p.suffix!='.sql' and relative(p) not in {e[0] for e in ENTRIES}
 

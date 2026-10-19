@@ -2,7 +2,9 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 8 (collection release **1.5.0 preview**) includes **The Boundless City**, **The Republic of Pigeons**, **The Indigo Champion**, **McPvP — The Endless Lobby** and **The Children of the Kingdom**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+Mod version 8 (collection release **1.5.0 preview**) includes **The Boundless City**, **The Republic of Pigeons**, **The Indigo Champion**, **McPvP — The Endless Lobby**, **The Children of the Kingdom** and **The Twelfth Hour**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+
+**New: The Twelfth Hour**, led by **The Keeper of Seconds**. This human-only clockwork society synchronizes all cities on played turns 6, 12, 18… for +75% Production and +50% Science. Pendulum Guards preserve Pikeman benefits and retain +1 Movement/+15% friendly-territory strength through upgrades; Municipal Clocktowers preserve Workshops and add +1 Culture plus +2 flat Production during Chime. Original paintings, complete English text, actual-schema SQL, ten Lua 5.1 simulation runs and seventeen CP source contracts are included. Native yields/save round trips remain unverified; next-turn staging and autosave limits are explained in the [implementation report](TheTwelfthHour/docs/Implementation.md). See the [guide](TheTwelfthHour/README.md) and [twenty-scenario native checklist](TheTwelfthHour/docs/Testing.md).
 
 **New: The Children of the Kingdom**, led by **The Faithful**. This human-only civilization follows seven petitions of the Lord's Prayer through an event-driven Prayer panel. Complete cycles for permanent capital Faith/Culture through Grace, preserve upgrade-retained Keepers of the Faith, and raise Houses of Prayer. Original leader/loading art, complete localization, CP v151 source contracts and seven shipped-Lua simulation suites are included. The [implementation audit](TheChildrenOfTheKingdom/docs/AuditReport.md) fixes command/screen validation, control-change expiry and missed-popup behavior, and verifies native healing/movement eligibility without rebalancing. Native gameplay/rendering/save round trips remain unverified. See the [guide](TheChildrenOfTheKingdom/README.md), [implementation and engine limits](TheChildrenOfTheKingdom/docs/Implementation.md) and [native checklist](TheChildrenOfTheKingdom/docs/Testing.md).
 
@@ -27,6 +29,7 @@ The [Boundless Food growth hotfix](TheBoundlessCity/docs/FoodGrowthHotfix.md) pr
 | The Indigo Champion | Trainer Red | The Living Legend | Pokémon Center (Hospital), Indigo Plateau (Heroic Epic), Journey to Mt. Silver project | Pokémon Ace, replacing Great General | [Civ page](docs/civilizations/TrainerRed.md) · [Detailed README](TrainerRed/README.md) |
 | McPvP — The Endless Lobby | The Old Guard | Just One More Game | Original Server Hub, replacing Barracks | Veteran PvPer, replacing Scout | [Civ page](docs/civilizations/McPvP.md) · [Detailed README](McPvP/README.md) |
 | The Children of the Kingdom | The Faithful | Thy Kingdom Come | House of Prayer, replacing Temple | Keeper of the Faith, replacing Pikeman | [Civ page](docs/civilizations/TheChildrenOfTheKingdom.md) · [Detailed README](TheChildrenOfTheKingdom/README.md) |
+| The Twelfth Hour | The Keeper of Seconds | When the Clock Strikes | Municipal Clocktower, replacing Workshop | Pendulum Guard, replacing Pikeman | [Civ page](docs/civilizations/TheTwelfthHour.md) · [Detailed README](TheTwelfthHour/README.md) |
 
 Every future civilization should receive a dedicated roster page, a gameplay README, a changelog and a validation record. The [documentation convention](docs/AddingCivilizations.md) describes the layout.
 
@@ -35,10 +38,11 @@ Every future civilization should receive a dedicated roster page, a gameplay REA
 1. Install Civilization V with Brave New World and the Windows Community Patch **v151**. The Community Patch dependency is declared in the modinfo; no replacement DLL is included.
 2. Build the release archives as below, or use a provided archive from this repository's distribution output.
 3. Extract `dist/Cool Wacky Civs 2 (v 8).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 8).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
-4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the five leaders.
+4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the six leaders.
 5. As **Trainer Red**, found **Pallet Town**, preserve trained military partners and open **Champion Team** from the upper-right button. As **Postmaster General Coo**, found **Coopolis**, explore with Carrier Pigeons, and establish outgoing land Trade Routes. As **The First Architect**, found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
 6. As **The Old Guard**, found **Lobby One** and open **McPvP Server Browser** at the upper right. Select a Veteran on the map, choose a kit and queue the next match. Train military units in Original Server Hubs to unlock more kits and earn Legacy.
 7. As **The Faithful**, found **Sanctuary** and open **Prayer** at the upper right. Activate the next petition when its cooldown is ready. Complete seven petitions to gain permanent Grace; Houses of Prayer add Faith to every completed cycle. The civilization is excluded from normal AI assignment.
+8. As **The Keeper of Seconds**, found **Last Minute**, develop research/industry across several cities, and prepare builds for the sixth-turn Grand Chime. Municipal Clocktowers improve every Chime; Pendulum Guards reinforce friendly territory. The civilization is excluded from normal AI assignment.
 
 For The Boundless City, the initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. The Pigeon Republic and Indigo Champion follow ordinary settlement rules. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Boundless version 1 saves migrate explicitly, while version 2 state migrates to schema 3 without resetting progress. Back up older saves before upgrading; native save testing is outstanding. Downgrading is unsupported. Older native saves can retain the previous survival-trait cache until a normal technology or policy refresh; test that separately before relying on capital-loss survival.
 
@@ -61,6 +65,8 @@ Optional source audit: `python tools/audit_cp.py --fetch` and `python tools/vali
 
 Kingdom-specific checks: `python tools/validate_kingdom.py` (also included in `validate_mod.py`). Use `python tools/validate_kingdom.py --fetch` to fetch its additional pinned policy source when updating an existing source cache. The [Kingdom test record](TheChildrenOfTheKingdom/docs/Testing.md) distinguishes static checks/simulations from the outstanding native checklist.
 
+Twelfth Hour checks: `python tools/validate_twelfth.py` (also included in `validate_mod.py`). SQL/art can be regenerated with `tools/generate_twelfth.py` and `tools/prepare_twelfth_art.py`. The [test record](TheTwelfthHour/docs/Testing.md) separates static/source/model results from pending native checks. New SQL is appended after all previously released SQL to preserve existing insertion order.
+
 Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, written to `dist/`. They are ignored by Git. ModBuddy users can open `CoolWackyCivs2.civ5sln`; `tools/build_mod.py` keeps its project and modinfo file lists, SQL ordering and VFS flags in sync.
 
 ## Repository layout
@@ -77,6 +83,8 @@ Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, writte
 | `McPvP` | Three persistent match modes, five kits, Server Browser, Legacy/remembrance, conservative AI, 48 DDS assets and validation/report guides |
 | `art-source/McPvP` | Original deterministic geometric lobby, Old Guard portrait and kit/object symbols |
 | `TheChildrenOfTheKingdom` | Human-only seven-stage Prayer, persistent Grace/reserve, Keepers/Houses, 34 DDS textures and detailed implementation/native testing guides |
+| `TheTwelfthHour` | Human-only six-turn Grand Chime, inherited Pikeman/Workshop uniques, 40 DDS textures, full English text and timing/native test documentation |
+| `art-source/TheTwelfthHour` | Original clockwork paintings, retained atlas masters and exact generation prompts |
 | `art-source/TheChildrenOfTheKingdom` | Original Faithful/Sanctuary painting, drawn prayer/book/shield/sanctuary icons, map and exact generation prompt |
 | `art-source/TrainerRed` | Original generated summit leader/loading paintings, icon preview and provenance |
 | `docs/civilizations` | One dedicated Markdown page per civilization |
