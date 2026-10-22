@@ -32,11 +32,14 @@ def database(cache=None, cp=None):
         except ET.ParseError: continue
         for table in root.findall('Table'):
             name = table.get('name', '')
-            if not name.startswith(('Building_', 'Unit_', 'Policy_')): continue
+            if not name.startswith(('Building_', 'Unit_', 'Policy_')) and name != 'CityEventChoices': continue
             columns = []
             for col in table.findall('Column'):
                 default = col.get('default')
                 suffix = '' if default is None else " DEFAULT '" + default.replace("'", "''") + "'"
+                if col.get('primarykey') == 'true':
+                    suffix += ' PRIMARY KEY'
+                    if col.get('autoincrement') == 'true': suffix += ' AUTOINCREMENT'
                 columns.append(quote(col.get('name')) + ' ' + col.get('type', 'text') + suffix)
             if columns: d.execute('CREATE TABLE IF NOT EXISTS ' + quote(name) + '(' + ','.join(columns) + ')')
     if d.execute("SELECT 1 FROM sqlite_master WHERE name='Building_ThemingBonuses_new'").fetchone():

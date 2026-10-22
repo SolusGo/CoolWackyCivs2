@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.0 The 11 Cats implementation preview / mod version 10 — 2026-10-23
+
+- Added human-only Austin, King of the House, and six era chapters welcoming the ten unique companions. Austin remains the leader and the first household member.
+- Added persistent travel/residence/recovery identities; three resident slots per city; the exact ten personal bonuses and four Family Bonds; speed-scaled rehoming and protective recovery; Cat Tree Garden replacement; genuine-event WLTKD duration extension.
+- Added the event-driven Household/Cats/Homes/details/story interface, English Civilopedia and diplomacy, and 50 mipmapped DDS textures prepared from the user's supplied emblem. Austin is white and crowned, and Sisi uses the dark tortoiseshell face at the lower left. No reference photographs were available.
+- Appended all new SQL after released civilizations, retained the collection UUID and earlier database IDs, and updated the builder, manifest, ModBuddy project, roster and regression suite.
+- Real-schema SQL, six Lua 5.1 simulation suites, CP source contracts, icon/XML/loading checks and full collection regression validation pass. In-game rendering, native save/load and gameplay acceptance remain unverified; see [the test matrix](The11Cats/docs/Testing.md). No full runtime-compatibility claim is made.
+
 ## Wandering Circus final implementation audit — 2026-10-22
 
 - Protect an already-reserved Grand Festival once the owner's native turn has begun, preventing a same-turn Crew loss from splitting Production/Gold/Culture before the late PlayerDoTurn hook. Inactive-owner interturn loss still cancels normally, including a later human slot after raw rollover.

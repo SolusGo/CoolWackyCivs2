@@ -138,3 +138,5 @@ if __name__=='__main__':
     validate_twelfth()
     from validate_circus import validate as validate_circus
     validate_circus()
+    from validate_cats import validate as validate_cats
+    validate_cats()

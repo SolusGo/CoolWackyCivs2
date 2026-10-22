@@ -1,8 +1,8 @@
 # Cool Wacky Civs 2
 
-Seven civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Eight civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current release:** mod version 9 · **1.6.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current release:** mod version 10 · **1.7.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
 ## Civilization roster
 
@@ -15,15 +15,16 @@ Seven civilizations for Civilization V: Brave New World and **Community Patch v1
 | [The Children of the Kingdom](docs/civilizations/TheChildrenOfTheKingdom.md) | The Faithful | Complete seven prayer petitions to earn permanent Grace bonuses. | [Details](TheChildrenOfTheKingdom/README.md) |
 | [The Twelfth Hour](docs/civilizations/TheTwelfthHour.md) | The Keeper of Seconds | Synchronize cities for Production and Science boosts every sixth turn. | [Details](TheTwelfthHour/README.md) |
 | [The Wandering Circus](docs/civilizations/TheWanderingCircus.md) | Ringmaster Aurelio | Send Carnival Crews to cities to prepare local Grand Festivals. | [Details](TheWanderingCircus/README.md) |
+| [The 11 Cats](docs/civilizations/The11Cats.md) | Austin — King of the House | Welcome ten companions, settle warm homes and build local Family Bonds. | [Details](The11Cats/README.md) |
 
-All seven are human-playable. The Children of the Kingdom, The Twelfth Hour and The Wandering Circus are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All eight are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus and The 11 Cats are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 9).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 9).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 10).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 10).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 

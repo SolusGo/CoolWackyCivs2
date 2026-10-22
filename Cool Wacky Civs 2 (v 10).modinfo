@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="9">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="10">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Seven civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork and a circus.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour and The Wandering Circus. Host local Grand Festivals as Ringmaster Aurelio. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Eight civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus and eleven cats.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus and The 11 Cats. Welcome Austin and his family home. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -399,6 +399,66 @@
     <File md5="E396EAFEB2EB5A7E6C7F46A84C759830" import="0">TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</File>
     <File md5="51BF44ED83E10409C78F769D4DD18642" import="1">TheWanderingCircus/UI/WanderingCircus.lua</File>
     <File md5="A986641AFEB4FA573DD6360B9779E18D" import="0">TheWanderingCircus/UI/WanderingCircus.xml</File>
+    <File md5="90DA827EF00140A3054A745DB9BF6CBD" import="1">The11Cats/Art/THE11CATS_Alpha128.dds</File>
+    <File md5="86B705F09766E5593984FF3A8428F08A" import="1">The11Cats/Art/THE11CATS_Alpha16.dds</File>
+    <File md5="3741AD68D0DBF2C31081A4E0028EA615" import="1">The11Cats/Art/THE11CATS_Alpha24.dds</File>
+    <File md5="5240B8316A1E14F8AA31178716E8E4D0" import="1">The11Cats/Art/THE11CATS_Alpha256.dds</File>
+    <File md5="9EEC5D03F05DA19F8C3F9ECF430EAB19" import="1">The11Cats/Art/THE11CATS_Alpha32.dds</File>
+    <File md5="4379CA72150E26F4FDA9B6A6D0BF9342" import="1">The11Cats/Art/THE11CATS_Alpha45.dds</File>
+    <File md5="39B7F40111E980C5C7424318484413D0" import="1">The11Cats/Art/THE11CATS_Alpha48.dds</File>
+    <File md5="D7081642D31A41C2EE49A52D0146D934" import="1">The11Cats/Art/THE11CATS_Alpha64.dds</File>
+    <File md5="58900D0716F6F6E1C014BCA161B294A9" import="1">The11Cats/Art/THE11CATS_Alpha80.dds</File>
+    <File md5="A0DA3687485824F3169EC654CD389B55" import="1">The11Cats/Art/THE11CATS_Cats128.dds</File>
+    <File md5="6EFEC1BE3D26EE3021F3BB975D4F2798" import="1">The11Cats/Art/THE11CATS_Cats16.dds</File>
+    <File md5="6DA6961D608789ECD2ADEB1C6DB5237F" import="1">The11Cats/Art/THE11CATS_Cats24.dds</File>
+    <File md5="273C94A77C604DB9E374D0BE4DDBA88A" import="1">The11Cats/Art/THE11CATS_Cats256.dds</File>
+    <File md5="BD9286ABCE799C35BB920D2CA0CFE88D" import="1">The11Cats/Art/THE11CATS_Cats32.dds</File>
+    <File md5="8953CA9BEC22913BB64CB20269AC1CD9" import="1">The11Cats/Art/THE11CATS_Cats45.dds</File>
+    <File md5="401B612B1E5D6E5A44D6B6183D2ECBB3" import="1">The11Cats/Art/THE11CATS_Cats48.dds</File>
+    <File md5="481108C82C8A5A38A2EC2C8A0DAF5E16" import="1">The11Cats/Art/THE11CATS_Cats64.dds</File>
+    <File md5="2D18B975DA1F23A18DA0516D770A3335" import="1">The11Cats/Art/THE11CATS_Cats80.dds</File>
+    <File md5="A0E363F7A5D5A99951E6870F612B0F70" import="1">The11Cats/Art/THE11CATS_Dawn.dds</File>
+    <File md5="9EEC5D03F05DA19F8C3F9ECF430EAB19" import="1">The11Cats/Art/THE11CATS_Flag32.dds</File>
+    <File md5="A0E363F7A5D5A99951E6870F612B0F70" import="1">The11Cats/Art/THE11CATS_Household.dds</File>
+    <File md5="417AB0F983CAD3283767613CEB176167" import="1">The11Cats/Art/THE11CATS_Icon128.dds</File>
+    <File md5="0DD6C123B71C86F2449E8943084C4062" import="1">The11Cats/Art/THE11CATS_Icon16.dds</File>
+    <File md5="B8731A712AC1E9F8C0A4E673A8AF4D43" import="1">The11Cats/Art/THE11CATS_Icon24.dds</File>
+    <File md5="79C28DF35C6425E0615C264B0BFF6CB8" import="1">The11Cats/Art/THE11CATS_Icon256.dds</File>
+    <File md5="E78EC3F3EC709D8FB0670D82AF13AA5A" import="1">The11Cats/Art/THE11CATS_Icon32.dds</File>
+    <File md5="D0FF9B2229F0540BE4439F206E346B2F" import="1">The11Cats/Art/THE11CATS_Icon45.dds</File>
+    <File md5="349A8BD98A4BBDE86C8D8EE11DC174A7" import="1">The11Cats/Art/THE11CATS_Icon48.dds</File>
+    <File md5="E6E5A8D373AC8522792638B0B50C9374" import="1">The11Cats/Art/THE11CATS_Icon64.dds</File>
+    <File md5="887794C72643F66C4DEEDBC2CC2DA162" import="1">The11Cats/Art/THE11CATS_Icon80.dds</File>
+    <File md5="596849EDABEDA9E88ED974DD7010CE8A" import="1">The11Cats/Art/THE11CATS_Leader.dds</File>
+    <File md5="2E18F8657D4E534FCE13520B7B8719E0" import="1">The11Cats/Art/THE11CATS_LeaderScene.xml</File>
+    <File md5="DF53AB7720D80A9028CDBB5E1544492B" import="1">The11Cats/Art/THE11CATS_Map.dds</File>
+    <File md5="A81EF8B3CEE1AAA3446B1B08B234494D" import="1">The11Cats/Art/THE11CATS_Objects128.dds</File>
+    <File md5="B996647C2976197496135FDFEE325F44" import="1">The11Cats/Art/THE11CATS_Objects16.dds</File>
+    <File md5="88A0CFD869BB741ACB413FF365C3DF0E" import="1">The11Cats/Art/THE11CATS_Objects24.dds</File>
+    <File md5="1D4008F31DDF8F7708D8F442F7432414" import="1">The11Cats/Art/THE11CATS_Objects256.dds</File>
+    <File md5="5CB6AA4288245E3D6F5BB256A1335EC7" import="1">The11Cats/Art/THE11CATS_Objects32.dds</File>
+    <File md5="2832C235A4E75CD604FCFBA8C3EB517B" import="1">The11Cats/Art/THE11CATS_Objects45.dds</File>
+    <File md5="BAA958B20B63823114872411319A34AB" import="1">The11Cats/Art/THE11CATS_Objects48.dds</File>
+    <File md5="DFF33437FEB8A15CB84F0E89592F8234" import="1">The11Cats/Art/THE11CATS_Objects64.dds</File>
+    <File md5="F193D2FEB91B20EE85D00E09FF5319CC" import="1">The11Cats/Art/THE11CATS_Objects80.dds</File>
+    <File md5="6AADB6707B1E76C3B3104D8DEEEE7EFC" import="1">The11Cats/Art/THE11CATS_Portrait128.dds</File>
+    <File md5="2F1D7B21FDB40390D8169286302F3FAB" import="1">The11Cats/Art/THE11CATS_Portrait16.dds</File>
+    <File md5="88BA6F26066D8EB43011201856E9884F" import="1">The11Cats/Art/THE11CATS_Portrait24.dds</File>
+    <File md5="1F95FC2D844D3CE23BDDFEBA42F3F51C" import="1">The11Cats/Art/THE11CATS_Portrait256.dds</File>
+    <File md5="4F2A19E949D7ABD625F33A9186D4C620" import="1">The11Cats/Art/THE11CATS_Portrait32.dds</File>
+    <File md5="AA1BFA7D459423A6FA16378771475ECF" import="1">The11Cats/Art/THE11CATS_Portrait45.dds</File>
+    <File md5="7899D6EE475B2F37761C1432FFBEEF1F" import="1">The11Cats/Art/THE11CATS_Portrait48.dds</File>
+    <File md5="8B20C92168A51380FC242ED5A74C0A83" import="1">The11Cats/Art/THE11CATS_Portrait64.dds</File>
+    <File md5="87B5F251AC47236CF8FDDDE23D9627A9" import="1">The11Cats/Art/THE11CATS_Portrait80.dds</File>
+    <File md5="D3EEE3B658FFFC70D9A9120D74D2A24D" import="1">The11Cats/Lua/THE11CATS_Config.lua</File>
+    <File md5="2B3E9D60244FF4DD350CD079BA8241B2" import="1">The11Cats/Lua/THE11CATS_Manager.lua</File>
+    <File md5="A56BD3AB5E2CBA55130FD4DA898C768F" import="0">The11Cats/SQL/THE11CATS_00_Core.sql</File>
+    <File md5="25392F087D20A9D31D24CB17847EEC5E" import="0">The11Cats/SQL/THE11CATS_01_Inheritance.sql</File>
+    <File md5="4BFAFF2212CC8DCA891AF5C669722779" import="0">The11Cats/SQL/THE11CATS_02_Effects.sql</File>
+    <File md5="FBCF3A8DEFE93F1E7A88297B4474DB78" import="0">The11Cats/SQL/THE11CATS_03_Art.sql</File>
+    <File md5="9C50F363F6508F28C0CED9DC4FAD69A2" import="0">The11Cats/SQL/THE11CATS_10_Text.sql</File>
+    <File md5="D5FF5B8B7EDACC22B8E61653A4A3E84B" import="1">The11Cats/UI/THE11CATS_Household.lua</File>
+    <File md5="4B54F91CD651594CE85D84C02DFCEF20" import="0">The11Cats/UI/THE11CATS_Household.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -439,6 +499,11 @@
       <UpdateDatabase>TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheWanderingCircus/SQL/03_WCIRCUS_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</UpdateDatabase>
+      <UpdateDatabase>The11Cats/SQL/THE11CATS_00_Core.sql</UpdateDatabase>
+      <UpdateDatabase>The11Cats/SQL/THE11CATS_01_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>The11Cats/SQL/THE11CATS_02_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>The11Cats/SQL/THE11CATS_03_Art.sql</UpdateDatabase>
+      <UpdateDatabase>The11Cats/SQL/THE11CATS_10_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -469,6 +534,10 @@
     <EntryPoint type="InGameUIAddin" file="TheWanderingCircus/UI/WanderingCircus.xml">
       <Name>The Show Must Go On</Name>
       <Description>Local three-turn Grand Festivals, persistent city cooldowns and Ticket Offices.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="The11Cats/UI/THE11CATS_Household.xml">
+      <Name>The Household</Name>
+      <Description>Austin and ten persistent companions, resident effects, family bonds and safe recovery.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

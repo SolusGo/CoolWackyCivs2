@@ -1,0 +1,21 @@
+local H=MapModData.THE11CATS;H.InterfaceReady=function() return true end
+local a=City(0,1,10,10);local b=City(0,2,20,20);local c=City(0,3,30,30);local d=City(0,4,40,40)
+Players[0].era=5;H.Reconcile(0,true);local s=H.State(0)
+local unlocked=1;for _,cat in pairs(s.cats) do if cat.status>0 then unlocked=unlocked+1 end end
+assert(unlocked==11 and UnitCount(0)==10 and s.chapters==63)
+Settle('APPA',a);Settle('LOKI',a);Settle('OSCAR',a)
+assert(a:GetNumRealBuilding(H.buildings.SISTERS_BED)==1)
+Settle('CHARLOTTE',b);Settle('SISI',b)
+assert(b:GetNumRealBuilding(H.buildings.MOTHER_DAUGHTER)==1 and b.growth==10)
+local applies=b.applies;for i=1,50 do H.Effects(0) end;assert(b.growth==10 and b.applies==applies)
+Settle('BONNIE',c);Settle('KURO',c);Settle('BOOMIE',c)
+assert(c:GetNumRealBuilding(H.buildings.BONNIE_FAMILY)==1)
+Settle('LUNA',d);assert(not H.Bonds(s,d).FIRST_PAIR);Players[0].capital=d;H.Effects(0);assert(H.Bonds(s,d).FIRST_PAIR)
+assert(H.Command(0,'LOKI','REHOME'));assert(a:GetNumRealBuilding(H.buildings.SISTERS_BED)==0)
+assert(H.Command(0,'CHARLOTTE','REHOME'));assert(b.growth==5 and b:GetNumRealBuilding(H.buildings.MOTHER_DAUGHTER)==0)
+assert(H.Command(0,'SISI','REHOME'));assert(b.growth==0)
+b.buildings[H.TREE]=1;H.Effects(0);assert(b:GetNumRealBuilding(H.buildings.TREE_FOOD)==0)
+local notices=#Players[0].notifications;Reload();H=MapModData.THE11CATS;H.InterfaceReady=function() return true end
+assert(#Players[0].notifications==notices and UnitCount(0)==4)
+assert(c:GetNumRealBuilding(H.buildings.BONNIE_FAMILY)==1 and b.growth==0)
+print('PASS all four bonds, exact independent growth, ten unique companions, later-era start and idempotent load')
