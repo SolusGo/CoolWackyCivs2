@@ -1,0 +1,83 @@
+{
+  "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "dll_version": 151,
+  "scope": "Pinned native source contracts; not engine execution",
+  "checks": {
+    "DLL v151": true,
+    "city economics then gold then culture then PlayerDoTurn": true,
+    "done before native unit reset": true,
+    "done after completed automoves": true,
+    "done hook gated by enabled option": true,
+    "done ABI": true,
+    "raw turn advances once": true,
+    "native int real counts not capped": true,
+    "native getter does not cap counts": true,
+    "real counts serialized": true,
+    "dummy excluded from normal building totals": true,
+    "set real supports no construction rewards": true,
+    "real setter processes native yields": true,
+    "flat yields enter native base": true,
+    "NeverCapture applies before nonconquest exception": true,
+    "acquisition validates transferred buildings": true,
+    "capture callback follows building reconstruction": true,
+    "capture new owner fifth argument": true,
+    "city constructed after creation": true,
+    "sale hook after removal": true,
+    "prekill ABI": true,
+    "prekill passes dying identity": true,
+    "relocation hook exists": true,
+    "city center unit iteration bindings": true,
+    "captured worker resolves captor replacement": true,
+    "capture preserves original owner": true,
+    "original owner and death bindings": true,
+    "autosave precedes Done hook": true,
+    "load does not rerun economics": true
+  },
+  "sources": {
+    "CustomMods.h": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
+      "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+    },
+    "CvPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp",
+      "sha256": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87"
+    },
+    "CvCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp",
+      "sha256": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2"
+    },
+    "CvUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
+      "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+    },
+    "CvBuildingClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvBuildingClasses.cpp",
+      "sha256": "44959390632ce9646dbfc77752c22d965fadc53ff049098594a18477e3dd8a25"
+    },
+    "CvGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvGame.cpp",
+      "sha256": "6dad41a144c98a15d94d59ee0d4effb0ff92190586074adb7e5c03bb1815b205"
+    },
+    "CvDllNetMessageHandler.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvDllNetMessageHandler.cpp",
+      "sha256": "6f748a0f38b8a71b5e08258aed04adfe1420a6f537d5a3ccf1b5659f04be730d"
+    },
+    "CvLuaCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp",
+      "sha256": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24"
+    },
+    "CvLuaUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp",
+      "sha256": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae"
+    },
+    "CvLuaPlot.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlot.cpp",
+      "sha256": "eeed545294850b4bc69313caba1b4f1b3d8a0440eb7f5c432e242a36742c3e64"
+    }
+  },
+  "installed_ui_evidence": {
+    "path": "G:\\SteamLibrary\\steamapps\\common\\Sid Meier's Civilization V\\Assets\\DLC\\Expansion2\\UI\\InGame\\CityBannerManager.lua",
+    "sha256": "c661ebcd04ead9aef5e30b5f8daef4498a7e51e8e8702b5ec21c778ad85b00d2",
+    "scope": "Shipped Firaxis UI subscriptions and native post-setter publisher; not engine dispatch execution"
+  }
+}

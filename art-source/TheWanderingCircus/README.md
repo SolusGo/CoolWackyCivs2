@@ -1,0 +1,7 @@
+# Wandering Circus artwork
+
+`Aurelio.png` is original artwork generated for this implementation with the built-in imagegen tool on 2026-10-22. [Prompt.txt](Prompt.txt) retains the exact generation prompt. It depicts the crimson-coated Ringmaster, black top hat, golden gloves, velvet tent, lanterns and background performers. The same original painting supplies static diplomacy, Dawn of Man and the cropped leader atlas; no custom animated leader model is claimed.
+
+`tools/prepare_circus_art.py` draws the original circus tent, ticket and stagehand symbols and fictional caravan map in the established collection style. It retains PNG masters here and compiles 40 complete-mip legacy RGBA DDS textures. `tools/standardize_icons.py` adds the collection's gold frames and portrait padding, compiling compatible legacy DXT5 where dimensions permit. Alpha/flag atlases retain white transparent symbols. Unit model and animation reuse the active CP Worker; building 3D model inherits Market. No assets are missing or borrowed from another custom civilization.
+
+Rebuild from the retained PNG with `python tools/prepare_circus_art.py`, then `python tools/build_mod.py --manifest-only`; the builder registers and finishes new atlas families in one pass. On an intentional atlas-art update, refresh that family's shared master using `standardize_icons.py --refresh-sources WCIRCUS_CIV_ATLAS` (and the corresponding leader/object families). Committed final DDS files require no image-generation service to install.

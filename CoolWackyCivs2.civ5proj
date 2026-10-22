@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Six civilizations: an endless city, wings, a champion, a lobby, prayer and clockwork.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom and The Twelfth Hour. Synchronize every city with the Grand Chime as the Keeper of Seconds. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Seven civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork and a circus.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour and The Wandering Circus. Host local Grand Festivals as Ringmaster Aurelio. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>8</ModVersion>
+    <ModVersion>9</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -186,6 +186,31 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheTwelfthHour/SQL/10_TWELFTH_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheWanderingCircus/SQL/00_WCIRCUS_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheWanderingCircus/SQL/01_WCIRCUS_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheWanderingCircus/SQL/03_WCIRCUS_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -223,6 +248,12 @@
         <Name>The Grand Clock</Name>
         <Description>Human-only six-turn Grand Chime, staged before native yield settlement.</Description>
         <FileName>TheTwelfthHour/UI/TWELFTH_Clock.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Show Must Go On</Name>
+        <Description>Local three-turn Grand Festivals, persistent city cooldowns and Ticket Offices.</Description>
+        <FileName>TheWanderingCircus/UI/WanderingCircus.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -1235,6 +1266,150 @@
     <Content Include="TheTwelfthHour/UI/TWELFTH_Clock.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/Art/WCIRCUS_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/SQL/00_WCIRCUS_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/SQL/01_WCIRCUS_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/SQL/03_WCIRCUS_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/SQL/10_WCIRCUS_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/UI/WanderingCircus.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/UI/WanderingCircus.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="McPvP\" />
@@ -1263,6 +1438,10 @@
     <Folder Include="TheTwelfthHour\Lua\" />
     <Folder Include="TheTwelfthHour\SQL\" />
     <Folder Include="TheTwelfthHour\UI\" />
+    <Folder Include="TheWanderingCircus\" />
+    <Folder Include="TheWanderingCircus\Art\" />
+    <Folder Include="TheWanderingCircus\SQL\" />
+    <Folder Include="TheWanderingCircus\UI\" />
     <Folder Include="TrainerRed\" />
     <Folder Include="TrainerRed\Art\" />
     <Folder Include="TrainerRed\Lua\" />

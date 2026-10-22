@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.0 Wandering Circus implementation preview / mod version 9 — 2026-10-22
+
+- Added human-only Ringmaster Aurelio and The Show Must Go On: independent city festivals provide +3 Culture/+2 Gold for exactly three owner-turns, with twelve turns between starts. Native building markers persist boundaries; pre-economic staging uses CP v151's verified turn-end phase and cancels invalid pending Crew presence.
+- Added Carnival Crew (complete active Worker inheritance, +1 Movement, unchanged WorkRate) and Ticket Office (complete active Market inheritance, +1 permanent Culture/+2 Production during local festivals).
+- Added original leader/loading artwork, map, unit/civ/building/flag atlases, 40 DDS textures, English Civilopedia/diplomacy, all requested city names and original spy names.
+- Appended SQL after all released content, retained the collection UUID, and left existing civilization gameplay/art files unchanged. Updated builder, ModBuddy project, manifest and validation.
+- Focused checks pass: actual-schema/active-cache SQL, preservation of all previous rows, 30 Lua 5.1 simulation runs over five speeds/two start turns, and 29 pinned CP source contracts. Full collection regression/package checks are recorded in the implementation's validation record. Native yields, rendering, saves/autosave resumption and old-save continuation still require Civ V; no in-game pass is claimed.
+
 ## Twelfth Hour second-pass technical audit — 2026-10-19
 
 - Corrected the OpenSaveData dot-call contract hidden by the original fixture, retaining existing save keys and all gameplay values.

@@ -136,3 +136,5 @@ if __name__=='__main__':
     validate_kingdom()
     from validate_twelfth import validate as validate_twelfth
     validate_twelfth()
+    from validate_circus import validate as validate_circus
+    validate_circus()

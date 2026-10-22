@@ -2,7 +2,9 @@
 
 An independent Civilization V: Brave New World collection for **Community Patch v151**, maintained in [SolusGo/CoolWackyCivs2](https://github.com/SolusGo/CoolWackyCivs2).
 
-Mod version 8 (collection release **1.5.0 preview**) includes **The Boundless City**, **The Republic of Pigeons**, **The Indigo Champion**, **McPvP — The Endless Lobby**, **The Children of the Kingdom** and **The Twelfth Hour**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+Mod version 9 (collection release **1.6.0 preview**) includes **The Boundless City**, **The Republic of Pigeons**, **The Indigo Champion**, **McPvP — The Endless Lobby**, **The Children of the Kingdom**, **The Twelfth Hour** and **The Wandering Circus**, with consistent gold icon frames and corrected portrait padding. This repository has its own mod ID, project, manifests, assets and documentation. The original CoolWackyCivs collection remains separate; its eighteen civilizations have not been copied here. See the [icon build notes](docs/IconConsistency.md).
+
+**New: The Wandering Circus**, led by **Ringmaster Aurelio**. Carnival Crews preserve all Worker properties with +1 Movement; ending a turn in a city prepares a local three-turn Grand Festival (+3 Culture/+2 Gold), with twelve turns between starts. Ticket Offices preserve Markets and add +1 Culture plus +2 Production during that city's festival. Human-only, with original artwork, native persistent timing, full English text, 30 Lua 5.1 simulation runs and 29 pinned CP source contracts. Native yields, rendering and save round trips remain unverified. See the [guide](TheWanderingCircus/README.md), [timing/source findings](TheWanderingCircus/docs/Implementation.md) and [acceptance checklist](TheWanderingCircus/docs/Testing.md).
 
 **New: The Twelfth Hour**, led by **The Keeper of Seconds**. This human-only clockwork society synchronizes all cities on played turns 6, 12, 18… for +75% Production and +50% Science. Pendulum Guards preserve Pikeman benefits and retain +1 Movement/+15% friendly-territory strength through upgrades; Municipal Clocktowers preserve Workshops and add +1 Culture plus +2 flat Production during Chime. Original paintings, complete English text, actual-schema SQL, twenty Lua 5.1 suite runs and forty-three CP source contracts are included. The [second-pass audit](TheTwelfthHour/docs/AuditReport.md) fixes the save-function contract and exception/sale paths and tests snapshot rewinds, same-turn games and pre-staging autosaves. Native yields/save round trips remain unverified; see the [implementation report](TheTwelfthHour/docs/Implementation.md), [guide](TheTwelfthHour/README.md) and [twenty-scenario native checklist](TheTwelfthHour/docs/Testing.md).
 
@@ -30,6 +32,7 @@ The [Boundless Food growth hotfix](TheBoundlessCity/docs/FoodGrowthHotfix.md) pr
 | McPvP — The Endless Lobby | The Old Guard | Just One More Game | Original Server Hub, replacing Barracks | Veteran PvPer, replacing Scout | [Civ page](docs/civilizations/McPvP.md) · [Detailed README](McPvP/README.md) |
 | The Children of the Kingdom | The Faithful | Thy Kingdom Come | House of Prayer, replacing Temple | Keeper of the Faith, replacing Pikeman | [Civ page](docs/civilizations/TheChildrenOfTheKingdom.md) · [Detailed README](TheChildrenOfTheKingdom/README.md) |
 | The Twelfth Hour | The Keeper of Seconds | When the Clock Strikes | Municipal Clocktower, replacing Workshop | Pendulum Guard, replacing Pikeman | [Civ page](docs/civilizations/TheTwelfthHour.md) · [Detailed README](TheTwelfthHour/README.md) |
+| The Wandering Circus | Ringmaster Aurelio | The Show Must Go On | Ticket Office, replacing Market | Carnival Crew, replacing Worker | [Civ page](docs/civilizations/TheWanderingCircus.md) · [Detailed README](TheWanderingCircus/README.md) |
 
 Every future civilization should receive a dedicated roster page, a gameplay README, a changelog and a validation record. The [documentation convention](docs/AddingCivilizations.md) describes the layout.
 
@@ -37,12 +40,13 @@ Every future civilization should receive a dedicated roster page, a gameplay REA
 
 1. Install Civilization V with Brave New World and the Windows Community Patch **v151**. The Community Patch dependency is declared in the modinfo; no replacement DLL is included.
 2. Build the release archives as below, or use a provided archive from this repository's distribution output.
-3. Extract `dist/Cool Wacky Civs 2 (v 8).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 8).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
-4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the six leaders.
+3. Extract `dist/Cool Wacky Civs 2 (v 9).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 9).modinfo` directly. Remove the older install folder before installing this version; all versions use the same collection UUID.
+4. Enable Community Patch and **Cool Wacky Civs 2** through the game's **Mods** menu. Proceed to the modded single-player setup and choose any of the seven leaders.
 5. As **Trainer Red**, found **Pallet Town**, preserve trained military partners and open **Champion Team** from the upper-right button. As **Postmaster General Coo**, found **Coopolis**, explore with Carrier Pigeons, and establish outgoing land Trade Routes. As **The First Architect**, found **The Heart of the World**, build The Grand Registry, and open **The Boundless Workforce** from the compact button at the upper right of the world map.
 6. As **The Old Guard**, found **Lobby One** and open **McPvP Server Browser** at the upper right. Select a Veteran on the map, choose a kit and queue the next match. Train military units in Original Server Hubs to unlock more kits and earn Legacy.
 7. As **The Faithful**, found **Sanctuary** and open **Prayer** at the upper right. Activate the next petition when its cooldown is ready. Complete seven petitions to gain permanent Grace; Houses of Prayer add Faith to every completed cycle. The civilization is excluded from normal AI assignment.
 8. As **The Keeper of Seconds**, found **Last Minute**, develop research/industry across several cities, and prepare builds for the sixth-turn Grand Chime. Municipal Clocktowers improve every Chime; Pendulum Guards reinforce friendly territory. The civilization is excluded from normal AI assignment.
+9. As **Ringmaster Aurelio**, found **Grand Pavilion**. Use Carnival Crews to build infrastructure, then end their turns in eligible cities to prepare local Grand Festivals. Build Ticket Offices for permanent Culture and festival Production. The civilization is excluded from normal AI assignment. Version 8 native save continuation has not been tested; back up older saves and prefer a new game for the new civilization.
 
 For The Boundless City, the initial Settler is preserved so the capital can be founded. Later Settlers are removed through safe deferred dispatch, including after capital loss; additional founding remains blocked. The Pigeon Republic and Indigo Champion follow ordinary settlement rules. Multiplayer, hotseat and Mac are not enabled. The original collection is not required. Boundless version 1 saves migrate explicitly, while version 2 state migrates to schema 3 without resetting progress. Back up older saves before upgrading; native save testing is outstanding. Downgrading is unsupported. Older native saves can retain the previous survival-trait cache until a normal technology or policy refresh; test that separately before relying on capital-loss survival.
 
@@ -57,6 +61,7 @@ python tools/build_mod.py --manifest-only
 python tools/validate_mod.py
 python tools/benchmark.py
 python tools/build_mod.py
+python tools/verify_release.py
 ```
 
 `validate_mod.py` reads the installed game's backup debug database and Community Patch schema **read-only**, then runs SQL in an in-memory clone. See [Testing.md](TheBoundlessCity/docs/Testing.md) for paths, prerequisites, exact live test steps and the distinction between simulation and game verification. `generate_database.py` is for regenerating schema-derived SQL during development; it is unnecessary for installing the committed files.
@@ -66,6 +71,8 @@ Optional source audit: `python tools/audit_cp.py --fetch` and `python tools/vali
 Kingdom-specific checks: `python tools/validate_kingdom.py` (also included in `validate_mod.py`). Use `python tools/validate_kingdom.py --fetch` to fetch its additional pinned policy source when updating an existing source cache. The [Kingdom test record](TheChildrenOfTheKingdom/docs/Testing.md) distinguishes static checks/simulations from the outstanding native checklist.
 
 Twelfth Hour checks: `python tools/validate_twelfth.py` (also included in `validate_mod.py`). SQL/art can be regenerated with `tools/generate_twelfth.py` and `tools/prepare_twelfth_art.py`. The [test record](TheTwelfthHour/docs/Testing.md) separates static/source/model results from pending native checks. New SQL is appended after all previously released SQL to preserve existing insertion order.
+
+Wandering Circus checks: `python tools/validate_circus.py` (also included in `validate_mod.py`). SQL/art regeneration uses `tools/generate_circus.py` and `tools/prepare_circus_art.py`. The [implementation](TheWanderingCircus/docs/Implementation.md) explains pre-economic preparation, persistent dummy markers and captured-Worker handling; the [test record](TheWanderingCircus/docs/Testing.md) maps all 42 requested scenarios and lists the outstanding native tests.
 
 Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, written to `dist/`. They are ignored by Git. ModBuddy users can open `CoolWackyCivs2.civ5sln`; `tools/build_mod.py` keeps its project and modinfo file lists, SQL ordering and VFS flags in sync.
 
@@ -85,6 +92,8 @@ Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, writte
 | `TheChildrenOfTheKingdom` | Human-only seven-stage Prayer, persistent Grace/reserve, Keepers/Houses, 34 DDS textures and detailed implementation/native testing guides |
 | `TheTwelfthHour` | Human-only six-turn Grand Chime, inherited Pikeman/Workshop uniques, 40 DDS textures, full English text and timing/native test documentation |
 | `art-source/TheTwelfthHour` | Original clockwork paintings, retained atlas masters and exact generation prompts |
+| `TheWanderingCircus` | Human-only local Grand Festivals, complete Worker/Market inheritance, 40 DDS textures, English text and timing/save/native test documentation |
+| `art-source/TheWanderingCircus` | Original Ringmaster painting, drawn circus/ticket/Crew symbols, fictional caravan map and exact prompt |
 | `art-source/TheChildrenOfTheKingdom` | Original Faithful/Sanctuary painting, drawn prayer/book/shield/sanctuary icons, map and exact generation prompt |
 | `art-source/TrainerRed` | Original generated summit leader/loading paintings, icon preview and provenance |
 | `docs/civilizations` | One dedicated Markdown page per civilization |

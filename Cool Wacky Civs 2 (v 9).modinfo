@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="8">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="9">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Six civilizations: an endless city, wings, a champion, a lobby, prayer and clockwork.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom and The Twelfth Hour. Synchronize every city with the Grand Chime as the Keeper of Seconds. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Seven civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork and a circus.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour and The Wandering Circus. Host local Grand Festivals as Ringmaster Aurelio. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -351,6 +351,54 @@
     <File md5="06E70F2C58848871DE7F83815CFDC306" import="0">TheTwelfthHour/SQL/10_TWELFTH_Text.sql</File>
     <File md5="43217D06FB64D2AF75E8521502A4740D" import="1">TheTwelfthHour/UI/TWELFTH_Clock.lua</File>
     <File md5="125B219971789A183A18690A676CE677" import="0">TheTwelfthHour/UI/TWELFTH_Clock.xml</File>
+    <File md5="BC09E76737B6AA4DE71958009B45A9E5" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha128.dds</File>
+    <File md5="41574B778D5CE858191E2F2EC1E481BA" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha16.dds</File>
+    <File md5="000479A7E78F27F66C6607DD259213F4" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha24.dds</File>
+    <File md5="37ED59FC08B99234636577640B21109F" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha256.dds</File>
+    <File md5="2FF672B525BA16A6ABC4BCFBAA1B901F" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha32.dds</File>
+    <File md5="C1CB568D79646C360528CBF7A5E4F874" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha45.dds</File>
+    <File md5="90BC39BADC50F237997DDE1BE92C5A30" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha48.dds</File>
+    <File md5="58E52C48ADAF07ACBFBE567042491013" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha64.dds</File>
+    <File md5="43605388D01E69DE532F6C504E39606A" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha80.dds</File>
+    <File md5="3458B1DF940DF32A44756ED58CAB6B3D" import="1">TheWanderingCircus/Art/WCIRCUS_Dawn.dds</File>
+    <File md5="EB3BF1F04F1DAF227400FF6DAC0F798B" import="1">TheWanderingCircus/Art/WCIRCUS_Flag32.dds</File>
+    <File md5="2BC78800B8E301A85796720ECD94B2DD" import="1">TheWanderingCircus/Art/WCIRCUS_Icon128.dds</File>
+    <File md5="BE38ECCA71264E22E8569753FDE03662" import="1">TheWanderingCircus/Art/WCIRCUS_Icon16.dds</File>
+    <File md5="65EBFA5CD0641E23F310114D9AE14626" import="1">TheWanderingCircus/Art/WCIRCUS_Icon24.dds</File>
+    <File md5="93507EB4ABAC6CD1D4B38532F5EC097D" import="1">TheWanderingCircus/Art/WCIRCUS_Icon256.dds</File>
+    <File md5="4FB2A02FD7CB6187620577834F8A3D88" import="1">TheWanderingCircus/Art/WCIRCUS_Icon32.dds</File>
+    <File md5="D8078821850978D18AB17459E87E2885" import="1">TheWanderingCircus/Art/WCIRCUS_Icon45.dds</File>
+    <File md5="E5FC926D83D7645A52173F4468873862" import="1">TheWanderingCircus/Art/WCIRCUS_Icon48.dds</File>
+    <File md5="8E6A6C7A9DE5BC731E396D8E3222113A" import="1">TheWanderingCircus/Art/WCIRCUS_Icon64.dds</File>
+    <File md5="3A13BBA181EC818D092A9E3C2554A9C2" import="1">TheWanderingCircus/Art/WCIRCUS_Icon80.dds</File>
+    <File md5="707513E4C9CA37B783F4915773520A63" import="1">TheWanderingCircus/Art/WCIRCUS_Leader.dds</File>
+    <File md5="ADF3F93A9A3B834E93C6A475958E0BC2" import="1">TheWanderingCircus/Art/WCIRCUS_LeaderScene.xml</File>
+    <File md5="93C15C009EA0967544E8A45A27B17A9E" import="1">TheWanderingCircus/Art/WCIRCUS_Map.dds</File>
+    <File md5="AEF047B49DE3EFD14EB8C31A9BA68CF8" import="1">TheWanderingCircus/Art/WCIRCUS_Objects128.dds</File>
+    <File md5="DE6DDC2C826C0B021CDE849481F8EE3B" import="1">TheWanderingCircus/Art/WCIRCUS_Objects16.dds</File>
+    <File md5="667767452C089BA1EF8D46D1CF1409BA" import="1">TheWanderingCircus/Art/WCIRCUS_Objects24.dds</File>
+    <File md5="6CFA3725ED5FD46847F9CBC2AD3706CA" import="1">TheWanderingCircus/Art/WCIRCUS_Objects256.dds</File>
+    <File md5="D587D2663052A9D984FB1CB44F473EC0" import="1">TheWanderingCircus/Art/WCIRCUS_Objects32.dds</File>
+    <File md5="F2D0E93E620B1F4022ECE861F1511746" import="1">TheWanderingCircus/Art/WCIRCUS_Objects45.dds</File>
+    <File md5="3004C27122E8331839BF2166CCB47CD8" import="1">TheWanderingCircus/Art/WCIRCUS_Objects48.dds</File>
+    <File md5="06CC6CE848A28681E0D11F66252141D9" import="1">TheWanderingCircus/Art/WCIRCUS_Objects64.dds</File>
+    <File md5="7AA47CB006D9F8BC87AC452AFA7E9593" import="1">TheWanderingCircus/Art/WCIRCUS_Objects80.dds</File>
+    <File md5="1FB56C2702B1B1C4FDE4CAB48F0BBAB4" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait128.dds</File>
+    <File md5="4403B0F47E78596FC754F9880EDA38CC" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait16.dds</File>
+    <File md5="16784A0887E7902C3D2535C3B0F1CBA9" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait24.dds</File>
+    <File md5="044F1AAB7706B4ED87DE83EC85171C41" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait256.dds</File>
+    <File md5="644C1EE259B43AF907F5082C9EDD41C8" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait32.dds</File>
+    <File md5="C0B4061621C556E2714AE2F011FA0357" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait45.dds</File>
+    <File md5="ED143A38D05350B2944B8F5D67EA47BF" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait48.dds</File>
+    <File md5="B78FB1273B87E4C0CD548CDAC4C734D1" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait64.dds</File>
+    <File md5="5BB32154F697C1080C231926E299C817" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait80.dds</File>
+    <File md5="7C65EAC42C6A54EB2ABC08C46162E12B" import="0">TheWanderingCircus/SQL/00_WCIRCUS_Core.sql</File>
+    <File md5="8DC4C9770334C14601BF53EF020F0F57" import="0">TheWanderingCircus/SQL/01_WCIRCUS_Inheritance.sql</File>
+    <File md5="60B15B7B8C56390981F653EFF6A4456B" import="0">TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</File>
+    <File md5="48F8E8EB3586A37189BE7C3B477C0237" import="0">TheWanderingCircus/SQL/03_WCIRCUS_Art.sql</File>
+    <File md5="E396EAFEB2EB5A7E6C7F46A84C759830" import="0">TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</File>
+    <File md5="43BB0F0DA95626B4B8516476DC329568" import="1">TheWanderingCircus/UI/WanderingCircus.lua</File>
+    <File md5="A986641AFEB4FA573DD6360B9779E18D" import="0">TheWanderingCircus/UI/WanderingCircus.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -386,6 +434,11 @@
       <UpdateDatabase>TheTwelfthHour/SQL/02_TWELFTH_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheTwelfthHour/SQL/03_TWELFTH_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheTwelfthHour/SQL/10_TWELFTH_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheWanderingCircus/SQL/00_WCIRCUS_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheWanderingCircus/SQL/01_WCIRCUS_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheWanderingCircus/SQL/03_WCIRCUS_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -412,6 +465,10 @@
     <EntryPoint type="InGameUIAddin" file="TheTwelfthHour/UI/TWELFTH_Clock.xml">
       <Name>The Grand Clock</Name>
       <Description>Human-only six-turn Grand Chime, staged before native yield settlement.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheWanderingCircus/UI/WanderingCircus.xml">
+      <Name>The Show Must Go On</Name>
+      <Description>Local three-turn Grand Festivals, persistent city cooldowns and Ticket Offices.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

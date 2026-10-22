@@ -1,0 +1,55 @@
+# Implementation and CP v151 findings
+
+This is a complete implementation preview, with native acceptance outstanding. Source is pinned to official Community-Patch-DLL commit `44c1e14ff75d80c1dba5c8a71e8289439a53aafb` (DLL version 151). [SourceAudit.json](SourceAudit.json) records 29 checked contracts, source URLs and SHA256 hashes. Assertions and Lua mocks are evidence about code, not a launched-game result.
+
+## Turn phases and exact boundaries
+
+In `CvPlayer::doTurnPostDiplomacy`, city `doTurn()` runs first, then treasury `DoGold()`, player Culture accumulation, research, and finally `PlayerDoTurn`. Applying bonuses for the first time in PlayerDoTurn would miss that economic pass. `PlayerPreAIUnitUpdate` is in subsequent AI unit processing and is unsuitable. `PlayerDoneTurn(int playerID)` is a synchronous hook in `setTurnActive(false)` after completed automoves and before native unit reset; SQL enables `EVENTS_PLAYER_TURN`. The next sequential player's activation follows its return. These are inspected source facts; closed-engine event dispatch and save resumption still require the native checklist.
+
+The sole `UI/WanderingCircus.lua` context therefore separates **preparation** from **activation**:
+
+1. At the end of owner-turn T-1, sample only that owner's actual city centers. If a living, originally owned Carnival Crew is present and the city will be eligible at T, persist a pending start T. Prepare the two native yield dummies for economic turn T synchronously. Do not spend the previous cooldown yet.
+2. Between turns, a qualifying Crew's `UnitSetXY` or `UnitPrekill` event revalidates pending presence. Prekill still exposes the dying unit, so its ID is explicitly excluded. Losing the final qualifying Crew cancels the reservation and removes staged yields. Multiple Crews still prepare just one start. City transfers clear everything. A committed festival ignores Crew departures or deaths.
+3. At owner-turn T, native city/Gold/Culture processing sees those prepared dummies. PlayerDoTurn then commits exclusive expiration T+3 and next eligibility T+12, consumes the pending marker, and idempotently reconciles yields. It cannot originate an unstaged festival. Reload/dirty/building events likewise cannot create pending starts.
+4. Ending T and T+1 prepares active yields for T+1 and T+2. Ending T+2 removes them **before** the T+3 pass. The city remains on cooldown through T+11. A Crew present when ending T+11 prepares T+12; no T+11 or T+13 off-by-one is permitted. The persisted phase marker prevents duplicate end events from resampling the same completed turn.
+
+Raw `Game.GetGameTurn()` is an absolute owner-turn coordinate in supported Windows sequential single-player: one owner turn per game-turn increment. The source increments it once and serializes native state. No game-speed multiplier is consulted. A fresh scenario begins without a previous completed-owner-turn sample; its first possible festival follows its first qualifying ended turn.
+
+During other players' turns, dummies represent the **next** economic pass. This may change an interturn tooltip; it does not itself award stored yields. UI callbacks only reconcile; they never serve as the pre-harvest clock. No direct resource accumulation, research/queue edits or compensation payouts occur.
+
+## Native persistent state: six dummy buildings
+
+All names below begin `BUILDING_WCIRCUS_` and have independent `BUILDINGCLASS_WCIRCUS_` classes.
+
+| Suffix | Real-building count | Effect |
+| --- | --- | --- |
+| `FESTIVAL_YIELDS` | 0 or 1 | +3 Culture, +2 Gold through `Building_YieldChanges` |
+| `TICKET_PRODUCTION` | 0 or 1 | +2 Production through `Building_YieldChanges`, requires actual Ticket Office and local festival |
+| `EXPIRATION` | exclusive expiration raw turn + 1; 0 unset | No economic effect |
+| `NEXT_ELIGIBLE` | earliest next start raw turn + 1; 0 unset | No economic effect |
+| `PENDING_START` | reserved next start raw turn + 1; 0 unset | No economic effect; only completed-turn sampling writes it |
+| `STAGED_TURN` | completed raw turn + 1; 0 unset | No economic effect; phase/duplicate-sample marker |
+
+Active committed state satisfies `expiration-3 <= effectiveTurn < expiration`. While the saved completed turn equals the current raw turn, effectiveTurn is raw+1; after rollover it is raw. Pending state supplies the native pre-harvest effect only for its reserved turn and while a qualifying Crew remains. Zero/unset is distinct from raw turn zero through +1 encoding. Historical expiration/eligibility values are absolute; nothing decrements based on callbacks. Lua retains no authoritative player/city timing ledger, and no City userdata survives a callback.
+
+CP's `SetNumRealBuildingTimed` stores an **int**, without clamping at one, and the real-building array is serialized. `GetNumBuilding` takes max(real,free) under the normal setting; it also does not cap marker counts. `IsDummy` excludes these from normal building totals, while their native yield companions still process. Markers have no companion effects. All six have `Cost=-1`, `FaithCost=-1`, `GreatWorkCount=-1`, `NeverCapture=1`, `ConquestProb=0`, `IsDummy=1`, `ShowInPedia=0`, `NukeImmune=1`, zero maintenance, no tech/obsolescence, specialists or construction rewards. The setter uses its verified third argument `true` to suppress construction rewards and only writes changed counts.
+
+## Inheritance and presentation
+
+The scalar clone uses a temporary `SELECT *` of the **active** `UNIT_WORKER` / `BUILDING_MARKET`, then changes identity/text/art and only the specified gameplay field. Crew Movement is `inherited Moves + 1`; WorkRate, capture class, civilian AI, builds, upgrade data and promotions remain inherited. Companion SQL is generated from every installed CP `Unit_*`/`Building_*` table containing `UnitType`/`BuildingType`, using the collection's existing helpers. Each SELECT executes against the active definition at mod activation. Future entirely new companion tables require regenerating the SQL with the current schema, as in the other collection civilizations.
+
+Ticket Office Culture increments the inherited Culture row, or inserts +1 if absent. All other companion rows, specialist effects, cost, tech, maintenance and modifiers stay inherited. +2 Production exists only on the conditional dummy. Tests compare all scalar fields and all companion multisets, exercise a Worker baseline with Moves=5/WorkRate=147, a Market with existing +4 Culture and altered specialists/cost, and hypothetical added scalar columns. SQL also activates against a read-only copy of the actual current CP game cache.
+
+CP resolves captured Workers to the captor's Worker replacement. It then restores their original owner, exposed through `GetOriginalOwner`. The activation check tests both specific Crew type and original/current owner, so captured foreign Workers cannot qualify despite that conversion. Recovered originally owned Crews qualify normally.
+
+Full English civilization/leader history, Civilopedia, strategy, exact supplied Dawn text with `[NEWLINE][NEWLINE]`, greeting/war/defeat/peace and additional diplomatic responses are independent Circus keys. All 24 requested city names are ordered with Grand Pavilion first; ten spy names are original. Playable=1, AIPlayable=0; no custom strategic AI. Original crimson/gold/midnight painting, symbols and conceptual map compile through the existing mipmapped DDS/atlas pipeline. The Worker 3D model and static leader scene are intentional compatible choices, not missing assets. [Art provenance and prompt](../../art-source/TheWanderingCircus/README.md).
+
+## Lifecycle, performance and limitations
+
+Native acquisition calls `IsValidBuildingForPlayer` for transfers; `NeverCapture` rejection occurs **before** its non-conquest exception, covering gifts and liberation as well as war. `CityCaptureComplete(oldOwner,capital,x,y,newOwner,...)` follows reconstruction. The handler resolves the new city by plot and clears all six counts even when the recipient is another Circus. Native `AcquireCity` scripted transfers use that path. Cities returning to Circus retain neither duration nor cooldown. Razing/destruction/elimination destroy their native arrays; runtime stores no deleted-city pointer. Load repair also scrubs foreign leftovers.
+
+Verified post-construction and post-sale hooks reconcile immediately. The native real-building setter also publishes `SpecificCityInfoDirty` after its count/effects change; the installed Firaxis CityBannerManager subscribes to that exact event. Its handler resolves just the current city and reconciles scripted Office removal, with no new activation. SourceAudit.json records that installed-script evidence. Generic game/city dirty events coalesce into one self-detaching fallback callback. Turn-end synchronization is synchronous and cannot wait on a UI frame. Normal work is O(Circus cities + units on candidate city plots), with an all-player city scrub only on context creation. No map scan, permanent frame update, accumulating count or global simulation namespace exists. A busy guard ignores self-generated dirty callbacks, and one synchronous retry handles a transient native setter error. Persistent failures are logged; no unbounded retry is attempted. DEBUG is false by default and enables event-level phase messages only.
+
+Native acceptance remains necessary for actual Culture/Gold/Production deltas, native save serialization/load event dispatch, queued Worker missions and all art/localization rendering. End-turn autosaves precede PlayerDoneTurn; the fixture restores a pre-staging snapshot and replays deactivation, but that engine resume path must be tested in Civ V. An unrelated script that silently mutates units/buildings/ownership without normal native events cannot be promised synchronous pre-economic repair; normal UnitSetXY/UnitPrekill/AcquireCity paths are covered. These are interoperability limits, not changes to the 3/12 design. First installing this implementation after an economic pass cannot retroactively award that pass.
+
+Collection v9 retains UUID `f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392`; all Circus SQL is appended after the full v8 inventory to preserve existing insertion order. Existing civilization gameplay/art files are unchanged. Older save continuation has not been tested; back up saves and prefer a new game. Downgrading after new identifiers enter a save is unsupported. See [Testing.md](Testing.md) for the acceptance gate and [Files.md](Files.md) for every changed path.
