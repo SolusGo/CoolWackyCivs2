@@ -1,5 +1,12 @@
 # Changelog
 
+## Final audit — 2026-10-22 / collection v9 unchanged
+
+- Fixed conditional cancellation of an already-begun reserved show during owner economic processing, preserving all three yields and original T+3/T+12 boundaries after Crew loss. Inactive interturn losses still cancel.
+- Isolated bounded setter retries per city, preventing a failing city from starving healthy peers at preparation/expiration.
+- Added the audit suite: split economic phases, real resume gates, all partial-write boundaries, later human/AI order, pending transfers, Office purchase/removal timing, saved Crew departure/death and 128 cities. Forty Lua 5.1 suite runs and 59 source contracts pass.
+- Preserved SQL, all values, six native state markers, human-only flags, artwork and collection identity/version. No native gameplay/save/rendering pass is claimed; see [AuditReport.md](docs/AuditReport.md).
+
 ## 1.0.0 implementation preview — 2026-10-22 / collection v9
 
 - Added human-only Wandering Circus, Ringmaster Aurelio, Grand Pavilion, all 24 requested city names and ten original spy names.

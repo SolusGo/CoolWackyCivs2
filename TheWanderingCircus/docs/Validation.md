@@ -1,5 +1,13 @@
 # Validation record — 2026-10-22
 
+## Final implementation audit
+
+The audit baseline is `b28b641`. The shipped runtime now passes **40 Lua 5.1 suite runs** (four suites, five speeds, two start turns), **59 contracts** across fifteen freshly fetched official CP v151 source files, and separate SQL-backed CP-derived yield arithmetic. Both conditional regressions were observed failing against baseline before the runtime corrections. The [ranked audit](AuditReport.md) records their severity, file/line references, source trace, save implications and exact limits.
+
+The new suite separates Production/Gold/Culture, checks owner activation versus inactive interturn loss, models actual autosave/deactivation flags and resumed missions, tests each pre/post-mutation write point, contains a failing city's errors at start and expiry, and covers pending capture/return, Office purchase/removal phases, departed/dead Crew saves, old count layouts and 128 cities. Full collection validation, shared 182-source audit and rebuilt ZIP/7z integrity are rerun for this pass. Only the Circus runtime game-file hash changes; SQL, art, other civilizations, load order, UUID, version 9 and all six saved marker identities remain unchanged. Native engine tests are still **not run**.
+
+## Original implementation record at b28b641
+
 All results below were run against this implementation in the local repository. **Civ V was not launched.** Python uses the repository `.venv`, with `lupa.lua51`, Pillow and py7zr; CP source is the pinned official DLL v151 revision recorded in SourceAudit.json.
 
 | Command/check | Actual result |

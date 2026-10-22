@@ -31,7 +31,37 @@
     "capture preserves original owner": true,
     "original owner and death bindings": true,
     "autosave precedes Done hook": true,
-    "load does not rerun economics": true
+    "load does not rerun economics": true,
+    "owner-active state precedes attrition and economics": true,
+    "IsTurnActive bound to native flag": true,
+    "Game.GetGameTurn reads native absolute turn": true,
+    "autosave precedes serialized active-flag transition": true,
+    "active/end/automove flags serialized": true,
+    "processed automoves rebuilt after load": true,
+    "deactivation gates precede Done dispatch": true,
+    "sequential next player follows old deactivation": true,
+    "rollover precedes next sequential round activation": true,
+    "city Production precedes meltdown": true,
+    "meltdown can invoke native unit damage": true,
+    "nuclear damage can kill civilians before Gold/Culture": true,
+    "real Production credits rate and overflow": true,
+    "treasury credits net ordinary Gold": true,
+    "treasury Gold includes city rate": true,
+    "player Culture includes native city rates": true,
+    "building flat changes refresh native rates": true,
+    "ordinary rate suppresses anarchy resistance razing": true,
+    "ordinary rate applies integer modifiers once": true,
+    "post modifiers precede trade additions": true,
+    "city Culture contributes to local borders": true,
+    "prekill precedes delayed-death flag": true,
+    "UnitSetXY exact owner ID x y ABI": true,
+    "UnitSetXY follows native relocation": true,
+    "unit original owner serialized": true,
+    "capture samples original identity": true,
+    "CityConstructed ABI": true,
+    "CitySoldBuilding ABI": true,
+    "gold and faith purchases report post-creation": true,
+    "founding callback ABI owner x y": true
   },
   "sources": {
     "CustomMods.h": {
@@ -42,6 +72,10 @@
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp",
       "sha256": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87"
     },
+    "CvPlayerAI.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayerAI.cpp",
+      "sha256": "a4fb3ae925db892dc4c0106780b00438d06aa39df885845affb48044064a8ec1"
+    },
     "CvCity.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp",
       "sha256": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2"
@@ -49,6 +83,14 @@
     "CvUnit.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
       "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+    },
+    "CvUnitCombat.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitCombat.cpp",
+      "sha256": "cb4b2a1b3078afc5c5720a2a5e94048142155b4b1bf111798dc79b424c1a61c8"
+    },
+    "CvTreasury.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTreasury.cpp",
+      "sha256": "c6f466557b239da4fee84e115ff8d05d3e99fa5774277c312dd55c64f09bd818"
     },
     "CvBuildingClasses.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvBuildingClasses.cpp",
@@ -73,6 +115,14 @@
     "CvLuaPlot.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlot.cpp",
       "sha256": "eeed545294850b4bc69313caba1b4f1b3d8a0440eb7f5c432e242a36742c3e64"
+    },
+    "CvLuaPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp",
+      "sha256": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a"
+    },
+    "CvLuaGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaGame.cpp",
+      "sha256": "a2bee0ef0210f71eae8e09f3209755f7bf64ee6177dc8f52ee01de8fa893655b"
     }
   },
   "installed_ui_evidence": {

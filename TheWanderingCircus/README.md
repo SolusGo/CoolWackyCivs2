@@ -27,4 +27,6 @@ Focused validation: `python tools/validate_circus.py`. Collection validation: `p
 
 Native gameplay, economic payouts, render quality and engine save round trips remain **unverified**. Start a new game for acceptance testing. Old version 8 saves have not been certified for version 9; make backups and avoid downgrading. Festival state uses native city buildings rather than Lua variables or a new save database.
 
+The [final implementation audit](docs/AuditReport.md) fixes two conditional runtime defects and adds split-phase economics, native-shaped autosave gates, per-city failure isolation and 128-city tests. Forty Lua 5.1 suite runs and 59 source contracts pass; native acceptance remains pending. Existing valid version 9 marker layouts are retained without migration, while native save continuation is not certified.
+
 Read [implementation and source findings](docs/Implementation.md), [test matrix and native acceptance](docs/Testing.md), [machine-readable validation](docs/Validation.json), [file inventory](docs/Files.md), and [changelog](CHANGELOG.md). No strategic AI is included; `Playable=1`, `AIPlayable=0`.

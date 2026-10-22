@@ -33,9 +33,12 @@ function Copy(v,seen)
  local out={};seen[v]=out; for k,item in pairs(v) do out[k]=Copy(item,seen) end; return out
 end
 function Player(id,circus)
- local p={id=id,civ=circus and 100 or 1,alive=true,cities={},units={}}
+ local p={id=id,civ=circus and 100 or 1,alive=true,cities={},units={},human=true,
+  active=true,endTurn=false,autoMoves=false,processed=false,busy=false}
  function p:GetCivilizationType() return self.civ end
  function p:IsAlive() return self.alive end
+ function p:IsTurnActive() return self.active end
+ function p:IsHuman() return self.human end
  function p:Cities()
   local keys={};for k in pairs(self.cities) do keys[#keys+1]=k end;table.sort(keys)
   local i=0;return function() i=i+1;return self.cities[keys[i]] end
@@ -101,11 +104,15 @@ end
 function Setup(offset)
  rawTurn=offset or startTurn or 0;Players={};plots={};nextUnit=0;faults={};Context()
  local p=Player(0,true); local c=City(p,1,true);local u=Unit(p,c)
- Player(1,false);LoadCircus();return p,c,u
+ local ai=Player(1,false);ai.active=false;ai.human=false;LoadCircus();return p,c,u
 end
-function EndTurn(p) GameEvents.PlayerDoneTurn.Fire(p.id) end
+function EndTurn(p)
+ p.active=false;p.endTurn=true;p.autoMoves=true;p.processed=true
+ GameEvents.PlayerDoneTurn.Fire(p.id)
+end
 function BeginTurn(p)
  rawTurn=rawTurn+1
+ p.active=true;p.endTurn=false;p.autoMoves=false;p.processed=false
  -- These values stand in for native economics, which runs BEFORE PlayerDoTurn.
  local result={};for c in p:Cities() do result[c.id]={Harvest(c)} end
  GameEvents.PlayerDoTurn.Fire(p.id);return result
@@ -117,6 +124,8 @@ function Restore(snapshot)
  -- Re-link pointers explicitly, as native deserialization would do.
  local s=Copy(snapshot);Players=s.players;plots=s.plots;rawTurn=s.turn;nextUnit=s.nextUnit
  for _,p in pairs(Players) do
+  -- CP serializes active/end/automove flags, but rebuilds processed automoves.
+  p.processed=false
   for _,c in pairs(p.cities) do
    local plot=PlotOf(c);plot.city=c;plot.units={}
   end

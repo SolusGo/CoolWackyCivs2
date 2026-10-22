@@ -1,17 +1,23 @@
 {
   "scope": "SQL/static/source checks and Lua 5.1 mocks; Civ V was NOT launched",
-  "lua_suite_runs": 30,
+  "lua_suite_runs": 40,
+  "suites": [
+    "circus_timing.lua",
+    "circus_lifecycle.lua",
+    "circus_persistence.lua",
+    "circus_audit.lua"
+  ],
   "speeds": [
-    "Quick",
-    "Standard",
-    "Epic",
-    "Marathon",
-    "custom"
+    "QUICK",
+    "STANDARD",
+    "EPIC",
+    "MARATHON",
+    "CUSTOM"
   ],
   "start_turns": [
     0,
     150
   ],
-  "source_contracts": 29,
+  "source_contracts": 59,
   "native_tests": "Pending: docs/Testing.md"
 }

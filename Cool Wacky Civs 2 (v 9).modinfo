@@ -397,7 +397,7 @@
     <File md5="60B15B7B8C56390981F653EFF6A4456B" import="0">TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</File>
     <File md5="48F8E8EB3586A37189BE7C3B477C0237" import="0">TheWanderingCircus/SQL/03_WCIRCUS_Art.sql</File>
     <File md5="E396EAFEB2EB5A7E6C7F46A84C759830" import="0">TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</File>
-    <File md5="43BB0F0DA95626B4B8516476DC329568" import="1">TheWanderingCircus/UI/WanderingCircus.lua</File>
+    <File md5="51BF44ED83E10409C78F769D4DD18642" import="1">TheWanderingCircus/UI/WanderingCircus.lua</File>
     <File md5="A986641AFEB4FA573DD6360B9779E18D" import="0">TheWanderingCircus/UI/WanderingCircus.xml</File>
   </Files>
   <Actions>

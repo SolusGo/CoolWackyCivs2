@@ -1,5 +1,12 @@
 # Changelog
 
+## Wandering Circus final implementation audit — 2026-10-22
+
+- Protect an already-reserved Grand Festival once the owner's native turn has begun, preventing a same-turn Crew loss from splitting Production/Gold/Culture before the late PlayerDoTurn hook. Inactive-owner interturn loss still cancels normally, including a later human slot after raw rollover.
+- Bound idempotent setter recovery per city so a persistently failing peer cannot block healthy cities' festival starts or expirations. Retain no authoritative Lua timing state.
+- Add split economic phases, gated pre-staging autosave/automove replay, all before/after mutation points, pending transfers, Office purchase/removal timing, old-format snapshots, unit ownership and 128-city stress coverage: 40 Lua 5.1 suite runs and 59 pinned source contracts.
+- Preserve all SQL, six marker identities/encoding, gameplay values, artwork, version 9/UUID and other civilizations. Native gameplay, saves/autosaves, rendering and release acceptance remain unverified. See the [ranked audit](TheWanderingCircus/docs/AuditReport.md).
+
 ## 1.6.0 Wandering Circus implementation preview / mod version 9 — 2026-10-22
 
 - Added human-only Ringmaster Aurelio and The Show Must Go On: independent city festivals provide +3 Culture/+2 Gold for exactly three owner-turns, with twelve turns between starts. Native building markers persist boundaries; pre-economic staging uses CP v151's verified turn-end phase and cancels invalid pending Crew presence.

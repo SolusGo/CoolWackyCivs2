@@ -24,6 +24,19 @@ end
 local busy, armed = false, false
 local context = ContextPtr
 local function log(message) if DEBUG then print('[Wandering Circus] ' .. message) end end
+local function retry(fn, label)
+ local ok, err = pcall(fn)
+ if not ok then ok, err = pcall(fn) end -- at most two attempts per city
+ if not ok then
+  print('[Wandering Circus] ' .. label .. ' failed on raw turn ' .. Game.GetGameTurn() .. ': ' .. tostring(err))
+ end
+end
+local function guarded(fn, label)
+ if busy then return end
+ busy = true
+ retry(fn, label)
+ busy = false
+end
 local function set(city, building, count)
  if city:GetNumRealBuilding(building) ~= count then city:SetNumRealBuilding(building, count, true) end
 end
@@ -56,6 +69,18 @@ local function refreshCity(player, city, id, excludedUnit)
  local turn = target(city)
  local expires = city:GetNumRealBuilding(expiration) - 1
  local starts = city:GetNumRealBuilding(pending) - 1
+ if starts >= 0 and starts == Game.GetGameTurn() and player:IsTurnActive() then
+  -- setTurnActive(true) precedes all owner economics. This RESERVED show has
+  -- begun: a Crew loss later in that pass must not split Production/Gold/Culture.
+  -- Interturn unit events already cancel invalid reservations while inactive.
+  -- No dirty/movement event can originate a reservation or move its boundaries.
+  set(city, expiration, starts + 3 + 1)
+  set(city, eligible, starts + 12 + 1)
+  set(city, pending, 0)
+  expires = starts + 3
+  log('Activated city ' .. city:GetID() .. ' at owner-turn ' .. starts)
+  starts = -1
+ end
  -- Pending starts can only be created by the completed-owner-turn sample below.
  -- Losing the last Crew BEFORE activation cancels the reservation and its payout.
  if starts >= 0 and (starts ~= turn or not qualifies(city, id, excludedUnit)) then
@@ -68,15 +93,9 @@ end
 local function refreshPlayer(id, excludedUnit)
  local player = Players[id]
  if not player then return end
- for city in player:Cities() do refreshCity(player, city, id, excludedUnit) end
-end
-local function guarded(fn, label)
- if busy then return end
- busy = true
- local ok, err = pcall(fn)
- if not ok then ok, err = pcall(fn) end -- bounded synchronous, idempotent recovery
- busy = false
- if not ok then print('[Wandering Circus] ' .. label .. ' failed: ' .. tostring(err)) end
+ for city in player:Cities() do
+  retry(function() refreshCity(player, city, id, excludedUnit) end, 'refresh city ' .. id .. ':' .. city:GetID())
+ end
 end
 local function stagePlayer(id)
  local player = Players[id]
@@ -84,35 +103,25 @@ local function stagePlayer(id)
  local raw = Game.GetGameTurn()
  local nextTurn = raw + 1
  for city in player:Cities() do
-  if valid(player, city, id) and city:GetNumRealBuilding(staged) ~= raw + 1 then
-   local expires = city:GetNumRealBuilding(expiration) - 1
-   local ready = city:GetNumRealBuilding(eligible) - 1
-   if nextTurn >= ready and nextTurn >= expires and qualifies(city, id) then
-    set(city, pending, nextTurn + 1)
-    log('Prepared city ' .. city:GetID() .. ' for owner-turn ' .. nextTurn)
+  retry(function()
+   if valid(player, city, id) and city:GetNumRealBuilding(staged) ~= raw + 1 then
+    local expires = city:GetNumRealBuilding(expiration) - 1
+    local ready = city:GetNumRealBuilding(eligible) - 1
+    if nextTurn >= ready and nextTurn >= expires and qualifies(city, id) then
+     set(city, pending, nextTurn + 1)
+     log('Prepared city ' .. city:GetID() .. ' for owner-turn ' .. nextTurn)
+    end
+    -- Write phase LAST: a retry completes an interrupted preparation safely.
+    set(city, staged, raw + 1)
    end
-   -- Write phase LAST: a retry completes an interrupted preparation safely.
-   set(city, staged, raw + 1)
-  end
-  refreshCity(player, city, id)
+   refreshCity(player, city, id)
+  end, 'stage city ' .. id .. ':' .. city:GetID())
  end
 end
 local function startPlayer(id)
  local player = Players[id]
  if not player or player:GetCivilizationType() ~= civ then return end
- local raw = Game.GetGameTurn()
- for city in player:Cities() do
-  if valid(player, city, id) and city:GetNumRealBuilding(pending) == raw + 1
-   and qualifies(city, id) then
-   -- The pre-staged native dummies have already participated in this harvest.
-   -- +1 encoding leaves zero available for unset, including raw turn zero.
-   set(city, expiration, raw + 3 + 1)
-   set(city, eligible, raw + 12 + 1)
-   set(city, pending, 0)
-   log('Activated city ' .. city:GetID() .. ' at owner-turn ' .. raw)
-  end
-  refreshCity(player, city, id)
- end
+ refreshPlayer(id)
 end
 local function refreshCircus()
  for _, id in ipairs(circusPlayers) do guarded(function() refreshPlayer(id) end, 'refresh player ' .. id) end

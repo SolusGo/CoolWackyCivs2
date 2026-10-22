@@ -8,6 +8,9 @@ from PIL import Image
 from database import database, quote
 from generate_circus import R,V,CIV,LEADER,UNIT,OFFICE,DUMMIES,TEXT,CITIES
 from validate_twelfth import inherited
+SUITES=['circus_timing.lua','circus_lifecycle.lua','circus_persistence.lua','circus_audit.lua']
+SPEEDS=['QUICK','STANDARD','EPIC','MARATHON','CUSTOM']
+STARTS=[0,150]
 
 def apply(d):
     for p in sorted((V/'SQL').glob('*.sql')): d.executescript(p.read_text(encoding='utf-8'))
@@ -96,9 +99,9 @@ def gameplay(d):
     prod=d.execute("SELECT Yield FROM Building_YieldChanges WHERE BuildingType='BUILDING_WCIRCUS_TICKET_PRODUCTION'").fetchone()[0]
     officeCulture=culture(d,OFFICE)-culture(d,'BUILDING_MARKET')
     source=(V/'UI/WanderingCircus.lua').read_text(encoding='utf-8')
-    for speed in ['QUICK','STANDARD','EPIC','MARATHON','CUSTOM']:
-        for start in [0,150]:
-            for name in ['circus_timing.lua','circus_lifecycle.lua','circus_persistence.lua']:
+    for speed in SPEEDS:
+        for start in STARTS:
+            for name in SUITES:
                 lua=LuaRuntime()
                 if (speed,start)!=('QUICK',0): lua.globals().print=lambda *args:None
                 lua.execute((R/'tools/tests/circus_mock.lua').read_text(encoding='utf-8'))
@@ -107,11 +110,11 @@ def gameplay(d):
                 lua.globals().LoadCircus=lambda:lua.execute(source)
                 lua.execute('function Harvest(c) return (c.b[103] or 0)*'+str(values['YIELD_CULTURE'])+'+((c.b[102] or 0)>0 and '+str(officeCulture)+' or 0), (c.b[103] or 0)*'+str(values['YIELD_GOLD'])+', (c.b[104] or 0)*'+str(prod)+' end')
                 lua.execute((R/'tools/tests'/name).read_text(encoding='utf-8'))
-    print('PASS 30 Circus shipped-Lua 5.1 suite runs: 3 suites x 5 speeds x 2 start turns; simulations, NOT native engine tests')
+    print('PASS',len(SUITES)*len(SPEEDS)*len(STARTS),'Circus shipped-Lua 5.1 suite runs: split economics, lifecycle, snapshots/autosaves, 5 speeds, 2 start turns; NOT native engine tests')
 
 def sources(fetch=False):
     from audit_cp import COMMIT,BASE
-    names=['CustomMods.h','CvPlayer.cpp','CvCity.cpp','CvUnit.cpp','CvBuildingClasses.cpp','CvGame.cpp','CvDllNetMessageHandler.cpp','CvLuaCity.cpp','CvLuaUnit.cpp','CvLuaPlot.cpp']
+    names=['CustomMods.h','CvPlayer.cpp','CvPlayerAI.cpp','CvCity.cpp','CvUnit.cpp','CvUnitCombat.cpp','CvTreasury.cpp','CvBuildingClasses.cpp','CvGame.cpp','CvDllNetMessageHandler.cpp','CvLuaCity.cpp','CvLuaUnit.cpp','CvLuaPlot.cpp','CvLuaPlayer.cpp','CvLuaGame.cpp']
     if fetch:
         for name in names:
             (R/'tools/reference'/name).write_bytes(urllib.request.urlopen(BASE+('Lua/' if name.startswith('CvLua') else '')+name,timeout=45).read())
@@ -123,6 +126,12 @@ def sources(fetch=False):
     acquire=body('CvPlayer.cpp','CvCity* CvPlayer::acquireCity(')
     valid=body('CvPlayer.cpp','bool CvPlayer::IsValidBuildingForPlayer(')
     setter=body('CvBuildingClasses.cpp','void CvCityBuildings::SetNumRealBuildingTimed(')
+    city_turn=body('CvCity.cpp','void CvCity::doTurn(')
+    deactivate=body('CvGame.cpp','void CvGame::CheckPlayerTurnDeactivate(')
+    moves=body('CvGame.cpp','void CvGame::updateMoves(')
+    rate=body('CvCity.cpp','int CvCity::getYieldRateTimes100(YieldTypes eYield, bool bIgnoreTrade, bool bIgnoreProcess, int iAssumeExtraModifier')
+    kill=body('CvUnit.cpp','void CvUnit::kill(')
+    relocation=body('CvUnit.cpp','void CvUnit::setXY(')
     checks={
       'DLL v151':bool(re.search(r'MOD_DLL_VERSION_NUMBER\s+\(\(uint\) 151\)',data['CustomMods.h'])),
       'city economics then gold then culture then PlayerDoTurn':turn.index('pLoopCity->doTurn();')<turn.index('GetTreasury()->DoGold();')<turn.index('changeJONSCultureTimes100(')<turn.index('"PlayerDoTurn"'),
@@ -153,6 +162,36 @@ def sources(fetch=False):
       'original owner and death bindings':all('Method('+s+');' in data['CvLuaUnit.cpp'] for s in ['GetOriginalOwner','IsDead','IsDelayedDeath']),
       'autosave precedes Done hook':phase.index('gDLL->AutoSave(false, true)')<phase.index('GAMEEVENT_PlayerDoneTurn'),
       'load does not rerun economics':'doTurn();' not in body('CvPlayer.cpp','void CvPlayer::Read('),
+      'owner-active state precedes attrition and economics':phase.index('m_bTurnActive = bNewValue')<phase.index('DoUnitAttrition();')<phase.index('doTurn();'),
+      'IsTurnActive bound to native flag':'Method(IsTurnActive);' in data['CvLuaPlayer.cpp'] and '&CvPlayerAI::isTurnActive' in body('CvLuaPlayer.cpp','int CvLuaPlayer::lIsTurnActive('),
+      'Game.GetGameTurn reads native absolute turn':'&CvGame::getGameTurn' in body('CvLuaGame.cpp','int CvLuaGame::lGetGameTurn('),
+      'autosave precedes serialized active-flag transition':phase.index('gDLL->AutoSave(false, true)')<phase.index('m_bTurnActive = bNewValue'),
+      'active/end/automove flags serialized':all('visitor(player.'+s+');' in data['CvPlayer.cpp'] for s in ['m_bTurnActive','m_bEndTurn','m_bAutoMoves']),
+      'processed automoves rebuilt after load':'visitor(player.m_bProcessedAutoMoves)' not in data['CvPlayer.cpp'] and 'm_bProcessedAutoMoves = false;' in data['CvPlayer.cpp'] and 'player.setProcessedAutoMoves(true)' in moves and 'player.isAutoMoves()' in moves,
+      'deactivation gates precede Done dispatch':deactivate.index('kPlayer.isAlive() && kPlayer.isTurnActive()')<deactivate.index('kPlayer.isEndTurn()')<deactivate.index('kPlayer.hasProcessedAutoMoves()')<deactivate.index('kPlayer.setTurnActive(false)'),
+      'sequential next player follows old deactivation':deactivate.index('kPlayer.setTurnActive(false)')<deactivate.index('kNextPlayer.setTurnActive(true)'),
+      'rollover precedes next sequential round activation':body('CvGame.cpp','void CvGame::doTurn(').index('incrementGameTurn();')<body('CvGame.cpp','void CvGame::doTurn(').index('GET_PLAYER((PlayerTypes)iI).setTurnActive(true)'),
+      'city Production precedes meltdown':city_turn.index('doProduction(')<city_turn.index('doMeltdown();'),
+      'meltdown can invoke native unit damage':'CvUnitCombat::ApplyNuclearExplosionDamage(plot(), 1);' in body('CvCity.cpp','void CvCity::doMeltdown('),
+      'nuclear damage can kill civilians before Gold/Culture':'pkUnit->kill(false, eAttackerOwner);' in body('CvUnitCombat.cpp','uint CvUnitCombat::ApplyNuclearExplosionDamage(const CvCombatMemberEntry*'),
+      'real Production credits rate and overflow':'changeProductionTimes100(getYieldRateTimes100(YIELD_PRODUCTION) + getTotalOverflowProductionTimes100());' in body('CvCity.cpp','void CvCity::doProduction('),
+      'treasury credits net ordinary Gold':'int iGoldChange = CalculateBaseNetGoldTimes100();' in body('CvTreasury.cpp','void CvTreasury::DoGold(') and 'ChangeGoldTimes100(iGoldChange);' in body('CvTreasury.cpp','void CvTreasury::DoGold('),
+      'treasury Gold includes city rate':'GetGoldFromCitiesTimes100()' in body('CvTreasury.cpp','int CvTreasury::CalculateGrossGoldTimes100(') and 'pLoopCity->getYieldRateTimes100(YIELD_GOLD, bExcludeTradeRoutes)' in body('CvTreasury.cpp','int CvTreasury::GetGoldFromCitiesTimes100('),
+      'player Culture includes native city rates':'GetYieldRateFromCitiesTimes100(YIELD_CULTURE)' in body('CvPlayer.cpp','int CvPlayer::GetTotalJONSCulturePerTurnTimes100('),
+      'building flat changes refresh native rates':'UpdateCityYields(eIndex);' in body('CvCity.cpp','void CvCity::ChangeBaseYieldRateFromBuildings('),
+      'ordinary rate suppresses anarchy resistance razing':'IsAnarchy() || IsResistance() || IsRazing()' in rate,
+      'ordinary rate applies integer modifiers once':'iBaseYield * getBaseYieldRateModifier' in rate and 'iModifiedYield /= 100;' in rate,
+      'post modifiers precede trade additions':rate.index('iModifiedYield /= 100;')<rate.index('GetPostModifierYieldRateTimes100')<rate.index('GetTradeValuesAtCityTimes100'),
+      'city Culture contributes to local borders':'getYieldRateTimes100(YIELD_CULTURE);' in body('CvCity.cpp','int CvCity::getBaseYieldRateTimes100(') and 'ChangeJONSCultureStoredTimes100(iBorderGrowth)' in city_turn,
+      'prekill precedes delayed-death flag':kill.index('GAMEEVENT_UnitPrekill')<kill.index('startDelayedDeath();'),
+      'UnitSetXY exact owner ID x y ABI':bool(re.search(r'args->Push\(getOwner\(\)\);\s*args->Push\(GetID\(\)\);\s*args->Push\(getX\(\)\);\s*args->Push\(getY\(\)\);\s*bool bResult = false;\s*LuaSupport::CallHook\(pkScriptSystem, "UnitSetXY"',relocation)),
+      'UnitSetXY follows native relocation':relocation.index('m_iX = pNewPlot->getX();')<relocation.index('"UnitSetXY"'),
+      'unit original owner serialized':'visitor(unit.m_eOriginalOwner);' in data['CvUnit.cpp'],
+      'capture samples original identity':'kCaptureDef.eOriginalOwner = GetOriginalOwner();' in data['CvUnit.cpp'],
+      'CityConstructed ABI':bool(re.search(r'GAMEEVENT_CityConstructed\s+"CityConstructed",\s+"iiibb"',data['CustomMods.h'])),
+      'CitySoldBuilding ABI':bool(re.search(r'GAMEEVENT_CitySoldBuilding\s+"CitySoldBuilding",\s+"iii"',data['CustomMods.h'])),
+      'gold and faith purchases report post-creation':all(bool(re.search(r'CreateBuilding\(eBuildingType\).*?GAMEEVENT_CityConstructed, getOwner\(\), GetID\(\), eBuildingType, '+flags,data['CvCity.cpp'],re.S)) for flags in ['true, false','false, true']),
+      'founding callback ABI owner x y':bool(re.search(r'args->Push\(GetID\(\)\);\s*args->Push\(pCity->getX\(\)\);\s*args->Push\(pCity->getY\(\)\);\s*bool bResult = false;\s*LuaSupport::CallHook\(pkScriptSystem, "PlayerCityFounded"',data['CvPlayer.cpp'])),
     }
     assert all(checks.values()),[k for k,v in checks.items() if not v]
     report={'commit':COMMIT,'dll_version':151,'scope':'Pinned native source contracts; not engine execution','checks':checks,
@@ -170,12 +209,28 @@ def sources(fetch=False):
     (V/'docs').mkdir(exist_ok=True)
     (V/'docs/SourceAudit.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
     print('PASS',len(checks),'Circus pinned CP v151 source contracts')
+    return len(checks)
+
+def yield_models(d):
+    """CP-derived ordinary base-yield arithmetic; not native Treasury/City execution."""
+    yields=dict(d.execute("SELECT YieldType,Yield FROM Building_YieldChanges WHERE BuildingType='BUILDING_WCIRCUS_FESTIVAL_YIELDS'"))
+    production=d.execute("SELECT Yield FROM Building_YieldChanges WHERE BuildingType='BUILDING_WCIRCUS_TICKET_PRODUCTION'").fetchone()[0]
+    def rate(base100,bonus,mods=(),post100=0,trade100=0,suppressed=False):
+        return 0 if suppressed else (base100+bonus*100)*max(0,100+sum(mods))//100+post100+trade100
+    assert rate(2000,production,[25,15,20])-rate(2000,0,[25,15,20])==320
+    assert rate(1000,yields['YIELD_GOLD'],[25])-rate(1000,0,[25])==250
+    assert rate(400,yields['YIELD_CULTURE']+1,[50])-rate(400,0,[50])==600
+    assert rate(1001,production,[25])==1501 # (1001 + 200) * 125 / 100 truncates
+    for state in ['resistance','anarchy','razing']:
+        assert rate(2000,production,[25],post100=100,trade100=300,suppressed=True)==0,state
+    assert rate(2000,production,[25],post100=100,trade100=300)==3150
+    print('PASS CP-derived Circus yield arithmetic: SQL-backed base yields, ordinary modifiers, suppression, post/trade additions and hundredth rounding; NOT native execution')
 
 def validate(fetch=False):
-    d=sql();art(d);gameplay(d);sources(fetch)
+    d=sql();art(d);gameplay(d);contracts=sources(fetch);yield_models(d)
     report={'scope':'SQL/static/source checks and Lua 5.1 mocks; Civ V was NOT launched',
-            'lua_suite_runs':30,'speeds':['Quick','Standard','Epic','Marathon','custom'],
-            'start_turns':[0,150],'source_contracts':29,'native_tests':'Pending: docs/Testing.md'}
+            'lua_suite_runs':len(SUITES)*len(SPEEDS)*len(STARTS),'suites':SUITES,'speeds':SPEEDS,
+            'start_turns':STARTS,'source_contracts':contracts,'native_tests':'Pending: docs/Testing.md'}
     (V/'docs/Validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
 
 if __name__=='__main__': validate('--fetch' in sys.argv)
