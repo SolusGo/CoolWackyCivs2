@@ -13,6 +13,7 @@
     <Label ID="Cooldown" WrapWidth="666" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
     <Label ID="Current" WrapWidth="666" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
     <Label ID="Patience" WrapWidth="666" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
+    <Label ID="PatienceMeter" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
     <Label ID="Detention" WrapWidth="666" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
     <Grid Size="666,79">
      <Label Anchor="L,T" Offset="4,5" WrapWidth="470" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="TXT_KEY_GARVEY_ROW_1" />

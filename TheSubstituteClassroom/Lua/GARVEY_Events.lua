@@ -13,7 +13,7 @@ H(GameEvents,'PlayerDoTurn',function(pid)
   s.clock=Game.GetGameTurn()
   local notify=s.clock>=s.ready and s.notified~=s.ready
   if notify then s.notified=s.ready end
-  G.Guard('save turn',function() G.Save(pid,s) end)
+  G.Retry('save turn',function() G.Save(pid,s) end)
   if G.Human(pid) then
    if bonus and not G.Active(s,'bonusEnd') then G.Notify(pid,G.Text('BONUS_END')) end
    if detained and not G.Active(s,'detEnd') then G.Notify(pid,G.Text('DETENTION_END')) end
@@ -24,14 +24,31 @@ H(GameEvents,'PlayerDoTurn',function(pid)
 end)
 H(GameEvents,'PlayerCityFounded',function(pid) if G.Human(pid) then sync(pid,false) end end)
 for _,name in ipairs({'CityConstructed','CitySoldBuilding'}) do
- H(GameEvents,name,function(pid,_,building) if building==G.OFFICE then sync(pid,false) end end)
+ H(GameEvents,name,function(pid,city,building)
+  if building==G.OFFICE and (G.Human(pid) or G.states[pid]) then
+   G.SyncCities(pid,{[city]=true});LuaEvents.GARVEY_Changed(pid)
+  end
+ end)
 end
 H(GameEvents,'CapitalChanged',function(pid) if G.Human(pid) then sync(pid,false) end end)
 H(GameEvents,'CityCaptureComplete',function(old,_,x,y,new)
  -- Includes nonconquest transfers; native reconstruction has completed.
  sync(old,true);sync(new,true)
 end)
-H(GameEvents,'CityRazed',function(pid) sync(pid,false) end)
+H(GameEvents,'CityRazed',function(pid,x,y)
+ -- Native disband fires BEFORE removal, possibly inside economic settlement.
+ -- Exclude the dying Office synchronously, so later city yields/Happiness see
+ -- the right penalty; then confirm final ownership/counts after deletion.
+ if not (G.Human(pid) or G.states[pid]) then return end
+ G.Retry('razed city relief',function()
+  local p=Players[pid];local plot=Map.GetPlot(x,y);local city=plot and plot:GetPlotCity()
+  if p and city and city:GetOwner()==pid then
+   G.Policies(pid,G.Human(pid) and G.State(pid) or nil,
+    p:CountNumBuildings(G.OFFICE)-city:GetNumBuilding(G.OFFICE)>0)
+  end
+ end)
+ G.RequestCityRepair(pid)
+end)
 H(GameEvents,'UnitCreated',function(pid,id)
  local p=Players[pid];if p then G.Unit(pid,p:GetUnitByID(id)) end
 end)
@@ -108,14 +125,21 @@ H(Events,'WarStateChanged',function(a,b,war)
   end
  end
 end)
--- One dirty-event repair catches scripted building edits; it detaches immediately.
--- Never keep an idle update handler or scan the map on a frame timer.
-G.dirty=false
-function G.Flush()
- if not G.dirty then return end;G.dirty=false
- for pid=0,maxPlayers-1 do if G.Human(pid) then G.Sync(pid,false) end end
+-- Real/free SetNumBuilding emits SpecificCityInfoDirty after processing. Keep
+-- only affected city IDs, including scripted edits, and coalesce echoes. Generic
+-- GameData/CityInfo dirty events are UI-only; they never reconcile an empire.
+G.pendingCities={}
+function G.RequestCityRepair(pid,cityID)
+ if G.syncing[pid] or not (G.Human(pid) or G.states[pid]) then return end
+ G.pendingCities[pid]=G.pendingCities[pid] or {}
+ if cityID then G.pendingCities[pid][cityID]=true end
+ if G.QueueRefresh then G.QueueRefresh() end
 end
-H(Events,'SerialEventGameDataDirty',function() G.dirty=true;if G.QueueRefresh then G.QueueRefresh() end end)
+function G.Flush()
+ local batch=G.pendingCities;G.pendingCities={}
+ for pid,ids in pairs(batch) do G.SyncCities(pid,ids) end
+end
+H(Events,'SpecificCityInfoDirty',function(pid,cityID) G.RequestCityRepair(pid,cityID) end)
 H(Events,'GameplaySetActivePlayer',function()
  for pid=0,maxPlayers-1 do if G.states[pid] then G.Sync(pid,true) end end
 end)

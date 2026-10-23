@@ -6,7 +6,6 @@ Run from the repository with Python 3.11+ and requirements-dev.txt installed (th
 
 ```powershell
 python tools/generate_garvey.py
-python tools/prepare_garvey_art.py
 python tools/build_mod.py --manifest-only
 python tools/validate_garvey.py
 python tools/validate_mod.py
@@ -17,7 +16,7 @@ python tools/verify_release.py
 
 The Classroom validator clones the installed BNW debug database read-only, adds installed CP schema in memory and applies all released SQL before the new content. It checks human-only setup flags, replacements, complete scalar/companion inheritance, changed-base schema fixtures, exact configured modifiers, English references and preservation of peer rows/IDs. It decodes all 41 DDS textures, validates mip/legacy headers, atlas indices and the five-choice XML.
 
-Shipped gameplay and UI Lua execute under **Lua 5.1** with a mocked native boundary. The lifecycle, combat, UI and persistence/stress scenarios each run on four named speed settings and at turns 0 and 150 (32 runs). The runtime intentionally never queries a speed multiplier. Coverage includes pending availability, stale clicks, synchronized correction count, Timothy's zero RNG calls, three-correction trigger/reset, exactly eight/five pre-hook harvests, repeated context reloads, independent expiry, Office construction/sale/non-stacking relief, founding/capture, purchased/spawned/upgraded/gifted units, military/civilian/minimum/defensive/city kill rewards, consumed combat completions, nuclear/collateral deaths, delayed death deduplication across loads, actual snapshot rewinds, rejected saves, 101 cities/1,003 units, corrupt saves, modal/strategic gates, active-player changes and 1,000 coalesced dirty events. These are arithmetic/API-contract models, not native yields, localization/font measurements, save serialization or FPS benchmarks.
+Shipped gameplay and UI Lua execute under **Lua 5.1** with a mocked native boundary. Six lifecycle, combat, UI, persistence, audit/performance and fault scenarios each run on four named speed settings and at turns 0 and 150 (**48 runs**). The runtime intentionally never queries a speed multiplier. Coverage includes the original timing, progression, rewards, lifecycle, saves and modal gates, plus isolated/mutated UnitPrekill SQL, native-shaped pre-deletion razing, scripted real/free Office changes, dummy repair, all four patience pip states, transient storage/native setter faults, and **201 cities/2,003 units** with 1,000 separate UI-dirty frames causing zero Lua city/unit scans or building/promotion reads. These are arithmetic/API-contract models, not native yields, localization/font measurements, save serialization or FPS benchmarks. See [AuditReport.md](AuditReport.md) for exact fixes and evidence. Artwork is reused; routine validation does not require regeneration.
 
 Pinned CP source checks document economic turn order, event argument order, additive promotions, territory handling, upgrade loss, kill strength scaling and signed policy Happiness. Art previews were visually inspected outside the game. The full collection regression runner includes the Classroom suite; package verification compares generated ZIP bytes and extracted genuine 7z/LZMA contents.
 

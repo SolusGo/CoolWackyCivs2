@@ -551,16 +551,16 @@
     <File md5="2EBF84104CF4C45DCF87FC1B09D9FDB5" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait48.dds</File>
     <File md5="ED8004893113BA207B3D10E83C863ACD" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait64.dds</File>
     <File md5="BBA895F61210FC80780B7E3E87C90ABB" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait80.dds</File>
-    <File md5="D2FE5ED2733F7C0484D9095EE8329FAC" import="1">TheSubstituteClassroom/Lua/GARVEY_Core.lua</File>
-    <File md5="04E3685A1EA357AF49C134A2E3E8273B" import="1">TheSubstituteClassroom/Lua/GARVEY_Events.lua</File>
+    <File md5="36AEB7C6EA36ABE02AAE198BD4623C7D" import="1">TheSubstituteClassroom/Lua/GARVEY_Core.lua</File>
+    <File md5="AC12429A992BE3370C0D63FBBC90E095" import="1">TheSubstituteClassroom/Lua/GARVEY_Events.lua</File>
     <File md5="9D3154FD655F74378D9082A24F27C57E" import="1">TheSubstituteClassroom/Lua/GARVEY_Interface.lua</File>
-    <File md5="307ED8336C070ACE7B0AD65AC94BFC99" import="0">TheSubstituteClassroom/SQL/00_GARVEY_Core.sql</File>
+    <File md5="70716BBBA232B985895F2CD286D95546" import="0">TheSubstituteClassroom/SQL/00_GARVEY_Core.sql</File>
     <File md5="61EAF5B6677CF732CB50C39412C5A414" import="0">TheSubstituteClassroom/SQL/01_GARVEY_Inheritance.sql</File>
     <File md5="9AE1E2FA5066CA29F001097E65348F88" import="0">TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</File>
     <File md5="43FEAAD619DDA5571DBD20C05C353858" import="0">TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</File>
     <File md5="581B318EB1D6CDD24FD0D4C817E98181" import="0">TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</File>
-    <File md5="461057F84A7010FE868825F6F5180514" import="1">TheSubstituteClassroom/UI/GARVEY_RollCall.lua</File>
-    <File md5="DD809D74629A781AAFD268C7FEAD3A77" import="0">TheSubstituteClassroom/UI/GARVEY_RollCall.xml</File>
+    <File md5="85B19A2212AF497107FF53C294D4B159" import="1">TheSubstituteClassroom/UI/GARVEY_RollCall.lua</File>
+    <File md5="BDD8A8326F2ACC7B93C30D6A934EEDF1" import="0">TheSubstituteClassroom/UI/GARVEY_RollCall.xml</File>
   </Files>
   <Actions>
     <OnModActivated>

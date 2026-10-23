@@ -3,6 +3,18 @@ Controls.Open.click();assert(not Controls.Panel.hidden and Controls.Student1.dis
 Tick(turn+12);assert(not Controls.Student1.disabled)
 Controls.Student5.click();assert(G.Student(G.State(0))==5 and randomCalls==0)
 assert(Controls.Student1.disabled and Controls.Current.text:find('Timothy'))
+local s=G.State(0)
+assert(select(2,Controls.PatienceMeter.text:gsub('COLOR_GREY',''))==3)
+for _,level in ipairs({1,2}) do
+ s.insub=level;G.Save(0,s);LuaEvents.GARVEY_Changed(0)
+ assert(Controls.Patience.text:find(level..'/3'))
+ local color=level==1 and 'COLOR_WARNING_TEXT' or 'COLOR_NEGATIVE_TEXT'
+ assert(select(2,Controls.PatienceMeter.text:gsub(color,''))==level)
+end
+s.insub=0;s.detEnd=s.clock+5;G.Save(0,s);G.Sync(0,true);LuaEvents.GARVEY_Changed(0)
+assert(G.State(0).insub==0 and Controls.Patience.text:find('3/3'))
+assert(select(2,Controls.PatienceMeter.text:gsub('COLOR_NEGATIVE_TEXT',''))==3)
+s.detEnd=-1;G.Save(0,s);G.Sync(0,true);LuaEvents.GARVEY_Changed(0)
 Events.SerialEventEnterCityScreen();cityScreen=true;Flush();assert(Controls.Launcher.hidden and Controls.Panel.hidden)
 cityScreen=false;Events.SerialEventExitCityScreen();Flush();assert(not Controls.Launcher.hidden)
 Controls.Open.click();Events.AILeaderMessage();Flush();assert(Controls.Launcher.hidden and Controls.Panel.hidden)

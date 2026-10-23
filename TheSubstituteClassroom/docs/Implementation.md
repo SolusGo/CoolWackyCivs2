@@ -8,7 +8,7 @@ One versioned `Modding.OpenSaveData()` value per player stores clock, original c
 
 CP v151 settles city yields and research before `PlayerDoTurn`. Selecting on turn T applies modifiers immediately. They remain for actions on T through T+7 and the eight future economic settlements T+1 through T+8. The player's T+8 callback advances the saved clock and removes the bonus before further actions. Detention follows the same rule with five turns. Other players' events use the saved owner clock, so they cannot remove the final yield tick early. Duplicate callbacks, loading and UI access do not decrement timers. Pending Roll Call has no expiration; only selection replaces its deadline.
 
-Selection checks human/civilization/active-player/active-turn/capital/UI eligibility and the rendered availability deadline. `Game.Rand(100, ...)` resolves one correction, and is never called for Timothy. State commits before modifiers and notifications, preventing rapid clicks from choosing or rerolling twice. No automatic AI choices occur.
+Selection checks human/civilization/active-player/active-turn/capital/UI eligibility and the rendered availability deadline. `Game.Rand(100, ...)` resolves one correction, and is never called for Timothy. State commits before modifiers and notifications, preventing rapid clicks from choosing or rerolling twice. Idempotent saves/reconciliation receive one synchronous retry after a transient failure; RNG, notifications and Culture delivery never enter that retry. No automatic AI choices occur. The original v1 state fields and kill keys are unchanged.
 
 ## Native effects and lifecycle
 
@@ -22,7 +22,9 @@ Native `CombatPercent` promotions add strength; Lua never modifies damage or bas
 
 The blackboard attendance sheet displays availability, student duration, patience and Detention, with five explicit choices. Its scrolling body fits short windows without fixed overlapping rows. Only the active human Classroom sees the launcher. The shared collection modal gate was adapted from `CK_Interface.lua`, retaining city, diplomacy, tech, Civilopedia and popup checks; strategic-view events also hide it. Commands validate the same gate as rendering.
 
-UI events schedule at most one pending frame callback, which **detaches before execution**. Dirty storms coalesce; idempotent setters skip unchanged counts. There is no periodic timer, idle update or map scan. City/unit scans happen on initialization, the owner's turn, relevant lifecycle events, selection and actual effect changes. Unrelated players' turns do not scan Classroom cities or armies.
+UI events schedule at most one pending frame callback, which **detaches before execution**. Generic GameData/CityInfo dirty events are UI-only. CP's post-mutation `SpecificCityInfoDirty(playerID, cityID, updateType)` queues only affected city IDs, including scripted real/free building mutations. The native `CountNumBuildings` cache supplies Office presence to policies/UI without a Lua city scan. CityRazed excludes the dying Office before native removal and schedules a final policy check after deletion. Full owner-turn/load/capture/selection reconciliation remains. Dirty storms coalesce; idempotent setters skip unchanged counts. There is no periodic timer, idle update or map scan. Unrelated players' turns do not scan Classroom cities or armies.
+
+Three native bullet pips supplement the existing patience text; Detention lights all three while the actual counter remains reset. Existing screen gates and all five choices remain. See [the audit](AuditReport.md) for source-contract evidence, fault tests and native limits.
 
 ## Art
 

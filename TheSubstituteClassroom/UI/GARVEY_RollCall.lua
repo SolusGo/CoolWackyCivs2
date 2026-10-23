@@ -16,7 +16,7 @@ local function render()
  if not s then
   Controls.LauncherStatus:SetText(G.Text('DISABLED'))
   for i=1,5 do Controls['Student'..i]:SetDisabled(true) end
-  Controls.Cooldown:SetText(G.Text('DISABLED'));return
+  Controls.Cooldown:SetText(G.Text('DISABLED'));Controls.PatienceMeter:SetText('');return
  end
  local ready=s.clock>=s.ready;local detained=G.Active(s,'detEnd');local student=G.Student(s)
  local cooldown=ready and G.Text('AVAILABLE') or G.Text('WAIT',s.ready-s.clock)
@@ -31,8 +31,14 @@ local function render()
  local patience=G.Text('PATIENCE',s.insub,G.Text(names[s.insub+1]))
  if s.insub>0 then patience=(s.insub==2 and '[COLOR_NEGATIVE_TEXT]' or '[COLOR_WARNING_TEXT]')..patience..'[ENDCOLOR]' end
  Controls.Patience:SetText(detained and G.Text('DETENTION_STATUS',s.detEnd-s.clock) or patience)
- local office=false
- for city in Players[pid]:Cities() do office=office or city:GetNumBuilding(G.OFFICE)>0 end
+ local level=detained and 3 or s.insub;local dots={}
+ for i=1,3 do
+  local color=i<=level and (level>=2 and 'COLOR_NEGATIVE_TEXT' or 'COLOR_WARNING_TEXT') or 'COLOR_GREY'
+  dots[i]='['..color..'][ICON_BULLET][ENDCOLOR]'
+ end
+ Controls.PatienceMeter:SetText(table.concat(dots,'  '))
+ Controls.PatienceMeter:SetToolTipString(detained and G.Text('DETENTION_STATUS',s.detEnd-s.clock) or patience)
+ local office=detained and G.HasOffice(pid)
  Controls.Detention:SetText(detained and G.Text('DETENTION_DETAIL',G.config.DetentionUnhappiness-(office and G.config.OfficeRelief or 0)) or G.Text('NO_DETENTION'))
  for i=1,5 do Controls['Student'..i]:SetDisabled(not G.CanRoll(pid,expected)) end
  Controls.Sheet:CalculateSize();Controls.Sheet:ReprocessAnchoring();Controls.Scroll:CalculateInternalSize()

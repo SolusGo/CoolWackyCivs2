@@ -9,8 +9,31 @@ from database import database,quote
 from build_mod import files
 from generate_garvey import R,V,CIV,LEADER,UNIT,OFFICE,CONFIG,TEXT,CITIES
 
-def apply(d):
- for p in sorted((V/'SQL').glob('*.sql')):d.executescript(p.read_text(encoding='utf-8'))
+REQUIRED_EVENTS={'EVENTS_CITY','EVENTS_CITY_FOUNDING','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS',
+ 'EVENTS_UNIT_PREKILL','EVENTS_UNIT_UPGRADES','EVENTS_RED_COMBAT','EVENTS_RED_COMBAT_RESULT','EVENTS_RED_COMBAT_ENDED'}
+
+def apply(d,core=None):
+ for p in sorted((V/'SQL').glob('*.sql')):
+  d.executescript(core if core is not None and p.name=='00_GARVEY_Core.sql' else p.read_text(encoding='utf-8'))
+
+def enabled(d):
+ options=dict(d.execute('SELECT Name,Value FROM CustomModOptions'))
+ for name in REQUIRED_EVENTS:assert options.get(name)==1,('missing explicit CP option',name)
+ return options
+
+def option_regression():
+ # Test GARVEY in isolation: Cats currently enables UnitPrekill too, which would
+ # otherwise mask a regression in this module's own generator/SQL statement.
+ d=database();d.execute('UPDATE CustomModOptions SET Value=0');apply(d)
+ options=enabled(d)
+ assert {k for k,v in options.items() if v}==REQUIRED_EVENTS,'unnecessary global CP options enabled'
+ core=(V/'SQL/00_GARVEY_Core.sql').read_text(encoding='utf-8')
+ mutant=core.replace(",'EVENTS_UNIT_PREKILL'",'');assert mutant!=core
+ broken=database();broken.execute('UPDATE CustomModOptions SET Value=0');apply(broken,mutant)
+ try:enabled(broken)
+ except AssertionError as e:assert 'EVENTS_UNIT_PREKILL' in str(e)
+ else:raise AssertionError('missing UnitPrekill option escaped the negative regression')
+ print('PASS standalone explicit CP option enablement, exact hook-only scope and missing-UnitPrekill negative regression')
 
 def yields(d,b):
  return dict(d.execute('SELECT YieldType,SUM(Yield) FROM Building_YieldChanges WHERE BuildingType=? GROUP BY YieldType',(b,)))
@@ -65,8 +88,8 @@ def sql():
  for path in list(V.rglob('*.sql'))+list(V.rglob('*.xml')):
   for key in re.findall(r'TXT_KEY_GARVEY_[A-Z_0-9%]+',path.read_text(encoding='utf-8')):
    assert key in keys or any(k.startswith(key.rstrip('%')) for k in keys),key
- for name in ['EVENTS_RED_COMBAT','EVENTS_RED_COMBAT_RESULT','EVENTS_RED_COMBAT_ENDED','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS','EVENTS_UNIT_UPGRADES']:
-  assert d.execute('SELECT Value FROM CustomModOptions WHERE Name=?',(name,)).fetchone()[0]==1,name
+ enabled(d)
+ option_regression()
  assert d.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
  altered=database();altered.executescript("""ALTER TABLE Units ADD GARVEY_Test INTEGER DEFAULT 0;
  ALTER TABLE Buildings ADD GARVEY_Test INTEGER DEFAULT 0;
@@ -87,9 +110,10 @@ def runtime(d):
  results={}
  for speed in ['QUICK','STANDARD','EPIC','MARATHON']:
   for start in [0,150]:
-   for name in ['garvey_lifecycle.lua','garvey_combat.lua','garvey_ui.lua','garvey_persistence.lua']:
+   for name in ['garvey_lifecycle.lua','garvey_combat.lua','garvey_ui.lua','garvey_persistence.lua','garvey_audit.lua','garvey_faults.lua']:
     lua=LuaRuntime();lua.globals().GameInfoTypes=lua.table_from(ids);lua.globals().Config=lua.table_from(CONFIG)
     lua.globals().Text=lua.table_from({'TXT_KEY_GARVEY_'+k:v for k,v in TEXT.items()});lua.globals().StartTurn=start
+    lua.globals().Options=lua.table_from(dict(d.execute('SELECT Name,Value FROM CustomModOptions')))
     lua.globals().GameSpeed=speed
     def include(name):
      path=V/'Lua'/f'{name}.lua'
@@ -99,18 +123,38 @@ def runtime(d):
     lua.execute((R/'tools/tests/garvey_mock.lua').read_text(encoding='utf-8'))
     now=time.perf_counter();lua.execute((R/'tools/tests'/name).read_text(encoding='utf-8'))
     results[f'{speed}:{start}:{name}']=round(time.perf_counter()-now,6)
- print('PASS Classroom 32 shipped-Lua 5.1 scenario runs: timers, persistence, corrections, ownership, units, rewards and event-driven UI (mock boundary)')
+ print('PASS Classroom 48 shipped-Lua 5.1 scenario runs: timers, persistence/faults, combat matrix, targeted lifecycle repair and large-empire UI storms (mock boundary)')
  return results
 
 def sources():
  from audit_cp import COMMIT
- data={n:(R/'tools/reference'/n).read_text(encoding='utf-8-sig') for n in ['CvPlayer.cpp','CvCity.cpp','CvUnit.cpp','CvUnitCombat.cpp','CvLuaPlayer.cpp','CvLuaCity.cpp','CvBuildingClasses.cpp','CustomMods.h']}
+ data={n:(R/'tools/reference'/n).read_text(encoding='utf-8-sig') for n in ['CvPlayer.cpp','CvCity.cpp','CvUnit.cpp','CvUnitCombat.cpp','CvLuaPlayer.cpp','CvLuaCity.cpp','CvLuaUnit.cpp','CvBuildingClasses.cpp','CvDllNetMessageHandler.cpp','CustomMods.h']}
  def body(n,sig):
   s=data[n];i=s.index(sig);return s[i:s.index('\n}',i)+2]
  turn=body('CvPlayer.cpp','void CvPlayer::doTurnPostDiplomacy(')
  combat=data['CvUnitCombat.cpp']
+ def args(src,event):
+  end=src.index('LuaSupport::CallHook(pkScriptSystem, "'+event+'"')
+  start=src.rfind('CvLuaArgsHandle args;',0,end)
+  return re.findall(r'args->Push\((.*?)\);',src[start:end])
+ cp=Path.home()/"Documents/My Games/Sid Meier's Civilization 5/MODS/(1) Community Patch"
+ ui=cp/'LUA/CityBannerManager.lua';ui_source=ui.read_text(encoding='utf-8-sig')
+ options=ET.parse(cp/'Database Changes/NewCustomModOptions.xml').getroot()
+ set_real=body('CvBuildingClasses.cpp','void CvCityBuildings::SetNumRealBuildingTimed(')
+ set_free=body('CvBuildingClasses.cpp','void CvCityBuildings::SetNumFreeBuilding(')
+ disband=body('CvPlayer.cpp','void CvPlayer::disband(')
+ sale=body('CvDllNetMessageHandler.cpp','void CvDllNetMessageHandler::ResponseSellBuilding(')
+ process=body('CvPlayer.cpp','void CvPlayer::processBuilding(')
+ city_process=body('CvCity.cpp','void CvCity::processBuilding(')
+ abi={'UnitPrekill':'iiiiibi','UnitConverted':'iiiib','UnitCreated':'iiiii',
+  'UnitUpgraded':'iiib','CityConstructed':'iiibb','CitySoldBuilding':'iii','CityRazed':'iii'}
  contracts={
+  'DLL version is exactly 151':bool(re.search(r'MOD_DLL_VERSION_NUMBER\s+\(\(uint\) 151\)',data['CustomMods.h'])),
+  'UnitPrekill default is disabled in installed CP options':options.find(".//Row[@Name='EVENTS_UNIT_PREKILL']").get('Value')=='0',
+  'UnitPrekill fallback also emits the seven-argument legacy hook':args(data['CvUnit.cpp'],'UnitPrekill')==['((int)eUnitOwner)','GetID()','getUnitType()','getX()','getY()','bDelay','ePlayer'],
+  'all subscribed CP lifecycle ABIs are exact':all(re.search(r'#define GAMEEVENT_'+name+r'\s+"'+name+r'",\s+"'+sig+r'"',data['CustomMods.h']) for name,sig in abi.items()),
   'CP v151 CombatResult and CombatEnded use 15 arguments':all(x in combat for x in ['args->Push(attackerFinalDamage);','args->Push(defenderFinalDamage);','args->Push(plotX);','args->Push(plotY);','"CombatResult"','"CombatEnded"']),
+  'combat callback argument orders match exactly':all(args(combat,event)==['iAttackingPlayer','iAttackingUnit','attackerDamage','attackerFinalDamage','attackerMaxHP','iDefendingPlayer','iDefendingUnit','defenderDamage','defenderFinalDamage','defenderMaxHP','iInterceptingPlayer','iInterceptingUnit','interceptorDamage','plotX','plotY'] for event in ['CombatResult','CombatEnded']),
   'native ordinary UnitKilledInCombat lacks winner ID':'DoUnitKilledCombat(NULL, getOwner(), getUnitType())' in data['CvUnit.cpp'],
   'UnitPrekill exposes lifetime before native removal':'GAMEEVENT_UnitPrekill, eUnitOwner, GetID(), getUnitType(), getX(), getY(), bDelay, ePlayer' in data['CvUnit.cpp'],
   'nuclear military deaths pass attacker owner through damage':'pkUnit->changeDamage(kEntry.GetDamage(), eAttackerOwner)' in combat,
@@ -123,10 +167,22 @@ def sources():
   'native founding turn getter':'int CvLuaCity::lGetGameTurnFounded(' in data['CvLuaCity.cpp'],
   'native culture reward binding':'int CvLuaPlayer::lChangeJONSCulture(' in data['CvLuaPlayer.cpp'],
   'native yield and research precede PlayerDoTurn':turn.index('doResearch()')<turn.index('"PlayerDoTurn"') and turn.index('doTurn()')<turn.index('"PlayerDoTurn"'),
+  'Gold Culture and Faith settle before PlayerDoTurn':all(turn.index(n)<turn.index('"PlayerDoTurn"') for n in ['GetTreasury()->DoGold()','changeJONSCultureTimes100(GetTotalJONSCulturePerTurnTimes100())','pGameReligions->DoPlayerTurn(*this)']),
+  'real scripted buildings dirty the specific city after mutation':set_real.index('m_paiNumRealBuilding[eIndex] = iNewValue')<set_real.index('m_pCity->processBuilding(')<set_real.index('SetSpecificCityInfoDirty'),
+  'free buildings also dirty the specific city after processing':set_free.index('m_pCity->processBuilding(')<set_free.index('SetSpecificCityInfoDirty'),
+  'installed CP UI verifies SpecificCityInfoDirty player and city IDs':'function OnSpecificCityInfoDirty(iPlayerID, iCityID, eUpdateType)' in ui_source and 'Events.SpecificCityInfoDirty.Add(OnSpecificCityInfoDirty)' in ui_source,
+  'native CountNumBuildings uses maintained count cache':'pPlayer->getNumBuildings(eBuilding)' in body('CvLuaPlayer.cpp','int CvLuaPlayer::lCountNumBuildings(') and 'UpdateNumBuildings(eBuilding)' in process,
+  'city replacement effects use native military Production and yield modifiers':'changeMilitaryProductionModifier(pBuildingInfo->GetMilitaryProductionModifier() * iChange)' in city_process and 'changeYieldRateModifier(eYield, (pBuildingInfo->GetYieldModifier(eYield) * iChange))' in city_process,
+  'CityRazed precedes native city deletion':disband.index('GAMEEVENT_CityRazed')<disband.index('pCity->kill()'),
+  'building sale callback is post-mutation':sale.index('DoSellBuilding(eBuilding)')<sale.index('GAMEEVENT_CitySoldBuilding'),
+  'conversion notifies after promotion transfer and deletes old unit without a killer':body('CvUnit.cpp','void CvUnit::convert(').index('GAMEEVENT_UnitConverted')<body('CvUnit.cpp','void CvUnit::convert(').index('pUnit->kill(true, NO_PLAYER)'),
+  'city and unit lookup bindings exist':'int CvLuaPlayer::lGetCityByID(' in data['CvLuaPlayer.cpp'] and 'int CvLuaUnit::lIsDead(' in data['CvLuaUnit.cpp'],
   'CP unit lifecycle event ABI':'"UnitConverted",' in data['CustomMods.h'] and '"UnitCreated",' in data['CustomMods.h'],
  }
  for name,ok in contracts.items():assert ok,name
- return {'commit':COMMIT,'contracts':contracts,'sha256':{n:hashlib.sha256((R/'tools/reference'/n).read_bytes()).hexdigest() for n in data}}
+ print('PASS Classroom',len(contracts),'CP v151 source and installed UI/schema contracts (not native execution)')
+ return {'commit':COMMIT,'contracts':contracts,'sha256':{n:hashlib.sha256((R/'tools/reference'/n).read_bytes()).hexdigest() for n in data},
+  'installed_city_banner_ui_sha256':hashlib.sha256(ui.read_bytes()).hexdigest()}
 
 def art(d):
  for atlas,size,filename,cols,rows in d.execute("SELECT * FROM IconTextureAtlases WHERE Atlas LIKE 'GARVEY_%'"):
@@ -144,6 +200,9 @@ def art(d):
  root=ET.parse(V/'UI/GARVEY_RollCall.xml').getroot()
  controls={c.get('ID') for c in root.iter()}
  assert all('Student'+str(i) in controls for i in range(1,6))
+ assert 'PatienceMeter' in controls
+ refs=set(re.findall(r'Controls\.([A-Za-z_]+)',(V/'UI/GARVEY_RollCall.lua').read_text(encoding='utf-8')))
+ assert refs<=controls,refs-controls
  for p in V.rglob('*.lua'):assert '0.1' not in p.read_text(encoding='utf-8')
  print('PASS Classroom 41 decoded DDS textures, mipmaps, atlas references, leader scene and five-choice UI XML')
 

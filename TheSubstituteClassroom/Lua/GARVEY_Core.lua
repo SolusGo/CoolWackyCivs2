@@ -30,6 +30,16 @@ function G.Guard(label,fn)
  if not ok then print('[Garvey] '..label..': '..tostring(err)) end
  return ok
 end
+function G.Retry(label,fn)
+ -- Only for idempotent native reconciliation/save writes. Never wrap RNG,
+ -- Culture delivery or notifications in a retry: those are one-shot actions.
+ for attempt=1,2 do
+  local ok,err=pcall(fn)
+  if ok then return true end
+  if attempt==2 then print('[Garvey] '..label..' failed twice: '..tostring(err)) end
+ end
+ return false
+end
 local fields={'clock','founded','ready','student','bonusEnd','insub','detEnd','notified'}
 local function key(pid) return 'GARVEY:v1:state:'..pid end
 function G.Save(pid,s)
@@ -45,16 +55,20 @@ function G.MarkKill(pid,loser,effect)
  -- Unit ID plus creation turn identifies that lifetime; keep the paid bit in
  -- the save database, not an ever-growing Lua scan/list.
  local k='GARVEY:v1:kill:'..pid..':'..effect..':'..loser.pid..':'..loser.id..':'..loser.born
- if db().GetValue(k)~=nil then return false end
- db().SetValue(k,1)
- assert(db().GetValue(k)==1,'kill ledger write did not persist')
+ local paid
+ assert(G.Retry('read kill ledger',function() paid=db().GetValue(k) end),'kill ledger could not be read')
+ if paid~=nil then return false end
+ assert(G.Retry('write kill ledger',function()
+  db().SetValue(k,1)
+  assert(db().GetValue(k)==1,'kill ledger write did not persist')
+ end),'kill ledger could not be saved')
  return true
 end
 function G.State(pid)
  if G.failed[pid] then return nil end
  if G.states[pid] then return G.states[pid] end
  local result
- local ok=G.Guard('load player '..pid,function()
+ local ok=G.Retry('load player '..pid,function()
   local raw=db().GetValue(key(pid));local s={}
   if raw==nil then
    if not G.Human(pid) then return end
@@ -95,24 +109,50 @@ end
 local function set(city,id,n)
  if city:GetNumRealBuilding(id)~=n then city:SetNumRealBuilding(id,n,true) end
 end
+function G.HasOffice(pid)
+ -- CP v151 refreshes this native cache in processBuilding, before the
+ -- post-mutation SpecificCityInfoDirty callback. No Lua city scan is needed.
+ local p=Players[pid]
+ return p and p:CountNumBuildings(G.OFFICE)>0 or false
+end
+function G.City(city,s)
+ local selected=G.Student(s);local detained=G.Active(s,'detEnd')
+ local active={AARON=selected==1,DENISE=selected==2,JACQUELINE=selected==3,
+  TIMOTHY=selected==5,DETENTION=detained,
+  OFFICE_SCIENCE=detained and city:GetNumBuilding(G.OFFICE)>0}
+ for _,name in ipairs(G.dummies) do set(city,GameInfoTypes['BUILDING_GARVEY_'..name],active[name] and 1 or 0) end
+end
+function G.Policies(pid,s,office)
+ local p=Players[pid];local detained=G.Active(s,'detEnd')
+ if office==nil then office=detained and G.HasOffice(pid) end
+ for _,name in ipairs({'FULL','RELIEF'}) do
+  local id=GameInfoTypes['POLICY_GARVEY_PENALTY_'..name]
+  local want=detained and ((name=='RELIEF')==office) or false
+  if p:HasPolicy(id)~=want then p:SetHasPolicy(id,want,true) end
+ end
+end
 function G.Sync(pid,units)
  local p=Players[pid];if not p or G.syncing[pid] then return end
  G.syncing[pid]=true
- local ok=G.Guard('reconcile player '..pid,function()
+ local ok=G.Retry('reconcile player '..pid,function()
   local s=G.Human(pid) and G.State(pid) or nil
-  local selected=G.Student(s);local detained=G.Active(s,'detEnd');local office=false
-  for city in p:Cities() do
-   local hasOffice=city:GetNumBuilding(G.OFFICE)>0;office=office or hasOffice
-   local active={AARON=selected==1,DENISE=selected==2,JACQUELINE=selected==3,
-    TIMOTHY=selected==5,DETENTION=detained,OFFICE_SCIENCE=detained and hasOffice}
-   for _,name in ipairs(G.dummies) do set(city,GameInfoTypes['BUILDING_GARVEY_'..name],active[name] and 1 or 0) end
-  end
-  for _,name in ipairs({'FULL','RELIEF'}) do
-   local id=GameInfoTypes['POLICY_GARVEY_PENALTY_'..name]
-   local want=detained and ((name=='RELIEF')==office) or false
-   if p:HasPolicy(id)~=want then p:SetHasPolicy(id,want,true) end
-  end
+  for city in p:Cities() do G.City(city,s) end
+  G.Policies(pid,s)
   if units then for u in p:Units() do G.Unit(pid,u) end end
+ end)
+ G.syncing[pid]=nil
+ return ok
+end
+function G.SyncCities(pid,ids)
+ local p=Players[pid];if not p or G.syncing[pid] then return end
+ G.syncing[pid]=true
+ local ok=G.Retry('repair cities for player '..pid,function()
+  local s=G.Human(pid) and G.State(pid) or nil
+  for id in pairs(ids) do
+   local city=p:GetCityByID(id)
+   if city and city:GetOwner()==pid then G.City(city,s) end
+  end
+  G.Policies(pid,s)
  end)
  G.syncing[pid]=nil
  return ok
@@ -134,7 +174,7 @@ function G.Roll(pid,student,expected)
  local trigger=s.insub>=G.config.CorrectionThreshold
  if trigger then s.insub=0;s.detEnd=s.clock+G.config.DetentionDuration end
  -- Commit before native modifiers/notifications; repeated or stale UI clicks fail.
- if not G.Guard('save Roll Call',function() G.Save(pid,s) end) then G.failed[pid]=true;G.Sync(pid,true);return false end
+ if not G.Retry('save Roll Call',function() G.Save(pid,s) end) then G.failed[pid]=true;G.Sync(pid,true);return false end
  G.Sync(pid,true)
  G.Notify(pid,(corrected or student==5) and G.Text('CORRECTION_'..student)
   or G.Text('ACCEPTED',G.Text('STUDENT_'..student),G.config.BonusDuration))

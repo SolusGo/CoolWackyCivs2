@@ -1,5 +1,11 @@
 # Changelog
 
+## Substitute Classroom reliability audit — 2026-10-24
+
+- Make Garvey's UnitPrekill enablement explicit and independently regression-tested; retain CP v151 compatibility and the 25% Culture formula.
+- Use targeted city-dirty repair and cached Office counts, correct pre-removal razing relief, recover transient idempotent failures, and add three graphical patience pips without regenerating art.
+- Preserve version 12, balance, human-only identity, v1 saves and all peer civilizations. Add 48 Lua 5.1 scenario runs, exact source contracts and a large-empire workload audit. Native testing remains unverified; see [the audit report](TheSubstituteClassroom/docs/AuditReport.md).
+
 ## 1.9.0 Substitute Classroom implementation preview / mod version 12 — 2026-10-24
 
 - Add human-only Mr. Garvey and Room 101, persistent 12-turn Roll Call with five 8-turn student bonuses, corrections/Insubordination and five-turn Detention. Combat modifiers add; hidden native buildings/policies maintain yields and the non-stacking Office Happiness relief.
