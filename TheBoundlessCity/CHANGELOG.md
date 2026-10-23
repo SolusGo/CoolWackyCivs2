@@ -1,5 +1,11 @@
 # The Boundless City changelog
 
+## Workforce graphical update — 2026-10-24
+
+- Replace the generic panel surface with original engraved-city artwork, brass/teal frames, summary wells, custom native button states and district row textures.
+- Add assigned/pending marks, native yield glyphs with full-name tooltips, stronger statistic hierarchy and three complete visible rows. Keep all controls, fifteen statistics and overview scrolling.
+- Retain collection version 12, save schema and every gameplay rule. Add source masters/prompt, reproducible DDS compilation, an approximate-font preview and texture/state/live-summary checks. See [UIVisuals.md](docs/UIVisuals.md) for native acceptance steps.
+
 ## Remote Food turn-order hotfix — 2026-10-19
 
 - Fixed existing remote credits disappearing on a harmless native local-worker change before growth. Retain them while real default citizens remain; new assignments still require the forced/surplus reservation proof.

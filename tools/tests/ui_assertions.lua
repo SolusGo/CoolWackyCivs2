@@ -17,6 +17,7 @@ local function control()
  function c:SetHide(value) self.hidden=value end
  function c:IsHidden() return self.hidden end
  function c:SetText(value) self.text=value end
+ function c:SetToolTipString(value) self.tooltip=value end
  function c:SetDisabled(value) self.disabled=value end
  function c:RegisterCallback(kind,fn) self.callback=fn end
  function c:CalculateSize() end;function c:ReprocessAnchoring() end;function c:CalculateInternalSize() end
@@ -37,7 +38,7 @@ InstanceManager={}
 function InstanceManager:new()
  local manager={count=0}
  function manager:ResetInstances() self.count=0;UIRows={} end
- function manager:GetInstance() self.count=self.count+1;assert(self.count<=16,'UI rows must be paged');local row={Text=control(),Assign=control(),Lock=control(),Locate=control()};UIRows[#UIRows+1]=row;return row end
+ function manager:GetInstance() self.count=self.count+1;assert(self.count<=16,'UI rows must be paged');local row={Text=control(),Assign=control(),Lock=control(),Locate=control(),AssignedMark=control(),PendingMark=control()};UIRows[#UIRows+1]=row;return row end
  return manager
 end
 LoadWorkforceUI()

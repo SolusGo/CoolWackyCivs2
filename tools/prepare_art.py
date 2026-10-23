@@ -62,6 +62,8 @@ def main():
     for i,kind in enumerate(['civ','registry','surveyor']):preview.paste(emblem(kind),(i*512,0))
     preview.convert('RGB').save(R/'art-source/TheBoundlessCity/InsigniaPreview.png')
     print('Prepared',len(list(V.glob('*.dds'))),'real DDS textures and the 2D leader scene')
+    from prepare_boundless_ui import main as prepare_workforce
+    prepare_workforce()
     from prepare_pigeon_art import main as prepare_pigeons
     prepare_pigeons()
     from prepare_saba_art import main as prepare_saba

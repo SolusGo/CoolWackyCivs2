@@ -5,7 +5,7 @@ This does not execute the native localization DLL or measure native font layout.
 """
 from pathlib import Path
 from xml.etree import ElementTree as ET
-import re, sqlite3
+import re, sqlite3, struct
 from lupa.lua51 import LuaRuntime
 
 R = Path(__file__).resolve().parents[1]
@@ -65,6 +65,35 @@ def layout(text):
     print('PASS summary XML: 15 statistics, natural-height wrapped columns, scrolling yields, unchanged 900x700 panel and disjoint action/list bounds')
 
 
+def skin():
+    from PIL import Image
+    from prepare_boundless_ui import SIZES, S
+    root=ET.parse(V/'UI/BoundlessWorkforce.xml').getroot()
+    used={n.get('Texture') for n in root.iter() if n.get('Texture','').startswith('BC_UI_')}
+    assert used=={'BC_UI_'+name+'.dds' for name in SIZES}
+    for name,size in SIZES.items():
+        path=V/('Art/BC_UI_'+name+'.dds');raw=path.read_bytes()
+        assert raw[:4]==b'DDS ' and raw[84:88]==b'\0'*4,'Legacy RGBA DDS required'
+        w,h=size;pixels=0;levels=0
+        while True:
+            pixels+=w*h*4;levels+=1
+            if (w,h)==(1,1):break
+            w,h=max(1,w//2),max(1,h//2)
+        assert len(raw)==128+pixels and struct.unpack_from('<I',raw,28)[0]==levels
+        with Image.open(path) as im,Image.open(S/('BC_UI_'+name+'.png')) as master:
+            assert im.size==size and im.convert('RGBA').tobytes()==master.convert('RGBA').tobytes()
+    for button in root.iter('GridButton'):
+        data=button.find('GridData')
+        assert data is not None and data.get('Style')=='Grid9FrameButtons' and data.get('Texture')=='BC_UI_Buttons.dds'
+    with Image.open(V/'Art/BC_UI_Buttons.dds') as sheet:
+        assert len({sheet.crop((0,y,44,y+44)).tobytes() for y in [0,45,90,135]})==4
+    rows=root.find("Instance/Grid[@ID='Root']")
+    assert int(rows.get('Size').split(',')[1])*3+4*2<=210,'Three complete rows must fit'
+    for image in root.iter('Image'):
+        if image.get('Texture','').startswith('BC_UI_'):assert image.get('ConsumeMouse')=='0'
+    print('PASS Workforce skin: six exact legacy DDS/mip chains, source pixels, native nine-slice button states, click-through decoration and three complete rows')
+
+
 def validate():
     d = sqlite3.connect(':memory:')
     d.execute('CREATE TABLE Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
@@ -76,7 +105,7 @@ def validate():
             assert '|' not in value, (key, 'Reserved localization form delimiter')
             tokens = re.findall(r'\{([^{}]+)\}', value)
             assert all(re.fullmatch(r'[1-9][0-9]*_[A-Za-z][A-Za-z0-9_]*', token) for token in tokens), key
-    layout(text)
+    layout(text);skin()
     lua = LuaRuntime()
 
     def include(name):

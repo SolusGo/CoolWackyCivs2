@@ -4,6 +4,8 @@ Ten civilizations for Civilization V: Brave New World and **Community Patch v151
 
 **Current release:** mod version 12 · **1.9.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
+The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/UIVisuals.md), with an engraved city header, brass/teal textures, matching controls and clearer district rows. [Layout preview and original art](art-source/TheBoundlessCity/WorkforceUI/README.md).
+
 ## Civilization roster
 
 | Civilization | Leader | Playstyle | Guide |

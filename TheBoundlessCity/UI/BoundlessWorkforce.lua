@@ -58,9 +58,10 @@ end
 local function resetVisibility()
  blocked={};contexts={};leaderScreen=false;closeForTransition()
 end
-local function yields(values)
- local words={};for i,y in ipairs(B.Yields) do words[#words+1]=(values[i] or 0)..' '..B.Text(y.name) end
- return table.concat(words,' / ')
+local yieldIcons={'[ICON_FOOD]','[ICON_PRODUCTION]','[ICON_GOLD]','[ICON_RESEARCH]','[ICON_CULTURE]','[ICON_PEACE]'}
+local function yields(values,plain)
+ local words={};for i,y in ipairs(B.Yields) do words[#words+1]=(values[i] or 0)..' '..(plain and B.Text(y.name) or yieldIcons[i]) end
+ return table.concat(words,plain and ' / ' or '   ')
 end
 local summaryFields={
  {'Population','SUMMARY_POPULATION','population'}, {'OwnedPlots','SUMMARY_OWNED','owned'},
@@ -113,6 +114,7 @@ local function render()
  summary(s,info,cache)
  local net={};for i=1,#B.Yields do net[i]=(cache.remoteYields and cache.remoteYields[i] or 0)-(cache.labourerYields and cache.labourerYields[i] or 0) end
  Controls.Yields:SetText(B.Text('YIELDS',yields(cache.remoteYields or {}),yields(cache.labourerYields or {}),yields(net)))
+ Controls.Yields:SetToolTipString(B.Text('YIELDS',yields(cache.remoteYields or {},true),yields(cache.labourerYields or {},true),yields(net,true)))
  Controls.Overview:CalculateSize();Controls.Overview:ReprocessAnchoring();Controls.OverviewScroll:CalculateInternalSize()
  Controls.Mode:SetText(B.Text(s.mode));Controls.Priority:SetText(B.Text(s.priority))
  Controls.Mode:SetDisabled(not city);Controls.Priority:SetDisabled(not city);Controls.Direction:SetDisabled(not city)
@@ -128,7 +130,10 @@ local function render()
   local row=rows[i];local control=instances:GetInstance();row.plot=row.plot or Map.GetPlotByIndex(row.n)
   local assigned=s.assignments[row.n]~=nil
   local locked=s.mode~='AUTO' and s.locks[row.n]~=nil
+  control.AssignedMark:SetHide(not (siege and row.ready or not siege and assigned))
+  control.PendingMark:SetHide(true)
   if siege then
+   control.Text:SetToolTipString(B.Text(row.reason))
    control.Text:SetText(row.name..'  ('..row.x..','..row.y..')[NEWLINE]'..(row.protection and B.Text(row.protection)..' ' or '')..B.Text(row.reason))
    control.Assign:SetText(B.Text(row.action or 'DEMOLISH'));control.Lock:SetHide(true)
    local n=row.n
@@ -138,10 +143,13 @@ local function render()
   else
    control.Lock:SetHide(false)
    local pending=(s.mode=='MANUAL' and s.selected[row.n] or s.mode=='HYBRID' and s.locks[row.n]) and not assigned
+   control.PendingMark:SetHide(not pending)
+   local plotYields=B.PlotYields(row.plot)
+   control.Text:SetToolTipString(yields(plotYields,true))
    control.Text:SetText((assigned and '[COLOR_POSITIVE_TEXT]' or '')..'('..row.plot:GetX()..','..row.plot:GetY()..')  '
     ..B.Text('DISTANCE')..' '..row.distance..'  '..row.resource..'  '..row.improvement
     ..(locked and ' [ICON_LOCKED]' or '')..(pending and ' '..B.Text('PENDING') or '')
-    ..(assigned and '[ENDCOLOR]' or '')..'[NEWLINE]'..yields(B.PlotYields(row.plot)))
+    ..(assigned and '[ENDCOLOR]' or '')..'[NEWLINE]'..yields(plotYields))
    control.Assign:SetText(B.Text((assigned or s.selected[row.n]) and 'RELEASE' or 'ASSIGN'))
    control.Lock:SetText(B.Text(locked and 'UNLOCK' or 'LOCK'))
    control.Lock:SetDisabled(not p:IsTurnActive() or (not B.Eligible(s,row.plot) and not s.locks[row.n]))

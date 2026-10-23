@@ -1,5 +1,11 @@
 # Changelog
 
+## Boundless Workforce graphical update — 2026-10-24
+
+- Add an original engraved city panorama and six custom mipmapped DDS textures: brass/teal panel and launcher, row background, four-state native buttons and assignment/pending marks.
+- Improve summary hierarchy, fit three complete district rows, and replace repeated yield words with native icons plus full-name hover tooltips. Retain all statistics, scrolling, callbacks, visibility guards and military controls.
+- Preserve version 12, gameplay, Food mechanics, save formats and peer UI. Include reproducible sources/prompt, an actual-texture layout preview and extended asset/live-data UI validation. Native rendering remains pending; see [the visual guide](TheBoundlessCity/docs/UIVisuals.md).
+
 ## Substitute Classroom reliability audit — 2026-10-24
 
 - Make Garvey's UnitPrekill enablement explicit and independently regression-tested; retain CP v151 compatibility and the 25% Culture formula.

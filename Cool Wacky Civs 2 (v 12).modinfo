@@ -88,6 +88,12 @@
     <File md5="95741DE84A63B86599FFCE094F99F2AB" import="0">McPvP/SQL/10_MCP_Text.sql</File>
     <File md5="532A1863EEC7ABA1627BC637DD218DFF" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
     <File md5="6607246C4E4B801E80BEC662372B5B44" import="0">McPvP/UI/MCP_ServerBrowser.xml</File>
+    <File md5="65A768B26F9653F9C1102755025C61C6" import="1">TheBoundlessCity/Art/BC_UI_Assigned.dds</File>
+    <File md5="6341E878BF863C391ACA6A7F2359356F" import="1">TheBoundlessCity/Art/BC_UI_Buttons.dds</File>
+    <File md5="CE5B29085A52AC380ECF5A7D33B6B1E9" import="1">TheBoundlessCity/Art/BC_UI_Launcher.dds</File>
+    <File md5="AD945FD153CEF33D0B1EBF2FD9D1F67C" import="1">TheBoundlessCity/Art/BC_UI_Panel.dds</File>
+    <File md5="E6FFAA8DFDACE55BBE80D35460082502" import="1">TheBoundlessCity/Art/BC_UI_Pending.dds</File>
+    <File md5="149062A3F6CCF75EF5FE8720D1DDF029" import="1">TheBoundlessCity/Art/BC_UI_Row.dds</File>
     <File md5="D3588A7BC9AB350EACDA84921EBAF924" import="1">TheBoundlessCity/Art/BoundlessAlpha128.dds</File>
     <File md5="AFC07018A9BAAC46FA381C936A49E74F" import="1">TheBoundlessCity/Art/BoundlessAlpha16.dds</File>
     <File md5="989AB9944B0CB53943CDB28AB2705D51" import="1">TheBoundlessCity/Art/BoundlessAlpha24.dds</File>
@@ -135,8 +141,8 @@
     <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
     <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
     <File md5="2C894E80142AED7729D60D618F85E2BE" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
-    <File md5="1E42F85BE2B809DA6AE190C1C9FF9705" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
-    <File md5="1A966A90AB1619354264878D2A29B7E0" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
+    <File md5="94F01F450BF7D344388432C31D573461" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
+    <File md5="FE6A6FA6CA89AEDCF38BEE65F72D135D" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
     <File md5="6C112DA6BB2E1AF045D6CBE2C517B788" import="1">TheChildrenOfTheKingdom/Art/CKAlpha128.dds</File>
     <File md5="FA27E04B9CDD0F512CBEA584BC066238" import="1">TheChildrenOfTheKingdom/Art/CKAlpha16.dds</File>
     <File md5="3F8C8B0E51EED3367B878A7DA520A4D0" import="1">TheChildrenOfTheKingdom/Art/CKAlpha24.dds</File>

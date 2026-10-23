@@ -39,6 +39,8 @@ The [Food growth hotfix](docs/FoodGrowthHotfix.md) keeps existing remote yields 
 
 ## The Boundless Workforce
 
+The [graphical update](docs/UIVisuals.md) adds an original engraved city header, brass and teal textures, matching controls and clearer summary sections. Teal/amber row marks distinguish assigned and pending districts; native yield icons have full-name hover tooltips. Three complete district rows fit at once. See the [layout preview and source artwork](../art-source/TheBoundlessCity/WorkforceUI/README.md); native rendering verification remains pending.
+
 The upper-right world-map button opens a panel with:
 
 - Population, owned plots, local workers, credited remote workers, specialists and idle population.

@@ -97,6 +97,15 @@ Controls.Siege.callback();refresh();fields(B.Summary(s))
 local scansBefore=scans;local writesBefore=mutations
 for i=1,50 do refresh() end
 assert(scans==scansBefore and mutations==writesBefore,'summary-only refresh must not scan the map or mutate gameplay')
+-- Visual marks follow actual assignments and pending requests, never stale rows.
+assert(B.Action(0,'MODE','MANUAL'));assert(B.Action(0,'PLOT',plot.n));refresh()
+assert(not plotRow().AssignedMark.hidden and plotRow().PendingMark.hidden)
+assert(plotRow().Text.text:find('[ICON_FOOD]',1,true) and plotRow().Text.tooltip:find(B.Text('FOOD'),1,true))
+assert(Controls.Yields.tooltip and not Controls.Yields.tooltip:find('[ICON_FOOD]',1,true),'full yield names remain available in tooltips')
+capital.automatons=1;capital.unassigned=1;Events.SerialEventCityInfoDirty.Fire();Pump();refresh()
+assert(plotRow().AssignedMark.hidden and not plotRow().PendingMark.hidden)
+capital.automatons=0;capital.unassigned=0;B.Schedule(0,true);Pump();refresh()
+assert(not plotRow().AssignedMark.hidden and plotRow().PendingMark.hidden)
 Controls.Close.callback();Pump();for i=1,1000 do Pump() end
 assert(deferred==nil,'summary fix must not add idle polling')
 print('PASS summary: all fields, zero/large values, first-form/token rules, wrapped-height growth, real census/territory/Registry/actions, reload, capital loss/reclaim, transitions and no polling/map scans')

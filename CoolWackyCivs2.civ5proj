@@ -570,6 +570,24 @@
     <Content Include="McPvP/UI/MCP_ServerBrowser.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheBoundlessCity/Art/BC_UI_Assigned.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/BC_UI_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/BC_UI_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/BC_UI_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/BC_UI_Pending.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/BC_UI_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="TheBoundlessCity/Art/BoundlessAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>

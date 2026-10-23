@@ -28,6 +28,7 @@ def main():
                 'TheSubstituteClassroom/Lua/GARVEY_Events.lua',
                 'TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql',
                 'TheSubstituteClassroom/Art/GARVEY_Leader.dds',
+                'TheSubstituteClassroom/docs/Validation.json',
                 'KingdomOfSaba/Lua/SABA_Cities.lua',
                 'KingdomOfSaba/Lua/SABA_Cities.xml',
                 'KingdomOfSaba/SQL/01_SABA_Inheritance.sql',
@@ -45,6 +46,8 @@ def main():
                 'The11Cats/Art/THE11CATS_Leader.dds',
                 'The11Cats/Art/THE11CATS_Dawn.dds',
                 'The11Cats/Art/THE11CATS_Flag32.dds']
+        sample += ['TheBoundlessCity/UI/BoundlessWorkforce.lua','TheBoundlessCity/UI/BoundlessWorkforce.xml']
+        sample += ['TheBoundlessCity/Art/BC_UI_'+name+'.dds' for name in ['Panel','Launcher','Row','Buttons','Assigned','Pending']]
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)
         for name in sample: assert (target/name).read_bytes()==(R/name).read_bytes(),('7z stale bytes',name)
     print('PASS ZIP and genuine 7z/LZMA release:',len(expected),'files,',len(game),'game files, exact ZIP bytes, CRC and extracted 7z manifest/runtime/SQL')

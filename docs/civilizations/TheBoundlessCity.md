@@ -24,6 +24,8 @@ The [Food growth hotfix](../../TheBoundlessCity/docs/FoodGrowthHotfix.md) preser
 
 ## The Boundless Workforce
 
+The [custom graphical skin](../../TheBoundlessCity/docs/UIVisuals.md) adds an engraved-city header, brass/teal frames, textured controls and assignment/pending marks. Native yield icons keep the rows compact, with full-name tooltips. [Preview and art sources](../../art-source/TheBoundlessCity/WorkforceUI/README.md).
+
 Open the button at the upper right of the world map. The panel shows population, owned land, local/remote workers, specialists, idle labourers and unassigned citizens. It distinguishes movable citizens from additional safe remote capacity and lists pending/locked requests, frontier progress, gross remote yields, labourer compensation and net base contribution.
 
 Territory, Workforce and Management now use separate localized labels so Owned Plots and the remaining statistics stay visible. Frontier Culture and the next claim's cost are separate fields; original capitals subjugated appears under Management. Scroll the overview to reach wrapped text or the yield breakdown. Existing assignment and siege controls remain below it. See the [summary fix and live checklist](../../TheBoundlessCity/docs/SummaryDisplayFix.md).
