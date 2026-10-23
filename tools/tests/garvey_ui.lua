@@ -1,0 +1,23 @@
+local G=Reload();assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
+Controls.Open.click();assert(not Controls.Panel.hidden and Controls.Student1.disabled)
+Tick(turn+12);assert(not Controls.Student1.disabled)
+Controls.Student5.click();assert(G.Student(G.State(0))==5 and randomCalls==0)
+assert(Controls.Student1.disabled and Controls.Current.text:find('Timothy'))
+Events.SerialEventEnterCityScreen();cityScreen=true;Flush();assert(Controls.Launcher.hidden and Controls.Panel.hidden)
+cityScreen=false;Events.SerialEventExitCityScreen();Flush();assert(not Controls.Launcher.hidden)
+Controls.Open.click();Events.AILeaderMessage();Flush();assert(Controls.Launcher.hidden and Controls.Panel.hidden)
+Events.LeavingLeaderViewMode();Flush();assert(not Controls.Launcher.hidden)
+Events.StrategicViewStateChanged(true);Flush();assert(Controls.Launcher.hidden)
+Events.StrategicViewStateChanged(false);Flush();assert(not Controls.Launcher.hidden)
+local tech={};function tech:IsHidden() return false end;Screens['/InGame/TechTree']=tech
+Events.SerialEventGameDataDirty();Flush();assert(Controls.Launcher.hidden)
+Screens={};Events.SerialEventGameDataDirty();Flush();assert(not Controls.Launcher.hidden)
+Events.SerialEventGameMessagePopupShown({Type=17});Flush();assert(Controls.Launcher.hidden)
+Events.SerialEventGameMessagePopupProcessed(17);Flush();assert(not Controls.Launcher.hidden)
+activePlayer=1;Events.GameplaySetActivePlayer();Flush();assert(Controls.Launcher.hidden)
+activePlayer=0;Events.GameplaySetActivePlayer();Flush();assert(not Controls.Launcher.hidden)
+Controls.Open.click();assert(ContextPtr.input(KeyEvents.KeyDown,Keys.VK_ESCAPE));assert(Controls.Panel.hidden)
+local writes=city.writes
+for i=1,1000 do Events.SerialEventGameDataDirty() end
+assert(ContextPtr.update);Flush();assert(not ContextPtr.update and city.writes==writes)
+local calls=#GameEvents.PlayerDoTurn.handlers;include('GARVEY_Core');assert(#GameEvents.PlayerDoTurn.handlers==calls)

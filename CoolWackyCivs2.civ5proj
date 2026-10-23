@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Nine civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats and Saba.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats and The Kingdom of Saba. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Ten civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats, Saba and a substitute classroom.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba and The Substitute Classroom. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>11</ModVersion>
+    <ModVersion>12</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -261,6 +261,31 @@
         <Type>UpdateDatabase</Type>
         <FileName>KingdomOfSaba/SQL/10_SABA_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheSubstituteClassroom/SQL/00_GARVEY_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheSubstituteClassroom/SQL/01_GARVEY_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -316,6 +341,12 @@
         <Name>Sabaean Water Management</Name>
         <Description>Invisible city-location yield reconciliation; no gameplay panel.</Description>
         <FileName>KingdomOfSaba/Lua/SABA_Cities.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Roll Call</Name>
+        <Description>Mr. Garvey: persistent attendance, corrections and Detention with an event-driven classroom panel.</Description>
+        <FileName>TheSubstituteClassroom/UI/GARVEY_RollCall.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -1802,6 +1833,162 @@
     <Content Include="KingdomOfSaba/SQL/10_SABA_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Board.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/GARVEY_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Lua/GARVEY_Core.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Lua/GARVEY_Events.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Lua/GARVEY_Interface.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/SQL/00_GARVEY_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/SQL/01_GARVEY_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/SQL/03_GARVEY_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/SQL/10_GARVEY_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/UI/GARVEY_RollCall.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/UI/GARVEY_RollCall.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="KingdomOfSaba\" />
@@ -1834,6 +2021,11 @@
     <Folder Include="TheRepublicOfPigeons\Art\" />
     <Folder Include="TheRepublicOfPigeons\SQL\" />
     <Folder Include="TheRepublicOfPigeons\UI\" />
+    <Folder Include="TheSubstituteClassroom\" />
+    <Folder Include="TheSubstituteClassroom\Art\" />
+    <Folder Include="TheSubstituteClassroom\Lua\" />
+    <Folder Include="TheSubstituteClassroom\SQL\" />
+    <Folder Include="TheSubstituteClassroom\UI\" />
     <Folder Include="TheTwelfthHour\" />
     <Folder Include="TheTwelfthHour\Art\" />
     <Folder Include="TheTwelfthHour\Lua\" />

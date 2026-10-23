@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="11">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="12">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Nine civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats and Saba.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats and The Kingdom of Saba. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Ten civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats, Saba and a substitute classroom.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba and The Substitute Classroom. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -509,6 +509,58 @@
     <File md5="B5509588AD51C1CE8DCDE0D80C5981EE" import="0">KingdomOfSaba/SQL/02_SABA_Effects.sql</File>
     <File md5="75CBEE329D7AE0B3A35DF9D6F8CE3AEE" import="0">KingdomOfSaba/SQL/03_SABA_Art.sql</File>
     <File md5="B5F9F6E9F9621823FD23EE78F36B4C9B" import="0">KingdomOfSaba/SQL/10_SABA_Text.sql</File>
+    <File md5="F0655DA124B4DBA12A98DEBBA3781AF0" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha128.dds</File>
+    <File md5="AB48E9299D643A819127E67B30C413CD" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha16.dds</File>
+    <File md5="23F359975A046CBB48A8D1F758127795" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha24.dds</File>
+    <File md5="58E06A56251D5C667B56677999C483BC" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha256.dds</File>
+    <File md5="1DAA10BC1F2E0D52E8896854C815271D" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha32.dds</File>
+    <File md5="8767A79ADCA90455663435D59A2AEA85" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha45.dds</File>
+    <File md5="0763B39089AE22FEEF0FE9A5ABD7AA55" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha48.dds</File>
+    <File md5="A568A87C4348C26916459817D3727727" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha64.dds</File>
+    <File md5="C9348E4675AB874CC9726656C21C4DA8" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha80.dds</File>
+    <File md5="667E96E05CE313701F960A82E27697A9" import="1">TheSubstituteClassroom/Art/GARVEY_Board.dds</File>
+    <File md5="1947373F3F97B6A39302274587291704" import="1">TheSubstituteClassroom/Art/GARVEY_Dawn.dds</File>
+    <File md5="3332223DC48441B991C076C7DBAE5871" import="1">TheSubstituteClassroom/Art/GARVEY_Flag32.dds</File>
+    <File md5="53E5D7CDB9A9957E2BE78A86AE674FF1" import="1">TheSubstituteClassroom/Art/GARVEY_Icon128.dds</File>
+    <File md5="202346060DFA7EA2CADAAE725758186A" import="1">TheSubstituteClassroom/Art/GARVEY_Icon16.dds</File>
+    <File md5="17D4001598F60FBE45C71B4E34126CCE" import="1">TheSubstituteClassroom/Art/GARVEY_Icon24.dds</File>
+    <File md5="146231453BFFFC96D95A99AAB939C35A" import="1">TheSubstituteClassroom/Art/GARVEY_Icon256.dds</File>
+    <File md5="1C185FDD1D8074F86D3936F5C7AE6F62" import="1">TheSubstituteClassroom/Art/GARVEY_Icon32.dds</File>
+    <File md5="5619BC3CD4C785449FE84BC6AAAB810C" import="1">TheSubstituteClassroom/Art/GARVEY_Icon45.dds</File>
+    <File md5="E2F5138D90CA81DB00DB68D89F7A5D5E" import="1">TheSubstituteClassroom/Art/GARVEY_Icon48.dds</File>
+    <File md5="175141E705B4226ECDC8EF345072BECD" import="1">TheSubstituteClassroom/Art/GARVEY_Icon64.dds</File>
+    <File md5="8CD0DC661CAD9842838F3E8ECA0CE099" import="1">TheSubstituteClassroom/Art/GARVEY_Icon80.dds</File>
+    <File md5="67DE484EDE48DF6908B90D4C196C6ADA" import="1">TheSubstituteClassroom/Art/GARVEY_Leader.dds</File>
+    <File md5="9CE185E93FD5D29D75E5F89F8F942934" import="1">TheSubstituteClassroom/Art/GARVEY_LeaderScene.xml</File>
+    <File md5="C4DE2AB0138256D876ECBF47ACFB6398" import="1">TheSubstituteClassroom/Art/GARVEY_Map.dds</File>
+    <File md5="01BDEF57B185411766084A3DD3D19DB6" import="1">TheSubstituteClassroom/Art/GARVEY_Objects128.dds</File>
+    <File md5="DC25E2C036D66C96B7EEA5BFE292357E" import="1">TheSubstituteClassroom/Art/GARVEY_Objects16.dds</File>
+    <File md5="8B44C9C0B6ECE4B6A567289C7F0AC102" import="1">TheSubstituteClassroom/Art/GARVEY_Objects24.dds</File>
+    <File md5="487A40DCC5097E82EB24D82549826B4F" import="1">TheSubstituteClassroom/Art/GARVEY_Objects256.dds</File>
+    <File md5="3C86379EFFF34DC6F4C3B6F3737FCB0E" import="1">TheSubstituteClassroom/Art/GARVEY_Objects32.dds</File>
+    <File md5="DEA72A200D139210A718F5920B633986" import="1">TheSubstituteClassroom/Art/GARVEY_Objects45.dds</File>
+    <File md5="F4AD804AB04B08DC37FB58A5729DFA7B" import="1">TheSubstituteClassroom/Art/GARVEY_Objects48.dds</File>
+    <File md5="8953A841B0B4B1F10E1EEAADF2C49E95" import="1">TheSubstituteClassroom/Art/GARVEY_Objects64.dds</File>
+    <File md5="DDAF7730B2D784259AAA244D0FB7839F" import="1">TheSubstituteClassroom/Art/GARVEY_Objects80.dds</File>
+    <File md5="A9F67F7E7347419594734E1D91FE5CEB" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait128.dds</File>
+    <File md5="045E78F070EA08415763FB16E105078B" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait16.dds</File>
+    <File md5="2A596D531C0ED9640C5DDE84003E84E3" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait24.dds</File>
+    <File md5="9A7D23A18DCA050577E9977DCC9B2531" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait256.dds</File>
+    <File md5="BB9F97447317A77D405B81570663597E" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait32.dds</File>
+    <File md5="FD0D9F99851ACEF033D215561A64E5E7" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait45.dds</File>
+    <File md5="2EBF84104CF4C45DCF87FC1B09D9FDB5" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait48.dds</File>
+    <File md5="ED8004893113BA207B3D10E83C863ACD" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait64.dds</File>
+    <File md5="BBA895F61210FC80780B7E3E87C90ABB" import="1">TheSubstituteClassroom/Art/GARVEY_Portrait80.dds</File>
+    <File md5="D2FE5ED2733F7C0484D9095EE8329FAC" import="1">TheSubstituteClassroom/Lua/GARVEY_Core.lua</File>
+    <File md5="04E3685A1EA357AF49C134A2E3E8273B" import="1">TheSubstituteClassroom/Lua/GARVEY_Events.lua</File>
+    <File md5="9D3154FD655F74378D9082A24F27C57E" import="1">TheSubstituteClassroom/Lua/GARVEY_Interface.lua</File>
+    <File md5="307ED8336C070ACE7B0AD65AC94BFC99" import="0">TheSubstituteClassroom/SQL/00_GARVEY_Core.sql</File>
+    <File md5="61EAF5B6677CF732CB50C39412C5A414" import="0">TheSubstituteClassroom/SQL/01_GARVEY_Inheritance.sql</File>
+    <File md5="9AE1E2FA5066CA29F001097E65348F88" import="0">TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</File>
+    <File md5="43FEAAD619DDA5571DBD20C05C353858" import="0">TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</File>
+    <File md5="581B318EB1D6CDD24FD0D4C817E98181" import="0">TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</File>
+    <File md5="461057F84A7010FE868825F6F5180514" import="1">TheSubstituteClassroom/UI/GARVEY_RollCall.lua</File>
+    <File md5="DD809D74629A781AAFD268C7FEAD3A77" import="0">TheSubstituteClassroom/UI/GARVEY_RollCall.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -559,6 +611,11 @@
       <UpdateDatabase>KingdomOfSaba/SQL/02_SABA_Effects.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfSaba/SQL/03_SABA_Art.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfSaba/SQL/10_SABA_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheSubstituteClassroom/SQL/00_GARVEY_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheSubstituteClassroom/SQL/01_GARVEY_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -597,6 +654,10 @@
     <EntryPoint type="InGameUIAddin" file="KingdomOfSaba/Lua/SABA_Cities.xml">
       <Name>Sabaean Water Management</Name>
       <Description>Invisible city-location yield reconciliation; no gameplay panel.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheSubstituteClassroom/UI/GARVEY_RollCall.xml">
+      <Name>Roll Call</Name>
+      <Description>Mr. Garvey: persistent attendance, corrections and Detention with an event-driven classroom panel.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

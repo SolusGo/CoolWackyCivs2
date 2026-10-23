@@ -66,5 +66,7 @@ def main():
     prepare_pigeons()
     from prepare_saba_art import main as prepare_saba
     prepare_saba()
+    from prepare_garvey_art import main as prepare_garvey
+    prepare_garvey()
 
 if __name__=='__main__':main()

@@ -142,3 +142,5 @@ if __name__=='__main__':
     validate_cats()
     from validate_saba import validate as validate_saba
     validate_saba()
+    from validate_garvey import validate as validate_garvey
+    validate_garvey()

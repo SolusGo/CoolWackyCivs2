@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.0 Substitute Classroom implementation preview / mod version 12 — 2026-10-24
+
+- Add human-only Mr. Garvey and Room 101, persistent 12-turn Roll Call with five 8-turn student bonuses, corrections/Insubordination and five-turn Detention. Combat modifiers add; hidden native buildings/policies maintain yields and the non-stacking Office Happiness relief.
+- Add Hall Monitor with complete active Pikeman inheritance and Principal's Office with complete active Public School inheritance; include a blackboard attendance UI, English Civilopedia/diplomacy, original leader painting and 41 mipmapped DDS textures.
+- Append Classroom content after the existing collection to retain released IDs. Extend project/manifests, package verification, source/schema checks and 32 shipped-Lua scenario runs. Prior civilization art and mechanics remain intact.
+- Automated validation is distinct from native acceptance: game rendering, native yields/combat/save-load and older-save continuation remain unverified. See [Classroom testing](TheSubstituteClassroom/docs/Testing.md).
+
 ## 1.8.0 Kingdom of Saba implementation preview / mod version 11 — 2026-10-23
 
 - Add human-only Karib'il Watar, capital Ma'rib, and Where the Desert Blooms: River cities gain +1 Food/+1 Production; Desert city centers gain +1 Culture. Two invisible buildings and a stateless event/owner-turn controller maintain exact counts and ownership cleanup.
