@@ -22,7 +22,13 @@ def main():
     with tempfile.TemporaryDirectory(prefix='verify-release-',dir=R/'dist') as temporary:
         target=Path(temporary).resolve()
         assert target.parent==(R/'dist').resolve(),'unsafe extraction target'
-        sample=[NAME+'.modinfo','TheWanderingCircus/UI/WanderingCircus.lua',
+        sample=[NAME+'.modinfo','KingdomOfSaba/Lua/SABA_Cities.lua',
+                'KingdomOfSaba/Lua/SABA_Cities.xml',
+                'KingdomOfSaba/SQL/01_SABA_Inheritance.sql',
+                'KingdomOfSaba/SQL/02_SABA_Effects.sql',
+                'KingdomOfSaba/Art/SABA_Leader.dds',
+                'KingdomOfSaba/Art/SABA_Objects256.dds',
+                'TheWanderingCircus/UI/WanderingCircus.lua',
                 'TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql',
                 'The11Cats/Lua/THE11CATS_Manager.lua',
                 'The11Cats/Lua/THE11CATS_Safety.lua',

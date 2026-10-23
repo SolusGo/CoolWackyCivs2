@@ -140,3 +140,5 @@ if __name__=='__main__':
     validate_circus()
     from validate_cats import validate as validate_cats
     validate_cats()
+    from validate_saba import validate as validate_saba
+    validate_saba()

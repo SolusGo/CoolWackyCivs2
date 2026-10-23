@@ -5,7 +5,7 @@ from xml.etree import ElementTree as ET
 import hashlib, json, re, sqlite3, sys, urllib.request
 from lupa.lua51 import LuaRuntime
 from PIL import Image
-from database import database, quote
+from database import database, quote, is_cp_cache
 from generate_circus import R,V,CIV,LEADER,UNIT,OFFICE,DUMMIES,TEXT,CITIES
 from validate_twelfth import inherited
 SUITES=['circus_timing.lua','circus_lifecycle.lua','circus_persistence.lua','circus_audit.lua']
@@ -70,7 +70,7 @@ def sql():
     assert culture(changed,OFFICE)==5
     # The current actual game cache is a second, independently populated CP baseline.
     cache=Path.home()/"Documents/My Games/Sid Meier's Civilization 5/cache/Civ5DebugDatabase.db"
-    if cache.exists():
+    if cache.exists() and is_cp_cache(cache):
         source=sqlite3.connect(cache.resolve().as_uri()+'?mode=ro',uri=True);active=sqlite3.connect(':memory:');source.backup(active);source.close()
         active.row_factory=sqlite3.Row
         active.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
@@ -78,6 +78,7 @@ def sql():
             apply(active);check_inheritance(active)
             print('PASS Circus activation on read-only copy of actual active CP cache')
         else: print('SKIP active-cache activation: Circus already present')
+    else: print('SKIP Circus raw active-cache activation: no cache with Community Patch loaded')
     print('PASS Circus actual-schema SQL: all six prior civilizations preserved, complete Worker/Market inheritance, additive Culture, exact yields and localization')
     return d
 

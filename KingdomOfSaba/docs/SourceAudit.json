@@ -1,0 +1,34 @@
+{
+  "source_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "source_repository": "https://github.com/LoneGazebo/Community-Patch-DLL",
+  "native_gameplay": "NOT TESTED IN GAME",
+  "contracts": {
+    "singular terrain table absent from installed schema": true,
+    "CP loader consumes TerrainModifiers Defense": true,
+    "defense uses underlying terrain independent of features": true,
+    "Desert Hills retain terrain lookup": true,
+    "attacking never consumes terrain defense": true,
+    "native visibility modifier": true,
+    "native upgrade drops unique promotion": true,
+    "native river binding": true,
+    "native terrain binding": true,
+    "capture callback after reconstruction": true,
+    "common callback is not conquest gated": true,
+    "liberation reacquires city": true,
+    "never capture rejects gifts and conquests": true,
+    "founding callback exists": true,
+    "turn fallback exists": true,
+    "native building yields are city base yields": true,
+    "zero-maintenance dummy buildings cannot be sold": true
+  },
+  "sha256": {
+    "CvPlayer.cpp": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87",
+    "CvUnit.cpp": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875",
+    "CvPromotionClasses.cpp": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a",
+    "CvLuaPlot.cpp": "eeed545294850b4bc69313caba1b4f1b3d8a0440eb7f5c432e242a36742c3e64",
+    "CvPlot.cpp": "185fa04a5c9426da9d7d385ae8ee2520759ec83f9dffad939c8c2a4c200f48a5",
+    "CvCity.cpp": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2",
+    "CvBuildingClasses.cpp": "44959390632ce9646dbfc77752c22d965fadc53ff049098594a18477e3dd8a25"
+  },
+  "installed_promotion_schema_sha256": "cb211278333bcf269aa3869281f08f0f6e143e1cd8f341ef4fc62b886cf1ab9d"
+}

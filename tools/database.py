@@ -6,6 +6,12 @@ from xml.etree import ElementTree as ET
 def quote(s):
     return '"' + s.replace('"', '""') + '"'
 
+def is_cp_cache(cache):
+    """A menu/vanilla cache cannot serve as an already-activated CP baseline."""
+    with sqlite3.connect(Path(cache).resolve().as_uri()+'?mode=ro',uri=True) as d:
+        return 'IsDummy' in {r[1] for r in d.execute('PRAGMA table_info(Buildings)')} and bool(
+            d.execute("SELECT 1 FROM sqlite_master WHERE name='CustomModOptions'").fetchone())
+
 def database(cache=None, cp=None):
     user = Path.home() / "Documents/My Games/Sid Meier's Civilization 5"
     cache = Path(cache) if cache else user / 'cache_backup/Civ5DebugDatabase.db'
@@ -32,7 +38,7 @@ def database(cache=None, cp=None):
         except ET.ParseError: continue
         for table in root.findall('Table'):
             name = table.get('name', '')
-            if not name.startswith(('Building_', 'Unit_', 'Policy_')) and name != 'CityEventChoices': continue
+            if not name.startswith(('Building_', 'Unit_', 'UnitPromotions_', 'Policy_')) and name != 'CityEventChoices': continue
             columns = []
             for col in table.findall('Column'):
                 default = col.get('default')

@@ -64,5 +64,7 @@ def main():
     print('Prepared',len(list(V.glob('*.dds'))),'real DDS textures and the 2D leader scene')
     from prepare_pigeon_art import main as prepare_pigeons
     prepare_pigeons()
+    from prepare_saba_art import main as prepare_saba
+    prepare_saba()
 
 if __name__=='__main__':main()

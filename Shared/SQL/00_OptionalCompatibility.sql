@@ -10,3 +10,7 @@ CREATE TABLE IF NOT EXISTS Building_JFD_District (
  BuildingType TEXT REFERENCES Buildings(Type) DEFAULT NULL,
  DistrictType TEXT DEFAULT NULL
 );
+CREATE TABLE IF NOT EXISTS Building_ConstructionAudio (
+ BuildingType TEXT REFERENCES Buildings(Type) DEFAULT NULL,
+ ConstructionAudio TEXT DEFAULT NULL
+);

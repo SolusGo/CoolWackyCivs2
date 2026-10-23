@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.0 Kingdom of Saba implementation preview / mod version 11 — 2026-10-23
+
+- Add human-only Karib'il Watar, capital Ma'rib, and Where the Desert Blooms: River cities gain +1 Food/+1 Production; Desert city centers gain +1 Culture. Two invisible buildings and a stateless event/owner-turn controller maintain exact counts and ownership cleanup.
+- Add Wadi Sentinel with complete active Spearman inheritance, native +15% Desert defense/+1 Sight, both lost on upgrade; add Ma'rib Cistern with complete active Water Mill inheritance and additive +1 Food/+1 Gold. CP's feature-aware TerrainModifiers table preserves defense on all underlying Desert.
+- Add original generated leader/loading art, drawn collection-style emblems/UU/UB/map, 40 mipmapped DDS textures, full English identity/Civilopedia/diplomacy, guides, three shipped-Lua simulations and CP source contracts.
+- Append Saba after the released SQL inventory; retain UUID, prior database IDs, save formats and peer mechanics/art. Extend optional metadata compatibility, real-schema adapter, build/validation registries and archive verification. See [Saba testing](KingdomOfSaba/docs/Testing.md) for actual checks and outstanding native acceptance.
+
 ## The 11 Cats Luna arrival hotfix — 2026-10-23
 
 - Fix the native missing-UnitAITypes error that left unlocked Luna pending at zero turns. Use InitUnit's verified default AI argument and protect argument evaluation; existing save states resume without migration.

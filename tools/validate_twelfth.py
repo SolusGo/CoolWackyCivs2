@@ -4,7 +4,7 @@ from collections import Counter
 import hashlib, json, re, sqlite3, sys, urllib.request
 from xml.etree import ElementTree as ET
 from lupa.lua51 import LuaRuntime
-from database import database, quote
+from database import database, quote, is_cp_cache
 from generate_twelfth import R, V, CIV, LEADER, UNIT, TOWER, TEXT, CITIES
 
 def apply(d):
@@ -77,7 +77,7 @@ def sql():
     assert altered.execute("SELECT SUM(Yield) FROM Building_YieldChanges WHERE BuildingType=? AND YieldType='YIELD_CULTURE'",(TOWER,)).fetchone()[0]==5
     # A read-only copy of the actual current cache, including all currently active mods.
     cache=Path.home()/"Documents/My Games/Sid Meier's Civilization 5/cache/Civ5DebugDatabase.db"
-    if cache.exists():
+    if cache.exists() and is_cp_cache(cache):
         source=sqlite3.connect(cache.resolve().as_uri()+'?mode=ro',uri=True)
         active=sqlite3.connect(':memory:');source.backup(active);source.close()
         assert not active.execute('SELECT 1 FROM Civilizations WHERE Type=?',(CIV,)).fetchone(),'cache already includes Twelfth Hour; use a clean cache for activation test'
@@ -88,6 +88,7 @@ def sql():
         inherited(active,'Units','UNIT_PIKEMAN',UNIT,{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex','UnitFlagAtlas','UnitFlagIconOffset'})
         inherited(active,'Buildings','BUILDING_WORKSHOP',TOWER,{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex'})
         print('PASS SQL activation and full replacement inheritance on a read-only copy of the active game cache')
+    else: print('SKIP Twelfth raw active-cache activation: no cache with Community Patch loaded')
     print('PASS Twelfth SQL: all prior rows preserved, human-only flags, full inheritance, additive Culture, exact modifiers, promotion, safe dummies, localization')
     return d
 

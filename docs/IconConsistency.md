@@ -1,5 +1,11 @@
 # Civilization icon framing
 
+Saba (version 11) adds nine-size civilization/alpha/object/leader atlas families,
+a 32px unit flag and original static leader/loading art through the same pipeline.
+Source art and the exact generation prompt are retained in
+`art-source/KingdomOfSaba`; `tools/prepare_saba_art.py` builds its DDS inputs.
+Existing civilization artwork is preserved.
+
 Version 6 finishes both civilizations' existing leader portraits, civilization
 emblems and unique unit/building icons with matching beveled gold rims.
 
