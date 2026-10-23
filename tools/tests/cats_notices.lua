@@ -36,6 +36,10 @@ p.SetScriptData=function(self,value) save(self,value);error('after narrative sav
 H.NoteBonds(s,a,{SISTERS_BED=true});assert(not H.Notices(s).dirty and #p.notifications==count+1)
 p.SetScriptData=save
 -- Unknown presentation versions do not disable or rewrite valid gameplay.
+H.Notices(s).seen[H.CityKey(a)]=0;p.script=p.script:gsub('|THE11CATS_N1:[^|]*|','');count=#p.notifications
+p.SetScriptData=function() end
+H.NoteBonds(s,a,{SISTERS_BED=true});assert(H.Notices(s).dirty and #p.notifications==count)
+p.SetScriptData=save;Flush();assert(not H.Notices(s).dirty)
 p.script=p.script:gsub('|THE11CATS_N1:[^|]*|','')..'|THE11CATS_N2:future|'
 Reload();H=MapModData.THE11CATS;s=H.State(0)
 assert(s and not H.failed[0] and not H.Notices(s).valid and p.script:find('|THE11CATS_N2:future|',1,true))

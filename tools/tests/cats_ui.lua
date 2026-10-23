@@ -38,6 +38,17 @@ Controls.Homes.click();local home=UIInstances.HomeCard[1]
 assert(home.Capacity.text:find('CAPACITY:1',1,true) and home.Name1.text:find('LUNA',1,true))
 assert(home.Portrait1.icon[1]==H.Cats.LUNA.portrait and home.Effect1.text:find('LUNA_EFFECT_LINES',1,true))
 assert(home.HomeBonds.text:find('BOND_NAME_FIRST_PAIR',1,true) and home.Tree.text:find('TREE_NOT_BUILT',1,true))
+local oldName=a.name;a.name=string.rep('A long family home name ',8);H.Render()
+assert(home.Capacity.y>=home.HomeName:GetSizeY()+18 and home.Cat1.y>home.Capacity.y+home.Capacity:GetSizeY())
+local row=UIInstances.CatRow[2]
+assert(row.Button.height>=row.State.y+row.State:GetSizeY()+12,'wrapped status must stay within its row')
+assert(row.State.text:find('[COLOR_POSITIVE_TEXT]',1,true))
+a.name=oldName;H.Render()
+local screenHeight=600;UIManager={GetScreenSizeVal=function() return 1024,screenHeight end}
+H.Render();assert(Controls.Panel.height==564 and Controls.Background.height==548)
+assert(Controls.RosterScroll.height<=Controls.Panel.height-170 and Controls.DetailsScroll.height>70)
+screenHeight=480;H.Render();assert(Controls.Panel.height==444 and Controls.RosterScroll.height<Controls.Panel.height-100)
+UIManager=nil;H.Render();assert(Controls.Panel.height==650)
 a:SetNumRealBuilding(H.TREE,1);GameEvents.CityConstructed(0,a.id,H.TREE)
 assert(home.Tree.text:find('TREE_OCCUPIED',1,true) and a:GetNumRealBuilding(H.buildings.TREE_FOOD)==1)
 Controls.Action.click();assert(H.State(0).cats.LUNA.status==1 and Controls.Action.disabled)

@@ -45,16 +45,18 @@ function H.Encode(s)
 end
 function H.Save(s)
  local block=H.Encode(s);local p=Players[s.pid];local raw=p:GetScriptData() or ''
- if raw:match(pattern)~=block then p:SetScriptData(raw:gsub(pattern,'')..'|THE11CATS1:'..block..'|') end
+ if raw:match(pattern)==block then return true end
+ p:SetScriptData(raw:gsub(pattern,'')..'|THE11CATS1:'..block..'|')
+ return (p:GetScriptData() or ''):match(pattern)==block
 end
 function H.SaveSafe(s)
  local ok,err=pcall(H.Save,s)
- if ok then return true end
+ if ok and err then return true end
  -- A native setter may have mutated before reporting an error. Read back the
  -- whole authoritative block before deciding whether this transaction committed.
  local verified,value=pcall(function() return (Players[s.pid]:GetScriptData() or ''):match(pattern)==H.Encode(s) end)
  if verified and value then return true end
- H.Log('Save deferred for '..s.pid..': '..tostring(err),true)
+ H.Log('Save deferred for '..s.pid..': '..tostring(ok and 'native setter did not store the record' or err),true)
  if H.Request then H.Request(s.pid,false) end
  return false
 end
@@ -212,7 +214,21 @@ function H.SpawnPlot(pid,home)
   end
  end
 end
+function H.PendingUnit(s,id)
+ -- A failed configuration/rollback can leave a birth without any promotion.
+ -- Treat unknown Cats conservatively until reconciliation can remove them.
+ for u in Players[s.pid]:Units() do
+  if u:GetUnitType()==H.UNIT and not u:IsDead() and not u:IsDelayedDeath() then
+   local identity=H.Identity(u)
+   local owner,backup=(u:GetScriptData() or ''):match('|THE11CATS:(%d+):([A-Z]+)|')
+   if not identity and tonumber(owner)==s.pid and s.cats[backup] then identity=backup end
+   if not identity or identity==id then return true end
+  end
+ end
+ return false
+end
 function H.Spawn(s,id,home)
+ if H.PendingUnit(s,id) then H.Request(s.pid,false);return false end
  local c=s.cats[id];local located,plot=pcall(H.SpawnPlot,s.pid,home)
  if not located then H.Log('Arrival lookup deferred for '..id..': '..tostring(plot),true);return false end
  if not plot then return false end
@@ -353,9 +369,7 @@ function H.CanRehome(pid,id)
  local s=H.State(pid);local c=s and s.cats[id]
  if not c or c.status~=2 then return false,'INVALID' end
  if c.cooldown>H.Turn() then return false,'WAIT_COOLDOWN' end
- for u in Players[pid]:Units() do
-  if u:GetUnitType()==H.UNIT and not u:IsDead() and not u:IsDelayedDeath() and H.Identity(u)==id then return false,'PENDING_REPAIR' end
- end
+ if H.PendingUnit(s,id) then return false,'PENDING_REPAIR' end
  local city=H.City(c)
  if not city or city:GetOwner()~=pid or city:IsRazing() then return false,'INVALID' end
  if not H.SpawnPlot(pid,city) then return false,'NO_SPAWN' end

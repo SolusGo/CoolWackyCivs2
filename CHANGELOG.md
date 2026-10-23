@@ -1,5 +1,11 @@
 # Changelog
 
+## The 11 Cats final 2D quality and compatibility pass — 2026-10-23
+
+- Verify silently rejected saves, block unidentified retained rollback births, merge queued lifecycle work and make screen transitions UI-only refreshes. Preserve every bonus, save format, UUID/version 10 and gameplay ID.
+- Add eleven distinct source paintings, an exactly eleven-cat emblem, dedicated Austin leader/first-companion Dawn scenes, refined Cat Tree/paw/flag art and a quiet Household background. Improve row/card spacing, statuses and short-window height handling. All changes concern 2D presentation; existing House Cat 3D models/animations are unchanged.
+- Preserve prompts and source masters; verify exact repeat builds and unchanged peer artwork. Expand to thirteen Cats simulation suites and stricter legacy DDS/mip/identity checks. Native acceptance remains pending; see [the quality report](The11Cats/docs/PolishReport.md) and [checklist](The11Cats/docs/NativeAcceptance.md).
+
 ## The 11 Cats reliability and Household polish — 2026-10-23
 
 - Protect lifecycle guards and native save/spawn/remove failures, retain bounded deferred capture/era work, repair identities/duplicates/timers deterministically and stop stale city-effect writes after ownership changes.

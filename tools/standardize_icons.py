@@ -78,13 +78,13 @@ def visible_bounds(cell, threshold=32):
     return cell.getchannel("A").point(lambda a: 255 if a >= threshold else 0).getbbox()
 
 
-def frame_cell(source, size, leader=False):
+def frame_cell(source, size, leader=False, preserve_art=False):
     bounds = visible_bounds(source)
     if bounds is None:
         return Image.new("RGBA", (size, size))
     # Remove the old rim before fitting the retained artwork into the new one.
     art = source.crop(bounds)
-    trim = round(min(art.size) * .06)
+    trim = 0 if preserve_art else round(min(art.size) * .06)
     if trim:
         art = art.crop((trim, trim, art.width - trim, art.height - trim))
     edge = size * 4
@@ -149,11 +149,11 @@ def standardize(root=ROOT, refresh=()):
                 assert (atlas.columns, atlas.rows) == (largest.columns, largest.rows), name
                 output = Image.new("RGBA", (atlas.size * atlas.columns, atlas.size * atlas.rows))
                 for index, cell in enumerate(cells):
-                    if name == 'THE11CATS_CIV_ATLAS' and atlas.size <= 48:
+                    if name == 'THE11CATS_CIV_ATLAS' and atlas.size <= 80:
                         # The group emblem is reserved for readable portrait sizes.
                         from prepare_cats_art import symbol
                         cell = symbol('paw')
-                    framed = frame_cell(cell, atlas.size, (name, index) in leaders)
+                    framed = frame_cell(cell, atlas.size, (name, index) in leaders, name.startswith('THE11CATS_'))
                     output.alpha_composite(framed, ((index % atlas.columns) * atlas.size,
                                                      (index // atlas.columns) * atlas.size))
                 if output.width % 4 == 0 and output.height % 4 == 0:

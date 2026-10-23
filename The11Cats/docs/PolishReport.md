@@ -1,4 +1,38 @@
-# Reliability and Household polish — 2026-10-23
+# Quality, 2D artwork and compatibility report — 2026-10-23
+
+## Final pass from 95671d8
+
+### Gameplay fixes
+
+| Confirmed defect / cause | Repair | Evidence |
+| --- | --- | --- |
+| `H.SaveSafe` trusted a setter that returned normally even if the record was not stored. Settle could consume a traveller without persistent residence. | `H.Save` verifies changed writes; `H.SaveSafe` still accepts after-write exceptions only when the exact block reads back. `H.SaveNotices` also verifies normal-return writes. | `cats_transactions` first reproduced the silent-setter failure; now keeps the original unit/status/native record. `cats_notices` suppresses unsaved narrative messages and retries. |
+| A failed unit setup before identity promotion plus failed cleanup left an unknown birth; `H.CanRehome` only checked recognised identities and allowed another attempt. | `H.PendingUnit` gates both spawning and rehome using promotions/backup metadata, blocking unknown retained cats until cleanup succeeds. Residence/cooldown remain unchanged on failed mutation. | Regression failed before this fix, then passed with five repeated clicks, bounded failed cleanup and eventual repair. Identified rollback births and after-write rehome exceptions also pass. |
+| A direct lifecycle pass could leave the same player queued for redundant work; screen transitions requested gameplay reconciliation. | Consume/merge the queued player/unlock intent before a synchronous pass; retain newly arriving events. UI transitions call `H.Refresh`. | One effects pass for queued+direct work, existing reentrant capture/era tests, exhausted retry/UI stress tests and all context reloads pass. |
+
+No defect was found requiring a bonus/SQL/WLTKD redesign. Pinned CP v151 contracts and actual schema continue to support local GP rate, general Production, defense hundredths, uncapped Happiness, independent reversible +5/+5 positive-surplus Growth, Cat Tree Food and native-counter WLTKD. The new growth fault suite exercises before/after activation/cancellation errors and active-state queries without double application.
+
+### Artwork and interface improvements
+
+- **Eleven portraits:** separate retained paintings in canonical order, matching the supplied illustration/descriptions. White crowned Austin; grey-white Luna; gentle calico Bonnie; orange arrowback Appa; petite calico Boomie; black Kuro; dark tortoiseshell Sisi. Loki's blue collar/narrow blaze, Oscar's broader muzzle/gold bell, Charlotte's long ruff and Max's forward white paws distinguish similar coats. No reference photos were available; exact photographic fidelity is not claimed.
+- **Civ emblem/atlases:** exactly eleven nonoverlapping named medallions around larger Austin, assembled deterministically from those portraits. Clear four-toe paw/open crown through 80px, detailed family at larger sizes; no decorative text. Existing atlas definitions/indices and 50 DDS paths/dimensions retained.
+- **Dedicated paintings:** Austin seated on a purple cushion in a golden household leader scene; Dawn with first companions Austin and Luna; recognizable sisal-post/platform/cubby Cat Tree; quiet plum/cream parchment/gold Household background; map image uses the new full emblem. House Cat portrait uses new Luna; alpha/flag use the refined symbol.
+- **Technical quality:** full mip chains, legacy DDS, BC3 scenes/atlases where aligned, RGBA nonaligned/alpha cells. Cats frames skip obsolete border trimming to preserve ears/crown. Repeat build is exact for 51 game art files plus 12 derived masters/metadata/previews; all 295 peer-art files unchanged. Original reference, prompts and selected PNGs remain in `art-source/The11Cats`; rebuilding has no generation/network step.
+- **UI:** status colors, wrapped roster height, heading-aware Bond spacing, wrapped capacity/tree labels and short-viewport panel/scroll sizing on render. Footer room adapts to feedback. Eleven cat rows/four bond cards and city pooling remain; no polling was added. Native fonts/layout and widths below 920px remain unverified/limited.
+
+### Preservation and save compatibility
+
+Every gameplay SQL file (including art assignments) retains its fingerprint. All ten companions, Austin leader-only, genders, relations, six eras/stories, four bonds, exact bonuses, Cat Tree, three slots, +25% WLTKD, cooldowns/recovery and human-only gates remain. UUID/version 10, database IDs, the 82-number `THE11CATS1` format and `THE11CATS_N1` preference/notice format are unchanged. Existing simulated v10 states need no migration; art does not require a new save. Native old-save/autosave continuation remains pending.
+
+### Validation and limitations
+
+Thirteen Lua 5.1 behavioral suites pass, alongside real-schema SQL, unchanged earlier rows, pinned CP source, XML/localization/atlas/legacy mip/source identity checks. Full collection regression and built ZIP/7z package verification are recorded in `Testing.md`. Decoded source/finished atlas images were inspected offline; this is not native rendering. Stress fixtures retain the 720 turns, 12 rehomes, 50 reloads, 200 opens, 1,000 dirty signals and 1,000 stable reconciliations, without extra persistent callbacks/listeners/instances or redundant stable saves.
+
+The installed game/schema/source were readable, but no controlled native UI/test bridge was available. Civ V was not launched; actual yields, save/autosave resumption, capture/embarkation timing, texture display, resolution/font layout and FPS/memory remain pending. See `NativeAcceptance.md` for the concise checklist.
+
+**Existing House Cat 3D unit models and animations were not modified.** No new investigation or alteration of meshes, animations, rigs, formations, 3D art defines or movement visuals occurred in this pass.
+
+## Previous reliability pass (a1d2fb3 to 95671d8)
 
 This is a targeted revision of the shipped implementation at `a1d2fb3`, not a redesign. No native Civ V session was launched. Results below distinguish executed Lua 5.1 simulations, actual-schema SQL and pinned CP source checks from pending native acceptance.
 

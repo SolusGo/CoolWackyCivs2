@@ -3,14 +3,14 @@
  <Instance Name="CatRow">
   <GridButton ID="Button" Size="394,76" Style="BaseButton">
    <Image ID="Portrait" Anchor="L,C" Offset="5,0" Size="64,64" />
-   <Label ID="Name" Anchor="L,T" Offset="78,9" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
-   <Label ID="State" Anchor="L,T" Offset="78,35" WrapWidth="304" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Name" Anchor="L,T" Offset="78,9" WrapWidth="304" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
+   <Label ID="State" Anchor="L,T" Offset="78,35" WrapWidth="304" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
   </GridButton>
  </Instance>
  <Instance Name="HomeCard">
   <Grid ID="Home" Size="394,376" Style="GridBlackIndent8">
    <Label ID="HomeName" Anchor="L,T" Offset="12,10" WrapWidth="370" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
-   <Label ID="Capacity" Anchor="L,T" Offset="12,36" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Capacity" Anchor="L,T" Offset="12,36" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
    <GridButton ID="Cat1" Anchor="L,T" Offset="6,62" Size="380,76" Style="BaseButton">
     <Image ID="Portrait1" Anchor="L,C" Offset="4,0" Size="48,48" />
     <Label ID="Name1" Anchor="L,T" Offset="60,4" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
@@ -27,7 +27,7 @@
     <Label ID="Effect3" Anchor="L,T" Offset="60,27" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
    </GridButton>
    <Label ID="HomeBonds" Anchor="L,T" Offset="12,300" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-   <Label ID="Tree" Anchor="L,T" Offset="12,348" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Tree" Anchor="L,T" Offset="12,348" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
   </Grid>
  </Instance>
  <Instance Name="BondCard">
@@ -43,7 +43,7 @@
   <GridButton ID="Open" Anchor="C,C" Size="235,30" Style="BaseButton" String="TXT_KEY_THE11CATS_OPEN" />
  </Grid>
  <Grid ID="Panel" Anchor="C,C" Size="920,650" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
-  <Image Anchor="C,C" Size="904,634" Texture="THE11CATS_Household.dds" Color="255,255,255,30" />
+  <Image ID="Background" Anchor="C,C" Size="904,634" Texture="THE11CATS_Household.dds" Color="255,255,255,255" />
   <Label ID="Title" Anchor="L,T" Offset="26,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
   <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="70,30" Style="BaseButton" String="TXT_KEY_THE11CATS_CLOSE" />
   <GridButton ID="Cats" Anchor="L,T" Offset="28,58" Size="88,30" Style="BaseButton" String="TXT_KEY_THE11CATS_CATS" />

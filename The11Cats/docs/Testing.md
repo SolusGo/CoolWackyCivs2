@@ -4,7 +4,8 @@
 
 ## Available checks performed
 
-- `python tools/validate_cats.py`: passes actual BNW/installed CP-schema SQL activation, all prior collection-table row preservation, exact bonuses, full Garden replacement inheritance, native API/source contracts, Lua 5.1 syntax, eleven behavioral simulation suites, XML/control/localization/atlas references and all 50 decoded mipmapped DDS files. Core/inheritance/effects/art SQL fingerprints match the shipped implementation.
+- `python tools/validate_cats.py`: passes actual BNW/installed CP-schema SQL activation, all prior collection-table row preservation, exact bonuses, full Garden replacement inheritance, native API/source contracts, Lua 5.1 syntax, thirteen behavioral simulation suites, XML/control/localization/atlas references and all 50 decoded mipmapped DDS files. Core/inheritance/effects/art SQL fingerprints match the shipped implementation.
+- `python tools/verify_cats_art.py`: passes exact repeat-build comparison for 51 Cats art files (50 DDS plus leader XML), 12 derived masters/metadata/previews, and 295 unchanged peer-art files. Source/decoded atlas inspection confirms eleven distinct portraits, white crowned Austin, dark tortoiseshell Sisi, Appa's illustrative arrowback and correct named slots. This is offline art inspection, not native rendering.
 - `python tools/validate_mod.py`: full collection regression suite passes, including existing civilizations' SQL, gameplay/UI simulations, pinned CP contracts, distinct VFS namespaces and original-collection coexistence checks.
 - `python tools/build_mod.py --manifest-only`: produces matching version 10 manifest and ModBuddy project, ordered SQL and eight InGameUIAddin entry points. The collection icon validator verifies 313 atlas-size records and eight leader atlases.
 - `python tools/build_mod.py` and `python tools/verify_release.py`: build and check the installable ZIP and genuine 7z/LZMA `.civ5mod`, exact packaged bytes/inventory/CRC. Build outputs are ignored by Git.
@@ -71,14 +72,25 @@ The native-contract audit reads CP v151 source already pinned by this repository
 | Optional settling / first bond messages | Once per stable city across reactivation/reload, saved preference, no gameplay block changes; narrative write failure retries without unsaved bond notice | Pending native notification delivery |
 | Existing v1 save without sidecar / future sidecar | Assignments/cooldowns/chapters unchanged; silent baseline; unknown narrative data preserved | Pending actual pre-polish save |
 | Canonical identity/art metadata | Eleven exact genders, ten eras, mothers/litters and portrait slots; Austin never spawns | Pending visual likeness inspection |
+| Save setter silently discards data | Actual command path rejects commit, keeps traveller/native record; narrative save marks dirty and suppresses unsaved bond notice | Pending engine integration |
+| Rollback birth survives without an identity | Repeated rehome rejected, one retained birth, unchanged resident effects/cooldown; cleanup later resumes | Pending native failure/delayed removal |
+| Save throws after successful rehome write | Verified travelling record, exactly one unit, original full cooldown, removed local effects and correct reload | Pending native save continuation |
+| Growth activation/cancellation before/after fault | Active-state queries prevent reapplication, independent +5/+10, bounded repairs and correct eventual zero | Pending native choice execution |
+| Queued plus synchronous lifecycle pass | Queued era intent merged, one effects pass rather than a redundant deferred rerun | Pending native event sequencing |
+| Long names / short viewport | Wrapped row/card geometry and 1024×600/480 height model; fixed instance counts | Pending font/layout screenshots |
+| Enhanced DDS technical quality | Full mip count, legacy header/no DX10, BC3 scenes, exact atlas dimensions, eleven unique cells/indices, empty twelfth slot and nonoverlapping eleven-cat emblem | Pending native texture loading |
 
 ## Performance model
 
 The full ten-companion/four-city fixture performs **1,000 reconciliations in under 0.3 seconds total** in the recorded local Lua 5.1 runs, with **zero redundant ScriptData writes or notifications** after stabilization. A separate six-city fixture covers **720 turn transitions, 12 rehomes and 50 context reloads**, checking stable listener counts and no idle callback. The UI fixture covers **200 opens and 1,000 dirty notifications**, retaining eleven cat rows, four bond cards and a bounded home-card pool; a renderer fault closes safely and permits reopening. These are simulation measurements, not game turn timings, native memory profiling or FPS claims. Actual late-game/native memory and rendering tests remain pending.
 
-Suite inventory: `cats_starts`, `cats_lifecycle`, `cats_bonds`, `cats_edges`, `cats_ui`, `cats_resilience`, `cats_faults`, `cats_notices`, `cats_wltkd`, `cats_performance`, `cats_metadata`. The WLTKD fixture exercises **240 genuine positive-duration events** across two cities and four speeds, with exact cumulative quarter-turn carry, independent ownership/founding keys and silent loads. Per-cat SQL arithmetic separately checks general Production, local GP rate, strength hundredths, Happiness and positive-surplus Growth (+5/+10 percentage points, no starvation substitution). These do not execute the native DLL.
+Suite inventory: `cats_starts`, `cats_lifecycle`, `cats_bonds`, `cats_edges`, `cats_ui`, `cats_resilience`, `cats_faults`, `cats_notices`, `cats_wltkd`, `cats_performance`, `cats_metadata`, `cats_transactions`, `cats_growth_faults`. The WLTKD fixture exercises **240 genuine positive-duration events** across two cities and four speeds, with exact cumulative quarter-turn carry, independent ownership/founding keys and silent loads. Per-cat SQL arithmetic separately checks general Production, local GP rate, strength hundredths, Happiness and positive-surplus Growth (+5/+10 percentage points, no starvation substitution). These do not execute the native DLL.
+
+The two new transaction assertions were first run against the pre-fix implementation: silent-setter settling failed, followed by an unidentified failed-rollback birth bypassing the rehome gate. Both pass after the repairs. Growth fault cases exercise the shipped native-API calls through the model and verify post-mutation idempotence; they do not invent substitute yield mechanics.
 
 ## Native acceptance procedure
+
+Use [the concise acceptance checklist](NativeAcceptance.md) to record the next actual game session. Installed executable/schema/source access was available, but this task had no controlled native UI/test bridge; Civ V was not launched or driven. No native row below has been marked Passed.
 
 1. Install the generated version 10 package, enable only BNW, Community Patch v151 and this collection, and enable Logging/Lua logging in Civ V's config. Preserve existing saves/installations first.
 2. In modded setup confirm Austin/The 11 Cats appears with the white King, civilization emblem, House Cat and Cat Tree. Start Ancient, Medieval and Modern games separately. Inspect Database.log and Lua.log for `[The11Cats]` or SQL/texture errors.

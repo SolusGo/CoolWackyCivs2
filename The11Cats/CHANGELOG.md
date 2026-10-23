@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-23 — final quality and 2D artwork pass
+
+- Verify successful native save writes as well as exceptions; silently rejected saves no longer consume travelling cats or announce unsaved bonds.
+- Block new births/rehome while an unidentified failed-setup/rollback unit remains; preserve residence/cooldown and retry cleanup within the existing bounded dispatcher.
+- Merge already queued work into synchronous reconciliation without losing era intent. Screen transitions now request UI-only refreshes.
+- Replace the fifty 2D textures with eleven individually painted portraits, an exactly eleven-member assembled emblem, refined paw/crown alpha/flag, clearer Cat Tree art, dedicated Austin leader and first-companion Dawn scenes and a quiet Household background. Preserve original reference, prompts, selected sources and deterministic masters.
+- Preserve ears/crown in circular crops; use small-symbol icons through 80px; improve status colors, wrapped roster row heights and Bond/card spacing. All gameplay numbers, IDs, UUID/version 10 and save formats remain unchanged.
+- Thirteen Lua suites plus stronger mip/identity/asset validation and exact repeat-build checks pass. No 3D art was changed or investigated. Native acceptance remains pending; see the updated report and checklist.
+
 ## 2026-10-23 — reliability and Household polish
 
 - Clear busy, synchronization, spawning and removal guards after interrupted calls; retain reentrant capture/era work and bound deferred retries without idle polling.

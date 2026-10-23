@@ -78,7 +78,9 @@ Four to six peaceful cities, Culture and Diplomacy are the intended plan; Scienc
 
 `AIPlayable=0` follows the collection convention. Forced AI/scenario selection receives no household progression, WLTKD extension or resident effects; orphan cat units are removed and Cat Tree construction is vetoed. Other civilization selection flags and gameplay remain unchanged. The normal interface is extended through one private InGameUIAddin; no global interface replacement is installed. Existing saves from this civilization's version 10 implementation retain the same gameplay record, UUID, database IDs, assignments, cooldowns and chapters in simulations. Native continuation still needs acceptance testing. Older collection saves without this civilization remain unverified; start a new game to select it.
 
-The supplied emblem is retained in [art-source](../art-source/The11Cats/README.md). No individual reference photographs were available; portraits are source-image crops chosen by the stated appearances, not claims of exact photographic matches. Sisi uses the dark tortoiseshell face at the lower left; the decorative tail is excluded from the eleven portraits.
+The supplied emblem is retained in [art-source](../art-source/The11Cats/README.md). Eleven new individual paintings use that illustration and the supplied descriptions; no individual reference photographs were available and exact photographic likeness is not claimed. The larger circular emblem assembles exactly those eleven portraits around white crowned Austin. Small icons use a refined paw/crown. Dedicated Austin leader art, an Austin-and-Luna Dawn painting, Cat Tree art and a quiet parchment/plum Household background replace reused group images. Existing filenames, atlas indices and texture dimensions remain.
+
+**Existing House Cat 3D unit models and animations were not modified.**
 
 ## Validation and development
 
@@ -88,6 +90,7 @@ See the [ranked fixes and polish report](docs/PolishReport.md), [implementation 
 python tools/generate_cats.py
 python tools/prepare_cats_art.py
 python tools/build_mod.py --manifest-only
+python tools/verify_cats_art.py
 python tools/validate_cats.py
 python tools/validate_mod.py
 python tools/build_mod.py

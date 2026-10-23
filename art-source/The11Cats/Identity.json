@@ -1,0 +1,169 @@
+{
+  "portraits": [
+    {
+      "id": "AUSTIN",
+      "index": 0,
+      "source": "Portraits/Austin.png",
+      "sha256": "13835be0c0397399f5bf7427a88c65f8b95490c2ee53be40420ad267d0dc7c3e"
+    },
+    {
+      "id": "LUNA",
+      "index": 1,
+      "source": "Portraits/Luna.png",
+      "sha256": "909c5a597befd7b708ea5790419cb0a5f008cd171c144a94f5992f9ada822be7"
+    },
+    {
+      "id": "BONNIE",
+      "index": 2,
+      "source": "Portraits/Bonnie.png",
+      "sha256": "278060a77185d9b4c68ec3507a95cd274b22dc2a36883c3ff620c682f320da71"
+    },
+    {
+      "id": "APPA",
+      "index": 3,
+      "source": "Portraits/Appa.png",
+      "sha256": "8edd5ba5def3027e26b48258650db14e672394c7db0865d0890a334b8cab20d7"
+    },
+    {
+      "id": "LOKI",
+      "index": 4,
+      "source": "Portraits/Loki.png",
+      "sha256": "8d85422e1fe89ca120fa78962d49c933d0b7133c6a74a532ba8bfe9a9317da32"
+    },
+    {
+      "id": "KURO",
+      "index": 5,
+      "source": "Portraits/Kuro.png",
+      "sha256": "e719bcb83e26c50d0e84fcffd98d67326a24a810cfe4ebe8d27709574bc7ea44"
+    },
+    {
+      "id": "OSCAR",
+      "index": 6,
+      "source": "Portraits/Oscar.png",
+      "sha256": "66a5b98587469bc7e9fd02a47e5677fc2ef87ee939b0800ccecbde34c7049d75"
+    },
+    {
+      "id": "BOOMIE",
+      "index": 7,
+      "source": "Portraits/Boomie.png",
+      "sha256": "e46a306ac3f2b4f1abb32213621ff034ff60886a1586aba28080ea8092e3f09a"
+    },
+    {
+      "id": "CHARLOTTE",
+      "index": 8,
+      "source": "Portraits/Charlotte.png",
+      "sha256": "066a991f5b913280a0b7c5a8aaf98ca8767333fc46c6f9f7f2c5338c0fc5c082"
+    },
+    {
+      "id": "SISI",
+      "index": 9,
+      "source": "Portraits/Sisi.png",
+      "sha256": "475e54273f84cbc4b3b615bfb42c80e342a46754002615555371ade1ed001727"
+    },
+    {
+      "id": "MAX",
+      "index": 10,
+      "source": "Portraits/Max.png",
+      "sha256": "101693c168a0c474d0e614276d7f471e1d10e8357331938a6a9205e11f2e53ee"
+    }
+  ],
+  "emblem": [
+    {
+      "id": "AUSTIN",
+      "center": [
+        1024,
+        1024
+      ],
+      "diameter": 819
+    },
+    {
+      "id": "LUNA",
+      "center": [
+        1024,
+        399
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "BONNIE",
+      "center": [
+        1391,
+        519
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "APPA",
+      "center": [
+        1618,
+        831
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "LOKI",
+      "center": [
+        1618,
+        1217
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "KURO",
+      "center": [
+        1391,
+        1529
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "OSCAR",
+      "center": [
+        1024,
+        1649
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "BOOMIE",
+      "center": [
+        657,
+        1529
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "CHARLOTTE",
+      "center": [
+        430,
+        1217
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "SISI",
+      "center": [
+        430,
+        831
+      ],
+      "diameter": 369
+    },
+    {
+      "id": "MAX",
+      "center": [
+        657,
+        519
+      ],
+      "diameter": 369
+    }
+  ],
+  "scene_cats": {
+    "Leader": [
+      "AUSTIN"
+    ],
+    "Dawn": [
+      "AUSTIN",
+      "LUNA"
+    ]
+  }
+}

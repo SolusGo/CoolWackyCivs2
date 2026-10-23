@@ -1,7 +1,7 @@
 """Actual database, native CP source contracts, Lua 5.1 simulations and art checks."""
 from pathlib import Path
 from collections import Counter
-import re, struct
+import re, struct, json, math
 import hashlib
 from xml.etree import ElementTree as ET
 from PIL import Image
@@ -152,7 +152,7 @@ def preserved():
  print('PASS shipped gameplay/identity/inheritance/atlas SQL fingerprints; no numeric changes or new gameplay IDs')
 
 def runtime():
- for test in ['cats_starts.lua','cats_lifecycle.lua','cats_bonds.lua','cats_edges.lua','cats_ui.lua','cats_resilience.lua','cats_faults.lua','cats_notices.lua','cats_wltkd.lua','cats_performance.lua','cats_metadata.lua']:
+ for test in ['cats_starts.lua','cats_lifecycle.lua','cats_bonds.lua','cats_edges.lua','cats_ui.lua','cats_resilience.lua','cats_faults.lua','cats_notices.lua','cats_wltkd.lua','cats_performance.lua','cats_metadata.lua','cats_transactions.lua','cats_growth_faults.lua']:
   lua=LuaRuntime();g=lua.globals()
   def include(name):
    if name not in ['IconSupport','InstanceManager']:lua.execute((V/'Lua'/f'{name}.lua').read_text(encoding='utf-8'))
@@ -167,13 +167,34 @@ def assets():
  check=LuaRuntime().eval('function(s,n) local f,e=loadstring(s,n);assert(f,e) end')
  for p in V.rglob('*.lua'):check(p.read_text(encoding='utf-8'),str(p))
  for p in (V/'Art').glob('*.dds'):
-  data=p.read_bytes();assert data[:4]==b'DDS ' and struct.unpack_from('<I',data,28)[0]>1
-  with Image.open(p) as im:im.load()
+  data=p.read_bytes();assert data[:4]==b'DDS ' and data[84:88]!=b'DX10'
+  with Image.open(p) as im:
+   im.load();assert struct.unpack_from('<I',data,28)[0]==int(math.log2(max(im.size)))+1,('incomplete mip chain',p)
+   if p.stem in ['THE11CATS_Leader','THE11CATS_Dawn','THE11CATS_Household','THE11CATS_Map']:assert data[84:88]==b'DXT5'
  ui=(V/'UI/THE11CATS_Household.lua').read_text(encoding='utf-8');xml=ET.parse(V/'UI/THE11CATS_Household.xml')
  ids={e.get('ID') for e in xml.iter() if e.get('ID')}
  assert set(re.findall(r'Controls\.([A-Za-z_]+)',ui))<=ids
  assert 'ResetInstances' not in ui and 'SetUpdate' not in ui
  with Image.open(R/'art-source/The11Cats/Emblem.png') as im:assert im.width==im.height and im.width>=1024
+ source=R/'art-source/The11Cats';identity=json.loads((source/'Identity.json').read_text(encoding='utf-8'))
+ from cats_data import CATS
+ names=[row[0] for row in CATS];assert [p['id'] for p in identity['portraits']]==names
+ assert len({p['sha256'] for p in identity['portraits']})==11
+ with Image.open(source/'Cats.png') as atlas:
+  cells=[]
+  for i,p in enumerate(identity['portraits']):
+   assert p['index']==i and p['sha256']==hashlib.sha256((source/p['source']).read_bytes()).hexdigest()
+   with Image.open(source/p['source']) as im:assert im.width==im.height and im.width>=1024
+   cell=atlas.crop(((i%4)*256,(i//4)*256,(i%4+1)*256,(i//4+1)*256))
+   cells.append(hashlib.sha256(cell.tobytes()).hexdigest())
+  assert len(set(cells))==11 and atlas.crop((768,512,1024,768)).getbbox() is None
+ assert [p['id'] for p in identity['emblem']]==names and len(identity['emblem'])==11
+ for i,a in enumerate(identity['emblem']):
+  for b in identity['emblem'][i+1:]:assert math.dist(a['center'],b['center'])>(a['diameter']+b['diameter'])/2,'overlapping cat medallions'
+ assert identity['emblem'][0]['diameter']>max(p['diameter'] for p in identity['emblem'][1:])
+ assert identity['scene_cats']=={'Leader':['AUSTIN'],'Dawn':['AUSTIN','LUNA']}
+ assert len(list((V/'Art').glob('*.dds')))==50
+ print('PASS 11 unique source portraits/atlas cells, canonical indices, nonoverlapping 11-cat emblem, legacy full mip chains and BC3 scenes')
  print('PASS XML, Lua 5.1, UI controls, reusable instance architecture and decoded mipmapped DDS assets')
 
 def validate():preserved();sql();source();bonuses();runtime();assets()

@@ -29,6 +29,9 @@ def main():
                 'The11Cats/Lua/THE11CATS_Presentation.lua',
                 'The11Cats/UI/THE11CATS_Household.xml',
                 'The11Cats/SQL/THE11CATS_02_Effects.sql',
+                'The11Cats/Art/THE11CATS_Cats256.dds',
+                'The11Cats/Art/THE11CATS_Leader.dds',
+                'The11Cats/Art/THE11CATS_Dawn.dds',
                 'The11Cats/Art/THE11CATS_Flag32.dds']
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)
         for name in sample: assert (target/name).read_bytes()==(R/name).read_bytes(),('7z stale bytes',name)

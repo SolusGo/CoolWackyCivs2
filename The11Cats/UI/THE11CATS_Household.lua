@@ -51,6 +51,8 @@ function H.Status(s,id)
   if location then text=H.Text('LOCATION',location:GetName())
   elseif plot then text=H.Text('LOCATION_COORDS',plot:GetX(),plot:GetY()) end
  end
+ local color=({[0]='COLOR_GREY',[1]='COLOR_CYAN',[2]='COLOR_POSITIVE_TEXT',[3]='COLOR_WARNING_TEXT'})[c.status]
+ text='['..color..']'..text..'[ENDCOLOR]'
  if c.status==3 then text=text..'[NEWLINE]'..H.Text('RETURN',math.max(0,c.recovery-H.Turn())) end
  if c.cooldown>H.Turn() then text=text..'[NEWLINE]'..H.Text('COOLDOWN',c.cooldown-H.Turn()) end
  return text
@@ -104,14 +106,19 @@ local function render()
  local count=1;for _,c in pairs(s.cats) do if c.status>0 then count=count+1 end end
  Controls.Title:SetText(count==11 and H.Text('COMPLETE') or H.Text('COUNT',count))
  Controls.RosterScroll:SetHide(view~='CATS');Controls.HomesScroll:SetHide(view~='HOMES');Controls.BondsScroll:SetHide(view~='BONDS')
- for _,id in ipairs(H.Order) do rows[id].State:SetText(H.Status(s,id)) end
+ for _,id in ipairs(H.Order) do
+  local row=rows[id];row.State:SetText(H.Status(s,id))
+  local stateY=row.Name:GetSizeY()+16;row.State:SetOffsetY(stateY)
+  row.Button:SetSizeY(math.max(80,stateY+row.State:GetSizeY()+12))
+ end
  if view=='HOMES' then renderHomes(s) end
  if view=='BONDS' then
   for _,bond in ipairs(H.BondOrder) do local report=H.BondReport(s,bond);local card=bondCards[bond]
    card.BondName:SetText(report.name);card.Requirements:SetText(report.requirements)
    card.Bonus:SetText(report.effect);card.BondStatus:SetText(report.status)
    card.Target:SetText(H.Text('CURRENT_HOME',report.target and report.target:GetName() or H.Text('WAIT_HOME')))
-   local bonusY=card.Requirements:GetSizeY()+54;card.Bonus:SetOffsetY(bonusY)
+   local requirementsY=card.BondName:GetSizeY()+24;card.Requirements:SetOffsetY(requirementsY)
+   local bonusY=requirementsY+card.Requirements:GetSizeY()+14;card.Bonus:SetOffsetY(bonusY)
    local statusY=bonusY+card.Bonus:GetSizeY()+12;card.BondStatus:SetOffsetY(statusY)
    local targetY=statusY+card.BondStatus:GetSizeY()+12;card.Target:SetOffsetY(targetY)
    card.Bond:SetSizeY(targetY+card.Target:GetSizeY()+14)
@@ -143,6 +150,14 @@ local function render()
  Controls.Messages:SetDisabled(not notices.valid)
  Controls.Messages:SetText(H.Text(notices.valid and notices.enabled and 'MESSAGES_ON' or 'MESSAGES_OFF'))
  Controls.Messages:SetToolTipString(H.Text('MESSAGES_HELP'))
+ -- Read native screen size only during event-driven rendering; reserve room
+ -- for footer feedback/actions in short windowed views.
+ local height=650
+ if UIManager and UIManager.GetScreenSizeVal then local _,screenY=UIManager:GetScreenSizeVal();height=math.min(650,math.max(430,screenY-36)) end
+ local footer=math.max(70,Controls.Feedback:GetSizeY()+42)
+ Controls.Panel:SetSizeY(height);Controls.Background:SetSizeY(height-16)
+ for _,scroll in ipairs({Controls.RosterScroll,Controls.HomesScroll,Controls.BondsScroll}) do scroll:SetSizeY(math.max(100,height-100-footer)) end
+ Controls.DetailsScroll:SetSizeY(math.max(70,height-240-footer-16))
  Controls.Roster:CalculateSize();Controls.Roster:ReprocessAnchoring();Controls.RosterScroll:CalculateInternalSize()
  Controls.DetailsStack:CalculateSize();Controls.DetailsStack:ReprocessAnchoring();Controls.DetailsScroll:CalculateInternalSize()
 end
@@ -182,7 +197,7 @@ end)
 Controls.StoryClose:RegisterCallback(Mouse.eLClick,function() narrative=false;H.Render() end)
 local function close() opened=false;narrative=false;H.Render() end
 local function closeTransition()
- opened=false;narrative=false;H.interface.transition=true;H.Render();H.Schedule()
+ opened=false;narrative=false;H.interface.transition=true;H.Render();H.Refresh()
 end
 -- Coalesce only transitions; gameplay dispatcher owns the sole one-shot update.
 H.Hook(LuaEvents,'THE11CATS_Changed',function(pid) if pid==Game.GetActivePlayer() then H.Render() end end)

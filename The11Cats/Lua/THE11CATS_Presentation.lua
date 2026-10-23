@@ -31,11 +31,13 @@ function H.SaveNotices(s)
  local block=(n.enabled and '1' or '0')..';'..table.concat(entries,';')
  local ok,err=pcall(function()
   local p=Players[s.pid];local raw=p:GetScriptData() or ''
-  if raw:match(noticePattern)~=block then p:SetScriptData(raw:gsub(noticePattern,'')..'|THE11CATS_N1:'..block..'|') end
+  if raw:match(noticePattern)==block then return true end
+  p:SetScriptData(raw:gsub(noticePattern,'')..'|THE11CATS_N1:'..block..'|')
+  return (p:GetScriptData() or ''):match(noticePattern)==block
  end)
- if not ok then
+ if not ok or not err then
   local verified,value=pcall(function() return (Players[s.pid]:GetScriptData() or ''):match(noticePattern)==block end)
-  if verified and value then ok=true end
+  ok=verified and value
  end
  n.dirty=not ok
  if not ok then H.Log('Narrative state save deferred: '..tostring(err),true);H.Request(s.pid,false) end

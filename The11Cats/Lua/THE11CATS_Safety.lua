@@ -24,6 +24,9 @@ end
 local reconcile=H.Reconcile
 function H.Reconcile(pid,unlock)
  if H.busy or H.syncing then H.Request(pid,unlock);return false end
+ -- A synchronous lifecycle pass supersedes already queued work for this player.
+ -- Merge era intent before consuming it; events raised during the pass requeue.
+ unlock=(pending[pid] or unlock) and true or false;pending[pid]=nil
  if not dispatching then attempts=0 end
  H.syncing=true
  local ok,err=pcall(reconcile,pid,unlock)
