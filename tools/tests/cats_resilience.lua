@@ -28,6 +28,11 @@ local replacement=City(0,8,50,50);H.Reconcile(0,false);assert(s.cats.LUNA.status
 local orphan=Players[2]:InitUnit(H.UNIT,80,80,-1);assert(orphan and not orphan:IsDead());Flush();assert(UnitCount(2)==0)
 assert(not GameEvents.CityCanConstruct(2,1,H.TREE))
 local good=Players[0].script
+for _,suffix in ipairs({'|THE11CATS2:future|',good:match('(|THE11CATS1:[^|]*|)')}) do
+ Players[0].script=good..suffix;local invalid=Players[0].script
+ Reload();H=MapModData.THE11CATS
+ assert(H.failed[0] and Players[0].script==invalid,'mixed or duplicate core versions fail closed')
+end
 Players[0].script='foreign:kept|THE11CATS2:future|';Reload();H=MapModData.THE11CATS
 assert(H.failed[0] and Players[0].script=='foreign:kept|THE11CATS2:future|')
 for city in Players[0]:Cities() do for _,building in pairs(H.buildings) do assert(city:GetNumRealBuilding(building)==0) end end

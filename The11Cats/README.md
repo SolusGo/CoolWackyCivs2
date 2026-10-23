@@ -6,7 +6,9 @@
 
 Install the collection's version 10 ZIP or `.civ5mod` through the instructions in the [root README](../README.md). Enable BNW, Community Patch v151 and this collection, then start a **new modded single-player game** and choose Austin / The 11 Cats. No additional gameplay dependencies are required. Multiplayer, hotseat, Mac and autonomous AI play are unsupported.
 
-Open **The Household** at the right of the normal world view. Select a travelling cat, use **Locate Cat** to select its unit, move it into an owned city, then click **Settle In** in its details. The home must have fewer than three residents. The Cats view lists all eleven identities with gender, trait, status, personal effects, biography and relationships. Homes lists owned cities, residents and active bonds. Read Latest Chapter opens an optional story panel; joining is also announced by a normal notification. The launcher closes during city view, diplomacy and native modal screens.
+Open **The Household** at the right of the normal world view. Select a travelling cat, use **Locate Cat** to select its unit, move it into an owned city, then click **Settle In** in its details. The home must have fewer than three residents. The Cats view lists all eleven identities, with structured details for personality, current home, exact resident effects, family, biography and active bonds. Travellers show their current city or coordinates. Disabled actions explain missing units, recovery, capacity, cooldown or unsafe arrival.
+
+**Homes** shows reusable city cards with capacity, resident portraits and effects, active bonds and Cat Tree Food status. **Bonds** shows all four requirements, active hosts and which cats are missing from a suggested home. **Messages: On/Off** controls optional settling and first-time bond notices; chapter and recovery notices remain available. Each bond is announced at most once per city identity, including after reload. Read Latest Chapter opens an optional story panel; the final title remains **11 / 11 — Everyone Is Home**. The launcher closes during city view, diplomacy and native modal screens.
 
 The panel count includes Austin and all companions who have joined, including travelling and recovering cats. Austin is the leader and never spawns as a civilian. Unplaced companions wait safely if no capital or legal arrival plot exists.
 
@@ -74,13 +76,13 @@ City loss, razing, destroyed/missing units and capture displace cats into **Reco
 
 Four to six peaceful cities, Culture and Diplomacy are the intended plan; Science is secondary. Slow chapter progression, city capacity, local combinations and relocation delays constrain the benefits. No direct Science or offensive combat bonus was added. Charlotte and Sisi celebrate security and affection; their suffering is never rewarded.
 
-`AIPlayable=0` follows the collection convention. Forced AI/scenario selection receives no household progression, WLTKD extension or resident effects; orphan cat units are removed and Cat Tree construction is vetoed. Other civilization selection flags and gameplay remain unchanged. The normal interface is extended through one private InGameUIAddin; no global interface replacement is installed. New game required for this civilization; continuation of older collection saves remains unverified.
+`AIPlayable=0` follows the collection convention. Forced AI/scenario selection receives no household progression, WLTKD extension or resident effects; orphan cat units are removed and Cat Tree construction is vetoed. Other civilization selection flags and gameplay remain unchanged. The normal interface is extended through one private InGameUIAddin; no global interface replacement is installed. Existing saves from this civilization's version 10 implementation retain the same gameplay record, UUID, database IDs, assignments, cooldowns and chapters in simulations. Native continuation still needs acceptance testing. Older collection saves without this civilization remain unverified; start a new game to select it.
 
 The supplied emblem is retained in [art-source](../art-source/The11Cats/README.md). No individual reference photographs were available; portraits are source-image crops chosen by the stated appearances, not claims of exact photographic matches. Sisi uses the dark tortoiseshell face at the lower left; the decorative tail is excluded from the eleven portraits.
 
 ## Validation and development
 
-See [implementation and native API notes](docs/Implementation.md), [balance](docs/Balance.md) and [test matrix/results](docs/Testing.md). In-game acceptance remains pending; automated passing checks do not prove native gameplay or rendering.
+See the [ranked fixes and polish report](docs/PolishReport.md), [implementation and native API notes](docs/Implementation.md), [balance](docs/Balance.md) and [test matrix/results](docs/Testing.md). In-game acceptance remains pending; automated passing checks do not prove native gameplay or rendering.
 
 ```powershell
 python tools/generate_cats.py

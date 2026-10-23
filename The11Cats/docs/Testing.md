@@ -4,7 +4,7 @@
 
 ## Available checks performed
 
-- `python tools/validate_cats.py`: passes actual BNW/installed CP-schema SQL activation, all prior collection-table row preservation, exact bonuses, full Garden replacement inheritance, native API/source contracts, Lua 5.1 syntax, six behavioral simulation suites, XML/control/localization/atlas references and all 50 decoded mipmapped DDS files.
+- `python tools/validate_cats.py`: passes actual BNW/installed CP-schema SQL activation, all prior collection-table row preservation, exact bonuses, full Garden replacement inheritance, native API/source contracts, Lua 5.1 syntax, eleven behavioral simulation suites, XML/control/localization/atlas references and all 50 decoded mipmapped DDS files. Core/inheritance/effects/art SQL fingerprints match the shipped implementation.
 - `python tools/validate_mod.py`: full collection regression suite passes, including existing civilizations' SQL, gameplay/UI simulations, pinned CP contracts, distinct VFS namespaces and original-collection coexistence checks.
 - `python tools/build_mod.py --manifest-only`: produces matching version 10 manifest and ModBuddy project, ordered SQL and eight InGameUIAddin entry points. The collection icon validator verifies 313 atlas-size records and eight leader atlases.
 - `python tools/build_mod.py` and `python tools/verify_release.py`: build and check the installable ZIP and genuine 7z/LZMA `.civ5mod`, exact packaged bytes/inventory/CRC. Build outputs are ignored by Git.
@@ -56,15 +56,27 @@ The native-contract audit reads CP v151 source already pinned by this repository
 | Cat Tree no Fresh Water | Actual inherited SQL row FreshWater=0 | Pending build selection |
 | Cat Tree +1 Food with 1–3 residents | Single independent dummy; zero without residents | Pending native yield |
 | Civ/leader selectable; icons/diplomacy | Actual registration/atlas/scenes; installed Firaxis setup reads explicit unit overrides | Pending rendered setup/diplomacy |
-| Household launcher / details / Homes | Callback model, selected Cat, status/cooldown/bonds | Pending rendering/legibility |
+| Household launcher / details / Homes / Bonds | Callback model, structured details, city cards/portraits/tree, required/missing bond members, host city and disabled-action explanations | Pending rendering/legibility |
 | City/diplomacy/popups | Transition closure and shared mutation gates | Pending native early/late modal timing |
-| No high-frequency polling | No UI SetUpdate, fixed eleven rows; shared one-shot dispatcher clears itself | Pending FPS observation |
+| No high-frequency polling | No UI SetUpdate, fixed eleven rows/four bond cards; pooled home cards; one-shot dispatcher clears itself | Pending FPS observation |
 | AI-forced setup | No progression/bonuses; created orphan purged; Cat Tree veto | Pending unusual scenario |
 | Corrupt/future state | Original block preserved; all effects fail closed | Pending native edited save |
+| Interrupted native save before/after mutation | Uncommitted settle/rehome rolls back; post-write exceptions verified by readback; no consumed/duplicated cat | Pending native fault behavior |
+| Interrupted native unit constructor | Before-birth failure leaves residence; one after-birth unit adopted; all guards clear | Pending native fault behavior |
+| Capture and era event inside effect update | Follow-up retained, new chapter processed, stale city update stops and foreign effects cleared | Pending real event ordering |
+| Persistent native setter failure | Two deferred attempts, callback detached; UI-only refresh cannot restart gameplay retries; later lifecycle retries | Pending engine error behavior |
+| Missing/conflicting promotions; reversed duplicate order | Independent metadata repairs identity, saved unit wins, duplicates removed deterministically | Pending edited native units |
+| Failed unit cleanup | No stuck removal guard or rehome duplication; later cleanup succeeds; human cleanup request does not purge valid cats | Pending native delayed removal |
+| Impossible timers; duplicate/mixed core versions | Timers repaired once; unsupported/ambiguous blocks preserved and disabled | Pending edited native saves |
+| Optional settling / first bond messages | Once per stable city across reactivation/reload, saved preference, no gameplay block changes; narrative write failure retries without unsaved bond notice | Pending native notification delivery |
+| Existing v1 save without sidecar / future sidecar | Assignments/cooldowns/chapters unchanged; silent baseline; unknown narrative data preserved | Pending actual pre-polish save |
+| Canonical identity/art metadata | Eleven exact genders, ten eras, mothers/litters and portrait slots; Austin never spawns | Pending visual likeness inspection |
 
 ## Performance model
 
-The full ten-companion/four-city fixture performs **1,000 reconciliations in approximately 0.10 seconds total** under local Lua 5.1, with **zero redundant ScriptData writes or notifications**. The UI fixture refreshes 100 times while retaining exactly eleven row instances. These are small simulation measurements, not game turn timings or FPS claims. Actual late-game/native memory and rendering tests remain pending.
+The full ten-companion/four-city fixture performs **1,000 reconciliations in under 0.3 seconds total** in the recorded local Lua 5.1 runs, with **zero redundant ScriptData writes or notifications** after stabilization. A separate six-city fixture covers **720 turn transitions, 12 rehomes and 50 context reloads**, checking stable listener counts and no idle callback. The UI fixture covers **200 opens and 1,000 dirty notifications**, retaining eleven cat rows, four bond cards and a bounded home-card pool; a renderer fault closes safely and permits reopening. These are simulation measurements, not game turn timings, native memory profiling or FPS claims. Actual late-game/native memory and rendering tests remain pending.
+
+Suite inventory: `cats_starts`, `cats_lifecycle`, `cats_bonds`, `cats_edges`, `cats_ui`, `cats_resilience`, `cats_faults`, `cats_notices`, `cats_wltkd`, `cats_performance`, `cats_metadata`. The WLTKD fixture exercises **240 genuine positive-duration events** across two cities and four speeds, with exact cumulative quarter-turn carry, independent ownership/founding keys and silent loads. Per-cat SQL arithmetic separately checks general Production, local GP rate, strength hundredths, Happiness and positive-surplus Growth (+5/+10 percentage points, no starvation substitution). These do not execute the native DLL.
 
 ## Native acceptance procedure
 
@@ -76,7 +88,9 @@ The full ten-companion/four-city fixture performs **1,000 reconciliations in app
 6. Lose or trade resident cities, raze a home, lose a travelling cat on land/embarked, delete a unit through a test script, lose multiple homes together and lose the original capital. Check the three scaled recovery turns and pending state when every safe space is blocked. Test elimination in a controlled scenario without altering a valued save.
 7. Satisfy a city's demanded luxury and record the native initial duration plus the proportional extension. Let it tick down normally. Trigger a genuine refresh, save/load mid-celebration and confirm no additional extension. Verify another civilization's counter is unchanged.
 8. Build/sell/remove Cat Trees in dry and occupied homes. Inspect 1, 2 and 3 residents, then remove the last resident. Verify the conditional Food remains exactly one or zero.
-9. Open Cats, Homes, each biography and the optional chapter panel at several resolutions. Test city view, diplomacy, research/policy/religion screens, native popup opening/closing, turn end and reload. Confirm no texture placeholders, overlapping panels or stranded launcher state.
+9. Open Cats, Homes, Bonds, each biography and the optional chapter panel at several resolutions. Check wrapped city names and effect text, portraits, missing-member diagnostics, disabled-action reasons and Cat Tree status. Toggle Messages; activate a bond, rehome/reunite it and save/load to verify only the first per-city notice. Confirm the final 11/11 story has no rewards or replay. Test city view, diplomacy, Culture, Technology, Social Policies, Religion, Espionage, World Congress, native popup opening/closing, turn end and reload. Confirm no texture placeholders, overlapping panels or stranded launcher state.
 10. In a late-game save with all companions and several bonds, watch FPS/turn time and Lua.log while opening/closing the panel and saving/loading repeatedly. Confirm no persistent update callback, extra UI rows/listeners or growing save block. Play a different collection civilization and confirm its ordinary mechanics and interface.
 
 Record actual save names, game speeds, CP/DLL version, observed yields, screenshots and log findings here before changing any native item to Passed. Current blocking verification gap: this task did not drive a native Civ V session; automated checks are the available evidence.
+
+For save acceptance, keep a copy of an actual save created with commit `a1d2fb3` and compare each identity's residence, rehoming/recovery boundary and chapter count after loading this polish. The collection UUID/version 10, gameplay IDs and 82-number v1 record are unchanged. Matching simulated ScriptData is evidence of format compatibility; it cannot replace a native save/autosave continuation test.

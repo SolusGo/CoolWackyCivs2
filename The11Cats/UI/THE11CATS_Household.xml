@@ -7,6 +7,38 @@
    <Label ID="State" Anchor="L,T" Offset="78,35" WrapWidth="304" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
   </GridButton>
  </Instance>
+ <Instance Name="HomeCard">
+  <Grid ID="Home" Size="394,376" Style="GridBlackIndent8">
+   <Label ID="HomeName" Anchor="L,T" Offset="12,10" WrapWidth="370" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Capacity" Anchor="L,T" Offset="12,36" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <GridButton ID="Cat1" Anchor="L,T" Offset="6,62" Size="380,76" Style="BaseButton">
+    <Image ID="Portrait1" Anchor="L,C" Offset="4,0" Size="48,48" />
+    <Label ID="Name1" Anchor="L,T" Offset="60,4" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    <Label ID="Effect1" Anchor="L,T" Offset="60,27" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   </GridButton>
+   <GridButton ID="Cat2" Anchor="L,T" Offset="6,140" Size="380,76" Style="BaseButton">
+    <Image ID="Portrait2" Anchor="L,C" Offset="4,0" Size="48,48" />
+    <Label ID="Name2" Anchor="L,T" Offset="60,4" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    <Label ID="Effect2" Anchor="L,T" Offset="60,27" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   </GridButton>
+   <GridButton ID="Cat3" Anchor="L,T" Offset="6,218" Size="380,76" Style="BaseButton">
+    <Image ID="Portrait3" Anchor="L,C" Offset="4,0" Size="48,48" />
+    <Label ID="Name3" Anchor="L,T" Offset="60,4" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    <Label ID="Effect3" Anchor="L,T" Offset="60,27" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   </GridButton>
+   <Label ID="HomeBonds" Anchor="L,T" Offset="12,300" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Tree" Anchor="L,T" Offset="12,348" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  </Grid>
+ </Instance>
+ <Instance Name="BondCard">
+  <Grid ID="Bond" Size="394,306" Style="GridBlackIndent8">
+   <Label ID="BondName" Anchor="L,T" Offset="12,10" WrapWidth="370" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Requirements" Anchor="L,T" Offset="12,40" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Bonus" Anchor="L,T" Offset="12,168" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <Label ID="BondStatus" Anchor="L,T" Offset="12,218" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <Label ID="Target" Anchor="L,T" Offset="12,272" WrapWidth="370" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" />
+  </Grid>
+ </Instance>
  <Grid ID="Launcher" Anchor="R,T" Offset="14,356" Size="245,36" Style="GridBlackIndent8" Hidden="1">
   <GridButton ID="Open" Anchor="C,C" Size="235,30" Style="BaseButton" String="TXT_KEY_THE11CATS_OPEN" />
  </Grid>
@@ -14,16 +46,19 @@
   <Image Anchor="C,C" Size="904,634" Texture="THE11CATS_Household.dds" Color="255,255,255,30" />
   <Label ID="Title" Anchor="L,T" Offset="26,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
   <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="70,30" Style="BaseButton" String="TXT_KEY_THE11CATS_CLOSE" />
-  <GridButton ID="Cats" Anchor="L,T" Offset="28,58" Size="116,30" Style="BaseButton" String="TXT_KEY_THE11CATS_CATS" />
-  <GridButton ID="Homes" Anchor="L,T" Offset="150,58" Size="116,30" Style="BaseButton" String="TXT_KEY_THE11CATS_HOMES" />
-  <GridButton ID="Story" Anchor="L,T" Offset="274,58" Size="190,30" Style="BaseButton" String="TXT_KEY_THE11CATS_STORY" />
+  <GridButton ID="Cats" Anchor="L,T" Offset="28,58" Size="88,30" Style="BaseButton" String="TXT_KEY_THE11CATS_CATS" />
+  <GridButton ID="Homes" Anchor="L,T" Offset="122,58" Size="88,30" Style="BaseButton" String="TXT_KEY_THE11CATS_HOMES" />
+  <GridButton ID="Bonds" Anchor="L,T" Offset="216,58" Size="128,30" Style="BaseButton" String="TXT_KEY_THE11CATS_BONDS" />
+  <GridButton ID="Story" Anchor="L,T" Offset="352,58" Size="196,30" Style="BaseButton" String="TXT_KEY_THE11CATS_STORY" />
+  <GridButton ID="Messages" Anchor="L,T" Offset="558,58" Size="160,30" Style="BaseButton" />
   <ScrollPanel ID="RosterScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1">
    <Stack ID="Roster" Anchor="L,T" StackGrowth="Bottom" Padding="4" />
   </ScrollPanel>
   <ScrollPanel ID="HomesScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1" Hidden="1">
-   <Stack ID="HomesStack" Anchor="L,T" StackGrowth="Bottom" Padding="12">
-    <Label ID="HomesText" WrapWidth="385" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-   </Stack>
+   <Stack ID="HomesStack" Anchor="L,T" StackGrowth="Bottom" Padding="12" />
+  </ScrollPanel>
+  <ScrollPanel ID="BondsScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1" Hidden="1">
+   <Stack ID="BondsStack" Anchor="L,T" StackGrowth="Bottom" Padding="12" />
   </ScrollPanel>
   <Image ID="DetailPortrait" Anchor="L,T" Offset="460,102" Size="128,128" />
   <Label ID="DetailName" Anchor="L,T" Offset="602,108" WrapWidth="280" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />

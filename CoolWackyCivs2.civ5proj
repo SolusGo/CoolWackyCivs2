@@ -1600,6 +1600,12 @@
     <Content Include="The11Cats/Lua/THE11CATS_Manager.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="The11Cats/Lua/THE11CATS_Presentation.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Lua/THE11CATS_Safety.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="The11Cats/SQL/THE11CATS_00_Core.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>

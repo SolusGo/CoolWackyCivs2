@@ -2,11 +2,14 @@
 GameInfoTypes=setmetatable({}, {__index=function(t,k) local n=0;for _ in pairs(t) do n=n+1 end;rawset(t,k,n+100);return n+100 end})
 local function event()
  local handlers={}
- return setmetatable({Add=function(fn) handlers[#handlers+1]=fn end,Fire=function(...) local value=true;for _,fn in ipairs(handlers) do if fn(...)==false then value=false end end;return value end}, {__call=function(t,...) return t.Fire(...) end})
+ return setmetatable({Add=function(fn) handlers[#handlers+1]=fn end,Count=function() return #handlers end,Fire=function(...) local value=true;for _,fn in ipairs(handlers) do if fn(...)==false then value=false end end;return value end}, {__call=function(t,...) return t.Fire(...) end})
 end
 local function events() return setmetatable({}, {__index=function(t,k) local v=event();rawset(t,k,v);return v end}) end
 GameEvents=events();Events=events();LuaEvents=events();MapModData={}
-function ResetContextEvents() GameEvents=events();Events=events();LuaEvents=events();ContextPtr:ClearUpdate() end
+function ResetContextEvents()
+ GameEvents=events();Events=events();LuaEvents=events();ContextPtr:ClearUpdate()
+ local old=ContextPtr;ContextPtr={};for key,value in pairs(old) do if key~='callback' then ContextPtr[key]=value end end
+end
 GameDefines={MAX_MAJOR_CIVS=3,MAX_CIV_PLAYERS=4}
 local turn=0
 Game={GetGameTurn=function() return turn end,GetGameSpeedType=function() return 0 end,GetActivePlayer=function() return 0 end,IsNetworkMultiPlayer=function() return false end,IsHotSeat=function() return false end}

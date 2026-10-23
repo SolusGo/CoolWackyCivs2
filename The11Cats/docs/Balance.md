@@ -2,6 +2,8 @@
 
 All requested values are preserved. No free cities, buildings, unlock yields, recovery rewards, offensive bonuses or additional 11/11 rewards are granted. Austin counts once and supplies no resident unit/yields. Each of ten companions can contribute in one city at a time, with at most three companions per city.
 
+The reliability/polish pass preserves the shipped core, inheritance, effects and atlas SQL byte-for-byte after newline normalization. The validator pins their SHA-256 fingerprints and independently checks every cat's SQL-backed arithmetic. New settling/bond messages and UI views award nothing. Cooldowns, recovery durations, chapter eras, three resident slots and +25% WLTKD are unchanged.
+
 At full settlement, individual cats provide a combined **11 Culture, 5 Food, 2 Production, 3 Gold and 4 Happiness** before modifiers. Luna supplies +10% local GP generation, Bonnie +5% local Production, Charlotte +5 City Strength and Sisi +5% local Growth. These arrive gradually; most are absent in early eras. Check this arithmetic with the SQL-backed validator rather than treating the total as an additional empire-wide effect.
 
 Three resident slots make compositions meaningful. Sister's Bed uses a whole home and prevents those same kittens from living with Bonnie. All four bonds can coexist across four cities, with Max taking a remaining slot: capital Luna; Bonnie/Kuro/Boomie; Appa/Loki/Oscar; Charlotte/Sisi/Max. Their combined additional yields are +1 Culture, +1 Food, +1 Gold and +2 Happiness, plus the two specified local percentage bonuses.

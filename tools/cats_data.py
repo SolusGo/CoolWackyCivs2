@@ -34,6 +34,10 @@ CATS = [
   'Max is a male black-and-white cat with pronounced white paws. Originally a stray, he was taken in by someone hoping to find him a loving home. When that person\'s circumstances changed because of a move to Indonesia, the family adopted him. Temporarily lost in the process, Max was safely found again. Extremely friendly, he actively asks for pats when a hand comes near his head.',
   'The final companion. Luna tolerates Max. His arrival completes the household: 11 / 11 — Everyone Is Home.'),
 ]
+FAMILY = {
+ 'APPA':('BONNIE',1),'LOKI':('BONNIE',1),'KURO':('BONNIE',1),
+ 'OSCAR':('BONNIE',2),'BOOMIE':('BONNIE',2),'SISI':('CHARLOTTE',0),
+}
 CHAPTERS = [
  ('The First Companion','Austin arrived in 2013. Around 2014–2015, Luna followed: a quiet companion whose trust belongs to one special person. There is room beside the King.'),
  ('A Lucky Stray','A family friend found Bonnie alone. The family chose to welcome her. Her friendly purr became part of the home, and her arrival was remembered alongside jobs, promotions and happier days.'),

@@ -1,5 +1,11 @@
 # Changelog
 
+## The 11 Cats reliability and Household polish — 2026-10-23
+
+- Protect lifecycle guards and native save/spawn/remove failures, retain bounded deferred capture/era work, repair identities/duplicates/timers deterministically and stop stale city-effect writes after ownership changes.
+- Add structured cat details, per-city portrait cards, four Bond diagnostics and optional saved settling/first-bond messages, using pooled controls and no polling.
+- Preserve version 10/UUID, the gameplay save format, all numeric values/SQL IDs, six chapters, artwork and unrelated civilizations. Expand to eleven Cats simulation suites, exact source/SQL checks and stress/fault coverage. Native acceptance remains pending; see [the structured polish report](The11Cats/docs/PolishReport.md).
+
 ## 1.7.0 The 11 Cats implementation preview / mod version 10 — 2026-10-23
 
 - Added human-only Austin, King of the House, and six era chapters welcoming the ten unique companions. Austin remains the leader and the first household member.

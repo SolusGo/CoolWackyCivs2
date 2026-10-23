@@ -2,7 +2,7 @@
 
 ## Integration
 
-One entry point, `UI/THE11CATS_Household.xml`, owns `THE11CATS_Household.lua`. It includes `THE11CATS_Manager.lua`, which creates the unique `MapModData.THE11CATS` manager and includes generated `THE11CATS_Config.lua`. All gameplay handlers and UI callbacks run in this same context. Lua events notify that context of changes; no assumption is made that an unrelated gameplay/UI state shares a Lua global. Mutations go through `H.Command` and revalidate player, active turn, interface, identity, ownership, capacity, cooldown and state.
+One entry point, `UI/THE11CATS_Household.xml`, owns `THE11CATS_Household.lua`. It includes `THE11CATS_Manager.lua`, which creates the unique `MapModData.THE11CATS` manager and includes generated `THE11CATS_Config.lua`, `THE11CATS_Safety.lua` and `THE11CATS_Presentation.lua`. All gameplay handlers and UI callbacks run in this same context. Lua events notify that context of changes; no assumption is made that an unrelated gameplay/UI state shares a Lua global. Mutations go through `H.Command` and revalidate player, active turn, interface, identity, ownership, capacity, cooldown and state. Same-context include guards prevent duplicate listener/instance registration; a new Lua context builds fresh handlers.
 
 SQL follows the collection's core/inheritance/effects/art/text convention. All Cats content is appended after the seven released civilizations; earlier row insertion order is preserved. Version 10 keeps the collection UUID. SQL and entry-point XML are not imported into VFS; included Lua, art and the static leader scene are. VFS basenames are globally distinct. The builder updates the ModBuddy project and manifest, DDS finishing and hashes together.
 
@@ -12,7 +12,11 @@ The player ScriptData block `|THE11CATS1:...|` contains two chapter numbers and 
 
 Austin is a config/leader identity only. Each companion has a canonical ID, numeric state (0 locked, 1 travelling, 2 resident, 3 recovering), city coordinates/founding turn/original owner, unit ID, cooldown end turn and recovery end turn. Private identity promotions independently identify surviving units. Unit ScriptData also records owner/identity while preserving other keys. City names and transient Lua pointers are never saved.
 
-Reconciliation adopts one eligible surviving identified unit when recovering an absent registry, removes duplicates/orphans, detects missing units, verifies residence and capacity, processes chapters, attempts due returns, reconstructs all fifteen independent dummy buildings and both native growth choices, and saves changed records. A loaded or foreign dummy is never authoritative. Units/bonuses are exclusive to a single state. Locked/recovering cats cannot supply resident bonuses.
+Reconciliation adopts one eligible surviving identified unit when recovering an absent registry, removes duplicates/orphans, detects missing units, verifies residence and capacity, processes chapters, attempts due returns, reconstructs all fifteen independent dummy buildings and both native growth choices, and saves changed records. The saved travelling unit ID wins over duplicates regardless of iteration order; otherwise the lowest valid ID wins. Consistent registry/backup metadata can restore missing or conflicting identity promotions. Impossible timers are clamped once to the full normal interval without resetting legitimate cooldowns. A loaded or foreign dummy is never authoritative. Units/bonuses are exclusive to a single state. Locked/recovering cats cannot supply resident bonuses.
+
+The original 82-number gameplay record is unchanged. The optional `|THE11CATS_N1:...|` sidecar holds only the message preference and four first-bond bits per stable city identity. Existing v1 saves need no migration: active bonds are silently baselined on load. Unsupported presentation versions disable optional feedback while preserving valid gameplay. Unsupported/duplicate gameplay version blocks fail closed without overwriting them. Other mods' ScriptData remains intact.
+
+`H.SaveSafe` verifies the serialized block if a native write reports an exception after mutation. Settle commits verified residence before consuming a unit; a failed write keeps it travelling. Rehome restores the original resident record, cooldown and effects and removes the tentative unit if saving fails. Narrative writes use the same readback principle; failed bond-message writes suppress that message and retain a dirty retry. Native calls are not assumed transactionally atomic.
 
 ## Exact bonuses
 
@@ -45,11 +49,21 @@ Whole turns are applied immediately; quarter-turn remainders persist in namespac
 
 Recovery uses safe city-center/adjacent owned plots with no civilian/enemy occupant. At most seven nearby arrival spaces exist per isolated city; remaining cats stay pending. Rehoming validates the former home and creates a safe unit before committing the resident change; a failed native spawn leaves residence intact. Recovery preserves rehome cooldowns. Elimination preserves pending records without spawning into hostile ownership.
 
+Protected spawn/removal calls always clear guards. If `InitUnit` creates a unit and then throws, one new House Cat at the requested plot can be adopted; ambiguous new births are cleaned up. Failed cleanup retains pending repair and blocks another recovery birth of that identity (or all births if the orphan cannot be identified). A resident with a lingering same-identity unit cannot rehome. Effect setters verify the city's owner/founding identity after mutation, stop if it changed and clean the currently owned city. A failing city does not prevent another city's effects from being reconciled.
+
 ## Performance and visibility
 
-The UI allocates exactly eleven reusable rows once. It redraws on opening, identity/status changes, relevant selection events, visible cooldown turn changes and screen transitions. One shared **one-shot** ContextPtr callback coalesces dirty/transition storms and detaches before work. There is no timer, idle update, full-map scan, global UI replacement or repeated instance recreation. Self-generated synchronization events are guarded.
+The UI allocates exactly eleven reusable cat rows and four bond cards once. Home cards are pooled by stable city identity and released when that city leaves the player's list. Wrapped text sets card offsets/heights when rendered. It redraws on opening, identity/status changes, relevant selection events, visible cooldown turn changes and screen transitions. One shared **one-shot** ContextPtr callback coalesces dirty/transition storms and detaches before work. There is no timer, idle update, full-map scan, global UI replacement or repeated instance recreation.
+
+Safety wrappers clear `busy`/`syncing` even on failure. Events received during a command/reconciliation retain the affected player and any era-unlock request. Deferred work gets at most two gameplay attempts per external event wave; persistent errors retain pending work until a later lifecycle event, with no idle callback. UI-only refreshes cannot replenish that gameplay retry budget. Foreign cleanup never purges valid human-controlled companions. Notification/renderer faults are isolated from gameplay. A renderer fault closes the panel safely for a later explicit reopen.
 
 Native modal roots are inspected only while rendering or validating an action. City/diplomacy/popup/interface transitions close the panel and defer one refresh after the native root has changed. Command validation shares these gates, so a stale UI callback cannot bypass a cooldown or capacity limit.
+
+## Art and world-model investigation
+
+All fifty existing DDS assets, their atlas indices and the supplied-image crops are retained. Metadata tests bind each name/gender/portrait slot to the canonical roster; Austin remains the white crowned long-haired leader and Sisi the dark tortoiseshell face. No reference photographs were available and none are claimed.
+
+The installed game's exposed `.gr2`/`.fxsxml` file paths were searched for cat, kitten, lion, tiger, panther and leopard; none provided a verified suitable rig. Blender, AssetEditor and NexusBuddy were not available on PATH. This is not an assertion about every packed game archive. A safe cat-shaped model would require a verified mesh, rig, animations and exporter with native testing. Inventing paths or substituting an untested rig would add rendering risk, so the stable Worker world model remains; custom cat portraits/flag are unchanged.
 
 ## Source provenance and limits
 

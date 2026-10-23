@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-23 — reliability and Household polish
+
+- Clear busy, synchronization, spawning and removal guards after interrupted calls; retain reentrant capture/era work and bound deferred retries without idle polling.
+- Prefer saved travelling unit IDs when repairing duplicates; restore identity promotions from independent metadata; repair impossible timers and prevent rehoming while cleanup remains pending.
+- Verify native ScriptData writes, roll back unsaved settle/rehome actions and adopt a single interrupted native unit birth. Stop effect updates if a city changes identity/owner mid-mutation.
+- Add structured personal details, per-city portrait cards, four Bond diagnostics and explanatory disabled actions. Reuse UI instances and prevent duplicate registration within a context.
+- Add optional settling and once-per-city bond feedback with a separate saved presentation record. Existing gameplay format, IDs, all numeric bonuses, six stories, milestone and artwork remain unchanged.
+- Expand from six to eleven Lua 5.1 suites, covering faults, metadata, optional notices, 240 WLTKD events, 720 turn transitions, 12 rehomes, 50 reloads and UI event storms. Static/source/simulation checks pass; native acceptance is pending. See [the report](docs/PolishReport.md).
+
 ## 2026-10-23 — implementation preview
 
 - Registered human-only The 11 Cats and Austin, King of the House, in collection version 10.

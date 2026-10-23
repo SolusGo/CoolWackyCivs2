@@ -25,6 +25,9 @@ def main():
         sample=[NAME+'.modinfo','TheWanderingCircus/UI/WanderingCircus.lua',
                 'TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql',
                 'The11Cats/Lua/THE11CATS_Manager.lua',
+                'The11Cats/Lua/THE11CATS_Safety.lua',
+                'The11Cats/Lua/THE11CATS_Presentation.lua',
+                'The11Cats/UI/THE11CATS_Household.xml',
                 'The11Cats/SQL/THE11CATS_02_Effects.sql',
                 'The11Cats/Art/THE11CATS_Flag32.dds']
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)

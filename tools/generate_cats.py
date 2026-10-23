@@ -2,7 +2,8 @@
 from pathlib import Path
 from database import database
 from generate_database import clone as base_clone, companions as base_companions
-from cats_data import CATS, CHAPTERS
+from cats_data import CATS, CHAPTERS, FAMILY
+from cats_presentation import TEXT as PRESENTATION_TEXT
 R=Path(__file__).resolve().parents[1]; V=R/'The11Cats'; P='THE11CATS_'
 CIV='CIVILIZATION_THE11CATS'; LEADER='LEADER_THE11CATS_AUSTIN'
 UNIT='UNIT_THE11CATS_HOUSE_CAT'; TREE='BUILDING_THE11CATS_CAT_TREE'
@@ -60,6 +61,7 @@ TEXT={
 def clone(*args,**kw): return base_clone(*args,**kw).replace('BCClone','THE11CATS_Clone')
 def companions(*args,**kw): return base_companions(*args,**kw).replace('BCCompanion','THE11CATS_Companion')
 def main():
+ TEXT.update(PRESENTATION_TEXT)
  d=database(); (V/'SQL').mkdir(parents=True,exist_ok=True); (V/'Lua').mkdir(exist_ok=True)
  core="""-- Audited against CP v151. Options expose hooks; all handlers are scoped.
 UPDATE CustomModOptions SET Value=1 WHERE Name IN ('EVENTS_CITY','EVENTS_CITY_CAPITAL','EVENTS_UNIT_CREATED','EVENTS_UNIT_PREKILL','EVENTS_UNIT_CAPTURE','EVENTS_COMMAND','EVENTS_UNIT_ACTIONS','EVENTS_UNIT_UPGRADES');
@@ -109,7 +111,8 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_THE11CATS_K
  def lua(s): return '"'+s.replace('\\','\\\\').replace('"','\\"').replace('\n','\\n')+'"'
  for index,(id,name,gender,era,trait,effect,bio,family) in enumerate(CATS):
   for key,val in [('NAME',name),('GENDER',gender),('TRAIT',trait),('EFFECT',effect),('BIO',bio),('FAMILY',family)]:TEXT[id+'_'+key]=val
-  config+=['H.Order[#H.Order+1]='+lua(id),'H.Cats.'+id+'={id='+lua(id)+',era='+str(era)+',portrait='+str(index)+'}']
+  mother,litter=FAMILY.get(id,('',0))
+  config+=['H.Order[#H.Order+1]='+lua(id),'H.Cats.'+id+'={id='+lua(id)+',era='+str(era)+',portrait='+str(index)+',gender='+lua(gender)+',mother='+lua(mother)+',litter='+str(litter)+'}']
  for i,(title,story) in enumerate(CHAPTERS,1):TEXT[f'CHAPTER_{i}']=title;TEXT[f'STORY_{i}']=story
  TEXT['AUSTIN_TEXT_1']=TEXT['AUSTIN_BIO'];TEXT['CIV5_TEXT_1']=TEXT['CIV_PEDIA']
  for id in ['TRAIT','HOUSEHOLD','BONDS','REHOME','RECOVERY']+[c[0] for c in CATS]+[f'CHAPTER_{i}' for i in range(1,7)]:

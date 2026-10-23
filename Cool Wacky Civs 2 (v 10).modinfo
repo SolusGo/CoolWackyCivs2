@@ -450,15 +450,17 @@
     <File md5="7899D6EE475B2F37761C1432FFBEEF1F" import="1">The11Cats/Art/THE11CATS_Portrait48.dds</File>
     <File md5="8B20C92168A51380FC242ED5A74C0A83" import="1">The11Cats/Art/THE11CATS_Portrait64.dds</File>
     <File md5="87B5F251AC47236CF8FDDDE23D9627A9" import="1">The11Cats/Art/THE11CATS_Portrait80.dds</File>
-    <File md5="D3EEE3B658FFFC70D9A9120D74D2A24D" import="1">The11Cats/Lua/THE11CATS_Config.lua</File>
-    <File md5="2B3E9D60244FF4DD350CD079BA8241B2" import="1">The11Cats/Lua/THE11CATS_Manager.lua</File>
+    <File md5="28B27F474C14F7D2221A5BA0C3467796" import="1">The11Cats/Lua/THE11CATS_Config.lua</File>
+    <File md5="08F9D5CCF2EAD8A2EBA9904D98F1B4A0" import="1">The11Cats/Lua/THE11CATS_Manager.lua</File>
+    <File md5="590ED76AC30D03F4A5C0B2D3B5E8E714" import="1">The11Cats/Lua/THE11CATS_Presentation.lua</File>
+    <File md5="D381A27988BA2EE72FF4FD88104B9FD6" import="1">The11Cats/Lua/THE11CATS_Safety.lua</File>
     <File md5="A56BD3AB5E2CBA55130FD4DA898C768F" import="0">The11Cats/SQL/THE11CATS_00_Core.sql</File>
     <File md5="25392F087D20A9D31D24CB17847EEC5E" import="0">The11Cats/SQL/THE11CATS_01_Inheritance.sql</File>
     <File md5="4BFAFF2212CC8DCA891AF5C669722779" import="0">The11Cats/SQL/THE11CATS_02_Effects.sql</File>
     <File md5="FBCF3A8DEFE93F1E7A88297B4474DB78" import="0">The11Cats/SQL/THE11CATS_03_Art.sql</File>
-    <File md5="9C50F363F6508F28C0CED9DC4FAD69A2" import="0">The11Cats/SQL/THE11CATS_10_Text.sql</File>
-    <File md5="D5FF5B8B7EDACC22B8E61653A4A3E84B" import="1">The11Cats/UI/THE11CATS_Household.lua</File>
-    <File md5="4B54F91CD651594CE85D84C02DFCEF20" import="0">The11Cats/UI/THE11CATS_Household.xml</File>
+    <File md5="037F09C11F96EE6CE0F6344710621986" import="0">The11Cats/SQL/THE11CATS_10_Text.sql</File>
+    <File md5="0A485014112ADE097F8FC686C23042AE" import="1">The11Cats/UI/THE11CATS_Household.lua</File>
+    <File md5="6F292E85302E5B38B6013CD7387440AC" import="0">The11Cats/UI/THE11CATS_Household.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
