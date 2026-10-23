@@ -451,7 +451,7 @@
     <File md5="82E1B55BA11AC734191E888806B6FA26" import="1">The11Cats/Art/THE11CATS_Portrait64.dds</File>
     <File md5="1B642DC8439A67219A3ADDC623E292DE" import="1">The11Cats/Art/THE11CATS_Portrait80.dds</File>
     <File md5="28B27F474C14F7D2221A5BA0C3467796" import="1">The11Cats/Lua/THE11CATS_Config.lua</File>
-    <File md5="2D0DAC5EF245AAE1228055D1D5F7C383" import="1">The11Cats/Lua/THE11CATS_Manager.lua</File>
+    <File md5="CE543D69F38E6C2B6A0ADB7D53A2CC60" import="1">The11Cats/Lua/THE11CATS_Manager.lua</File>
     <File md5="398EFB5380FC87F1B701A7E3B6C64B27" import="1">The11Cats/Lua/THE11CATS_Presentation.lua</File>
     <File md5="151858C3CF020AFFB7998B4985D44F7B" import="1">The11Cats/Lua/THE11CATS_Safety.lua</File>
     <File md5="A56BD3AB5E2CBA55130FD4DA898C768F" import="0">The11Cats/SQL/THE11CATS_00_Core.sql</File>

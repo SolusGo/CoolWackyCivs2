@@ -85,6 +85,9 @@ def source():
  assert '"CityBeginsWLTKD", "iiii"' in mods and '"CityExtendsWLTKD", "iiii"' in mods
  assert 'GameEvents.UnitPrekill.Add(function(iPlayer, iUnit, iUnitType, iX, iY, bDelay, iByPlayer)' in mods
  assert '"CityCaptureComplete"' in (ref/'CvPlayer.cpp').read_text(encoding='utf-8-sig')
+ player_binding=(ref/'CvLuaPlayer.cpp').read_text(encoding='utf-8-sig')
+ init=player_binding.split('int CvLuaPlayer::lInitUnit(lua_State* L)',1)[1].split('int CvLuaPlayer::lInitUnitWithNameOffset',1)[0]
+ assert 'luaL_optint(L, 5, NO_UNITAI)' in init,'native optional Unit AI default'
  for evidence in ['changeGreatPeopleRateModifier(pBuildingInfo->GetGreatPeopleRateModifier() * iChange)',
                   'int iCityMod = getTotalGreatPeopleRateModifier() + GetSpecialistRateModifierFromBuildings(eSpecialist)',
                   'changeYieldRateModifier(eYield, (pBuildingInfo->GetYieldModifier(eYield) * iChange))',
@@ -152,7 +155,7 @@ def preserved():
  print('PASS shipped gameplay/identity/inheritance/atlas SQL fingerprints; no numeric changes or new gameplay IDs')
 
 def runtime():
- for test in ['cats_starts.lua','cats_lifecycle.lua','cats_bonds.lua','cats_edges.lua','cats_ui.lua','cats_resilience.lua','cats_faults.lua','cats_notices.lua','cats_wltkd.lua','cats_performance.lua','cats_metadata.lua','cats_transactions.lua','cats_growth_faults.lua']:
+ for test in ['cats_starts.lua','cats_lifecycle.lua','cats_bonds.lua','cats_edges.lua','cats_ui.lua','cats_resilience.lua','cats_faults.lua','cats_notices.lua','cats_wltkd.lua','cats_performance.lua','cats_metadata.lua','cats_transactions.lua','cats_growth_faults.lua','cats_native_context.lua']:
   lua=LuaRuntime();g=lua.globals()
   def include(name):
    if name not in ['IconSupport','InstanceManager']:lua.execute((V/'Lua'/f'{name}.lua').read_text(encoding='utf-8'))

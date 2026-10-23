@@ -13,7 +13,8 @@ end
 GameDefines={MAX_MAJOR_CIVS=3,MAX_CIV_PLAYERS=4}
 local turn=0
 Game={GetGameTurn=function() return turn end,GetGameSpeedType=function() return 0 end,GetActivePlayer=function() return 0 end,IsNetworkMultiPlayer=function() return false end,IsHotSeat=function() return false end}
-GameInfo={GameSpeeds={[0]={TrainPercent=100}}};UnitAITypes={NO_UNITAI=-1}
+GameInfo={GameSpeeds={[0]={TrainPercent=100}}}
+-- Native InGameUIAddin sandbox does not expose UnitAITypes. Do not invent it.
 CommandTypes={COMMAND_DELETE=1,COMMAND_GIFT=2,COMMAND_UPGRADE=3};NotificationTypes={NOTIFICATION_GENERIC=1}
 Locale={ConvertTextKey=function(key,...) local args={...};for i,v in ipairs(args) do args[i]=tostring(v) end;return key..(#args>0 and ':'..table.concat(args,',') or '') end}
 ContextPtr={callback=nil,SetUpdate=function(self,fn) self.callback=fn end,ClearUpdate=function(self) self.callback=nil end}

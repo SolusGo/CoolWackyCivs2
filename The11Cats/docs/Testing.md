@@ -1,10 +1,10 @@
 # Test matrix and results — 2026-10-23
 
-**Implementation preview. No native Civ V launch, rendered-screen inspection or native save/load test has been performed for this civilization. Every native acceptance item below remains pending.** Passing SQL, source contracts and simulated Lua behavior must not be described as full runtime compatibility.
+**Implementation preview. No agent-controlled native acceptance session has been performed.** The user's screenshot shows the Household rendering with Luna stuck at Recovering / 0 turns; their native Lua.log confirms the missing `UnitAITypes` error. The arrival hotfix passes simulation/source checks; successful native spawning and save continuation after the fix still await a reload. Broader native acceptance below remains pending. Passing SQL, source contracts and simulated Lua behavior must not be described as full runtime compatibility.
 
 ## Available checks performed
 
-- `python tools/validate_cats.py`: passes actual BNW/installed CP-schema SQL activation, all prior collection-table row preservation, exact bonuses, full Garden replacement inheritance, native API/source contracts, Lua 5.1 syntax, thirteen behavioral simulation suites, XML/control/localization/atlas references and all 50 decoded mipmapped DDS files. Core/inheritance/effects/art SQL fingerprints match the shipped implementation.
+- `python tools/validate_cats.py`: passes actual BNW/installed CP-schema SQL activation, all prior collection-table row preservation, exact bonuses, full Garden replacement inheritance, native API/source contracts, Lua 5.1 syntax, fourteen behavioral simulation suites, XML/control/localization/atlas references and all 50 decoded mipmapped DDS files. Core/inheritance/effects/art SQL fingerprints match the shipped implementation.
 - `python tools/verify_cats_art.py`: passes exact repeat-build comparison for 51 Cats art files (50 DDS plus leader XML), 12 derived masters/metadata/previews, and 295 unchanged peer-art files. Source/decoded atlas inspection confirms eleven distinct portraits, white crowned Austin, dark tortoiseshell Sisi, Appa's illustrative arrowback and correct named slots. This is offline art inspection, not native rendering.
 - `python tools/validate_mod.py`: full collection regression suite passes, including existing civilizations' SQL, gameplay/UI simulations, pinned CP contracts, distinct VFS namespaces and original-collection coexistence checks.
 - `python tools/build_mod.py --manifest-only`: produces matching version 10 manifest and ModBuddy project, ordered SQL and eight InGameUIAddin entry points. The collection icon validator verifies 313 atlas-size records and eight leader atlases.
@@ -12,6 +12,8 @@
 - `git diff --check`: passes.
 
 The native-contract audit reads CP v151 source already pinned by this repository at commit `44c1e14ff75d80c1dba5c8a71e8289439a53aafb`, and uses the installed database schema read-only. SQLite mutations occur only in memory.
+
+Arrival-hotfix collection run: earlier fixture suites passed, but Twelfth Hour's optional live-cache reactivation assertion encountered that civilization already loaded in the user's current game. A continuation ran the remaining Twelfth/Circus/Cats fixture checks while explicitly skipping duplicate activation of the already-present civilization; those checks passed. The clean backup-schema activation checks still ran, and the user's live cache was not modified. This conditional skip is not a native gameplay pass.
 
 ## Automated evidence and remaining native acceptance
 
@@ -79,12 +81,13 @@ The native-contract audit reads CP v151 source already pinned by this repository
 | Queued plus synchronous lifecycle pass | Queued era intent merged, one effects pass rather than a redundant deferred rerun | Pending native event sequencing |
 | Long names / short viewport | Wrapped row/card geometry and 1024×600/480 height model; fixed instance counts | Pending font/layout screenshots |
 | Enhanced DDS technical quality | Full mip count, legacy header/no DX10, BC3 scenes, exact atlas dimensions, eleven unique cells/indices, empty twelfth slot and nonoverlapping eleven-cat emblem | Pending native texture loading |
+| Native UI lacks UnitAITypes | Removed the fixture-only global; InitUnit optional NO_UNITAI default checked in pinned binding; stalled zero-turn Luna save returns exactly once, including rehome/recovery and guarded argument faults | Failure confirmed in user Lua.log; hotfix success pending reload |
 
 ## Performance model
 
 The full ten-companion/four-city fixture performs **1,000 reconciliations in under 0.3 seconds total** in the recorded local Lua 5.1 runs, with **zero redundant ScriptData writes or notifications** after stabilization. A separate six-city fixture covers **720 turn transitions, 12 rehomes and 50 context reloads**, checking stable listener counts and no idle callback. The UI fixture covers **200 opens and 1,000 dirty notifications**, retaining eleven cat rows, four bond cards and a bounded home-card pool; a renderer fault closes safely and permits reopening. These are simulation measurements, not game turn timings, native memory profiling or FPS claims. Actual late-game/native memory and rendering tests remain pending.
 
-Suite inventory: `cats_starts`, `cats_lifecycle`, `cats_bonds`, `cats_edges`, `cats_ui`, `cats_resilience`, `cats_faults`, `cats_notices`, `cats_wltkd`, `cats_performance`, `cats_metadata`, `cats_transactions`, `cats_growth_faults`. The WLTKD fixture exercises **240 genuine positive-duration events** across two cities and four speeds, with exact cumulative quarter-turn carry, independent ownership/founding keys and silent loads. Per-cat SQL arithmetic separately checks general Production, local GP rate, strength hundredths, Happiness and positive-surplus Growth (+5/+10 percentage points, no starvation substitution). These do not execute the native DLL.
+Suite inventory: `cats_starts`, `cats_lifecycle`, `cats_bonds`, `cats_edges`, `cats_ui`, `cats_resilience`, `cats_faults`, `cats_notices`, `cats_wltkd`, `cats_performance`, `cats_metadata`, `cats_transactions`, `cats_growth_faults`, `cats_native_context`. The WLTKD fixture exercises **240 genuine positive-duration events** across two cities and four speeds, with exact cumulative quarter-turn carry, independent ownership/founding keys and silent loads. Per-cat SQL arithmetic separately checks general Production, local GP rate, strength hundredths, Happiness and positive-surplus Growth (+5/+10 percentage points, no starvation substitution). These do not execute the native DLL.
 
 The two new transaction assertions were first run against the pre-fix implementation: silent-setter settling failed, followed by an unidentified failed-rollback birth bypassing the rehome gate. Both pass after the repairs. Growth fault cases exercise the shipped native-API calls through the model and verify post-mutation idempotence; they do not invent substitute yield mechanics.
 

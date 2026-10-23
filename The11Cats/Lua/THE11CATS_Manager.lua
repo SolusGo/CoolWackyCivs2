@@ -234,7 +234,9 @@ function H.Spawn(s,id,home)
  if not plot then return false end
  local before={};for unit in Players[s.pid]:Units() do before[unit:GetID()]=true end
  H.spawning=true
- local ok,u=pcall(Players[s.pid].InitUnit,Players[s.pid],H.UNIT,plot:GetX(),plot:GetY(),UnitAITypes.NO_UNITAI)
+ -- UnitAITypes is absent in the native UI sandbox. The verified InitUnit
+ -- binding defaults its optional AI argument to NO_UNITAI when omitted.
+ local ok,u=pcall(function() return Players[s.pid]:InitUnit(H.UNIT,plot:GetX(),plot:GetY()) end)
  H.spawning=false
  if not ok then
   H.Log('Spawn interrupted for '..id..': '..tostring(u),true);u=nil

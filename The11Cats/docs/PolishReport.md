@@ -1,5 +1,11 @@
 # Quality, 2D artwork and compatibility report — 2026-10-23
 
+## Native Luna arrival hotfix
+
+The user's rendered Household showed Luna unlocked at 2/11 but permanently pending at zero turns. Their game log identified `THE11CATS_Manager.lua:237: attempt to index global 'UnitAITypes' (a nil value)`. The model had incorrectly defined that enum. Argument evaluation occurred before `pcall`, so no native unit constructor was reached and the spawning guard also stayed set.
+
+The constructor now omits its optional AI argument, using the verified native `NO_UNITAI` default, and evaluates coordinates inside the protected call. The fixture no longer exposes `UnitAITypes`. A fourteenth suite loads the stalled state into an owned home, checks exactly one immediate arrival, repeated events, rehome, recovery, preserved cooldown and cleared guards after an accessor failure. All fourteen suites pass. No data/art/balance/3D changes or save migration are required. This confirms the cause and model repair; native post-hotfix success still needs reload confirmation.
+
 ## Final pass from 95671d8
 
 ### Gameplay fixes

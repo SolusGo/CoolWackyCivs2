@@ -12,6 +12,8 @@ Open **The Household** at the right of the normal world view. Select a travellin
 
 The panel count includes Austin and all companions who have joined, including travelling and recovering cats. Austin is the leader and never spawns as a civilian. Unplaced companions wait safely if no capital or legal arrival plot exists.
 
+If upgrading from the build where Luna stayed **Recovering / Returns in 0 turns** despite a safe home: install the arrival hotfix, save and quit Civ V completely, then reopen through Mods and load the same save. The missing UI enum has been removed; her existing unlocked identity can arrive without starting a new game or resetting progress.
+
 ## King of the House
 
 Genuine WLTKD celebrations receive **25% longer duration**, using the positive duration supplied by CP's start/extension events. Resource demand and luxury activation rules are unchanged. The actual remaining counter is extended once; it is never extended by merely taking another turn or loading a save. Fractional quarter-turns are retained on the city's plot and carried into later celebrations. Existing celebrations newly encountered on load are not guessed at or extended retroactively.

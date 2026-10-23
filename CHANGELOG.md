@@ -1,5 +1,10 @@
 # Changelog
 
+## The 11 Cats Luna arrival hotfix — 2026-10-23
+
+- Fix the native missing-UnitAITypes error that left unlocked Luna pending at zero turns. Use InitUnit's verified default AI argument and protect argument evaluation; existing save states resume without migration.
+- Remove the fixture-only enum and add the native-context regression, bringing Cats coverage to fourteen suites. User logs confirm the original failure; post-fix native spawning awaits reload. No gameplay values, save formats or art changes.
+
 ## The 11 Cats final 2D quality and compatibility pass — 2026-10-23
 
 - Verify silently rejected saves, block unidentified retained rollback births, merge queued lifecycle work and make screen transitions UI-only refreshes. Preserve every bonus, save format, UUID/version 10 and gameplay ID.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-23 — Luna arrival hotfix
+
+- Fix the native UI sandbox error `attempt to index global 'UnitAITypes' (a nil value)`, confirmed by the user's game log and zero-turn pending Luna screenshot.
+- Omit InitUnit's optional AI argument so the native binding supplies NO_UNITAI; protect coordinate argument evaluation inside the spawn pcall so interruptions cannot strand the spawning guard.
+- Remove the invented enum from the fixture. Fourteen suites pass, including loading a stalled unlocked Luna into a safe home, one arrival only, rehome/recovery and cooldown preservation. Existing v10 saves require no migration or new game.
+- No gameplay values, artwork, 3D assets or save formats changed. Native success after the hotfix still needs the user's reload confirmation.
+
 ## 2026-10-23 — final quality and 2D artwork pass
 
 - Verify successful native save writes as well as exceptions; silently rejected saves no longer consume travelling cats or announce unsaved bonds.
