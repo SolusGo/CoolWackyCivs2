@@ -11,11 +11,26 @@
     "network refresh precedes native turn": true,
     "PlayerDoTurn follows city settlement": true,
     "PlayerDoTurn follows Gold and Culture settlement": true,
+    "Production uses native city yield during city turn": true,
+    "Culture settlement precedes PlayerDoTurn": true,
+    "Gold consumes current native net yield": true,
+    "turn status is before network refresh": true,
+    "DoneTurn is end phase before unit reset": true,
+    "connection query runs while flags are reset": true,
+    "CityConnected extends partial network before capital flags": true,
+    "no generic post-network notification": true,
+    "route pillage does not refresh network": true,
+    "connection flag setter has no notification hook": true,
+    "core update begin is not a before-settlement guarantee": true,
+    "pre AI unit update belongs to unit processing": true,
+    "work rate SQL loads as native integer": true,
     "work rate reads unit base": true,
     "work rate multiplies common modifiers then truncates": true,
     "ordinary builds use native work progress": true,
     "captured civilians use native class mapping": true,
     "capture notification follows reconstructed city": true,
+    "liberation uses native reacquisition": true,
+    "CityRazed precedes disbanded city destruction": true,
     "NeverCapture applies before gift/conquest distinction": true,
     "building setter suppresses construction rewards": true,
     "building setter publishes targeted city dirty": true,
@@ -29,6 +44,21 @@
     "event ABI PlayerDoneTurn": true,
     "event ABI TileRouteChanged": true
   },
+  "installed_Firaxis_UI_contracts": {
+    "UI/InGame/UnitFlagManager.lua": {
+      "sha256": "8aecac69ed0e60ae3d351de22e6a152952b4ea3a36648ef47e8802e591056837",
+      "verified_contract": "ContextPtr:SetShutdown( OnShutdown );"
+    },
+    "UI/InGame/Bombardment.lua": {
+      "sha256": "24c8773e40ab255636d657775ae787a08cfc13170cc02b694391ff32641870f7",
+      "verified_contract": "Events.SerialEventMouseOverHex.Remove( DisplayBombardArrow );"
+    },
+    "DLC/DLC_02/Scenarios/NewWorldScenario/TurnsRemaining.lua": {
+      "sha256": "a72d03220edfd419df72cc1669f7ce4039e7b2824c507759e2d5141624ae92f1",
+      "verified_contract": "GameEvents.GameCoreTestVictory.Remove(TestVictory);"
+    }
+  },
+  "context_lifetime_scope": "Shared-marker risk reproduced synthetically; native quick-load/context lifetime behavior requires game verification.",
   "sources": {
     "CvCity.h": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.h",
@@ -65,6 +95,26 @@
     "CvDllNetMessageHandler.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvDllNetMessageHandler.cpp",
       "sha256": "6f748a0f38b8a71b5e08258aed04adfe1420a6f537d5a3ccf1b5659f04be730d"
+    },
+    "CvPlot.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlot.cpp",
+      "sha256": "185fa04a5c9426da9d7d385ae8ee2520759ec83f9dffad939c8c2a4c200f48a5"
+    },
+    "CvGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvGame.cpp",
+      "sha256": "6dad41a144c98a15d94d59ee0d4effb0ff92190586074adb7e5c03bb1815b205"
+    },
+    "CvPlayerAI.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayerAI.cpp",
+      "sha256": "a4fb3ae925db892dc4c0106780b00438d06aa39df885845affb48044064a8ec1"
+    },
+    "CvTreasury.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTreasury.cpp",
+      "sha256": "c6f466557b239da4fee84e115ff8d05d3e99fa5774277c312dd55c64f09bd818"
+    },
+    "CvUnitClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitClasses.cpp",
+      "sha256": "d96b806673cddb2508f5ccdef2ba622cd0cd12e89457f86b833ce4d2dfb348e3"
     }
   }
 }

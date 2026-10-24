@@ -608,7 +608,7 @@
     <File md5="119F2B1A56E709C0722AE1074B492053" import="1">TheConicalUnion/Art/CONICAL_Portrait48.dds</File>
     <File md5="01E7C8AAFF3C50BF9B4187A00178873F" import="1">TheConicalUnion/Art/CONICAL_Portrait64.dds</File>
     <File md5="89E32BE122A6363B8239F1B249C30484" import="1">TheConicalUnion/Art/CONICAL_Portrait80.dds</File>
-    <File md5="777A81ADC15B2B4E8B3EA0D97CF20656" import="1">TheConicalUnion/Lua/ConicalUnion.lua</File>
+    <File md5="93D89E2E514C3F882DDF27BF2B979A0D" import="1">TheConicalUnion/Lua/ConicalUnion.lua</File>
     <File md5="3D95C0B22CD7739609DE34FE52A6917F" import="0">TheConicalUnion/Lua/ConicalUnion.xml</File>
     <File md5="8139C44E0ADF5E93A26F8F6637729EB3" import="0">TheConicalUnion/SQL/00_CONICAL_Core.sql</File>
     <File md5="9C1B309B2EC1D59EC969A9D14E48796C" import="0">TheConicalUnion/SQL/01_CONICAL_Inheritance.sql</File>

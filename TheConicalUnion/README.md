@@ -25,6 +25,8 @@ Connections use `City:IsConnectedToCapital()`, the native CP network flag. Quali
 
 Install the version 13 collection archive using the [root instructions](../README.md). Enable BNW + CP + the collection, then start a new modded single-player game as Bollard. `Playable=1`, `AIPlayable=0`; no AI strategy or custom gameplay panel. The leader scene is a static original painting and the supplied Dawn of Man narrative is silent.
 
-Automated SQL, source, Lua and DDS checks are separate from native acceptance. Game rendering, actual build progress, yield settlement, save/load and older-save continuation have **not** been verified in Civ V. See [testing](docs/Testing.md), [source contracts](docs/SourceAudit.json), [validation results](docs/Validation.json), [art sources/prompts](../art-source/TheConicalUnion/README.md) and [changelog](CHANGELOG.md).
+The [reliability audit](docs/AuditReport.md) fixes controller recreation, isolates city failures, retries failed foreign cleanup and preserves cross-city reentrant notifications. Gameplay values and the documented connection-settlement limit are unchanged.
+
+Automated SQL, source, Lua and DDS checks are separate from native acceptance. Game rendering, actual build progress, yield settlement, quick-load, save/load and older-save continuation have **not** been verified in Civ V. See [testing](docs/Testing.md), [source contracts](docs/SourceAudit.json), [validation results](docs/Validation.json), [art sources/prompts](../art-source/TheConicalUnion/README.md) and [changelog](CHANGELOG.md).
 
 **THE ROAD WILL BE CLOSED UNTIL FURTHER NOTICE.**

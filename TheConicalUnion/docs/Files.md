@@ -7,10 +7,10 @@
 | `SQL/02_CONICAL_Effects.sql` | Permanent Office Culture, two invisible conditional yield buildings and diplomacy responses. |
 | `SQL/03_CONICAL_Art.sql` | Atlas families, all sizes/slots and unit flag. |
 | `SQL/10_CONICAL_Text.sql` | English identity, uniques/help/strategy, Civilopedia, leader biography, city/spy names, diplomacy and supplied Dawn narrative. |
-| `Lua/ConicalUnion.lua` | Sole simulation owner, shared native-connection reconciliation and lifecycle/ownership cleanup. |
+| `Lua/ConicalUnion.lua` | Sole simulation owner, shared native-connection reconciliation, context-owned callbacks, per-city fault isolation, targeted retry and lifecycle/ownership cleanup. |
 | `Lua/ConicalUnion.xml` | Invisible matching InGameUIAddin entry context. |
 | `Art/CONICAL_*.dds`, `Art/CONICAL_LeaderScene.xml` | 40 mipmapped game textures and static 2D leader-scene reference. |
-| `README.md`, `CHANGELOG.md`, `docs/Implementation.md`, `docs/Testing.md` | Player guide, release changes, mechanics/API/timing documentation and native acceptance checklist. |
+| `README.md`, `CHANGELOG.md`, `docs/Implementation.md`, `docs/Testing.md`, `docs/AuditReport.md` | Player guide, release changes, audited findings, mechanics/API/timing documentation and native acceptance checklist. |
 | `docs/SourceAudit.json`, `docs/Validation.json` | Pinned official CP contracts/digests and actual automated results. |
 
 Paths below are relative to the collection root:
@@ -24,6 +24,10 @@ Paths below are relative to the collection root:
 | `tools/tests/conical_connections.lua` | Combined yield matrix, connection transitions, Offices and Capitals. |
 | `tools/tests/conical_lifecycle.lua` | Capture/transfer, new cities, reload reconstruction, missing/dead/destroyed objects and duplicate guard. |
 | `tools/tests/conical_resilience.lua` | API faults, reentrancy, retries, missing hooks and large-empire steady-state workload. |
+| `tools/tests/conical_context.lua` | Shared-data quick-load/context recreation, retained callbacks, shutdown, same-context includes and foreign load sanitation. |
+| `tools/tests/conical_faults.lua` | Persistent/partial per-city failures, bounded diagnostics, targeted foreign retries, cross-city dirty events and vanished pending IDs. |
+| `tools/tests/conical_timing.lua` | Explicit old cache, native refresh, first settlement, Lua repair and following settlement phases. |
+| `tools/tests/conical_ownership.lua` | Conquest/gift/liberation-shaped transfers, capital lifecycle, real Office requirement and missing/replaced native objects. |
 | `tools/build_mod.py` | Append inventory and single controller entry, version 13, updated roster metadata and preserved SQL ordering. |
 | `tools/prepare_art.py` | Include the new compiler in standard preparation. |
 | `tools/standardize_icons.py` | Enable the existing complete-mip paths for the new atlas prefix only. |

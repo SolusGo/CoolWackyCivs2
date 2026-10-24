@@ -1,5 +1,11 @@
 # Changelog
 
+## Conical Union reliability audit — 2026-10-25
+
+- Fix recreated-context callback suppression, isolate per-city failures, retry targeted foreign cleanup and preserve cross-city reentrant events. Add bounded diagnostics, callback retirement/shutdown safety and one-time foreign load sanitation.
+- Audit CP v151 connection/Production/Gold/Culture ordering. Retain deterministic lifecycle/owner-turn reconciliation: no supported general post-network/pre-settlement hook was verified, so the documented first-settlement limitation remains.
+- Expand Conical validation to seven Lua 5.1 suites, 41 CP source contracts, installed Firaxis context/removal examples and altered Worker/Walls companion regressions. Preserve all numerical bonuses, human-only flags, SQL, artwork, UUID/version 13 and peer civilizations. Native quick-load, yields, Harbor routing, build progress and Huge-map acceptance remain pending; see [the audit report](TheConicalUnion/docs/AuditReport.md).
+
 ## 1.10.0 Conical Union implementation preview / mod version 13 — 2026-10-25
 
 - Add human-only High Marshal Bollard and Permanent Detour. Connected non-capital cities receive exactly +2 Production/+1 Culture through an idempotent, stateless native-connection controller.

@@ -9,13 +9,19 @@
     "worker_moves": 2,
     "worker_work_rate": 100
   },
-  "source_contracts": 26,
+  "source_contracts": 41,
   "lua": "5.1; shipped controller with synthetic native boundary",
   "suites_seconds": {
-    "conical_connections.lua": 0.00108,
-    "conical_lifecycle.lua": 0.000729,
-    "conical_resilience.lua": 0.015396
+    "conical_connections.lua": 0.002296,
+    "conical_lifecycle.lua": 0.00123,
+    "conical_resilience.lua": 0.041202,
+    "conical_context.lua": 0.004595,
+    "conical_faults.lua": 0.002015,
+    "conical_timing.lua": 0.000779,
+    "conical_ownership.lua": 0.001036
   },
   "art": "40 decoded mipmapped legacy DDS textures; original generated artwork",
-  "synchronization": "Native cached connection flag; owner PlayerDoTurn is after settlement. First settlement after a refresh can use previous dummy state; repaired for the next settlement unless a lifecycle/targeted city event reconciles sooner."
+  "synchronization": "Engine limitation unchanged: cached flag refresh precedes settlement, but PlayerDoTurn follows Production/Gold/Culture. Explicit phase simulation verifies old first-settlement counts, then correction for the subsequent settlement; no query/polling workaround.",
+  "controller_lifecycle": "Context-owned registry, retirement/removal and inert stale wrappers; synthetic shared-data/retained-event/quick-load/shutdown/new-game scenarios pass. Native lifetime behavior unverified.",
+  "failure_recovery": "Per-city retries isolate failures; diagnostics are bounded until recovery; only failed foreign IDs are revisited on owner turns; one foreign load sweep repairs persisted residue; cross-city reentrant jobs coalesce."
 }
