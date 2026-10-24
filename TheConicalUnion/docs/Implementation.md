@@ -1,0 +1,52 @@
+# Implementation
+
+## Identity, source generation and integration
+
+The collection UUID remains `f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392`. Following the previous new-civilization releases, this addition advances mod version 12 to **13**, and preview 1.9.0 to **1.10.0**. `MinCompatibleSaveVersion=1` remains unchanged. New SQL is appended after every released civilization so their insertion order and numeric database IDs remain intact. No released identifiers, persistence structures or mechanics are edited.
+
+`tools/generate_conical.py` reuses the collection's schema-aware cloning helpers. Committed `SQL/00_CONICAL_Core.sql` through `10_CONICAL_Text.sql` load in numeric order. Core rows clone native identity defaults but replace all displayed identity/art/text and set human-only playability. No leader flavor/approach strategy is registered. Free starting building classes, techs and unit classes inherit the ordinary America setup; unit-class grants can resolve through the Worker override.
+
+`tools/build_mod.py` owns inventory, SQL order, ModBuddy and modinfo generation. `Lua/ConicalUnion.xml` is the sole `InGameUIAddin`; its matching Lua is imported into VFS, XML entry and SQL are not. Art is imported. There is no custom panel, DLL, model, UI override or extra gameplay system.
+
+## Active Worker and Walls inheritance
+
+Both scalar clones use runtime `SELECT *` temporary tables, excluding copied IDs and changing only identity/art/text plus the specified Worker fields. They read the active rows at **activation**, after CP, rather than freezing vanilla values. All installed tables starting `Unit` with `UnitType` or `Building` with `BuildingType` are enumerated for runtime companion clones. This includes `UnitGameplay2DScripts`, build actions, free promotions, AI automation roles, upgrade relationships, restrictions, yields, flavors and applicable CP companion effects. The installed schema currently exposes 176 such tables, many empty for these baselines.
+
+Road Crew overrides `UNITCLASS_WORKER`. Its runtime update is `Moves=Moves+1, WorkRate=WorkRate*5/4`. The installed BNW backup has Worker Moves 2 / WorkRate 100, and installed standalone CP v151 contains no Worker/Walls balance rewrite; the resulting baseline is 3 / 125. The cache is a menu/non-CP cache, so this is a backup-row plus installed-schema/source check, **not a CP-activated native-session observation**. The validator also changes the baseline to 4 / 120 and verifies 5 / 150 while retaining newly added scalar fields and companion rows.
+
+`CvUnit::workRate` reads the unit's native `WorkRate`, multiplies it by common worker-speed, policy, religion and handicap modifiers, then performs integer division by 100. Ordinary native build progress uses this rate for improvements, routes and repairs. Scaling the base preserves the 1.25 ratio before final rounding even when common modifiers exist. A 25% additive promotion would not preserve that ratio under other modifiers and is not used. Native truncation may produce slightly different final integer ratios and complete-turn durations are discrete: 25% more progress is approximately 20% fewer turns before turn rounding, not universally 25% fewer turns. A hypothetical modded base not divisible by four cannot express an exact 25% increase in the native integer base field; the validator fails that case rather than claiming exactness. CP v151's baseline of 100 is exact. The optional Civ6 charges system/full VP are outside this target.
+
+No promotion or Lua bonus survives as extra state. The normal Worker capture class and upgrade rows remain intact. CP's capture implementation uses the capturing player's `GetSpecificUnitType` for the inherited capture class (with native recapture/event exceptions). Civilization-specific class grants and normal captures can therefore resolve to Road Crew where the engine supports them. Directly spawning `UNIT_WORKER` by a third-party script still spawns that exact type. Existing units are never globally converted or modified.
+
+Detour Office overrides `BUILDINGCLASS_WALLS` and retains all active scalar and companion properties, including defense, HP, cost, upkeep, prerequisites, wall art and capture restrictions. The only permanent effect addition is +1 Culture in `Building_YieldChanges`, adding to an existing Culture row or inserting it if absent. There is no parallel Walls class or second constructible replacement.
+
+## Shared binary city effects
+
+`BUILDING_CONICAL_CONNECTION_DUMMY` grants exactly +2 Production/+1 Culture. `BUILDING_CONICAL_DETOUR_GOLD_DUMMY` grants exactly +2 Gold. Both have Cost/FaithCost -1, no upkeep, no prerequisites, `IsDummy=1`, `ShowInPedia=0`, `GreatWorkCount=-1`, `NeverCapture=1`, `ConquestProb=0` and no defensive, happiness or specialist effects. Native negative costs prevent production/purchases, and zero upkeep prevents ordinary sale. No construction reward is triggered: setters explicitly pass `bNoBonus=true`.
+
+`ReconcileConicalCity(player, city)` reacquires the actual owner and verifies that it matches the supplied player, is alive and is Conical. It requires a current Capital and excludes it by ID, then makes **one** protected `City:IsConnectedToCapital()` call. UA count is 1 exactly when that result is true; Gold count is 1 exactly when the same result is true and `GetNumRealBuilding(DetourOffice)>0`. Otherwise each count is 0. Writes occur only when a count differs. Both systems share the same calculation and guard. Missing/throwing connection APIs disable both conditional effects, emit one diagnostic and allow later events to retry. Native yield modifiers, anarchy, resistance and other yield rules are untouched; no treasury payments occur in Lua.
+
+## Verified source contracts and synchronization limits
+
+The official [CP v151 source](https://github.com/LoneGazebo/Community-Patch-DLL/tree/44c1e14ff75d80c1dba5c8a71e8289439a53aafb) is pinned at `44c1e14ff75d80c1dba5c8a71e8289439a53aafb`. Exact URLs and SHA-256 digests are in [SourceAudit.json](SourceAudit.json). Source checks verify Lua binding, network semantics, work rate, event signatures and notification placement. The function is additionally checked at the actual gameplay-controller call site before invocation; this does not replace a native gameplay-context test.
+
+`CvLuaCity` exposes `IsConnectedToCapital`; `CvCity.h` delegates it to `IsRouteToCapitalConnected`, which returns `m_bRouteToCapitalConnectedThisTurn`. The engine builds this flag through its mixed network, including water connectors, roads, railroads, blockades and supported indirect methods. The controller does not inspect routes or search the map. `CityConnections`/`CityConnected` are extension queries for alternative routes, **not post-refresh notifications**, so they are not hooked. `TileRouteChanged` is a supported notification, but it does not itself refresh the cached city flag, misses Harbor/blockade changes and can affect routes through foreign/unowned land. A global per-tile empire reconciliation would add work without guaranteeing freshness; it is not registered.
+
+| Hook | Reconciliation |
+| --- | --- |
+| Context creation, `SequenceGameInitComplete`, `LoadScreenClose` | All Conical players' city lists, reconstructed from current native state; no connection persistence. |
+| `PlayerDoTurn`, `PlayerDoneTurn` | Only that Conical player's cities. |
+| `PlayerCityFounded`, `CapitalChanged` | Only that Conical player's cities, including capital exclusion changes. |
+| `CityCaptureComplete` | Reacquire the city by plot after reconstruction, explicitly remove conditional markers for a foreign owner, and reconcile relevant old/new Conical empires. Applies to conquest and nonconquest acquisition. |
+| `CityRazed` | Relevant owner reconciliation; source callback is before native disband. No city reference survives the call. Later capital/turn events repair remaining cities. |
+| `CityConstructed`, `CitySoldBuilding`, `SpecificCityInfoDirty` | Only the named city; includes scripted Office changes, with a guard against setter-induced recursion. |
+
+**Precise timing limit:** the engine refreshes connections before `doTurn`, but `PlayerDoTurn` runs after city Production, Gold and Culture settlement. There is no verified generic after-network/before-settlement notification here. At load, lifecycle and end-turn events the controller uses whatever flag the engine currently exposes. If no earlier targeted dirty/lifecycle event reconciles the newly refreshed state, the **first settlement after a network refresh may use the previous conditional counts**. `PlayerDoTurn` then corrects both counts for the following settlement. A pillaged, repaired, newly connected or Harbor/blockade-changed city can therefore display or settle an old bonus for that transition; immediate updates or same-transition settlement accuracy are not claimed. Capital exclusion and transferred-city cleanup do not depend on connection freshness. Native acceptance must measure exact callback behavior in a launched game.
+
+## Ownership, saves and cost
+
+`NeverCapture` is the first native defense for both conquest and gifts. The reconstructed city is explicitly reconciled on acquisition even if its markers survived native capture, and targeted foreign dirty events clear stray markers. No foreign city list is enumerated. Missing/deleted plots and missing players are safe. A missing Capital removes both conditional effects from all relevant cities. The native Office itself follows Walls capture rules.
+
+No script state is serialized. Buildings persist through normal native save serialization and are reconciled, not incremented, on context creation/reload. `MapModData.CONICAL_ControllerLoaded` prevents duplicate registration within a running session; no Lua city objects or connection values are stored. Synchronous guarded operations retry once after an exception; the next event can repair a continuing fault.
+
+Ordinary foreign player-turn callbacks cost one civilization check, with zero city enumeration. Relevant owner turns cost O(Conical cities), one connection query per eligible city and zero writes at steady state. Load checks player slots, then only relevant city lists. Capture inspects one plot and at most two relevant empires; city-dirty work is O(1). There are no frame handlers, timers, route hooks, full-map scans or external save tables. The synthetic workload covers 202 owned cities and 6,300 foreign turns, but cannot establish native Huge-map FPS or network-search cost.

@@ -1,5 +1,10 @@
 # Civilization icon framing
 
+The Conical Union (version 13) adds four original generated images and the same
+nine-size atlas families, monochrome flag, silent Dawn and static leader scene.
+Its mipmapped textures compile with `tools/prepare_conical_art.py`; originals and
+exact prompts are in `art-source/TheConicalUnion`. Existing atlas slots are preserved.
+
 Saba (version 11) adds nine-size civilization/alpha/object/leader atlas families,
 a 32px unit flag and original static leader/loading art through the same pipeline.
 Source art and the exact generation prompt are retained in

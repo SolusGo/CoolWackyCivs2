@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10.0 Conical Union implementation preview / mod version 13 — 2026-10-25
+
+- Add human-only High Marshal Bollard and Permanent Detour. Connected non-capital cities receive exactly +2 Production/+1 Culture through an idempotent, stateless native-connection controller.
+- Add Road Crew with complete runtime Worker inheritance, +1 Movement and 125% base Work Rate; add Detour Office with complete runtime Walls inheritance, +1 permanent Culture and +2 conditional Gold outside the Capital. No other unique mechanics or global Worker changes.
+- Add full English identity, Civilopedia, diplomacy and silent Dawn of Man, four original generated paintings/icons, 40 mipmapped DDS textures and collection-standard atlas framing.
+- Append database content after the released inventory, retain the collection UUID and minimum compatible save version, and extend ModBuddy/manifests, art preparation, collection validation and ZIP/7z verification.
+- Add real-schema inheritance/regression checks, pinned CP v151 source contracts and three shipped-Lua 5.1 suites, including captures, reload reconstruction, API failures and large-empire idempotence. Native gameplay/rendering/save-load remain unverified. The cached connection flag and post-settlement turn callback can delay the first affected yield settlement; see [implementation timing](TheConicalUnion/docs/Implementation.md) and [testing record](TheConicalUnion/docs/Testing.md).
+
 ## Boundless Workforce graphical update — 2026-10-24
 
 - Add an original engraved city panorama and six custom mipmapped DDS textures: brass/teal panel and launcher, row background, four-state native buttons and assignment/pending marks.

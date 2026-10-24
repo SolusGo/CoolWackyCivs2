@@ -70,5 +70,7 @@ def main():
     prepare_saba()
     from prepare_garvey_art import main as prepare_garvey
     prepare_garvey()
+    from prepare_conical_art import main as prepare_conical
+    prepare_conical()
 
 if __name__=='__main__':main()

@@ -22,7 +22,15 @@ def main():
     with tempfile.TemporaryDirectory(prefix='verify-release-',dir=R/'dist') as temporary:
         target=Path(temporary).resolve()
         assert target.parent==(R/'dist').resolve(),'unsafe extraction target'
-        sample=[NAME+'.modinfo','TheSubstituteClassroom/UI/GARVEY_RollCall.xml',
+        sample=[NAME+'.modinfo','TheConicalUnion/Lua/ConicalUnion.xml',
+                'TheConicalUnion/Lua/ConicalUnion.lua',
+                'TheConicalUnion/SQL/00_CONICAL_Core.sql',
+                'TheConicalUnion/SQL/01_CONICAL_Inheritance.sql',
+                'TheConicalUnion/SQL/02_CONICAL_Effects.sql',
+                'TheConicalUnion/Art/CONICAL_Leader.dds',
+                'TheConicalUnion/Art/CONICAL_Objects256.dds',
+                'TheConicalUnion/docs/Validation.json',
+                'TheSubstituteClassroom/UI/GARVEY_RollCall.xml',
                 'TheSubstituteClassroom/UI/GARVEY_RollCall.lua',
                 'TheSubstituteClassroom/Lua/GARVEY_Core.lua',
                 'TheSubstituteClassroom/Lua/GARVEY_Events.lua',

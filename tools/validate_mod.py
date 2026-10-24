@@ -144,3 +144,5 @@ if __name__=='__main__':
     validate_saba()
     from validate_garvey import validate as validate_garvey
     validate_garvey()
+    from validate_conical_union import validate as validate_conical
+    validate_conical()

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="12">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="13">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Ten civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats, Saba and a substitute classroom.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba and The Substitute Classroom. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Eleven civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats, Saba, a classroom and sentient traffic cones.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom and The Conical Union. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -567,6 +567,54 @@
     <File md5="581B318EB1D6CDD24FD0D4C817E98181" import="0">TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</File>
     <File md5="85B19A2212AF497107FF53C294D4B159" import="1">TheSubstituteClassroom/UI/GARVEY_RollCall.lua</File>
     <File md5="BDD8A8326F2ACC7B93C30D6A934EEDF1" import="0">TheSubstituteClassroom/UI/GARVEY_RollCall.xml</File>
+    <File md5="719D334BBE3E9F94DDB178A6CB3785D3" import="1">TheConicalUnion/Art/CONICAL_Alpha128.dds</File>
+    <File md5="6E4B5B87C885598B3755368B0584EF6D" import="1">TheConicalUnion/Art/CONICAL_Alpha16.dds</File>
+    <File md5="7AECEA76B2186D9A4A7B3C689DB619E1" import="1">TheConicalUnion/Art/CONICAL_Alpha24.dds</File>
+    <File md5="A19906167C6DE8E461D217A9C692AFC7" import="1">TheConicalUnion/Art/CONICAL_Alpha256.dds</File>
+    <File md5="45B4B05E82079527256DF89F3A250862" import="1">TheConicalUnion/Art/CONICAL_Alpha32.dds</File>
+    <File md5="1A9AF696908D11CADD843C539DA7F6F2" import="1">TheConicalUnion/Art/CONICAL_Alpha45.dds</File>
+    <File md5="CA1886C2A221A7799F0D19A74174E5A0" import="1">TheConicalUnion/Art/CONICAL_Alpha48.dds</File>
+    <File md5="78E1AB69CD34BDB485228ACC3E94F1DB" import="1">TheConicalUnion/Art/CONICAL_Alpha64.dds</File>
+    <File md5="3F75AD4E68AF7D479D54D630AA70798E" import="1">TheConicalUnion/Art/CONICAL_Alpha80.dds</File>
+    <File md5="CA375D87765DAC22DA1B0FAF5FB71A42" import="1">TheConicalUnion/Art/CONICAL_Dawn.dds</File>
+    <File md5="45B4B05E82079527256DF89F3A250862" import="1">TheConicalUnion/Art/CONICAL_Flag32.dds</File>
+    <File md5="32B8F5EEFF01C80E3FE752F83997AF35" import="1">TheConicalUnion/Art/CONICAL_Icon128.dds</File>
+    <File md5="419C0A2BCB0DCE3F5311D402EC6BB513" import="1">TheConicalUnion/Art/CONICAL_Icon16.dds</File>
+    <File md5="63A65839D0925F2C39E79DA8C4164105" import="1">TheConicalUnion/Art/CONICAL_Icon24.dds</File>
+    <File md5="7BF2AD44BAF99333ED1C360FDEE85055" import="1">TheConicalUnion/Art/CONICAL_Icon256.dds</File>
+    <File md5="0B0DAF13F61EFFEF150A1C8BE9AF6AFC" import="1">TheConicalUnion/Art/CONICAL_Icon32.dds</File>
+    <File md5="5C81AD29E309C67D516B81A61FB2DCCA" import="1">TheConicalUnion/Art/CONICAL_Icon45.dds</File>
+    <File md5="81E2E8B0DB393CB350BB1D7CE8E1C9FC" import="1">TheConicalUnion/Art/CONICAL_Icon48.dds</File>
+    <File md5="E48849DFBE20D214C0A128B8EBA469FB" import="1">TheConicalUnion/Art/CONICAL_Icon64.dds</File>
+    <File md5="2E86EDC45E6C8A189AC1394750DFCE5C" import="1">TheConicalUnion/Art/CONICAL_Icon80.dds</File>
+    <File md5="5E85031DB539C3D428139C1078D1F686" import="1">TheConicalUnion/Art/CONICAL_Leader.dds</File>
+    <File md5="6A35E626EDFDDAF530FCF60A727E2462" import="1">TheConicalUnion/Art/CONICAL_LeaderScene.xml</File>
+    <File md5="47ACF55F8FA4110BA156E6EFB7753194" import="1">TheConicalUnion/Art/CONICAL_Map.dds</File>
+    <File md5="BD0B52FCFC08368AE8C86124ED0DFB38" import="1">TheConicalUnion/Art/CONICAL_Objects128.dds</File>
+    <File md5="0BCCBB48EB2F8DD6060F08ADE58E7074" import="1">TheConicalUnion/Art/CONICAL_Objects16.dds</File>
+    <File md5="A1D141C007FA1EC5AA4ECFA400E85F7D" import="1">TheConicalUnion/Art/CONICAL_Objects24.dds</File>
+    <File md5="53F57B1D2BCE98405F38901595E80BFA" import="1">TheConicalUnion/Art/CONICAL_Objects256.dds</File>
+    <File md5="1914539704F75F3C970205FBFC32EBFC" import="1">TheConicalUnion/Art/CONICAL_Objects32.dds</File>
+    <File md5="F789F8C32C3DB3FF6D4D5859D80B2B34" import="1">TheConicalUnion/Art/CONICAL_Objects45.dds</File>
+    <File md5="A9C35988D3A57227BB4101943D505196" import="1">TheConicalUnion/Art/CONICAL_Objects48.dds</File>
+    <File md5="9F2096C6922A29AE4945C9285ACDB1F4" import="1">TheConicalUnion/Art/CONICAL_Objects64.dds</File>
+    <File md5="BD9278D937C01927685BE3D9D3EA0706" import="1">TheConicalUnion/Art/CONICAL_Objects80.dds</File>
+    <File md5="2FD8F427B9B25C8F018158A81E312942" import="1">TheConicalUnion/Art/CONICAL_Portrait128.dds</File>
+    <File md5="99864B2A74CCCD5D573891D90ECB6AAA" import="1">TheConicalUnion/Art/CONICAL_Portrait16.dds</File>
+    <File md5="78A2A3301014A4CBACC7588CBE27596C" import="1">TheConicalUnion/Art/CONICAL_Portrait24.dds</File>
+    <File md5="2AC12DC3360991862AAD90C980A177BD" import="1">TheConicalUnion/Art/CONICAL_Portrait256.dds</File>
+    <File md5="9116BA0155FD90184BAA4B10229347EB" import="1">TheConicalUnion/Art/CONICAL_Portrait32.dds</File>
+    <File md5="8B2A4FBBB7DAA26475D8D776BF0F2D4B" import="1">TheConicalUnion/Art/CONICAL_Portrait45.dds</File>
+    <File md5="119F2B1A56E709C0722AE1074B492053" import="1">TheConicalUnion/Art/CONICAL_Portrait48.dds</File>
+    <File md5="01E7C8AAFF3C50BF9B4187A00178873F" import="1">TheConicalUnion/Art/CONICAL_Portrait64.dds</File>
+    <File md5="89E32BE122A6363B8239F1B249C30484" import="1">TheConicalUnion/Art/CONICAL_Portrait80.dds</File>
+    <File md5="777A81ADC15B2B4E8B3EA0D97CF20656" import="1">TheConicalUnion/Lua/ConicalUnion.lua</File>
+    <File md5="3D95C0B22CD7739609DE34FE52A6917F" import="0">TheConicalUnion/Lua/ConicalUnion.xml</File>
+    <File md5="8139C44E0ADF5E93A26F8F6637729EB3" import="0">TheConicalUnion/SQL/00_CONICAL_Core.sql</File>
+    <File md5="9C1B309B2EC1D59EC969A9D14E48796C" import="0">TheConicalUnion/SQL/01_CONICAL_Inheritance.sql</File>
+    <File md5="7E2EAA81DF8826B66AF49D94D023BBD0" import="0">TheConicalUnion/SQL/02_CONICAL_Effects.sql</File>
+    <File md5="14C88EB25B20E090FDF2E73EFD64CDCA" import="0">TheConicalUnion/SQL/03_CONICAL_Art.sql</File>
+    <File md5="0CFE8B45974A9A5A29692EBDD0E460B2" import="0">TheConicalUnion/SQL/10_CONICAL_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -622,6 +670,11 @@
       <UpdateDatabase>TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheConicalUnion/SQL/00_CONICAL_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheConicalUnion/SQL/01_CONICAL_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheConicalUnion/SQL/02_CONICAL_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheConicalUnion/SQL/03_CONICAL_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheConicalUnion/SQL/10_CONICAL_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -664,6 +717,10 @@
     <EntryPoint type="InGameUIAddin" file="TheSubstituteClassroom/UI/GARVEY_RollCall.xml">
       <Name>Roll Call</Name>
       <Description>Mr. Garvey: persistent attendance, corrections and Detention with an event-driven classroom panel.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheConicalUnion/Lua/ConicalUnion.xml">
+      <Name>Connected Administration</Name>
+      <Description>Conical Union city connection yields and conditional Detour Office Gold; no gameplay panel.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

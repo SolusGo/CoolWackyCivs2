@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Ten civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats, Saba and a substitute classroom.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba and The Substitute Classroom. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Eleven civilizations: an endless city, wings, a champion, a lobby, prayer, clockwork, a circus, eleven cats, Saba, a classroom and sentient traffic cones.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom and The Conical Union. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>12</ModVersion>
+    <ModVersion>13</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -286,6 +286,31 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheConicalUnion/SQL/00_CONICAL_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheConicalUnion/SQL/01_CONICAL_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheConicalUnion/SQL/02_CONICAL_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheConicalUnion/SQL/03_CONICAL_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheConicalUnion/SQL/10_CONICAL_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -347,6 +372,12 @@
         <Name>Roll Call</Name>
         <Description>Mr. Garvey: persistent attendance, corrections and Detention with an event-driven classroom panel.</Description>
         <FileName>TheSubstituteClassroom/UI/GARVEY_RollCall.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Connected Administration</Name>
+        <Description>Conical Union city connection yields and conditional Detour Office Gold; no gameplay panel.</Description>
+        <FileName>TheConicalUnion/Lua/ConicalUnion.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -2007,6 +2038,150 @@
     <Content Include="TheSubstituteClassroom/UI/GARVEY_RollCall.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Art/CONICAL_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Lua/ConicalUnion.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/Lua/ConicalUnion.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/SQL/00_CONICAL_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/SQL/01_CONICAL_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/SQL/02_CONICAL_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/SQL/03_CONICAL_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/SQL/10_CONICAL_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="KingdomOfSaba\" />
@@ -2035,6 +2210,10 @@
     <Folder Include="TheChildrenOfTheKingdom\Lua\" />
     <Folder Include="TheChildrenOfTheKingdom\SQL\" />
     <Folder Include="TheChildrenOfTheKingdom\UI\" />
+    <Folder Include="TheConicalUnion\" />
+    <Folder Include="TheConicalUnion\Art\" />
+    <Folder Include="TheConicalUnion\Lua\" />
+    <Folder Include="TheConicalUnion\SQL\" />
     <Folder Include="TheRepublicOfPigeons\" />
     <Folder Include="TheRepublicOfPigeons\Art\" />
     <Folder Include="TheRepublicOfPigeons\SQL\" />

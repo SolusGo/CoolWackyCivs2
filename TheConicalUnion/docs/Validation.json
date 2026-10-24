@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-25",
+  "mod_version": 13,
+  "native_gameplay": "NOT TESTED IN GAME",
+  "native_save_load": "NOT TESTED IN GAME",
+  "baseline": {
+    "companion_tables": 176,
+    "cp_activated_live_cache": false,
+    "worker_moves": 2,
+    "worker_work_rate": 100
+  },
+  "source_contracts": 26,
+  "lua": "5.1; shipped controller with synthetic native boundary",
+  "suites_seconds": {
+    "conical_connections.lua": 0.00108,
+    "conical_lifecycle.lua": 0.000729,
+    "conical_resilience.lua": 0.015396
+  },
+  "art": "40 decoded mipmapped legacy DDS textures; original generated artwork",
+  "synchronization": "Native cached connection flag; owner PlayerDoTurn is after settlement. First settlement after a refresh can use previous dummy state; repaired for the next settlement unless a lifecycle/targeted city event reconciles sooner."
+}
