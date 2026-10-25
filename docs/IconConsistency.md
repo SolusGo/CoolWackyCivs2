@@ -1,5 +1,11 @@
 # Civilization icon framing
 
+Urgal (version 15) adds original leader, Rusher and Brewing Stand paintings,
+a potion emblem/alpha, promotion badges, static leader scene and an illustrative
+Hardcore Games arena map. `tools/prepare_urgal_art.py` compiles 48 DDS textures;
+originals and exact built-in imagegen prompts are in `art-source/TheUrgal`.
+The builder finishes the three new colour atlas families with the same gold rims.
+
 The Conical Union (version 13) adds four original generated images and the same
 nine-size atlas families, monochrome flag, silent Dawn and static leader scene.
 Its mipmapped textures compile with `tools/prepare_conical_art.py`; originals and

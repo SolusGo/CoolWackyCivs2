@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-26",
+  "native_gameplay": "NOT TESTED IN GAME",
+  "sql": {
+    "companion_tables": 176,
+    "eligible_training_types": 210
+  },
+  "suites": [
+    "urgal_potions.lua",
+    "urgal_lifecycle.lua",
+    "urgal_ai.lua",
+    "urgal_ui.lua"
+  ],
+  "source_audit": {
+    "official_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+    "contracts": {
+      "native additive attack modifier": true,
+      "city modifier can cancel bonus": true,
+      "defense has no generic attack modifier": true,
+      "promotion SQL attack field read": true,
+      "promotion SQL healing field read": true,
+      "native healing clamps to missing health": true,
+      "native healing accepts barbarians unless excluded": true,
+      "conversion follows promotion copy and precedes source destruction": true,
+      "conversion hook ABI": true,
+      "creation hook ABI": true,
+      "era hook ABI": true,
+      "per-unit production table is read": true,
+      "production checks building in training city": true,
+      "script data binds to unit save": true
+    },
+    "sources": {
+      "CustomMods.h": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
+        "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+      },
+      "CvUnit.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
+        "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+      },
+      "CvUnitCombat.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitCombat.cpp",
+        "sha256": "cb4b2a1b3078afc5c5720a2a5e94048142155b4b1bf111798dc79b424c1a61c8"
+      },
+      "CvUnitClasses.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitClasses.cpp",
+        "sha256": "d96b806673cddb2508f5ccdef2ba622cd0cd12e89457f86b833ce4d2dfb348e3"
+      },
+      "CvCity.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp",
+        "sha256": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2"
+      },
+      "CvTeam.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTeam.cpp",
+        "sha256": "dc5b3f4b268498f94a45f3f9d4f1c427ed1eca63e0b8cfd8ee053621700f29a9"
+      },
+      "CvPromotionClasses.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPromotionClasses.cpp",
+        "sha256": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a"
+      },
+      "CvLuaUnit.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp",
+        "sha256": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae"
+      }
+    }
+  },
+  "pending": [
+    "Native leader/setup rendering and UI at 1024x768 and 1920x1080",
+    "Native melee/city/ranged previews and resolved combat",
+    "Native Pot Chaser kills and HP cap",
+    "Native mid-window saves, reload, upgrades and gifts",
+    "Native AI activation and whole-game balance"
+  ]
+}

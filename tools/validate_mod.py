@@ -150,3 +150,5 @@ if __name__=='__main__':
     validate_conical()
     from validate_unrung import validate as validate_unrung
     validate_unrung()
+    from validate_urgal import main as validate_urgal
+    validate_urgal()

@@ -80,14 +80,15 @@ def sql():
     if cache.exists() and is_cp_cache(cache):
         source=sqlite3.connect(cache.resolve().as_uri()+'?mode=ro',uri=True)
         active=sqlite3.connect(':memory:');source.backup(active);source.close()
-        assert not active.execute('SELECT 1 FROM Civilizations WHERE Type=?',(CIV,)).fetchone(),'cache already includes Twelfth Hour; use a clean cache for activation test'
         # Civ V routes Language_* updates through its localization database;
         # the gameplay cache alone need not contain that table.
         active.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
-        apply(active);active.row_factory=sqlite3.Row
-        inherited(active,'Units','UNIT_PIKEMAN',UNIT,{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex','UnitFlagAtlas','UnitFlagIconOffset'})
-        inherited(active,'Buildings','BUILDING_WORKSHOP',TOWER,{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex'})
-        print('PASS SQL activation and full replacement inheritance on a read-only copy of the active game cache')
+        if not active.execute('SELECT 1 FROM Civilizations WHERE Type=?',(CIV,)).fetchone():
+            apply(active);active.row_factory=sqlite3.Row
+            inherited(active,'Units','UNIT_PIKEMAN',UNIT,{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex','UnitFlagAtlas','UnitFlagIconOffset'})
+            inherited(active,'Buildings','BUILDING_WORKSHOP',TOWER,{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex'})
+            print('PASS SQL activation and full replacement inheritance on a read-only copy of the active game cache')
+        else: print('SKIP Twelfth raw active-cache activation: Twelfth Hour already present; clean-schema checks passed')
     else: print('SKIP Twelfth raw active-cache activation: no cache with Community Patch loaded')
     print('PASS Twelfth SQL: all prior rows preserved, human-only flags, full inheritance, additive Culture, exact modifiers, promotion, safe dummies, localization')
     return d

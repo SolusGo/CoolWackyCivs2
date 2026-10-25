@@ -1,0 +1,50 @@
+-- Native modifiers add. Cancel AttackMod against cities, leaving their strength unchanged.
+INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,LostOnGifting,AttackMod,CityAttack,PortraitIndex,IconAtlas,PediaType,PediaEntry)
+ VALUES ('PROMOTION_URGAL_STRENGTH_II','TXT_KEY_URGAL_STRENGTH','TXT_KEY_URGAL_STRENGTH_HELP','AS2D_IF_LEVELUP',1,1,1,50,-50,0,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_STRENGTH');
+INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,PortraitIndex,IconAtlas,PediaType,PediaEntry)
+ VALUES ('PROMOTION_URGAL_POT_CHASER','TXT_KEY_URGAL_CHASER','TXT_KEY_URGAL_CHASER_HELP','AS2D_IF_LEVELUP',1,0,1,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_CHASER');
+-- Native post-kill handling heals once, includes barbarians and clamps at max HP.
+INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,LostOnGifting,HPHealedIfDestroyEnemy,HealIfDestroyExcludesBarbarians,PortraitIndex,IconAtlas,PediaType,PediaEntry)
+ VALUES ('PROMOTION_URGAL_POT_RECOVERY','TXT_KEY_URGAL_RECOVERY','TXT_KEY_URGAL_RECOVERY_HELP','AS2D_IF_LEVELUP',1,1,1,15,0,1,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_RECOVERY');
+INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('UNIT_URGAL_RUSHER','PROMOTION_URGAL_POT_CHASER');
+DELETE FROM Unit_ResourceQuantityRequirements WHERE UnitType='UNIT_URGAL_RUSHER' AND ResourceType='RESOURCE_IRON';
+-- Per-unit native modifier: avoids speeding ranged units sharing a combat class.
+INSERT INTO Unit_ProductionModifierBuildings(UnitType,BuildingType,ProductionModifier)
+ SELECT Type,'BUILDING_URGAL_BREWING_STAND',10 FROM Units WHERE Domain='DOMAIN_LAND' AND Combat>0 AND COALESCE(RangedCombat,0)=0
+ AND CombatClass IS NOT NULL AND CombatClass NOT IN ('UNITCOMBAT_RECON','UNITCOMBAT_ARCHER','UNITCOMBAT_SIEGE','UNITCOMBAT_HELICOPTER');
+UPDATE Leader_Flavors SET Flavor=10 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_OFFENSE';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_OFFENSE',10 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_OFFENSE') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_OFFENSE');
+UPDATE Leader_Flavors SET Flavor=3 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_DEFENSE';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_DEFENSE',3 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_DEFENSE') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_DEFENSE');
+UPDATE Leader_Flavors SET Flavor=3 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_CITY_DEFENSE';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_CITY_DEFENSE',3 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_CITY_DEFENSE') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_CITY_DEFENSE');
+UPDATE Leader_Flavors SET Flavor=10 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_MILITARY_TRAINING';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_MILITARY_TRAINING',10 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_MILITARY_TRAINING') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_MILITARY_TRAINING');
+UPDATE Leader_Flavors SET Flavor=6 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_EXPANSION';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_EXPANSION',6 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_EXPANSION') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_EXPANSION');
+UPDATE Leader_Flavors SET Flavor=3 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_WONDER';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_WONDER',3 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_WONDER') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_WONDER');
+UPDATE Leader_Flavors SET Flavor=4 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_DIPLOMACY';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_DIPLOMACY',4 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_DIPLOMACY') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_DIPLOMACY');
+UPDATE Leader_Flavors SET Flavor=6 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_RECON';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_RECON',6 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_RECON') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_RECON');
+UPDATE Leader_Flavors SET Flavor=9 WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_MOBILE';
+INSERT INTO Leader_Flavors(LeaderType,FlavorType,Flavor) SELECT 'LEADER_URGAL','FLAVOR_MOBILE',9 WHERE EXISTS(SELECT 1 FROM Flavors WHERE Type='FLAVOR_MOBILE') AND NOT EXISTS(SELECT 1 FROM Leader_Flavors WHERE LeaderType='LEADER_URGAL' AND FlavorType='FLAVOR_MOBILE');
+UPDATE Leader_MajorCivApproachBiases SET Bias=9 WHERE LeaderType='LEADER_URGAL' AND MajorCivApproachType='MAJOR_CIV_APPROACH_WAR';
+UPDATE Leader_MajorCivApproachBiases SET Bias=8 WHERE LeaderType='LEADER_URGAL' AND MajorCivApproachType='MAJOR_CIV_APPROACH_HOSTILE';
+UPDATE Leader_MajorCivApproachBiases SET Bias=6 WHERE LeaderType='LEADER_URGAL' AND MajorCivApproachType='MAJOR_CIV_APPROACH_DECEPTIVE';
+UPDATE Leader_MajorCivApproachBiases SET Bias=4 WHERE LeaderType='LEADER_URGAL' AND MajorCivApproachType='MAJOR_CIV_APPROACH_GUARDED';
+UPDATE Leader_MajorCivApproachBiases SET Bias=2 WHERE LeaderType='LEADER_URGAL' AND MajorCivApproachType='MAJOR_CIV_APPROACH_AFRAID';
+UPDATE Leader_MajorCivApproachBiases SET Bias=4 WHERE LeaderType='LEADER_URGAL' AND MajorCivApproachType='MAJOR_CIV_APPROACH_FRIENDLY';
+UPDATE Leader_MajorCivApproachBiases SET Bias=4 WHERE LeaderType='LEADER_URGAL' AND MajorCivApproachType='MAJOR_CIV_APPROACH_NEUTRAL';
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_FIRST_GREETING','TXT_KEY_URGAL_GREETING_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_DECLAREWAR','TXT_KEY_URGAL_WAR_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_ATTACKED','TXT_KEY_URGAL_ATTACKED_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_DEFEATED','TXT_KEY_URGAL_DEFEAT_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_PEACE_MADE_BY_HUMAN_GRACIOUS','TXT_KEY_URGAL_PEACE_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_PEACE_MADE_BY_HUMAN_UNGRACIOUS','TXT_KEY_URGAL_PEACE_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_PEACE_OFFER','TXT_KEY_URGAL_PEACE_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_GREETING_POLITE_HELLO','TXT_KEY_URGAL_FRIENDLY_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_GREETING_NEUTRAL_HELLO','TXT_KEY_URGAL_NEUTRAL_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_GREETING_HOSTILE_HELLO','TXT_KEY_URGAL_HOSTILE_%',1);
+INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_URGAL','RESPONSE_TRADE_ACCEPT_GENEROUS','TXT_KEY_URGAL_TRADE_%',1);

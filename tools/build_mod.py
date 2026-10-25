@@ -5,10 +5,10 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='14'
+VERSION='15'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
-CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom','TheTwelfthHour','TheWanderingCircus','The11Cats','KingdomOfSaba','TheSubstituteClassroom','TheConicalUnion','KingdomOfTheUnrungBell')
+CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom','TheTwelfthHour','TheWanderingCircus','The11Cats','KingdomOfSaba','TheSubstituteClassroom','TheConicalUnion','KingdomOfTheUnrungBell','TheUrgal')
 ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-driven workforce panel.'),
  ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.'),
  ('TrainerRed/UI/RED_TeamPanel.xml','Champion Team','Trainer Red simulation and event-driven Champion Team panel.'),
@@ -20,11 +20,12 @@ ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-dri
  ('KingdomOfSaba/Lua/SABA_Cities.xml','Sabaean Water Management','Invisible city-location yield reconciliation; no gameplay panel.'),
  ('TheSubstituteClassroom/UI/GARVEY_RollCall.xml','Roll Call','Mr. Garvey: persistent attendance, corrections and Detention with an event-driven classroom panel.'),
  ('TheConicalUnion/Lua/ConicalUnion.xml','Connected Administration','Conical Union city connection yields and conditional Detour Office Gold; no gameplay panel.'),
- ('KingdomOfTheUnrungBell/Lua/UnrungBell.xml','Silence Before the Storm','Human-only Quietude, Silent Belfry yields and persistent Great Toll windows.')]
+ ('KingdomOfTheUnrungBell/Lua/UnrungBell.xml','Silence Before the Storm','Human-only Quietude, Silent Belfry yields and persistent Great Toll windows.'),
+ ('TheUrgal/UI/URGAL_Potions.xml','Strength Potion Inventory','Urgal potion stockpiles, timed melee attacks, Pot Chaser and tactical AI activation.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
-PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Twelve civilizations, now including Keeper Sable and the Kingdom of the Unrung Bell.',
- 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union and The Kingdom of the Unrung Bell. Requires BNW and Community Patch v151. See the included civilization guides.',
+PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Thirteen civilizations, now including The Urgal and Strength II.',
+ 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell and The Urgal. Requires BNW and Community Patch v151. See the included civilization guides.',
  'Authors':'SolusGo','Homepage':'https://github.com/SolusGo/CoolWackyCivs2',
  'AffectsSavedGames':'1','MinCompatibleSaveVersion':'1','SupportsSinglePlayer':'1','SupportsMultiplayer':'0',
  'SupportsHotSeat':'0','SupportsMac':'0','ReloadAudioSystem':'0','ReloadLandmarkSystem':'0',
@@ -38,7 +39,7 @@ def files():
     # Append new database content after the entire released inventory. Preserve
     # existing insertion order/IDs rather than alphabetically interleaving a civ.
     return sorted(paths,key=lambda p:(p.relative_to(R).parts[0]!='Shared',
-                                     {'TheTwelfthHour':1,'TheWanderingCircus':2,'The11Cats':3,'KingdomOfSaba':4,'TheSubstituteClassroom':5,'TheConicalUnion':6,'KingdomOfTheUnrungBell':7}.get(p.relative_to(R).parts[0],0),p.as_posix()))
+                                     {'TheTwelfthHour':1,'TheWanderingCircus':2,'The11Cats':3,'KingdomOfSaba':4,'TheSubstituteClassroom':5,'TheConicalUnion':6,'KingdomOfTheUnrungBell':7,'TheUrgal':8}.get(p.relative_to(R).parts[0],0),p.as_posix()))
 def relative(p): return p.relative_to(R).as_posix()
 def imported(p): return p.suffix!='.sql' and relative(p) not in {e[0] for e in ENTRIES}
 

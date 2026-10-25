@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="14">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="15">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Twelve civilizations, now including Keeper Sable and the Kingdom of the Unrung Bell.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union and The Kingdom of the Unrung Bell. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Thirteen civilizations, now including The Urgal and Strength II.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell and The Urgal. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -671,6 +671,64 @@
     <File md5="F9B4F1B1C1A6E2B2BCE17D775E611FEA" import="0">KingdomOfTheUnrungBell/SQL/02_UNRUNG_Effects.sql</File>
     <File md5="A0C41C4FA6C17E347D189B7AE34B6DC5" import="0">KingdomOfTheUnrungBell/SQL/03_UNRUNG_Art.sql</File>
     <File md5="9CCCB41E1475D04EDC790D47FB3FEA20" import="0">KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</File>
+    <File md5="0531E6D42727D015EC5571B894BC7C64" import="1">TheUrgal/Art/URGAL_Alpha128.dds</File>
+    <File md5="4BDA0784D5D6EE9B5FCD8DF8EFBCFE99" import="1">TheUrgal/Art/URGAL_Alpha16.dds</File>
+    <File md5="18D0573C102DE42DFE1C31E9F4C36531" import="1">TheUrgal/Art/URGAL_Alpha24.dds</File>
+    <File md5="95B1D554603DF30206C11DE655E59575" import="1">TheUrgal/Art/URGAL_Alpha256.dds</File>
+    <File md5="3184EB1043EF4A013FC0808154C329BB" import="1">TheUrgal/Art/URGAL_Alpha32.dds</File>
+    <File md5="2D2DD32EF870B82F958EFF667F0B01A1" import="1">TheUrgal/Art/URGAL_Alpha45.dds</File>
+    <File md5="32D93E3F72BDDB3DDC47F125BA4F5D56" import="1">TheUrgal/Art/URGAL_Alpha48.dds</File>
+    <File md5="D21E34B16089068FCA3FD8456E6AD041" import="1">TheUrgal/Art/URGAL_Alpha64.dds</File>
+    <File md5="26DF6D315E822909D96149C67D645248" import="1">TheUrgal/Art/URGAL_Alpha80.dds</File>
+    <File md5="994DDD33365CDC0FDD1AB87BBA3793DB" import="1">TheUrgal/Art/URGAL_Dawn.dds</File>
+    <File md5="D5BB80FB48E0F2C5FAA087C8C47C7801" import="1">TheUrgal/Art/URGAL_Icon128.dds</File>
+    <File md5="AEC7337950C6E53533E07DD7AAF7272A" import="1">TheUrgal/Art/URGAL_Icon16.dds</File>
+    <File md5="BDAAE9100BA48BDCE59D141219C11300" import="1">TheUrgal/Art/URGAL_Icon24.dds</File>
+    <File md5="D3CBBA0567411D8C5BAB4E2FE8303815" import="1">TheUrgal/Art/URGAL_Icon256.dds</File>
+    <File md5="FEA2B07227C162CFDCB564B9759A5272" import="1">TheUrgal/Art/URGAL_Icon32.dds</File>
+    <File md5="6D9829BD1507638DABAC2DA72F34C9FF" import="1">TheUrgal/Art/URGAL_Icon45.dds</File>
+    <File md5="1B355C4C775B2BF085DB6A20C24207C5" import="1">TheUrgal/Art/URGAL_Icon48.dds</File>
+    <File md5="BE0D97FDD2475758D48AED64BBBD2C54" import="1">TheUrgal/Art/URGAL_Icon64.dds</File>
+    <File md5="00618C4FFDE0EBEAB217B9603D8A9FD5" import="1">TheUrgal/Art/URGAL_Icon80.dds</File>
+    <File md5="8E0D8F877556C53C110260D23BAE1BDD" import="1">TheUrgal/Art/URGAL_Leader.dds</File>
+    <File md5="B97EBEB188CE6FE4B13AB7F96A18F640" import="1">TheUrgal/Art/URGAL_LeaderScene.xml</File>
+    <File md5="63CF6F95A1572F89F456A352CBBE4D65" import="1">TheUrgal/Art/URGAL_Map.dds</File>
+    <File md5="128BE722E6FD54FB8F96891E888A696F" import="1">TheUrgal/Art/URGAL_Objects128.dds</File>
+    <File md5="1BA88BB7BECD88BB1C864768FA498F8E" import="1">TheUrgal/Art/URGAL_Objects16.dds</File>
+    <File md5="BBCC3023CBD6298B3A33D8FA01285AB7" import="1">TheUrgal/Art/URGAL_Objects24.dds</File>
+    <File md5="5B6ADFED20153A44673674550298299D" import="1">TheUrgal/Art/URGAL_Objects256.dds</File>
+    <File md5="F0A651FB04EBA027F4A97B6CD41F4AC4" import="1">TheUrgal/Art/URGAL_Objects32.dds</File>
+    <File md5="2BB156E4951CDB6E033DA9F1631B2408" import="1">TheUrgal/Art/URGAL_Objects45.dds</File>
+    <File md5="7EC32DEEB8BDAD40C149C5E05BD47C80" import="1">TheUrgal/Art/URGAL_Objects48.dds</File>
+    <File md5="05764438F9518432C83265186B28F167" import="1">TheUrgal/Art/URGAL_Objects64.dds</File>
+    <File md5="5BB8241113941ACBA5639F4D62533555" import="1">TheUrgal/Art/URGAL_Objects80.dds</File>
+    <File md5="D3FD14F0E7D8C7EF345D8AE94CD6191A" import="1">TheUrgal/Art/URGAL_Portrait128.dds</File>
+    <File md5="C79B0EA86B4B537819297DD01E52627F" import="1">TheUrgal/Art/URGAL_Portrait16.dds</File>
+    <File md5="E735DBB1235F76ED246F8455DD185906" import="1">TheUrgal/Art/URGAL_Portrait24.dds</File>
+    <File md5="5EFED8269470AEC1F1ECC7EABF34115F" import="1">TheUrgal/Art/URGAL_Portrait256.dds</File>
+    <File md5="4471A67FBD45F052BBAE547FB4FBA84C" import="1">TheUrgal/Art/URGAL_Portrait32.dds</File>
+    <File md5="82C7767E2D4389AE66C5C9428A648E3B" import="1">TheUrgal/Art/URGAL_Portrait45.dds</File>
+    <File md5="ECA2DCE717D81969B255FE3786A8C6F8" import="1">TheUrgal/Art/URGAL_Portrait48.dds</File>
+    <File md5="8AE0D18AE5DF3353EE8151CB736C3669" import="1">TheUrgal/Art/URGAL_Portrait64.dds</File>
+    <File md5="19DA8305A264736DFE08313D5FBC1C2B" import="1">TheUrgal/Art/URGAL_Portrait80.dds</File>
+    <File md5="9A9D1DF9D30473A80AB240F85E37545E" import="1">TheUrgal/Art/URGAL_Promotions128.dds</File>
+    <File md5="EC4B1D7192762901EBE036B73C090D27" import="1">TheUrgal/Art/URGAL_Promotions16.dds</File>
+    <File md5="8A10A80BC41CE5E7F7D136FC4A7A3B5A" import="1">TheUrgal/Art/URGAL_Promotions24.dds</File>
+    <File md5="0C13171C80A793B344F4F0DA84DB692A" import="1">TheUrgal/Art/URGAL_Promotions256.dds</File>
+    <File md5="5C47257088AAA4C35BBC3A679B3601AD" import="1">TheUrgal/Art/URGAL_Promotions32.dds</File>
+    <File md5="F179FC86F066F5DEB72F0C42EF39DBEE" import="1">TheUrgal/Art/URGAL_Promotions45.dds</File>
+    <File md5="5CBD7A68734A05A858BFAB77D04328B6" import="1">TheUrgal/Art/URGAL_Promotions48.dds</File>
+    <File md5="76CA1C5478B14DC4476C9D849AF56EC3" import="1">TheUrgal/Art/URGAL_Promotions64.dds</File>
+    <File md5="C976A10C59D9549CF1A418FE052E48FA" import="1">TheUrgal/Art/URGAL_Promotions80.dds</File>
+    <File md5="6AE03727D1090835161262716BE39AAF" import="1">TheUrgal/Lua/URGAL_AI.lua</File>
+    <File md5="9C4E5FCD748A211A836769CADC4222E0" import="1">TheUrgal/Lua/URGAL_Core.lua</File>
+    <File md5="583E88DFD78C5381D44C09C9BCAF73A1" import="0">TheUrgal/SQL/00_URGAL_Core.sql</File>
+    <File md5="7C9DFA69A298B2653425E59BAC2D9F59" import="0">TheUrgal/SQL/01_URGAL_Inheritance.sql</File>
+    <File md5="5D28473D6260A22367F414D0D0B4ABCF" import="0">TheUrgal/SQL/02_URGAL_Effects.sql</File>
+    <File md5="AEC5712E68039ADE48A5B9EE6DF0B485" import="0">TheUrgal/SQL/03_URGAL_Art.sql</File>
+    <File md5="283764E60DC7903B958BCA14A555E141" import="0">TheUrgal/SQL/10_URGAL_Text.sql</File>
+    <File md5="3447F03735BDFBD1FAB642B21D88A0AE" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
+    <File md5="9FD4C395C9A9514940ADCDC6F1874E7A" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -736,6 +794,11 @@
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/02_UNRUNG_Effects.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/03_UNRUNG_Art.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheUrgal/SQL/00_URGAL_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheUrgal/SQL/01_URGAL_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheUrgal/SQL/02_URGAL_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheUrgal/SQL/03_URGAL_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheUrgal/SQL/10_URGAL_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -786,6 +849,10 @@
     <EntryPoint type="InGameUIAddin" file="KingdomOfTheUnrungBell/Lua/UnrungBell.xml">
       <Name>Silence Before the Storm</Name>
       <Description>Human-only Quietude, Silent Belfry yields and persistent Great Toll windows.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheUrgal/UI/URGAL_Potions.xml">
+      <Name>Strength Potion Inventory</Name>
+      <Description>Urgal potion stockpiles, timed melee attacks, Pot Chaser and tactical AI activation.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.12.0 Urgal implementation preview / mod version 15 — 2026-10-26
+
+- Add human/AI-playable The Urgal from the supplied MCPVP Hardcore Games design: one initial Strength Potion plus one per new Era, uncapped persistent stockpiles, snapshot-only +50% melee attack against units, 3/5/7/12-turn speed windows and two-turn Aftertaste.
+- Add the iron-free 14-strength/2-move/80-cost Urgal Rusher with permanent Pot Chaser and conditional native 15-HP kill healing. Add the Brewing Stand with Barracks training XP, 75 cost, 1 maintenance and local +10% eligible melee production; it never creates potions.
+- Add the potion inventory/drink UI, visible-enemy/concentrated-army AI activation, English Civilopedia/Dawn/diplomacy, three original paintings, collection-style symbols/map and 48 DDS textures. Append new database IDs, retain collection UUID and update ModBuddy, manifests, guides and release verification.
+- Add installed-schema inheritance/coexistence checks, four shipped-Lua lifecycle/UI/AI suites and pinned CP v151 combat, conversion and production source contracts. Native gameplay, rendering, saves and balance acceptance remain pending; see [Urgal validation](TheUrgal/docs/Testing.md).
+
 ## Boundless City lore and Civilopedia expansion — 2026-10-26
 
 - Add five narrative books with more than eight thousand words on the One Charter, delegated government, citizenship, law, records, provision, infrastructure, finance, culture, crises and daily life. Expand the GitHub civ page and detailed README around that setting.
