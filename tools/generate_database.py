@@ -1,6 +1,8 @@
 """Generate inherited SQL from the installed CP schema, never from guessed columns."""
 from pathlib import Path
+import sys
 from database import database, quote
+from boundless_lore import localization
 R = Path(__file__).resolve().parents[1]
 V = R / 'TheBoundlessCity'
 
@@ -9,17 +11,12 @@ TEXT = {
  'LEADER': 'The First Architect', 'CAPITAL': 'The Heart of the World',
  'TRAIT': 'The World Is One City',
  'TRAIT_HELP': 'One original capital, unlimited contiguous cultural reach, and real citizens working distant owned tiles. Survive capital loss while units remain. At 1 HP with an adjacent melee force, reclaim your original, demolish native-legal targets, or subjugate protected major settlements once. Subjugating every rival original capital can win Domination. See the guide for workforce and external-transfer limits.',
- 'CIV_PEDIA': 'There shall be no second city. For the first shall have no end.[NEWLINE][NEWLINE]The Boundless City measures civilization in streets, bridges and the citizens who walk them. Every new frontier becomes another district of the same capital. Its one production queue and one population remain the price of that ambition.',
- 'LEADER_PEDIA': 'The First Architect is an original fictional master builder. Their vision unites settlement, coast and distant island within one continuously growing city. Infrastructure and patient defense matter more than occupation.',
  'STRATEGY': 'Grow your capital, build The Grand Registry, and use Surveyors to develop the frontier. Choose remote tiles in The Boundless Workforce. Science, Culture and Diplomatic victories use normal rules. Subjugate every rival original capital through siege to win Domination without occupation.',
- 'DAWN': 'There shall be no second city. For the first shall have no end.[NEWLINE][NEWLINE]First Architect, the foundations are laid. Grow the Heart of the World, send your Surveyors beyond the familiar streets, and let every bridge join another district to your one great city.',
  'REGISTRY': 'The Grand Registry',
  'REGISTRY_HELP': '+3 Culture. +1 additional Culture per 10 owned plots, capped at +10. Reduces the separate frontier Culture cost by 15%. Retains the active Monument rules.',
- 'REGISTRY_PEDIA': 'The Grand Registry records each district as part of the same city, whether it lies beside the heart or across a distant sea. The territorial Culture bonus is counted once and never exceeds ten.',
  'REGISTRY_STRATEGY': 'Build early to drive frontier growth and support ordinary Social Policies.',
  'SURVEYOR': 'Frontier Surveyor',
  'SURVEYOR_HELP': 'Replaces Worker. 3 Movement and 125% of the ordinary Worker base work rate. Completing an improvement on an owned plot more than five hexes from the capital grants 5 Culture once per plot per Boundless player. Repairs and routes do not qualify.',
- 'SURVEYOR_PEDIA': 'The Frontier Surveyor treats the horizon as another street waiting to be drawn. Surveyors retain the active Worker build permissions, automation roles and upgrade relationships.',
  'SURVEYOR_STRATEGY': 'Develop strong frontier tiles. Distant work still requires citizen reservations; territory alone produces no additional tile yields.',
  'NO_CAPTURE': 'One City, One Heart', 'NO_CAPTURE_HELP': 'Cannot capture enemy cities. The Boundless City cannot safely occupy foreign capitals or additional cities.',
  'WORKFORCE': 'The Boundless Workforce', 'CLOSE': 'Close', 'ASSIGN': 'Assign', 'RELEASE': 'Release',
@@ -80,6 +77,14 @@ TEXT = {
  'DISABLED': 'The saved Boundless state is invalid or newer than this mod. Remote yields have been removed. Consult Lua.log before continuing.',
  'BONUS': 'Registry territorial Culture', 'BONUS_HELP': 'Automatically maintained by The Grand Registry.',
 }
+LORE_TEXT,NATIVE_LORE_TEXT=localization()
+TEXT.update(LORE_TEXT)
+
+
+def text_sql():
+    values={'TXT_KEY_BC_'+key:value for key,value in TEXT.items()}
+    values.update(NATIVE_LORE_TEXT)
+    return '\n'.join("INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('"+key+"','"+value.replace("'","''")+"');" for key,value in sorted(values.items()))+'\n'
 for n in range(1, 11): TEXT['SPY_' + str(n)] = 'Registry Envoy ' + str(n)
 
 def clone(table, old, new, **fields):
@@ -100,6 +105,10 @@ def companions(d, prefix, col, old, new, skip=()):
     return ''.join(out)
 
 def main():
+    if '--text-only' in sys.argv:
+        (V/'SQL/10_BC_Text.sql').write_text(text_sql(),encoding='utf-8',newline='\n')
+        print('Generated Boundless localization only; gameplay SQL unchanged')
+        return
     d = database(); (V/'SQL').mkdir(parents=True, exist_ok=True)
     core = """-- BNW and CP v151. Event options expose hooks; handlers remain civilization-scoped.
 UPDATE CustomModOptions SET Value=1 WHERE Name IN
@@ -161,7 +170,7 @@ UPDATE Leader_Flavors SET Flavor=7 WHERE LeaderType='LEADER_BC_ARCHITECT' AND Fl
             art += f"INSERT INTO IconTextureAtlases VALUES ('{atlas}',{size},'{stem}{size}.dds',{columns},1);\n"
     for size in [64,128,256]: art += f"INSERT INTO IconTextureAtlases VALUES ('BC_LEADER_ATLAS',{size},'BoundlessPortrait{size}.dds',1,1);\n"
     art += "INSERT INTO IconTextureAtlases VALUES ('BC_FLAG_ATLAS',32,'BoundlessFlag32.dds',1,1);\n"
-    text = '\n'.join("INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_"+k+"','"+v.replace("'","''")+"');" for k,v in sorted(TEXT.items()))+'\n'
+    text = text_sql()
     for name, content in [('00_BC_Core',core),('01_BC_Inheritance',inherit),('02_BC_Effects',effects),('03_BC_Art',art),('10_BC_Text',text)]:
         (V/'SQL'/f'{name}.sql').write_text(content,encoding='utf-8',newline='\n')
     print('Generated inherited civilization, Worker, Monument, art and localization SQL')

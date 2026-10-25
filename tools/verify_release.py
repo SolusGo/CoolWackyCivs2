@@ -60,6 +60,7 @@ def main():
             'Art/UNRUNG_Leader.dds','Art/UNRUNG_Objects256.dds','docs/Validation.json']]
         sample += ['TheBoundlessCity/UI/BoundlessWorkforce.lua','TheBoundlessCity/UI/BoundlessWorkforce.xml']
         sample += ['TheBoundlessCity/Art/BoundlessMap.dds']
+        sample += ['TheBoundlessCity/SQL/10_BC_Text.sql','TheBoundlessCity/Lore/TheCity.md','TheBoundlessCity/Lore/TheFirstArchitect.md']
         sample += ['TheBoundlessCity/Art/BC_UI_'+name+'.dds' for name in ['Panel','Launcher','Row','Buttons','Assigned','Pending']]
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)
         for name in sample: assert (target/name).read_bytes()==(R/name).read_bytes(),('7z stale bytes',name)

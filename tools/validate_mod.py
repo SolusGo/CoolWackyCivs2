@@ -51,6 +51,8 @@ def sql():
         assert d.execute('SELECT 1 FROM IconTextureAtlases WHERE Atlas=? AND IconsPerRow*IconsPerColumn>?',(atlas,index)).fetchone()
     for (name,) in d.execute("SELECT Filename FROM IconTextureAtlases WHERE Atlas LIKE 'BC_%'"):assert (V/'Art'/name).is_file(),name
     assert d.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+    from validate_boundless_lore import validate as validate_lore
+    validate_lore(d)
     print('PASS actual BNW/CP SQL, complete Worker/Monument inheritance, starting Settler, UI localization and art references')
 
 def syntax():

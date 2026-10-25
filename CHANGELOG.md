@@ -1,5 +1,11 @@
 # Changelog
 
+## Boundless City lore and Civilopedia expansion — 2026-10-26
+
+- Add five narrative books with more than eight thousand words on the One Charter, delegated government, citizenship, law, records, provision, infrastructure, finance, culture, crises and daily life. Expand the GitHub civ page and detailed README around that setting.
+- Add 29 native civilization chapters, six leader chapters, complete leader metadata, Registry/Surveyor histories and a longer Dawn address. Supply the numbered Civilopedia keys required by Firaxis' article loader.
+- Compile localization from the shared Markdown sources, add a safe text-only generation path and test the installed native chapter-discovery loops with modeled controls. Preserve version 14, mechanical Help/Strategy text, gameplay, saves and artwork. Native reading/scrolling remains pending; see [the lore integration record](TheBoundlessCity/docs/LoreIntegration.md).
+
 ## Boundless City map artwork repair — 2026-10-26
 
 - Replace the leader painting in the civilization map slot with an original overhead parchment atlas of the Boundless metropolis.

@@ -6,7 +6,43 @@ An original Civilization V civilization led by **The First Architect**, built fo
 
 Civilization setup now uses a [dedicated overhead map](docs/MapArtwork.md) of the metropolis, with its own atlas source and native-size preview.
 
-**Release 1.2.2 preview / mod version 4, awaiting full native playtesting.** The player confirmed the earlier crash replay succeeds; the latest [Workforce visibility fix](docs/UIVisibilityHotfix.md) still needs an in-game retry. Unlimited potential border/remote distance and the safe forced/surplus citizen model remain. New military options reclaim the genuine original and subjugate protected major cities; native Domination completion, remote improvement development and Tourism refresh are implemented. See the [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md).
+**Included in collection mod version 14; implementation preview.** Native testing remains incomplete. The [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md) distinguish implemented mechanics from remaining restrictions.
+
+## A city measured in obligations
+
+The Heart of the World began where seven rival river crossings learned that they shared one disaster. Their separate gates, embankments and guarded granaries had made a flood more destructive. The First Architect's answer placed the crossings under one charter and made their common government responsible for the works connecting them. The vow against a second city promised that future districts would remain inside that responsibility.
+
+Centuries later, the result resembles an entire country. Its inhabitants live in farm compounds, dense work courts, distant quarry wards and islands reached by ship. They call those places neighborhoods because their citizenship, final courts and common obligations belong to the same municipality. The capital is the enduring seat of that shared identity. A new market or harbor can become important without founding a separate sovereign city.
+
+Read the complete setting in [The Charter of One Threshold](Lore/TheCity.md), a 29-chapter chronicle of the city's institutions and ordinary life. The [lore index](Lore/README.md) includes the companion books and a guide to their relationship with existing game abstractions.
+
+## Government across the horizon
+
+The **Council of Wards** represents districts, approves common taxation and decides which major works receive the city's finite resources. The **First Architect** directs that program with the **College of Works**, whose engineers and provisioners must turn political promises into usable infrastructure. Public examination of candidates, the terms of appointment and the right to challenge an official's conduct place limits around the office.
+
+The **Common Bench** hears final appeals, including claims against the government. The **Grand Registry** preserves the evidence: who lives where, which obligations have been authorized, what was delivered and how a disputed entry was corrected. Its records are distributed among ward houses, reach offices and the principal archive. The city relies on distant witnesses being able to correct its central account.
+
+Local councils govern the matters their residents can inspect. Reach boards coordinate watersheds, passes and ferry corridors shared by several wards. Standing emergency powers let a neighborhood open a reserve or close a dangerous crossing before a message returns from the Heart. The official who acts must record the reasons and later answer for the decision.
+
+This division of responsibility explains the territory's scale. Most people never need the First Architect to make an everyday decision for them. They need an accountable local office, resources adequate to its duties and a usable route of appeal when it fails.
+
+## Work, food and the common account
+
+Remote workers live near their work. A fishing household returns to its own quay; an orchard keeper tends the holding outside their home. The common workforce account coordinates those contributions and prevents the same labor from being promised in two places. Movement between districts changes residence and occupation while preserving civic standing.
+
+Food likewise moves among local producers, mills, stores and the households that need it. Crediting provision to one city does not require every sack to visit one central granary. The city shares the account of supply while keeping physical reserves and responsibility dispersed. Lost crossings, storms, corruption and war can still expose the people farthest from help.
+
+Many workshops contribute to the common economy. Major projects compete for the same appropriation of skilled labor, materials and commitments, giving the city a coherent program and a serious limit on what it can promise at once. One magnificent plan can absorb the workers needed to repair an ordinary ward's wells. The Petition of the Dry Cups remembers residents who forced the government to put that existing obligation first.
+
+## The people inside the plan
+
+The setting gives the city's ideals adversaries within its own institutions. Records can protect a household or become a means of excluding it. Shared law can restrain a local tyrant or carry a central government's arbitrary orders everywhere. Districts preserve different customs and beliefs while disputing the obligations they owe one another.
+
+The [First Architect's biography](Lore/TheFirstArchitect.md) treats the founder as mortal and the office as a responsibility inherited by later generations. [The Grand Registry](Lore/TheGrandRegistry.md) explores correction, privacy and civic memory. [Frontier Surveyors](Lore/FrontierSurveyors.md) follows the people who must discover what a beautiful drawing has overlooked. [At the First Threshold](Lore/Dawn.md) supplies the expanded Dawn of Man address.
+
+In-game, open **Civilopedia → Civilizations → The Boundless City**, then select **The First Architect** for the leader chapters. The Grand Registry and Frontier Surveyor have expanded historical entries in their normal building/unit articles. [Integration and reading notes](docs/LoreIntegration.md) explain how the books reach the native Civilopedia.
+
+These institutions are the fictional interpretation of the civilization. The gameplay reference below remains the rule set; this lore update introduces no new government, transport or tax mechanics.
 
 ## Unique ability — The World Is One City
 

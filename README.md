@@ -4,6 +4,8 @@ Twelve civilizations for Civilization V: Brave New World and **Community Patch v
 
 **Current release:** mod version 14 · **1.11.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
+The Boundless City now has an extensive [lore library](TheBoundlessCity/Lore/README.md) explaining how one municipal charter governs distant wards: shared law and citizenship, delegated government, distributed food stores, public works, finance and everyday life. The same books supply its expanded in-game Civilopedia chapters and histories.
+
 The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/UIVisuals.md), with an engraved city header, brass/teal textures, matching controls and clearer district rows. [Layout preview and original art](art-source/TheBoundlessCity/WorkforceUI/README.md).
 
 ## Civilization roster

@@ -1,5 +1,11 @@
 # The Boundless City changelog
 
+## Lore library and native Civilopedia expansion — 2026-10-26
+
+- Add the complete civic chronicle and companion books for the Architect, Registry, Surveyors and Dawn, with extensive GitHub introductions. Explain how one charter and common institutions support many locally administered wards.
+- Add 29 civilization and six leader chapters using native numbered localization, plus required leader metadata and expanded unique histories. Preserve every mechanical Help/Strategy/Workforce string.
+- Keep Markdown and in-game prose synchronized through a localization compiler and text-only generator. Add real-schema/pointer, markup, continuity and actual Firaxis-loop regressions. Version 14, artwork, mechanics and saves are unchanged; [native reading checks remain](docs/LoreIntegration.md).
+
 ## Civilization map artwork repair — 2026-10-26
 
 - Replace `BoundlessMap.dds`'s reused First Architect painting with a dedicated overhead map, retaining the separate leader/loading art.
