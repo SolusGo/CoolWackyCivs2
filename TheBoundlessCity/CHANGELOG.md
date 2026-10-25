@@ -1,5 +1,10 @@
 # The Boundless City changelog
 
+## Civilization map artwork repair — 2026-10-26
+
+- Replace `BoundlessMap.dds`'s reused First Architect painting with a dedicated overhead map, retaining the separate leader/loading art.
+- Fit the native 360×410 window, retain a 512×512 DDS canvas with transparent gutters/full mips, and prevent the general art generator from restoring the wrong source. Keep collection version 14 and all gameplay/save formats. [Source and validation details](docs/MapArtwork.md).
+
 ## Workforce graphical update — 2026-10-24
 
 - Replace the generic panel surface with original engraved-city artwork, brass/teal frames, summary wells, custom native button states and district row textures.

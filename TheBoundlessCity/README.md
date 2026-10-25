@@ -4,6 +4,8 @@
 
 An original Civilization V civilization led by **The First Architect**, built for **Brave New World + Community Patch v151**. Its capital is **The Heart of the World**. The theme combines a medieval settlement, golden civic architecture and an interconnected metropolis spreading across the world.
 
+Civilization setup now uses a [dedicated overhead map](docs/MapArtwork.md) of the metropolis, with its own atlas source and native-size preview.
+
 **Release 1.2.2 preview / mod version 4, awaiting full native playtesting.** The player confirmed the earlier crash replay succeeds; the latest [Workforce visibility fix](docs/UIVisibilityHotfix.md) still needs an in-game retry. Unlimited potential border/remote distance and the safe forced/surplus citizen model remain. New military options reclaim the genuine original and subjugate protected major cities; native Domination completion, remote improvement development and Tourism refresh are implemented. See the [six-limitation report](docs/EngineCompletionReport.md) and [engine boundaries](docs/EngineLimitations.md).
 
 ## Unique ability — The World Is One City

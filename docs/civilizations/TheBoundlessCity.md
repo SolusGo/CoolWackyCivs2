@@ -2,6 +2,8 @@
 
 > There shall be no second city. For the first shall have no end.
 
+The civilization selection map now uses an original [parchment city atlas](../../TheBoundlessCity/docs/MapArtwork.md), fitted to the native map window.
+
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
 **Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Release:** 1.2.2 preview / mod v4

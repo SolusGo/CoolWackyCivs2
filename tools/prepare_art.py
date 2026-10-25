@@ -43,7 +43,8 @@ def main():
     source=Image.open(R/'art-source/TheBoundlessCity/ArchitectAndWorld.png').convert('RGBA')
     save(source,'BoundlessDawn.dds',(1024,768))
     save(source,'BoundlessLeader.dds',(1600,900))
-    save(source,'BoundlessMap.dds',(512,512))
+    from prepare_boundless_map import main as prepare_map
+    prepare_map()
     portrait=source.crop((55,20,600,565))
     for size in SIZES:
         save(emblem('civ'),f'BoundlessIcon{size}.dds',(size,size))

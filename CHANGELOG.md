@@ -1,5 +1,11 @@
 # Changelog
 
+## Boundless City map artwork repair — 2026-10-26
+
+- Replace the leader painting in the civilization map slot with an original overhead parchment atlas of the Boundless metropolis.
+- Compile the dedicated map for the native 360×410 display window on a 512×512 mipmapped DDS; route future art regeneration through its own compiler.
+- Keep version 14, SQL references, gameplay, save formats and all other artwork. Preserve source/prompt/display preview and rebuild checked archives; native setup confirmation remains pending. See [the map report](TheBoundlessCity/docs/MapArtwork.md).
+
 ## Unrung Bell refinement audit — 2026-10-25
 
 - Reject corrupt numeric Unrung save fields that overflow Lua numbers and previously granted maximum Quietude. Preserve valid v1 progression, all existing keys/identities, balance, artwork and collection version 14.
