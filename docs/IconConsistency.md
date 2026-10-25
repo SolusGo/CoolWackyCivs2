@@ -1,5 +1,11 @@
 # Civilization icon framing
 
+Jin (version 16) adds original Aguda loading/leader artwork, crimson-and-gold
+civilization/unit/building atlas families, monochrome alpha/flags and a schematic
+map. `tools/prepare_jin_art.py` compiles the retained sources in
+`art-source/JinDynasty`; the shared finisher applies the same gold rims and padding.
+No AoE4 proprietary assets or new 3D models are included.
+
 Urgal (version 15) adds original leader, Rusher and Brewing Stand paintings,
 a potion emblem/alpha, promotion badges, static leader scene and an illustrative
 Hardcore Games arena map. `tools/prepare_urgal_art.py` compiles 49 DDS textures, including the dedicated transparent 32px purple potion UI bottle with a full mip chain;

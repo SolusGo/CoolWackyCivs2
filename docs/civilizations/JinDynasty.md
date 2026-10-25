@@ -1,0 +1,11 @@
+# The Jin Dynasty — Wanyan Aguda
+
+**Jurchen Legacy** recreates the linked Horse economy, mobile labor, Emissary diplomacy and fortified cavalry response of Age of Empires IV's Jin. Human-playable only. Requires BNW and Windows Community Patch v151; start a new game.
+
+Train expensive fast Mounted Villagers, then choose and construct one Landmark in each of three paired tiers. Every completion offers a chosen Grassland with five-Horse capacity. Retain Horses for exact cavalry maximum HP, or spend them with Gold to recruit cavalry instantly near a War Stable. Great Pasture supplies an additional independent Horse source. Specialized Iron Pagodas, Mohe horse archers, two-bolt Bed Crossbows, Zhanma infantry and short-range Eruptors give the army distinct roles.
+
+Two vulnerable Emissaries can establish independent City-State Tributaries, bringing capital Food, trade income and more Mounted Villagers. Bribe replaces hostile troops with Barbarian rebels rather than adding units to the Jin army. Dragon Pavilion and Meng'an Mouke upgrades protect cities/Forts using temporary leashed defenders; Chemistry unlocks Mounted Grenadiers. Other Landmark paths provide a movable Flower Garden, Mountain Hall Karma/blessings, Great Wall Bastion defenses or productive enemy-slowing Pagoda Groves.
+
+Open **JIN DYNASTY** for inventories, progression, legal action buttons, named upgrades and status. The civilization rewards active spatial and economic management; expensive civilians, finite Horse generation, paid recruitment, anti-cavalry threats, exposed Emissaries and permanent Landmark decisions constrain its tempo.
+
+The native trade modifier also affects non-Gold international yields, secondary explosive damage is bounded/nonlethal, and unit models are borrowed. Native game testing remains outstanding. [Detailed guide](../../JinDynasty/README.md) · [AoE4 conversion matrix](../../JinDynasty/docs/AoE4Fidelity.md) · [Testing](../../JinDynasty/docs/Testing.md) · [Implementation](../../JinDynasty/docs/Implementation.md)

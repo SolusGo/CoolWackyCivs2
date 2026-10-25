@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-26",
+  "mod_version": "16",
+  "runtime": "Lupa Lua 5.1, actual installed-schema SQL, synthetic native calls",
+  "native_gameplay": "NOT RUN",
+  "native_rendering": "NOT RUN",
+  "native_save_files": "NOT RUN",
+  "runs": [
+    {
+      "suite": "jin_economy.lua",
+      "speed": "GAMESPEED_QUICK",
+      "milliseconds": 154.3
+    },
+    {
+      "suite": "jin_economy.lua",
+      "speed": "GAMESPEED_STANDARD",
+      "milliseconds": 192.08
+    },
+    {
+      "suite": "jin_economy.lua",
+      "speed": "GAMESPEED_EPIC",
+      "milliseconds": 368.52
+    },
+    {
+      "suite": "jin_economy.lua",
+      "speed": "GAMESPEED_MARATHON",
+      "milliseconds": 427.41
+    },
+    {
+      "suite": "jin_diplomacy.lua",
+      "speed": "GAMESPEED_STANDARD",
+      "milliseconds": 44.48
+    },
+    {
+      "suite": "jin_military.lua",
+      "speed": "GAMESPEED_STANDARD",
+      "milliseconds": 36.98
+    },
+    {
+      "suite": "jin_landmarks.lua",
+      "speed": "GAMESPEED_QUICK",
+      "milliseconds": 1383.39
+    },
+    {
+      "suite": "jin_landmarks.lua",
+      "speed": "GAMESPEED_STANDARD",
+      "milliseconds": 2695.19
+    },
+    {
+      "suite": "jin_landmarks.lua",
+      "speed": "GAMESPEED_EPIC",
+      "milliseconds": 3988.25
+    },
+    {
+      "suite": "jin_landmarks.lua",
+      "speed": "GAMESPEED_MARATHON",
+      "milliseconds": 5751.34
+    },
+    {
+      "suite": "jin_ui.lua",
+      "speed": "GAMESPEED_STANDARD",
+      "milliseconds": 159.9
+    },
+    {
+      "suite": "jin_lifecycle.lua",
+      "speed": "GAMESPEED_STANDARD",
+      "milliseconds": 264.9
+    },
+    {
+      "suite": "jin_reliability.lua",
+      "speed": "GAMESPEED_STANDARD",
+      "milliseconds": 64.2
+    }
+  ]
+}

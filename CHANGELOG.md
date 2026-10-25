@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.0 Jin Dynasty implementation preview / mod version 16 — 2026-10-26
+
+- Add human-only Jin Dynasty under Wanyan Aguda: active-baseline Mounted Villagers, chosen per-Landmark Grasslands, five-Horse inventories, native cavalry maximum HP and paid instant War Stable recruitment.
+- Implement the full requested military/support roster, independent City-State Tributaries, hostile Barbarian Bribe replacements, all six constructed branching Landmarks, Flower Garden, Karma/blessing, Pagoda Groves and bounded temporary Meng'an Mouke defenders.
+- Add thirteen named upgrades, functional six-tab crimson-and-gold panel, original Aguda painting, medallions/flags/map and retained art sources; preserve the collection UUID and append SQL after existing civilizations.
+- Add focused executable Lua 5.1 tests on four speeds, installed-CP schema/inheritance/regression checks, pinned source audits, synthetic benchmark and package verification. See [Jin verification and native limitations](JinDynasty/docs/Testing.md). Native gameplay, rendering and save-file testing remain outstanding.
+
 ## 1.12.1 Urgal hardening preview / mod version 15 — 2026-10-26
 
 - Correct Urgal to human-only, restore Strength II's +50% melee attack against enemy cities, and scale Aftertaste to 1/2/3/6 without changing the 3/5/7/12 Strength windows or other approved balance values.

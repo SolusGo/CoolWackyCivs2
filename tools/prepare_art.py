@@ -75,5 +75,7 @@ def main():
     prepare_conical()
     from prepare_unrung_art import main as prepare_unrung
     prepare_unrung()
+    from prepare_jin_art import main as prepare_jin
+    prepare_jin()
 
 if __name__=='__main__':main()

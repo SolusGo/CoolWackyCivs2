@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-26",
+  "runtime": "Lupa Lua 5.1; synthetic native calls",
+  "native_FPS": "NOT MEASURED",
+  "native_pathfinding": "NOT MEASURED",
+  "continuous_frame_polling": false,
+  "scenarios": {
+    "100_unit_owner_turn": {
+      "median_ms": 11.224,
+      "max_ms": 33.502,
+      "repeats": 20
+    },
+    "1000_unrelated_movements": {
+      "median_ms": 0.293,
+      "max_ms": 0.934,
+      "repeats": 10
+    },
+    "save_decode_encode": {
+      "median_ms": 1.055,
+      "max_ms": 10.482,
+      "repeats": 100
+    }
+  }
+}

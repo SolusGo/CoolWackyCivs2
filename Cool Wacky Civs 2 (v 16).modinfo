@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="15">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="16">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Thirteen civilizations, now including The Urgal and Strength II.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell and The Urgal. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Fourteen civilizations, now including the Jin Dynasty cavalry economy.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal and The Jin Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -730,6 +730,81 @@
     <File md5="CADF60B716E4A7B03F2442EE399BE2F0" import="0">TheUrgal/SQL/10_URGAL_Text.sql</File>
     <File md5="861AC69006BDEEEA1578CAC7982C6DC4" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
     <File md5="EDF457BD8FF891614885A62ED5DD03DC" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
+    <File md5="56F65EC93DE800A54AED900182230506" import="1">JinDynasty/Art/JIN_Alpha128.dds</File>
+    <File md5="6358E239B86E577745BC9FFD6B5707BA" import="1">JinDynasty/Art/JIN_Alpha16.dds</File>
+    <File md5="6ED90739CB05F7D9797EC11992579B99" import="1">JinDynasty/Art/JIN_Alpha24.dds</File>
+    <File md5="671BD62788BC12B07BF9C46421798D90" import="1">JinDynasty/Art/JIN_Alpha256.dds</File>
+    <File md5="2ED6D081532403295C384BBD483135D4" import="1">JinDynasty/Art/JIN_Alpha32.dds</File>
+    <File md5="3FB3734841F04C9099105B15293B02BC" import="1">JinDynasty/Art/JIN_Alpha45.dds</File>
+    <File md5="AE599F0B254B8CD876EFD7A0B7FD6C67" import="1">JinDynasty/Art/JIN_Alpha48.dds</File>
+    <File md5="7CBF87AFC47D3F05CDFE322CCA3336CA" import="1">JinDynasty/Art/JIN_Alpha64.dds</File>
+    <File md5="CFE50857D54C29BF02B111B995CE95F3" import="1">JinDynasty/Art/JIN_Alpha80.dds</File>
+    <File md5="72B9934AADA27C8D762FEC2D2508EA17" import="1">JinDynasty/Art/JIN_Buildings128.dds</File>
+    <File md5="4A35775ACAC7D9625F53FEE880F9636D" import="1">JinDynasty/Art/JIN_Buildings16.dds</File>
+    <File md5="8338AB382C0EFD313F261EC18DD50166" import="1">JinDynasty/Art/JIN_Buildings24.dds</File>
+    <File md5="09101C3EAC1FE2035B205512F13F7B61" import="1">JinDynasty/Art/JIN_Buildings256.dds</File>
+    <File md5="5294636E6433C4B59BBEC17D23C8435F" import="1">JinDynasty/Art/JIN_Buildings32.dds</File>
+    <File md5="6A97FB61DF37621697DE006715AFE89C" import="1">JinDynasty/Art/JIN_Buildings45.dds</File>
+    <File md5="55D38F54A3E3FF633FA9BA64B2B5112D" import="1">JinDynasty/Art/JIN_Buildings48.dds</File>
+    <File md5="99280152FECB2643C3CCC6AA7C2A7919" import="1">JinDynasty/Art/JIN_Buildings64.dds</File>
+    <File md5="1738282390DCBEB807A33B12C79F930C" import="1">JinDynasty/Art/JIN_Buildings80.dds</File>
+    <File md5="C3E14F2C58EDC4403295FFE79B338408" import="1">JinDynasty/Art/JIN_Dawn.dds</File>
+    <File md5="B816790DACDC2221F4BB17B4C9044605" import="1">JinDynasty/Art/JIN_Flags128.dds</File>
+    <File md5="88FE841A5CE0EA71D6B27738090ADC51" import="1">JinDynasty/Art/JIN_Flags16.dds</File>
+    <File md5="1768E30D2CE23F70BE45C525EF90EBDB" import="1">JinDynasty/Art/JIN_Flags24.dds</File>
+    <File md5="9012AF144AB0928C53A1866FB9AB70C9" import="1">JinDynasty/Art/JIN_Flags256.dds</File>
+    <File md5="64388BF97387BDDC88BBDBEA6E098DFF" import="1">JinDynasty/Art/JIN_Flags32.dds</File>
+    <File md5="F5B5E68801921EA50C99F4E890BC7E15" import="1">JinDynasty/Art/JIN_Flags45.dds</File>
+    <File md5="6F223A0EBFD822C2DAED198B300F2CF8" import="1">JinDynasty/Art/JIN_Flags48.dds</File>
+    <File md5="479764A8D74BEB43A166DBAFF63886FA" import="1">JinDynasty/Art/JIN_Flags64.dds</File>
+    <File md5="F0A76A504E2A1CAA092FB6646CF404E8" import="1">JinDynasty/Art/JIN_Flags80.dds</File>
+    <File md5="4E0ABEB127C57C7BB7D546C48C4666C0" import="1">JinDynasty/Art/JIN_GrasslandUI32.dds</File>
+    <File md5="B153483A3E6B3F8F312FF707B1BAF6F2" import="1">JinDynasty/Art/JIN_Header.dds</File>
+    <File md5="81182E9A81B7504702EFDFA6A1DFE57D" import="1">JinDynasty/Art/JIN_HorseUI32.dds</File>
+    <File md5="0CEB19FA44D5A0C894F8E5B54C291429" import="1">JinDynasty/Art/JIN_Icon128.dds</File>
+    <File md5="58E52419BC16491902B4F3DCFFC7B801" import="1">JinDynasty/Art/JIN_Icon16.dds</File>
+    <File md5="14DF77B107CC720174E4BD4CF3F507CD" import="1">JinDynasty/Art/JIN_Icon24.dds</File>
+    <File md5="0D9080CCC58FD62ACD2CEF14671B6309" import="1">JinDynasty/Art/JIN_Icon256.dds</File>
+    <File md5="E337D5F42792071A56912FA46EFF783F" import="1">JinDynasty/Art/JIN_Icon32.dds</File>
+    <File md5="2C5670E11F3E883FC3071B8A90FBB422" import="1">JinDynasty/Art/JIN_Icon45.dds</File>
+    <File md5="B9C67D81DFC9A985896B4E04F7006CB7" import="1">JinDynasty/Art/JIN_Icon48.dds</File>
+    <File md5="1ADEFFF4ADE25A919F83F75373F7BCBE" import="1">JinDynasty/Art/JIN_Icon64.dds</File>
+    <File md5="AA690166D78D2A96F8BFBE0DA694CA56" import="1">JinDynasty/Art/JIN_Icon80.dds</File>
+    <File md5="2079C52F1E3536E0E55F6B572BAAF623" import="1">JinDynasty/Art/JIN_KarmaUI32.dds</File>
+    <File md5="A0AB74E6971A54726149471DC57D4EB2" import="1">JinDynasty/Art/JIN_Leader.dds</File>
+    <File md5="1B40BB757D62536AFE37D165360DAB9E" import="1">JinDynasty/Art/JIN_LeaderScene.xml</File>
+    <File md5="63D2321017D615CBBB2C96AE4752E2A0" import="1">JinDynasty/Art/JIN_Map.dds</File>
+    <File md5="824E284A04C62BBFB07B76098D65791D" import="1">JinDynasty/Art/JIN_MenganUI32.dds</File>
+    <File md5="F85D3779D01C45658509B3811983FB97" import="1">JinDynasty/Art/JIN_Portrait128.dds</File>
+    <File md5="EEE532ED2CF598011ADBA07A3902C3D8" import="1">JinDynasty/Art/JIN_Portrait16.dds</File>
+    <File md5="89CA8EE6E7DD7C510CDAE2632EF11019" import="1">JinDynasty/Art/JIN_Portrait24.dds</File>
+    <File md5="33CBFE6D74BA62FFCBB84872091F604A" import="1">JinDynasty/Art/JIN_Portrait256.dds</File>
+    <File md5="D1DC189C4D4D7BF0F370BD2848100460" import="1">JinDynasty/Art/JIN_Portrait32.dds</File>
+    <File md5="D2793979EB1287FAA8DE1AE7DFACC208" import="1">JinDynasty/Art/JIN_Portrait45.dds</File>
+    <File md5="08EC5FD5F06C55A8375F70786AF80430" import="1">JinDynasty/Art/JIN_Portrait48.dds</File>
+    <File md5="B136D149F15C7AA74961D8BB1B23906D" import="1">JinDynasty/Art/JIN_Portrait64.dds</File>
+    <File md5="3740BDB8DC76CD37071BFAD4F8E7D625" import="1">JinDynasty/Art/JIN_Portrait80.dds</File>
+    <File md5="BF79D67E2A635CA638D5213F9E0D8B4A" import="1">JinDynasty/Art/JIN_TributaryUI32.dds</File>
+    <File md5="7052B276B7313A922FB500E7DDDF05CC" import="1">JinDynasty/Art/JIN_Units128.dds</File>
+    <File md5="E8DB0C3942A27E5177DCDA63852DB543" import="1">JinDynasty/Art/JIN_Units16.dds</File>
+    <File md5="2399386261B6C3EA8FDDEFF89427C932" import="1">JinDynasty/Art/JIN_Units24.dds</File>
+    <File md5="491340B088EE192AC53F2795ACB74C6F" import="1">JinDynasty/Art/JIN_Units256.dds</File>
+    <File md5="128D2C094B6D0D676433500E1DCF5F77" import="1">JinDynasty/Art/JIN_Units32.dds</File>
+    <File md5="7DA5B41BF297CE39770534C128E3885E" import="1">JinDynasty/Art/JIN_Units45.dds</File>
+    <File md5="A0CDC33B3080D60BDD5B07F03DD3CE2A" import="1">JinDynasty/Art/JIN_Units48.dds</File>
+    <File md5="FAE60C301A87A3376703FA62F962CFCA" import="1">JinDynasty/Art/JIN_Units64.dds</File>
+    <File md5="85C3B161973468FF502DABF38288A468" import="1">JinDynasty/Art/JIN_Units80.dds</File>
+    <File md5="CFC6D4BA22FC6C46AC9051C66169ACC9" import="1">JinDynasty/Lua/JIN_Config.lua</File>
+    <File md5="4BAE39BA71727A77A9A2CCBE55CE40BE" import="1">JinDynasty/Lua/JIN_Core.lua</File>
+    <File md5="1802EA00C2CCBF98A5C4EB4652852169" import="1">JinDynasty/Lua/JIN_Military.lua</File>
+    <File md5="7F55977C4A1FEE2B311BF9804A69DEEC" import="1">JinDynasty/Lua/JIN_State.lua</File>
+    <File md5="EC4DD059EAFC6C2F93B1A6ADFD5E11F0" import="0">JinDynasty/SQL/00_JIN_Core.sql</File>
+    <File md5="5494E151C1EA554BAD3E70655C086C22" import="0">JinDynasty/SQL/01_JIN_Inheritance.sql</File>
+    <File md5="0A8D1F7DAA20A6679A88FFECDE03E368" import="0">JinDynasty/SQL/02_JIN_Effects.sql</File>
+    <File md5="6DAE11A7C4FAD7B9A56A89C00CA8EE56" import="0">JinDynasty/SQL/03_JIN_Art.sql</File>
+    <File md5="68FA5DB94BE4B8AECC5485283DAD4009" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
+    <File md5="210E914BED70838B39E16AAD6638C0BF" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
+    <File md5="6E5FACCD988013B422047886F459C377" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -800,6 +875,11 @@
       <UpdateDatabase>TheUrgal/SQL/02_URGAL_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheUrgal/SQL/03_URGAL_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheUrgal/SQL/10_URGAL_Text.sql</UpdateDatabase>
+      <UpdateDatabase>JinDynasty/SQL/00_JIN_Core.sql</UpdateDatabase>
+      <UpdateDatabase>JinDynasty/SQL/01_JIN_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>JinDynasty/SQL/02_JIN_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>JinDynasty/SQL/03_JIN_Art.sql</UpdateDatabase>
+      <UpdateDatabase>JinDynasty/SQL/10_JIN_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -854,6 +934,10 @@
     <EntryPoint type="InGameUIAddin" file="TheUrgal/UI/URGAL_Potions.xml">
       <Name>Strength Potion Inventory</Name>
       <Description>Human-only Urgal stockpiles, timed melee attacks against units and cities, Pot Chaser and speed-scaled Aftertaste.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="JinDynasty/UI/JIN_Dynasty.xml">
+      <Name>The Jin Dynasty</Name>
+      <Description>Human-only Grasslands, Horse recruitment, Emissaries, Landmarks and automatic defenses.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

@@ -152,3 +152,5 @@ if __name__=='__main__':
     validate_unrung()
     from validate_urgal import main as validate_urgal
     validate_urgal()
+    from validate_jin import main as validate_jin
+    validate_jin()

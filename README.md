@@ -1,8 +1,10 @@
 # Cool Wacky Civs 2
 
-Thirteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Fourteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current release:** mod version 15 · **1.12.1 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current release:** mod version 16 · **1.13.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+[The Jin Dynasty](JinDynasty/README.md) adds Wanyan Aguda's linked Mounted Villager, Grassland/Horse, cavalry recruitment, Emissary/Tributary, Bribe, six-Landmark and Meng'an Mouke systems. Includes a six-tab panel, thirteen named upgrades, original art and focused four-speed Lua validation. Human-only; native game/render/save acceptance remains pending.
 
 [The Urgal](TheUrgal/README.md) brings MCPVP Hardcore Games timing attacks: stockpile one Strength Potion per Era, empower the current melee army for a short offensive window, then wait through Aftertaste. Includes the iron-free Urgal Rusher, Brewing Stand, potion inventory with a purple bottle icon, speed-scaled Aftertaste and human-only play. Eligible melee attacks gain Strength II against units and cities.
 
@@ -27,15 +29,16 @@ The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/
 | [The Conical Union](docs/civilizations/TheConicalUnion.md) | High Marshal Bollard | Connect productive settlements with Road Crews and defensive Detour Offices. | [Details](TheConicalUnion/README.md) |
 | [The Kingdom of the Unrung Bell](docs/civilizations/KingdomOfTheUnrungBell.md) | Keeper Sable | Build Quietude during peace, then consume it for five full windows of the Great Toll. | [Details](KingdomOfTheUnrungBell/README.md) |
 | [The Urgal](docs/civilizations/TheUrgal.md) | Urgal | Stockpile rare Strength Potions and time overwhelming melee attacks. | [Details](TheUrgal/README.md) |
+| [The Jin Dynasty](docs/civilizations/JinDynasty.md) | Wanyan Aguda | Manage Horse stockpiles, recruit cavalry, establish Tributaries and choose branching Landmarks. | [Details](JinDynasty/README.md) |
 
-All thirteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell and The Urgal are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All fourteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal and The Jin Dynasty are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 15).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 15).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 16).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 16).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 

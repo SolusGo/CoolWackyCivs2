@@ -123,3 +123,6 @@ result = {'date': '2026-10-12', 'mod_version': 4, 'environment': platform.platfo
 output = json.dumps(result, indent=2) + '\n'
 print(output)
 (V / 'docs/Benchmark.json').write_text(output, encoding='utf-8', newline='\n')
+
+from benchmark_jin import main as benchmark_jin
+benchmark_jin()

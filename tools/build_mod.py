@@ -5,10 +5,10 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='15'
+VERSION='16'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
-CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom','TheTwelfthHour','TheWanderingCircus','The11Cats','KingdomOfSaba','TheSubstituteClassroom','TheConicalUnion','KingdomOfTheUnrungBell','TheUrgal')
+CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom','TheTwelfthHour','TheWanderingCircus','The11Cats','KingdomOfSaba','TheSubstituteClassroom','TheConicalUnion','KingdomOfTheUnrungBell','TheUrgal','JinDynasty')
 ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-driven workforce panel.'),
  ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.'),
  ('TrainerRed/UI/RED_TeamPanel.xml','Champion Team','Trainer Red simulation and event-driven Champion Team panel.'),
@@ -21,11 +21,12 @@ ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-dri
  ('TheSubstituteClassroom/UI/GARVEY_RollCall.xml','Roll Call','Mr. Garvey: persistent attendance, corrections and Detention with an event-driven classroom panel.'),
  ('TheConicalUnion/Lua/ConicalUnion.xml','Connected Administration','Conical Union city connection yields and conditional Detour Office Gold; no gameplay panel.'),
  ('KingdomOfTheUnrungBell/Lua/UnrungBell.xml','Silence Before the Storm','Human-only Quietude, Silent Belfry yields and persistent Great Toll windows.'),
- ('TheUrgal/UI/URGAL_Potions.xml','Strength Potion Inventory','Human-only Urgal stockpiles, timed melee attacks against units and cities, Pot Chaser and speed-scaled Aftertaste.')]
+ ('TheUrgal/UI/URGAL_Potions.xml','Strength Potion Inventory','Human-only Urgal stockpiles, timed melee attacks against units and cities, Pot Chaser and speed-scaled Aftertaste.'),
+ ('JinDynasty/UI/JIN_Dynasty.xml','The Jin Dynasty','Human-only Grasslands, Horse recruitment, Emissaries, Landmarks and automatic defenses.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
-PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Thirteen civilizations, now including The Urgal and Strength II.',
- 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell and The Urgal. Requires BNW and Community Patch v151. See the included civilization guides.',
+PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Fourteen civilizations, now including the Jin Dynasty cavalry economy.',
+ 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal and The Jin Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.',
  'Authors':'SolusGo','Homepage':'https://github.com/SolusGo/CoolWackyCivs2',
  'AffectsSavedGames':'1','MinCompatibleSaveVersion':'1','SupportsSinglePlayer':'1','SupportsMultiplayer':'0',
  'SupportsHotSeat':'0','SupportsMac':'0','ReloadAudioSystem':'0','ReloadLandmarkSystem':'0',
@@ -39,7 +40,7 @@ def files():
     # Append new database content after the entire released inventory. Preserve
     # existing insertion order/IDs rather than alphabetically interleaving a civ.
     return sorted(paths,key=lambda p:(p.relative_to(R).parts[0]!='Shared',
-                                     {'TheTwelfthHour':1,'TheWanderingCircus':2,'The11Cats':3,'KingdomOfSaba':4,'TheSubstituteClassroom':5,'TheConicalUnion':6,'KingdomOfTheUnrungBell':7,'TheUrgal':8}.get(p.relative_to(R).parts[0],0),p.as_posix()))
+                                     {'TheTwelfthHour':1,'TheWanderingCircus':2,'The11Cats':3,'KingdomOfSaba':4,'TheSubstituteClassroom':5,'TheConicalUnion':6,'KingdomOfTheUnrungBell':7,'TheUrgal':8,'JinDynasty':9}.get(p.relative_to(R).parts[0],0),p.as_posix()))
 def relative(p): return p.relative_to(R).as_posix()
 def imported(p): return p.suffix!='.sql' and relative(p) not in {e[0] for e in ENTRIES}
 
@@ -117,6 +118,7 @@ def main():
     paths += [R/(NAME+'.modinfo'),R/'README.md',R/'CHANGELOG.md']
     paths += [p for civ in CIVILIZATIONS for p in (R/civ).rglob('*.md')]+list((R/'docs').rglob('*.md'))
     paths += [p for civ in CIVILIZATIONS for p in (R/civ/'docs').glob('*.json')]
+    paths += [R/'JinDynasty/Balance.json']
     out=R/'dist';out.mkdir(exist_ok=True)
     with zipfile.ZipFile(out/(NAME+'.zip'),'w',compression=zipfile.ZIP_DEFLATED) as z:
         for p in paths:z.write(p,NAME+'/'+relative(p))

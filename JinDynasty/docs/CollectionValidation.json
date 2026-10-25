@@ -1,0 +1,22 @@
+{
+  "command": ".venv/Scripts/python.exe -u tools/validate_mod.py",
+  "exit_code": 0,
+  "native_game": "NOT RUN",
+  "pass_lines": 185,
+  "final_scenarios": [
+    "PASS Jin economy: candidates, cap, HP, pillage, purchase legality, stale clicks, four-speed timing, save rollback and ownership",
+    "PASS Jin economy: candidates, cap, HP, pillage, purchase legality, stale clicks, four-speed timing, save rollback and ownership",
+    "PASS Jin economy: candidates, cap, HP, pillage, purchase legality, stale clicks, four-speed timing, save rollback and ownership",
+    "PASS Jin economy: candidates, cap, HP, pillage, purchase legality, stale clicks, four-speed timing, save rollback and ownership",
+    "PASS Jin diplomacy: two Emissaries, independent tribute/native yields, war/elimination, protected targets, neutral rebels and cooldown persistence",
+    "PASS Jin combat: actual damage ABI, bounded/nonrecursive collateral, second bolt, late grenadiers, home leash and parent/expiry cleanup",
+    "PASS Jin landmarks: permanent paired choices, Garden relocation, Karma/death/blessing windows, named upgrades, Grove caps/slowing and crowded sites",
+    "PASS Jin landmarks: permanent paired choices, Garden relocation, Karma/death/blessing windows, named upgrades, Grove caps/slowing and crowded sites",
+    "PASS Jin landmarks: permanent paired choices, Garden relocation, Karma/death/blessing windows, named upgrades, Grove caps/slowing and crowded sites",
+    "PASS Jin landmarks: permanent paired choices, Garden relocation, Karma/death/blessing windows, named upgrades, Grove caps/slowing and crowded sites",
+    "PASS Jin panel: visible entry, six tabs, era/choice disables, site action, refresh and non-Jin isolation",
+    "PASS Jin lifecycle: all six paths across scenarios, pending offers, context ownership, capture/elimination, corrupt state and absent-civ isolation",
+    "PASS Jin reliability: 40/20 HP, wounded transitions, gift/upgrade, deferred awards, 20/+3 caps, destruction and blocked/displaced defenders",
+    "PASS Jin: 13 executable Lua scenarios; native Civ V acceptance remains pending"
+  ]
+}

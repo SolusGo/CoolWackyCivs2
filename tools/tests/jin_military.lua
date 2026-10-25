@@ -1,0 +1,25 @@
+local J=MapModData.JIN;War(0,1,true)
+local iron=Spawn('IRON_PAGODA',8,9);local primary=Spawn('UNIT_WARRIOR',9,9,1);local adjacent=Spawn('UNIT_WARRIOR',10,9,1)
+local friend=Spawn('UNIT_WARRIOR',9,10);local neutral=Spawn('UNIT_WARRIOR',8,10,2)
+local function combat(unit,target,damage,final)
+ GameEvents.CombatEnded.Fire(0,unit.id,damage,0,100,target.owner,target.id,0,final or damage,100,-1,-1,0,target.x,target.y)
+end
+combat(iron,primary,40);assert(adjacent.damage==6 and friend.damage==0 and neutral.damage==0)
+combat(iron,primary,40);assert(adjacent.damage==6,'duplicate combat splashed again')
+local bed=Spawn('BED_CROSSBOW',8,9);primary.fighting=true;combat(bed,primary,40,50);assert(primary.damage==14);primary.fighting=false
+local eruptor=Spawn('ERUPTOR',8,9);combat(eruptor,primary,40,60);assert(adjacent.damage==10)
+local grenadier=Spawn('GRENADIER',8,9);combat(grenadier,primary,40,70);assert(adjacent.damage==18)
+assert(GameInfo.Units[eruptor.typ].Range==1)
+-- Secondary damage cannot kill or recurse, even against one-HP survivors.
+adjacent.damage=99;combat(iron,primary,40,80);assert(adjacent.damage==99)
+Complete('FLOWER_PAGODA');Complete('DRAGON_PAVILION');local s=J.State(0)
+J.Defenders(0,s,true);s=J.State(0);local n=0;for _ in pairs(s.defenders)do n=n+1 end;assert(n==1)
+J.Defenders(0,s,true);local n2=0;for _ in pairs(J.State(0).defenders)do n2=n2+1 end;assert(n2==1)
+local uid,r=next(s.defenders);local defender=Players[0]:GetUnitByID(uid)
+assert(not J.CanMoveInto(0,uid,22,22,false,false));assert(not J.CanMoveInto(0,uid,cap.x,cap.y,true,false))
+LoadJin();J=MapModData.JIN;assert(J.State(0).defenders[uid]);now=r.expires;J.Defenders(0,J.State(0),false);assert(defender.dead)
+-- Chemistry changes the automatic spawn type; cooldown and no-space failures remain bounded.
+Learn('TECH_CHEMISTRY');s=J.State(0);s.defense['c'..cap:Plot().index].ready=0;J.Save(0,s);J.Defenders(0,s,true)
+local late;for id in pairs(J.State(0).defenders)do late=Players[0]:GetUnitByID(id)end;assert(late.typ==GameInfoTypes.UNIT_JIN_GRENADIER)
+cap.buildings[J.Building('DRAGON_PAVILION')]=0;J.Defenders(0,J.State(0),false);assert(late.dead,'lost parent retained defender')
+print('PASS Jin combat: actual damage ABI, bounded/nonrecursive collateral, second bolt, late grenadiers, home leash and parent/expiry cleanup')
