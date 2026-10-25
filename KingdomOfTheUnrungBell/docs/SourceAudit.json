@@ -1,0 +1,62 @@
+{
+  "official_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "native_gameplay": "NOT TESTED IN GAME",
+  "contracts": {
+    "DLL v151": true,
+    "war notification after native one-side flag write": true,
+    "prechange declaration hook is not used": true,
+    "melee modifier checks battle plot": true,
+    "ranged modifier checks shooter plot": true,
+    "friendly territory includes open borders": true,
+    "promotion modifiers accumulate additively": true,
+    "promotion field loaded": true,
+    "permanent promotion upgrade flag read": true,
+    "conversion event follows promotion copy": true,
+    "turn-active Lua binding": true,
+    "ABI PlayerDoneTurn": true,
+    "ABI UnitCreated": true,
+    "ABI UnitConverted": true,
+    "ABI UnitUpgraded": true,
+    "ABI CityConstructed": true,
+    "ABI CitySoldBuilding": true,
+    "ABI CityRazed": true
+  },
+  "verified_limitations": [
+    "FriendlyLandsModifier includes same-team and open-border territory, not exclusive player ownership.",
+    "Ranged friendly-land strength uses shooter plot, not target plot. Exact requested combat semantics require a DLL change."
+  ],
+  "sources": {
+    "CustomMods.h": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
+      "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+    },
+    "CvUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
+      "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+    },
+    "CvTeam.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTeam.cpp",
+      "sha256": "dc5b3f4b268498f94a45f3f9d4f1c427ed1eca63e0b8cfd8ee053621700f29a9"
+    },
+    "CvPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp",
+      "sha256": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87"
+    },
+    "CvPlot.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlot.cpp",
+      "sha256": "185fa04a5c9426da9d7d385ae8ee2520759ec83f9dffad939c8c2a4c200f48a5"
+    },
+    "CvPromotionClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPromotionClasses.cpp",
+      "sha256": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a"
+    },
+    "CvLuaUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp",
+      "sha256": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae"
+    },
+    "CvLuaPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp",
+      "sha256": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a"
+    }
+  }
+}

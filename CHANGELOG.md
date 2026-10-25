@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.11.0 Unrung Bell implementation preview / mod version 14 — 2026-10-25
+
+- Add human-only Keeper Sable, Stillhaven, Bellwarden and Silent Belfry, with runtime inheritance of active Pikeman/Temple scalar and companion properties. No 3D model changes.
+- Add persistent Quietude (one stack per five completed peaceful owner-turns, cap three), real city Culture, conditional Belfry Science and permanent Belfry Culture. Event-driven war consumption activates Great Toll tiers 5/10/15 through five full owner-turn windows; continuous wars cannot refresh it and complete peace removes it.
+- Add English Civilopedia, strategy, supplied Dawn narrative and supported diplomacy responses, plus four original generated paintings/icons, tintable bell symbol, promotion badges and 48 DDS textures.
+- Append new database IDs after all released content, retain collection UUID/minimum save version, update builder/ModBuddy/manifests and document the acceptance matrix. Native gameplay/save/rendering acceptance remains pending. **Verified CP limitation:** native friendly-land modifiers include open borders and ranged attacks use the shooter tile; exact exclusively owned-target combat is not implemented. See [guide and validation](KingdomOfTheUnrungBell/README.md).
+
 ## Conical Union reliability audit — 2026-10-25
 
 - Fix recreated-context callback suppression, isolate per-city failures, retry targeted foreign cleanup and preserve cross-city reentrant events. Add bounded diagnostics, callback retirement/shutdown safety and one-time foreign load sanitation.

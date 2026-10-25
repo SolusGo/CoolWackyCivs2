@@ -72,5 +72,7 @@ def main():
     prepare_garvey()
     from prepare_conical_art import main as prepare_conical
     prepare_conical()
+    from prepare_unrung_art import main as prepare_unrung
+    prepare_unrung()
 
 if __name__=='__main__':main()

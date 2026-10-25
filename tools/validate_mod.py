@@ -146,3 +146,5 @@ if __name__=='__main__':
     validate_garvey()
     from validate_conical_union import validate as validate_conical
     validate_conical()
+    from validate_unrung import validate as validate_unrung
+    validate_unrung()

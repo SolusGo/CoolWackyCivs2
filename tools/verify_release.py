@@ -54,6 +54,10 @@ def main():
                 'The11Cats/Art/THE11CATS_Leader.dds',
                 'The11Cats/Art/THE11CATS_Dawn.dds',
                 'The11Cats/Art/THE11CATS_Flag32.dds']
+        sample += ['KingdomOfTheUnrungBell/'+p for p in [
+            'Lua/UnrungBell.xml','Lua/UnrungBell.lua','SQL/00_UNRUNG_Core.sql',
+            'SQL/01_UNRUNG_Inheritance.sql','SQL/02_UNRUNG_Effects.sql',
+            'Art/UNRUNG_Leader.dds','Art/UNRUNG_Objects256.dds','docs/Validation.json']]
         sample += ['TheBoundlessCity/UI/BoundlessWorkforce.lua','TheBoundlessCity/UI/BoundlessWorkforce.xml']
         sample += ['TheBoundlessCity/Art/BC_UI_'+name+'.dds' for name in ['Panel','Launcher','Row','Buttons','Assigned','Pending']]
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)

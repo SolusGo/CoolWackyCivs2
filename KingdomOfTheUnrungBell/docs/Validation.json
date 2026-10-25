@@ -1,0 +1,16 @@
+{
+  "companion_tables": 176,
+  "cp_activated_live_cache": false,
+  "static": "PASS",
+  "lua51_mock_suites": [
+    "unrung_quietude.lua",
+    "unrung_wars.lua",
+    "unrung_timing.lua",
+    "unrung_lifecycle.lua",
+    "unrung_safety.lua",
+    "unrung_recovery.lua"
+  ],
+  "native_gameplay": "NOT TESTED IN GAME",
+  "status": "Implementation preview; exact owned-target combat semantics blocked by native CP modifier behavior",
+  "manual": "Native yields, saves/autosaves, event timing, combat previews, strategic view and selection/rendering remain pending."
+}

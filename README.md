@@ -1,8 +1,8 @@
 # Cool Wacky Civs 2
 
-Eleven civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Twelve civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current release:** mod version 13 · **1.10.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current release:** mod version 14 · **1.11.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
 The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/UIVisuals.md), with an engraved city header, brass/teal textures, matching controls and clearer district rows. [Layout preview and original art](art-source/TheBoundlessCity/WorkforceUI/README.md).
 
@@ -21,15 +21,16 @@ The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/
 | [The Kingdom of Saba](docs/civilizations/KingdomOfSaba.md) | Karib'il Watar | Settle River and Desert cities, develop Cisterns and defend the wadis. | [Details](KingdomOfSaba/README.md) |
 | [The Substitute Classroom](docs/civilizations/TheSubstituteClassroom.md) | Mr. Garvey | Take Roll Call, manage Insubordination and turn Detention into a military surge. | [Details](TheSubstituteClassroom/README.md) |
 | [The Conical Union](docs/civilizations/TheConicalUnion.md) | High Marshal Bollard | Connect productive settlements with Road Crews and defensive Detour Offices. | [Details](TheConicalUnion/README.md) |
+| [The Kingdom of the Unrung Bell](docs/civilizations/KingdomOfTheUnrungBell.md) | Keeper Sable | Build Quietude during peace, then consume it for five full windows of the Great Toll. | [Details](KingdomOfTheUnrungBell/README.md) |
 
-All eleven are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom and The Conical Union are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All twelve are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union and The Kingdom of the Unrung Bell are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 13).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 13).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 14).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 14).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 
