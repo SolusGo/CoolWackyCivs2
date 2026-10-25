@@ -1,5 +1,10 @@
 # Changelog
 
+## Unrung Bell refinement audit — 2026-10-25
+
+- Reject corrupt numeric Unrung save fields that overflow Lua numbers and previously granted maximum Quietude. Preserve valid v1 progression, all existing keys/identities, balance, artwork and collection version 14.
+- Expand the Unrung audit to ten shipped-Lua suites, 44 pinned CP v151 source contracts, installed save/event/preview evidence and a precise native acceptance record. Correct the upgrade event-order documentation; retain working war/timer/city/promotion systems and the disclosed native combat approximation. See the [audit report](KingdomOfTheUnrungBell/docs/AuditReport.md). No other civilization implementation is changed; native gameplay/save acceptance remains pending.
+
 ## 1.11.0 Unrung Bell implementation preview / mod version 14 — 2026-10-25
 
 - Add human-only Keeper Sable, Stillhaven, Bellwarden and Silent Belfry, with runtime inheritance of active Pikeman/Temple scalar and companion properties. No 3D model changes.

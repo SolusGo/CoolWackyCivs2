@@ -8,7 +8,11 @@
     "unrung_timing.lua",
     "unrung_lifecycle.lua",
     "unrung_safety.lua",
-    "unrung_recovery.lua"
+    "unrung_recovery.lua",
+    "unrung_persistence.lua",
+    "unrung_team_wars.lua",
+    "unrung_boundary_cases.lua",
+    "unrung_conversion_cases.lua"
   ],
   "native_gameplay": "NOT TESTED IN GAME",
   "status": "Implementation preview; exact owned-target combat semantics blocked by native CP modifier behavior",

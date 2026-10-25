@@ -4,6 +4,8 @@
 
 Implementation preview: database, gameplay Lua, persistence, English Civilopedia/diplomacy and original artwork are integrated and automated checks pass. **Native gameplay is not verified. Exact exclusively owned-target combat behavior is not available through CP v151's native friendly-land modifier.** See the limits below; this is not a claim that every specification requirement has been met.
 
+The [refinement audit](docs/AuditReport.md) fixes corrupt numeric save records being interpreted as maximum Quietude, expands validation to ten shipped-controller suites and 44 CP source contracts, and corrects the documented pre-upgrade/post-conversion event order. Gameplay values, artwork, all database identities, version 14 and valid v1 saves are preserved.
+
 ## Silence Before the Storm
 
 At the end of each uninterrupted peaceful owner-turn, advance a persistent civilization-wide counter. Quietude is `min(3, floor(counter / 5))`: 0 at 4 turns, 1 at 5, 2 at 10, and 3 at 15 or any later count. Each stack gives every currently owned city **+1 Culture** through genuine city building yields. Newly founded or acquired cities inherit the current stack count. Barbarians never interrupt this counter; wars with majors or city-states do.
@@ -30,6 +32,8 @@ Quietude increments on `PlayerDoneTurn`, after the owner's actions. It becomes v
 
 One versioned `Modding.OpenSaveData()` record per player (`UNRUNG_STATE_V1_<playerID>`) stores peace progress, war guard, Toll strength, begun windows, last begin/end tokens and interrupted/activation-turn guards. Writes use Firaxis dot calls and readback. Consumption and duration are committed together before effects are applied. Unknown/corrupt records are preserved and conditional effects disabled; no free replacement state is awarded. Ordinary globals only cache controller ownership, not authoritative gameplay state.
 
+`OpenSaveData` is the database embedded in the selected save, distinct from the per-user `OpenUserData` API. Player ID alone is not the isolation mechanism: the engine selects/restores the save container. Existing keys remain unchanged; no cross-game leakage was reproduced and no migration is justified. [API evidence and limits](docs/SaveApiAudit.json) include installed Firaxis usage, read-only schema and primary save-container documentation. Separate games/slots and rollback are modeled, while actual native packing/restoration and quick-load behavior still require acceptance.
+
 Loading restores records, reconciles actual war, repairs city yields and units, and sanitizes foreign city/unit lists once. It never awards a peaceful turn or advances the Toll. Recreated contexts retire old handlers. Binary dummy setters are idempotent and suppress construction rewards. Native save rollback, end-turn autosave resumption and quick-load ordering still require in-game acceptance.
 
 ## Compatibility and verified limits
@@ -45,5 +49,7 @@ Loading restores records, reconciles actual war, repairs city yields and units, 
 Build with `python tools/build_mod.py` and install `dist/Cool Wacky Civs 2 (v 14).zip` through the Mods folder as described in the collection README. Remove the older collection folder before installing. **Start a new game to select Sable.** Existing identifiers and insertion order precede this addition; the collection UUID and minimum compatible save version are retained, but older-save continuation is unverified. Back up saves. This is not a migration promise.
 
 Run `python tools/validate_unrung.py`, then `python tools/validate_mod.py`, build, and `python tools/verify_release.py`. These test SQL in memory, inspect pinned source, decode DDS and execute the shipped controller under Lua 5.1 mocks. They do not launch Civ V. See the [full acceptance matrix](docs/Testing.md), [implementation details](docs/Implementation.md), [source evidence](docs/SourceAudit.json), and [machine-readable validation](docs/Validation.json).
+
+The [native acceptance record](docs/NativeAcceptance.md) provides setup, action, expected result, evidence and unverified observed/status fields for each in-game check. No native result has been invented.
 
 In game, select Sable in modded single-player, verify absence from AI leader selection, settle two cities and construct a Belfry in one. End 4, 5, 10 and 15 peaceful turns and inspect building/city Culture and Science. Save at each boundary, declare both directions of war, test city-state involvement, and compare the next five full windows and sixth-start expiration. Check combat previews for both sides, owned/enemy/open-border plots and ranged firing tiles, keeping the documented native deviations explicit.

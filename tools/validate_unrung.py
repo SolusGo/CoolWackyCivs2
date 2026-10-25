@@ -1,5 +1,6 @@
 """Real-schema SQL + shipped Lua 5.1 lifecycle simulations. Never launches Civ V."""
 from collections import Counter
+from pathlib import Path
 import hashlib
 import json
 import math
@@ -12,7 +13,8 @@ from database import database, quote, is_cp_cache
 from build_mod import files, ENTRIES, imported, NAME
 from generate_unrung import R, V, CIV, LEADER, UNIT, BELFRY, GUARD, TIERS, TEXT, CITIES
 
-SUITES = ['unrung_quietude.lua','unrung_wars.lua','unrung_timing.lua','unrung_lifecycle.lua','unrung_safety.lua','unrung_recovery.lua']
+SUITES = ['unrung_quietude.lua','unrung_wars.lua','unrung_timing.lua','unrung_lifecycle.lua','unrung_safety.lua','unrung_recovery.lua',
+          'unrung_persistence.lua','unrung_team_wars.lua','unrung_boundary_cases.lua','unrung_conversion_cases.lua']
 
 def apply(d):
     for p in sorted((V/'SQL').glob('*.sql')): d.executescript(p.read_text(encoding='utf-8'))
@@ -77,6 +79,8 @@ def sql():
     changed=database()
     changed.executescript("""ALTER TABLE Units ADD UNRUNG_Test INTEGER DEFAULT 0;
 ALTER TABLE Buildings ADD UNRUNG_Test INTEGER DEFAULT 0;
+ALTER TABLE Unit_ClassUpgrades ADD UNRUNG_UpgradeNote INTEGER DEFAULT 37;
+ALTER TABLE Building_Flavors ADD UNRUNG_FlavorNote INTEGER DEFAULT 19;
 UPDATE Units SET Combat=33,Moves=4,Cost=321,UNRUNG_Test=41 WHERE Type='UNIT_PIKEMAN';
 UPDATE Buildings SET Cost=213,GoldMaintenance=4,UNRUNG_Test=71 WHERE Type='BUILDING_TEMPLE';
 INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('UNIT_PIKEMAN','PROMOTION_AMPHIBIOUS');
@@ -95,7 +99,8 @@ UPDATE UnitGameplay2DScripts SET SelectionSound='AS2D_SELECT_SETTLER' WHERE Unit
 
 def sources(fetch=False):
     from audit_cp import COMMIT,BASE
-    names=['CustomMods.h','CvUnit.cpp','CvTeam.cpp','CvPlayer.cpp','CvPlot.cpp','CvPromotionClasses.cpp','CvLuaUnit.cpp','CvLuaPlayer.cpp']
+    names=['CustomMods.h','CvUnit.cpp','CvTeam.cpp','CvPlayer.cpp','CvPlot.cpp','CvPromotionClasses.cpp','CvLuaUnit.cpp','CvLuaPlayer.cpp',
+           'CvCity.cpp','CvBuildingClasses.cpp','CvLuaCity.cpp','CvUnitCombat.cpp','CvDllNetMessageHandler.cpp']
     if fetch:
         import urllib.request
         from concurrent.futures import ThreadPoolExecutor
@@ -111,6 +116,18 @@ def sources(fetch=False):
     melee=body('CvUnit.cpp','int CvUnit::GetGenericMeleeStrengthModifier(')
     ranged=body('CvUnit.cpp','int CvUnit::GetMaxRangedCombatStrength(')
     friendly=body('CvPlot.cpp','bool CvPlot::IsFriendlyTerritory(')
+    turn=body('CvPlayer.cpp','void CvPlayer::doTurnPostDiplomacy(')
+    active=body('CvPlayer.cpp','void CvPlayer::setTurnActive(')
+    conversion=body('CvUnit.cpp','void CvUnit::convert(')
+    upgrade=body('CvUnit.cpp','CvUnit* CvUnit::DoUpgradeTo(')
+    capture=body('CvPlayer.cpp','CvCity* CvPlayer::acquireCity(')
+    founded=body('CvPlayer.cpp','void CvPlayer::foundCity(')
+    counts=body('CvBuildingClasses.cpp','int CvCityBuildings::GetNumBuilding(')
+    setter=body('CvBuildingClasses.cpp','void CvCityBuildings::SetNumRealBuildingTimed(')
+    sale=body('CvDllNetMessageHandler.cpp','void CvDllNetMessageHandler::ResponseSellBuilding(')
+    generate_melee=body('CvUnitCombat.cpp','void CvUnitCombat::GenerateMeleeCombatInfo(')
+    generate_ranged=body('CvUnitCombat.cpp','void CvUnitCombat::GenerateRangedCombatInfo(CvUnit&')
+    resolve=body('CvUnitCombat.cpp','void CvUnitCombat::ResolveCombat(')
     contracts={
       'DLL v151':bool(re.search(r'MOD_DLL_VERSION_NUMBER\s+\(\(uint\) 151\)',data['CustomMods.h'])),
       'war notification after native one-side flag write':war.index('m_abAtWar[eIndex] = bNewValue')<war.index('GameplayWarStateChanged(GetID(), eIndex, bNewValue)'),
@@ -123,16 +140,80 @@ def sources(fetch=False):
       'permanent promotion upgrade flag read':'IsLostWithUpgrade()' in data['CvUnit.cpp'],
       'conversion event follows promotion copy':body('CvUnit.cpp','void CvUnit::convert(').index('setHasPromotion(ePromotion, bGivePromotion)') < body('CvUnit.cpp','void CvUnit::convert(').index('GAMEEVENT_UnitConverted'),
       'turn-active Lua binding':'Method(IsTurnActive)' in data['CvLuaPlayer.cpp'],
+      'melee attack passes target plot':'GetGenericMeleeStrengthModifier(pDefender, pToPlot, true' in data['CvUnit.cpp'],
+      'melee defense passes defended plot':'GetGenericMeleeStrengthModifier(pAttacker, pInPlot, false' in data['CvUnit.cpp'],
+      'ranged attack supplies firing and target plots':'pFromPlot, pTargetPlot, bIgnoreUnitAdjacencyBoni' in body('CvUnit.cpp','int CvUnit::GetRangeCombatDamage('),
+      'BattleStarted exists only in combat generation':'BATTLE_STARTED' in generate_melee and 'BATTLE_STARTED' in generate_ranged and all('LuaSupport' not in text and 'GAMEEVENT' not in text for text in [melee,ranged]),
+      'CombatResult receives precomputed damage':'kInfo.getDamageInflicted' in resolve and '"CombatResult"' in resolve,
+      'UnitCreated follows free promotion initialization':body('CvUnit.cpp','void CvUnit::initWithNameOffset(').index('setHasPromotion(') < body('CvUnit.cpp','void CvUnit::initWithNameOffset(').index('GAMEEVENT_UnitCreated'),
+      'UnitUpgraded precedes conversion':upgrade.index('GAMEEVENT_UnitUpgraded') < upgrade.index('pNewUnit->convert(this, true, false)'),
+      'goody upgrade notification also precedes conversion':body('CvPlayer.cpp','void CvPlayer::receiveGoody(').index('GAMEEVENT_UnitUpgraded') < body('CvPlayer.cpp','void CvPlayer::receiveGoody(').index('pNewUnit->convert('),
+      'permanent upgrade flag gates copied promotions':'(!bIsUpgrade || !pkPromotionInfo->IsLostWithUpgrade())' in conversion,
+      'PlayerDoTurn follows city and culture settlement':turn.index('pLoopCity->doTurn()') < turn.index('changeJONSCultureTimes100(GetTotalJONSCulturePerTurnTimes100())') < turn.index('"PlayerDoTurn"'),
+      'DoneTurn sees inactive flag':active.index('m_bTurnActive = bNewValue') < active.index('GAMEEVENT_PlayerDoneTurn'),
+      'end-turn autosave precedes DoneTurn':active.index('gDLL->AutoSave(false, true)') < active.index('GAMEEVENT_PlayerDoneTurn'),
+      'DoneTurn before unit reset':active.index('GAMEEVENT_PlayerDoneTurn') < active.index('DoUnitReset();'),
+      'capture callback owner and coordinates':'args->Push(eOldOwner);\n\t\targs->Push(bCapital);\n\t\targs->Push(iCityX);\n\t\targs->Push(iCityY);\n\t\targs->Push(GetID());' in capture,
+      'capture callback follows new city reconstruction':capture.index('initCity(') < capture.index('"CityCaptureComplete"'),
+      'founding callback has player and coordinates':'args->Push(GetID());\n\t\targs->Push(pCity->getX());\n\t\targs->Push(pCity->getY());' in founded,
+      'construction callback follows CreateBuilding':body('CvCity.cpp','void CvCity::produce(BuildingTypes').index('CreateBuilding(') < body('CvCity.cpp','void CvCity::produce(BuildingTypes').index('GAMEEVENT_CityConstructed'),
+      'purchase callbacks cover gold and faith':all(s in data['CvCity.cpp'] for s in ['GAMEEVENT_CityConstructed, getOwner(), GetID(), eBuildingType, true, false','GAMEEVENT_CityConstructed, getOwner(), GetID(), eBuildingType, false, true']),
+      'sale callback follows removal':sale.index('DoSellBuilding(eBuilding)') < sale.index('GAMEEVENT_CitySoldBuilding'),
+      'building total includes free and real copies':all(s in counts for s in ['std::max(GetNumRealBuilding(eIndex), GetNumFreeBuilding(eIndex))','GetNumRealBuilding(eIndex) + GetNumFreeBuilding(eIndex)']),
+      'Lua real setter passes no-bonus flag':'const bool bNoBonus = luaL_optbool(L, 4, true);' in body('CvLuaCity.cpp','int CvLuaCity::lSetNumRealBuilding('),
+      'building setter processes native yields and targeted dirty':'m_pCity->processBuilding(' in setter and 'SetSpecificCityInfoDirty' in setter,
     }
-    for name,sig in {'PlayerDoneTurn':'i','UnitCreated':'iiiii','UnitConverted':'iiiib','UnitUpgraded':'iiib','CityConstructed':'iiibb','CitySoldBuilding':'iii','CityRazed':'iii'}.items():
+    for name,sig in {'PlayerDoneTurn':'i','UnitCreated':'iiiii','UnitConverted':'iiiib','UnitUpgraded':'iiib','CityConstructed':'iiibb','CitySoldBuilding':'iii','CityRazed':'iii','CityTrained':'iiibb','BattleStarted':'iii','BattleJoined':'iiib','BattleDamageDelta':'ii'}.items():
         contracts['ABI '+name]=bool(re.search(r'GAMEEVENT_'+name+r'\s+"'+name+r'",\s+"'+sig+'"',data['CustomMods.h']))
     for key,ok in contracts.items(): assert ok,key
     report={'official_commit':COMMIT,'native_gameplay':'NOT TESTED IN GAME','contracts':contracts,
             'verified_limitations':['FriendlyLandsModifier includes same-team and open-border territory, not exclusive player ownership.','Ranged friendly-land strength uses shooter plot, not target plot. Exact requested combat semantics require a DLL change.'],
             'sources':{n:{'url':BASE+('Lua/' if n.startswith('CvLua') else '')+n,'sha256':hashlib.sha256((R/'tools/reference'/n).read_bytes()).hexdigest()} for n in names}}
+    report['combat_alternatives']={
+      'reviewed_fields':sorted({s for s in re.findall(r'kResults.Get(?:Int|Bool)\("([^"]+)"\)',data['CvPromotionClasses.cpp']) if re.search('Friendly|Territory|Owned|Owner|CombatPercent|CityAttack|CityDefense',s)}),
+      'battle_events':'BattleStarted/Joined can affect a generated fight but do not cover independent strength/preview queries. Transient generic promotions would mislead previews and risk reentrant or aborted fights.',
+      'result_events':'CombatResult/CombatEnded see calculated damage; modifying it is not an additive pre-calculation combat modifier.',
+      'decision':'Retain native approximation; no supported safe exact ownership predicate found across fields, Lua strength getters, combat/plot events and UI preview paths. No DLL changes.'}
     (V/'docs').mkdir(exist_ok=True)
     (V/'docs/SourceAudit.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print('PASS',len(contracts),'pinned CP v151 source contracts; ownership/ranged limitations confirmed')
+
+def engine_evidence():
+    """Installed Firaxis scripts prove bindings/usage, not native save round trips."""
+    import os, sqlite3
+    candidates=([Path(os.environ['CIV5_PATH'])] if os.environ.get('CIV5_PATH') else [])
+    candidates += [Path("G:/SteamLibrary/steamapps/common/Sid Meier's Civilization V"),
+                   Path("C:/Program Files (x86)/Steam/steamapps/common/Sid Meier's Civilization V")]
+    relative='Assets/DLC/DLC_01/Scenarios/Mongol Scenario/CivsAlive.lua'
+    root=next((p for p in candidates if (p/relative).is_file()),None)
+    if not root:
+        print('SKIP installed Firaxis evidence: set CIV5_PATH; native testing still unverified')
+        return
+    paths=[relative,'Assets/UI/InGame/LeaderHead/LeaderHeadRoot.lua',
+           'Assets/UI/InGame/WorldView/EnemyUnitPanel.lua','Assets/UI/InGame/UnitFlagManager.lua',
+           'Assets/UI/InGame/CityBannerManager.lua']
+    text={p:(root/p).read_text(encoding='utf-8-sig') for p in paths}
+    assert all(s in text[relative] for s in ['Modding.OpenSaveData()','savedData.GetValue("ScenarioInitialized")','savedData.SetValue("ScenarioInitialized", 1)'])
+    assert 'function WarStateChangedHandler( iTeam1, iTeam2, bWar )' in text[paths[1]]
+    assert 'Events.WarStateChanged.Add( WarStateChangedHandler )' in text[paths[1]]
+    assert all(s in text[paths[2]] for s in [':GetMaxRangedCombatStrength(',':GetMaxAttackStrength(',':GetMaxDefenseStrength('])
+    assert 'ContextPtr:SetShutdown' in text[paths[3]]
+    assert 'function OnSpecificCityInfoDirty(iPlayerID, iCityID, eUpdateType)' in text[paths[4]]
+    assert 'Events.SpecificCityInfoDirty.Add(OnSpecificCityInfoDirty)' in text[paths[4]]
+    report={'scope':'Installed Firaxis script/API evidence and read-only database schema; no native execution',
+      'storage':'OpenSaveData is the savegame database. OpenUserData is a separate per-user database. Existing UNRUNG_STATE_V1_<playerID> keys stay namespaced within the selected save container.',
+      'migration':'None warranted: no cross-game leakage reproduced or supported by the API contract. Do not add a user-store/game-ID migration.',
+      'primary_save_container_reference':'https://forums.civfanatics.com/threads/tablesaverloader-for-persisting-lua-table-data-through-game-save-load.442249/',
+      'primary_reload_observation':'https://forums.civfanatics.com/threads/saveutils-lua-itemized-data-storage-across-mods.392958/page-10',
+      'native_round_trip_performed':False,
+      'closed_engine_limit':'The executable implements save database packing/restoration and Event delivery. CP source plus scripts do not prove current-machine quick-load/autosave timing or rollback.',
+      'sources':{p:{'sha256':hashlib.sha256((root/p).read_bytes()).hexdigest()} for p in paths}}
+    cache=R.home()/"Documents/My Games/Sid Meier's Civilization 5/cache/Civ5SavedGameDatabase.db"
+    if cache.is_file():
+        with sqlite3.connect(cache.resolve().as_uri()+'?mode=ro',uri=True) as db:
+            report['installed_save_table_schema']=db.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='SimpleValues'").fetchone()[0]
+    (V/'docs/SaveApiAudit.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+    print('PASS installed Firaxis save API, war ABI, independent combat previews, context shutdown and read-only save schema evidence (not native execution)')
 
 def runtime():
     for suite in SUITES:
@@ -170,7 +251,7 @@ def art(d):
 
 def validate():
     import sys
-    d,report=sql();sources('--fetch' in sys.argv);runtime();art(d)
+    d,report=sql();sources('--fetch' in sys.argv);engine_evidence();runtime();art(d)
     report.update(static='PASS',lua51_mock_suites=SUITES,native_gameplay='NOT TESTED IN GAME',
                   status='Implementation preview; exact owned-target combat semantics blocked by native CP modifier behavior',
                   manual='Native yields, saves/autosaves, event timing, combat previews, strategic view and selection/rendering remain pending.')

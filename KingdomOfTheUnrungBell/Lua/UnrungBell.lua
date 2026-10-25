@@ -8,6 +8,7 @@ local T = GameInfoTypes
 local CIV, BELFRY = T.CIVILIZATION_UNRUNG_BELL, T.BUILDING_UNRUNG_SILENT_BELFRY
 if not (CIV and BELFRY) then print('UNRUNG: missing database identities'); return end
 local PEACE_PER_STACK, MAX_STACKS, TOLL_WINDOWS = 5, 3, 5
+local MAX_EXACT_INTEGER = 9007199254740991 -- Lua 5.1 doubles; reject corrupt overflow/rounding
 local DEBUG = false
 local tiers = {'I', 'II', 'III'}
 local culture, science, toll = {}, {}, {}
@@ -74,7 +75,9 @@ local function Decode(raw)
   local v = {}
   for n in string.gmatch(raw .. '|', '([^|]*)|') do
     if not string.match(n, '^%-?%d+$') then return nil end
-    v[#v + 1] = tonumber(n)
+    local number = tonumber(n)
+    if not number or math.abs(number) > MAX_EXACT_INTEGER then return nil end
+    v[#v + 1] = number
   end
   if #v ~= #fields + 1 or v[1] ~= 1 then return nil end
   local s = {}
@@ -262,6 +265,8 @@ local function UnitID(id, unitID)
 end
 Hook(GameEvents, 'UnitCreated', UnitID)
 Hook(GameEvents, 'CityTrained', function(id, city, unit) UnitID(id, unit) end)
+-- CP v151 notifies UnitUpgraded BEFORE convert overwrites promotion membership.
+-- UnitConverted below is the required post-copy repair for both normal/goody upgrades.
 Hook(GameEvents, 'UnitUpgraded', function(id, old, new) UnitID(id, new) end)
 Hook(GameEvents, 'UnitConverted', function(old, new, oldID, newID) UnitID(new, newID) end)
 local function Initialize()

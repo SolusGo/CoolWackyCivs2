@@ -664,13 +664,13 @@
     <File md5="065167A4DA4226A71573AD4F067365A8" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Promotions48.dds</File>
     <File md5="0E109F4207C88FEF02EA69757E95AAF8" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Promotions64.dds</File>
     <File md5="FF7C1053CCF460CE36A986F4E2613F39" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Promotions80.dds</File>
-    <File md5="BC2DFA51764482061F15EA6AF35F7C44" import="1">KingdomOfTheUnrungBell/Lua/UnrungBell.lua</File>
+    <File md5="188F7B49A898350E0ABBBFC1E9E33620" import="1">KingdomOfTheUnrungBell/Lua/UnrungBell.lua</File>
     <File md5="72FB50119D4B3E1325558971C23DDB86" import="0">KingdomOfTheUnrungBell/Lua/UnrungBell.xml</File>
     <File md5="8D009BC2CE986066A1AD9E378DBC6C8C" import="0">KingdomOfTheUnrungBell/SQL/00_UNRUNG_Core.sql</File>
     <File md5="1E8702C6A1F73E74B4A36F0B81048949" import="0">KingdomOfTheUnrungBell/SQL/01_UNRUNG_Inheritance.sql</File>
     <File md5="F9B4F1B1C1A6E2B2BCE17D775E611FEA" import="0">KingdomOfTheUnrungBell/SQL/02_UNRUNG_Effects.sql</File>
     <File md5="A0C41C4FA6C17E347D189B7AE34B6DC5" import="0">KingdomOfTheUnrungBell/SQL/03_UNRUNG_Art.sql</File>
-    <File md5="0E9CFA3004778A84ADEBF28DAA1C1900" import="0">KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</File>
+    <File md5="9CCCB41E1475D04EDC790D47FB3FEA20" import="0">KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>

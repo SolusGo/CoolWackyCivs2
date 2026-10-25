@@ -2,7 +2,7 @@
 now, saves, counters = 0, {}, {cityWrites=0, unitWrites=0, cityScans=0, unitScans=0}
 MapModData, GameEvents, Events, Players, Teams, plots = {}, {}, {}, {}, {}, {}
 Game = {GetGameTurn=function() return now end}
-GameDefines = {MAX_CIV_PLAYERS=6}
+GameDefines = {MAX_CIV_PLAYERS=6,CITY_MAX_NUM_BUILDINGS=1}
 DomainTypes = {DOMAIN_LAND=0, DOMAIN_SEA=1, DOMAIN_AIR=2}
 GameInfoTypes = {CIVILIZATION_UNRUNG_BELL=100, BUILDING_UNRUNG_SILENT_BELFRY=101,
                 PROMOTION_UNRUNG_BELLWARDEN=102}
@@ -24,14 +24,16 @@ end
 for _,n in ipairs({'PlayerDoTurn','PlayerDoneTurn','CityConstructed','CitySoldBuilding',
   'PlayerCityFounded','CityCaptureComplete','CityRazed','UnitCreated','CityTrained','UnitConverted','UnitUpgraded'}) do GameEvents[n]=Event() end
 for _,n in ipairs({'WarStateChanged','SpecificCityInfoDirty','SequenceGameInitComplete','LoadScreenClose'}) do Events[n]=Event() end
-Modding={OpenSaveData=function() return {
- GetValue=function(key) return saves[key] end,
- SetValue=function(key,value) if failSave then error('injected save failure') end; saves[key]=value end
+Modding={OpenSaveData=function()
+ local database=saves -- model a handle bound to one save container, not a user store
+ return {
+ GetValue=function(key) return database[key] end,
+ SetValue=function(key,value) if failSave then error('injected save failure') end; database[key]=value end
 } end}
 function NewPlayer(id,civ,human)
  local p={id=id,civ=civ or 0,human=human or false,alive=true,active=false,cities={},units={}}
  function p:GetCivilizationType() return self.civ end
- function p:GetTeam() return self.id end
+ function p:GetTeam() return self.team or self.id end
  function p:IsAlive() return self.alive end
  function p:IsHuman() return self.human end
  function p:IsBarbarian() return self.id==3 end
@@ -46,12 +48,16 @@ function NewPlayer(id,civ,human)
 end
 for i=0,5 do NewPlayer(i,i==0 and 100 or 0,i==0) end
 function NewCity(id,owner,belfry)
- local c={id=id,owner=owner,buildings={}}
+ local c={id=id,owner=owner,buildings={},free={}}
  if belfry then c.buildings[101]=1 end
  function c:GetID() return self.id end
  function c:GetOwner() return self.owner end
  function c:GetNumRealBuilding(b) return self.buildings[b] or 0 end
- function c:GetNumBuilding(b) return self:GetNumRealBuilding(b) end
+ function c:GetNumBuilding(b)
+  local real,free=self:GetNumRealBuilding(b),self.free[b] or 0
+  if GameDefines.CITY_MAX_NUM_BUILDINGS<=1 then return math.max(real,free) end
+  return real+free
+ end
  function c:SetNumRealBuilding(b,n,noBonus)
    assert(noBonus==true,'dummy construction rewards must be suppressed')
    if self.fail then error('injected city setter failure') end

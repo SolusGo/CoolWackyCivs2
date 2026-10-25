@@ -13,13 +13,39 @@
     "permanent promotion upgrade flag read": true,
     "conversion event follows promotion copy": true,
     "turn-active Lua binding": true,
+    "melee attack passes target plot": true,
+    "melee defense passes defended plot": true,
+    "ranged attack supplies firing and target plots": true,
+    "BattleStarted exists only in combat generation": true,
+    "CombatResult receives precomputed damage": true,
+    "UnitCreated follows free promotion initialization": true,
+    "UnitUpgraded precedes conversion": true,
+    "goody upgrade notification also precedes conversion": true,
+    "permanent upgrade flag gates copied promotions": true,
+    "PlayerDoTurn follows city and culture settlement": true,
+    "DoneTurn sees inactive flag": true,
+    "end-turn autosave precedes DoneTurn": true,
+    "DoneTurn before unit reset": true,
+    "capture callback owner and coordinates": true,
+    "capture callback follows new city reconstruction": true,
+    "founding callback has player and coordinates": true,
+    "construction callback follows CreateBuilding": true,
+    "purchase callbacks cover gold and faith": true,
+    "sale callback follows removal": true,
+    "building total includes free and real copies": true,
+    "Lua real setter passes no-bonus flag": true,
+    "building setter processes native yields and targeted dirty": true,
     "ABI PlayerDoneTurn": true,
     "ABI UnitCreated": true,
     "ABI UnitConverted": true,
     "ABI UnitUpgraded": true,
     "ABI CityConstructed": true,
     "ABI CitySoldBuilding": true,
-    "ABI CityRazed": true
+    "ABI CityRazed": true,
+    "ABI CityTrained": true,
+    "ABI BattleStarted": true,
+    "ABI BattleJoined": true,
+    "ABI BattleDamageDelta": true
   },
   "verified_limitations": [
     "FriendlyLandsModifier includes same-team and open-border territory, not exclusive player ownership.",
@@ -57,6 +83,51 @@
     "CvLuaPlayer.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp",
       "sha256": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a"
+    },
+    "CvCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp",
+      "sha256": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2"
+    },
+    "CvBuildingClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvBuildingClasses.cpp",
+      "sha256": "44959390632ce9646dbfc77752c22d965fadc53ff049098594a18477e3dd8a25"
+    },
+    "CvLuaCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp",
+      "sha256": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24"
+    },
+    "CvUnitCombat.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitCombat.cpp",
+      "sha256": "cb4b2a1b3078afc5c5720a2a5e94048142155b4b1bf111798dc79b424c1a61c8"
+    },
+    "CvDllNetMessageHandler.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvDllNetMessageHandler.cpp",
+      "sha256": "6f748a0f38b8a71b5e08258aed04adfe1420a6f537d5a3ccf1b5659f04be730d"
     }
+  },
+  "combat_alternatives": {
+    "reviewed_fields": [
+      "AdjacentCityDefenseMod",
+      "CityAttack",
+      "CityAttackOnly",
+      "CityAttackPlunderModifier",
+      "CityDefense",
+      "CombatPercent",
+      "FriendlyHealChange",
+      "FriendlyLandsAttackModifier",
+      "FriendlyLandsModifier",
+      "GiveOutsideFriendlyLandsModifier",
+      "HealOutsideFriendly",
+      "NearbyFriendlyCityCombatMod",
+      "NearbyHealEnemyTerritory",
+      "NearbyHealFriendlyTerritory",
+      "NearbyHealNeutralTerritory",
+      "OutsideFriendlyLandsModifier",
+      "ReligiousStrengthLossRivalTerritory",
+      "RivalTerritory"
+    ],
+    "battle_events": "BattleStarted/Joined can affect a generated fight but do not cover independent strength/preview queries. Transient generic promotions would mislead previews and risk reentrant or aborted fights.",
+    "result_events": "CombatResult/CombatEnded see calculated damage; modifying it is not an additive pre-calculation combat modifier.",
+    "decision": "Retain native approximation; no supported safe exact ownership predicate found across fields, Lua strength getters, combat/plot events and UI preview paths. No DLL changes."
   }
 }

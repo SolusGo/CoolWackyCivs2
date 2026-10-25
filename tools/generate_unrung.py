@@ -51,11 +51,16 @@ TEXT = {
  'SABLE_HEADING_1': 'The Keeper and the Keys',
 }
 TEXT.update(CIV5_TEXT_1=TEXT['CIV_PEDIA'], SABLE_TEXT_1=TEXT['LEADER_PEDIA'])
+COMBAT_NOTE = 'CP v151 uses native friendly territory, including same-team and open-border land. Melee attacks and defense check the battle plot; ranged attacks check the firing unit\'s plot. These bonuses are not restricted to Kingdom-owned target plots. For example, firing from friendly land at an enemy-owned target receives the ranged bonus. No DLL changes are bundled.'
+for key in ['STRATEGY', 'UNIT_STRATEGY', 'UNIT_PEDIA']:
+    TEXT[key] += '[NEWLINE][NEWLINE]' + COMBAT_NOTE
+for key in ['TRAIT_HELP', 'UNIT_HELP', 'GUARD_HELP']:
+    TEXT[key] = TEXT[key].replace('include open borders', 'include same-team and open-border land').replace('include open-border territory', 'include same-team and open-border territory')
 TEXT.update({f'CITY_{i}': name for i, name in enumerate(CITIES, 1)})
 TEXT.update({f'SPY_{i}': name for i, name in enumerate(['Vesper', 'Grey Veil', 'Still Quill', 'Ash Vow', 'Pale Key', 'Hushed Step', 'Silver Thread', 'Last Candle', 'Night Cloister', 'Quiet Hand'], 1)})
 for i, tier in enumerate(TIERS, 1):
     TEXT['TOLL_' + tier] = 'The Great Toll ' + tier
-    TEXT['TOLL_' + tier + '_HELP'] = f'+{i*5}% friendly-land Combat Strength during the Great Toll. Ends at complete peace or after five full owner-turn windows. CP friendly lands include open borders; ranged attacks check the shooter tile.'
+    TEXT['TOLL_' + tier + '_HELP'] = f'+{i*5}% friendly-land Combat Strength during the Great Toll. Ends at complete peace or after five full owner-turn windows. CP friendly lands include same-team and open-border land; ranged attacks check the shooter tile.'
 
 def clone(*a, **kw): return base_clone(*a, **kw).replace('BCClone', 'UNRUNGClone')
 def companions(*a, **kw): return base_companions(*a, **kw).replace('BCCompanion', 'UNRUNGCompanion')

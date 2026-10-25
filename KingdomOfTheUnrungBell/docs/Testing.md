@@ -2,6 +2,8 @@
 
 Automated tests execute the shipped controller under Lua 5.1 mocks, not Civ V. SQL runs in a writable in-memory copy of the backup BNW database plus the installed CP v151 schema. Source checks use pinned official CP v151 files; DDS files are decoded. **No native in-game test has been performed for this addition.** [Validation.json](Validation.json) records actual automated status; [SourceAudit.json](SourceAudit.json) records source contracts and verified limits.
 
+The refinement adds four suites to the original six: save-container/slot isolation and rollback with corrupt-number rejection; team-ID/order cases; late activation/expiration boundaries; and native-order upgrade/changed-owner-and-ID/free-Belfry cases. The [audit report](AuditReport.md) separates the confirmed decoder bug from correct systems, documentation corrections and native uncertainties. [NativeAcceptance.md](NativeAcceptance.md) gives setup/action/expected/observed/evidence/status for each native check; all observed fields remain “Not run”.
+
 ## Reproduction
 
 From the repository, use the existing `.venv/Scripts/python.exe` or install `requirements-dev.txt` into Python 3.11+:
@@ -28,7 +30,7 @@ The source audit expects official files in ignored `tools/reference`; use `pytho
 | Yield definitions | Six one-copy dummies, +1 per tier, no costs/upkeep/prereqs/capture/defense; permanent Belfry Culture additive over baseline; exact promotion strength/sight/upgrade flags and zero generic combat. |
 | Localization | Every custom SQL text reference resolves, including diplomacy wildcard categories; full unique city-name list. |
 | Code/assets | Lua 5.1 parse, XML parse, DDS decode and atlas dimensions, VFS/entry point and collection manifest/project checks. |
-| Engine contracts | 18 checks of pinned CP v151 version, war-write/notification ordering, lifecycle event ABIs and native combat modifier behavior. Source evidence is not native execution. |
+| Engine contracts | 44 checks of pinned CP v151 version, war-write/notification ordering, lifecycle event ABIs/mutation order, owner/autosave boundaries, building-count/setter behavior and native combat modifiers. Installed Firaxis scripts additionally confirm save API usage, war-event ABI, shutdown and independent preview calls. Source evidence is not native execution. |
 
 ## Gameplay test matrix
 
@@ -77,11 +79,16 @@ The source audit expects official files in ignored `tools/reference`; use `pytho
 | Ranged fires from friendly at enemy target | Native modifier applies using shooter tile: **known specification deviation**. | Source verified; native preview manual |
 | Ranged fires from foreign at owned target | Native friendly bonus absent: **known specification deviation**. | Source verified; native preview manual |
 | Expiration while units outside friendly territory | Temporary promotions removed regardless of unit position. | Mock pass via position-independent reconciliation; movement manual |
-| Save/reload at peace 4 / 5 / max | No bonus turn, duplicated yields or lost progress. | Mock pass at 4/5 and idempotent init; native save file manual |
+| Save/reload at peace 4 / 5 / max | No bonus turn, duplicated yields or lost progress. | Mock pass at all boundaries and older-slot rollback; native save file manual |
 | Save/reload during Toll / before expiry | Exact begun-window state retained. | Mock pass each window; native save file manual |
 | Reload immediately after declaration / many wars | War guard preserved, no repeated consumption. | State-machine mock; native save file manual |
 | Retained/recreated UI contexts | One live owner; old callbacks/shutdown cannot remove new owner. | Mock pass, ten reloads |
 | Save API failure / unknown version | Disable derived effects, preserve unknown record, recover from authoritative record. | Mock pass |
+| Numeric overflow / beyond exact integer range | Corrupt data cannot grant maximum stacks or unsafe timestamps; original record remains untouched. | Original failing assertion reproduced; fixed mock pass for every numeric field |
+| Different games with same player ID / distinct save slots | Engine-selected containers isolate records; loading an older slot restores that snapshot. | Bound-container mock pass; API evidence; native packing/restore manual |
+| Upgrade pre-copy / conversion post-copy | Pre-upgrade effect can be overwritten; UnitConverted repairs the correct resulting unit and owner. | Source contract and native-order mock pass |
+| Both owner and ID change, with ID collision | Resulting unit receives new owner's tier; unrelated colliding unit/permanent promotions remain unchanged. | Mock pass |
+| Free and real Belfry copies | Positive native total qualifies; removing only real copy does not remove Science while a free copy remains. | Native max/sum source plus mock pass |
 | Native end-turn/turn-start autosaves | No duplicated/missed completed turn or duration window after engine resumes. | Manual only |
 | Huge map, 22 majors and many minors | No continuous polling; measure native performance. | Synthetic foreign-turn cost only; native manual |
 

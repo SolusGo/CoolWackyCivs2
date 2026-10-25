@@ -1,0 +1,27 @@
+{
+  "scope": "Installed Firaxis script/API evidence and read-only database schema; no native execution",
+  "storage": "OpenSaveData is the savegame database. OpenUserData is a separate per-user database. Existing UNRUNG_STATE_V1_<playerID> keys stay namespaced within the selected save container.",
+  "migration": "None warranted: no cross-game leakage reproduced or supported by the API contract. Do not add a user-store/game-ID migration.",
+  "primary_save_container_reference": "https://forums.civfanatics.com/threads/tablesaverloader-for-persisting-lua-table-data-through-game-save-load.442249/",
+  "primary_reload_observation": "https://forums.civfanatics.com/threads/saveutils-lua-itemized-data-storage-across-mods.392958/page-10",
+  "native_round_trip_performed": false,
+  "closed_engine_limit": "The executable implements save database packing/restoration and Event delivery. CP source plus scripts do not prove current-machine quick-load/autosave timing or rollback.",
+  "sources": {
+    "Assets/DLC/DLC_01/Scenarios/Mongol Scenario/CivsAlive.lua": {
+      "sha256": "eb719bac055f701702524e8466d3216258c5d219ab69f4c29edda7404812f61b"
+    },
+    "Assets/UI/InGame/LeaderHead/LeaderHeadRoot.lua": {
+      "sha256": "8ab58b07a353dabfb188ee20d8958ae581b96474c8b081959a17207f063677a3"
+    },
+    "Assets/UI/InGame/WorldView/EnemyUnitPanel.lua": {
+      "sha256": "5c7d562639c1efb296259e6f48463b8395d44d5107ee6af0b6269c83c326682e"
+    },
+    "Assets/UI/InGame/UnitFlagManager.lua": {
+      "sha256": "8aecac69ed0e60ae3d351de22e6a152952b4ea3a36648ef47e8802e591056837"
+    },
+    "Assets/UI/InGame/CityBannerManager.lua": {
+      "sha256": "8753cfdc73f4734ac3121e3c349ad4bf40a29f35f40e788de525c4eb85602520"
+    }
+  },
+  "installed_save_table_schema": "CREATE TABLE SimpleValues(Name TEXT Primary Key, Value VARIANT)"
+}
