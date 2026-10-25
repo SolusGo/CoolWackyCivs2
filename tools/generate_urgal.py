@@ -18,7 +18,7 @@ CITIES = ['The Feast', 'Spawn Point', 'Ironwood', 'Potion Keep', 'Rush Valley',
 TEXT = {
  'CIV': 'The Urgal', 'SHORT': 'The Urgal', 'ADJECTIVE': 'Urgal', 'LEADER': 'Urgal',
  'TRAIT': 'Strength II',
- 'TRAIT_HELP': 'Begin with 1 Strength Potion; gain 1 per new Era. Stockpile without a cap. Drink to give currently owned, eligible land melee units +50% attacking Combat Strength for 3/5/7/12 turns on Quick/Standard/Epic/Marathon. No defensive, city, ranged, naval or air bonus. New recruits are excluded. Potions cannot stack; 2 turns of Aftertaste block the next drink.',
+ 'TRAIT_HELP': 'Begin with 1 Strength Potion; gain 1 per new Era. Stockpile without a cap. Drink to give currently owned, eligible land melee units +50% attacking Combat Strength against units and cities for 3/5/7/12 turns on Quick/Standard/Epic/Marathon. No defensive, city bombardment, ranged, naval or air bonus. New recruits are excluded. Potions cannot stack; Aftertaste blocks the next drink for 1/2/3/6 turns respectively. Requires at least one eligible unembarked land melee unit.',
  'STRATEGY': 'Prepare your army and roads before drinking. Use a scarce Strength Potion when the enemy cannot disengage, then attack during the short window. Brewing Stands help train eligible melee units. Rushers require no Iron and retain Pot Chaser on upgrade. Retreating enemies, mobile armies and cheap screens can waste your potion. The civilization receives no special economic or scientific boost.',
  'CIV_PEDIA': 'The Urgal takes its identity from the Strength potion kit of MCPVP Hardcore Games. Ordinary equipment could become terrifying for a brief encounter: drink, close the distance and press the advantage before it vanished. In this civilization that decision becomes an empire-wide military commitment. Potions arrive only with the passing of Eras. Every wasted charge is gone forever.[NEWLINE][NEWLINE]The Feast is the gathering point of an army that spends most of its time preparing. Brewing tables and barracks fill with equipment, roads are laid, and commanders search for the moment when retreat becomes impossible. The warning is simple: Urgal drank Strength. Run.',
  'LEADER_PEDIA': 'Urgal represents the aggressive Hardcore Games player who understands that preparation matters as much as the charge. He carries no permanent supernatural strength. His advantage is timing: a prepared force, a limited bottle and an opponent who has already committed. His veteran Rushers pursue the retreating enemy, recovering after successful kills while the potion lasts.',
@@ -32,19 +32,20 @@ TEXT = {
  'BUILDING_STRATEGY': 'Build Brewing Stands to prepare the army before committing a potion. They retain Barracks companion benefits and help train only eligible melee land units. They never generate potions.',
  'BUILDING_PEDIA': 'The Brewing Stand is a place of preparation. Bottles sit beside weapons, supplies are checked and the next charge is planned. Its military workshops train the army; the civilization\'s rare Strength Potions remain tied to Era progression.',
  'STRENGTH': 'Strength II',
- 'STRENGTH_HELP': '+50% attacking Combat Strength against units during the current potion window. No defensive bonus. City attacks are unchanged. Applies only to the melee land units present when the potion was consumed.',
+ 'STRENGTH_HELP': '+50% attacking Combat Strength against units and cities during the current potion window. No defensive or city bombardment bonus. Applies only to the eligible melee land units present when the potion was consumed.',
  'CHASER': 'Pot Chaser',
  'CHASER_HELP': 'While affected by Strength II, kills restore 15 HP up to maximum health. This veteran ability is retained on upgrade; it has no effect outside Strength II.',
  'RECOVERY': 'Pot Chaser - Strength II recovery',
  'RECOVERY_HELP': 'Killing an enemy unit heals 15 HP, up to maximum health. Temporary: requires Pot Chaser and active Strength II.',
- 'INVENTORY': 'Strength Potions: {1_Num}', 'DRINK': 'DRINK STRENGTH II',
- 'ACTIVE': 'STRENGTH II ACTIVE', 'ACTIVE_TURNS': 'Strength II - {1_Num} turns remaining',
- 'AFTERTASTE': 'Aftertaste - {1_Num} turns remaining', 'EMPTY': 'NO POTIONS',
- 'READY': 'Army ready', 'NO_ARMY': 'No eligible units', 'UNAVAILABLE': 'Potion state unavailable',
- 'TOOLTIP': 'Potion of Strength II[NEWLINE]Consume 1 Strength Potion to empower eligible melee land units you currently own for {1_Num} turns. +50% attacking Combat Strength against units; no defensive or city bonus. Ranged, naval, air, reconnaissance, siege, helicopter and civilian units are excluded. Units created afterwards do not receive the effect. Cannot stack. After expiration, Aftertaste blocks drinking for 2 turns.[NEWLINE][NEWLINE]Current stockpile: {2_Num}.[NEWLINE]Eligible units now: {3_Num}.',
+ 'INVENTORY': 'STRENGTH POTIONS: {1_Num}', 'DRINK': 'DRINK STRENGTH II',
+ 'ACTIVE': 'ACTIVE', 'ACTIVE_TURNS': 'STRENGTH II - {1_Num} TURNS',
+ 'AFTERTASTE': 'AFTERTASTE - {1_Num} TURNS', 'EMPTY': 'NO POTIONS',
+ 'READY': '{1_Num} units ready now', 'NO_ARMY': 'No unembarked melee units', 'UNAVAILABLE': 'Potion state unavailable',
+ 'REQUIRES_ARMY': 'Requires at least one eligible unembarked land melee unit.',
+ 'TOOLTIP': 'Potion of Strength II[NEWLINE]Consume 1 Strength Potion to empower eligible melee land units you currently own for {1_Num} turns. +50% attacking Combat Strength against units and cities; no defensive or city bombardment bonus. Ranged, naval, air, reconnaissance, siege, helicopter and civilian units are excluded. Units created afterwards do not receive the effect. Cannot stack. After expiration, Aftertaste blocks drinking for {4_Num} turns.[NEWLINE][NEWLINE]Current stockpile: {2_Num}.[NEWLINE]Eligible unembarked units ready now: {3_Num}.[NEWLINE]Existing embarked participants can benefit if they disembark before the original deadline.[NEWLINE]Requires at least one eligible unembarked land melee unit.',
  'GAIN': 'A new Era grants {1_Num} Strength Potion(s). Stockpile: {2_Num}.',
- 'DRANK': 'Strength II activated for {1_Num} turns on {2_Num} eligible units. Run.',
- 'EXPIRED': 'Strength II has expired. Aftertaste prevents another potion for 2 turns.',
+ 'DRANK': 'Strength II activated for {1_Num} turns. {2_Num} units benefit immediately; {3_Num} existing embarked units keep the same deadline. Run.',
+ 'EXPIRED': 'Strength II has expired. Aftertaste prevents another potion for {1_Num} more turns.',
  'GREETING_1': 'Keep your distance. I have not decided whether this fight is worth a potion.',
  'WAR_1': 'You have nowhere left to run.', 'ATTACKED_1': 'You came all this way. Now stay.',
  'DEFEAT_1': 'Should have saved one more bottle.', 'PEACE_1': 'We will both need time to prepare.',
@@ -70,7 +71,7 @@ INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES ('COLOR_URGAL_PURPLE',0.33,
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PLAYERCOLOR_URGAL','COLOR_URGAL_PINK','COLOR_URGAL_PURPLE','COLOR_PLAYER_WHITE_TEXT');
 INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_URGAL_STRENGTH_II','TXT_KEY_URGAL_TRAIT_HELP','TXT_KEY_URGAL_TRAIT');
 """
- core+=clone('Civilizations','CIVILIZATION_AMERICA',CIV,Description='TXT_KEY_URGAL_CIV',ShortDescription='TXT_KEY_URGAL_SHORT',Adjective='TXT_KEY_URGAL_ADJECTIVE',Civilopedia='TXT_KEY_URGAL_CIV_PEDIA',CivilopediaTag='TXT_KEY_URGAL_CIV5',Strategy='TXT_KEY_URGAL_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_URGAL',Playable=1,AIPlayable=1,PackageID=None,DawnOfManQuote='TXT_KEY_URGAL_DAWN',DawnOfManAudio='',DawnOfManImage='URGAL_Dawn.dds',MapImage='URGAL_Map.dds',PortraitIndex=0,IconAtlas='URGAL_CIV_ATLAS',AlphaIconAtlas='URGAL_ALPHA_ATLAS')
+ core+=clone('Civilizations','CIVILIZATION_AMERICA',CIV,Description='TXT_KEY_URGAL_CIV',ShortDescription='TXT_KEY_URGAL_SHORT',Adjective='TXT_KEY_URGAL_ADJECTIVE',Civilopedia='TXT_KEY_URGAL_CIV_PEDIA',CivilopediaTag='TXT_KEY_URGAL_CIV5',Strategy='TXT_KEY_URGAL_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_URGAL',Playable=1,AIPlayable=0,PackageID=None,DawnOfManQuote='TXT_KEY_URGAL_DAWN',DawnOfManAudio='',DawnOfManImage='URGAL_Dawn.dds',MapImage='URGAL_Map.dds',PortraitIndex=0,IconAtlas='URGAL_CIV_ATLAS',AlphaIconAtlas='URGAL_ALPHA_ATLAS')
  core+=clone('Leaders','LEADER_WASHINGTON',LEADER,Description='TXT_KEY_URGAL_LEADER',Civilopedia='TXT_KEY_URGAL_LEADER_PEDIA',CivilopediaTag='TXT_KEY_URGAL_URGAL',PackageID=None,PortraitIndex=0,IconAtlas='URGAL_LEADER_ATLAS',ArtDefineTag='URGAL_LeaderScene.xml',VictoryCompetitiveness=9,WonderCompetitiveness=3,Boldness=9,DiploBalance=4,Loyalty=4,Meanness=8)
  core+=f"INSERT INTO Civilization_Leaders VALUES ('{CIV}','{LEADER}');\nINSERT INTO Leader_Traits VALUES ('{LEADER}','TRAIT_URGAL_STRENGTH_II');\n"
  core+=clone('Units','UNIT_SWORDSMAN',UNIT,Description='TXT_KEY_URGAL_UNIT',Civilopedia='TXT_KEY_URGAL_UNIT_PEDIA',Help='TXT_KEY_URGAL_UNIT_HELP',Strategy='TXT_KEY_URGAL_UNIT_STRATEGY',Combat=14,Moves=2,Cost=80,IconAtlas='URGAL_OBJECT_ATLAS',PortraitIndex=1)
@@ -85,9 +86,9 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_URGAL_STREN
  inherit+=companions(d,'Building','BuildingType','BUILDING_BARRACKS',BUILDING)
  inherit+=companions(d,'Leader','LeaderType','LEADER_WASHINGTON',LEADER)
  excluded=','.join("'"+x+"'" for x in EXCLUDED)
- effects=f"""-- Native modifiers add. Cancel AttackMod against cities, leaving their strength unchanged.
+ effects=f"""-- Native AttackMod applies to melee attacks against both units and cities.
 INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,LostOnGifting,AttackMod,CityAttack,PortraitIndex,IconAtlas,PediaType,PediaEntry)
- VALUES ('PROMOTION_URGAL_STRENGTH_II','TXT_KEY_URGAL_STRENGTH','TXT_KEY_URGAL_STRENGTH_HELP','AS2D_IF_LEVELUP',1,1,1,50,-50,0,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_STRENGTH');
+ VALUES ('PROMOTION_URGAL_STRENGTH_II','TXT_KEY_URGAL_STRENGTH','TXT_KEY_URGAL_STRENGTH_HELP','AS2D_IF_LEVELUP',1,1,1,50,0,0,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_STRENGTH');
 INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,PortraitIndex,IconAtlas,PediaType,PediaEntry)
  VALUES ('PROMOTION_URGAL_POT_CHASER','TXT_KEY_URGAL_CHASER','TXT_KEY_URGAL_CHASER_HELP','AS2D_IF_LEVELUP',1,0,1,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_CHASER');
 -- Native post-kill handling heals once, includes barbarians and clamps at max HP.
@@ -113,6 +114,6 @@ INSERT INTO Unit_ProductionModifierBuildings(UnitType,BuildingType,ProductionMod
  text=''.join("INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_URGAL_"+k+"','"+v.replace("'","''")+"');\n" for k,v in sorted(TEXT.items()))
  for name,content in [('00_URGAL_Core',core),('01_URGAL_Inheritance',inherit),('02_URGAL_Effects',effects),('03_URGAL_Art',art),('10_URGAL_Text',text)]:
   (V/'SQL'/(name+'.sql')).write_text(content,encoding='utf-8',newline='\n')
- print('Generated Urgal SQL: AI-playable, Swordsman/Barracks inheritance, native attack/healing and per-unit production')
+ print('Generated human-only Urgal SQL: melee attack includes cities, Swordsman/Barracks inheritance, native healing and per-unit production')
 
 if __name__=='__main__': main()

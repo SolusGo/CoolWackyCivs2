@@ -1,5 +1,7 @@
 # Urgal artwork prompts
 
+The hardening pass adds `PotionUI32.png` and `URGAL_PotionUI32.dds`, compiled deterministically from the existing bottle symbol by `prepare_urgal_art.py`. It removes the medallion background, preserves the purple glass/cork silhouette and fits it on a transparent 32px canvas with a complete legacy DDS mip chain. No new image generation or external dependency was used for the UI icon.
+
 Generated with the built-in imagegen tool on 2026-10-26. Original PNGs live in this directory; `tools/prepare_urgal_art.py` compiles the game textures. The potion emblem, monochrome alpha, promotion badges and illustrative arena map are deterministic collection-style graphics.
 
 ## Urgal.png

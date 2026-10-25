@@ -1,0 +1,461 @@
+{
+  "run_date": "2026-10-26",
+  "command": "tools/benchmark.py",
+  "scope": "Existing synthetic Boundless benchmark; not an Urgal or native FPS benchmark",
+  "legacy_metadata_note": "The benchmark script retains its fixed 2026-10-12 date and mod_version 4 in its embedded output; the timings below are from this audit run",
+  "native_gameplay": "NOT RUN",
+  "result": {
+    "date": "2026-10-12",
+    "mod_version": 4,
+    "environment": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.0",
+    "runtime": "Lupa Lua 5.1; synthetic native calls",
+    "world_scan": "once per player initialization",
+    "idle_frame_polling": false,
+    "native_Civ_V": "NOT RUN",
+    "native_pathfinding": "NOT MEASURED",
+    "native_FPS": "NOT MEASURED",
+    "scenarios": [
+      {
+        "initial_owned": 100,
+        "world_plots": 16000,
+        "population": 150,
+        "major_player_records": 22,
+        "minor_player_slots": 40,
+        "foreign_military_units": 200,
+        "initialization_ms": 8.708,
+        "full_reconcile": {
+          "iterations": 9,
+          "median_ms": 1.903,
+          "max_ms": 2.983
+        },
+        "assignment_change": {
+          "iterations": 9,
+          "median_ms": 1.866,
+          "max_ms": 4.093
+        },
+        "remote_workers": 69,
+        "movement_1000_unrelated": {
+          "iterations": 9,
+          "median_ms": 29.123,
+          "max_ms": 41.05
+        },
+        "movement_1000_near_owned": {
+          "iterations": 5,
+          "median_ms": 56.331,
+          "max_ms": 80.484
+        },
+        "hostile_entry_departure_coalesced_batch": {
+          "iterations": 5,
+          "median_ms": 34.744,
+          "max_ms": 43.65
+        },
+        "frontier_single_claim": {
+          "iterations": 9,
+          "median_ms": 0.875,
+          "max_ms": 1.088
+        },
+        "ai_cache_rebuild_and_plan": {
+          "iterations": 1,
+          "median_ms": 0.273,
+          "max_ms": 0.273
+        },
+        "ai_cached_plan": {
+          "iterations": 9,
+          "median_ms": 0.054,
+          "max_ms": 0.06
+        },
+        "ai_same_turn_reentry": {
+          "iterations": 9,
+          "median_ms": 0.043,
+          "max_ms": 0.089
+        },
+        "ai_native_paths_per_turn_limit": 12,
+        "ai_measured_path_calls_total": 120,
+        "ui_first_rows_build": {
+          "iterations": 3,
+          "median_ms": 0.547,
+          "max_ms": 0.561
+        },
+        "ui_cached_open_refresh_100": {
+          "iterations": 9,
+          "median_ms": 55.418,
+          "max_ms": 62.118
+        },
+        "ui_closed_refresh_1000": {
+          "iterations": 9,
+          "median_ms": 7.089,
+          "max_ms": 8.346
+        },
+        "ui_remote_rows": 78,
+        "remote_development_owner_turn": {
+          "iterations": 9,
+          "median_ms": 0.51,
+          "max_ms": 0.737
+        },
+        "military_rows_42_enemy_cities": {
+          "iterations": 9,
+          "median_ms": 0.147,
+          "max_ms": 0.197
+        },
+        "domination_progress_100_checks": {
+          "iterations": 9,
+          "median_ms": 1.424,
+          "max_ms": 2.054
+        }
+      },
+      {
+        "initial_owned": 500,
+        "world_plots": 16000,
+        "population": 150,
+        "major_player_records": 22,
+        "minor_player_slots": 40,
+        "foreign_military_units": 200,
+        "initialization_ms": 10.727,
+        "full_reconcile": {
+          "iterations": 9,
+          "median_ms": 4.034,
+          "max_ms": 8.585
+        },
+        "assignment_change": {
+          "iterations": 9,
+          "median_ms": 4.239,
+          "max_ms": 4.973
+        },
+        "remote_workers": 120,
+        "movement_1000_unrelated": {
+          "iterations": 9,
+          "median_ms": 30.951,
+          "max_ms": 36.789
+        },
+        "movement_1000_near_owned": {
+          "iterations": 5,
+          "median_ms": 50.245,
+          "max_ms": 53.279
+        },
+        "hostile_entry_departure_coalesced_batch": {
+          "iterations": 5,
+          "median_ms": 69.57,
+          "max_ms": 81.001
+        },
+        "frontier_single_claim": {
+          "iterations": 9,
+          "median_ms": 0.655,
+          "max_ms": 0.719
+        },
+        "ai_cache_rebuild_and_plan": {
+          "iterations": 1,
+          "median_ms": 1.072,
+          "max_ms": 1.072
+        },
+        "ai_cached_plan": {
+          "iterations": 9,
+          "median_ms": 0.056,
+          "max_ms": 0.078
+        },
+        "ai_same_turn_reentry": {
+          "iterations": 9,
+          "median_ms": 0.04,
+          "max_ms": 0.051
+        },
+        "ai_native_paths_per_turn_limit": 12,
+        "ai_measured_path_calls_total": 120,
+        "ui_first_rows_build": {
+          "iterations": 3,
+          "median_ms": 1.524,
+          "max_ms": 1.551
+        },
+        "ui_cached_open_refresh_100": {
+          "iterations": 9,
+          "median_ms": 49.345,
+          "max_ms": 51.643
+        },
+        "ui_closed_refresh_1000": {
+          "iterations": 9,
+          "median_ms": 15.71,
+          "max_ms": 17.679
+        },
+        "ui_remote_rows": 478,
+        "remote_development_owner_turn": {
+          "iterations": 9,
+          "median_ms": 1.575,
+          "max_ms": 1.977
+        },
+        "military_rows_42_enemy_cities": {
+          "iterations": 9,
+          "median_ms": 0.392,
+          "max_ms": 0.618
+        },
+        "domination_progress_100_checks": {
+          "iterations": 9,
+          "median_ms": 3.382,
+          "max_ms": 3.749
+        }
+      },
+      {
+        "initial_owned": 1000,
+        "world_plots": 16000,
+        "population": 150,
+        "major_player_records": 22,
+        "minor_player_slots": 40,
+        "foreign_military_units": 200,
+        "initialization_ms": 49.167,
+        "full_reconcile": {
+          "iterations": 9,
+          "median_ms": 11.792,
+          "max_ms": 12.798
+        },
+        "assignment_change": {
+          "iterations": 9,
+          "median_ms": 13.272,
+          "max_ms": 25.031
+        },
+        "remote_workers": 120,
+        "movement_1000_unrelated": {
+          "iterations": 9,
+          "median_ms": 53.624,
+          "max_ms": 83.597
+        },
+        "movement_1000_near_owned": {
+          "iterations": 5,
+          "median_ms": 105.272,
+          "max_ms": 117.452
+        },
+        "hostile_entry_departure_coalesced_batch": {
+          "iterations": 5,
+          "median_ms": 136.733,
+          "max_ms": 560.949
+        },
+        "frontier_single_claim": {
+          "iterations": 9,
+          "median_ms": 3.827,
+          "max_ms": 4.467
+        },
+        "ai_cache_rebuild_and_plan": {
+          "iterations": 1,
+          "median_ms": 4.249,
+          "max_ms": 4.249
+        },
+        "ai_cached_plan": {
+          "iterations": 9,
+          "median_ms": 0.142,
+          "max_ms": 0.24
+        },
+        "ai_same_turn_reentry": {
+          "iterations": 9,
+          "median_ms": 0.101,
+          "max_ms": 0.135
+        },
+        "ai_native_paths_per_turn_limit": 12,
+        "ai_measured_path_calls_total": 120,
+        "ui_first_rows_build": {
+          "iterations": 3,
+          "median_ms": 6.307,
+          "max_ms": 19.632
+        },
+        "ui_cached_open_refresh_100": {
+          "iterations": 9,
+          "median_ms": 100.643,
+          "max_ms": 184.976
+        },
+        "ui_closed_refresh_1000": {
+          "iterations": 9,
+          "median_ms": 13.54,
+          "max_ms": 14.353
+        },
+        "ui_remote_rows": 978,
+        "remote_development_owner_turn": {
+          "iterations": 9,
+          "median_ms": 1.798,
+          "max_ms": 2.262
+        },
+        "military_rows_42_enemy_cities": {
+          "iterations": 9,
+          "median_ms": 0.424,
+          "max_ms": 0.79
+        },
+        "domination_progress_100_checks": {
+          "iterations": 9,
+          "median_ms": 3.321,
+          "max_ms": 3.909
+        }
+      },
+      {
+        "initial_owned": 2500,
+        "world_plots": 16000,
+        "population": 150,
+        "major_player_records": 22,
+        "minor_player_slots": 40,
+        "foreign_military_units": 200,
+        "initialization_ms": 83.054,
+        "full_reconcile": {
+          "iterations": 9,
+          "median_ms": 25.513,
+          "max_ms": 40.374
+        },
+        "assignment_change": {
+          "iterations": 9,
+          "median_ms": 28.272,
+          "max_ms": 156.604
+        },
+        "remote_workers": 120,
+        "movement_1000_unrelated": {
+          "iterations": 9,
+          "median_ms": 47.249,
+          "max_ms": 58.193
+        },
+        "movement_1000_near_owned": {
+          "iterations": 5,
+          "median_ms": 100.541,
+          "max_ms": 113.505
+        },
+        "hostile_entry_departure_coalesced_batch": {
+          "iterations": 5,
+          "median_ms": 147.005,
+          "max_ms": 230.945
+        },
+        "frontier_single_claim": {
+          "iterations": 9,
+          "median_ms": 4.035,
+          "max_ms": 5.438
+        },
+        "ai_cache_rebuild_and_plan": {
+          "iterations": 1,
+          "median_ms": 31.959,
+          "max_ms": 31.959
+        },
+        "ai_cached_plan": {
+          "iterations": 9,
+          "median_ms": 0.151,
+          "max_ms": 5.664
+        },
+        "ai_same_turn_reentry": {
+          "iterations": 9,
+          "median_ms": 0.091,
+          "max_ms": 0.117
+        },
+        "ai_native_paths_per_turn_limit": 12,
+        "ai_measured_path_calls_total": 120,
+        "ui_first_rows_build": {
+          "iterations": 3,
+          "median_ms": 18.952,
+          "max_ms": 19.874
+        },
+        "ui_cached_open_refresh_100": {
+          "iterations": 9,
+          "median_ms": 89.703,
+          "max_ms": 378.348
+        },
+        "ui_closed_refresh_1000": {
+          "iterations": 9,
+          "median_ms": 12.73,
+          "max_ms": 13.962
+        },
+        "ui_remote_rows": 2478,
+        "remote_development_owner_turn": {
+          "iterations": 9,
+          "median_ms": 1.294,
+          "max_ms": 1.554
+        },
+        "military_rows_42_enemy_cities": {
+          "iterations": 9,
+          "median_ms": 0.34,
+          "max_ms": 0.408
+        },
+        "domination_progress_100_checks": {
+          "iterations": 9,
+          "median_ms": 3.175,
+          "max_ms": 4.336
+        }
+      },
+      {
+        "initial_owned": 10000,
+        "world_plots": 16000,
+        "population": 150,
+        "major_player_records": 22,
+        "minor_player_slots": 40,
+        "foreign_military_units": 200,
+        "initialization_ms": 533.989,
+        "full_reconcile": {
+          "iterations": 9,
+          "median_ms": 83.742,
+          "max_ms": 345.999
+        },
+        "assignment_change": {
+          "iterations": 9,
+          "median_ms": 85.653,
+          "max_ms": 96.038
+        },
+        "remote_workers": 120,
+        "movement_1000_unrelated": {
+          "iterations": 9,
+          "median_ms": 45.465,
+          "max_ms": 89.37
+        },
+        "movement_1000_near_owned": {
+          "iterations": 5,
+          "median_ms": 95.864,
+          "max_ms": 114.033
+        },
+        "hostile_entry_departure_coalesced_batch": {
+          "iterations": 5,
+          "median_ms": 221.896,
+          "max_ms": 379.523
+        },
+        "frontier_single_claim": {
+          "iterations": 9,
+          "median_ms": 3.424,
+          "max_ms": 4.123
+        },
+        "ai_cache_rebuild_and_plan": {
+          "iterations": 1,
+          "median_ms": 48.234,
+          "max_ms": 48.234
+        },
+        "ai_cached_plan": {
+          "iterations": 9,
+          "median_ms": 0.114,
+          "max_ms": 0.14
+        },
+        "ai_same_turn_reentry": {
+          "iterations": 9,
+          "median_ms": 0.092,
+          "max_ms": 0.196
+        },
+        "ai_native_paths_per_turn_limit": 12,
+        "ai_measured_path_calls_total": 120,
+        "ui_first_rows_build": {
+          "iterations": 3,
+          "median_ms": 75.372,
+          "max_ms": 108.07
+        },
+        "ui_cached_open_refresh_100": {
+          "iterations": 9,
+          "median_ms": 98.511,
+          "max_ms": 115.031
+        },
+        "ui_closed_refresh_1000": {
+          "iterations": 9,
+          "median_ms": 14.985,
+          "max_ms": 15.938
+        },
+        "ui_remote_rows": 9978,
+        "remote_development_owner_turn": {
+          "iterations": 9,
+          "median_ms": 1.543,
+          "max_ms": 2.401
+        },
+        "military_rows_42_enemy_cities": {
+          "iterations": 9,
+          "median_ms": 0.39,
+          "max_ms": 0.736
+        },
+        "domination_progress_100_checks": {
+          "iterations": 9,
+          "median_ms": 3.775,
+          "max_ms": 4.369
+        }
+      }
+    ]
+  }
+}

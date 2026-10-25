@@ -438,7 +438,7 @@
       <Content>
         <Type>InGameUIAddin</Type>
         <Name>Strength Potion Inventory</Name>
-        <Description>Urgal potion stockpiles, timed melee attacks, Pot Chaser and tactical AI activation.</Description>
+        <Description>Human-only Urgal stockpiles, timed melee attacks against units and cities, Pot Chaser and speed-scaled Aftertaste.</Description>
         <FileName>TheUrgal/UI/URGAL_Potions.xml</FileName>
       </Content>
     </ModContent>
@@ -2530,6 +2530,9 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheUrgal/Art/URGAL_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheUrgal/Art/URGAL_PotionUI32.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheUrgal/Art/URGAL_Promotions128.dds">

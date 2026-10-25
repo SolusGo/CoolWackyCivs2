@@ -711,6 +711,7 @@
     <File md5="ECA2DCE717D81969B255FE3786A8C6F8" import="1">TheUrgal/Art/URGAL_Portrait48.dds</File>
     <File md5="8AE0D18AE5DF3353EE8151CB736C3669" import="1">TheUrgal/Art/URGAL_Portrait64.dds</File>
     <File md5="19DA8305A264736DFE08313D5FBC1C2B" import="1">TheUrgal/Art/URGAL_Portrait80.dds</File>
+    <File md5="D6C9122147EB51A67F339D1AD54AB7F0" import="1">TheUrgal/Art/URGAL_PotionUI32.dds</File>
     <File md5="9A9D1DF9D30473A80AB240F85E37545E" import="1">TheUrgal/Art/URGAL_Promotions128.dds</File>
     <File md5="EC4B1D7192762901EBE036B73C090D27" import="1">TheUrgal/Art/URGAL_Promotions16.dds</File>
     <File md5="8A10A80BC41CE5E7F7D136FC4A7A3B5A" import="1">TheUrgal/Art/URGAL_Promotions24.dds</File>
@@ -720,15 +721,15 @@
     <File md5="5CBD7A68734A05A858BFAB77D04328B6" import="1">TheUrgal/Art/URGAL_Promotions48.dds</File>
     <File md5="76CA1C5478B14DC4476C9D849AF56EC3" import="1">TheUrgal/Art/URGAL_Promotions64.dds</File>
     <File md5="C976A10C59D9549CF1A418FE052E48FA" import="1">TheUrgal/Art/URGAL_Promotions80.dds</File>
-    <File md5="6AE03727D1090835161262716BE39AAF" import="1">TheUrgal/Lua/URGAL_AI.lua</File>
-    <File md5="9C4E5FCD748A211A836769CADC4222E0" import="1">TheUrgal/Lua/URGAL_Core.lua</File>
-    <File md5="583E88DFD78C5381D44C09C9BCAF73A1" import="0">TheUrgal/SQL/00_URGAL_Core.sql</File>
+    <File md5="FFAE18CE529287505A5934128264C24C" import="1">TheUrgal/Lua/URGAL_AI.lua</File>
+    <File md5="83BD94FD1667F13544A2E6934CFDD582" import="1">TheUrgal/Lua/URGAL_Core.lua</File>
+    <File md5="CF182E206BD60F6DE6287D43E722C5FF" import="0">TheUrgal/SQL/00_URGAL_Core.sql</File>
     <File md5="7C9DFA69A298B2653425E59BAC2D9F59" import="0">TheUrgal/SQL/01_URGAL_Inheritance.sql</File>
-    <File md5="5D28473D6260A22367F414D0D0B4ABCF" import="0">TheUrgal/SQL/02_URGAL_Effects.sql</File>
+    <File md5="6CAD6F3F432BF09231E3CAB60FA7A1FE" import="0">TheUrgal/SQL/02_URGAL_Effects.sql</File>
     <File md5="AEC5712E68039ADE48A5B9EE6DF0B485" import="0">TheUrgal/SQL/03_URGAL_Art.sql</File>
-    <File md5="283764E60DC7903B958BCA14A555E141" import="0">TheUrgal/SQL/10_URGAL_Text.sql</File>
-    <File md5="3447F03735BDFBD1FAB642B21D88A0AE" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
-    <File md5="9FD4C395C9A9514940ADCDC6F1874E7A" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
+    <File md5="CADF60B716E4A7B03F2442EE399BE2F0" import="0">TheUrgal/SQL/10_URGAL_Text.sql</File>
+    <File md5="861AC69006BDEEEA1578CAC7982C6DC4" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
+    <File md5="EDF457BD8FF891614885A62ED5DD03DC" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -852,7 +853,7 @@
     </EntryPoint>
     <EntryPoint type="InGameUIAddin" file="TheUrgal/UI/URGAL_Potions.xml">
       <Name>Strength Potion Inventory</Name>
-      <Description>Urgal potion stockpiles, timed melee attacks, Pot Chaser and tactical AI activation.</Description>
+      <Description>Human-only Urgal stockpiles, timed melee attacks against units and cities, Pot Chaser and speed-scaled Aftertaste.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

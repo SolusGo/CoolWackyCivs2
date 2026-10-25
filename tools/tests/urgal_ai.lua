@@ -1,26 +1,16 @@
+-- Legacy filename: human-only isolation, not AI tactics.
 Players[0].human=false
-for i=1,3 do local u=NewUnit(i,0);u.x=i-1 end
+local a=NewUnit(1,0);a:SetHasPromotion(101,true);a:SetHasPromotion(103,true)
 LoadUrgal();local U=MapModData.URGAL
-Teams[0].wars[1]=true
-U.AITurn(0);assert(U.State(0).potions==1,'war alone is not enough')
-local plot=NewPlot(1,1,1);local enemy=NewUnit(1,1);plot.units={enemy}
-U.AITurn(0);assert(U.State(0).potions==1,'one distant opponent is not enough')
-local enemy2=NewUnit(2,1);plot.units[2]=enemy2
-plot.visible=false;U.AITurn(0);assert(U.State(0).potions==1,'no hidden-map information')
-plot.visible=true;enemy.invisible=true;U.AITurn(0);assert(U.State(0).potions==1,'invisible units excluded')
-enemy.invisible=false
-Teams[0].wars[1]=false;U.AITurn(0);assert(U.State(0).potions==1,'peaceful units excluded')
-Teams[0].wars[1]=true
-for u in Players[0]:Units() do u.unreachable=true end
-U.AITurn(0);assert(U.State(0).potions==1,'blocked approaches cannot waste a potion')
-for u in Players[0]:Units() do u.unreachable=false;u.exhausted=true end
-U.AITurn(0);assert(U.State(0).potions==1,'spent attacks do not count toward the army')
-for u in Players[0]:Units() do u.exhausted=false end
-U.AITurn(0);assert(U.State(0).potions==0)
-for u in Players[0]:Units() do Check(u,true,false) end
-U.AITurn(0);assert(U.State(0).potions==0,'AI cannot stack or overspend')
-now=7;Players[0].era=1;GameEvents.TeamSetEra.Fire(0,1,false)
-Players[0].units[3].x=20;U.AITurn(0);assert(U.State(0).potions==1,'army must be concentrated')
-Players[0].units[3].x=2;plot.units={enemy};plot.owner=0
-U.AITurn(0);assert(U.State(0).potions==0,'a concentrated counterattack can answer an invasion')
-print('PASS AI war gate, local concentration, visibility, invisibility, threat threshold, invasion and cooldown')
+assert(not U.Civ(0) and U.State(0)==nil and not U.Drink(0))
+assert(Players[0].raw=='OTHER_MOD_DATA','AI must not receive an inventory')
+Check(a,false,false)
+GameEvents.PlayerDoTurn.Fire(0);GameEvents.TeamSetEra.Fire(0,4,false)
+assert(Players[0].raw=='OTHER_MOD_DATA')
+assert(U.AITurn==nil,'human controller must not load or depend on the AI module')
+include('URGAL_AI');assert(not U.AITurn(0),'legacy AI entry remains inert')
+Players[0].human=true
+assert(U.State(0).potions==1 and U.CanDrink(0))
+assert(not U.AITurn(0),'legacy entry must not auto-activate for humans either')
+assert(U.Drink(0));Check(a,true,false)
+print('PASS human-only runtime isolation, AI residue cleanup and dormant legacy module')

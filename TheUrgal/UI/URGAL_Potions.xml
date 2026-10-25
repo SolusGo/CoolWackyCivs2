@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Context ID="URGAL_Potions">
  <Grid ID="Inventory" Anchor="R,T" Offset="14,276" Size="290,112" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
-  <Label ID="Stockpile" Anchor="C,T" Offset="0,9" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
-  <Label ID="Status" Anchor="C,T" Offset="0,36" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Image ID="PotionIcon" Anchor="L,T" Offset="12,7" Size="32,32" Texture="URGAL_PotionUI32.dds" ConsumeMouse="0" />
+  <Label ID="Stockpile" Anchor="L,T" Offset="50,14" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Label ID="Status" Anchor="C,T" Offset="0,43" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
   <GridButton ID="Drink" Anchor="C,B" Offset="0,10" Size="274,34" Style="BaseButton" String="TXT_KEY_URGAL_DRINK" />
  </Grid>
 </Context>

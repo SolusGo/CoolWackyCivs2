@@ -21,7 +21,7 @@ ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-dri
  ('TheSubstituteClassroom/UI/GARVEY_RollCall.xml','Roll Call','Mr. Garvey: persistent attendance, corrections and Detention with an event-driven classroom panel.'),
  ('TheConicalUnion/Lua/ConicalUnion.xml','Connected Administration','Conical Union city connection yields and conditional Detour Office Gold; no gameplay panel.'),
  ('KingdomOfTheUnrungBell/Lua/UnrungBell.xml','Silence Before the Storm','Human-only Quietude, Silent Belfry yields and persistent Great Toll windows.'),
- ('TheUrgal/UI/URGAL_Potions.xml','Strength Potion Inventory','Urgal potion stockpiles, timed melee attacks, Pot Chaser and tactical AI activation.')]
+ ('TheUrgal/UI/URGAL_Potions.xml','Strength Potion Inventory','Human-only Urgal stockpiles, timed melee attacks against units and cities, Pot Chaser and speed-scaled Aftertaste.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
 PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Thirteen civilizations, now including The Urgal and Strength II.',

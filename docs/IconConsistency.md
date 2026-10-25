@@ -2,7 +2,7 @@
 
 Urgal (version 15) adds original leader, Rusher and Brewing Stand paintings,
 a potion emblem/alpha, promotion badges, static leader scene and an illustrative
-Hardcore Games arena map. `tools/prepare_urgal_art.py` compiles 48 DDS textures;
+Hardcore Games arena map. `tools/prepare_urgal_art.py` compiles 49 DDS textures, including the dedicated transparent 32px purple potion UI bottle with a full mip chain;
 originals and exact built-in imagegen prompts are in `art-source/TheUrgal`.
 The builder finishes the three new colour atlas families with the same gold rims.
 

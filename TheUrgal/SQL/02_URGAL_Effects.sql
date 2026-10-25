@@ -1,6 +1,6 @@
--- Native modifiers add. Cancel AttackMod against cities, leaving their strength unchanged.
+-- Native AttackMod applies to melee attacks against both units and cities.
 INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,LostOnGifting,AttackMod,CityAttack,PortraitIndex,IconAtlas,PediaType,PediaEntry)
- VALUES ('PROMOTION_URGAL_STRENGTH_II','TXT_KEY_URGAL_STRENGTH','TXT_KEY_URGAL_STRENGTH_HELP','AS2D_IF_LEVELUP',1,1,1,50,-50,0,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_STRENGTH');
+ VALUES ('PROMOTION_URGAL_STRENGTH_II','TXT_KEY_URGAL_STRENGTH','TXT_KEY_URGAL_STRENGTH_HELP','AS2D_IF_LEVELUP',1,1,1,50,0,0,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_STRENGTH');
 INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,PortraitIndex,IconAtlas,PediaType,PediaEntry)
  VALUES ('PROMOTION_URGAL_POT_CHASER','TXT_KEY_URGAL_CHASER','TXT_KEY_URGAL_CHASER_HELP','AS2D_IF_LEVELUP',1,0,1,'URGAL_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_URGAL_CHASER');
 -- Native post-kill handling heals once, includes barbarians and clamps at max HP.

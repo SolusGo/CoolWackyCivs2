@@ -1,6 +1,7 @@
--- Deterministic, bounded checks of nearby visible enemies. No hidden-map intel.
+-- Dormant legacy source. The human-only controller does not include this file.
 local U=MapModData.URGAL
 function U.AITurn(id)
+ if not U.active or not U.Civ(id) or Players[id]:IsHuman() then return false end
  if not U.CanDrink(id) then return end
  local p=Players[id]; local team=p:GetTeam(); local candidates={}
  for u in p:Units() do

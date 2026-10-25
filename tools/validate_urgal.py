@@ -5,7 +5,10 @@ These tests do not launch Civ V or establish native gameplay acceptance.
 from collections import Counter
 import hashlib
 import json
+import os
 import re
+import struct
+from pathlib import Path
 from xml.etree import ElementTree as ET
 from PIL import Image
 from lupa.lua51 import LuaRuntime
@@ -13,7 +16,7 @@ from database import database, quote
 from build_mod import files, R, ENTRIES, imported
 from generate_urgal import V, CIV, LEADER, UNIT, BUILDING, EXCLUDED, TEXT
 
-SUITES=['urgal_potions.lua','urgal_lifecycle.lua','urgal_ai.lua','urgal_ui.lua']
+SUITES=['urgal_potions.lua','urgal_lifecycle.lua','urgal_ai.lua','urgal_ui.lua','urgal_speeds.lua','urgal_combat.lua','urgal_reliability.lua']
 
 def apply(d):
  for path in sorted((V/'SQL').glob('*.sql')): d.executescript(path.read_text(encoding='utf-8'))
@@ -53,13 +56,14 @@ def sql():
  before={t:Counter(tuple(r) for r in d.execute('SELECT * FROM '+quote(t))) for (t,) in d.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").fetchall() if t!='CustomModOptions'}
  apply(d)
  for t,rows in before.items(): assert not rows-Counter(tuple(r) for r in d.execute('SELECT * FROM '+quote(t))),('modified unrelated row',t)
- assert d.execute('SELECT Playable,AIPlayable FROM Civilizations WHERE Type=?',(CIV,)).fetchone()[:]==(1,1)
+ assert d.execute('SELECT Playable,AIPlayable FROM Civilizations WHERE Type=?',(CIV,)).fetchone()[:]==(1,0)
  assert d.execute('SELECT UnitType FROM Civilization_UnitClassOverrides WHERE CivilizationType=? AND UnitClassType=?',(CIV,'UNITCLASS_SWORDSMAN')).fetchone()[0]==UNIT
  assert d.execute('SELECT BuildingType FROM Civilization_BuildingClassOverrides WHERE CivilizationType=? AND BuildingClassType=?',(CIV,'BUILDINGCLASS_BARRACKS')).fetchone()[0]==BUILDING
  count=inheritance(d)
  assert list(d.execute('SELECT * FROM Building_DomainFreeExperiences WHERE BuildingType=?',(BUILDING,)))
  p=d.execute("SELECT * FROM UnitPromotions WHERE Type='PROMOTION_URGAL_STRENGTH_II'").fetchone()
- assert (p['AttackMod'],p['CityAttack'],p['DefenseMod'],p['CombatPercent'],p['RangedAttackModifier'],p['CannotBeChosen'],p['LostWithUpgrade'])==(50,-50,0,0,0,1,1)
+ assert (p['AttackMod'],p['CityAttack'],p['DefenseMod'],p['CombatPercent'],p['RangedAttackModifier'],p['CannotBeChosen'],p['LostWithUpgrade'])==(50,0,0,0,0,1,1)
+ assert p['MovesChange']==0 and p['ExtraAttacks']==0
  p=d.execute("SELECT * FROM UnitPromotions WHERE Type='PROMOTION_URGAL_POT_CHASER'").fetchone()
  assert p['LostWithUpgrade']==0 and p['HPHealedIfDestroyEnemy']==0
  p=d.execute("SELECT * FROM UnitPromotions WHERE Type='PROMOTION_URGAL_POT_RECOVERY'").fetchone()
@@ -88,17 +92,32 @@ INSERT INTO Units(Type,Class,Domain,Combat,CombatClass,Cost,RangedCombat) VALUES
  assert not changed.execute("SELECT 1 FROM Unit_ProductionModifierBuildings WHERE UnitType='UNIT_URGAL_TEST_HYBRID' AND BuildingType=?",(BUILDING,)).fetchone()
  assert d.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
  print('PASS Urgal installed-schema SQL:',count,'companion tables, unrelated rows preserved, replacements, modifiers, production eligibility and localization')
- return {'companion_tables':count,'eligible_training_types':len(eligible)}
+ return d,{'companion_tables':count,'eligible_training_types':len(eligible),'human_only':True,'melee_city_attack_bonus':50}
 
-def runtime():
+def support_source():
+ candidates=([Path(os.environ['CIV5_PATH'])] if os.environ.get('CIV5_PATH') else [])
+ candidates += [Path("G:/SteamLibrary/steamapps/common/Sid Meier's Civilization V"),Path("C:/Program Files (x86)/Steam/steamapps/common/Sid Meier's Civilization V")]
+ path=next((p/'Assets/UI/SupportFunctions.lua' for p in candidates if (p/'Assets/UI/SupportFunctions.lua').is_file()),None)
+ assert path,'Set CIV5_PATH to the installed game for native text-truncation helper tests'
+ return path
+
+def runtime(d):
+ support=support_source().read_text(encoding='utf-8-sig')
+ runs=0
  for suite in SUITES:
-  lua=LuaRuntime()
-  def include(name): lua.execute((V/'Lua'/(name+'.lua')).read_text(encoding='utf-8'))
-  lua.globals().include=include
-  lua.globals().LoadUrgal=lambda:include('URGAL_Core')
-  lua.globals().LoadUrgalUI=lambda:lua.execute((V/'UI/URGAL_Potions.lua').read_text(encoding='utf-8'))
-  lua.execute((R/'tools/tests/urgal_mock.lua').read_text(encoding='utf-8'))
-  lua.execute((R/'tools/tests'/suite).read_text(encoding='utf-8'))
+  for speed in (['GAMESPEED_QUICK','GAMESPEED_STANDARD','GAMESPEED_EPIC','GAMESPEED_MARATHON'] if suite=='urgal_ui.lua' else ['GAMESPEED_STANDARD']):
+   lua=LuaRuntime()
+   def include(name): lua.execute(support if name=='SupportFunctions' else (V/'Lua'/(name+'.lua')).read_text(encoding='utf-8'))
+   lua.globals().include=include
+   lua.globals().LoadUrgal=lambda:include('URGAL_Core')
+   lua.globals().LoadUrgalUI=lambda:lua.execute((V/'UI/URGAL_Potions.lua').read_text(encoding='utf-8'))
+   lua.globals().NativeText=lua.table_from({'TXT_KEY_URGAL_'+k:v for k,v in TEXT.items()}|{'TXT_KEY_GENERIC_DOT_DOT_DOT':'...'})
+   lua.globals().NativePromotions=lua.table_from({i:lua.table_from(dict(d.execute('SELECT * FROM UnitPromotions WHERE Type=?',(name,)).fetchone())) for i,name in [(101,'PROMOTION_URGAL_STRENGTH_II'),(102,'PROMOTION_URGAL_POT_CHASER'),(103,'PROMOTION_URGAL_POT_RECOVERY')]})
+   lua.execute((R/'tools/tests/urgal_mock.lua').read_text(encoding='utf-8'))
+   lua.globals().speed=speed
+   lua.execute((R/'tools/tests'/suite).read_text(encoding='utf-8'));runs+=1
+ print('PASS',runs,'shipped-Lua suite runs; SQL-backed combat/healing model and installed native text helper (not gameplay)')
+ return runs
 
 def art_ui():
  root=ET.parse(V/'UI/URGAL_Potions.xml').getroot()
@@ -106,11 +125,31 @@ def art_ui():
  assert set(re.findall(r'Controls\.(\w+)',(V/'UI/URGAL_Potions.lua').read_text()))<=controls
  assert ('TheUrgal/UI/URGAL_Potions.xml') in {e[0] for e in ENTRIES}
  for p in V.rglob('*.xml'): ET.parse(p)
- images=list((V/'Art').glob('*.dds'));assert len(images)==48
+ images=list((V/'Art').glob('*.dds'));assert len(images)==49
  for p in images:
   with Image.open(p) as im: im.load();assert im.width>0 and im.height>0
  assert not imported(V/'UI/URGAL_Potions.xml') and imported(V/'Lua/URGAL_Core.lua')
- print('PASS 48 decoded DDS textures, XML, UI control bindings and entry/VFS flags')
+ icon=root.find("Grid/Image[@ID='PotionIcon']")
+ assert icon is not None and icon.get('Texture')=='URGAL_PotionUI32.dds' and icon.get('ConsumeMouse')=='0'
+ path=V/'Art'/icon.get('Texture');assert path in files() and imported(path)
+ header=path.read_bytes()[:128]
+ assert header[:4]==b'DDS ' and header[84:88]!=b'DX10' and struct.unpack_from('<I',header,28)[0]==6
+ with Image.open(path) as im:
+  assert im.size==(32,32);rgba=im.convert('RGBA');pixels=[rgba.getpixel((x,y)) for x in range(32) for y in range(32)]
+  assert any(a==0 for r,g,b,a in pixels) and any(r>100 and b>100 and g<110 and a>200 for r,g,b,a in pixels)
+ # Geometric checks use actual XML at common viewport sizes. Font widths are
+ # tested through native TruncateString with modeled metrics, not native rendering.
+ panel=root.find('Grid');pw,ph=map(int,panel.get('Size').split(','));px,py=map(int,panel.get('Offset').split(','))
+ for width,height in [(1024,768),(1280,720),(1920,1080)]:
+  left=width-px-pw;assert left>=0 and py+ph<=height
+ for node in panel:
+  if node.tag not in ['Image','GridButton']:continue
+  x,y=map(int,node.get('Offset','0,0').split(','));w,h=map(int,node.get('Size').split(','))
+  if node.get('Anchor').startswith('C,'):x=(pw-w)//2+x
+  if node.get('Anchor').endswith(',B'):y=ph-y-h
+  assert 0<=x and 0<=y and x+w<=pw and y+h<=ph
+ assert icon.get('Offset')=='12,7' and panel.find("Label[@ID='Stockpile']").get('Offset')=='50,14'
+ print('PASS 49 decoded DDS textures, purple/transparent mipmapped UI icon, viewport geometry, XML/control bindings and VFS flags')
 
 def sources():
  from audit_cp import BASE,COMMIT
@@ -122,10 +161,15 @@ def sources():
  defense=body('CvUnit.cpp','int CvUnit::GetMaxDefenseStrength(')
  convert=body('CvUnit.cpp','void CvUnit::convert(')
  healing=body('CvUnitCombat.cpp','void CvUnitCombat::ApplyPostKillTraitEffects(')
+ city=body('CvCity.cpp','int CvCity::getStrengthValue(')
+ bombard=body('CvCity.cpp','int CvCity::rangeCombatDamage(')
  contracts={
   'native additive attack modifier':'iModifier += getAttackModifier();' in attack,
-  'city modifier can cancel bonus':'if(pToPlot->isCity())' in attack and 'iModifier += cityAttackModifier();' in attack,
+  'generic attack applies before city-specific branch':attack.index('iModifier += getAttackModifier();')<attack.index('if(pToPlot->isCity())') and 'iModifier += cityAttackModifier();' in attack,
   'defense has no generic attack modifier':'getAttackModifier()' not in defense,
+  'city bombardment uses city strength cache':'int iAttackerStrength = getStrengthValue(true, false, pDefender);' in bombard and 'getAttackModifier()' not in city,
+  'city garrison contribution uses unmodified unit base':'pGarrisonedUnit->GetBaseCombatStrength()' in city and 'pGarrisonedUnit->GetMaxAttackStrength' not in city,
+  'native attack arithmetic':'int iCombat = GetBaseCombatStrength() * (iModifier + 100);' in attack,
   'promotion SQL attack field read':'GetInt("AttackMod")' in data['CvPromotionClasses.cpp'],
   'promotion SQL healing field read':'GetInt("HPHealedIfDestroyEnemy")' in data['CvPromotionClasses.cpp'],
   'native healing clamps to missing health':'getHPHealedIfDefeatEnemy() > pkWinner->getDamage()' in healing and 'pkWinner->changeDamage(-pkWinner->getDamage())' in healing,
@@ -143,9 +187,12 @@ def sources():
  return {'official_commit':COMMIT,'contracts':contracts,'sources':{n:{'url':BASE+('Lua/' if n.startswith('CvLua') else '')+n,'sha256':hashlib.sha256((R/'tools/reference'/n).read_bytes()).hexdigest()} for n in names}}
 
 def main():
- result={'date':'2026-10-26','native_gameplay':'NOT TESTED IN GAME','sql':sql()}
- runtime();art_ui();result['suites']=SUITES;result['source_audit']=sources()
- result['pending']=['Native leader/setup rendering and UI at 1024x768 and 1920x1080','Native melee/city/ranged previews and resolved combat','Native Pot Chaser kills and HP cap','Native mid-window saves, reload, upgrades and gifts','Native AI activation and whole-game balance']
+ d,sql_report=sql()
+ result={'date':'2026-10-26','native_gameplay':'NOT TESTED IN GAME','native_ui':'NOT TESTED IN GAME','sql':sql_report}
+ result['suite_runs']=runtime(d);art_ui();result['suites']=SUITES;result['source_audit']=sources()
+ result['timing']={'strength':[3,5,7,12],'aftertaste':[1,2,3,6],'first_reactivation_offset':[4,7,10,18],'legacy_saved_deadlines':'Preserved; new drinks use corrected speed durations'}
+ result['support_functions']={'path':str(support_source()),'sha256':hashlib.sha256(support_source().read_bytes()).hexdigest(),'font_metrics':'MODELED; native helper executed but native rendering not measured'}
+ result['pending']=['Native UI/potion icon at 1024x768, 1280x720 and 1920x1080','Native melee unit/city attacks, defense and bombardment previews/resolved combat','Native Pot Chaser kills and HP cap','Native mid-window saves, reload, upgrades, transfers and embarked-only/mixed armies','Whole-game balance']
  (V/'docs').mkdir(exist_ok=True)
  (V/'docs/Validation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
 

@@ -14,7 +14,7 @@ end
 assert(U.State(0).potions==5,'Industrial hoard is five, not capped or duplicated')
 Players[0].era=7;GameEvents.PlayerDoTurn.Fire(0);assert(U.State(0).potions==8,'skipped eras are awarded once')
 GameEvents.TeamSetEra.Fire(0,6,false);assert(U.State(0).potions==8,'era regression cannot repay bottles')
-assert(U.Count(0)==3)
+assert(U.Count(0)==2,'count reports immediate unembarked beneficiaries')
 assert(U.Drink(0));assert(U.State(0).potions==7);assert(not U.Drink(0),'no stacking')
 Check(a,true,true);Check(custom,true,false)
 for _,u in ipairs({ranged,siege,recon,ship,air,civ,helicopter,embarked}) do Check(u,false,false) end
@@ -26,4 +26,4 @@ now=6;GameEvents.PlayerDoTurn.Fire(0);assert(not U.Drink(0),'two Aftertaste turn
 now=7;GameEvents.PlayerDoTurn.Fire(0);assert(U.Drink(0));Check(recruit,true,false)
 assert(a.raw:find('UNIT_OTHER_DATA',1,true) and Players[0].raw:find('OTHER_MOD_DATA',1,true))
 for name,duration in pairs({GAMESPEED_QUICK=3,GAMESPEED_STANDARD=5,GAMESPEED_EPIC=7,GAMESPEED_MARATHON=12}) do speed=name;assert(U.Duration()==duration) end
-print('PASS stockpile, immediate/duplicate/skipped era awards, no cap, snapshot eligibility, exact durations and two-turn Aftertaste')
+print('PASS stockpile, immediate/duplicate/skipped era awards, no cap, mixed snapshot eligibility and Standard Aftertaste')

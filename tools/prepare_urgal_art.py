@@ -25,6 +25,16 @@ def bottle(alpha=False):
 
 def main():
  V.mkdir(parents=True,exist_ok=True)
+ # Dedicated UI texture: retain the purple glass bottle, remove the medallion
+ # background/rim and fit it on transparency at the exact native display size.
+ potion=bottle().crop((60,28,196,226))
+ mask=Image.new('L',(256,256));md=ImageDraw.Draw(mask)
+ md.polygon([(99,46),(157,46),(157,100),(190,131),(190,204),(175,220),(81,220),(66,204),(66,131),(99,100)],fill=255)
+ md.rectangle((96,34,160,57),fill=255)
+ potion.putalpha(mask.crop((60,28,196,226)))
+ ui=Image.new('RGBA',(32,32));small=ImageOps.contain(potion,(26,30),Image.Resampling.LANCZOS)
+ ui.alpha_composite(small,((32-small.width)//2,(32-small.height)//2))
+ (V/'URGAL_PotionUI32.dds').write_bytes(raw_mips(ui));ui.save(S/'PotionUI32.png')
  leader=Image.open(S/'Urgal.png').convert('RGBA');w,h=leader.size
  portrait=leader.crop((int(w*.10),int(h*.04),int(w*.43),int(h*.68)))
  objects=Image.new('RGBA',(512,256))
@@ -62,6 +72,6 @@ def main():
  for i,im in enumerate([masters['Icon'],portrait,objects.crop((256,0,512,256)),objects.crop((0,0,256,256))]):
   preview.alpha_composite(ImageOps.fit(im,(256,256),Image.Resampling.LANCZOS),(i*256,0))
  preview.convert('RGB').save(S/'Preview.png')
- print('Compiled 48 Urgal DDS textures and static leader scene')
+ print('Compiled 49 Urgal DDS textures, including a transparent 32px purple potion UI icon')
 
 if __name__=='__main__': main()

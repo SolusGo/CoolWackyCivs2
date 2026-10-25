@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.12.1 Urgal hardening preview / mod version 15 — 2026-10-26
+
+- Correct Urgal to human-only, restore Strength II's +50% melee attack against enemy cities, and scale Aftertaste to 1/2/3/6 without changing the 3/5/7/12 Strength windows or other approved balance values.
+- Reject embarked-only activation while preserving mixed-army snapshots and original deadlines; add immediate/embarked feedback and a dedicated purple potion UI icon.
+- Harden save/event/context handling and expand generated-source, combat/healing, timing, UI and persistence checks. Retain the collection UUID, version 15 and existing save schema; in-progress legacy deadlines remain authoritative.
+- Preserve other civilizations, including McPvP. See [Urgal's audit, exact changed files and validation limitations](TheUrgal/docs/Audit.md). Native gameplay/rendering/save acceptance remains pending.
+
 ## 1.12.0 Urgal implementation preview / mod version 15 — 2026-10-26
 
 - Add human/AI-playable The Urgal from the supplied MCPVP Hardcore Games design: one initial Strength Potion plus one per new Era, uncapped persistent stockpiles, snapshot-only +50% melee attack against units, 3/5/7/12-turn speed windows and two-turn Aftertaste.

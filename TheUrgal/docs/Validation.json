@@ -1,22 +1,32 @@
 {
   "date": "2026-10-26",
   "native_gameplay": "NOT TESTED IN GAME",
+  "native_ui": "NOT TESTED IN GAME",
   "sql": {
     "companion_tables": 176,
-    "eligible_training_types": 210
+    "eligible_training_types": 210,
+    "human_only": true,
+    "melee_city_attack_bonus": 50
   },
+  "suite_runs": 10,
   "suites": [
     "urgal_potions.lua",
     "urgal_lifecycle.lua",
     "urgal_ai.lua",
-    "urgal_ui.lua"
+    "urgal_ui.lua",
+    "urgal_speeds.lua",
+    "urgal_combat.lua",
+    "urgal_reliability.lua"
   ],
   "source_audit": {
     "official_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
     "contracts": {
       "native additive attack modifier": true,
-      "city modifier can cancel bonus": true,
+      "generic attack applies before city-specific branch": true,
       "defense has no generic attack modifier": true,
+      "city bombardment uses city strength cache": true,
+      "city garrison contribution uses unmodified unit base": true,
+      "native attack arithmetic": true,
       "promotion SQL attack field read": true,
       "promotion SQL healing field read": true,
       "native healing clamps to missing health": true,
@@ -64,11 +74,37 @@
       }
     }
   },
+  "timing": {
+    "strength": [
+      3,
+      5,
+      7,
+      12
+    ],
+    "aftertaste": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "first_reactivation_offset": [
+      4,
+      7,
+      10,
+      18
+    ],
+    "legacy_saved_deadlines": "Preserved; new drinks use corrected speed durations"
+  },
+  "support_functions": {
+    "path": "G:\\SteamLibrary\\steamapps\\common\\Sid Meier's Civilization V\\Assets\\UI\\SupportFunctions.lua",
+    "sha256": "8103cf5f09e44aa85b7d2314c7885c152acffe9598111553cb7de81c50e53cfb",
+    "font_metrics": "MODELED; native helper executed but native rendering not measured"
+  },
   "pending": [
-    "Native leader/setup rendering and UI at 1024x768 and 1920x1080",
-    "Native melee/city/ranged previews and resolved combat",
+    "Native UI/potion icon at 1024x768, 1280x720 and 1920x1080",
+    "Native melee unit/city attacks, defense and bombardment previews/resolved combat",
     "Native Pot Chaser kills and HP cap",
-    "Native mid-window saves, reload, upgrades and gifts",
-    "Native AI activation and whole-game balance"
+    "Native mid-window saves, reload, upgrades, transfers and embarked-only/mixed armies",
+    "Whole-game balance"
   ]
 }

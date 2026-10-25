@@ -25,7 +25,7 @@ Players[0].raw='OTHER_MOD_DATA[URGAL_P1:999999999999999999999999999:1:0:0:0]'
 assert(MapModData.URGAL.State(0)==nil,'corrupt overflow must not mint a giant inventory')
 assert(not MapModData.URGAL.Drink(0))
 -- A second Urgal has an independent stockpile and advanced-start baseline.
-Players[2].civ=100;Players[2].era=4;NewUnit(1,2)
+Players[2].civ=100;Players[2].human=true;Players[2].era=4;NewUnit(1,2)
 assert(MapModData.URGAL.State(2).potions==1)
 Players[2].era=5;GameEvents.TeamSetEra.Fire(2,5,false)
 assert(MapModData.URGAL.State(2).potions==2)

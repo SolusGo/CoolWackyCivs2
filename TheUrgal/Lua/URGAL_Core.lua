@@ -3,9 +3,10 @@ local previous = MapModData.URGAL
 if previous and previous.active and previous.context == ContextPtr then return end
 if previous then
  previous.active = false
+ if previous.context and previous.context.ClearUpdate then previous.context:ClearUpdate() end
  for _,h in ipairs(previous.handlers or {}) do if h.event.Remove then h.event.Remove(h.fn) end end
 end
-local U = {active=true, context=ContextPtr, handlers={}}
+local U = {active=true, context=ContextPtr, handlers={}, drinking={}, warnings={}}
 MapModData.URGAL = U
 local T = GameInfoTypes
 U.CIV, U.STRENGTH, U.CHASER, U.RECOVERY = T.CIVILIZATION_URGAL, T.PROMOTION_URGAL_STRENGTH_II, T.PROMOTION_URGAL_POT_CHASER, T.PROMOTION_URGAL_POT_RECOVERY
@@ -14,14 +15,21 @@ local playerPattern, unitPattern = '%[URGAL_P1:([^%]]*)%]', '%[URGAL_U1:([^%]]*)
 local excluded = {UNITCOMBAT_RECON=true, UNITCOMBAT_ARCHER=true, UNITCOMBAT_SIEGE=true, UNITCOMBAT_HELICOPTER=true}
 function U.Civ(id)
  local p=Players[id]
- return p and p:IsAlive() and p:GetCivilizationType()==U.CIV
+ return p and p:IsAlive() and p:IsHuman() and p:GetCivilizationType()==U.CIV
 end
 function U.Turn() return Game.GetGameTurn() end
 function U.Text(key,...) return Locale.ConvertTextKey('TXT_KEY_URGAL_'..key,...) end
-function U.Duration()
- local speed=GameInfo.GameSpeeds[Game.GetGameSpeedType()]
- local exact={GAMESPEED_QUICK=3,GAMESPEED_STANDARD=5,GAMESPEED_EPIC=7,GAMESPEED_MARATHON=12}
- return exact[speed.Type] or math.max(1,math.floor(5*(speed.TrainPercent or 100)/100))
+local function SpeedTurns(exact,base,rounding)
+ local speed=GameInfo.GameSpeeds[Game.GetGameSpeedType()] or {}
+ if exact[speed.Type] then return exact[speed.Type] end
+ local percent=tonumber(speed.TrainPercent) or 100
+ if percent<=0 or percent~=percent or percent==math.huge then percent=100 end
+ return math.max(1,math.floor(base*percent/100+rounding))
+end
+function U.Duration() return SpeedTurns({GAMESPEED_QUICK=3,GAMESPEED_STANDARD=5,GAMESPEED_EPIC=7,GAMESPEED_MARATHON=12},5,0) end
+function U.Aftertaste() return SpeedTurns({GAMESPEED_QUICK=1,GAMESPEED_STANDARD=2,GAMESPEED_EPIC=3,GAMESPEED_MARATHON=6},2,0.5) end
+local function Warn(key,err)
+ if not U.warnings[key] then U.warnings[key]=true;print('URGAL '..key..': '..tostring(err)) end
 end
 function U.Alive(u) return u and not u:IsDead() and not u:IsDelayedDeath() end
 function U.Eligible(u)
@@ -48,15 +56,24 @@ local function Write(object,pattern,tag,value)
  local nextData=clean..(value and ('['..tag..':'..value..']') or '')
  if raw~=nextData then object:SetScriptData(nextData) end
 end
+local function Encode(values)
+ local out={}
+ for i,n in ipairs(values) do out[i]=string.format('%.0f',n) end
+ return table.concat(out,':') -- keep large valid stockpiles out of scientific notation
+end
 function U.Save(id,s)
- Write(Players[id],playerPattern,'URGAL_P1',table.concat({s.potions,s.era,s.finish,s.ready,s.serial},':'))
+ Write(Players[id],playerPattern,'URGAL_P1',Encode({s.potions,s.era,s.finish,s.ready,s.serial}))
 end
 function U.State(id)
- if not U.Civ(id) then return nil end
+ if not U.active or not U.Civ(id) then return nil end
  local p=Players[id]; local raw=Read(p,playerPattern)
+ local _,records=string.gsub(p:GetScriptData() or '',playerPattern,'')
+ if records>1 or (not raw and string.find(p:GetScriptData() or '','[URGAL_P',1,true)) then return nil end
  if raw then
   local v=Numbers(raw,5)
-  if not v or v[4]<v[3] or (v[3]>0 and v[4]~=v[3]+2) then return nil end
+  -- Absolute saved deadlines are authoritative. This accepts legacy v15
+  -- two-turn Aftertaste without rewriting an in-progress window on upgrade.
+  if not v or (v[3]==0 and (v[4]~=0 or v[5]~=0)) or (v[3]>0 and (v[4]<=v[3] or v[5]==0)) then return nil end
   return {potions=v[1],era=v[2],finish=v[3],ready=v[4],serial=v[5]}
  end
  -- Advanced-era starts receive the one initial bottle, not retroactive eras.
@@ -64,7 +81,7 @@ function U.State(id)
  U.Save(id,s); return s
 end
 function U.Mark(u,id,s)
- Write(u,unitPattern,'URGAL_U1',s and table.concat({id,s.serial,s.finish},':') or nil)
+ Write(u,unitPattern,'URGAL_U1',s and Encode({id,s.serial,s.finish}) or nil)
 end
 local function Promo(u,p,on) if u:IsHasPromotion(p)~=on then u:SetHasPromotion(p,on) end end
 function U.Unit(id,u,s)
@@ -79,13 +96,21 @@ function U.Unit(id,u,s)
 end
 function U.Units(id,s)
  local p=Players[id]
- if p then for u in p:Units() do U.Unit(id,u,s) end end
+ if p then for u in p:Units() do
+  local ok,err=pcall(U.Unit,id,u,s)
+  if not ok then Warn('unit '..id..':'..u:GetID(),err) end
+ end end
 end
 function U.Notify(id,key,...)
  local p=Players[id]
- if p and p:IsHuman() then p:AddNotification(NotificationTypes.NOTIFICATION_GENERIC,U.Text(key,...),U.Text('TRAIT'),-1,-1) end
+ if p and p:IsHuman() then
+  local text=U.Text(key,...)
+  local ok,err=pcall(function() p:AddNotification(NotificationTypes.NOTIFICATION_GENERIC,text,U.Text('TRAIT'),-1,-1) end)
+  if not ok then Warn('notification',err) end
+ end
 end
 function U.Sync(id,era)
+ if not U.active then return nil end
  local s=U.State(id)
  if not s then U.Units(id,nil); return nil end
  local current=math.max(Players[id]:GetCurrentEra(),era or 0)
@@ -99,22 +124,31 @@ function U.Sync(id,era)
 end
 function U.Count(id)
  local n=0
- if U.Civ(id) then for u in Players[id]:Units() do if U.Eligible(u) then n=n+1 end end end
+ if U.Civ(id) then for u in Players[id]:Units() do if U.Eligible(u) and not u:IsEmbarked() then n=n+1 end end end
  return n
 end
 function U.CanDrink(id)
  local s=U.State(id)
- return s and s.potions>0 and U.Turn()>=s.ready and U.Count(id)>0
+ return U.active and not U.drinking[id] and s and s.potions>0 and U.Turn()>=s.ready and U.Count(id)>0
 end
 function U.Drink(id)
  if not U.active or not U.CanDrink(id) then return false end
- local s=U.State(id); local units={}
- for u in Players[id]:Units() do if U.Eligible(u) then units[#units+1]=u end end
- s.potions=s.potions-1; s.serial=s.serial+1; s.finish=U.Turn()+U.Duration(); s.ready=s.finish+2
- -- Commit expenditure first. A save can never reload a free activation.
- U.Save(id,s)
- for _,u in ipairs(units) do U.Mark(u,id,s); U.Unit(id,u,s) end
- U.Notify(id,'DRANK',U.Duration(),#units)
+ U.drinking[id]=true
+ local ok,err=pcall(function()
+  local s=U.State(id); local units={}; local immediate=0
+  for u in Players[id]:Units() do if U.Eligible(u) then
+   units[#units+1]=u;if not u:IsEmbarked() then immediate=immediate+1 end
+  end end
+  s.potions=s.potions-1; s.serial=s.serial+1; s.finish=U.Turn()+U.Duration(); s.ready=s.finish+U.Aftertaste()
+  -- Commit expenditure first; duplicate/reentrant clicks cannot spend again.
+  U.Save(id,s)
+  -- Record the full snapshot before promotion setters can publish dirty events.
+  for _,u in ipairs(units) do U.Mark(u,id,s) end
+  U.Units(id,s)
+  U.Notify(id,'DRANK',U.Duration(),immediate,#units-immediate)
+ end)
+ U.drinking[id]=nil
+ if not ok then Warn('drink '..id,err);return false end
  if U.Refresh then U.Refresh() end
  return true
 end
@@ -129,12 +163,11 @@ function U.Hook(events,name,fn)
   event.Add(safe); U.handlers[#U.handlers+1]={event=event,fn=safe}
  end
 end
-include('URGAL_AI')
+-- Human-only. URGAL_AI.lua is retained as dormant legacy source, never loaded.
 U.Hook(GameEvents,'PlayerDoTurn',function(id)
  if U.Civ(id) then
   local s=U.Sync(id)
-  if s and U.Turn()==s.finish then U.Notify(id,'EXPIRED') end
-  if not Players[id]:IsHuman() then U.AITurn(id) end
+  if s and U.Turn()==s.finish then U.Notify(id,'EXPIRED',math.max(0,s.ready-U.Turn())) end
  elseif Players[id] then
   -- Clean a transferred promotion even if a third-party transfer skipped conversion.
   for u in Players[id]:Units() do
@@ -149,7 +182,10 @@ U.Hook(GameEvents,'TeamSetEra',function(team,era)
 end)
 U.Hook(GameEvents,'UnitCreated',function(id,unitID)
  local p=Players[id]; local u=p and p:GetUnitByID(unitID)
- if u then U.Mark(u,id,nil); U.Unit(id,u,nil) end
+ -- Native new units have no snapshot marker. A duplicate creation notification
+ -- for an existing participant must not erase its legitimate saved identity.
+ if u then U.Unit(id,u,U.Civ(id) and Read(p,playerPattern) and U.State(id) or nil) end
+ if U.Civ(id) and U.QueueRefresh then U.QueueRefresh() end
 end)
 U.Hook(GameEvents,'UnitConverted',function(oldOwner,newOwner,oldID,newID,isUpgrade)
  local old=Players[oldOwner] and Players[oldOwner]:GetUnitByID(oldID)
@@ -162,12 +198,17 @@ U.Hook(GameEvents,'UnitConverted',function(oldOwner,newOwner,oldID,newID,isUpgra
   U.Mark(new,newOwner,s)
  else U.Mark(new,newOwner,nil) end
  U.Unit(newOwner,new,s)
+ if (U.Civ(oldOwner) or U.Civ(newOwner)) and U.QueueRefresh then U.QueueRefresh() end
 end)
 U.Hook(GameEvents,'UnitSetXY',function(id,unitID)
  local u=Players[id] and Players[id]:GetUnitByID(unitID)
- if u and (U.Civ(id) or u:IsHasPromotion(U.STRENGTH) or u:IsHasPromotion(U.RECOVERY)) then U.Unit(id,u,U.State(id)) end
+ if u and (U.Civ(id) or u:IsHasPromotion(U.STRENGTH) or u:IsHasPromotion(U.RECOVERY)) then
+  U.Unit(id,u,U.State(id))
+  if U.QueueRefresh then U.QueueRefresh() end
+ end
 end)
 function U.Bootstrap()
+ if not U.active then return end
  for id=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do
   if U.Civ(id) then U.Sync(id) elseif Players[id] then
    for u in Players[id]:Units() do
@@ -181,6 +222,7 @@ U.Hook(Events,'SequenceGameInitComplete',U.Bootstrap)
 U.Hook(Events,'LoadScreenClose',U.Bootstrap)
 if ContextPtr.SetShutdown then ContextPtr:SetShutdown(function()
  U.active=false
+ if U.context.ClearUpdate then U.context:ClearUpdate() end
  for _,h in ipairs(U.handlers) do if h.event.Remove then h.event.Remove(h.fn) end end
  if MapModData.URGAL==U then MapModData.URGAL=nil end
 end) end

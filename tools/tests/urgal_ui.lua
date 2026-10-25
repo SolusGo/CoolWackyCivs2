@@ -1,6 +1,12 @@
 NewUnit(1,0);LoadUrgal();LoadUI();local U=MapModData.URGAL
 assert(not Controls.Inventory.hidden and not Controls.Drink.disabled)
 assert(Controls.Stockpile.text:find('1',1,true))
+Players[0].units[1].embarked=true;GameEvents.UnitSetXY.Fire(0,1);Flush()
+assert(Controls.Drink.disabled and Controls.Drink.tooltip:find('Requires at least one eligible unembarked land melee unit.',1,true))
+Controls.Drink.click();assert(U.State(0).potions==1)
+Players[0].units[1].embarked=false;GameEvents.UnitSetXY.Fire(0,1);Flush()
+local embarked=NewUnit(2,0);embarked.embarked=true;GameEvents.UnitCreated.Fire(0,2);Flush()
+assert(Controls.Status.text=='1 units ready now' and not Controls.Drink.disabled)
 Events.AILeaderMessage.Fire();assert(Controls.Inventory.hidden)
 Controls.Drink.click();assert(U.State(0).potions==1,'hidden UI cannot activate')
 Events.LeavingLeaderViewMode.Fire();Flush();assert(not Controls.Inventory.hidden)
@@ -8,6 +14,10 @@ Events.SerialEventGameMessagePopupShown.Fire({Type=12});assert(Controls.Inventor
 Events.SerialEventGameMessagePopupShown.Fire({Type=13})
 Events.SerialEventGameMessagePopupProcessed.Fire(12);Flush();assert(Controls.Inventory.hidden)
 Events.SerialEventGameMessagePopupProcessed.Fire(13);Flush();assert(not Controls.Inventory.hidden)
+Events.SerialEventGameMessagePopupShown.Fire({Type=16})
+Events.SerialEventGameMessagePopupShown.Fire({Type=16})
+Events.SerialEventGameMessagePopupProcessed.Fire(16);Flush();assert(Controls.Inventory.hidden,'same-type nested popup still blocks')
+Events.SerialEventGameMessagePopupProcessed.Fire(16);Flush();assert(not Controls.Inventory.hidden)
 Events.SerialEventEnterCityScreen.Fire();assert(Controls.Inventory.hidden)
 Events.SerialEventExitCityScreen.Fire();Flush();assert(not Controls.Inventory.hidden)
 Events.ActivePlayerTurnEnd.Fire();assert(Controls.Inventory.hidden)
@@ -15,7 +25,28 @@ Events.ActivePlayerTurnStart.Fire();Flush();assert(not Controls.Inventory.hidden
 Controls.Drink.click();assert(U.State(0).potions==0 and Controls.Drink.disabled)
 Controls.Drink.click();assert(U.State(0).potions==0)
 assert(Controls.Drink.text:find('ACTIVE',1,true))
-now=5;GameEvents.PlayerDoTurn.Fire(0);assert(Controls.Status.text:find('AFTERTASTE',1,true))
+-- Retain stale callbacks, then replace the context while a refresh is queued.
+Events.SerialEventGameDataDirty.Fire()
+local staleTick,oldContext,oldDrink,oldU=ContextPtr.update,ContextPtr,Controls.Drink.click,U
+NewContext();LoadUrgal();LoadUI();U=MapModData.URGAL
+assert(Controls.Drink.disabled and Controls.Status.text:find('STRENGTH II',1,true))
+Events.SerialEventGameDataDirty.Fire();local pending=ContextPtr.update;local saved=Players[0].raw
+staleTick();oldContext.showhide(true);oldDrink();oldU.Bootstrap();oldU.Sync(0);assert(not oldU.Drink(0))
+oldContext.shutdown()
+assert(ContextPtr.update==pending and U.active and Players[0].raw==saved,'retired callbacks cannot mutate or detach their successor')
+Flush();LoadUrgalUI()
+assert(#GameEvents.PlayerDoTurn.handlers==1 and #Events.ActivePlayerTurnStart.handlers==1 and #Events.LoadScreenClose.handlers==2)
+-- A large uncapped inventory stays inside the header; full value is available
+-- in its tooltip. The installed native helper runs with a synthetic font width.
+local s=U.State(0);s.potions=1234567890;U.Save(0,s);U.Refresh()
+assert(Controls.Stockpile:GetSizeX()<=226 and Controls.Stockpile.tooltip:find('1234567890',1,true))
+Players[0].raw=saved
+now=U.Duration();GameEvents.PlayerDoTurn.Fire(0);assert(Controls.Status.text:find('AFTERTASTE',1,true))
+assert(Controls.Drink.text=='DRINK STRENGTH II' and Controls.Drink.disabled)
+NewContext();LoadUrgal();LoadUI();U=MapModData.URGAL
+assert(Controls.Status.text=='AFTERTASTE - '..U.Aftertaste()..' TURNS' and Controls.Drink.disabled)
+now=U.State(0).ready;GameEvents.PlayerDoTurn.Fire(0)
+assert(Controls.Drink.text=='NO POTIONS' and Controls.Drink.disabled)
 activePlayer=1;Events.GameplaySetActivePlayer.Fire();Flush();assert(Controls.Inventory.hidden,'only Urgal gets the panel')
 activePlayer=0;Events.GameplaySetActivePlayer.Fire();Flush();assert(not Controls.Inventory.hidden)
 assert(ContextPtr.update==nil,'no permanent frame polling')

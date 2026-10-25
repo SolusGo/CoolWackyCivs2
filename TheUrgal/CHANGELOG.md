@@ -1,5 +1,15 @@
 # The Urgal changelog
 
+## 1.0.1 hardening preview — 2026-10-26
+
+- Make Urgal human-only in setup and runtime; retain the legacy AI file dormant and leave McPvP unchanged.
+- Remove city-attack cancellation: eligible melee units retain the full +50% AttackMod against units and cities. Defense and city bombardment are unchanged.
+- Keep Strength II at 3/5/7/12 turns; scale Aftertaste to 1/2/3/6. Preserve already-recorded save deadlines and use documented TrainPercent fallbacks for custom speeds.
+- Require an eligible unembarked unit to drink, while preserving embarked participants in mixed snapshots. Separate immediate and embarked activation feedback.
+- Replace the wine glyph with a transparent 32px purple potion DDS adapted from existing artwork. Keep the panel bounded, truncate long titles using the native helper, and retain the full inventory tooltip.
+- Guard reentrant clicks, duplicate creation events, corrupt/future records, large integer encoding, transient setter/notification faults and stale/same-context UI callbacks.
+- Expand to seven shipped-Lua suites (ten runs), SQL-backed combat/healing models, native source contracts, icon/layout checks and generation reproducibility. Native acceptance remains pending; see [the audit report](docs/Audit.md).
+
 ## 1.0.0 implementation preview — 2026-10-26
 
 - Add human/AI-playable Urgal from the supplied MCPVP Hardcore Games design: finite persistent Era potions, a snapshot-only offensive Strength II window, fixed two-turn Aftertaste and speed durations 3/5/7/12.
