@@ -12,6 +12,8 @@ The Boundless City now has an extensive [lore library](TheBoundlessCity/Lore/REA
 
 The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/UIVisuals.md), with an engraved city header, brass/teal textures, matching controls and clearer district rows. [Layout preview and original art](art-source/TheBoundlessCity/WorkforceUI/README.md).
 
+**Compatibility hotfix:** a turn-transition crash reported while finishing Fertilizer was traced to Tonga's first-contact Science reward in the separately installed MC Polynesian pack v5. The [investigation and optional installer](docs/compatibility/TongaResearchCrash.md) preserve that reward through science overflow when no technology is selected. Updating this collection alone does not patch the external mod.
+
 ## Civilization roster
 
 | Civilization | Leader | Playstyle | Guide |
