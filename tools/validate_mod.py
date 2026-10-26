@@ -154,3 +154,5 @@ if __name__=='__main__':
     validate_urgal()
     from validate_jin import main as validate_jin
     validate_jin()
+    from validate_threshold import main as validate_threshold
+    validate_threshold()

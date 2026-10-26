@@ -65,6 +65,7 @@ def main():
         sample += ['TheUrgal/'+p for p in ['Lua/URGAL_Core.lua','Lua/URGAL_AI.lua','UI/URGAL_Potions.lua','UI/URGAL_Potions.xml','SQL/02_URGAL_Effects.sql','Art/URGAL_Leader.dds','Art/URGAL_Objects256.dds','Art/URGAL_PotionUI32.dds','docs/Validation.json']]
         sample += ['JinDynasty/'+p for p in ['Lua/JIN_Core.lua','Lua/JIN_State.lua','Lua/JIN_Military.lua','Lua/JIN_Autonomy.lua','Lua/JIN_Runtime.lua','Lua/JIN_Transactions.lua','Lua/JIN_Config.lua','UI/JIN_Dynasty.lua','UI/JIN_Dynasty.xml','SQL/00_JIN_Core.sql','SQL/02_JIN_Effects.sql','SQL/10_JIN_Text.sql','Art/JIN_Leader.dds','Art/JIN_Units256.dds','docs/Validation.json','docs/HardeningBenchmark.json','Balance.json']]
         sample += ['TheBoundlessCity/Art/BC_UI_'+name+'.dds' for name in ['Panel','Launcher','Row','Buttons','Assigned','Pending']]
+        sample += ['TheThresholdCourt/'+p for p in ['Lua/THC_Core.lua','Lua/THC_State.lua','Lua/THC_Events.lua','UI/THC_Transfer.lua','UI/THC_Transfer.xml','SQL/00_THC_Core.sql','SQL/01_THC_Inheritance.sql','SQL/02_THC_Effects.sql','SQL/03_THC_Art.sql','SQL/10_THC_Text.sql','Art/THC_Leader.dds','Art/THC_Objects256.dds','docs/Validation.json']]
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)
         for name in sample: assert (target/name).read_bytes()==(R/name).read_bytes(),('7z stale bytes',name)
     print('PASS ZIP and genuine 7z/LZMA release:',len(expected),'files,',len(game),'game files, exact ZIP bytes, CRC and extracted 7z manifest/runtime/SQL')

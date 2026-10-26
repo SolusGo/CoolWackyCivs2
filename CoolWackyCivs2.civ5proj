@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Fourteen civilizations, now including the Jin Dynasty cavalry economy.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal and The Jin Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Fifteen civilizations, now including Queen Elsewhere and the Threshold Court.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty and The Threshold Court. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>16</ModVersion>
+    <ModVersion>17</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -386,6 +386,31 @@
         <Type>UpdateDatabase</Type>
         <FileName>JinDynasty/SQL/10_JIN_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheThresholdCourt/SQL/00_THC_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheThresholdCourt/SQL/01_THC_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheThresholdCourt/SQL/02_THC_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheThresholdCourt/SQL/03_THC_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheThresholdCourt/SQL/10_THC_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -471,6 +496,12 @@
         <Name>The Jin Dynasty</Name>
         <Description>Human-only Grasslands, Horse recruitment, Emissaries, Landmarks and automatic defenses.</Description>
         <FileName>JinDynasty/UI/JIN_Dynasty.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Threshold Transfer</Name>
+        <Description>Human-only city doorway transfers, persistent cooldowns and exhausted original units.</Description>
+        <FileName>TheThresholdCourt/UI/THC_Transfer.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -2854,6 +2885,183 @@
     <Content Include="JinDynasty/UI/JIN_Dynasty.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/THC_Promotions80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Lua/THC_Core.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Lua/THC_Events.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Lua/THC_State.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/SQL/00_THC_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/SQL/01_THC_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/SQL/02_THC_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/SQL/03_THC_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/SQL/10_THC_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/UI/THC_Transfer.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/UI/THC_Transfer.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JinDynasty\" />
@@ -2904,6 +3112,11 @@
     <Folder Include="TheSubstituteClassroom\Lua\" />
     <Folder Include="TheSubstituteClassroom\SQL\" />
     <Folder Include="TheSubstituteClassroom\UI\" />
+    <Folder Include="TheThresholdCourt\" />
+    <Folder Include="TheThresholdCourt\Art\" />
+    <Folder Include="TheThresholdCourt\Lua\" />
+    <Folder Include="TheThresholdCourt\SQL\" />
+    <Folder Include="TheThresholdCourt\UI\" />
     <Folder Include="TheTwelfthHour\" />
     <Folder Include="TheTwelfthHour\Art\" />
     <Folder Include="TheTwelfthHour\Lua\" />

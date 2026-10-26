@@ -44,12 +44,16 @@ def sql():
     assert d.execute("SELECT CityStrengthMod FROM Policies WHERE Type='POLICY_CK_PROTECTION'").fetchone()[0]==20
     assert [r[0] for r in d.execute("SELECT IsDummy FROM Policies WHERE Type LIKE 'POLICY_CK_%'")]==[1,1]
     assert not d.execute('SELECT 1 FROM Leader_Flavors WHERE LeaderType=?',(LEADER,)).fetchone(),'no AI strategy'
-    # All original native rows remain unchanged; existing civ SQL has its own regression suites.
+    # Threshold exhaustion requires CP's per-type movement notification opt-in.
+    # Permit exactly that bit on land combat types; keep all gameplay columns exact.
     for table,rows in originals.items():
         cols=[r[1] for r in d.execute('PRAGMA table_info('+table+')')]
         for original in rows:
             now=d.execute('SELECT * FROM '+table+' WHERE ID=?',(original[cols.index('ID')],)).fetchone()
-            assert tuple(now)==original,('native row changed',table,original[0])
+            expected=list(original)
+            if table=='Units' and original[cols.index('Domain')]=='DOMAIN_LAND' and original[cols.index('Combat')]>0:
+                expected[cols.index('SendCanMoveIntoEvent')]=1
+            assert tuple(now)==tuple(expected),('native row changed',table,original[0])
     # Civ V's stock atlas foreign keys target a non-unique Atlas column; SQLite's
     # generic foreign_key_check cannot validate this schema. Check our references.
     for t,col,target in [('Civilization_Leaders','LeaderheadType','Leaders'),('Leader_Traits','TraitType','Traits')]:

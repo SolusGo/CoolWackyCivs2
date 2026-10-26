@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.14.0 Threshold Court implementation preview / mod version 17 — 2026-10-26
+
+- Add human-only Queen Elsewhere and The Threshold Court, with active CP Pikeman/Market inheritance, Hingeguard +1 Movement/+15% friendly territory combat and Threshold House +1 Culture.
+- Add real same-instance city-to-city Threshold Transfer, unlimited distance, exact Era Gold cost, one successful transfer per owner-turn, independent T+8 origin cooldowns and native save-serialized city/unit/player state.
+- Add temporary native offensive restriction, zero movement, movement veto and upgrade deferral, recoverable relocation/payment receipts, stale city/unit checks and an event-driven destination/confirmation panel.
+- Add original queen/guardian paintings, doorway heraldry, 48 mipmapped DDS textures, Civilopedia/Dawn/diplomacy text, guides, executable Lua tests and pinned v151 source contracts. Append SQL after the released inventory and retain collection UUID. Native game/render/save acceptance remains pending; see [testing](TheThresholdCourt/docs/Testing.md).
+
 ## 1.13.1 Jin Dynasty hardening preview / mod version 16 — 2026-10-26
 
 - Automate localized Meng'an Mouke defense through deferred native orders, deterministic target selection, one saved order budget per owner-turn, return steps, mission vetoes and combat-safe retirement.

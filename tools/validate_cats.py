@@ -21,7 +21,18 @@ def sql():
     for (table,) in d.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").fetchall():
      if table!='CustomModOptions':previous[table]=Counter(tuple(r) for r in d.execute('SELECT * FROM '+quote(table)))
    d.executescript(p.read_text(encoding='utf-8'))
- for table,rows in previous.items():assert not rows-Counter(tuple(r) for r in d.execute('SELECT * FROM '+quote(table))),('prior collection rows changed',table)
+ def expected_row(table,row):
+  # CP's movement event opt-in is required for Threshold exhaustion. No other
+  # existing unit column may change when the full collection activates.
+  if table!='Units':return tuple(row)
+  cols=[r[1] for r in d.execute('PRAGMA table_info(Units)')];row=list(row)
+  if row[cols.index('Domain')]=='DOMAIN_LAND' and row[cols.index('Combat')]>0:
+   row[cols.index('SendCanMoveIntoEvent')]=1
+  return tuple(row)
+ for table,rows in previous.items():
+  expected=Counter()
+  for row,count in rows.items():expected[expected_row(table,row)]+=count
+  assert not expected-Counter(tuple(r) for r in d.execute('SELECT * FROM '+quote(table))),('prior collection rows changed',table)
  assert tuple(d.execute('SELECT Playable,AIPlayable FROM Civilizations WHERE Type=?',(CIV,)).fetchone())==(1,0)
  assert d.execute('SELECT LeaderheadType FROM Civilization_Leaders WHERE CivilizationType=?',(CIV,)).fetchone()[0]==LEADER
  u=d.execute('SELECT * FROM Units WHERE Type=?',(UNIT,)).fetchone()
@@ -55,7 +66,7 @@ def sql():
  for t,rows in native.items():
   after={r['Type']:tuple(r) for r in d.execute('SELECT * FROM '+quote(t))}
   col=[r[1] for r in d.execute('PRAGMA table_info('+quote(t)+')')].index('Type')
-  for row in rows:assert after[row[col]]==row,(t,row[col],'unrelated row changed')
+  for row in rows:assert after[row[col]]==expected_row(t,row),(t,row[col],'unrelated row changed')
  keys={r[0] for r in d.execute('SELECT Tag FROM Language_en_US')}
  for path in V.rglob('*'):
   if path.suffix in ['.lua','.xml','.sql']:

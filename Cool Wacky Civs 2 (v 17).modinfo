@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="16">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="17">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Fourteen civilizations, now including the Jin Dynasty cavalry economy.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal and The Jin Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Fifteen civilizations, now including Queen Elsewhere and the Threshold Court.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty and The Threshold Court. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -808,6 +808,65 @@
     <File md5="7F6D154E1E85544F6D9F93FCB921EA90" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
     <File md5="6931FE9DA622180886058E8CF4064262" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
     <File md5="6E5FACCD988013B422047886F459C377" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
+    <File md5="50929F7ECB540B258FA178E0CA71EA7B" import="1">TheThresholdCourt/Art/THC_Alpha128.dds</File>
+    <File md5="97E2C10CB89B0E20CEC28EF4A7C0A1B1" import="1">TheThresholdCourt/Art/THC_Alpha16.dds</File>
+    <File md5="A3562F7571138542C3DF55FA3627C64C" import="1">TheThresholdCourt/Art/THC_Alpha24.dds</File>
+    <File md5="A9EB4FF75910C9E616BD07DEF954D2C3" import="1">TheThresholdCourt/Art/THC_Alpha256.dds</File>
+    <File md5="FCB816DF57CCFC5DD93E76720E9AE274" import="1">TheThresholdCourt/Art/THC_Alpha32.dds</File>
+    <File md5="7759CDD28FF9C303D1A2BB2A1DAB339C" import="1">TheThresholdCourt/Art/THC_Alpha45.dds</File>
+    <File md5="FA2644AE2B7E217A15471F8AE7237FE7" import="1">TheThresholdCourt/Art/THC_Alpha48.dds</File>
+    <File md5="9BAC277564A53F5F9C0BF61C30128DF0" import="1">TheThresholdCourt/Art/THC_Alpha64.dds</File>
+    <File md5="5105E72C4BA723556299FD58C9C41EDD" import="1">TheThresholdCourt/Art/THC_Alpha80.dds</File>
+    <File md5="EEB12524F13009BF4276CAF6FBCA2F7F" import="1">TheThresholdCourt/Art/THC_Dawn.dds</File>
+    <File md5="0DBEB400E35E9BE3AFB3A6463FD0457F" import="1">TheThresholdCourt/Art/THC_Icon128.dds</File>
+    <File md5="4B27E6F34D83866BE454D749E61562AA" import="1">TheThresholdCourt/Art/THC_Icon16.dds</File>
+    <File md5="498E15601534A89174D32B861D8E519F" import="1">TheThresholdCourt/Art/THC_Icon24.dds</File>
+    <File md5="73EE5F3FBEC1E56F6296B21F94DAA496" import="1">TheThresholdCourt/Art/THC_Icon256.dds</File>
+    <File md5="8F939EE9F8F835919099DAAFB3CECCCD" import="1">TheThresholdCourt/Art/THC_Icon32.dds</File>
+    <File md5="D61CF00BB99750019D89D08F43F2D36B" import="1">TheThresholdCourt/Art/THC_Icon45.dds</File>
+    <File md5="5C75DE62F9726A6DEFB422ECB714D525" import="1">TheThresholdCourt/Art/THC_Icon48.dds</File>
+    <File md5="263012DB086A28883C3A184FA5C0F614" import="1">TheThresholdCourt/Art/THC_Icon64.dds</File>
+    <File md5="36C145C917562BD9BAACFC42842788F1" import="1">TheThresholdCourt/Art/THC_Icon80.dds</File>
+    <File md5="1E074A17D403C9D4E50DA5C658CEE2FA" import="1">TheThresholdCourt/Art/THC_Leader.dds</File>
+    <File md5="B0DD0C9C8E171484A2C7E6B661C6BE2D" import="1">TheThresholdCourt/Art/THC_LeaderScene.xml</File>
+    <File md5="C84BEEDC172D8168F2BFBA7F3179BFCF" import="1">TheThresholdCourt/Art/THC_Map.dds</File>
+    <File md5="682C78CA6E14EB7314E65590CB02D469" import="1">TheThresholdCourt/Art/THC_Objects128.dds</File>
+    <File md5="30AA74FD31752BDAD0CF9D1BFF1695B3" import="1">TheThresholdCourt/Art/THC_Objects16.dds</File>
+    <File md5="66BE71AAE822FBA881984C2CC35E9720" import="1">TheThresholdCourt/Art/THC_Objects24.dds</File>
+    <File md5="C4F20B90985F6900923016948C10C067" import="1">TheThresholdCourt/Art/THC_Objects256.dds</File>
+    <File md5="DC1B0D48618FFDFAF22268FD5D3D0FA1" import="1">TheThresholdCourt/Art/THC_Objects32.dds</File>
+    <File md5="E4EEF33B778ADDC314B2A778504FF86A" import="1">TheThresholdCourt/Art/THC_Objects45.dds</File>
+    <File md5="785B7E668F3C8FD44639BC041B3D48BA" import="1">TheThresholdCourt/Art/THC_Objects48.dds</File>
+    <File md5="D829D70C4D1E9F2EAF77F40C134F9E2C" import="1">TheThresholdCourt/Art/THC_Objects64.dds</File>
+    <File md5="CC0BFDA7404CD4C79F731FE8B164B793" import="1">TheThresholdCourt/Art/THC_Objects80.dds</File>
+    <File md5="1AF6617BC57D9D270FC1F4669C9BDBF6" import="1">TheThresholdCourt/Art/THC_Portrait128.dds</File>
+    <File md5="F4FDD7A3F5A0C566BF93DDCD0F705EE2" import="1">TheThresholdCourt/Art/THC_Portrait16.dds</File>
+    <File md5="AFDA39296B5DAEB3BA6A12C71737733E" import="1">TheThresholdCourt/Art/THC_Portrait24.dds</File>
+    <File md5="03ED566077AABF826B831FB2EC1227D5" import="1">TheThresholdCourt/Art/THC_Portrait256.dds</File>
+    <File md5="3E619614A63F31F0038DCB5488C5E722" import="1">TheThresholdCourt/Art/THC_Portrait32.dds</File>
+    <File md5="D2E74E3C5867BB98AE6BFF85A7694C04" import="1">TheThresholdCourt/Art/THC_Portrait45.dds</File>
+    <File md5="EDA70CDC3E8A89A5A68EF50AB5D541E5" import="1">TheThresholdCourt/Art/THC_Portrait48.dds</File>
+    <File md5="098F46EDC031F8F399D3FEF7E5B5D485" import="1">TheThresholdCourt/Art/THC_Portrait64.dds</File>
+    <File md5="566EA370348D39E63FC01C3F5132B123" import="1">TheThresholdCourt/Art/THC_Portrait80.dds</File>
+    <File md5="3876289DBE98216584CB9FE2D3723F57" import="1">TheThresholdCourt/Art/THC_Promotions128.dds</File>
+    <File md5="9F19581BCC4C33C19504E2791D5E0EB0" import="1">TheThresholdCourt/Art/THC_Promotions16.dds</File>
+    <File md5="9A49D9832F5F3BC6DAE2CF3CE191CA08" import="1">TheThresholdCourt/Art/THC_Promotions24.dds</File>
+    <File md5="1040E2F9AA0A262191F548C5F3B82994" import="1">TheThresholdCourt/Art/THC_Promotions256.dds</File>
+    <File md5="FABF5C20B0E8783E0456083600415C93" import="1">TheThresholdCourt/Art/THC_Promotions32.dds</File>
+    <File md5="5FCCD4BD285A36E0E721BF8528F2E08D" import="1">TheThresholdCourt/Art/THC_Promotions45.dds</File>
+    <File md5="2552995574107AD235C65CECC13AA739" import="1">TheThresholdCourt/Art/THC_Promotions48.dds</File>
+    <File md5="DE98F7932C43B2FF0AF469348780A4CC" import="1">TheThresholdCourt/Art/THC_Promotions64.dds</File>
+    <File md5="6E6CBB42E3C7B3C140006E291ADF969F" import="1">TheThresholdCourt/Art/THC_Promotions80.dds</File>
+    <File md5="8D72EF209E594DB1E4758E34AA80FDFE" import="1">TheThresholdCourt/Lua/THC_Core.lua</File>
+    <File md5="A759881C6C56CA4042013A02F4CD8534" import="1">TheThresholdCourt/Lua/THC_Events.lua</File>
+    <File md5="66C3558CBCB1595609C974E7A87CE63C" import="1">TheThresholdCourt/Lua/THC_State.lua</File>
+    <File md5="AD739CD6C10E7CC38B444338F51A032E" import="0">TheThresholdCourt/SQL/00_THC_Core.sql</File>
+    <File md5="F69F32BA3F147DF7FC385ABAA792D687" import="0">TheThresholdCourt/SQL/01_THC_Inheritance.sql</File>
+    <File md5="12853A7D3B71B454938F4C9304698BD7" import="0">TheThresholdCourt/SQL/02_THC_Effects.sql</File>
+    <File md5="D5DC5AB8CEDEB1ACD4DE164F85CDB625" import="0">TheThresholdCourt/SQL/03_THC_Art.sql</File>
+    <File md5="EC4D10DEB4142729510097411E4955DB" import="0">TheThresholdCourt/SQL/10_THC_Text.sql</File>
+    <File md5="2CD9550BB6F80383BD7D9C006972712D" import="1">TheThresholdCourt/UI/THC_Transfer.lua</File>
+    <File md5="8ABECA15C564617A2953E837BDA3788B" import="0">TheThresholdCourt/UI/THC_Transfer.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -883,6 +942,11 @@
       <UpdateDatabase>JinDynasty/SQL/02_JIN_Effects.sql</UpdateDatabase>
       <UpdateDatabase>JinDynasty/SQL/03_JIN_Art.sql</UpdateDatabase>
       <UpdateDatabase>JinDynasty/SQL/10_JIN_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheThresholdCourt/SQL/00_THC_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheThresholdCourt/SQL/01_THC_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheThresholdCourt/SQL/02_THC_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheThresholdCourt/SQL/03_THC_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheThresholdCourt/SQL/10_THC_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -941,6 +1005,10 @@
     <EntryPoint type="InGameUIAddin" file="JinDynasty/UI/JIN_Dynasty.xml">
       <Name>The Jin Dynasty</Name>
       <Description>Human-only Grasslands, Horse recruitment, Emissaries, Landmarks and automatic defenses.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheThresholdCourt/UI/THC_Transfer.xml">
+      <Name>Threshold Transfer</Name>
+      <Description>Human-only city doorway transfers, persistent cooldowns and exhausted original units.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-26",
+  "native_gameplay": "NOT TESTED IN GAME",
+  "native_ui": "NOT TESTED IN GAME",
+  "native_saves": "NOT TESTED IN GAME",
+  "companion_tables": 176,
+  "modeled_suite_runs": 20,
+  "suites": [
+    "threshold_transfers.lua",
+    "threshold_rejections.lua",
+    "threshold_faults.lua",
+    "threshold_ui.lua",
+    "threshold_lifecycle.lua"
+  ],
+  "source_audit": {
+    "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+    "contracts": {
+      "pinned CP DLL version 151": true,
+      "SetXY directly relocates native instance": true,
+      "SetXY flags are numeric luaL_optint": true,
+      "endpoint legality destination is numeric fourth argument": true,
+      "native combat plus melee capability": true,
+      "OnlyDefensive leaves normal defensive eligibility": true,
+      "Blitz bypasses attacks-used count": true,
+      "made attack increments rather than exhausting all attacks": true,
+      "movement veto dispatch requires type opt-in": true,
+      "CanMoveInto is authoritative test-all veto": true,
+      "upgrade has native Lua veto": true,
+      "native attack and defense use battle territory modifier": true,
+      "friendly modifier native gate": true,
+      "native promotion loads friendly and defensive fields": true,
+      "player ScriptData saved in native save": true,
+      "unit ScriptData saved in native save": true,
+      "plot ScriptData saved and restored": true,
+      "capture notification exposes coordinates": true,
+      "founding notification prevents same-turn ID reuse": true,
+      "conversion hook precedes old unit death": true,
+      "unit binding SetXY": true,
+      "unit binding CanMoveOrAttackInto": true,
+      "unit binding IsCanAttackWithMove": true,
+      "unit binding IsOnlyDefensive": true,
+      "unit binding FinishMoves": true,
+      "unit binding SetMoves": true,
+      "unit binding SetMadeAttack": true,
+      "unit binding IsBusy": true,
+      "unit binding GetScriptData": true,
+      "unit binding SetScriptData": true,
+      "unit binding GetGameTurnCreated": true
+    },
+    "sources": {
+      "CvLuaUnit.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp",
+        "sha256": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae"
+      },
+      "CvLuaCity.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp",
+        "sha256": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24"
+      },
+      "CvLuaPlayer.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp",
+        "sha256": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a"
+      },
+      "CvLuaPlot.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlot.cpp",
+        "sha256": "eeed545294850b4bc69313caba1b4f1b3d8a0440eb7f5c432e242a36742c3e64"
+      },
+      "CvUnit.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
+        "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+      },
+      "CvPlayer.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp",
+        "sha256": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87"
+      },
+      "CvPlot.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlot.cpp",
+        "sha256": "185fa04a5c9426da9d7d385ae8ee2520759ec83f9dffad939c8c2a4c200f48a5"
+      },
+      "CvPromotionClasses.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPromotionClasses.cpp",
+        "sha256": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a"
+      },
+      "CustomMods.h": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
+        "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+      }
+    }
+  },
+  "pending": [
+    "Civ V database activation and native UI rendering",
+    "Native cross-continent/Huge SetXY and camera/selection",
+    "Real manual/autosave/restart persistence and city capture/raze",
+    "Native Blitz/restored movement and combat preview/defense",
+    "Whole-game balance"
+  ]
+}

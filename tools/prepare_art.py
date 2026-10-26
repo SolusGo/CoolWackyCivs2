@@ -77,5 +77,7 @@ def main():
     prepare_unrung()
     from prepare_jin_art import main as prepare_jin
     prepare_jin()
+    from prepare_threshold_art import main as prepare_threshold
+    prepare_threshold()
 
 if __name__=='__main__':main()
