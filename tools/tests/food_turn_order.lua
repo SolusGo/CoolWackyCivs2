@@ -6,7 +6,7 @@ local s=B.State(0)
 for _,p in ipairs(capital.localPlots) do p.yields={1,1,0,0,0,0} end
 local farm=Remote(24,5,{10,0,0,0,0,0})
 local pasture=Remote(34,5,{9,0,0,0,0,0})
-s.mode='MANUAL';s.selected={[farm.n]=true,[pasture.n]=true};s.locks={};s.excluded={}
+s.mode=FoodTestMode or 'MANUAL';s.selected={[farm.n]=true,[pasture.n]=true};s.locks={};s.excluded={}
 
 -- A separate Food model follows CP's positive surplus modifier and hundredths.
 -- 21 native building Food + 6 local Food - 16 consumption + 19 remote Food,
@@ -79,7 +79,7 @@ Pump();capital.automatons=1;capital.unassigned=1
 Events.SerialEventCityInfoDirty.Fire();assert(s.reserved==0);verify()
 
 -- Idle defaults are not a request to create free/new remote assignments.
-capital.automatons=0;capital.unassigned=0;s.selected={};s.locks={}
+capital.automatons=0;capital.unassigned=0;s.mode='MANUAL';s.selected={};s.locks={}
 B.Cache(s).force=true;assert(B.Reconcile(s));Events.SerialEventCityInfoDirty.Fire();Pump()
 assert(s.reserved==0);verify()
 print('PASS Food harvested before deferred dispatch matches displayed rate; real worker/specialist losses and automata remain exclusive')

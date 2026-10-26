@@ -61,16 +61,18 @@ def syntax():
     print('PASS every Lua source parses under Lua 5.1')
 
 def runtime():
-    for test in ['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua','workforce_stress.lua','completion_safety.lua','siege_safety.lua','stability_assertions.lua','ai_stability.lua','engine_completion.lua','dispatcher_contract.lua','food_turn_order.lua']:
+    tests=['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua','workforce_stress.lua','completion_safety.lua','siege_safety.lua','stability_assertions.lua','ai_stability.lua','engine_completion.lua','dispatcher_contract.lua','food_turn_order.lua','remote_planner.lua']
+    for test,food_mode in [(name,None) for name in tests]+[('food_turn_order.lua','AUTO'),('food_turn_order.lua','HYBRID')]:
         lua=LuaRuntime()
         def include(name):
             if name!='InstanceManager':lua.execute((V/'Lua'/f'{name}.lua').read_text(encoding='utf-8'))
         lua.globals().include=include
         lua.execute((R/'tools/tests/boundless_mock.lua').read_text(encoding='utf-8'))
         include('BoundlessCore')
+        lua.globals().FoodTestMode=food_mode
         lua.globals().LoadWorkforceUI=lambda:lua.execute((V/'UI/BoundlessWorkforce.lua').read_text(encoding='utf-8'))
         started=time.perf_counter();lua.execute((R/'tools/tests'/test).read_text(encoding='utf-8'))
-        print(f'PASS {test}: {time.perf_counter()-started:.3f}s (mock, not Civ V timing)')
+        print(f'PASS {test}{" ["+food_mode+"]" if food_mode else ""}: {time.perf_counter()-started:.3f}s (mock, not Civ V timing)')
 
 def package():
     from standardize_icons import validate as validate_icons

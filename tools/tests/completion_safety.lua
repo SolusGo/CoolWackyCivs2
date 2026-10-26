@@ -10,7 +10,7 @@ assert(B.Action(0,'LOCK',high.n));assert(s.selected[high.n] and s.assignments[hi
 local a=B.Summary(s);assert(a.remote==1 and a.locks==0 and a.pending==0)
 -- Signed deltas and CP's count-multiplied extras must not touch unrelated sources.
 capital.extra[1]=2;capital.misc[1]=(capital.misc[1] or 0)+123;B.Cache(s).force=true;assert(B.Reconcile(s))
-assert(capital.misc[1]==120 and capital.terrain[1]==8)
+assert(capital.misc[1]==120 and capital.terrain[1]==high.yields[2])
 assert(capital.cached[0]==capital:NativeYield(0),'terrain-only Food needs a native cache refresh')
 local oldSetter=capital.ChangeBaseYieldRateFromTerrain;local calls=0
 capital.ChangeBaseYieldRateFromTerrain=function(self,y,d)
@@ -18,7 +18,8 @@ capital.ChangeBaseYieldRateFromTerrain=function(self,y,d)
  if calls==2 then error('injected exception AFTER native mutation') end
 end
 local ok=B.Reconcile(s) -- unchanged state: no mutation, no injected fault.
-assert(ok);B.Cache(s).force=true;assert(not B.Reconcile(s))
+assert(ok);high.yields[1]=high.yields[1]+1;high.yields[2]=high.yields[2]+1
+B.Cache(s).force=true;assert(not B.Reconcile(s))
 assert(capital.misc[1]==123 and (capital.terrain[1] or 0)==0,'partial journal removed an unrelated source')
 assert(s.reserved==0 and s.phase=='RECOVER');capital:Check()
 capital.ChangeBaseYieldRateFromTerrain=oldSetter;B.Cache(s).force=true;assert(B.Reconcile(s));assert(s.assignments[high.n])
@@ -27,7 +28,7 @@ capital.ChangeBaseYieldRateFromMisc=function(self,y,d)
  oldMiscSetter(self,y,d)
  if y==0 and d==1 and not injected then injected=true;error('fault after cache pulse') end
 end
-B.Cache(s).force=true;assert(not B.Reconcile(s))
+high.yields[1]=high.yields[1]+1;B.Cache(s).force=true;assert(not B.Reconcile(s))
 assert((capital.misc[0] or 0)==0 and capital.misc[1]==123,'cache pulse must also be journalled')
 capital.ChangeBaseYieldRateFromMisc=oldMiscSetter;B.Cache(s).force=true;assert(B.Reconcile(s))
 -- Explicit v1 state/ledger migration keeps progress, rewards, directions and selections.
@@ -41,7 +42,7 @@ Map.GetPlot(3,5):SetScriptData('unrelated-plot;|BCY1:'..table.concat(words,',').
 local raw=B.Encode(legacy);Players[0].script='unrelated-player;|BCSTATE1:'..#raw..':'..raw..'|'
 B.States={};B.Caches={};B.Initialize(0);s=B.State(0)
 assert(s.version==3 and s.progress==4321 and s.direction=='EAST' and s.rewards[low.n] and s.selected[high.n])
-assert(capital.misc[1]==120 and capital.terrain[1]==8)
+assert(capital.misc[1]==120 and capital.terrain[1]==high.yields[2])
 assert(Map.GetPlot(3,5):GetScriptData():find('unrelated%-plot;') and Players[0].script:find('unrelated%-player;'))
 -- Returning an EXTRA city must preserve the CAPITAL's citizen reservation records.
 local remote=s.reserved;local withdrawn=s.withdrawn

@@ -866,6 +866,9 @@
     <Content Include="TheBoundlessCity/Lua/BoundlessPersistence.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="TheBoundlessCity/Lua/BoundlessPlanner.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="TheBoundlessCity/Lua/BoundlessSiege.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>

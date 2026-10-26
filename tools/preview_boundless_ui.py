@@ -46,7 +46,7 @@ def main():
         if n.get('Anchor','L,T').startswith('R,'):x=900-x-w
         panel.alpha_composite(button((w,h),state),(x,y))
         f=font(15);d.text((x+(w-f.getlength(text))/2,y+(h-20)/2),text,font=f,fill=WHITE if state!=3 else MUTED)
-    for name,text in [('Close','X'),('Siege','Siege demolition'),('Mode','Hybrid'),('Priority','Food'),('Direction','Direction: Any'),('Sort','Distance'),('Previous','Previous'),('Next','Next')]:draw_button(name,text,3 if name=='Previous' else 0)
+    for name,text in [('Close','X'),('Siege','Siege demolition'),('FoodTarget','Food minimum: 2'),('Mode','Hybrid'),('Priority','Food'),('Direction','Direction: Any'),('Sort','Distance'),('Previous','Previous'),('Next','Next')]:draw_button(name,text,3 if name=='Previous' else 0)
     columns=[('TerritoryStack',['Territory','Population: 34','Owned Plots: 146','Frontier Culture: 62','Next frontier claim: 84 Culture']),
              ('WorkforceStack',['Workforce','Local Workers: 18','Remote Workers: 10','Specialists: 6','Idle Labourers: 0','Unassigned Citizens: 0']),
              ('ManagementStack',['Management','Available Citizens: 28','Additional Remote Capacity: 18','Maximum Remote Capacity: 28','Pending Requests: 2','Locked Requests: 4','Original capitals subjugated: 0 / 7'])]

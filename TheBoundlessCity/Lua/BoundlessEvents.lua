@@ -17,9 +17,9 @@ local function arm()
   if refresh then refresh() end
  end)
 end
-function B.Schedule(pid,force)
+function B.Schedule(pid,force,touched)
  if not B.IsBoundless(pid) or B.Busy[pid] then return end
- if force then B.Cache(B.State(pid)).force=true end
+ if force then B.Cache(B.State(pid)).force=true;B.InvalidatePlan(B.State(pid),touched) end
  queued[pid]=true;arm()
 end
 -- UI transitions share this dispatcher instead of replacing its native update.
@@ -162,7 +162,7 @@ include('BoundlessAI')
 hook('PlayerDoTurn',B.Turn)
 hook('PlayerDoneTurn',function(pid) if B.IsBoundless(pid) then
  -- Refresh forced reservations even after an otherwise invisible native city reset.
- B.Cache(B.State(pid)).force=true;B.Reconcile(B.State(pid));B.Save(B.State(pid))
+ B.Cache(B.State(pid)).reservationCheck=true;B.Cache(B.State(pid)).force=true;B.Reconcile(B.State(pid));B.Save(B.State(pid))
 end end)
 hook('PlayerCanFoundCity',function(pid)
  if not B.IsBoundless(pid) then return true end
@@ -236,6 +236,7 @@ hook('TileOwnershipChanged',function(x,y,new,old)
   if B.IsBoundless(pid) then
    local s=B.State(pid);local c=B.Cache(s)
    c.owned[p:GetPlotIndex()]=new==pid and true or nil;c.territoryDirty=true;c.aiDirty=true
+   B.InvalidatePlan(s,{[p:GetPlotIndex()]=true})
    if new~=pid then s.selected[p:GetPlotIndex()]=nil;s.locks[p:GetPlotIndex()]=nil;s.excluded[p:GetPlotIndex()]=nil;if c.blocked then c.blocked[p:GetPlotIndex()]=nil end end
    B.Trim(s);B.Schedule(pid,true)
   end
@@ -263,7 +264,9 @@ hook('PlayerBuilt',function(pid,uid,x,y,buildID)
 end)
 local function changedPlot(x,y,owner)
  if B.IsBoundless(owner) then local s=B.State(owner);B.Cache(s).aiDirty=true
-  B.Trim(s,{[Map.GetPlot(x,y):GetPlotIndex()]=true});B.Schedule(owner,true)
+  local p=Map.GetPlot(x,y);local touched={[p:GetPlotIndex()]=true}
+  B.Neighbors(p,function(q) if q:GetOwner()==owner then touched[q:GetPlotIndex()]=true end end)
+  B.Trim(s,touched);B.Schedule(owner,true,touched)
  end
 end
 hook('TileImprovementChanged',changedPlot)
@@ -308,7 +311,7 @@ function B.Movement(pid,uid,x,y)
    local s=B.State(id)
    local eligibilityChanged=B.RefreshEligibility(s,affected[id])
    local yieldsChanged=B.Trim(s,affected[id])
-   if eligibilityChanged or yieldsChanged then B.Schedule(id,true) end
+   if eligibilityChanged or yieldsChanged then B.Schedule(id,true,affected[id]) end
   end
  end
 end

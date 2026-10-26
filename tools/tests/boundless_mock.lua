@@ -156,6 +156,7 @@ end
 function cityMethods:GetJONSCulturePerTurn() return self.culture end
 function cityMethods:RefreshTourism() self.tourism=self:GetBaseYieldRateFromTerrain(4)*(self.landmarkPercent or 0);self.tourismRefresh=(self.tourismRefresh or 0)+1 end
 function cityMethods:FoodDifference() return 1 end
+function cityMethods:FoodDifferenceTimes100() return self:FoodDifference()*100 end
 function cityMethods:Check()
  local count=0;for n,on in pairs(self.worked) do if on then count=count+1 end end
  assert(count+self.defaults+self.specialists+(self.unassigned or 0)==self.pop+self:GetAutomatons(),'native census inconsistent')

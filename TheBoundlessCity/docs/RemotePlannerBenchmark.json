@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-26",
+  "baseline_commit": "ad7840bac251723c7c47452936c5cc9091ed30b3",
+  "measurement": "Lua 5.1 simulation; not native Civ V timings",
+  "world_plots": 16000,
+  "results": [
+    {
+      "owned_plots": 250,
+      "population": 150,
+      "before": {
+        "forced_full_validation": {
+          "median_ms": 5.203,
+          "native_model_mutations_max": 34,
+          "plot_yield_reads_max": 6678,
+          "player_script_writes_max": 2,
+          "samples": 7
+        },
+        "known_unchanged_update": {
+          "median_ms": 4.172,
+          "native_model_mutations_max": 34,
+          "plot_yield_reads_max": 6678,
+          "player_script_writes_max": 2,
+          "samples": 7
+        }
+      },
+      "after": {
+        "forced_full_validation": {
+          "median_ms": 3.967,
+          "native_model_mutations_max": 0,
+          "plot_yield_reads_max": 3834,
+          "player_script_writes_max": 0,
+          "samples": 7
+        },
+        "known_unchanged_update": {
+          "median_ms": 2.686,
+          "native_model_mutations_max": 0,
+          "plot_yield_reads_max": 2520,
+          "player_script_writes_max": 0,
+          "samples": 7
+        }
+      }
+    },
+    {
+      "owned_plots": 2500,
+      "population": 150,
+      "before": {
+        "forced_full_validation": {
+          "median_ms": 20.392,
+          "native_model_mutations_max": 34,
+          "plot_yield_reads_max": 20178,
+          "player_script_writes_max": 2,
+          "samples": 7
+        },
+        "known_unchanged_update": {
+          "median_ms": 18.536,
+          "native_model_mutations_max": 34,
+          "plot_yield_reads_max": 20178,
+          "player_script_writes_max": 2,
+          "samples": 7
+        }
+      },
+      "after": {
+        "forced_full_validation": {
+          "median_ms": 14.847,
+          "native_model_mutations_max": 0,
+          "plot_yield_reads_max": 17334,
+          "player_script_writes_max": 0,
+          "samples": 7
+        },
+        "known_unchanged_update": {
+          "median_ms": 2.977,
+          "native_model_mutations_max": 0,
+          "plot_yield_reads_max": 2520,
+          "player_script_writes_max": 0,
+          "samples": 7
+        }
+      }
+    },
+    {
+      "owned_plots": 10000,
+      "population": 150,
+      "before": {
+        "forced_full_validation": {
+          "median_ms": 55.608,
+          "native_model_mutations_max": 34,
+          "plot_yield_reads_max": 65178,
+          "player_script_writes_max": 2,
+          "samples": 7
+        },
+        "known_unchanged_update": {
+          "median_ms": 59.489,
+          "native_model_mutations_max": 34,
+          "plot_yield_reads_max": 65178,
+          "player_script_writes_max": 2,
+          "samples": 7
+        }
+      },
+      "after": {
+        "forced_full_validation": {
+          "median_ms": 46.634,
+          "native_model_mutations_max": 0,
+          "plot_yield_reads_max": 62334,
+          "player_script_writes_max": 0,
+          "samples": 7
+        },
+        "known_unchanged_update": {
+          "median_ms": 2.444,
+          "native_model_mutations_max": 0,
+          "plot_yield_reads_max": 2520,
+          "player_script_writes_max": 0,
+          "samples": 7
+        }
+      }
+    }
+  ]
+}

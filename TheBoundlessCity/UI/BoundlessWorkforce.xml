@@ -17,6 +17,9 @@
   <GridButton ID="Siege" Anchor="R,T" Offset="80,56" Size="190,32" String="TXT_KEY_BC_SIEGE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
    <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
   </GridButton>
+  <GridButton ID="FoodTarget" Anchor="R,T" Offset="280,56" Size="210,32" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+  </GridButton>
   <ScrollPanel ID="OverviewScroll" Anchor="L,T" Offset="22,110" Size="856,184" Vertical="1">
    <Stack ID="Overview" Anchor="L,T" StackGrowth="Bottom" Padding="8">
     <Label ID="CapitalStatus" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Hidden="1" />

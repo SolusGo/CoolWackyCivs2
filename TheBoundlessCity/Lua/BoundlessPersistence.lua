@@ -45,7 +45,8 @@ function B.Save(s)
   local length=tonumber(data:sub(first,last):match(':(%d+):'))
   data=data:sub(1,first-1)..data:sub(last+length+2)
  end
- p:SetScriptData(data..'|BCSTATE1:'..#raw..':'..raw..'|')
+ local value=data..'|BCSTATE1:'..#raw..':'..raw..'|'
+ if p:GetScriptData()~=value then p:SetScriptData(value) end
  local ok,err=false,mirrorError
  if mirror then ok,err=pcall(function() mirror.SetValue('BOUNDLESS_v1_P'..s.pid,raw) end) end
  if not ok and not mirrorWarned then
@@ -94,6 +95,7 @@ function B.State(pid)
   s.lastTurn=s.lastTurn or -1
   s.excluded=s.excluded or {};s.pending=s.pending or {};s.reserved=math.max(0,tonumber(s.reserved) or 0)
   if not B.Weights[s.priority] then s.priority='BALANCED' end
+  if s.foodTarget~=nil and (type(s.foodTarget)~='number' or s.foodTarget~=math.floor(s.foodTarget) or s.foodTarget< -1 or s.foodTarget>20) then s.foodTarget=nil end
   if s.mode~='AUTO' and s.mode~='HYBRID' and s.mode~='MANUAL' then s.mode='AUTO' end
   if not ({ANY=true,NORTH=true,EAST=true,SOUTH=true,WEST=true})[s.direction] then s.direction='ANY' end
   for _,tableName in ipairs({'locks','selected','excluded','assignments','rewards','sieges'}) do

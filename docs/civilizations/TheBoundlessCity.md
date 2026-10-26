@@ -85,9 +85,11 @@ Open the button at the upper right of the world map. The panel shows population,
 
 Territory, Workforce and Management now use separate localized labels so Owned Plots and the remaining statistics stay visible. Frontier Culture and the next claim's cost are separate fields; original capitals subjugated appears under Management. Scroll the overview to reach wrapped text or the yield breakdown. Existing assignment and siege controls remain below it. See the [summary fix and live checklist](../../TheBoundlessCity/docs/SummaryDisplayFix.md).
 
-- **Automatic:** ignores old manual locks and ranks local/distant plots while retaining native specialists.
+- **Automatic:** compares distant jobs with labourer output and displaced local work, ignores old manual locks and retains native specialists.
 - **Manual:** uses explicit selections; unlocking keeps a selection, while Release removes it.
 - **Hybrid:** preserves your remote locks and native local locks before ranking other plots.
+
+The saved **Food minimum** control cycles Off, 0, +2, +4 and +6 net Food (default 0). Automatic/Hybrid choices use bounded native Food feedback; Manual remains direct control. A red **!** explains an unmet target. Stable useful assignments survive small changes, and cached candidates/bounded selection reduce work on large territories. See the [planner, benchmarks and continuation checklist](../../TheBoundlessCity/docs/RemotePlanner.md).
 - Choose **Food**, **Production**, **Gold** or **Balanced** priorities; sort distant plots by distance, score, resource or improvement.
 - **Assign/Release** controls participation; **Lock/Unlock** controls preservation in Hybrid. **Locate** centers the map. A requested lock can wait for reservation capacity.
 

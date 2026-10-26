@@ -1,5 +1,11 @@
 # The Boundless City changelog
 
+## Remote workforce planner — 2026-10-26
+
+- Evaluate ordinary labourer and local withdrawal costs, preserve Manual requests/Hybrid locks and add a saved Food minimum with native feedback and unmet-target reporting.
+- Retain safe unchanged jobs, use an incumbent switching margin, cache native candidates, bound the sorted set and avoid identical ScriptData writes. Preserve end-turn reservation renewal and existing citizen/ledger safeguards.
+- Add focused regressions, source contracts and comparative Lua benchmarks. Existing saves remain schema 3; native acceptance is pending. See [the planner guide](docs/RemotePlanner.md).
+
 ## Lore library and native Civilopedia expansion — 2026-10-26
 
 - Add the complete civic chronicle and companion books for the Architect, Registry, Surveyors and Dawn, with extensive GitHub introductions. Explain how one charter and common institutions support many locally administered wards.

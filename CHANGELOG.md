@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.14.2 Boundless workforce planner preview / mod version 17 — 2026-10-26
+
+- Compare automatic remote jobs with actual labourer output and displaced local work, accounting for the overlapping surplus/forced-reservation bound. Preserve explicit Manual requests and Hybrid/native locks.
+- Add a saved Food minimum (Off, 0, +2, +4, +6; default 0) with bounded native feedback, a scaled final rescue pass and an unmet-target warning. No Food storage or population grants.
+- Retain safe unchanged jobs/ledgers, add an incumbent switching margin, cache candidate yields, select a bounded best set and avoid identical ScriptData writes. Keep mandatory end-turn renewal and immediate safety trimming.
+- Add exhaustive small-job, Food/locks/persistence/fault/UI and 2,500-plot incremental tests, 184 pinned CP source checks and an actual-Lua before/after benchmark. Preserve other civilizations, gameplay SQL, textures, UUID/version and save schemas. Native acceptance remains pending; see [the planner guide](TheBoundlessCity/docs/RemotePlanner.md).
+
 ## 1.14.1 Threshold Court corrective hardening / mod version 17 — 2026-10-26
 
 - Stop cloning Washington's primary/shared trait associations onto Queen Elsewhere; keep exactly A Door in Every Wall and verify regenerated SQL against populated optional gameplay tables.

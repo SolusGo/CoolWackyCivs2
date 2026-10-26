@@ -89,10 +89,14 @@ local function writeLedger(city,misc,terrain)
  for i=1,#B.Yields do m[i]=tostring(misc[i] or 0);t[i]=tostring(terrain[i] or 0) end
  local plot=Map.GetPlot(city:GetX(),city:GetY())
  local data=(plot:GetScriptData() or ''):gsub('|BCY1:[^|]*|',''):gsub('|BCY2:[^|]*|','')
- plot:SetScriptData(data..'|BCY2:'..table.concat(m,',')..';'..table.concat(t,',')..'|')
+ local value=data..'|BCY2:'..table.concat(m,',')..';'..table.concat(t,',')..'|'
+ if plot:GetScriptData()~=value then plot:SetScriptData(value) end
 end
 function B.ApplyLedger(city,gross,deduct,refresh)
  local misc,terrain=B.Ledger(city)
+ for i,y in ipairs(B.Yields) do
+  assert(city:GetBaseYieldRateFromTerrain(y.id)>=(terrain[i] or 0),'Native terrain source cannot safely remove the saved ledger')
+ end
  local terrainChanged={}
  local function mutate(source,i,y,desired)
   local delta=desired-(source.values[i] or 0)
@@ -138,6 +142,9 @@ function B.WorkforceFailure(s,city,err)
 end
 function B.Index(s)
  local cache=B.Cache(s)
+ local stamp={tostring(cache.footprintRevision or 0)}
+ for _,t in ipairs({s.assignments or {},s.selected or {},s.locks or {},cache.blocked or {}}) do stamp[#stamp+1]=table.concat(B.Keys(t),',') end
+ local key=table.concat(stamp,';');if cache.watchStamp==key then return end;cache.watchStamp=key
  for n in pairs(cache.watchKeys or {}) do if B.Watch[n] then B.Watch[n][s.pid]=nil;if not next(B.Watch[n]) then B.Watch[n]=nil end end end
  cache.watchKeys={}
  for _,t in ipairs({s.assignments or {},s.selected or {},s.locks or {},cache.blocked or {},cache.remoteFootprint or {}}) do
@@ -149,6 +156,7 @@ function B.RefreshEligibility(s,touched,locals)
  local cache=B.Ownership(s);locals=locals or B.LocalPlots(city)
  local changed=false
  if not touched or not cache.remoteFootprint then
+  cache.footprintRevision=(cache.footprintRevision or 0)+1
   cache.remoteFootprint={};cache.eligible={};cache.eligibleCount=0
   for n in pairs(cache.owned) do local p=Map.GetPlotByIndex(n)
    if p and p:GetOwner()==s.pid and not locals[n] and not p:IsCity() then
@@ -179,13 +187,18 @@ function B.Totals(s,city)
   for i=1,#B.Yields do gross[i]=gross[i]+perPlot[n][i] end
  end
  for i,y in ipairs(B.Yields) do deduct[i]=count*B.LabourerYield(city,y.id) end
+ local phase=s.phase;local misc,terrain=B.Ledger(city);local changing=false
+ for i=1,#B.Yields do if (terrain[i] or 0)~=gross[i] or (misc[i] or 0)~=-deduct[i] then changing=true end end
+ if changing and phase=='IDLE' then s.phase='RECONCILE';B.Save(s) end
  B.ApplyLedger(city,gross,deduct)
+ s.phase=phase
  cache.remoteYields=gross;cache.labourerYields=deduct;cache.perPlot=perPlot
  cache.viewRevision=(cache.viewRevision or 0)+1
  s.reserved=count;B.Index(s)
 end
 function B.Signature(s,city)
- local census=B.Census(s,city);local words={s.mode,s.priority,s.direction,census.governorKey,B.Ownership(s).count}
+ local census=B.Census(s,city);local words={s.mode,s.priority,s.direction,census.governorKey,B.Ownership(s).count,
+  B.Cache(s).candidateRevision or 0,B.FoodTarget(s),B.FoodRate(city)}
  for _,n in ipairs(B.Keys(s.assignments or {})) do local p=Map.GetPlotByIndex(n)
   words[#words+1]=n..':'..tostring(B.Eligible(s,p))
   if p then for _,y in ipairs(B.Yields) do words[#words+1]=p:GetYield(y.id) end end
@@ -197,6 +210,7 @@ function B.Trim(s,touched)
  local city=B.City(s);if not city or B.Busy[s.pid] then return end
  local cache=B.Cache(s)
  if s.incompatible then return end
+ B.InvalidatePlan(s,touched or s.assignments)
  local scalar=cache.scalar
  if touched and scalar and cache.perPlot and city:GetPopulation()==scalar[1]
   and city:GetTotalSpecialistCount()==scalar[2] and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==scalar[3]
@@ -266,61 +280,58 @@ function B.Reconcile(s)
   if not ok then print('[BoundlessCity] Cannot remove unverified ledger: '..tostring(err)) end
   return false
  end
+ B.PlannerUpdate(s,city)
  local signature=B.Signature(s,city)
- if not cache.force and cache.signature==signature then return true end
+ if not cache.force and not cache.reservationCheck and cache.signature==signature then return true end
  cache.force=nil;B.Busy[s.pid]=true
  local ok,err=pcall(function()
-  s.phase='RECONCILE';s.assignments={};s.reserved=0;B.Save(s)
-  B.ApplyLedger(city,{},{})
-  local release=math.min(s.withdrawn or 0,city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN')))
-  for _=1,release do city:DoTask(TaskTypes.TASK_REMOVE_SLACKER,0,-1,0);s.withdrawn=math.max(0,s.withdrawn-1);B.Save(s) end
-  s.withdrawn=0;cache.governorKey=nil
-  local census,locals=B.Census(s,city);local candidates,selected,remote={},{},{}
-  B.RefreshEligibility(s,nil,locals)
-  for _,n in ipairs(B.Keys(B.Ownership(s).owned)) do local p=Map.GetPlotByIndex(n)
-   if B.Eligible(s,p) and not s.excluded[n] then
-    local r=locals[n];local locked=s.mode~='AUTO' and s.locks[n]==true and not r
-    candidates[#candidates+1]={plot=p,n=n,score=B.Score(s,p),locked=locked and true or false,
-     forced=(r and city:IsForcedWorkingPlot(p) and s.mode~='AUTO') and true or false,localPlot=r}
+  local previous=s.assignments
+  local function reset()
+   s.phase='RECONCILE';s.assignments={};s.reserved=0;B.Save(s);B.ApplyLedger(city,{},{})
+   local release=math.min(s.withdrawn or 0,city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN')))
+   for _=1,release do city:DoTask(TaskTypes.TASK_REMOVE_SLACKER,0,-1,0);s.withdrawn=math.max(0,s.withdrawn-1);B.Save(s) end
+   s.withdrawn=0;cache.governorKey=nil;cache.topKey=nil;cache.reservationJobs={}
+  end
+  local census=B.Census(s,city)
+  if not cache.signature or s.phase~='IDLE' or (cache.governorKey and cache.governorKey~=census.governorKey)
+   or (cache.reservationCheck and (s.withdrawn or 0)>0) then reset() end
+  cache.reservationCheck=nil
+  local environment=signature
+  local bias=cache.foodEnvironment==environment and cache.foodBias or 0
+  for pass=1,B.Config.RemoteFoodPasses do
+   local plan=B.PlanJobs(s,city,bias,previous)
+   local required=plan.count>plan.census.surplus and plan.count or 0
+   if (s.withdrawn or 0)>required then reset();plan=B.PlanJobs(s,city,bias,previous) end
+   -- Retain safe jobs and their ledger until a reservation must actually change.
+   if B.Census(s,city).protected<plan.count then cache.governorKey=nil end
+   for _,r in ipairs(plan.worked) do
+    if B.Census(s,city).protected>=plan.count then break end
+    s.phase='RECONCILE';B.Save(s)
+    local before=city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))
+    city:AlterWorkingPlot(r.index)
+    if not city:IsWorkingPlot(r.plot) and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==before+1 then
+     s.withdrawn=s.withdrawn+1;cache.reservationJobs=cache.reservationJobs or {};cache.reservationJobs[r.plot:GetPlotIndex()]=true;B.Save(s)
+    end
    end
-   if p and p:GetOwner()~=s.pid then s.selected[n]=nil;s.locks[n]=nil;s.excluded[n]=nil end
-  end
-  table.sort(candidates,function(a,b)
-   if a.forced~=b.forced then return a.forced end -- Native mandatory local roles consume capacity first.
-   if a.locked~=b.locked then return a.locked end
-   if a.score~=b.score then return a.score>b.score end;return a.n<b.n
-  end)
-  local capacity=math.max(0,census.population-census.specialists-census.localLocked)
-  if s.mode=='MANUAL' then
-   for _,r in ipairs(candidates) do if not r.localPlot and s.selected[r.n] and #remote<capacity then remote[#remote+1]=r end end
-  else
-   for i=1,math.min(census.population-census.specialists,#candidates) do local r=candidates[i];selected[r.n]=true
-    if not r.localPlot then remote[#remote+1]=r end
+   local actual=B.Census(s,city);local assignments={}
+   for i=1,math.min(plan.count,actual.protected) do local r=plan.rows[i];assignments[r.n]={x=r.plot:GetX(),y=r.plot:GetY()} end
+   s.assignments=assignments;B.Totals(s,city)
+   local target=B.FoodTarget(s)
+   cache.foodLimited=s.mode~='MANUAL' and target>=0 and B.FoodRate(city)<target-.009
+   if not cache.foodLimited then break end
+   -- Native feedback includes growth modifiers, trade, consumption and Food
+   -- production. No simulated Food grants or guessed growth multiplier.
+   if pass<B.Config.RemoteFoodPasses then
+    bias=math.max(8,bias*4)
+    if pass==B.Config.RemoteFoodPasses-1 then bias=math.max(bias,B.FoodDominance(s,city)) end
+    cache.topKey=nil
    end
   end
-  local target=math.min(#remote,census.maximumRemote)
-  local worked={}
-  for _,r in pairs(locals) do if city:IsWorkingPlot(r.plot) and (s.mode=='AUTO' or not city:IsForcedWorkingPlot(r.plot)) then worked[#worked+1]=r end end
-  table.sort(worked,function(a,b)
-   if selected[a.plot:GetPlotIndex()]~=selected[b.plot:GetPlotIndex()] then return not selected[a.plot:GetPlotIndex()] end
-   local x,y=B.Score(s,a.plot),B.Score(s,b.plot);if x~=y then return x<y end;return a.index<b.index
-  end)
-  for _,r in ipairs(worked) do
-   local current=B.Census(s,city)
-   if current.protected>=target then break end
-   local before=city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))
-   city:AlterWorkingPlot(r.index)
-   if not city:IsWorkingPlot(r.plot) and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==before+1 then s.withdrawn=s.withdrawn+1;B.Save(s) end
-  end
-  local actual=B.Census(s,city)
-  for i=1,math.min(target,actual.protected) do local r=remote[i]
-   s.assignments[r.n]={x=r.plot:GetX(),y=r.plot:GetY()}
-  end
-  B.Totals(s,city)
   local final=B.Census(s,city)
   assert(final.remote<=final.realDefaults and final.localCount+final.remote+final.specialists+final.idle+final.unassigned==final.population+final.automata,'Invalid native citizen census')
   s.phase='IDLE';s.failure=nil;B.Save(s);cache.governorKey=final.governorKey
   cache.signature=B.Signature(s,city);cache.viewRevision=(cache.viewRevision or 0)+1
+  cache.foodBias=bias;cache.foodEnvironment=cache.signature
   cache.scalar={final.population,final.specialists,final.defaults,final.automata}
   cache.aiDirty=true
  end)
@@ -365,6 +376,7 @@ function B.Action(pid,kind,value)
  if kind=='SIEGE' then return B.QueueSiege(s,value) end
  if not B.City(s) then return false end
  if kind=='MODE' and ({AUTO=true,MANUAL=true,HYBRID=true})[value] then s.mode=value
+ elseif kind=='FOOD_TARGET' and type(value)=='number' and value==math.floor(value) and value>=-1 and value<=20 then s.foodTarget=value
  elseif kind=='PRIORITY' and B.Weights[value] then s.priority=value
  elseif kind=='DIRECTION' and ({ANY=true,NORTH=true,EAST=true,SOUTH=true,WEST=true})[value] then s.direction=value
  elseif kind=='PLOT' or kind=='LOCK' then
@@ -379,5 +391,5 @@ function B.Action(pid,kind,value)
    if s.mode=='AUTO' then s.mode='HYBRID' end
   end
  else return false end
- B.Cache(s).force=true;return B.Reconcile(s)
+ B.InvalidatePlan(s,(kind=='PLOT' or kind=='LOCK') and {[value]=true} or {});B.Cache(s).force=true;return B.Reconcile(s)
 end

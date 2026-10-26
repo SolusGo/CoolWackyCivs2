@@ -23,7 +23,9 @@ def main():
     with tempfile.TemporaryDirectory(prefix='verify-release-',dir=R/'dist') as temporary:
         target=Path(temporary).resolve()
         assert target.parent==(R/'dist').resolve(),'unsafe extraction target'
-        sample=[NAME+'.modinfo','TheConicalUnion/Lua/ConicalUnion.xml',
+        sample=[NAME+'.modinfo','TheBoundlessCity/Lua/BoundlessPlanner.lua',
+                'TheBoundlessCity/Lua/BoundlessCitizens.lua','TheBoundlessCity/UI/BoundlessWorkforce.xml',
+                'TheConicalUnion/Lua/ConicalUnion.xml',
                 'TheConicalUnion/Lua/ConicalUnion.lua',
                 'TheConicalUnion/SQL/00_CONICAL_Core.sql',
                 'TheConicalUnion/SQL/01_CONICAL_Inheritance.sql',

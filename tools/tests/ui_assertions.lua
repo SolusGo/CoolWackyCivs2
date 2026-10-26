@@ -30,7 +30,7 @@ for _,path in ipairs({'/InGame/SocialPolicyPopup','/InGame/DeclareWarPopup','/In
  nativeScreens[path]=control();nativeScreens[path].hidden=true
 end
 function ContextPtr:LookUpControl(path) return nativeScreens[path] end
-Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Yields','Mode','Priority','Direction','Sort','Help','Page','Previous','Next','Scroll','Open','Close','Siege',
+Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Yields','Mode','Priority','FoodTarget','Direction','Sort','Help','Page','Previous','Next','Scroll','Open','Close','Siege',
  'Population','OwnedPlots','FrontierCulture','FrontierCost','LocalWorkers','RemoteWorkers','Specialists','IdleLabourers',
  'UnassignedCitizens','AvailableCitizens','AdditionalRemoteCapacity','MaximumRemoteCapacity','PendingRequests','LockedRequests',
  'SubjugationProgress','CapitalStatus','Automatons','TerritoryStack','WorkforceStack','ManagementStack','SummaryBody','Overview','OverviewScroll'}) do Controls[name]=control() end
@@ -148,4 +148,9 @@ end
 Controls.Siege.callback();Controls.Close.callback();Pump()
 assert(deferred==nil,'siege refresh must remain event-driven')
 Players[0].IsTurnActive=turnActive
+assert(B.Action(0,'MODE','AUTO'));assert(B.Action(0,'FOOD_TARGET',0));Controls.Open.callback()
+Controls.FoodTarget.callback();assert(B.State(0).foodTarget==2 and not Controls.FoodTarget.disabled)
+assert(B.Action(0,'MODE','MANUAL'));LuaEvents.BoundlessChanged.Fire(0)
+assert(Controls.FoodTarget.disabled and Controls.FoodTarget.text:find('FOOD_TARGET_MANUAL'))
+Controls.Close.callback();Pump()
 print('PASS UI: missed/early popup, city/mode/leader close, turn/load/context recovery, render failure, 1,000 refreshes, shared dispatch, paged siege and no idle polling')

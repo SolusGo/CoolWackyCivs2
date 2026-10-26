@@ -23,6 +23,11 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_EAST','East'
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_EXTRA_REMOVED','An unexpected additional settlement was removed after native razing checks allowed it. Its acquired plots were released; no additional city was retained.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_FAITH','Faith');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_FOOD','Food');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_FOOD_TARGET','Food minimum: {1_Num}');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_FOOD_TARGET_HELP','Automatic and Hybrid modes compare remote jobs with idle labourers and the local jobs displaced. Click to cycle the net Food minimum: Off, 0, +2, +4, +6. The default is 0. The planner uses bounded native Food feedback; locks and safe citizen capacity remain authoritative. Manual mode follows your requests. An exclamation mark means the target could not be met.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_FOOD_TARGET_MANUAL','Food: Manual control');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_FOOD_TARGET_OFF','Food minimum: Off');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_FOOD_TARGET_UNMET','Food minimum {1_Target} is unmet (current net Food: {2_Actual}). Locks, available land, native allocation or capacity may prevent it.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_GOLD','Gold');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_HYBRID','Hybrid');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_BC_IMPROVEMENT','Improvement');

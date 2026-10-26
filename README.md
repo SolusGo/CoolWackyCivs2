@@ -2,7 +2,9 @@
 
 Fifteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current release:** mod version 17 · **1.14.1 Threshold Court hardening preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current release:** mod version 17 · **1.14.2 workforce planner preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+The Boundless City's [remote-workforce planner](TheBoundlessCity/docs/RemotePlanner.md) now compares jobs with displaced labour, offers a saved Food minimum, retains stable assignments and avoids rebuilding unchanged reservations. Large territories use cached yields and bounded candidate selection. Existing native capacity limits remain in force.
 
 [The Threshold Court](TheThresholdCourt/README.md), led by Queen Elsewhere, connects owned Threshold House cities through real, unlimited-distance relocation of existing land melee units. One paid crossing per owner-turn, eight-turn origin cooldowns, save-scoped state, an explicit destination/confirmation panel and exhausted arrivals. Human-only; native gameplay/render/save acceptance remains pending.
 

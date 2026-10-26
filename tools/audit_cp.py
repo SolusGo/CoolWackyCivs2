@@ -17,7 +17,7 @@ METHODS = {
          'GetNumRealBuilding SetNumRealBuilding SetName GetJONSCulturePerTurn FoodDifference AlterWorkingPlot '
          'DoTask GetBaseYieldRateFromMisc ChangeBaseYieldRateFromMisc GetBaseYieldRateFromTerrain '
          'ChangeBaseYieldRateFromTerrain IsHolyCityAnyReligion IsRazing GetDamage GetMaxHitPoints GetName '
-         'GetResistanceTurns ChangeResistanceTurns IsRevealed RefreshTourism',
+         'GetResistanceTurns ChangeResistanceTurns IsRevealed RefreshTourism FoodDifferenceTimes100',
  'Player': 'GetCivilizationType GetCapitalCity Cities Units GetNumCities GetScriptData SetScriptData IsHuman '
            'IsAlive IsBarbarian IsMinorCiv GetPlayerToLiberate CanLiberatePlayer CanRaze AcquireCity Disband '
            'IsTurnActive GetCurrentEra GetTeam AddNotification GetUnitByID ChangeJONSCulture GetNumMilitaryUnits '
@@ -78,6 +78,7 @@ def main():
     check('Native governor optimization precedes city growth', city_turn.index('OptimizeWorkedPlots(false)') < city_turn.index('doGrowth();'))
     check('PlayerDoTurn is after native city economic turns', player_turn.index('pLoopCity->doTurn();') < player_turn.index('"PlayerDoTurn"'))
     check('Growth harvests the ordinary cached Food rate in hundredths', 'int iFoodPerTurn100 = getYieldRateTimes100(YIELD_FOOD);' in growth and 'changeFoodTimes100(iFoodPerTurn100);' in growth)
+    check('Food feedback binding reads the native ordinary rate', 'pkCity->getYieldRateTimes100(YIELD_FOOD)' in body('CvLuaCity.cpp', 'int CvLuaCity::lFoodDifferenceTimes100('))
     check('Initial native allocation preserves forced default labourers', 'GetNumDefaultSpecialists() - GetNumForcedDefaultSpecialists()' in body('CvCityCitizens.cpp', 'void CvCityCitizens::DoInitialAssigment('))
     check('Native optimization cannot remove forced default labourers', 'iNumLaborers = max(0, GetNumDefaultSpecialists() - GetNumForcedDefaultSpecialists());' in body('CvCityCitizens.cpp', 'vector<TileChange> CvCityCitizens::GetBestOptionsQuick('))
     check('Native local working changes refresh city rates', 'UpdateAllNonPlotYields(false)' in body('CvCityCitizens.cpp', 'void CvCityCitizens::SetWorkingPlot('))

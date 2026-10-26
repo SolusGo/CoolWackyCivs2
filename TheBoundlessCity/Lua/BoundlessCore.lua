@@ -143,6 +143,7 @@ function B.LocalPlots(city)
  return result
 end
 include('BoundlessCitizens')
+include('BoundlessPlanner')
 include('BoundlessPersistence')
 include('BoundlessEvents')
 for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do
