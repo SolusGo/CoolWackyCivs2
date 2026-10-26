@@ -2,9 +2,9 @@
 
 Fourteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current release:** mod version 16 · **1.13.0 preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current release:** mod version 16 · **1.13.1 hardening preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
-[The Jin Dynasty](JinDynasty/README.md) adds Wanyan Aguda's linked Mounted Villager, Grassland/Horse, cavalry recruitment, Emissary/Tributary, Bribe, six-Landmark and Meng'an Mouke systems. Includes a six-tab panel, thirteen named upgrades, original art and focused four-speed Lua validation. Human-only; native game/render/save acceptance remains pending.
+[The Jin Dynasty](JinDynasty/README.md) adds Wanyan Aguda's linked Mounted Villager, Grassland/Horse, cavalry recruitment, Emissary/Tributary, Bribe, six-Landmark and Meng'an Mouke systems. The [hardening pass](JinDynasty/docs/Hardening.md) adds bounded autonomous defenders, Food-assisted Reindeer Trader training, recoverable purchases and measured Lua optimizations. Includes a six-tab panel, thirteen named upgrades, original art and focused four-speed Lua validation. Human-only; native game/render/save acceptance remains pending.
 
 [The Urgal](TheUrgal/README.md) brings MCPVP Hardcore Games timing attacks: stockpile one Strength Potion per Era, empower the current melee army for a short offensive window, then wait through Aftertaste. Includes the iron-free Urgal Rusher, Brewing Stand, potion inventory with a purple bottle icon, speed-scaled Aftertaste and human-only play. Eligible melee attacks gain Strength II against units and cities.
 

@@ -4,6 +4,7 @@ local J=MapModData.JIN
 local C=J.C
 local manager=InstanceManager:new('JIN_Row','Root',Controls.Rows)
 local tab='Overview';local open=false;local rendering=false
+local renderSerial,lastStamp;local roster,minors,resourceTypes
 local function loc(key) return Locale.ConvertTextKey('TXT_KEY_JIN_'..key) end
 local function coord(index) local p=J.Plot(index);return p and ('('..p:GetX()..','..p:GetY()..')') or '(lost)' end
 local function count(t)local n=0;for _ in pairs(t) do n=n+1 end;return n end
@@ -13,27 +14,55 @@ local function row(label,button,kind,a,b,enabled,why)
  instance.Action:SetHide(not button)
  if button then
   instance.Action:SetText(button);instance.Action:SetDisabled(enabled==false);instance.Action:SetToolTipString(why or label)
-  local id=Game.GetActivePlayer();local s=J.State(id);local serial=s and s.serial
+  local id=Game.GetActivePlayer();local serial=renderSerial
   instance.Action:RegisterCallback(Mouse.eLClick,function()
+   if not J.active or Game.GetActivePlayer()~=id or not J.IsJin(id) or not Players[id]:IsTurnActive() then return end
    if kind=='LOOK' then local p=J.Plot(a);if p then UI.LookAt(p,0) end;return end
    local ok,message=J.Action(id,serial,kind,a,b)
    Controls.Message:SetText(message or (ok and 'Done.' or 'Action unavailable.'));J.UIRefresh()
   end)
  end
 end
-function J.UIRefresh()
- if rendering then return end
- rendering=true
+local function inventory()
+ if roster then return end
+ roster={};minors={};resourceTypes={}
+ local overrides={}
+ for r in GameInfo.Civilization_UnitClassOverrides{CivilizationType='CIVILIZATION_JIN_DYNASTY'} do overrides[r.UnitClassType]=r.UnitType end
+ for u in GameInfo.Units() do
+  local class=GameInfo.UnitClasses[u.Class]
+  if (J.Flag(u.IsMounted) or u.CombatClass=='UNITCOMBAT_MOUNTED') and u.Cost>0 and ((overrides[u.Class] and overrides[u.Class]==u.Type) or (not overrides[u.Class] and class and class.DefaultUnit==u.Type)) then
+   roster[#roster+1]=u
+   for r in GameInfo.Unit_ResourceQuantityRequirements{UnitType=u.Type} do resourceTypes[r.ResourceType]=true end
+  end
+ end
+ for id=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do if Players[id] and Players[id]:IsMinorCiv() then minors[#minors+1]=id end end
+end
+local function stamp(id,s)
+ local p=Players[id];local values={tab,s.serial,J.uiRevision or 0,p:GetGold(),p:GetCurrentEra(),J.Now(),tostring(p:IsTurnActive())}
+ if tab=='Recruit' then
+  for resource in pairs(resourceTypes) do values[#values+1]=p:GetNumResourceAvailable(J.T[resource],true) end
+  for _,u in ipairs(roster) do values[#values+1]=J.Tech(id,u.PrereqTech) and '1' or '0' end
+  for c in p:Cities() do values[#values+1]=c:Plot():GetNumUnits();values[#values+1]=tostring(c:IsResistance());values[#values+1]=tostring(c:IsRazing()) end
+ end
+ return table.concat(values,':')
+end
+local function render(force)
  local id=Game.GetActivePlayer();local visible=J.IsJin(id)
+ visible=visible and Players[id]:IsTurnActive()
+ J.panelOpen=visible and open;J.uiTab=tab
  Controls.Open:SetHide(not visible);Controls.Panel:SetHide(not visible or not open)
- if not visible or not open then rendering=false;return end
- local s=J.State(id);manager:ResetInstances()
- if not s then row('Jin save state is unavailable. Check Lua.log; no rewards will be reset.',nil);rendering=false;return end
- J.Complete(id,s)
+ if not visible or not open then lastStamp=nil;return end
+ if J.busy[id] then return end
+ local s=J.State(id)
+ if not s then manager:ResetInstances();row('Jin save state is unavailable. Check Lua.log; no rewards will be reset.',nil);return end
+ inventory();local current=stamp(id,s)
+ if force==false and current==lastStamp then return end
+ lastStamp=current;renderSerial=s.serial;manager:ResetInstances()
  local p=Players[id];local horses,capacity=J.Horses(id,s);local trib=J.Tributaries(id,s)
  local emplacements=J.Emplacements(id,s)
  Controls.Overview:SetText(string.format('HORSES %d / %d    |    Cavalry maximum HP: melee +%d / ranged +%d[NEWLINE]TRIBUTARIES %d    |    Outgoing international income +%d%%    |    Mounted Villagers %d / %d    |    Emissaries %d / %d[NEWLINE]LANDMARKS %d / 3    |    EMPLACEMENTS %d    |    KARMA %d / %d    |    BLESSING %d turns',horses,capacity,horses*C.meleeHP,horses*C.rangedHP,trib,trib>0 and C.tradePercent or 0,J.Count(id,'MOUNTED_VILLAGER'),C.villagerCap+C.tributaryVillagers*trib,J.Count(id,'EMISSARY'),C.emissaryCap,J.Tier(s),count(emplacements),s.karma,C.karmaMax,math.max(0,s.blessing-J.Now())))
  if tab=='Overview' then
+  row('Reindeer Traders: surplus Food supplements training while growth pauses; no unit Gold-purchase surcharge; native land-route speed 2. Tributary trade income is a separate bonus.',nil)
   for _,key in ipairs({1,2,3,'pasture'}) do local g=s.grass[key]
    if g then
     local active=J.GrassActive(id,key,g);local remaining=J.Scale(C.horseIntervals[math.max(1,J.Tier(s))])-g.elapsed
@@ -63,15 +92,9 @@ function J.UIRefresh()
  elseif tab=='Recruit' then
   for c in p:Cities() do
    row(c:GetName()..' — '..(J.RecruitSource(id,s,c) and 'Horse supply in influence' or 'Requires stocked Grassland within 2 plots and a War Stable (or Great Pasture).'),nil)
-   for unit in GameInfo.Units() do
-    if (J.Flag(unit.IsMounted) or unit.CombatClass=='UNITCOMBAT_MOUNTED') and unit.Cost>0 then
-     local class=GameInfo.UnitClasses[unit.Class];local override
-     for r in GameInfo.Civilization_UnitClassOverrides{CivilizationType='CIVILIZATION_JIN_DYNASTY',UnitClassType=unit.Class} do override=r.UnitType end
-     if (override and override==unit.Type) or (not override and class and class.DefaultUnit==unit.Type) then
+   for _,unit in ipairs(roster) do
       local legal,why=J.RecruitCheck(id,s,c:GetID(),unit.ID)
       row(Locale.ConvertTextKey(unit.Description)..' in '..c:GetName(),'Recruit','RECRUIT',c:GetID(),unit.ID,legal,why)
-     end
-    end
    end
   end
  elseif tab=='Emissaries' then
@@ -79,7 +102,7 @@ function J.UIRefresh()
   local any=false
   for u in p:Units() do if u:GetUnitType()==J.Unit(id,'EMISSARY') then
    any=true;row('Emissary #'..u:GetID()..' '..coord(J.Index(u:GetPlot())),'Locate','LOOK',J.Index(u:GetPlot()))
-   for minor=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do if Players[minor] and Players[minor]:IsMinorCiv() and Players[minor]:IsAlive() then
+   for _,minor in ipairs(minors) do if Players[minor]:IsAlive() then
     local ok,why=J.TributeCheck(id,s,u:GetID(),minor)
     row('Establish Tributary: '..Players[minor]:GetName(),'Tributary','TRIBUTARY',u:GetID(),minor,ok,why)
    end end
@@ -103,12 +126,16 @@ function J.UIRefresh()
    local state=s.defense[key] or {};local active=0;for _,d in pairs(s.defenders) do if d.parent==key then active=active+1 end end
    row((r.fort and 'Fort ' or 'City ')..coord(r.plot)..' — defenders '..active..' / '..r.capacity..'; ready in '..math.max(0,(state.ready or 0)-J.Now())..' turns.','Locate','LOOK',r.plot)
   end
-  for uid,r in pairs(s.defenders) do row('Defender #'..uid..' — home '..coord(r.plot)..'; expires in '..math.max(0,r.expires-J.Now())..' turns; leash '..C.defenderLeash..' plots.',nil) end
+  for uid,r in pairs(s.defenders) do row('Autonomous defender #'..uid..' — '..(r.mode or 'GUARD')..'; home '..coord(r.plot)..'; expires '..math.max(0,r.expires-J.Now())..' turns; leash '..C.defenderLeash..'.',nil) end
   row('Pagoda Groves '..count(s.groves)..' / '..C.groveMax..'; maximum '..C.grovePerCity..' per city. Next attempt in '..math.max(0,s.groveReady-J.Now())..' turns.',nil)
   if count(emplacements)==0 then row('Complete Dragon Pavilion / Great Wall Bastion, or research Meng\'an Mouke Emplacement.',nil) end
  end
  Controls.Rows:CalculateSize();Controls.Rows:ReprocessAnchoring();Controls.Scroll:CalculateInternalSize()
- rendering=false
+end
+function J.UIRefresh(force)
+ if rendering then return end
+ rendering=true;local ok,err=pcall(render,force);rendering=false
+ if not ok then lastStamp=nil;print('JIN UI refresh: '..tostring(err));pcall(function()Controls.Message:SetText('Jin panel could not refresh; reopen to retry. See Lua.log.')end) end
 end
 Controls.Open:RegisterCallback(Mouse.eLClick,function()open=not open;J.UIRefresh()end)
 Controls.Close:RegisterCallback(Mouse.eLClick,function()open=false;J.UIRefresh()end)
@@ -116,6 +143,7 @@ for _,key in ipairs({'Overview','Landmarks','Recruit','Emissaries','Upgrades','D
  local selected=key;Controls[key..'Tab']:RegisterCallback(Mouse.eLClick,function()tab=selected;J.UIRefresh()end)
 end
 J.Hook(Events,'GameplaySetActivePlayer',function()open=false;J.UIRefresh()end)
-J.Hook(Events,'SerialEventGameDataDirty',function()if open then J.UIRefresh()end end)
-J.Hook(Events,'SerialEventCityInfoDirty',function()if open then J.UIRefresh()end end)
+J.Hook(Events,'SerialEventGameDataDirty',function()if open then J.Refresh()end end)
+J.Hook(Events,'SerialEventCityInfoDirty',function()if open then J.Refresh(true)end end)
+J.Hook(GameEvents,'TeamTechResearched',function(team)if J.IsJin(Game.GetActivePlayer()) and Players[Game.GetActivePlayer()]:GetTeam()==team then J.Refresh(true)end end)
 J.UIRefresh()

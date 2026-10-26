@@ -23,6 +23,7 @@
   "flyingFireAttack": 15, "piliAttack": 15, "thunderPercent": 150,
   "huntingFood": 1, "hallFaith": 2, "bastionDefense": 1000, "bastionStrike": 25,
   "emissaryDiscount": 100, "monasteryDiscount": 100,
+  "traderFoodProduction": 1, "traderGoldModifier": 0,
   "buildings": [
     {"key":"WAR_STABLE","name":"War Stable","cost":90,"tech":"TECH_HORSEBACK_RIDING","base":"BUILDING_STABLE","icon":6},
     {"key":"MACHINE_WORKSHOP","name":"Machine Workshop","cost":90,"tech":"TECH_MATHEMATICS","base":"BUILDING_BARRACKS","icon":7},

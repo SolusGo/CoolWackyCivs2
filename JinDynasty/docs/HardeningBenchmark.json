@@ -1,0 +1,420 @@
+{
+  "baseline_ref": "f252c63",
+  "runtime": "Lupa Lua 5.1 with native doubles",
+  "native_FPS": "NOT MEASURED",
+  "native_pathfinding": "NOT MEASURED",
+  "repeats": 3,
+  "fixture": "100/300/500 distinct military plots; 12 enemy movers on distinct reserved plots; 15 city emplacements; 3 stocked Grasslands; 15 Groves, 5 per valid nearby city; native-style constant-time plot occupancy; Garden enter/exit per unit; no deferred native orders pumped",
+  "baseline": [
+    {
+      "units": 100,
+      "scenario": "unchanged_hp",
+      "median_ms": 2.906,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "promotion_writes": 200,
+        "decodes": 1,
+        "promotion_reads": 5352
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "changed_horses",
+      "median_ms": 3.365,
+      "first_pass_operations": {
+        "decodes": 1,
+        "player_writes": 1,
+        "player_reads": 2,
+        "promotion_writes": 200,
+        "promotion_reads": 5352,
+        "encodes": 1
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "distant_enemy_1000",
+      "median_ms": 372.552,
+      "first_pass_operations": {
+        "player_reads": 1000,
+        "decodes": 1000,
+        "emplacements": 1000
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "garden_army",
+      "median_ms": 151.968,
+      "first_pass_operations": {
+        "emplacements": 200,
+        "decodes": 200,
+        "player_reads": 400,
+        "promotion_writes": 600,
+        "promotion_reads": 10600,
+        "encodes": 200
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "near_enemy_100",
+      "median_ms": 321.635,
+      "first_pass_operations": {
+        "emplacements": 200,
+        "encodes": 106,
+        "decodes": 100,
+        "player_writes": 4,
+        "player_reads": 203,
+        "promotion_writes": 3,
+        "promotion_reads": 159,
+        "neighborhoods": 1503
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "unchanged_saves_100",
+      "median_ms": 54.914,
+      "first_pass_operations": {
+        "player_reads": 101,
+        "decodes": 1,
+        "encodes": 100
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "unchanged_hp",
+      "median_ms": 8.481,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "promotion_writes": 600,
+        "decodes": 1,
+        "promotion_reads": 15952
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "changed_horses",
+      "median_ms": 9.02,
+      "first_pass_operations": {
+        "decodes": 1,
+        "player_writes": 1,
+        "player_reads": 2,
+        "promotion_writes": 600,
+        "promotion_reads": 15952,
+        "encodes": 1
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "distant_enemy_1000",
+      "median_ms": 372.274,
+      "first_pass_operations": {
+        "player_reads": 1000,
+        "decodes": 1000,
+        "emplacements": 1000
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "garden_army",
+      "median_ms": 457.872,
+      "first_pass_operations": {
+        "emplacements": 600,
+        "decodes": 600,
+        "player_reads": 1200,
+        "promotion_writes": 1800,
+        "promotion_reads": 31800,
+        "encodes": 600
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "near_enemy_100",
+      "median_ms": 352.217,
+      "first_pass_operations": {
+        "emplacements": 200,
+        "encodes": 106,
+        "decodes": 100,
+        "player_writes": 4,
+        "player_reads": 203,
+        "promotion_writes": 3,
+        "promotion_reads": 159,
+        "neighborhoods": 1503
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "unchanged_saves_100",
+      "median_ms": 55.108,
+      "first_pass_operations": {
+        "player_reads": 101,
+        "decodes": 1,
+        "encodes": 100
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "unchanged_hp",
+      "median_ms": 13.678,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "promotion_writes": 1000,
+        "decodes": 1,
+        "promotion_reads": 26552
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "changed_horses",
+      "median_ms": 14.771,
+      "first_pass_operations": {
+        "decodes": 1,
+        "player_writes": 1,
+        "player_reads": 2,
+        "promotion_writes": 1000,
+        "promotion_reads": 26552,
+        "encodes": 1
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "distant_enemy_1000",
+      "median_ms": 362.354,
+      "first_pass_operations": {
+        "player_reads": 1000,
+        "decodes": 1000,
+        "emplacements": 1000
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "garden_army",
+      "median_ms": 751.793,
+      "first_pass_operations": {
+        "emplacements": 1000,
+        "decodes": 1000,
+        "player_reads": 2000,
+        "promotion_writes": 3000,
+        "promotion_reads": 53000,
+        "encodes": 1000
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "near_enemy_100",
+      "median_ms": 342.367,
+      "first_pass_operations": {
+        "emplacements": 200,
+        "encodes": 106,
+        "decodes": 100,
+        "player_writes": 4,
+        "player_reads": 203,
+        "promotion_writes": 3,
+        "promotion_reads": 159,
+        "neighborhoods": 1503
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "unchanged_saves_100",
+      "median_ms": 54.437,
+      "first_pass_operations": {
+        "player_reads": 101,
+        "decodes": 1,
+        "encodes": 100
+      }
+    }
+  ],
+  "hardened": [
+    {
+      "units": 100,
+      "scenario": "unchanged_hp",
+      "median_ms": 0.697,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "promotion_reads": 1312
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "changed_horses",
+      "median_ms": 1.527,
+      "first_pass_operations": {
+        "encodes": 1,
+        "player_writes": 1,
+        "player_reads": 3,
+        "promotion_writes": 200,
+        "promotion_reads": 1412
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "distant_enemy_1000",
+      "median_ms": 1.109,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "neighborhoods": 30,
+        "decodes": 1,
+        "emplacements": 1
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "garden_army",
+      "median_ms": 8.767,
+      "first_pass_operations": {
+        "player_reads": 200,
+        "promotion_writes": 200,
+        "promotion_reads": 2600
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "near_enemy_100",
+      "median_ms": 40.242,
+      "first_pass_operations": {
+        "neighborhoods": 263,
+        "encodes": 6,
+        "player_writes": 3,
+        "player_reads": 206,
+        "promotion_writes": 3,
+        "promotion_reads": 156,
+        "decodes": 1
+      }
+    },
+    {
+      "units": 100,
+      "scenario": "unchanged_saves_100",
+      "median_ms": 2.246,
+      "first_pass_operations": {
+        "player_reads": 101
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "unchanged_hp",
+      "median_ms": 2.197,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "promotion_reads": 3912
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "changed_horses",
+      "median_ms": 3.498,
+      "first_pass_operations": {
+        "encodes": 1,
+        "player_writes": 1,
+        "player_reads": 3,
+        "promotion_writes": 600,
+        "promotion_reads": 4212
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "distant_enemy_1000",
+      "median_ms": 1.221,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "neighborhoods": 30,
+        "decodes": 1,
+        "emplacements": 1
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "garden_army",
+      "median_ms": 26.767,
+      "first_pass_operations": {
+        "player_reads": 600,
+        "promotion_writes": 600,
+        "promotion_reads": 7800
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "near_enemy_100",
+      "median_ms": 39.953,
+      "first_pass_operations": {
+        "neighborhoods": 263,
+        "encodes": 6,
+        "player_writes": 3,
+        "player_reads": 206,
+        "promotion_writes": 3,
+        "promotion_reads": 156,
+        "decodes": 1
+      }
+    },
+    {
+      "units": 300,
+      "scenario": "unchanged_saves_100",
+      "median_ms": 2.267,
+      "first_pass_operations": {
+        "player_reads": 101
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "unchanged_hp",
+      "median_ms": 3.951,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "promotion_reads": 6512
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "changed_horses",
+      "median_ms": 5.594,
+      "first_pass_operations": {
+        "encodes": 1,
+        "player_writes": 1,
+        "player_reads": 3,
+        "promotion_writes": 1000,
+        "promotion_reads": 7012
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "distant_enemy_1000",
+      "median_ms": 1.271,
+      "first_pass_operations": {
+        "player_reads": 1,
+        "neighborhoods": 30,
+        "decodes": 1,
+        "emplacements": 1
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "garden_army",
+      "median_ms": 46.213,
+      "first_pass_operations": {
+        "player_reads": 1000,
+        "promotion_writes": 1000,
+        "promotion_reads": 13000
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "near_enemy_100",
+      "median_ms": 45.327,
+      "first_pass_operations": {
+        "neighborhoods": 263,
+        "encodes": 6,
+        "player_writes": 3,
+        "player_reads": 206,
+        "promotion_writes": 3,
+        "promotion_reads": 156,
+        "decodes": 1
+      }
+    },
+    {
+      "units": 500,
+      "scenario": "unchanged_saves_100",
+      "median_ms": 2.31,
+      "first_pass_operations": {
+        "player_reads": 101
+      }
+    }
+  ]
+}

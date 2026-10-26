@@ -63,7 +63,7 @@ def main():
         sample += ['TheBoundlessCity/Art/BoundlessMap.dds']
         sample += ['TheBoundlessCity/SQL/10_BC_Text.sql','TheBoundlessCity/Lore/TheCity.md','TheBoundlessCity/Lore/TheFirstArchitect.md']
         sample += ['TheUrgal/'+p for p in ['Lua/URGAL_Core.lua','Lua/URGAL_AI.lua','UI/URGAL_Potions.lua','UI/URGAL_Potions.xml','SQL/02_URGAL_Effects.sql','Art/URGAL_Leader.dds','Art/URGAL_Objects256.dds','Art/URGAL_PotionUI32.dds','docs/Validation.json']]
-        sample += ['JinDynasty/'+p for p in ['Lua/JIN_Core.lua','Lua/JIN_State.lua','Lua/JIN_Military.lua','Lua/JIN_Config.lua','UI/JIN_Dynasty.lua','UI/JIN_Dynasty.xml','SQL/02_JIN_Effects.sql','Art/JIN_Leader.dds','Art/JIN_Units256.dds','docs/Validation.json','Balance.json']]
+        sample += ['JinDynasty/'+p for p in ['Lua/JIN_Core.lua','Lua/JIN_State.lua','Lua/JIN_Military.lua','Lua/JIN_Autonomy.lua','Lua/JIN_Runtime.lua','Lua/JIN_Transactions.lua','Lua/JIN_Config.lua','UI/JIN_Dynasty.lua','UI/JIN_Dynasty.xml','SQL/00_JIN_Core.sql','SQL/02_JIN_Effects.sql','SQL/10_JIN_Text.sql','Art/JIN_Leader.dds','Art/JIN_Units256.dds','docs/Validation.json','docs/HardeningBenchmark.json','Balance.json']]
         sample += ['TheBoundlessCity/Art/BC_UI_'+name+'.dds' for name in ['Panel','Launcher','Row','Buttons','Assigned','Pending']]
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)
         for name in sample: assert (target/name).read_bytes()==(R/name).read_bytes(),('7z stale bytes',name)

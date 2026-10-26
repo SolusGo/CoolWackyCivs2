@@ -143,7 +143,7 @@ INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_PROMO_TEMPORARY','Temp
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_PROMO_TOWER_SHIELDS','Tower Shields');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_PROMO_ZHANMA','Zhanma');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_REINDEER_TRADER','Reindeer Trader');
-INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_REINDEER_TRADER_HELP','90 Production; 2 Movement; retains the active Caravan trade behavior and route limits. With any active Tributary, one +15% native modifier applies to outgoing international income, including Gold and native non-Gold trade yields; never stacks per Tributary.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_REINDEER_TRADER_HELP','90 base Production, supplemented by city surplus Food instead of growth while training. No unit Gold-purchase surcharge (native Caravan: +20%). 2 Movement also drives Jin land-route travel speed (normal Caravan: 1). Native route limits, completion and plunder rules remain intact; extra HP cannot protect a route from instant plunder. Tributaries independently supply the existing +15% international income modifier.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_SHORT','Jin');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_SPY_1','Wanyan Zonghan');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_JIN_SPY_10','Wulinda');

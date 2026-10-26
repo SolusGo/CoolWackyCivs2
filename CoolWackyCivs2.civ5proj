@@ -2812,6 +2812,9 @@
     <Content Include="JinDynasty/Art/JIN_Units80.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="JinDynasty/Lua/JIN_Autonomy.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="JinDynasty/Lua/JIN_Config.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -2821,7 +2824,13 @@
     <Content Include="JinDynasty/Lua/JIN_Military.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="JinDynasty/Lua/JIN_Runtime.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="JinDynasty/Lua/JIN_State.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Lua/JIN_Transactions.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/SQL/00_JIN_Core.sql">

@@ -2,6 +2,15 @@
   "cp_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
   "dll": 151,
   "scope": "source/API contracts, not native execution",
+  "hardening_contracts": [
+    "PlayerDoTurn before doTurnUnits: deferred one-shot orders",
+    "CanStartMission test-all veto; numeric PushMission options",
+    "native ranged LOS/war validation",
+    "specific Caravan Moves feeds land route speed and duration",
+    "native trade plunder clears route without HP contest",
+    "Food surplus production and unit HurryCostModifier",
+    "trade launch/return kill representation; explicit plunder ABI"
+  ],
   "files": {
     "CvBarbarians.cpp": "ada967244f979eb64eb1c56cbfda2d5c4b28f89fae117af89c4e947ea1719ef0",
     "CvBuilderTaskingAI.cpp": "8331d8682dacaeffc865ef2fc0608c4353816b3144210e014e844de55e482b86",

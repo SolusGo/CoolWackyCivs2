@@ -26,7 +26,7 @@ def main():
   if help: text[key+'_HELP']=help
   return 'TXT_KEY_JIN_'+key
  core="""-- Notification hooks only; no global gameplay rebalance.
-UPDATE CustomModOptions SET Value=1 WHERE Name IN ('EVENTS_PLAYER_TURN','EVENTS_CITY','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS','EVENTS_UNIT_PREKILL','EVENTS_RED_COMBAT','EVENTS_RED_COMBAT_ENDED','EVENTS_TILE_IMPROVEMENTS','EVENTS_UNIT_MOVETO');
+UPDATE CustomModOptions SET Value=1 WHERE Name IN ('EVENTS_PLAYER_TURN','EVENTS_CITY','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS','EVENTS_UNIT_PREKILL','EVENTS_RED_COMBAT','EVENTS_RED_COMBAT_ENDED','EVENTS_TILE_IMPROVEMENTS','EVENTS_UNIT_MOVETO','EVENTS_TRADE_ROUTE_PLUNDERED');
 INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES ('COLOR_JIN_CRIMSON',0.38,0.025,0.06,1),('COLOR_JIN_GOLD',0.85,0.68,0.31,1);
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PLAYERCOLOR_JIN','COLOR_JIN_GOLD','COLOR_JIN_CRIMSON','COLOR_PLAYER_WHITE_TEXT');
 """
@@ -57,7 +57,7 @@ INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PL
  'GRENADIER':'Chemistry automatic emplacement defender. 24 melee/32 ranged; Range 2; 4 Movement. 20% bounded collateral, home leash and finite lifetime; cannot be trained or upgraded.',
  'DEFENDER':'Early automatic emplacement defender. 16 Strength; 4 Movement. Home leash, no city capture and finite lifetime; cannot be trained or upgraded.',
  'EMISSARY':'120 Production; 3 Movement; noncombat. Available after the second completed Landmark; cap 2. May enter neutral territory. Establish Tributary adjacent to an independent peaceful City-State capital, or Bribe nearby hostile military units. Dragon Pavilion halves production cost.',
- 'REINDEER_TRADER':'90 Production; 2 Movement; retains the active Caravan trade behavior and route limits. With any active Tributary, one +15% native modifier applies to outgoing international income, including Gold and native non-Gold trade yields; never stacks per Tributary.',
+ 'REINDEER_TRADER':'90 base Production, supplemented by city surplus Food instead of growth while training. No unit Gold-purchase surcharge (native Caravan: +20%). 2 Movement also drives Jin land-route travel speed (normal Caravan: 1). Native route limits, completion and plunder rules remain intact; extra HP cannot protect a route from instant plunder. Tributaries independently supply the existing +15% international income modifier.',
  'NEST_OF_BEES':'Machinery; 170 Production; 12 melee/26 ranged; Range 2. Anti-unit field artillery using the built-in Catapult model. No Korean DLC dependency; no inherited city siege bonus.',
  'TRACTION_TREBUCHET':'Physics; 125 Production; 12 melee/14 ranged; Range 2. Conventional Trebuchet city siege behavior and upgrade path, with Jin identity.'}
  for u in C['units']:
@@ -73,6 +73,7 @@ INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PL
   if 'workPercent' in u and not u['workPercent']:kw['WorkRate']=0
   if key=='MOUNTED_VILLAGER':kw.update(UnitArtInfo='ART_DEF_UNIT_U_MONGOLIAN_KESHIK')
   if key=='EMISSARY':kw.update(RivalTerritory=1,Capture='UNITCLASS_WORKER',DefaultUnitAI='UNITAI_EXPLORE')
+  if key=='REINDEER_TRADER':kw.update(Food=C['traderFoodProduction'],HurryCostModifier=C['traderGoldModifier'])
   if key in ['MOHE','GRENADIER','DEFENDER','IRON_PAGODA']:kw.update(IsMounted=1)
   if key in ['GRENADIER','DEFENDER']:kw.update(SendCanMoveIntoEvent=1,NoMinorCivGift=1)
   core+=cl('Units',u['base'],typ,**kw)

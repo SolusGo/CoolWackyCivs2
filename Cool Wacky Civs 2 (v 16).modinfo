@@ -794,16 +794,19 @@
     <File md5="A0CDC33B3080D60BDD5B07F03DD3CE2A" import="1">JinDynasty/Art/JIN_Units48.dds</File>
     <File md5="FAE60C301A87A3376703FA62F962CFCA" import="1">JinDynasty/Art/JIN_Units64.dds</File>
     <File md5="85C3B161973468FF502DABF38288A468" import="1">JinDynasty/Art/JIN_Units80.dds</File>
-    <File md5="CFC6D4BA22FC6C46AC9051C66169ACC9" import="1">JinDynasty/Lua/JIN_Config.lua</File>
-    <File md5="4BAE39BA71727A77A9A2CCBE55CE40BE" import="1">JinDynasty/Lua/JIN_Core.lua</File>
-    <File md5="1802EA00C2CCBF98A5C4EB4652852169" import="1">JinDynasty/Lua/JIN_Military.lua</File>
-    <File md5="7F55977C4A1FEE2B311BF9804A69DEEC" import="1">JinDynasty/Lua/JIN_State.lua</File>
-    <File md5="EC4DD059EAFC6C2F93B1A6ADFD5E11F0" import="0">JinDynasty/SQL/00_JIN_Core.sql</File>
+    <File md5="B54B0BD86468CA342D5F362AB80D80C9" import="1">JinDynasty/Lua/JIN_Autonomy.lua</File>
+    <File md5="19E4EC6BF9D3150D43893C57D9E76ACA" import="1">JinDynasty/Lua/JIN_Config.lua</File>
+    <File md5="6944F8C6FC9B18C11F6F083F0D2688FC" import="1">JinDynasty/Lua/JIN_Core.lua</File>
+    <File md5="988516FD99F8AA99B488B4B823B0D6C8" import="1">JinDynasty/Lua/JIN_Military.lua</File>
+    <File md5="79FB55595EFCCF03A3D9C9693E2ACE78" import="1">JinDynasty/Lua/JIN_Runtime.lua</File>
+    <File md5="CB662514BABB850E4074A577EC18B01E" import="1">JinDynasty/Lua/JIN_State.lua</File>
+    <File md5="D09B97F9FB0C46A989C04E52EE1C1307" import="1">JinDynasty/Lua/JIN_Transactions.lua</File>
+    <File md5="92B83ADCAC5E8913A749720395337AB4" import="0">JinDynasty/SQL/00_JIN_Core.sql</File>
     <File md5="5494E151C1EA554BAD3E70655C086C22" import="0">JinDynasty/SQL/01_JIN_Inheritance.sql</File>
     <File md5="0A8D1F7DAA20A6679A88FFECDE03E368" import="0">JinDynasty/SQL/02_JIN_Effects.sql</File>
     <File md5="6DAE11A7C4FAD7B9A56A89C00CA8EE56" import="0">JinDynasty/SQL/03_JIN_Art.sql</File>
-    <File md5="68FA5DB94BE4B8AECC5485283DAD4009" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
-    <File md5="210E914BED70838B39E16AAD6638C0BF" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
+    <File md5="7F6D154E1E85544F6D9F93FCB921EA90" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
+    <File md5="6931FE9DA622180886058E8CF4064262" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
     <File md5="6E5FACCD988013B422047886F459C377" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
   </Files>
   <Actions>

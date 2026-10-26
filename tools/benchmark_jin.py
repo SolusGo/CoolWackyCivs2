@@ -15,5 +15,7 @@ def main():
   result[name]={'median_ms':round(statistics.median(values),3),'max_ms':round(max(values),3),'repeats':repeats}
  assert not [p for p in printed if p.startswith('JIN ')],printed
  report={'date':'2026-10-26','runtime':'Lupa Lua 5.1; synthetic native calls','native_FPS':'NOT MEASURED','native_pathfinding':'NOT MEASURED','continuous_frame_polling':False,'scenarios':result}
- (V/'docs/Benchmark.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8');print(json.dumps(report,indent=2))
+ (V/'docs/Benchmark.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print(json.dumps(report,indent=2))
+ from benchmark_jin_hardening import main as expanded
+ expanded()
 if __name__=='__main__':main()

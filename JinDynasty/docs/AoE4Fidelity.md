@@ -17,7 +17,7 @@ Research date: **2026-10-26**. The [official Jin overview](https://www.ageofempi
 | Bed Crossbow two-bolt salvo | Native primary attack plus nonlethal 35% actual-damage second bolt | No custom projectile animation; early anti-infantry rather than inherited city siege |
 | Late Zhanma and Eruptor | Rifling heavy anti-cavalry infantry; Chemistry range-1 gunpowder with scatter | Civ V technology eras differ from the four-age system |
 | Nest of Bees / Traction Trebuchet | Field artillery / conventional siege, Jin data and icons | Existing Catapult/Trebuchet models; no new 3D rockets or requirement for Korea DLC |
-| Reindeer Trader | Higher-cost Caravan replacement, native route limits and trade behavior | Uses safe existing trade-unit model; +15% native international trade income with any Tributary |
+| Reindeer Trader | Cost 90, native surplus-Food training, HurryCostModifier 0, Moves 2, native route limits | Food-assisted training or Gold purchase approximates mixed costs; native route speed really reads Moves. Extra HP cannot resist direct native route plunder; Tributary +15% remains separate |
 | Two Emissaries; neutral travel | Noncombat units, cap two, RivalTerritory and explicit action validation | Ordinary capture/death rules still apply |
 | Neutral Trade Settlement Tributaries | Independent peaceful City-State capitals; +2 native capital Food each, +3 Villager cap, one trade modifier | City-States remain independent; no permanent alliance or influence overwrite |
 | +15% Trader income | Native `TradeRouteYieldModifier=15` while any Tributary exists | Yield-specific legacy hook is compiled out in pinned v151; working native modifier also affects non-Gold outgoing international yields and sea trade. No guessed Gold payout |
@@ -28,11 +28,32 @@ Research date: **2026-10-26**. The [official Jin overview](https://www.ageofempi
 | Mountain Hall, Karma, Four Heavenly Kings | Monastery effects/discount, visible 1,000 Karma, worked resources/workers, death losses; four-turn Farm/Faith/healing/strike blessing | +1 Farm Food approximates +30%; Faith replaces relic income; city recovery/strike replaces building regeneration/attack speed |
 | Great Wall Bastion enhanced keep | Capital defense/ranged bonus, two defender slots, one automatic 20-HP shot per turn | Single capital building, not a freestanding multiweapon Keep |
 | Pagoda Forest Wood and slowing | Up to 15 Groves, five/city, +1 worked Production, once-per-turn nearby movement loss | Production represents Wood; native improved tiles replace small forest entities |
-| Meng'an Mouke replenishing defenders | City/Fort parents, bounded capacity/cooldown, early cavalry or Chemistry Grenadiers, expiry and leash | Human-controlled local units, not a custom autonomous RTS combat AI; cannot become permanent offensive troops |
+| Meng'an Mouke replenishing defenders | City/Fort parents, bounded capacity/cooldown, early cavalry or Chemistry Grenadiers, expiry and leash; automatic native attacks/adjacent approach/return | At most one saved local order per active Jin owner-turn; native range/LOS/war checks, player mission veto. Greedy bounded movement can guard in place at obstacles; no unrestricted RTS pursuit |
+
+## Explicit fidelity classification after hardening
+
+These categories describe mechanics, not numerical balance equivalence. The [official overview](https://www.ageofempires.com/games/age-of-empires-iv/civilizations/jin-dynasty/) supports the main linked economy and signature roles; the detailed database links below support narrower comparisons.
+
+| Classification | System | Assessment |
+| --- | --- | --- |
+| Faithfully reproduced core rule | Horse stocks and cavalry HP | Independent capped sources; exact +2 melee/+1 ranged maximum HP per active Horse; spend livestock for instant cavalry |
+| Necessary turn-based adaptation | Grasslands, Pasture and age-up | Site selection after completed native Landmark; 5/4/3 owner-turn production instead of seconds; city buildings replace RTS structures |
+| Approximate equivalent | Mounted Villagers | Faster native Worker movement/work and 20/+3 cap; citizens supply tile yields. Carry capacity, exposed-resource gathering and the Food/Gold training mix are not reproduced |
+| Faithful signature with bounded adaptation | Iron Pagoda, Mohe, Bed Crossbow | Melee durability/splash, fast mounted archery, and second bolt exist; strength percentages, nonlethal collateral and borrowed models adapt Civ V combat |
+| Approximate equivalent | Zhanma, Eruptor, Nest of Bees, Traction Trebuchet | Requested roles preserved in Civ V's technology/combat system; no new RTS weapon animations |
+| Approximate equivalent, improved | Reindeer Trader | Native Food/Gold alternatives and faster land travel; simultaneous AoE4 resource bill and HP protection remain unimplemented |
+| Approximate equivalent | Emissary Tributaries and Bribe | Independent City-State capital relationships; hostile Barbarian standard-unit replacements. No neutral free-agent faction or foreign unique skills/XP copying |
+| Necessary turn-based adaptation, improved | Meng'an Mouke | Local automatic native orders replace manual control. AoE4's five rallying troops/global replenishment pool becomes existing one/two-parent capacity and cooldown; Chemistry still gates Grenadiers |
+| Approximate equivalent | Flower Pagoda/Garden, Great Pasture, Dragon Pavilion | Garden work/strength replace gathering/attack-speed, Pasture has independent Horses, Pavilion grants one Emissary and production/emplacements |
+| Approximate equivalent | Mountain Hall, Great Wall Bastion, Pagoda Forest | Karma/blessing, capital defenses and worked Production/Grove slowing preserve themes. Relic income, physical freestanding multiweapon Keep and Wood harvesting are not exact |
+| Incorrect translations retained for later balance pass | Named upgrades below | Functional effects do not establish fidelity; explicit mismatches are flagged rather than silently rewritten |
+| Unimplemented secondary details | RTS logistics and presentation | Gather/carry simulation, real-time attack/cooldown cycles, custom projectiles, proprietary models/audio and exact livestock entities |
+
+The [Reindeer](https://www.aoe4.club/en/civs/jindynasty/units/reindeer-trader) / [ordinary Trader](https://www.aoe4.club/en/civs/jindynasty/units/trader) comparison is 70 Food +30 Gold versus 35 Wood +60 Gold, totals 100 versus 95. Speed is 1.1 versus 1.0 and HP 100 versus 90. The cost composition changes; it is not universally cheaper. Civ V's integer Moves 2 versus 1 is coarser and predates this patch; it is preserved, not advertised as an exact 10% translation. Native Gold price also reflects higher Production cost, so removing the +20 hurry modifier does not mean a universal 20% discount.
 
 ## Named technologies
 
-All thirteen requested priority upgrades have working effects; none is left as an inert technology label. They are purchased once per empire through the Jin panel, staged as saved upgrades and native promotions/dummies. The global technology tree is unchanged.
+All thirteen requested priority upgrades have working effects. They are purchased once per empire through the Jin panel, staged as saved upgrades and native promotions/dummies. Several names were previously mapped to different mechanics. Their effects and costs below are retained in this hardening patch; functional implementation is not a claim of exact AoE4 fidelity. The global technology tree is unchanged.
 
 | Upgrade | Gold base cost / prerequisite | Effect |
 | --- | --- | --- |
@@ -49,5 +70,23 @@ All thirteen requested priority upgrades have working effects; none is left as a
 | Flying Fire Battalions | 350 / Chemistry | Eruptor/Grenadier +15% ranged attack |
 | Heaven Shaking Thunder | 350 / Chemistry | Eruptor/Grenadier scatter increases 50% |
 | Pili Pao | 400 / Fertilizer | Siege +15% ranged attack |
+
+| Upgrade / detailed reference | AoE4 effect checked on 2026-10-26 | Classification of current Civ V effect |
+| --- | --- | --- |
+| [Collective Hunting](https://www.aoe4.club/en/civs/jindynasty/technologies/collective-hunting) | Four Reindeer spawn at Town Center | **Incorrect translation:** permanent Camp Food replaces a one-time livestock award |
+| [Mohe Ancestry](https://www.aoe4.club/en/civs/jindynasty/technologies/mohe-ancestry) | Villager hunted-meat gathering +20% | **Incorrect translation:** Mohe ranged attack is a different beneficiary and mechanic |
+| [Quilted Armor](https://www.aoe4.club/en/civs/jindynasty/technologies/quilted-armor) | Mohe take 50% less bonus damage | **Incorrect translation:** +10 HP to all cavalry is neither Mohe-specific nor bonus-damage mitigation |
+| [Draft Horses](https://www.aoe4.club/en/civs/jindynasty/technologies/draft-horses) | Villager Wood gathering/carry improves | **Incorrect translation:** generic Worker work rate is approximate, cavalry movement is unrelated |
+| [Storm Lances](https://www.aoe4.club/en/civs/jindynasty/technologies/storm-lances) | Spearmen gain a cooldown explosive ranged attack | **Incorrect translation:** Iron Pagoda attack modifier has the wrong unit and ability |
+| [Bed Crossbow Emplacement](https://www.aoe4.club/en/civs/jindynasty/technologies/bed-crossbow-emplacement) | Defensive weapon on a building | **Approximate equivalent:** one automatic bounded 12-HP shot per parent/turn |
+| [Meng'an Mouke Emplacement](https://www.aoe4.club/en/civs/jindynasty/technologies/mengan-mouke-emplacement) | Uncontrolled local defenders and global replenishment | **Necessary turn-based adaptation:** bounded autonomous orders now reproduce control intent; pool/count remain adapted |
+| Porcupine Defense | Detailed database page timed out twice | **Not independently verified:** current infantry anti-mounted bonus retained; no invented exact match |
+| [Padded Lamellar](https://www.aoe4.club/en/civs/jindynasty/technologies/padded-lamellar) | Cavalry and melee infantry HP +25% | **Incorrect scope / approximate magnitude:** fixed +15 cavalry HP excludes infantry |
+| Tower Shields | Official overview: Man-at-Arms ranged durability; detailed page timed out | **Approximate equivalent:** ranged defense exists, but current melee/gun infantry scope is broader; exact value not verified |
+| [Flying Fire Battalions](https://www.aoe4.club/en/civs/jindynasty/technologies/flying-fire-battalions) | Grenadier support and +10 defender availability | **Incorrect translation:** damage modifier replaces support/capacity; Chemistry independently supplies Grenadiers |
+| [Heaven Shaking Thunder](https://www.aoe4.club/en/civs/jindynasty/technologies/heaven-shaking-thunder) | Eruptor/Storm Lance fear reduces nearby enemy cavalry damage briefly | **Incorrect translation:** increased outgoing collateral replaces a temporary enemy debuff |
+| [Pili Pao](https://www.aoe4.club/en/civs/jindynasty/technologies/pili-pao) | Trebuchet/Nest of Bees +1 range and short building-damage suppression | **Incorrect translation:** generic siege damage lacks the range/debuff and narrower roster |
+
+A later dedicated fidelity pass should assess these beneficiary/ability mismatches and their costs together. They are not silently rebalanced here. The database is a secondary reference whose values may change; the official overview is used for broad identity, not to certify these detailed numbers.
 
 Gold upgrade costs, cooldowns, generation, rebel/defender lifetimes and Grove intervals scale by TrainPercent. Native production and Gold purchase costs retain the game's speed rules. Permanent per-turn yields are rates, not lump sums multiplied by speed. Actual numerical inputs are in `JinDynasty/Balance.json`; generated SQL/Lua must be rebuilt together after tuning.

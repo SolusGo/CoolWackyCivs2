@@ -2,7 +2,7 @@
 
 Wanyan Aguda leads a human-only Jurchen civilization adapted from **Age of Empires IV: Yue Fei's Legacy**. Requires Windows Civilization V: Brave New World and **Community Patch v151**. The original Cool Wacky Civs collection is not required.
 
-**Status: implementation preview.** Executable SQL/Lua simulations cover the systems below; actual Civ V gameplay, UI rendering, save-file reloads and balance have **not** been verified. See [Testing](docs/Testing.md) and [engine adaptations](docs/AoE4Fidelity.md).
+**Status: 1.13.1 hardening preview.** Executable SQL/Lua simulations cover the systems below; actual Civ V gameplay, UI rendering, save-file reloads and balance have **not** been verified. See [Testing](docs/Testing.md), [hardening findings and measurements](docs/Hardening.md) and [engine adaptations](docs/AoE4Fidelity.md).
 
 ## Play flow
 
@@ -28,7 +28,7 @@ Wanyan Aguda leads a human-only Jurchen civilization adapted from **Age of Empir
 | Meng'an Mouke Defender | Automatic | Not trainable / 4 | 16 Strength, no city capture, home leash and expiry |
 | Mounted Grenadier | Chemistry, automatic | Not trainable / 4 | 24 / 32, range 2; 20% bounded explosive collateral |
 | Emissary | Second completed Landmark + Civil Service | 120 / 3 | Noncombat; neutral access, Tributary and Bribe actions |
-| Reindeer Trader | Animal Husbandry | 90 / 2 | Active Caravan inheritance and ordinary route limits |
+| Reindeer Trader | Animal Husbandry | 90 / 2 | Surplus Food assists training at the cost of growth; reduced Gold hurry modifier; native Caravan routes |
 | Nest of Bees | Machinery | 170 / 2 | 12 / 26, range 2; battlefield artillery, borrowed Catapult model |
 | Traction Trebuchet | Physics | 125 / 2 | 12 / 14, range 2; conventional city siege and upgrade path |
 
@@ -45,9 +45,11 @@ Secondary damage is nonlethal and affects at most three adjacent hostile land co
 | III: Renaissance, 400 | Great Wall Bastion | +10 displayed city defense, +25% ranged strike, two defender slots and one automatic 20-HP shot per owner-turn |
 | III | Pagoda Forest | One Grove every 5 Standard turns; at most 15 empire-wide / 5 per city; +1 worked Production and nearby enemy movement loss |
 
-Meng'an Mouke Emplacement can also be purchased as an empire upgrade. It enables all cities and indexed owned Forts/Citadels. Radius 3, one defender per ordinary parent, five Standard turns replenishment, four Standard turns lifetime, four-plot leash. Chemistry changes future spawns to Mounted Grenadiers. Bed Crossbow Emplacement enables one automatic 12-HP shot per parent and owner-turn. Destroyed, captured, pillaged or expired parents clean up dependents. Defenders cannot be trained, upgraded, gifted for permanent armies or sent across the map.
+Meng'an Mouke Emplacement can also be purchased as an empire upgrade. It enables all cities and indexed owned Forts/Citadels. Radius 3, one defender per ordinary parent, five Standard turns replenishment, four Standard turns lifetime, four-plot leash. Defenders automatically choose visible hostile combat threats closest to home and make at most one attack or adjacent approach/return step during each active Jin owner-turn. They use native movement/range/line-of-sight checks, never capture cities, and ordinary player missions are blocked. A blocked route may leave them guarding in place; this is bounded local automation. Chemistry changes future spawns to Mounted Grenadiers. Bed Crossbow Emplacement enables one separate automatic 12-HP shot per parent and owner-turn. Destroyed, captured, pillaged or expired parents retire dependents after any ongoing combat finishes.
 
-Mountain Hall's meter reaches 1,000 Karma. Worked nearby tiles generate 10 Karma, resources another 10; nearby Workers add 2 and Mounted Villagers 4. Turn gain is divided by TrainPercent. Death costs 25 once; native conversion is excluded. At maximum, reset and activate four owner-turns of +1 worked Farm Food, +4 Faith per city, +10 city healing and +25% city ranged strike. The duration intentionally remains four economic turns on every speed.
+Reindeer Traders keep Cost 90 and Moves 2. While training, native surplus Food contributes Production and pauses growth, approximating AoE4's Food cost. Native Gold purchase is an alternative, with HurryCostModifier 0 instead of Caravan 20; final prices retain native speed, city and rounding rules. Pinned CP source uses the civilization's Caravan definition's Moves for land-route travel, so this existing 2-versus-1 difference also speeds automated travel. Circuit count/return duration and route capacity stay native. Extra HP cannot resist native plunder, which directly clears a route, so no ineffective protection is advertised. AoE4's 70 Food +30 Gold totals 100 versus the ordinary Trader's 95 resources; it is a different cost composition, not universally cheaper.
+
+Mountain Hall's meter reaches 1,000 Karma. Worked nearby tiles generate 10 Karma, resources another 10; nearby Workers add 2 and Mounted Villagers 4. Turn gain is divided by TrainPercent. Death costs 25 once; native conversion and trade launch/return bookkeeping are excluded. Explicit route plunder still costs 25. At maximum, reset and activate four owner-turns of +1 worked Farm Food, +4 Faith per city, +10 city healing and +25% city ranged strike. The duration intentionally remains four economic turns on every speed.
 
 ## Configuration, installation and saves
 
@@ -55,6 +57,6 @@ All balance inputs are in [Balance.json](Balance.json), including the unit/build
 
 Build from the repository root with the commands in the collection README. Extract `dist/Cool Wacky Civs 2 (v 16).zip` into your actual Civ V `MODS` directory so the version-16 modinfo sits directly inside its install folder. Remove the older collection install first; the collection UUID is preserved. Enable BNW, Community Patch and this collection, then **start a new single-player game** and select Aguda. No ModBuddy is needed.
 
-New games are required to play Jin. Existing civilizations' source gameplay and database row order are preserved, but version-15 save continuation is not certified. Back up saves before upgrading. Single-player Windows only; no AI strategy, multiplayer, hotseat or Mac support.
+New games are required to add Jin to a pre-Jin collection save. This hardening patch retains mod version 16, UUID and schema 1: valid existing Jin progression, Horse stocks, choices, rewards and deployed temporary units are retained. New order budgets and transaction receipts are optional saved fields. Runtime caches are rebuilt on load. Older native saves still require the acceptance checklist; back up saves before upgrading and avoid downgrading a save containing a pending transaction to 1.13.0. Single-player Windows only; no AI strategy, multiplayer, hotseat or Mac support.
 
 See [Implementation](docs/Implementation.md), [AoE4 fidelity](docs/AoE4Fidelity.md), [testing](docs/Testing.md), [validation results](docs/Validation.json) and [changed-file inventory](docs/ChangedFiles.md).

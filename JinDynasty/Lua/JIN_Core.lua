@@ -4,6 +4,7 @@ local old=MapModData.JIN
 if old and old.context==ContextPtr and old.active then return end
 if old then
  old.active=false
+ if old.context.ClearUpdate then old.context:ClearUpdate() end
  for _,h in ipairs(old.handlers or {}) do h.event.Remove(h.fn) end
 end
 local J={active=true,context=ContextPtr,handlers={},busy={},removing={},civs={}}
@@ -15,7 +16,12 @@ function J.IsJin(id)
  local p=Players[id];return p and p:IsAlive() and p:IsHuman() and p:GetCivilizationType()==J.CIV
 end
 function J.Now() return Game.GetGameTurn() end
-function J.State(id) if J.IsJin(id) then return S.Player(Players[id]) end end
+function J.State(id)
+ if not J.IsJin(id) then return nil end
+ local s,reason=S.Player(Players[id])
+ if not s and J.ClearInvalid then J.ClearInvalid(id,reason) end
+ return s
+end
 function J.Save(id,s) S.Write(Players[id],'JIN_P1',s) end
 function J.ID(kind,key) return T[kind..'_JIN_'..key] end
 function J.Flag(v) return v==true or (type(v)=='number' and v~=0) end
@@ -100,14 +106,19 @@ function J.Cavalry(u)
  local row=GameInfo.Units[u:GetUnitType()]
  return J.Alive(u) and u:IsCombatUnit() and u:GetDomainType()==DomainTypes.DOMAIN_LAND and row and (J.Flag(row.IsMounted) or row.CombatClass=='UNITCOMBAT_MOUNTED') and row.CombatClass~='UNITCOMBAT_HELICOPTER'
 end
-function J.SyncUnit(id,u,s,fresh)
+function J.SyncUnit(id,u,s,fresh,totalHorses)
  if not J.Alive(u) then return end
  local own=s and J.IsJin(id);local row=GameInfo.Units[u:GetUnitType()] or {}
- local horse=own and J.Cavalry(u) and J.Horses(id,s)*(u:IsRanged() and C.rangedHP or C.meleeHP) or 0
+ local horse=own and J.Cavalry(u) and (totalHorses or J.Horses(id,s))*(u:IsRanged() and C.rangedHP or C.meleeHP) or 0
  -- One exact native HP promotion; its full range is generated from Balance.json.
  local hpBefore=u:GetMaxHitPoints();local damage=u:GetDamage();local current=math.max(1,hpBefore-damage)
- for n=1,C.horseCapacity*4*math.max(C.meleeHP,C.rangedHP) do J.SetPromo(u,'HORSE_'..n,false) end
+ J.hp[id]=J.hp[id] or {};local previous=J.hp[id][u:GetID()]
+ if not previous or previous.born~=u:GetGameTurnCreated() or previous.kind~=u:GetUnitType() then
+  -- One reconstruction scan on load/ownership/type change repairs legacy or copied banks.
+  for n=1,C.horseCapacity*4*math.max(C.meleeHP,C.rangedHP) do if n~=horse then J.SetPromo(u,'HORSE_'..n,false) end end
+ elseif previous.amount~=horse and previous.amount>0 then J.SetPromo(u,'HORSE_'..previous.amount,false) end
  if horse>0 then J.SetPromo(u,'HORSE_'..horse,true) end
+ J.hp[id][u:GetID()]={born=u:GetGameTurnCreated(),kind=u:GetUnitType(),amount=horse}
  local garden=own and J.Plot(s.garden)
  local near=garden and garden:GetOwner()==id and garden:GetImprovementType()==T.IMPROVEMENT_JIN_GARDEN and not garden:IsImprovementPillaged() and J.Distance(garden,u:GetPlot())<=C.gardenRadius
  local worker=(row.WorkRate or 0)>0
@@ -129,7 +140,10 @@ function J.SyncUnit(id,u,s,fresh)
  local max=u:GetMaxHitPoints()
  if max~=hpBefore then u:SetDamage(fresh and damage==0 and 0 or math.max(0,math.min(max-1,max-current))) end
 end
-function J.Units(id,s) for u in Players[id]:Units() do J.SyncUnit(id,u,s) end end
+function J.Units(id,s)
+ local horses=s and J.Horses(id,s) or 0
+ for u in Players[id]:Units() do J.SyncUnit(id,u,s,false,horses) end
+end
 function J.SetBuilding(c,key,n)
  local b=J.Building(key);if c:GetNumRealBuilding(b)~=n then c:SetNumRealBuilding(b,n) end
 end
@@ -215,10 +229,14 @@ function J.RecruitCheck(id,s,cityID,uid)
  if p:GetGold()<cost then return false,'Requires '..cost..' Gold.' end
  return true,'Recruit for 1 Horse + '..cost..' Gold.',source,cost
 end
-function J.Refresh() if J.UIRefresh then J.UIRefresh() end end
+function J.Refresh(changed)
+ if changed then J.uiRevision=(J.uiRevision or 0)+1 end
+ if J.UIRefresh and J.panelOpen then J.Defer('ui',function()J.UIRefresh(false)end) end
+end
 function J.Action(id,serial,kind,a,b)
  if not J.active or not J.IsJin(id) or Game.GetActivePlayer()~=id or not Players[id]:IsTurnActive() or J.busy[id] then return false,'An active Jin turn is required.' end
  local s=J.State(id);if not s or s.serial~=serial then return false,'Panel state changed; refresh before retrying.' end
+ if s.transaction then return false,'A saved transaction must finish recovery before another Jin action.' end
  J.busy[id]=true
  local ok,result,message=pcall(function()
   if kind=='LANDMARK' then
@@ -234,13 +252,7 @@ function J.Action(id,serial,kind,a,b)
    s.pending[a]=nil;s.grass[a]={plot=b,horses=0,elapsed=0};s.serial=s.serial+1;J.Save(id,s)
    J.Plot(b):SetImprovementType(T.IMPROVEMENT_JIN_GRASSLAND,id,false);J.Save(id,s)
    return true,'Grassland established; other proposed sites removed.'
-  elseif kind=='RECRUIT' then
-   local legal,why,source,cost=J.RecruitCheck(id,s,a,b);if not legal then return false,why end
-   -- Spawn before spending; synchronous reentry is locked. Failed native spawn costs nothing.
-   local c=Players[id]:GetCityByID(a);local unit=Players[id]:InitUnit(b,c:GetX(),c:GetY())
-   if not J.Alive(unit) or unit:GetX()~=c:GetX() or unit:GetY()~=c:GetY() then if J.Alive(unit) then unit:Kill(false,-1) end;return false,'Native deployment failed; nothing spent.' end
-   s.grass[source].horses=s.grass[source].horses-1;s.serial=s.serial+1;J.Save(id,s)
-   Players[id]:ChangeGold(-cost);unit:FinishMoves();J.SyncUnit(id,unit,s,true);J.Units(id,s);return true,why
+  elseif kind=='RECRUIT' then return J.Recruit(id,s,a,b)
   elseif kind=='GARDEN' then
    if not J.Has(id,s,'FLOWER_PAGODA') or J.Now()<s.gardenReady or not J.SiteLegal(id,J.Plot(a)) then return false,'Requires Flower Pagoda, an empty owned land plot and relocation cooldown.' end
    local previous=J.Plot(s.garden);s.garden=a;s.gardenReady=J.Now()+J.Scale(C.gardenCooldown);s.serial=s.serial+1;J.Save(id,s)
@@ -257,14 +269,19 @@ function J.Action(id,serial,kind,a,b)
  end)
  J.busy[id]=nil
  if not ok then print('JIN action error: '..tostring(result));return false,'Action failed; inspect Lua.log.' end
- J.Refresh();return result,message
+ J.InvalidateSpatial(id);J.Refresh(true);return result,message
 end
+include('JIN_Runtime')
 include('JIN_Military')
+include('JIN_Autonomy')
+include('JIN_Transactions')
 function J.Turn(id)
  local s=J.State(id);if not s or J.busy[id] then return end
+ if s.transaction then local ok,err=pcall(J.RecoverTransaction,id,s);if not ok then print('JIN transaction recovery: '..tostring(err));return end;s=J.State(id) end
  J.busy[id]=true;J.Start(id,s);J.Complete(id,s)
  local fresh=s.turn~=J.Now()
  if fresh then
+  J.InvalidateSpatial(id)
   s.turn=J.Now();s.serial=s.serial+1;J.Save(id,s)
   for key,g in pairs(s.grass) do
    local p=J.Plot(g.plot)
@@ -283,7 +300,7 @@ function J.Turn(id)
   J.Save(id,s)
  end
  J.FreeEmissary(id,s);J.Defenders(id,s,fresh);J.Economy(id,s);J.Units(id,s);J.Save(id,s)
- J.busy[id]=nil;J.Refresh()
+ J.busy[id]=nil;J.QueuePatrol(id);J.Refresh(true)
 end
 function J.Hook(group,name,fn,veto)
  local event=group and group[name]
@@ -305,14 +322,17 @@ J.Hook(GameEvents,'PlayerDoTurn',function(id)
 end)
 J.Hook(GameEvents,'PlayerDoneTurn',function(id) if J.IsJin(id) then local s=J.State(id);if s then J.Economy(id,s) end end end)
 J.Hook(GameEvents,'CityConstructed',function(id)
+ J.InvalidateSpatial(id)
  if J.IsJin(id) and not J.busy[id] then local s=J.State(id);if s then J.Complete(id,s);J.FreeEmissary(id,s);J.Economy(id,s);J.Units(id,s) end end
- J.Refresh()
+ J.Refresh(true)
 end)
 J.Hook(GameEvents,'DeclareWar',function()
  for id in pairs(J.civs) do if J.IsJin(id) then local s=J.State(id);if s then J.Economy(id,s) end end end
+ J.Refresh(true)
 end)
-J.Hook(GameEvents,'PlayerCityFounded',function(id) if J.IsJin(id) then local s=J.State(id);if s then J.Start(id,s);J.Economy(id,s) end end end)
+J.Hook(GameEvents,'PlayerCityFounded',function(id) if J.IsJin(id) then J.InvalidateSpatial(id);local s=J.State(id);if s then J.Start(id,s);J.Economy(id,s) end;J.Refresh(true) end end)
 J.Hook(GameEvents,'CityCaptureComplete',function(oldOwner,isCapital,x,y,newOwner)
+ J.InvalidateSpatial()
  local c=Map.GetPlot(x,y):GetPlotCity()
  -- Captured native dummies must be purged before the conqueror's next harvest.
  if c and not J.IsJin(newOwner) then
@@ -320,14 +340,18 @@ J.Hook(GameEvents,'CityCaptureComplete',function(oldOwner,isCapital,x,y,newOwner
   for _,up in ipairs(C.upgrades) do J.SetBuilding(c,'UP_'..up.key,0) end
  end
  for id in pairs(J.civs) do if J.IsJin(id) then local s=J.State(id);if s then J.Complete(id,s);J.Defenders(id,s,false);J.Economy(id,s);J.Units(id,s) end end end
- J.Refresh()
+ J.Refresh(true)
 end)
 J.Hook(GameEvents,'UnitCreated',function(id,unitID)
+ J.NoteCreated(id,unitID)
  if J.IsJin(id) and not J.busy[id] then local s=J.State(id);local u=Players[id]:GetUnitByID(unitID);if s and u then J.SyncUnit(id,u,s,true) end end
+ if J.IsJin(id) or (J.panelOpen and J.uiTab=='Emissaries') then J.Refresh(true) end
 end)
 J.Hook(GameEvents,'UnitConverted',function(oldOwner,newOwner,oldID,newID,isUpgrade)
  if not J.civs[oldOwner] and not J.civs[newOwner] then return end
  J.conversions=J.conversions or {};J.conversions[oldOwner..':'..oldID]=J.Now()
+ if J.hp[oldOwner] then J.hp[oldOwner][oldID]=nil end
+ if J.hp[newOwner] then J.hp[newOwner][newID]=nil end
  local u=Players[newOwner] and Players[newOwner]:GetUnitByID(newID)
  local s=J.civs[oldOwner] and Players[oldOwner] and S.Player(Players[oldOwner])
  if s and s.defenders[oldID] then
@@ -338,33 +362,51 @@ J.Hook(GameEvents,'UnitConverted',function(oldOwner,newOwner,oldID,newID,isUpgra
 end)
 J.Hook(GameEvents,'UnitSetXY',J.Movement)
 J.Hook(GameEvents,'CanMoveInto',J.CanMoveInto,true)
-J.Hook(GameEvents,'UnitPrekill',J.Death)
-J.Hook(GameEvents,'CombatEnded',J.Combat)
+J.Hook(GameEvents,'CanStartMission',J.CanStartMission,true)
+J.Hook(GameEvents,'UnitPrekill',function(id,...)
+ if J.IsJin(id) or (J.panelOpen and J.uiTab=='Emissaries') then J.Refresh(true) end
+ J.Death(id,...)
+end)
+J.Hook(GameEvents,'PlayerPlunderedTradeRoute',J.TradePlundered)
+J.Hook(GameEvents,'CombatEnded',function(...)
+ J.Combat(...)
+ for id in pairs(J.civs) do J.QueuePatrol(id) end
+end)
+J.Hook(Events,'SerialEventUnitInfoDirty',function()
+ for id in pairs(J.civs) do J.QueuePatrol(id) end
+end)
 J.Hook(GameEvents,'TileImprovementChanged',function(x,y,owner,oldImprovement,newImprovement,pillaged)
  local plot=Map.GetPlot(x,y);if not plot then return end
  for id in pairs(J.civs) do if J.IsJin(id) and not J.busy[id] then
   local s=J.State(id)
   if s then
+   J.InvalidateSpatial(id)
    for key,g in pairs(s.grass) do if key~='pasture' and g.plot==J.Index(plot) and plot:GetImprovementType()~=T.IMPROVEMENT_JIN_GRASSLAND then s.grass[key]=nil end end
    if plot:GetOwner()==id and (plot:GetImprovementType()==T.IMPROVEMENT_FORT or plot:GetImprovementType()==T.IMPROVEMENT_CITADEL) then s.forts[J.Index(plot)]=true else s.forts[J.Index(plot)]=nil end
    J.Save(id,s);J.Defenders(id,s,false);J.Units(id,s)
   end
  end end
- J.Refresh()
+ J.Refresh(true)
 end)
-J.Hook(GameEvents,'TileOwnershipChanged',function()
+J.Hook(GameEvents,'TileOwnershipChanged',function(x,y,newOwner,oldOwner)
+ if newOwner~=nil and not J.civs[newOwner] and not J.civs[oldOwner] then return end
+ J.InvalidateSpatial()
  for id in pairs(J.civs) do if J.IsJin(id) and not J.busy[id] then local s=J.State(id);if s then
   for key,g in pairs(s.grass) do local p=J.Plot(g.plot);if not p or p:GetOwner()~=id then s.grass[key]=nil end end
+  local plot=x and Map.GetPlot(x,y)
+  if plot and plot:GetOwner()==id and (plot:GetImprovementType()==T.IMPROVEMENT_FORT or plot:GetImprovementType()==T.IMPROVEMENT_CITADEL) then s.forts[J.Index(plot)]=true end
   J.Save(id,s);J.Defenders(id,s,false);J.Units(id,s)
  end end end
 end)
 function J.Bootstrap()
+ S.ResetCache();J.InvalidateSpatial();J.hp={};J.rejected={};J.invalidPending={};J.pendingCombat=nil
  J.civs={}
  for id=0,(GameDefines.MAX_CIV_PLAYERS or 64)-1 do
   local p=Players[id]
   if p and p:IsHuman() and p:GetCivilizationType()==J.CIV then J.civs[id]=true end
   if J.IsJin(id) then
   local s=J.State(id)
+  if s and s.transaction then local ok,err=pcall(J.RecoverTransaction,id,s);if not ok then print('JIN transaction recovery: '..tostring(err));s=nil end end
   if s then
    J.Start(id,s);J.Complete(id,s)
    -- Local city neighborhoods discover forts in advanced starts; events index later forts.
@@ -372,15 +414,17 @@ function J.Bootstrap()
     if p:GetOwner()==id and (p:GetImprovementType()==T.IMPROVEMENT_FORT or p:GetImprovementType()==T.IMPROVEMENT_CITADEL) then s.forts[J.Index(p)]=true end
    end end
    J.Defenders(id,s,false);J.Economy(id,s);J.Units(id,s);J.Save(id,s)
+   J.QueuePatrol(id)
   end
   end
  end
- J.Refresh()
+ J.Refresh(true)
 end
 J.Hook(Events,'SequenceGameInitComplete',J.Bootstrap)
 J.Hook(Events,'LoadScreenClose',J.Bootstrap)
 if ContextPtr.SetShutdown then ContextPtr:SetShutdown(function()
  J.active=false;for _,h in ipairs(J.handlers) do h.event.Remove(h.fn) end
+ if J.context.ClearUpdate then J.context:ClearUpdate() end;J.jobs={}
  if MapModData.JIN==J then MapModData.JIN=nil end
 end) end
 J.Bootstrap()

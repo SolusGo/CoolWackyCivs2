@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.1 Jin Dynasty hardening preview / mod version 16 — 2026-10-26
+
+- Automate localized Meng'an Mouke defense through deferred native orders, deterministic target selection, one saved order budget per owner-turn, return steps, mission vetoes and combat-safe retirement.
+- Give Reindeer Traders native surplus-Food-assisted training and a reduced Gold hurry modifier; verify that their existing Moves 2 affects native land-route travel. Preserve route capacity, ordinary plunder and Tributary +15%; correct false Karma losses on route launch/return.
+- Replace repeated HP-bank resets with deltas, cache spatial coverage and unchanged serialized snapshots, and coalesce UI updates. Add persistent recruitment/partial-Bribe receipts, corruption diagnostics, shutdown cleanup and executable failure/reload tests.
+- Preserve other civilizations, existing art, Jin balance outside the targeted Trader changes, collection UUID/version 16 and save schema 1. See [findings, measurements and native limitations](JinDynasty/docs/Hardening.md) and the [fidelity classifications](JinDynasty/docs/AoE4Fidelity.md). Native gameplay/rendering/save acceptance remains pending.
+
 ## 1.13.0 Jin Dynasty implementation preview / mod version 16 — 2026-10-26
 
 - Add human-only Jin Dynasty under Wanyan Aguda: active-baseline Mounted Villagers, chosen per-Landmark Grasslands, five-Horse inventories, native cavalry maximum HP and paid instant War Stable recruitment.

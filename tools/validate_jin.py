@@ -10,7 +10,7 @@ from build_mod import R,files,imported,ENTRIES,VERSION
 from generate_jin import V,C,CIV
 
 TABLES=['Units','UnitClasses','Buildings','BuildingClasses','UnitPromotions','Features','Terrains','Technologies','GameSpeeds','Civilizations','Domains','Yields','Civilization_UnitClassOverrides','Unit_FreePromotions','Unit_ResourceQuantityRequirements']
-SUITES=['jin_economy.lua','jin_diplomacy.lua','jin_military.lua','jin_landmarks.lua','jin_ui.lua','jin_lifecycle.lua','jin_reliability.lua']
+SUITES=['jin_economy.lua','jin_diplomacy.lua','jin_military.lua','jin_landmarks.lua','jin_ui.lua','jin_lifecycle.lua','jin_reliability.lua','jin_autonomy.lua','jin_transactions.lua','jin_hardening.lua']
 
 def apply(d):
  for path in sorted((V/'SQL').glob('*.sql')):d.executescript(path.read_text(encoding='utf-8'))
@@ -28,6 +28,9 @@ def sql():
  apply(injected)
  assert injected.execute("SELECT WorkRate,JIN_Test,Moves FROM Units WHERE Type='UNIT_JIN_MOUNTED_VILLAGER'").fetchone()[:]==(210,77,3)
  assert injected.execute("SELECT JIN_Test FROM Units WHERE Type='UNIT_JIN_REINDEER_TRADER'").fetchone()[0]==77
+ trader=d.execute("SELECT Food,HurryCostModifier,Moves,Trade,Class FROM Units WHERE Type='UNIT_JIN_REINDEER_TRADER'").fetchone()
+ assert tuple(trader)==(1,0,2,1,'UNITCLASS_CARAVAN')
+ assert tuple(d.execute("SELECT Food,HurryCostModifier,Moves FROM Units WHERE Type='UNIT_CARAVAN'").fetchone())==(0,20,1)
  for unit,value in [('MOUNTED_VILLAGER',7),('REINDEER_TRADER',9)]:assert injected.execute("SELECT ProductionModifier FROM Unit_ProductionModifierBuildings WHERE UnitType=? AND BuildingType='BUILDING_MONUMENT'",('UNIT_JIN_'+unit,)).fetchone()[0]==value
  assert injected.execute("SELECT 1 FROM Unit_FreePromotions WHERE UnitType='UNIT_JIN_MOUNTED_VILLAGER' AND PromotionType='PROMOTION_AMPHIBIOUS'").fetchone()
  for table in ['Unit_Builds','Unit_AITypes','Unit_ResourceQuantityRequirements']:
@@ -86,7 +89,7 @@ def make_runtime(d,speed='GAMESPEED_STANDARD'):
  def include(name):
   if name!='InstanceManager':lua.execute((V/'Lua'/(name+'.lua')).read_text(encoding='utf-8'))
  def load():
-  lua.execute('ContextPtr={SetShutdown=function(self,fn)self.shutdown=fn end}')
+  lua.execute('ContextPtr=NewContext()')
   include('JIN_Core')
  g.include=include;g.LoadJin=load
  g.LoadJinUI=lambda:lua.execute((V/'UI/JIN_Dynasty.lua').read_text(encoding='utf-8'))
@@ -101,7 +104,7 @@ def source_audit():
  city=(ref/'CvCity.cpp').read_text(encoding='utf-8-sig');player=(ref/'CvPlayer.cpp').read_text(encoding='utf-8-sig')
  custom=(ref/'CustomMods.h').read_text(encoding='utf-8-sig')
  assert re.search(r'MOD_DLL_VERSION_NUMBER\s+\(\(uint\) 151\)',custom)
- for kind,methods in {'Player':['GetScriptData','SetScriptData','SetHasPolicy','InitUnit'],'Unit':['GetScriptData','SetScriptData','GetMaxHitPoints','SetDamage','ChangeDamage','IsCanDefend','SetMoves'],'City':['GetNumRealBuilding','SetNumRealBuilding','IsCanPurchase','CanPlaceUnitHere','PushOrder','IsWorkingPlot'],'Plot':['SetResourceType','GetResourceType','SetImprovementType','GetPlotIndex']}.items():
+ for kind,methods in {'Player':['GetScriptData','SetScriptData','SetHasPolicy','InitUnit'],'Unit':['GetScriptData','SetScriptData','GetMaxHitPoints','SetDamage','ChangeDamage','IsCanDefend','SetMoves','PushMission','RangeStrike','CanRangeStrikeAt','CanMoveOrAttackInto','IsBusy','IsOutOfAttacks','IsTrade'],'City':['GetNumRealBuilding','SetNumRealBuilding','IsCanPurchase','CanPlaceUnitHere','PushOrder','IsWorkingPlot'],'Plot':['SetResourceType','GetResourceType','SetImprovementType','GetPlotIndex']}.items():
   content=(ref/('CvLua'+kind+'.cpp')).read_text(encoding='utf-8-sig')
   for method in methods:assert re.search(r'Method\(\s*'+method+r'\s*\)',content),method
  assert 'visitor(unit.m_iMaxHitPointsChange)' in unit and 'visitor(unit.m_iWorkRateMod)' in unit
@@ -115,13 +118,25 @@ def source_audit():
  assert 'getOwner(), eOldImprovement, eNewValue, IsImprovementPillaged()' in (ref/'CvPlot.cpp').read_text(encoding='utf-8-sig')
  trade=(ref/'CvTradeClasses.cpp').read_text(encoding='utf-8-sig')
  assert 'GetNumericModifier(POLICYMOD_TRADE_MODIFIER)' in trade
+ speed=trade[trade.index('int CvPlayerTrade::GetTradeRouteSpeed('):];speed=speed[:speed.index('//\t---')]
+ assert 'GetTradeUnit(eDomain, m_pPlayer)' in speed and 'pkUnitInfo->GetMoves()' in speed
+ assert 'GetSpecificUnitType("UNITCLASS_CARAVAN")' in trade
+ assert 'pTrade->ClearTradeRoute(iTradeConnectionIndex)' in trade and 'pkUnit->kill(false)' in trade
+ assert 'GAMEEVENT_PlayerPlunderedTradeRoute, pUnit->getOwner(), pUnit->GetID(), iPlunderGoldValue, pOriginCity->getOwner()' in trade
+ assert 'isUnitTypeFoodProduction' in city and 'GetFoodProductionTimes100' in city and 'GetHurryCostModifier()' in city
+ missions=(ref/'CvUnitMission.cpp').read_text(encoding='utf-8-sig')
+ assert '"CanStartMission"' in missions and 'hUnit->IsBusy()' in missions
+ assert post.index('"PlayerDoTurn"')<post.index('doTurnUnits()')
+ lua_unit=(ref/'CvLuaUnit.cpp').read_text(encoding='utf-8-sig')
+ push=lua_unit[lua_unit.index('int CvLuaUnit::lPushMission('):lua_unit.index('int CvLuaUnit::lCanStartMission(')]
+ assert all('luaL_optint(L, '+str(n) in push for n in [5,6,7,8])
  assert '#define HH_MOD_API_TRADEROUTE_MODIFIERS' not in (ref/'CustomModsGlobal.h').read_text(encoding='utf-8-sig')
  assert 'HH_MOD_API_TRADEROUTE_MODIFIERS' not in (ref/'CvGameCoreDLL_Expansion2.vcxproj').read_text(encoding='utf-8-sig')
  buildings=(ref/'CvBuildingClasses.cpp').read_text(encoding='utf-8-sig')
  sell=buildings[buildings.index('bool CvCityBuildings::IsBuildingSellable('):]
  assert 'CityBuildingsIsBuildingSellable' in sell and 'kBuilding.GetGoldMaintenance() <= 0' in sell
- report={'cp_commit':'44c1e14ff75d80c1dba5c8a71e8289439a53aafb','dll':151,'scope':'source/API contracts, not native execution','files':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in ref.glob('*.cpp')}}
- (V/'docs/SourceAudit.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+ report={'cp_commit':'44c1e14ff75d80c1dba5c8a71e8289439a53aafb','dll':151,'scope':'source/API contracts, not native execution','hardening_contracts':['PlayerDoTurn before doTurnUnits: deferred one-shot orders','CanStartMission test-all veto; numeric PushMission options','native ranged LOS/war validation','specific Caravan Moves feeds land route speed and duration','native trade plunder clears route without HP contest','Food surplus production and unit HurryCostModifier','trade launch/return kill representation; explicit plunder ABI'],'files':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in ref.glob('*.cpp')}}
+ (V/'docs/SourceAudit.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
  print('PASS Jin pinned CP v151 API, serialized HP/work modifiers, actual combat damage ABI and post-economic PlayerDoTurn contracts')
 
 def main():
@@ -133,13 +148,17 @@ def main():
   speeds=['GAMESPEED_QUICK','GAMESPEED_STANDARD','GAMESPEED_EPIC','GAMESPEED_MARATHON'] if suite in ['jin_economy.lua','jin_landmarks.lua'] else ['GAMESPEED_STANDARD']
   for speed in speeds:
    lua,printed=make_runtime(d,speed);start=time.perf_counter();lua.execute((R/'tools/tests'/suite).read_text(encoding='utf-8'))
-   assert not [line for line in printed if line.startswith('JIN ')],printed
+   assert not [line for line in printed if line.startswith('JIN ') and not line.startswith('JIN invalid saved state')],printed
    for line in printed:print(line)
    runs.append({'suite':suite,'speed':speed,'milliseconds':round((time.perf_counter()-start)*1000,2)})
  for entry in ['JinDynasty/UI/JIN_Dynasty.xml']:assert sum(p==entry for p,_,_ in ENTRIES)==1
+ ui=ET.parse(V/'UI/JIN_Dynasty.xml').getroot();panel=ui.find("Grid[@ID='Panel']")
+ width,height=map(int,panel.get('Size').split(','))
+ for viewport in [(1280,720),(1920,1080)]:assert width<=viewport[0] and height<=viewport[1]
+ assert ui.find("Grid/ScrollPanel[@ID='Scroll']").get('Size')=='932,365'
  assert not imported(V/'UI/JIN_Dynasty.xml') and imported(V/'Lua/JIN_Core.lua')
  result={'date':'2026-10-26','mod_version':VERSION,'runtime':'Lupa Lua 5.1, actual installed-schema SQL, synthetic native calls','native_gameplay':'NOT RUN','native_rendering':'NOT RUN','native_save_files':'NOT RUN','runs':runs}
- (V/'docs/Validation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+ (V/'docs/Validation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
  print('PASS Jin:',len(runs),'executable Lua scenarios; native Civ V acceptance remains pending')
 
 if __name__=='__main__':main()

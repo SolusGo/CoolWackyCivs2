@@ -1,4 +1,6 @@
-# Verification outcomes — 2026-10-26
+# Original 1.13.0 verification outcomes — 2026-10-26
+
+This is the historical initial implementation record. Current 1.13.1 hardening results, benchmarks, fixes and limitations are in [Hardening.md](Hardening.md); the JSON reports are regenerated for the current patch.
 
 The implementation is **not native-game verified**. Civ V was not launched. Real saves, game rendering, native combat dispatch and play balance remain the acceptance work in [Testing.md](Testing.md).
 

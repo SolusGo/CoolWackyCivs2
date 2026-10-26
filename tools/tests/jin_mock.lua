@@ -4,7 +4,12 @@ Game={GetGameTurn=function()return now end,GetActivePlayer=function()return acti
 GameDefines={MAX_CIV_PLAYERS=5,BARBARIAN_PLAYER=4}
 DomainTypes={DOMAIN_LAND=GameInfoTypes.DOMAIN_LAND}
 YieldTypes={YIELD_GOLD=GameInfoTypes.YIELD_GOLD}
-OrderTypes={ORDER_CONSTRUCT=1};Mouse={eLClick=1}
+OrderTypes={ORDER_CONSTRUCT=1};Mouse={eLClick=1};MissionTypes={MISSION_MOVE_TO=1,MISSION_RANGE_ATTACK=2}
+deferred=nil
+function NewContext()
+ return {SetShutdown=function(self,fn)self.shutdown=fn end,SetUpdate=function(self,fn)deferred=fn end,ClearUpdate=function(self)deferred=nil end}
+end
+function Pump()local fn=deferred;if fn then fn()end end
 ContextPtr={SetShutdown=function(self,fn)self.shutdown=fn end}
 function Event()
  local e={handlers={}}
@@ -65,6 +70,7 @@ for id=0,4 do
  function p:GetCurrentEra()return self.era end;function p:IsTurnActive()return self.id==active end
  function p:HasPolicy(i)return self.policies[i] or false end;function p:SetHasPolicy(i,v)self.policies[i]=v end
  function p:GetGold()return self.gold end;function p:ChangeGold(n)self.gold=self.gold+n end
+ function p:GetNumResourceAvailable()return self.resources end
  function p:GetName()return 'Player '..self.id end
  function p:InitUnit(typ,x,y)
   if self.failSpawn then return nil end
@@ -75,8 +81,34 @@ for id=0,4 do
   function u:GetGameTurnCreated()return self.born end;function u:IsDead()return self.dead or false end;function u:IsDelayedDeath()return false end
   function u:IsCombatUnit()return (GameInfo.Units[self.typ].Combat or 0)>0 end;function u:IsRanged()return (GameInfo.Units[self.typ].RangedCombat or 0)>0 end
   function u:GetDomainType()return GameInfoTypes[GameInfo.Units[self.typ].Domain]end
+  function u:IsTrade()return GameInfo.Units[self.typ].Class=='UNITCLASS_CARAVAN' or GameInfo.Units[self.typ].Class=='UNITCLASS_CARGO_SHIP' end
   function u:IsEmbarked()return self.embarked or false end;function u:IsCanDefend()return self.defend~=false end
   function u:IsFighting()return self.fighting or false end;function u:IsInvisible()return self.invisible or false end;function u:IsGreatPerson()return self.great or false end
+  function u:IsBusy()return self.busy or false end;function u:IsOutOfAttacks()return self.attacks==1 end
+  function u:CanMoveOrAttackInto(p,unused,destination)
+   assert(type(unused)=='number' and type(destination)=='number')
+   if self.blockMoves or p.water or p.mountain then return false end
+   return GameEvents.CanMoveInto.Fire(self.owner,self.id,p.x,p.y,false,false)
+  end
+  function u:CanRangeStrikeAt(x,y,war,noncombat)
+   assert(type(war)=='boolean' and noncombat==false)
+   return self:IsRanged() and not self.noLOS and not self:IsOutOfAttacks() and Map.PlotDistance(self.x,self.y,x,y)<=GameInfo.Units[self.typ].Range
+  end
+  function u:RangeStrike(x,y)
+   assert(not inMovement,'attack issued from movement callback');self.attacks=1;self.lastTarget={x=x,y=y};self.orders=(self.orders or 0)+1
+   local target=Map.GetPlot(x,y):GetUnit(0)
+   if target then target:ChangeDamage(math.min(20,99-target.damage),self.owner);GameEvents.CombatEnded.Fire(self.owner,self.id,20,0,100,target.owner,target.id,0,target.damage,100,-1,-1,0,x,y)end
+  end
+  function u:PushMission(m,x,y,flags,append,manual,ai)
+   assert(not inMovement,'mission issued from movement callback');assert(type(flags)=='number' and type(append)=='number' and type(manual)=='number' and type(ai)=='number')
+   assert(GameEvents.CanStartMission.Fire(self.owner,self.id,m),'manual defender mission was accepted')
+   local p=Map.GetPlot(x,y);assert(self:CanMoveOrAttackInto(p,0,1));self.orders=(self.orders or 0)+1
+   local target
+   for i=0,p:GetNumUnits()-1 do local other=p:GetUnit(i);if other.owner~=self.owner then target=other;break end end
+   if target then self.attacks=1;self.lastTarget={x=x,y=y};target:ChangeDamage(math.min(20,99-target.damage),self.owner)
+    GameEvents.CombatEnded.Fire(self.owner,self.id,20,0,100,target.owner,target.id,0,target.damage,100,-1,-1,0,x,y)
+   else self.x=x;self.y=y;GameEvents.UnitSetXY.Fire(self.owner,self.id,x,y)end
+  end
   function u:IsHasPromotion(i)return self.promos[i] or false end;function u:SetHasPromotion(i,v)assert(i,'nil promotion');self.promos[i]=v end
   function u:GetMaxHitPoints()
    local n=GameInfo.Units[self.typ].MaxHitPoints or 100
@@ -129,7 +161,7 @@ function City(owner,x,y)
 end
 cap=City(0,8,8);minor=City(2,16,8);minor2=City(3,16,12)
 function NextTurn(n)
- for _=1,n or 1 do now=now+1;for _,u in pairs(Players[0].units)do u.moves=120 end;GameEvents.PlayerDoTurn.Fire(0)end
+ for _=1,n or 1 do now=now+1;for _,u in pairs(Players[0].units)do u.moves=120;u.attacks=0 end;GameEvents.PlayerDoTurn.Fire(0)end
 end
 function Learn(key)Teams[0].tech[GameInfoTypes[key]]=true end
 function Spawn(key,x,y,owner)return Players[owner or 0]:InitUnit(GameInfoTypes['UNIT_JIN_'..key] or GameInfoTypes[key],x or 8,y or 8)end

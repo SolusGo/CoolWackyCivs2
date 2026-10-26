@@ -63,37 +63,12 @@ function J.BribeCheck(id,s,uid,plotIndex)
  if not J.SpawnPlot(GameDefines.BARBARIAN_PLAYER,center,2) then return false,'No legal neutral rebel deployment plot.' end
  return true,'Bribe '..#candidates..' enemy unit(s) for up to '..total..' Gold; rebels attack both sides.',candidates
 end
-function J.Bribe(id,s,uid,plotIndex)
- local ok,why,targets=J.BribeCheck(id,s,uid,plotIndex);if not ok then return false,why end
- local barb=Players[GameDefines.BARBARIAN_PLAYER];local spawned,cost=0,0
- for _,r in ipairs(targets) do
-  local enemy=Players[r.owner]:GetUnitByID(r.uid);local center=J.Plot(r.plot)
-  local p=J.SpawnPlot(GameDefines.BARBARIAN_PLAYER,center,2)
-  if J.Alive(enemy) and enemy:GetGameTurnCreated()==r.born and J.BribeTarget(id,enemy) and p then
-   -- Never delete a target until its independent replacement is alive on legal land.
-   local rebel=barb:InitUnit(r.base,p:GetX(),p:GetY())
-   if J.Alive(rebel) then
-    local ratio=math.max(1,enemy:GetMaxHitPoints()-enemy:GetDamage())/enemy:GetMaxHitPoints()
-    rebel:SetDamage(math.min(rebel:GetMaxHitPoints()-1,math.floor(rebel:GetMaxHitPoints()*(1-ratio))))
-    rebel:FinishMoves()
-    s.rebels[rebel:GetID()]={born=rebel:GetGameTurnCreated(),expires=J.Now()+J.Scale(C.rebelLifetime)}
-    spawned=spawned+1;cost=cost+r.cost
-    -- Store replacement existence before the target's death callback can run.
-    J.Save(id,s);enemy:Kill(false,GameDefines.BARBARIAN_PLAYER)
-   end
-  end
- end
- if spawned==0 then return false,'No replacements spawned; no Gold or cooldown spent.' end
- s.emissaryCooldown[uid]={born=J.Emissary(id,uid):GetGameTurnCreated(),ready=J.Now()+J.Scale(C.bribeCooldown)}
- s.serial=s.serial+1;J.Save(id,s);Players[id]:ChangeGold(-cost);J.Emissary(id,uid):FinishMoves()
- return true,spawned..' units rebelled. '..cost..' Gold paid; rebels are Barbarian, hostile to both armies.'
-end
 function J.CleanupRebels(id)
  local barb=Players[GameDefines.BARBARIAN_PLAYER]
  if not barb then return end
  for jin in pairs(J.civs) do
   local p=Players[jin];local s=p and S.Player(p)
-  if s then for uid,r in pairs(s.rebels) do
+  if s and next(s.rebels) then for uid,r in pairs(s.rebels) do
    local u=barb:GetUnitByID(uid)
    if not J.Alive(u) or u:GetGameTurnCreated()~=r.born then s.rebels[uid]=nil
    elseif J.Now()>=r.expires then u:Kill(false,-1);s.rebels[uid]=nil end
@@ -126,24 +101,27 @@ function J.Emplacements(id,s)
 end
 function J.RemoveDefender(id,s,uid)
  local r=s.defenders[uid];local u=Players[id]:GetUnitByID(uid)
+ if r and J.Alive(u) and u:GetGameTurnCreated()==r.born and (u:IsFighting() or u:IsBusy()) then r.retire=true;J.Save(id,s);return false end
  s.defenders[uid]=nil;J.Save(id,s)
  if r and J.Alive(u) and u:GetGameTurnCreated()==r.born then J.removing[id..':'..uid]=true;u:Kill(false,-1);J.removing[id..':'..uid]=nil end
+ return true
 end
-function J.Defenders(id,s,respond)
- local parents=J.Emplacements(id,s);local counts={}
+function J.Defenders(id,s,respond,selected)
+ local index=J.Spatial(id,s);local parents=index and index.parents or {};local counts={}
  for key in pairs(s.defense) do if not parents[key] then s.defense[key]=nil end end
  for uid,r in pairs(s.defenders) do
   local u=Players[id]:GetUnitByID(uid);local parent=parents[r.parent]
-  if not parent or parent.founded~=r.founded or not J.Alive(u) or u:GetGameTurnCreated()~=r.born or J.Now()>=r.expires or J.Distance(u:GetPlot(),J.Plot(parent.plot))>C.defenderLeash then J.RemoveDefender(id,s,uid)
+  if r.retire or not parent or parent.founded~=r.founded or not J.ParentValid(id,s,r) or not J.Alive(u) or u:GetGameTurnCreated()~=r.born or J.Now()>=r.expires or J.Distance(u:GetPlot(),J.Plot(parent.plot))>C.defenderLeash then
+   if J.RemoveDefender(id,s,uid)==false then counts[r.parent]=(counts[r.parent] or 0)+1 end
   else counts[r.parent]=(counts[r.parent] or 0)+1 end
  end
  if not respond then J.Save(id,s);return end
- local keys={};for key in pairs(parents) do keys[#keys+1]=key end;table.sort(keys)
+ local keys={};for key in pairs(parents) do if not selected or selected[key] then keys[#keys+1]=key end end;table.sort(keys)
  for _,key in ipairs(keys) do local parent=parents[key];local center=J.Plot(parent.plot)
   local state=s.defense[key] or {ready=0,shot=-1};s.defense[key]=state
   local threat
   for _,plot in ipairs(J.Near(center,C.defenseRadius)) do for i=0,plot:GetNumUnits()-1 do local u=plot:GetUnit(i);if not threat and J.CombatTarget(id,u) then threat=u end end end
-  if threat then
+  if threat and J.ParentValid(id,s,parent) then
    if (counts[key] or 0)<parent.capacity and J.Now()>=state.ready then
     local spawn=J.SpawnPlot(id,center,1)
     if spawn then
@@ -175,25 +153,32 @@ end
 function J.Movement(id,uid,x,y)
  if not next(J.civs) then return end
  local u=Players[id] and Players[id]:GetUnitByID(uid);if not J.Alive(u) then return end
- if J.IsJin(id) and not J.busy[id] then local s=J.State(id);if s then J.SyncUnit(id,u,s);J.Defenders(id,s,false) end end
- local marker=S.Read(u,'JIN_D1')
+ local changed=J.panelOpen and J.uiTab=='Emissaries'
+ if J.IsJin(id) and not J.busy[id] then local s=J.State(id);if s then
+  J.SyncUnit(id,u,s)
+  if s.defenders[uid] then J.Defenders(id,s,false) end
+  changed=J.panelOpen or false
+ end end
+ local kind=u:GetUnitType()
+ local marker=(kind==J.Unit(id,'DEFENDER') or kind==J.Unit(id,'GRENADIER')) and S.Read(u,'JIN_D1')
  if marker and marker.owner~=id then u:Kill(false,-1);return end
  -- Only Jin cities/forts and tracked Groves are inspected, never the world map.
  for jin in pairs(J.civs) do if J.IsJin(jin) and not J.busy[jin] and J.War(jin,id) and u:IsCombatUnit() then
-  local s=J.State(jin)
-  if s then
-   local close=false
-   for _,r in pairs(J.Emplacements(jin,s)) do if J.Distance(u:GetPlot(),J.Plot(r.plot))<=C.defenseRadius then close=true;break end end
-   if close then J.busy[jin]=true;J.Defenders(jin,s,true);J.busy[jin]=nil end
+  local index=J.Spatial(jin);local position=J.Index(u:GetPlot())
+  if index and (index.threat[position] or index.grove[position]) then
+   local s=J.State(jin);if not s then return end
+   local near=index.threat[position]
+   if near then local selected={};for _,key in ipairs(near) do selected[key]=true end
+    J.busy[jin]=true;J.Defenders(jin,s,true,selected);J.busy[jin]=nil;J.QueuePatrol(jin)
+   end
    local key=id..':'..uid..':'..u:GetGameTurnCreated()
-   if s.slowed[key]~=J.Now() then for index in pairs(s.groves) do local grove=J.Plot(index)
-    if grove and grove:GetOwner()==jin and grove:GetImprovementType()==T.IMPROVEMENT_JIN_GROVE and not grove:IsImprovementPillaged() and J.Distance(grove,u:GetPlot())<=C.groveSlowRadius then
-     s.slowed[key]=J.Now();J.Save(jin,s);u:SetMoves(math.max(0,u:MovesLeft()-C.groveMoveCost));break
-    end
-   end end
+   if index.grove[position] and s.slowed[key]~=J.Now() then
+    s.slowed[key]=J.Now();J.Save(jin,s);u:SetMoves(math.max(0,u:MovesLeft()-C.groveMoveCost))
+   end
+   changed=true
   end
  end end
- J.Refresh()
+ if changed then J.Refresh(true) end
 end
 function J.Karma(id,s)
  if not J.Has(id,s,'MOUNTAIN_HALL') then return end
@@ -220,9 +205,20 @@ function J.Death(id,uid,unitType,x,y,delay,byPlayer)
  local s=J.State(id);if not s or not J.Has(id,s,'MOUNTAIN_HALL') then return end
  local u=Players[id]:GetUnitByID(uid)
  if not u then return end
+ -- Native route launch/return/clear kills trade representations with NO_PLAYER.
+ -- Plunder is accounted by its explicit native event instead of these removals.
+ if u:IsTrade() and byPlayer==-1 then return end
  local key=uid..':'..u:GetGameTurnCreated()
  if s.deaths[key]==J.Now() then return end
  s.deaths[key]=J.Now();s.karma=math.max(0,s.karma-C.karmaDeath);J.Save(id,s)
+end
+function J.TradePlundered(by,uid,gold,id,city,dest,destCity,kind,domain)
+ if not J.IsJin(id) then return end
+ local s=J.State(id);if not s or not J.Has(id,s,'MOUNTAIN_HALL') then return end
+ local u=Players[by] and Players[by]:GetUnitByID(uid)
+ local key=table.concat({'trade',by,uid,u and u:GetGameTurnCreated() or -1,city,dest,destCity,kind,domain},':')
+ if s.deaths[key]==J.Now() then return end
+ s.deaths[key]=J.Now();s.karma=math.max(0,s.karma-C.karmaDeath);J.Save(id,s);J.Refresh(true)
 end
 function J.Groves(id,s)
  local count,localCounts=0,{}
@@ -236,7 +232,7 @@ function J.Groves(id,s)
  for _,c in ipairs(cities) do if (localCounts[J.Index(c:Plot())] or 0)<C.grovePerCity then
   for _,p in ipairs(J.Near(c:Plot(),3)) do if J.SiteLegal(id,p) then
    s.groves[J.Index(p)]=J.CityRecord(c);s.groveReady=J.Now()+J.Scale(C.groveInterval);J.Save(id,s)
-   p:SetImprovementType(T.IMPROVEMENT_JIN_GROVE,id,false);return
+   p:SetImprovementType(T.IMPROVEMENT_JIN_GROVE,id,false);J.InvalidateSpatial(id);return
   end end
  end end
 end
