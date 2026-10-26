@@ -1,11 +1,5 @@
 # Changelog
 
-## Optional Tonga research compatibility hotfix — 2026-10-26
-
-- Trace the reported Fertilizer/turn-transition crash to Tonga's first-contact Science reward in the external MC Polynesian pack v5: three matching native dumps show a 30-Science Lua call for player 20, identified as Tonga in the save, with no technology selected.
-- Add a narrowly scoped, hash-checked installer that keeps the same Science in overflow when research is unselected. Back up the external Lua/manifest, update only its MD5 and verify rollback/idempotence; no collection gameplay or save changes.
-- Reproduce the original negative-index failure and verify the repair against the complete installed Tonga script. Existing Boundless suites also pass. Native continuation with the installed hotfix remains pending; see the [investigation](docs/compatibility/TongaResearchCrash.md).
-
 ## 1.13.1 Jin Dynasty hardening preview / mod version 16 — 2026-10-26
 
 - Automate localized Meng'an Mouke defense through deferred native orders, deterministic target selection, one saved order budget per owner-turn, return steps, mission vetoes and combat-safe retirement.
