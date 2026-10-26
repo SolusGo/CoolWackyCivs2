@@ -72,6 +72,7 @@ function Plot(x,y)
  function p:GetPlotCity()return self.city end
  function p:GetNumUnits()return #self.units end
  function p:GetUnit(i)return self.units[i+1]end
+ function p:IsCity()return self.city~=nil end
  return p
 end
 function City(p,id,x,y)
@@ -155,6 +156,7 @@ function Unit(p,id,x,y)
   assert(a==0 and b==1 and type(c)=='number' and d==0,'SetXY flags must be numeric')
   if self.moveFault=='before' then self.moveFault=nil;error('before relocation') end
   if self.moveFault=='noop' then self.moveFault=nil;return end
+  if self.moveFault=='adjacent' then self.moveFault=nil;x=x+1 end
   Place(self,x,y);GameEvents.UnitSetXY.Fire(self.owner,self.id,x,y)
   if self.onMove then self:onMove() end
   if self.moveFault=='after' then self.moveFault=nil;error('after relocation') end

@@ -2,6 +2,8 @@
 
 **Queen Elsewhere — Every Door Leads Somewhere.** Human-playable only, for Windows Civilization V: Brave New World and Community Patch v151. Included in Cool Wacky Civs 2 version 17. Single player; no multiplayer/hotseat or AI portal behavior.
 
+**1.14.1 corrective hardening:** [audit, exact changed files and regression results](docs/Hardening.md). Queen Elsewhere now has only her intended trait. Start a new game for a clean baseline: older v17 saves may retain native cached Washington effects, and no automatic aggregate-trait migration is claimed.
+
 The queen's throne room has thirteen doors. Twelve lead throughout her ancient kingdom. The thirteenth has never been opened.
 
 | Component | Rules |
@@ -33,4 +35,6 @@ The implementation includes actual SQL, gameplay Lua and a destination UI, with 
 
 Other mods that directly force `SetXY`, strip promotions or modify saved script data can bypass ordinary engine rules. Normal movement-restoration and Blitz behavior are guarded by a native movement veto and defensive-only promotion. Persistent write failures preserve a recovery receipt and disable new transfers rather than permit repeat free actions. An ambiguous receipt/treasury requires investigation in `Lua.log`; it is never guessed away. Existing saves should be backed up before upgrading the collection; native continuation has not been tested.
 
-Combat types added by a later-loading external mod need CP's `SendCanMoveIntoEvent` opt-in. Types lacking that hook cannot transfer, because their movement exhaustion could not be enforced. All land combat types present when this collection activates are opted in without changing their statistics.
+Combat types added by a later-loading external mod need CP's `SendCanMoveIntoEvent` opt-in. Types lacking that hook cannot transfer, because their movement exhaustion could not be enforced. Only potential transfer types receive a new opt-in: land combat units with a combat class, zero ranged strength and none of the existing excluded archer/siege/helicopter classes. Existing opt-ins on other types are retained for their own controllers. This remains shared metadata for each unit type; compatibility with arbitrary unscoped third-party vetoes cannot be guaranteed.
+
+If the originating Court is eliminated, surviving marked gifts/conversions recover on the first eligible `PlayerDoTurn` sweep strictly after the crossing turn. That sweep changes no movement/attack counters. Missing/corrupt origin records wait a saved quarantine turn and are cleared only when no Court owner remains alive; ambiguous origins with a living Court stay diagnosed rather than guessed. Cleanup never changes Gold, city cooldowns or financial receipts.

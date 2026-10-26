@@ -28,7 +28,7 @@ function T.Hook(bus,name,fn,veto)
  local wrapped=function(...)
   if not T.active then return true end
   local ok,result=pcall(fn,...)
-  if not ok then T.Warn('event '..name,result);return veto and false or nil end
+  if not ok then T.Warn('event '..name,result);if veto then return false end;return end
   return result
  end
  event.Add(wrapped);T.handlers[#T.handlers+1]={event=event,fn=wrapped}
@@ -119,11 +119,14 @@ function T.Recover(pid)
  local atOrigin=u:GetX()==s[6] and u:GetY()==s[7]
  local arrived=u:GetX()==s[8] and u:GetY()==s[9] and not u:IsEmbarked()
  if s[3]==1 and atOrigin then
-  assert(T.Write(u,'THC_U1',nil));u:SetHasPromotion(T.EXHAUSTED,false);u:SetMoves(s[15])
+  assert(T.Write(u,'THC_U1',nil));u:SetHasPromotion(T.EXHAUSTED,false)
+  if s[2]<=s[11] then u:SetMoves(s[15]) end
   return T.ClearReceipt(pid,s)
  end
  if not arrived then T.Warn('receipt','unexpected position; no speculative charge');return false end
- Restrict(u,pid,s[11]);u:SetMadeAttack(true)
+ -- A delayed financial receipt must never spend movement/attacks in a new
+ -- owner-turn. Sync advances the owner clock before attempting recovery.
+ if s[2]<=s[11] then Restrict(u,pid,s[11]);u:SetMadeAttack(true) end
  local origin=CityAt(s[6],s[7]);local cs=origin and T.CityState(origin)
  -- Never apply an obsolete cooldown to a replacement/captured city.
  if origin and origin:GetOwner()==pid and cs and cs[1]==s[10] then
@@ -131,6 +134,7 @@ function T.Recover(pid)
  end
  s[1]=s[11]+1
  if s[3]==1 then
+  assert(p:GetGold()>=s[12],'treasury changed before arrival payment; preserving receipt')
   s[3]=2;s[13]=p:GetGold();assert(T.Save(pid,s),'confirmed receipt persistence')
  end
  -- The receipt stores treasury immediately before charging. A successful

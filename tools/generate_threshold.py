@@ -9,6 +9,12 @@ CIV='CIVILIZATION_THRESHOLD_COURT'
 LEADER='LEADER_QUEEN_ELSEWHERE'
 UNIT='UNIT_THRESHOLD_HINGEGUARD'
 BUILDING='BUILDING_THRESHOLD_HOUSE'
+LEADER_BASELINE_TABLES=('Leader_Flavors','Leader_MajorCivApproachBiases','Leader_MinorCivApproachBiases')
+MOVEMENT_EXCLUDED=('UNITCOMBAT_ARCHER','UNITCOMBAT_SIEGE','UNITCOMBAT_HELICOPTER')
+MOVEMENT_PREDICATE="Domain='DOMAIN_LAND' AND Combat>0 AND COALESCE(RangedCombat,0)=0 AND CombatClass IS NOT NULL AND CombatClass NOT IN ('UNITCOMBAT_ARCHER','UNITCOMBAT_SIEGE','UNITCOMBAT_HELICOPTER')"
+
+def movement_type(row):
+ return row['Domain']=='DOMAIN_LAND' and row['Combat']>0 and (row['RangedCombat'] or 0)==0 and row['CombatClass'] is not None and row['CombatClass'] not in MOVEMENT_EXCLUDED
 TEXT={
  'CIV':'The Threshold Court','SHORT':'The Threshold Court','ADJECTIVE':'Threshold','LEADER':'Queen Elsewhere',
  'TRAIT':'A Door in Every Wall',
@@ -58,6 +64,19 @@ TEXT.update({f'SPY_{i}':n for i,n in enumerate(['Keykeeper','Latch','The Porter'
 def clone(*args,**kw):return base_clone(*args,**kw).replace('BCClone','THCClone')
 def companions(*args,**kw):return base_companions(*args,**kw).replace('BCCompanion','THCCompanion')
 
+def inheritance_sql(d):
+ inherit='-- SELECT * clones active dependency extension columns at activation.\n'
+ for table in ['Civilization_FreeBuildingClasses','Civilization_FreeTechs','Civilization_FreeUnits']:
+  inherit+=companions(d,table,'CivilizationType','CIVILIZATION_AMERICA',CIV)
+ for prefix,col,old,new in [('Unit','UnitType','UNIT_PIKEMAN',UNIT),('Building','BuildingType','BUILDING_MARKET',BUILDING)]:
+  inherit+=companions(d,prefix,col,old,new)
+ # Keep only native baseline personality tables. Traits, shared policy traits
+ # and unknown extensions are gameplay, not a harmless leader template.
+ skip=tuple(r[0] for r in d.execute("SELECT name FROM sqlite_master WHERE type='table'") if r[0] not in LEADER_BASELINE_TABLES)
+ inherit+='-- Queen Elsewhere has only her explicit trait; never clone Washington abilities.\n'
+ inherit+=companions(d,'Leader','LeaderType','LEADER_WASHINGTON',LEADER,skip=skip)
+ return inherit
+
 def main():
  d=database();(V/'SQL').mkdir(parents=True,exist_ok=True)
  core="""-- Notifications/vetoes only; every handler is scoped to Threshold records.
@@ -75,9 +94,7 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_DOOR_IN_EVE
  core+=f"INSERT INTO Civilization_UnitClassOverrides VALUES ('{CIV}','UNITCLASS_PIKEMAN','{UNIT}');\nINSERT INTO Civilization_BuildingClassOverrides VALUES ('{CIV}','BUILDINGCLASS_MARKET','{BUILDING}');\n"
  for kind,count in [('City',len(CITIES)),('Spy',10)]:
   for i in range(1,count+1):core+=f"INSERT INTO Civilization_{kind}Names VALUES ('{CIV}','TXT_KEY_THC_{kind.upper()}_{i}');\n"
- inherit='-- SELECT * clones active dependency extension columns at activation.\n'
- for table in ['Civilization_FreeBuildingClasses','Civilization_FreeTechs','Civilization_FreeUnits']:inherit+=companions(d,table,'CivilizationType','CIVILIZATION_AMERICA',CIV)
- for prefix,col,old,new in [('Unit','UnitType','UNIT_PIKEMAN',UNIT),('Building','BuildingType','BUILDING_MARKET',BUILDING),('Leader','LeaderType','LEADER_WASHINGTON',LEADER)]:inherit+=companions(d,prefix,col,old,new)
+ inherit=inheritance_sql(d)
  effects=f"""-- Native generic modifier checks the battle plot on attack and defense.
 INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUpgrade,FriendlyLandsModifier,PortraitIndex,IconAtlas,PediaType,PediaEntry)
  VALUES ('PROMOTION_THRESHOLD_DEFENDER','TXT_KEY_THC_DEFENDER','TXT_KEY_THC_DEFENDER_HELP','AS2D_IF_LEVELUP',1,0,15,0,'THC_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_THC_DEFENDER');
@@ -87,9 +104,10 @@ INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUp
 INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('{UNIT}','PROMOTION_THRESHOLD_DEFENDER');
 UPDATE Building_YieldChanges SET Yield=Yield+1 WHERE BuildingType='{BUILDING}' AND YieldType='YIELD_CULTURE';
 INSERT INTO Building_YieldChanges(BuildingType,YieldType,Yield) SELECT '{BUILDING}','YIELD_CULTURE',1 WHERE NOT EXISTS(SELECT 1 FROM Building_YieldChanges WHERE BuildingType='{BUILDING}' AND YieldType='YIELD_CULTURE');
--- CP requires a per-type opt-in to dispatch CanMoveInto. This changes no unit
--- statistics/permissions. The veto returns true for every unmarked unit.
-UPDATE Units SET SendCanMoveIntoEvent=1 WHERE Domain='DOMAIN_LAND' AND Combat>0;
+-- CP's opt-in belongs to a unit TYPE, not an owner or combat class. Enable
+-- only potential transfer types; retain every existing opt-in on other types.
+-- Current unit promotions/capability are still checked by the Lua validator.
+UPDATE Units SET SendCanMoveIntoEvent=1 WHERE {MOVEMENT_PREDICATE};
 """
  for response,key in [('FIRST_GREETING','GREETING'),('DECLAREWAR','WAR'),('ATTACKED','ATTACKED'),('DEFEATED','DEFEAT'),('PEACE_MADE_BY_HUMAN_GRACIOUS','PEACE'),('PEACE_MADE_BY_HUMAN_UNGRACIOUS','PEACE'),('PEACE_OFFER','PEACE'),('GREETING_POLITE_HELLO','FRIENDLY'),('GREETING_NEUTRAL_HELLO','NEUTRAL'),('GREETING_HOSTILE_HELLO','HOSTILE'),('TRADE_ACCEPT_GENEROUS','TRADE')]:effects+=f"INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('{LEADER}','RESPONSE_{response}','TXT_KEY_THC_{key}_%',1);\n"
  art=''

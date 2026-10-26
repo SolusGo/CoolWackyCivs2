@@ -7,9 +7,10 @@ INSERT INTO UnitPromotions(Type,Description,Help,Sound,CannotBeChosen,LostWithUp
 INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('UNIT_THRESHOLD_HINGEGUARD','PROMOTION_THRESHOLD_DEFENDER');
 UPDATE Building_YieldChanges SET Yield=Yield+1 WHERE BuildingType='BUILDING_THRESHOLD_HOUSE' AND YieldType='YIELD_CULTURE';
 INSERT INTO Building_YieldChanges(BuildingType,YieldType,Yield) SELECT 'BUILDING_THRESHOLD_HOUSE','YIELD_CULTURE',1 WHERE NOT EXISTS(SELECT 1 FROM Building_YieldChanges WHERE BuildingType='BUILDING_THRESHOLD_HOUSE' AND YieldType='YIELD_CULTURE');
--- CP requires a per-type opt-in to dispatch CanMoveInto. This changes no unit
--- statistics/permissions. The veto returns true for every unmarked unit.
-UPDATE Units SET SendCanMoveIntoEvent=1 WHERE Domain='DOMAIN_LAND' AND Combat>0;
+-- CP's opt-in belongs to a unit TYPE, not an owner or combat class. Enable
+-- only potential transfer types; retain every existing opt-in on other types.
+-- Current unit promotions/capability are still checked by the Lua validator.
+UPDATE Units SET SendCanMoveIntoEvent=1 WHERE Domain='DOMAIN_LAND' AND Combat>0 AND COALESCE(RangedCombat,0)=0 AND CombatClass IS NOT NULL AND CombatClass NOT IN ('UNITCOMBAT_ARCHER','UNITCOMBAT_SIEGE','UNITCOMBAT_HELICOPTER');
 INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_QUEEN_ELSEWHERE','RESPONSE_FIRST_GREETING','TXT_KEY_THC_GREETING_%',1);
 INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_QUEEN_ELSEWHERE','RESPONSE_DECLAREWAR','TXT_KEY_THC_WAR_%',1);
 INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('LEADER_QUEEN_ELSEWHERE','RESPONSE_ATTACKED','TXT_KEY_THC_ATTACKED_%',1);

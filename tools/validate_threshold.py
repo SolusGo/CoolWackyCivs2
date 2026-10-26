@@ -11,13 +11,40 @@ from lupa.lua51 import LuaRuntime
 from PIL import Image
 from database import database,quote
 from build_mod import R,files,ENTRIES,imported
-from generate_threshold import V,CIV,LEADER,UNIT,BUILDING,TEXT
+from generate_threshold import V,CIV,LEADER,UNIT,BUILDING,TEXT,LEADER_BASELINE_TABLES,movement_type,inheritance_sql
 from audit_cp import COMMIT,BASE
 
-SUITES=['threshold_transfers.lua','threshold_rejections.lua','threshold_faults.lua','threshold_ui.lua','threshold_lifecycle.lua']
+SUITES=['threshold_transfers.lua','threshold_rejections.lua','threshold_faults.lua','threshold_ui.lua','threshold_lifecycle.lua','threshold_elimination.lua','threshold_movement.lua','threshold_recovery.lua']
 
 def apply(d):
  for p in sorted((V/'SQL').glob('*.sql')):d.executescript(p.read_text(encoding='utf-8'))
+
+def traits(d):
+ actual=[r[0] for r in d.execute('SELECT TraitType FROM Leader_Traits WHERE LeaderType=?',(LEADER,))]
+ assert Counter(actual)==Counter({'TRAIT_DOOR_IN_EVERY_WALL':1}),('unintended Queen traits',actual)
+ for (name,) in d.execute("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'Leader_%'").fetchall():
+  cols=[r[1] for r in d.execute('PRAGMA table_info('+quote(name)+')')]
+  if 'LeaderType' in cols and name not in LEADER_BASELINE_TABLES+('Leader_Traits',):
+   assert not d.execute('SELECT 1 FROM '+quote(name)+' WHERE LeaderType=?',(LEADER,)).fetchone(),('unintended leader gameplay inheritance',name)
+ return actual
+
+def regeneration():
+ fresh=database()
+ washington=Counter(tuple(r) for r in fresh.execute("SELECT * FROM Leader_Traits WHERE LeaderType='LEADER_WASHINGTON'"))
+ # Optional policy traits and unknown future gameplay tables must stay out,
+ # even when Washington acquires new rows before SQL generation/activation.
+ fresh.execute("INSERT INTO Leader_SharedTraits VALUES ('LEADER_WASHINGTON','POLICY_TRADITION','POLICY_LIBERTY')")
+ shared=Counter(tuple(r) for r in fresh.execute("SELECT * FROM Leader_SharedTraits WHERE LeaderType='LEADER_WASHINGTON'"))
+ fresh.execute('CREATE TABLE Leader_UnexpectedGameplay(LeaderType TEXT,TraitType TEXT)')
+ fresh.execute("INSERT INTO Leader_UnexpectedGameplay VALUES ('LEADER_WASHINGTON','TRAIT_RIVER_EXPANSION')")
+ generated=inheritance_sql(fresh)
+ assert '"Leader_Traits"' not in generated and '"Leader_SharedTraits"' not in generated and 'Leader_UnexpectedGameplay' not in generated
+ for p in sorted((V/'SQL').glob('*.sql')):
+  fresh.executescript(generated if p.name=='01_THC_Inheritance.sql' else p.read_text(encoding='utf-8'))
+ traits(fresh)
+ assert Counter(tuple(r) for r in fresh.execute("SELECT * FROM Leader_Traits WHERE LeaderType='LEADER_WASHINGTON'"))==washington
+ assert Counter(tuple(r) for r in fresh.execute("SELECT * FROM Leader_SharedTraits WHERE LeaderType='LEADER_WASHINGTON'"))==shared
+ assert (V/'SQL/01_THC_Inheritance.sql').read_text(encoding='utf-8')==inheritance_sql(database()),'generated inheritance is stale'
 
 def inheritance(d):
  count=0
@@ -59,10 +86,16 @@ def sql():
  for key,old in units.items():
   now=dict(d.execute('SELECT * FROM Units WHERE Type=?',(key,)).fetchone())
   for col,value in old.items():
-   expected=1 if col=='SendCanMoveIntoEvent' and old['Domain']=='DOMAIN_LAND' and old['Combat']>0 else value
+   expected=1 if col=='SendCanMoveIntoEvent' and movement_type(old) else value
    assert now[col]==expected,('unrelated unit',key,col)
  assert d.execute('SELECT Playable,AIPlayable FROM Civilizations WHERE Type=?',(CIV,)).fetchone()[:]==(1,0)
- assert d.execute('SELECT TraitType FROM Leader_Traits WHERE LeaderType=?',(LEADER,)).fetchone()[0]=='TRAIT_DOOR_IN_EVERY_WALL'
+ queen_traits=traits(d)
+ # Additional associations on unrelated leaders are changes too, not just
+ # missing original rows. Compare the complete trait relations both ways.
+ for name in ['Leader_Traits','Leader_SharedTraits']:
+  original=before[name]
+  actual=Counter(tuple(r) for r in d.execute('SELECT * FROM '+quote(name)+' WHERE LeaderType IS NULL OR LeaderType<>?',(LEADER,)))
+  assert original==actual,('unrelated leader traits changed',name)
  assert d.execute("SELECT FriendlyLandsModifier,FriendlyLandsAttackModifier FROM UnitPromotions WHERE Type='PROMOTION_THRESHOLD_DEFENDER'").fetchone()[:]==(15,0)
  assert d.execute("SELECT OnlyDefensive,LostWithUpgrade,LostOnGifting FROM UnitPromotions WHERE Type='PROMOTION_THRESHOLD_EXHAUSTED'").fetchone()[:]==(1,0,0)
  count=inheritance(d)
@@ -74,14 +107,16 @@ def sql():
  fresh.execute("UPDATE Buildings SET Cost=317,GoldMaintenance=9,SpecialistCount=3 WHERE Type='BUILDING_MARKET'")
  fresh.execute("INSERT INTO Building_YieldChanges(BuildingType,YieldType,Yield) VALUES ('BUILDING_MARKET','YIELD_CULTURE',4)")
  apply(fresh);inheritance(fresh)
+ regeneration()
  for key,value in TEXT.items():assert d.execute('SELECT Text FROM Language_en_US WHERE Tag=?',('TXT_KEY_THC_'+key,)).fetchone()[0]==value
  print('PASS installed BNW/CP schema SQL,',count,'companion tables, dynamic sentinel baselines, exact balance, scoped notification opt-ins')
+ print('PASS exact Queen trait:',queen_traits,'; regenerated trait allowlist, Washington/shared trait isolation and narrowed movement metadata')
  return d,count
 
-def runtime(d):
+def runtime(d,suites=None,speeds=None):
  count=0
- for speed in ['QUICK','STANDARD','EPIC','MARATHON']:
-  for suite in SUITES:
+ for speed in speeds or ['QUICK','STANDARD','EPIC','MARATHON']:
+  for suite in suites or SUITES:
    lua=LuaRuntime();g=lua.globals();g.GameInfoTypes=lua.table();g.GameInfo=lua.table();g.Texts=lua.table()
    for table in ['Civilizations','Buildings','UnitPromotions','Units']:
     data=lua.table()
@@ -95,11 +130,16 @@ def runtime(d):
    g.include=include
    g.ReloadCore=lambda:include('THC_Core')
    g.LoadUI=lambda:lua.execute((V/'UI/THC_Transfer.lua').read_text(encoding='utf-8'))
+   def load_jin_veto():
+    code=(R/'JinDynasty/Lua/JIN_Military.lua').read_text(encoding='utf-8')
+    start=code.index('function J.CanMoveInto(');end=code.index('function J.Movement(',start)
+    lua.execute('local J,S,C=JinFixture,JinSave,JinConfig\n'+code[start:end])
+   g.LoadJinVeto=load_jin_veto
    lua.execute((R/'tools/tests/threshold_mock.lua').read_text(encoding='utf-8'))
    lua.execute("Game.GetGameSpeedType=function()return 'GAMESPEED_"+speed+"'end")
    include('THC_Core')
    lua.execute((R/'tools/tests'/suite).read_text(encoding='utf-8'));count+=1
- print('PASS',count,'shipped Lua 5.1 modeled suite runs across four speeds (not in-game tests)')
+ print('PASS',count,'shipped Lua 5.1 modeled suite runs across',len(speeds or ['QUICK','STANDARD','EPIC','MARATHON']),'speed configurations (not in-game tests)')
  return count
 
 def assets(d):
@@ -128,11 +168,15 @@ def assets(d):
  print('PASS Lua/XML syntax, localization, atlas bounds, 48 decoded DDS and InGameUIAddin controls')
 
 def sources():
- names=['CvLuaUnit.cpp','CvLuaCity.cpp','CvLuaPlayer.cpp','CvLuaPlot.cpp','CvUnit.cpp','CvPlayer.cpp','CvPlot.cpp','CvPromotionClasses.cpp','CustomMods.h']
+ names=['CvLuaUnit.cpp','CvLuaCity.cpp','CvLuaPlayer.cpp','CvLuaPlot.cpp','CvUnit.cpp','CvPlayer.cpp','CvPlot.cpp','CvPromotionClasses.cpp','CvUnitClasses.cpp','CvTraitClasses.cpp','CustomMods.h']
  source={n:(R/'tools/reference'/n).read_text(encoding='utf-8-sig') for n in names}
  def body(n,sig):
   s=source[n];start=s.index(sig);return s[start:s.index('\n}',start)+2]
  unit=source['CvUnit.cpp'];binding=source['CvLuaUnit.cpp']
+ def hook_args(filename,event):
+  before=source[filename][:source[filename].index('"'+event+'"')]
+  args=before[before.rfind('CvLuaArgsHandle args;'):]
+  return re.findall(r'args->Push\((.*)\);',args)
  checks={
   'pinned CP DLL version 151':bool(re.search(r'MOD_DLL_VERSION_NUMBER\s+\(\(uint\) 151\)',source['CustomMods.h'])),
   'SetXY directly relocates native instance':'pkUnit->setXY(x, y, bGroup, bUpdate, bShow, bCheckPlotVisible)' in body('CvLuaUnit.cpp','int CvLuaUnit::lSetXY('),
@@ -154,16 +198,34 @@ def sources():
   'capture notification exposes coordinates':'"CityCaptureComplete"' in source['CvPlayer.cpp'],
   'founding notification prevents same-turn ID reuse':'"PlayerCityFounded"' in source['CvPlayer.cpp'],
   'conversion hook precedes old unit death':unit.index('GAMEEVENTINVOKE_HOOK(GAMEEVENT_UnitConverted')<unit.index('pUnit->kill(true, NO_PLAYER)'),
+  'PlayerDoTurn legacy ABI':hook_args('CvPlayer.cpp','PlayerDoTurn')==['GetID()'],
+  'CityCaptureComplete legacy ABI':hook_args('CvPlayer.cpp','CityCaptureComplete')==['eOldOwner','bCapital','iCityX','iCityY','GetID()','iPopulation','bConquest','(int)vcGreatWorkData.size()','iCaptureGreatWorks'],
+  'UnitSetXY legacy ABI':hook_args('CvUnit.cpp','UnitSetXY')==['getOwner()','GetID()','getX()','getY()'],
+  'PlayerDoTurn safe boundary precedes unit turns':body('CvPlayer.cpp','void CvPlayer::doTurnPostDiplomacy(').index('"PlayerDoTurn"')<body('CvPlayer.cpp','void CvPlayer::doTurnPostDiplomacy(').index('doTurnUnits();'),
+  'elimination kills only the old owners remaining units':'killUnits();' in body('CvPlayer.cpp','void CvPlayer::setAlive(') and 'm_bAlive = bNewValue;' in body('CvPlayer.cpp','void CvPlayer::setAlive('),
+  'promotion removal uses a negative native delta':'int iChange = (bNewValue ? 1 : -1);' in unit and 'changeOnlyDefensiveCount((thisPromotion.IsOnlyDefensive()) ? iChange : 0);' in unit,
+  'unit type loads per-type movement opt-in':'GetBool("SendCanMoveIntoEvent")' in source['CvUnitClasses.cpp'],
+  'legacy save restores cached trait aggregates':'Serialize(*this, serialVisitor);' in body('CvTraitClasses.cpp','void CvPlayerTraits::Read(') and 'InitPlayerTraits' not in body('CvTraitClasses.cpp','void CvPlayerTraits::Read('),
  }
+ for event,abi in {'CanMoveInto':'iiiibb','UnitConverted':'iiiib','CanHaveUpgrade':'iiii'}.items():
+  checks['CP event ABI '+event]=bool(re.search(r'GAMEEVENT_'+event+r'\s+"'+event+r'",\s+"'+abi+'"',source['CustomMods.h']))
  for method in ['SetXY','CanMoveOrAttackInto','IsCanAttackWithMove','IsOnlyDefensive','FinishMoves','SetMoves','SetMadeAttack','IsBusy','GetScriptData','SetScriptData','GetGameTurnCreated']:
   checks['unit binding '+method]='Method('+method+')' in binding
+ for kind,methods in {'Player':['IsAlive','IsHuman','GetCivilizationType','IsTurnActive','GetCurrentEra','GetUnitByID','GetGold','ChangeGold','GetScriptData','SetScriptData'],
+  'Plot':['GetPlotCity','GetNumUnits','GetUnit','GetScriptData','SetScriptData'],
+  'City':['Plot','GetOwner','GetID','GetX','GetY','GetOriginalOwner','GetGameTurnFounded','GetNumBuilding']}.items():
+  for method in methods:checks[kind+' binding '+method]='Method('+method+')' in source['CvLua'+kind+'.cpp']
  for key,ok in checks.items():assert ok,key
  print('PASS',len(checks),'pinned official CP v151 source contracts')
  return {'commit':COMMIT,'contracts':checks,'sources':{n:{'url':BASE+('Lua/' if n.startswith('CvLua') else '')+n,'sha256':hashlib.sha256((R/'tools/reference'/n).read_bytes()).hexdigest()} for n in names}}
 
 def main():
  d,tables=sql();runs=runtime(d);assets(d);audit=sources()
- report={'date':'2026-10-26','native_gameplay':'NOT TESTED IN GAME','native_ui':'NOT TESTED IN GAME','native_saves':'NOT TESTED IN GAME','companion_tables':tables,'modeled_suite_runs':runs,'suites':SUITES,'source_audit':audit,'pending':['Civ V database activation and native UI rendering','Native cross-continent/Huge SetXY and camera/selection','Real manual/autosave/restart persistence and city capture/raze','Native Blitz/restored movement and combat preview/defense','Whole-game balance']}
+ report={'date':'2026-10-26','revision':'1.14.1 hardening / mod version 17','native_gameplay':'NOT TESTED IN GAME','native_ui':'NOT TESTED IN GAME','native_saves':'NOT TESTED IN GAME','companion_tables':tables,'queen_traits':traits(d),'modeled_suite_runs':runs,'suites':SUITES,'source_audit':audit,
+ 'reproduced_before_fix':['Queen also inherited TRAIT_RIVER_EXPANSION','Gifted exhaustion persisted after owner elimination','A promotion without a valid record vetoed unrelated movement','Late confirmed receipt recovery exhausted the next owner-turn','Corrupt player financial state prevented independent valid unit expiry'],
+ 'elimination_release':'PlayerDoTurn boundary strictly after crossing turn; unknown origin waits one saved quarantine turn with no living Court owner',
+ 'movement_opt_in':'Potential land melee types only; existing opt-ins on all other types retained; shipped Jin veto composed in tests',
+ 'pending':['Civ V database activation and native UI rendering','Native cross-continent/Huge SetXY and camera/selection','Real manual/autosave/restart persistence, owner elimination, gifting to majors/minors and revival','Native Blitz/restored movement, Jin veto composition and combat preview/defense','Old v17 save cached Washington trait aggregates require native verification; start a new game for a clean baseline','Whole-game balance']}
  (V/'docs').mkdir(exist_ok=True);(V/'docs/Validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
 
 if __name__=='__main__':main()

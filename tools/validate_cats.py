@@ -9,6 +9,7 @@ from lupa.lua51 import LuaRuntime
 from database import database, quote
 from build_mod import R, files
 from generate_cats import CIV, LEADER, UNIT, TREE, DUMMIES, TEXT
+from generate_threshold import movement_type
 V=R/'The11Cats'
 
 def sql():
@@ -26,7 +27,7 @@ def sql():
   # existing unit column may change when the full collection activates.
   if table!='Units':return tuple(row)
   cols=[r[1] for r in d.execute('PRAGMA table_info(Units)')];row=list(row)
-  if row[cols.index('Domain')]=='DOMAIN_LAND' and row[cols.index('Combat')]>0:
+  if movement_type(dict(zip(cols,row))):
    row[cols.index('SendCanMoveIntoEvent')]=1
   return tuple(row)
  for table,rows in previous.items():

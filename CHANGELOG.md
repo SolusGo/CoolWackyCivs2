@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.14.1 Threshold Court corrective hardening / mod version 17 — 2026-10-26
+
+- Stop cloning Washington's primary/shared trait associations onto Queen Elsewhere; keep exactly A Door in Every Wall and verify regenerated SQL against populated optional gameplay tables.
+- Add safe turn-boundary exhaustion cleanup for eliminated origins, with saved quarantine for unknown origins, per-unit failure isolation and unchanged living-owner timing.
+- Narrow the necessary CP movement opt-in to potential land melee transfer types, retain other controllers' opt-ins, and compose the shipped Jin veto in regression tests. Ignore invalid/stale Threshold stamps in movement/upgrade vetoes.
+- Fix delayed receipt recovery spending a later turn's moves/attacks, reject corrupt numeric receipt fields and expand elimination, compatibility and recovery tests. Preserve balance, artwork, localization, collection UUID, version 17 and existing save schemas. Native gameplay/save acceptance and old-save cached trait repair remain pending; see [audit](TheThresholdCourt/docs/Hardening.md).
+
 ## 1.14.0 Threshold Court implementation preview / mod version 17 — 2026-10-26
 
 - Add human-only Queen Elsewhere and The Threshold Court, with active CP Pikeman/Market inheritance, Hingeguard +1 Movement/+15% friendly territory combat and Threshold House +1 Culture.

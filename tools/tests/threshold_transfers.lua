@@ -2,6 +2,7 @@ local T=Court();local p=Players[0]
 assert(T.Cost(0)==100)
 for era=0,7 do p.era=era;assert(T.Cost(0)==50+25*era)end;p.era=2
 local initial=Snapshot(unit,origin)
+unit.promos[99992]=true;unit.upgradeHistory='native-history';unit.customCombatRestriction='unchanged'
 assert(T.Validate(0,0,initial))
 p.gold=99;assert(not T.Transfer(0,0,initial,119,75));assert(p.gold==99 and unit.moves==180)
 p.gold=100
@@ -9,6 +10,7 @@ local civilian=Unit(p,3,119,75);civilian.combat=false;civilian.kind=GameInfoType
 assert(T.Transfer(0,0,initial,119,75))
 assert(p.gold==0 and unit:GetX()==119 and unit:GetY()==75 and unit.moves==0)
 assert(p.units[0]==unit and unit.xp==123 and unit.damage==37 and unit.born==7)
+assert(unit.promos[99992] and unit.upgradeHistory=='native-history' and unit.customCombatRestriction=='unchanged')
 assert(unit.attacks>=1 and unit:IsHasPromotion(T.EXHAUSTED))
 assert(unit.raw:find('foreign-data',1,true))
 assert(T.CityState(origin)[6]==108 and T.CityState(destination)[6]==0)

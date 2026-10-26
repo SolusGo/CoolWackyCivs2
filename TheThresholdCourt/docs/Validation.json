@@ -1,16 +1,23 @@
 {
   "date": "2026-10-26",
+  "revision": "1.14.1 hardening / mod version 17",
   "native_gameplay": "NOT TESTED IN GAME",
   "native_ui": "NOT TESTED IN GAME",
   "native_saves": "NOT TESTED IN GAME",
   "companion_tables": 176,
-  "modeled_suite_runs": 20,
+  "queen_traits": [
+    "TRAIT_DOOR_IN_EVERY_WALL"
+  ],
+  "modeled_suite_runs": 32,
   "suites": [
     "threshold_transfers.lua",
     "threshold_rejections.lua",
     "threshold_faults.lua",
     "threshold_ui.lua",
-    "threshold_lifecycle.lua"
+    "threshold_lifecycle.lua",
+    "threshold_elimination.lua",
+    "threshold_movement.lua",
+    "threshold_recovery.lua"
   ],
   "source_audit": {
     "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
@@ -35,6 +42,17 @@
       "capture notification exposes coordinates": true,
       "founding notification prevents same-turn ID reuse": true,
       "conversion hook precedes old unit death": true,
+      "PlayerDoTurn legacy ABI": true,
+      "CityCaptureComplete legacy ABI": true,
+      "UnitSetXY legacy ABI": true,
+      "PlayerDoTurn safe boundary precedes unit turns": true,
+      "elimination kills only the old owners remaining units": true,
+      "promotion removal uses a negative native delta": true,
+      "unit type loads per-type movement opt-in": true,
+      "legacy save restores cached trait aggregates": true,
+      "CP event ABI CanMoveInto": true,
+      "CP event ABI UnitConverted": true,
+      "CP event ABI CanHaveUpgrade": true,
       "unit binding SetXY": true,
       "unit binding CanMoveOrAttackInto": true,
       "unit binding IsCanAttackWithMove": true,
@@ -45,7 +63,30 @@
       "unit binding IsBusy": true,
       "unit binding GetScriptData": true,
       "unit binding SetScriptData": true,
-      "unit binding GetGameTurnCreated": true
+      "unit binding GetGameTurnCreated": true,
+      "Player binding IsAlive": true,
+      "Player binding IsHuman": true,
+      "Player binding GetCivilizationType": true,
+      "Player binding IsTurnActive": true,
+      "Player binding GetCurrentEra": true,
+      "Player binding GetUnitByID": true,
+      "Player binding GetGold": true,
+      "Player binding ChangeGold": true,
+      "Player binding GetScriptData": true,
+      "Player binding SetScriptData": true,
+      "Plot binding GetPlotCity": true,
+      "Plot binding GetNumUnits": true,
+      "Plot binding GetUnit": true,
+      "Plot binding GetScriptData": true,
+      "Plot binding SetScriptData": true,
+      "City binding Plot": true,
+      "City binding GetOwner": true,
+      "City binding GetID": true,
+      "City binding GetX": true,
+      "City binding GetY": true,
+      "City binding GetOriginalOwner": true,
+      "City binding GetGameTurnFounded": true,
+      "City binding GetNumBuilding": true
     },
     "sources": {
       "CvLuaUnit.cpp": {
@@ -80,17 +121,35 @@
         "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPromotionClasses.cpp",
         "sha256": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a"
       },
+      "CvUnitClasses.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnitClasses.cpp",
+        "sha256": "d96b806673cddb2508f5ccdef2ba622cd0cd12e89457f86b833ce4d2dfb348e3"
+      },
+      "CvTraitClasses.cpp": {
+        "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTraitClasses.cpp",
+        "sha256": "ce7700b643a47674216691f112ab61bb767925be044b6e1de7566fe7365f503b"
+      },
       "CustomMods.h": {
         "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
         "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
       }
     }
   },
+  "reproduced_before_fix": [
+    "Queen also inherited TRAIT_RIVER_EXPANSION",
+    "Gifted exhaustion persisted after owner elimination",
+    "A promotion without a valid record vetoed unrelated movement",
+    "Late confirmed receipt recovery exhausted the next owner-turn",
+    "Corrupt player financial state prevented independent valid unit expiry"
+  ],
+  "elimination_release": "PlayerDoTurn boundary strictly after crossing turn; unknown origin waits one saved quarantine turn with no living Court owner",
+  "movement_opt_in": "Potential land melee types only; existing opt-ins on all other types retained; shipped Jin veto composed in tests",
   "pending": [
     "Civ V database activation and native UI rendering",
     "Native cross-continent/Huge SetXY and camera/selection",
-    "Real manual/autosave/restart persistence and city capture/raze",
-    "Native Blitz/restored movement and combat preview/defense",
+    "Real manual/autosave/restart persistence, owner elimination, gifting to majors/minors and revival",
+    "Native Blitz/restored movement, Jin veto composition and combat preview/defense",
+    "Old v17 save cached Washington trait aggregates require native verification; start a new game for a clean baseline",
     "Whole-game balance"
   ]
 }

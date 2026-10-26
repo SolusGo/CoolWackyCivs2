@@ -2,6 +2,22 @@
 
 **Native Civ V gameplay, UI rendering and real save-file testing: NOT RUN.** Do not interpret the modeled Lua tests or installed-schema SQL checks as a native acceptance result. See [Validation.json](Validation.json) for executed suite/source-check details.
 
+## Corrective 1.14.1 regression pass
+
+The complete primary trait relation must be exactly one `TRAIT_DOOR_IN_EVERY_WALL` row. Tests also populate Washington's optional shared-policy table and a previously unknown leader gameplay table, regenerate inheritance in memory, activate it and prove neither relation reaches Queen Elsewhere. Washington and other leaders' complete trait relations remain unchanged. The generated inheritance on disk must equal the generator's current output.
+
+Eight shipped-Lua suites run on Quick, Standard, Epic and Marathon (32 modeled runs): original transfers/rejections/faults/UI/lifecycle, plus elimination, movement composition and receipt recovery. Native source checks now include 65 CP v151 contracts. [Audit, exact files and failure evidence](Hardening.md).
+
+Before correction, executed tests failed for the extra Washington trait, gifted exhaustion after elimination, a stray promotion vetoing unrelated movement, and a late confirmed receipt exhausting a new owner-turn. These are genuine pre-fix failures, distinct from deliberately injected faults inside passing recovery suites. Logs under ignored `dist/threshold-hardening-*.log` retain the local runs; Validation.json records the final executed suites.
+
+Elimination tests cover major and city-state recipients, converted units, same-turn elimination, context rebuild, dead-unit skipping, revival before/after cleanup, missing/corrupt unit and player records, isolated write failures and retry. They assert identity, unrelated promotions, damage/XP, movement and attack counters remain unchanged by cleanup. The movement suite executes the actual `J.CanMoveInto` function extracted from the shipped Jin controller alongside Threshold's handler on a modeled CP TestAll bus; its geometry/save adapters are modeled, not native pathfinding.
+
+Recovery tests now include receipts finalized in a later owner-turn, origin capture, House removal after confirmed arrival, unit disappearance/ID reuse, unexpected adjacent relocation, no speculative payment, no next-turn exhaustion, and numeric-but-invalid receipts. Late receipt recovery must not grant or consume new-turn movement/attacks. Invalid financial data is preserved and new transfers remain unavailable.
+
+An additional executed failure showed that a malformed player ledger could also prevent an independent valid unit deadline from expiring. The verified owner-turn branch now releases that unit without resetting financial data or granting moves/attacks. This case is included in all four speed runs.
+
+Additional native acceptance remains pending: elimination and conversion timing inside combat, city-state gifting, revival, load during orphan quarantine, scoped movement dispatch and Jin composition, delayed financial recovery at real turn boundaries, and old v17 trait-cache behavior. Start a new game for a clean trait baseline; source inspection shows old saves restore cached aggregate trait data, and this pass does not mutate policies or claim automatic repair of previously granted Washington bonuses.
+
 Run from the collection root using its Python environment:
 
 ```powershell

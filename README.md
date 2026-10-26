@@ -2,9 +2,11 @@
 
 Fifteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current release:** mod version 17 · **1.14.0 Threshold Court implementation preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current release:** mod version 17 · **1.14.1 Threshold Court hardening preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
 [The Threshold Court](TheThresholdCourt/README.md), led by Queen Elsewhere, connects owned Threshold House cities through real, unlimited-distance relocation of existing land melee units. One paid crossing per owner-turn, eight-turn origin cooldowns, save-scoped state, an explicit destination/confirmation panel and exhausted arrivals. Human-only; native gameplay/render/save acceptance remains pending.
+
+The Court's [corrective audit](TheThresholdCourt/docs/Hardening.md) removes unintended Washington trait inheritance, handles eliminated origins, narrows movement-hook dispatch and protects new turns from delayed recovery receipts. Start a new Court game for a clean trait baseline; existing saves can retain native cached trait effects.
 
 [The Jin Dynasty](JinDynasty/README.md) adds Wanyan Aguda's linked Mounted Villager, Grassland/Horse, cavalry recruitment, Emissary/Tributary, Bribe, six-Landmark and Meng'an Mouke systems. The [hardening pass](JinDynasty/docs/Hardening.md) adds bounded autonomous defenders, Food-assisted Reindeer Trader training, recoverable purchases and measured Lua optimizations. Includes a six-tab panel, thirteen named upgrades, original art and focused four-speed Lua validation. Human-only; native game/render/save acceptance remains pending.
 

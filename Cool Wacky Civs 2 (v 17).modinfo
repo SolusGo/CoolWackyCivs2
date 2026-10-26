@@ -857,12 +857,12 @@
     <File md5="2552995574107AD235C65CECC13AA739" import="1">TheThresholdCourt/Art/THC_Promotions48.dds</File>
     <File md5="DE98F7932C43B2FF0AF469348780A4CC" import="1">TheThresholdCourt/Art/THC_Promotions64.dds</File>
     <File md5="6E6CBB42E3C7B3C140006E291ADF969F" import="1">TheThresholdCourt/Art/THC_Promotions80.dds</File>
-    <File md5="8D72EF209E594DB1E4758E34AA80FDFE" import="1">TheThresholdCourt/Lua/THC_Core.lua</File>
-    <File md5="A759881C6C56CA4042013A02F4CD8534" import="1">TheThresholdCourt/Lua/THC_Events.lua</File>
-    <File md5="66C3558CBCB1595609C974E7A87CE63C" import="1">TheThresholdCourt/Lua/THC_State.lua</File>
+    <File md5="FC64CD44F44B130D56D6B1C2E0366AA8" import="1">TheThresholdCourt/Lua/THC_Core.lua</File>
+    <File md5="2691F99C0E23E012E9BA8F790F7B0C9D" import="1">TheThresholdCourt/Lua/THC_Events.lua</File>
+    <File md5="10F49AE02D75140F54C93E9312A03DFA" import="1">TheThresholdCourt/Lua/THC_State.lua</File>
     <File md5="AD739CD6C10E7CC38B444338F51A032E" import="0">TheThresholdCourt/SQL/00_THC_Core.sql</File>
-    <File md5="F69F32BA3F147DF7FC385ABAA792D687" import="0">TheThresholdCourt/SQL/01_THC_Inheritance.sql</File>
-    <File md5="12853A7D3B71B454938F4C9304698BD7" import="0">TheThresholdCourt/SQL/02_THC_Effects.sql</File>
+    <File md5="6C7A6E49DA97B9136C3F39BDCD8FCFCA" import="0">TheThresholdCourt/SQL/01_THC_Inheritance.sql</File>
+    <File md5="C04F9D035CA9F66B8A2804FE911AF65B" import="0">TheThresholdCourt/SQL/02_THC_Effects.sql</File>
     <File md5="D5DC5AB8CEDEB1ACD4DE164F85CDB625" import="0">TheThresholdCourt/SQL/03_THC_Art.sql</File>
     <File md5="EC4D10DEB4142729510097411E4955DB" import="0">TheThresholdCourt/SQL/10_THC_Text.sql</File>
     <File md5="2CD9550BB6F80383BD7D9C006972712D" import="1">TheThresholdCourt/UI/THC_Transfer.lua</File>

@@ -715,6 +715,7 @@ CREATE TEMP TABLE THCCompanion AS SELECT * FROM "Building_YieldPerXTerrainTimes1
 UPDATE THCCompanion SET BuildingType='BUILDING_THRESHOLD_HOUSE';
 INSERT INTO "Building_YieldPerXTerrainTimes100" SELECT * FROM THCCompanion;
 DROP TABLE THCCompanion;
+-- Queen Elsewhere has only her explicit trait; never clone Washington abilities.
 CREATE TEMP TABLE THCCompanion AS SELECT * FROM "Leader_Flavors" WHERE LeaderType='LEADER_WASHINGTON';
 UPDATE THCCompanion SET LeaderType='LEADER_QUEEN_ELSEWHERE';
 INSERT INTO "Leader_Flavors" SELECT * FROM THCCompanion;
@@ -726,12 +727,4 @@ DROP TABLE THCCompanion;
 CREATE TEMP TABLE THCCompanion AS SELECT * FROM "Leader_MinorCivApproachBiases" WHERE LeaderType='LEADER_WASHINGTON';
 UPDATE THCCompanion SET LeaderType='LEADER_QUEEN_ELSEWHERE';
 INSERT INTO "Leader_MinorCivApproachBiases" SELECT * FROM THCCompanion;
-DROP TABLE THCCompanion;
-CREATE TEMP TABLE THCCompanion AS SELECT * FROM "Leader_SharedTraits" WHERE LeaderType='LEADER_WASHINGTON';
-UPDATE THCCompanion SET LeaderType='LEADER_QUEEN_ELSEWHERE';
-INSERT INTO "Leader_SharedTraits" SELECT * FROM THCCompanion;
-DROP TABLE THCCompanion;
-CREATE TEMP TABLE THCCompanion AS SELECT * FROM "Leader_Traits" WHERE LeaderType='LEADER_WASHINGTON';
-UPDATE THCCompanion SET LeaderType='LEADER_QUEEN_ELSEWHERE';
-INSERT INTO "Leader_Traits" SELECT * FROM THCCompanion;
 DROP TABLE THCCompanion;

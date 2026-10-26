@@ -10,6 +10,7 @@ from PIL import Image
 from build_mod import R,files
 from database import database,quote
 from generate_kingdom import CIV,LEADER,UNIT,HOUSE,TEXT
+from generate_threshold import movement_type
 
 V=R/'TheChildrenOfTheKingdom'
 TABLES=['Civilizations','Units','UnitPromotions','GameSpeeds','Buildings','Building_YieldChanges','Policies']
@@ -51,7 +52,7 @@ def sql():
         for original in rows:
             now=d.execute('SELECT * FROM '+table+' WHERE ID=?',(original[cols.index('ID')],)).fetchone()
             expected=list(original)
-            if table=='Units' and original[cols.index('Domain')]=='DOMAIN_LAND' and original[cols.index('Combat')]>0:
+            if table=='Units' and movement_type(dict(zip(cols,original))):
                 expected[cols.index('SendCanMoveIntoEvent')]=1
             assert tuple(now)==tuple(expected),('native row changed',table,original[0])
     # Civ V's stock atlas foreign keys target a non-unique Atlas column; SQLite's

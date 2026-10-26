@@ -50,7 +50,16 @@ function T.State(pid)
  local p=Players[pid];if not p then return end
  local v,ok=T.Read(p,'THC_P1',16);if not ok then return end
  if not v then v={0,T.Turn(),0,0,0,0,0,0,0,0,0,0,0,0,0,0} end
- if v[3]>2 then T.Warn('persistence invalid','receipt phase');return end
+ local valid=v[3]<=2 and v[1]<=T.Turn()+1 and v[2]<=T.Turn()
+ if v[3]==0 then
+  for i=4,16 do valid=valid and v[i]==0 end
+ else
+  valid=valid and v[5]<=v[11] and v[11]<=T.Turn() and v[10]>0
+   and v[12]>=50 and (v[12]-50)%25==0 and v[13]>=v[12]
+   and (v[6]~=v[8] or v[7]~=v[9]) and GameInfo.Units[v[14]]~=nil
+  if v[3]==2 then valid=valid and v[1]==v[11]+1 end
+ end
+ if not valid then T.Warn('persistence invalid','receipt fields');return end
  return v
 end
 function T.Save(pid,s) return T.Write(Players[pid],'THC_P1',s) end
@@ -85,11 +94,24 @@ end
 function T.Stamp(u)
  return T.Read(u,'THC_U1',4)
 end
+function T.ValidStamp(u)
+ if not T.Alive(u) then return end
+ local v,valid=T.Stamp(u)
+ local owner=v and Players[v[1]]
+ if valid and v and owner and owner:GetCivilizationType()==T.CIV and v[2]<=T.Turn()
+  and v[3]==u:GetGameTurnCreated() and v[4]==u:GetUnitType() then return v end
+end
+function T.Restricted(u)
+ local v=T.ValidStamp(u)
+ if not v then return false end
+ local s=T.State(v[1])
+ return not s or s[2]<=v[2]
+end
 function T.Locked(u)
  local v,ok=T.Stamp(u)
  if not ok then return true end
  if not v then return u:IsHasPromotion(T.EXHAUSTED) end
- local s=T.State(v[1])
- -- The originating player's next owner-turn releases even gifted units.
- return not s or s[2]<=v[2]
+ -- Invalid portal data blocks another transfer, but must not become a
+ -- movement/upgrade veto on an unrelated unit. Those hooks use Restricted.
+ return not T.ValidStamp(u) or T.Restricted(u)
 end
