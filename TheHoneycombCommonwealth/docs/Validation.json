@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-30",
+  "target": "Civilization V BNW + Community Patch v151 only",
+  "mod_version": "17",
+  "commands": {
+    "tools/validate_honeycomb.py": {"exit_code": 0, "result": "PASS"},
+    "tools/validate_mod.py": {"exit_code": 0, "result": "PASS"}
+  },
+  "sql": "PASS installed BNW backup plus reconstructed CP schema, entire released collection first, all preexisting rows unchanged, active Scout/Market and companion inheritance including altered baselines",
+  "lua": "PASS Lua 5.1 parse and shipped-callback modeled mechanics, qualification, caps, ownership, save/context, sale/removal and idempotence",
+  "source_contracts": 43,
+  "dds_textures_decoded_and_mipmapped": 40,
+  "manifest_xml_vfs_hashes_load_order": "PASS",
+  "existing_collection_regressions": "PASS",
+  "native_gameplay": "NOT RUN",
+  "native_rendering": "NOT RUN",
+  "native_save_acceptance": "NOT RUN",
+  "turn_order": "Source-supported owner-end snapshot stages next payout. Exact pre-economic beginning-of-owner-turn sampling is not guaranteed; interturn changes wait for the next staging boundary.",
+  "new_modbuddy_project_generated": false,
+  "release_package_generated": false
+}

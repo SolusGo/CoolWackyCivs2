@@ -158,3 +158,5 @@ if __name__=='__main__':
     validate_jin()
     from validate_threshold import main as validate_threshold
     validate_threshold()
+    from validate_honeycomb import validate as validate_honeycomb
+    validate_honeycomb()

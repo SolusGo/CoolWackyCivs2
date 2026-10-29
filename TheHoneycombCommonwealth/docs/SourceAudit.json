@@ -1,0 +1,99 @@
+{
+  "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "checks": {
+    "DLL v151": true,
+    "city economics then gold then culture then PlayerDoTurn": true,
+    "activation calls economics before active UI turn start": true,
+    "done turn synchronous hook before deactivation completes": true,
+    "done turn gated by EVENTS_PLAYER_TURN": true,
+    "no speculative pre-economy Lua hook in AI_doTurnPre": true,
+    "capture after reconstruction": true,
+    "capture ABI new owner fifth": true,
+    "sale event after removal": true,
+    "native dummy suppresses construction rewards": true,
+    "never capture enforced": true,
+    "plot working city is effective owning city": true,
+    "native city working check validates plot index": true,
+    "city plot count uses workable plot count": true,
+    "reading save does not rerun economics": true,
+    "Sight lost on upgrade native support": true,
+    "City:GetOwner": true,
+    "City:GetID": true,
+    "City:GetX": true,
+    "City:GetY": true,
+    "City:GetNumBuilding": true,
+    "City:GetNumRealBuilding": true,
+    "City:SetNumRealBuilding": true,
+    "City:GetNumCityPlots": true,
+    "City:GetCityIndexPlot": true,
+    "City:IsWorkingPlot": true,
+    "Plot:GetOwner": true,
+    "Plot:GetX": true,
+    "Plot:GetY": true,
+    "Plot:GetPlotIndex": true,
+    "Plot:GetPlotCity": true,
+    "Plot:GetImprovementType": true,
+    "Plot:IsImprovementPillaged": true,
+    "Plot:GetWorkingCity": true,
+    "Player:GetID": true,
+    "Player:GetCivilizationType": true,
+    "Player:IsAlive": true,
+    "Player:GetCityByID": true,
+    "Player:Cities": true,
+    "Player:GetScriptData": true,
+    "Player:SetScriptData": true,
+    "Game:GetGameTurn": true,
+    "Game:IsFinalInitialized": true
+  },
+  "timing_result": "Exact pre-economic start-of-owner-turn snapshot not guaranteed by exposed audited hooks. PlayerDoneTurn stages next payout from end-turn assignments; interturn changes wait until next snapshot. Native gameplay not run.",
+  "files": {
+    "CustomMods.h": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
+      "sha256": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11"
+    },
+    "CvPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp",
+      "sha256": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87"
+    },
+    "CvPlayerAI.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayerAI.cpp",
+      "sha256": "a4fb3ae925db892dc4c0106780b00438d06aa39df885845affb48044064a8ec1"
+    },
+    "CvGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvGame.cpp",
+      "sha256": "6dad41a144c98a15d94d59ee0d4effb0ff92190586074adb7e5c03bb1815b205"
+    },
+    "CvCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCity.cpp",
+      "sha256": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2"
+    },
+    "CvCityCitizens.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvCityCitizens.cpp",
+      "sha256": "0811b958b9bad255420e9c18410ca91b3f8a21e670ee17219a3477d33176cac9"
+    },
+    "CvDllNetMessageHandler.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvDllNetMessageHandler.cpp",
+      "sha256": "6f748a0f38b8a71b5e08258aed04adfe1420a6f537d5a3ccf1b5659f04be730d"
+    },
+    "CvLuaCity.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaCity.cpp",
+      "sha256": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24"
+    },
+    "CvLuaPlot.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlot.cpp",
+      "sha256": "eeed545294850b4bc69313caba1b4f1b3d8a0440eb7f5c432e242a36742c3e64"
+    },
+    "CvLuaPlayer.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp",
+      "sha256": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a"
+    },
+    "CvLuaGame.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaGame.cpp",
+      "sha256": "a2bee0ef0210f71eae8e09f3209755f7bf64ee6177dc8f52ee01de8fa893655b"
+    },
+    "CvLuaUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp",
+      "sha256": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae"
+    }
+  }
+}

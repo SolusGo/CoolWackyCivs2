@@ -1,8 +1,10 @@
 # Cool Wacky Civs 2
 
-Fifteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Sixteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current release:** mod version 17 · **1.14.2 workforce planner preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 17 · **1.15.0 Honeycomb Commonwealth preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+[The Honeycomb Commonwealth](TheHoneycombCommonwealth/README.md), led by Speaker Mellia, develops worked Plantations into capped city Production/Culture and Honey Exchange Gold. Includes the active Scout-derived Forager, original bee art and human-only selection. CP v151 requires owner-end staging for the next payout; the documented interturn difference and native acceptance checklist are in the guide. No release package is generated for this addition.
 
 The Boundless City's [remote-workforce planner](TheBoundlessCity/docs/RemotePlanner.md) now compares jobs with displaced labour, offers a saved Food minimum, retains stable assignments and avoids rebuilding unchanged reservations. Large territories use cached yields and bounded candidate selection. Existing native capacity limits remain in force.
 
@@ -37,8 +39,9 @@ The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/
 | [The Urgal](docs/civilizations/TheUrgal.md) | Urgal | Stockpile rare Strength Potions and time overwhelming melee attacks. | [Details](TheUrgal/README.md) |
 | [The Jin Dynasty](docs/civilizations/JinDynasty.md) | Wanyan Aguda | Manage Horse stockpiles, recruit cavalry, establish Tributaries and choose branching Landmarks. | [Details](JinDynasty/README.md) |
 | [The Threshold Court](docs/civilizations/TheThresholdCourt.md) | Queen Elsewhere | Build distant doorways and pay to redeploy exhausted melee armies across the world. | [Details](TheThresholdCourt/README.md) |
+| [The Honeycomb Commonwealth](docs/civilizations/TheHoneycombCommonwealth.md) | Speaker Mellia | Work Plantations for capped city Production/Culture and Honey Exchange Gold. | [Details](TheHoneycombCommonwealth/README.md) |
 
-All fifteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty and The Threshold Court are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All sixteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court and The Honeycomb Commonwealth are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.0 Honeycomb Commonwealth source preview / mod version 17 — 2026-10-30
+
+- Add human-only Speaker Mellia, First Comb, A Thousand Small Hands, Forager and Honey Exchange to the existing collection, with exact worked-Plantation city-yield caps and active CP Scout/Market inheritance.
+- Add seven distinct binary dummies, shared qualifying-plot count, owner-specific snapshot staging, duplicate/load/capture/sale handling and exact requested dialogue/Dawn text.
+- Include original amber bee art, 40 mipmapped DDS textures, static diplomacy, guides and executable SQL/Lua/source checks. Explicitly document CP v151's permitted owner-end snapshot fallback and interturn difference; native game/render/save acceptance remains pending.
+- Append database files after released content, retain collection UUID/version and existing gameplay, and update existing manifests only. No new project or packaged release generated.
+
 ## 1.14.2 Boundless workforce planner preview / mod version 17 — 2026-10-26
 
 - Compare automatic remote jobs with actual labourer output and displaced local work, accounting for the overlapping surplus/forced-reservation bound. Preserve explicit Manual requests and Hybrid/native locks.

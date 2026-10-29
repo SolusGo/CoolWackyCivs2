@@ -2,8 +2,8 @@
 <Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="17">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Fifteen civilizations, now including Queen Elsewhere and the Threshold Court.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty and The Threshold Court. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Sixteen civilizations, now including Speaker Mellia and the Honeycomb Commonwealth.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court and The Honeycomb Commonwealth. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -868,6 +868,54 @@
     <File md5="EC4D10DEB4142729510097411E4955DB" import="0">TheThresholdCourt/SQL/10_THC_Text.sql</File>
     <File md5="2CD9550BB6F80383BD7D9C006972712D" import="1">TheThresholdCourt/UI/THC_Transfer.lua</File>
     <File md5="8ABECA15C564617A2953E837BDA3788B" import="0">TheThresholdCourt/UI/THC_Transfer.xml</File>
+    <File md5="055F046D0FFEF0290891E57AE6BB5CC2" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha128.dds</File>
+    <File md5="CA7BAAFC83FB29A27CC4465855D5D18D" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha16.dds</File>
+    <File md5="5ACF26F02CB1454089F56C28368BEA54" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha24.dds</File>
+    <File md5="786A95C3A002475350DCC3E255AFE924" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha256.dds</File>
+    <File md5="54DF6290930389B075A15E5E1D6F8291" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha32.dds</File>
+    <File md5="7392A05A5131291031076D96A6B652F5" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha45.dds</File>
+    <File md5="494F1D7C86505C071B92002AB68017DB" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha48.dds</File>
+    <File md5="1CAACFE8E4199F66F0B5C0FBE26CB580" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha64.dds</File>
+    <File md5="98AF503075E2B42FAA4B73CAEEB3FCB1" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha80.dds</File>
+    <File md5="1C75DDAB23152289AA5C08915A5B3045" import="1">TheHoneycombCommonwealth/Art/HCC_Dawn.dds</File>
+    <File md5="54DF6290930389B075A15E5E1D6F8291" import="1">TheHoneycombCommonwealth/Art/HCC_Flag32.dds</File>
+    <File md5="E05F7E0A474AADEE9F795C5CCA44010A" import="1">TheHoneycombCommonwealth/Art/HCC_Icon128.dds</File>
+    <File md5="F18474418A5E644F391DB4A4D94C4921" import="1">TheHoneycombCommonwealth/Art/HCC_Icon16.dds</File>
+    <File md5="F74580DA50B41143078D5FA10A78B313" import="1">TheHoneycombCommonwealth/Art/HCC_Icon24.dds</File>
+    <File md5="BD765C1C46F4AD3FF2009B4672F48DF9" import="1">TheHoneycombCommonwealth/Art/HCC_Icon256.dds</File>
+    <File md5="C5F4E11A6761D834714527EE4899C8AE" import="1">TheHoneycombCommonwealth/Art/HCC_Icon32.dds</File>
+    <File md5="42AA49F860614D850EF45B0335A565FE" import="1">TheHoneycombCommonwealth/Art/HCC_Icon45.dds</File>
+    <File md5="F364A34228CD8696767F3F3307DCBCB4" import="1">TheHoneycombCommonwealth/Art/HCC_Icon48.dds</File>
+    <File md5="945DFE76A97F4BE392D51C9004EB822D" import="1">TheHoneycombCommonwealth/Art/HCC_Icon64.dds</File>
+    <File md5="58255D902731811F1AF097E71C74030B" import="1">TheHoneycombCommonwealth/Art/HCC_Icon80.dds</File>
+    <File md5="A6B00B84D759BFAE6DCA958618E1BAA7" import="1">TheHoneycombCommonwealth/Art/HCC_Leader.dds</File>
+    <File md5="A0B8528E37D481A7ADE782F410D92DC6" import="1">TheHoneycombCommonwealth/Art/HCC_LeaderScene.xml</File>
+    <File md5="9C8B080E41AB9514DC6AD9CE375C33E8" import="1">TheHoneycombCommonwealth/Art/HCC_Map.dds</File>
+    <File md5="BDB0942F9015EECE419EC030DE3133D6" import="1">TheHoneycombCommonwealth/Art/HCC_Objects128.dds</File>
+    <File md5="48B8D76B988A9F8C91F01BB8653BD063" import="1">TheHoneycombCommonwealth/Art/HCC_Objects16.dds</File>
+    <File md5="F71C5697AA322FBA3F715097300450C8" import="1">TheHoneycombCommonwealth/Art/HCC_Objects24.dds</File>
+    <File md5="44AC5ED0C3AF4DF794E1C7D81A3215C9" import="1">TheHoneycombCommonwealth/Art/HCC_Objects256.dds</File>
+    <File md5="17B8D2E85CD43BD474F83D299D145D16" import="1">TheHoneycombCommonwealth/Art/HCC_Objects32.dds</File>
+    <File md5="C499D0A47FC301F340192908A2544B0A" import="1">TheHoneycombCommonwealth/Art/HCC_Objects45.dds</File>
+    <File md5="F7C2EDE6DB06A21413F4C95CB2459736" import="1">TheHoneycombCommonwealth/Art/HCC_Objects48.dds</File>
+    <File md5="E0BD0103B8BF9A66A00871D9FD09D824" import="1">TheHoneycombCommonwealth/Art/HCC_Objects64.dds</File>
+    <File md5="467EB55D1A9A65A9D6FF94E4919592B8" import="1">TheHoneycombCommonwealth/Art/HCC_Objects80.dds</File>
+    <File md5="DEF7D1C507D79E3390249F8D0FFAD039" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait128.dds</File>
+    <File md5="6BA6C951B233C0FBF35B6843D4B9CEB7" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait16.dds</File>
+    <File md5="BA6F50945CDC59B4C405D48DC1916C9F" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait24.dds</File>
+    <File md5="39DDE9866158791A599BF25FB5B5B1E1" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait256.dds</File>
+    <File md5="5BF1EC1D882FF64364536A30B92FFC0C" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait32.dds</File>
+    <File md5="ECF988D520686C9F871B7B08260AD79D" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait45.dds</File>
+    <File md5="602C6ACDF63EF53989CC04D014235C99" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait48.dds</File>
+    <File md5="5220C06C4250484249F13B9A6057B47B" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait64.dds</File>
+    <File md5="C2BAB936D30FF2959EC466C973DA2DD7" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait80.dds</File>
+    <File md5="A21F6830FF39F8E9BC28049D7A245BCA" import="1">TheHoneycombCommonwealth/Lua/HCC_Commonwealth.lua</File>
+    <File md5="FFBF68BEAD06480C8C892399A07A0A6B" import="0">TheHoneycombCommonwealth/Lua/HCC_Commonwealth.xml</File>
+    <File md5="3FFE5D362ED11EC42C41C4FED9BF63CC" import="0">TheHoneycombCommonwealth/SQL/00_HCC_Core.sql</File>
+    <File md5="E490EE9DD9F0FB1F0517A209F8CBBEF8" import="0">TheHoneycombCommonwealth/SQL/01_HCC_Inheritance.sql</File>
+    <File md5="4E2AD7483253FABCD97C522F64E91DA3" import="0">TheHoneycombCommonwealth/SQL/02_HCC_Effects.sql</File>
+    <File md5="ED531E1B21356A380AAC95CBB73FF061" import="0">TheHoneycombCommonwealth/SQL/03_HCC_Art.sql</File>
+    <File md5="E67F39A9613AE5D0180097864595146F" import="0">TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -948,6 +996,11 @@
       <UpdateDatabase>TheThresholdCourt/SQL/02_THC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheThresholdCourt/SQL/03_THC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheThresholdCourt/SQL/10_THC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheHoneycombCommonwealth/SQL/00_HCC_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheHoneycombCommonwealth/SQL/01_HCC_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheHoneycombCommonwealth/SQL/02_HCC_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheHoneycombCommonwealth/SQL/03_HCC_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -1010,6 +1063,10 @@
     <EntryPoint type="InGameUIAddin" file="TheThresholdCourt/UI/THC_Transfer.xml">
       <Name>Threshold Transfer</Name>
       <Description>Human-only city doorway transfers, persistent cooldowns and exhausted original units.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheHoneycombCommonwealth/Lua/HCC_Commonwealth.xml">
+      <Name>A Thousand Small Hands</Name>
+      <Description>Human-only shared worked-Plantation snapshots, city yields and Honey Exchange Gold.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>
