@@ -30,10 +30,12 @@ def glyph(kind):
  # Crisp native tintable symbols: redraw the code-native insignia at 4x size.
  if kind=='civ':
   im=Image.new('RGBA',(1024,1024));d=ImageDraw.Draw(im)
-  points=[(71,231),(66,192),(77,158),(91,127),(78,99),(102,77),(113,30),(136,65),(161,76),(180,105),(191,126),(215,142),(204,163),(183,165),(156,144),(145,128),(141,165),(159,197),(181,231)]
-  d.polygon([(x*4,y*4)for x,y in points],fill='white')
-  d.ellipse((154*4,102*4,162*4,110*4),fill=(0,0,0,0))
-  for x,y in [(77,136),(70,159),(66,182)]:d.polygon([(x*4,y*4),((x-18)*4,(y+20)*4),((x+9)*4,(y+10)*4)],fill='white')
+  # Original seal-style rendering of 金 (Jin / gold), drawn as eight strokes.
+  # No font dependency, animal portrait or borrowed game logo.
+  strokes=[[(128,37),(103,70),(54,105)],[(128,37),(155,72),(202,105)],
+   [(90,103),(166,103)],[(73,139),(183,139)],[(128,105),(128,216)],
+   [(81,160),(96,188)],[(176,160),(160,188)],[(62,216),(194,216)]]
+  for points in strokes:d.line([(x*4,y*4)for x,y in points],fill='white',width=13*4,joint='curve')
   return im
  im=symbol(kind,True,scale=4)
  if kind=='trader':
@@ -84,7 +86,7 @@ def ui(leader):
  shade=Image.new('RGBA',header.size);sd=ImageDraw.Draw(shade)
  for x in range(964):sd.line((x,0,x,123),fill=(27,10,18,round(215-115*x/963)))
  header.alpha_composite(shade);save('JIN_Header',header)
- row=edge(material((910,94),(48,24,30),(25,17,23)));d=ImageDraw.Draw(row);d.line((728,12,728,81),fill='#604431');save('JIN_UI_Row',row)
+ row=edge(material((910,86),(48,24,30),(25,17,23)));d=ImageDraw.Draw(row);d.line((728,10,728,75),fill='#604431');save('JIN_UI_Row',row)
  save('JIN_UI_Metric',edge(material((180,80),(57,27,33),(24,16,23))))
  save('JIN_UI_Accent',Image.new('RGBA',(120,3),GOLD))
  buttons=Image.new('RGBA',(64,256))
@@ -95,7 +97,7 @@ def main():
  S.mkdir(parents=True,exist_ok=True);V.mkdir(exist_ok=True)
  leader=Image.open(S/'Leader.png').convert('RGBA');w,h=leader.size
  portrait=ImageOps.fit(leader.crop((int(w*.07),int(h*.03),int(w*.36),int(h*.62))),(256,256),Image.Resampling.LANCZOS)
- masters={'Icon':atlas('Icon',[cells('UpgradePaintings.png',4,4)[13]],1,1),'Alpha':atlas('Alpha',[glyph('civ')],1,1,monochrome=True),
+ masters={'Icon':atlas('Icon',[crest('civ')],1,1),'Alpha':atlas('Alpha',[glyph('civ')],1,1,monochrome=True),
   'Portrait':atlas('Portrait',[portrait],1,1,leader=True),'Units':atlas('Units',cells('UnitPaintings.png',4,3),4,3),
   'Buildings':atlas('Buildings',cells('BuildingPaintings.png',5,2),5,2),'Flags':atlas('Flags',[glyph(k)for k in UNITS],4,3,monochrome=True),
   'Upgrades':atlas('Upgrades',cells('UpgradePaintings.png',4,4),4,4)}

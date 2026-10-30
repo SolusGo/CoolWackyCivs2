@@ -162,7 +162,7 @@ end
 Controls.Open:RegisterCallback(Mouse.eLClick,function()open=not open;J.UIRefresh()end)
 Controls.Close:RegisterCallback(Mouse.eLClick,function()open=false;J.UIRefresh()end)
 for _,key in ipairs({'Overview','Landmarks','Recruit','Emissaries','Upgrades','Defense'}) do
- local selected=key;Controls[key..'Tab']:RegisterCallback(Mouse.eLClick,function()tab=selected;J.UIRefresh()end)
+ local selected=key;Controls[key..'Tab']:RegisterCallback(Mouse.eLClick,function()tab=selected;J.UIRefresh();Controls.Scroll:SetScrollValue(0)end)
 end
 -- Visibility must refresh even while the panel is closed. Gameplay refreshes
 -- deliberately skip closed panels and cannot restore a hidden launcher alone.

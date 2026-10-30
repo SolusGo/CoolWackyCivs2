@@ -9,82 +9,82 @@
     {
       "suite": "jin_economy.lua",
       "speed": "GAMESPEED_QUICK",
-      "milliseconds": 47.03
+      "milliseconds": 68.84
     },
     {
       "suite": "jin_economy.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 56.54
+      "milliseconds": 69.13
     },
     {
       "suite": "jin_economy.lua",
       "speed": "GAMESPEED_EPIC",
-      "milliseconds": 72.88
+      "milliseconds": 86.07
     },
     {
       "suite": "jin_economy.lua",
       "speed": "GAMESPEED_MARATHON",
-      "milliseconds": 110.78
+      "milliseconds": 116.09
     },
     {
       "suite": "jin_diplomacy.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 30.44
+      "milliseconds": 56.13
     },
     {
       "suite": "jin_military.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 16.88
+      "milliseconds": 26.94
     },
     {
       "suite": "jin_landmarks.lua",
       "speed": "GAMESPEED_QUICK",
-      "milliseconds": 473.55
+      "milliseconds": 472.68
     },
     {
       "suite": "jin_landmarks.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 731.37
+      "milliseconds": 781.0
     },
     {
       "suite": "jin_landmarks.lua",
       "speed": "GAMESPEED_EPIC",
-      "milliseconds": 1116.1
+      "milliseconds": 1175.0
     },
     {
       "suite": "jin_landmarks.lua",
       "speed": "GAMESPEED_MARATHON",
-      "milliseconds": 2062.29
+      "milliseconds": 2241.53
     },
     {
       "suite": "jin_ui.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 19.78
+      "milliseconds": 24.19
     },
     {
       "suite": "jin_lifecycle.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 83.41
+      "milliseconds": 109.24
     },
     {
       "suite": "jin_reliability.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 18.73
+      "milliseconds": 28.81
     },
     {
       "suite": "jin_autonomy.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 27.64
+      "milliseconds": 71.63
     },
     {
       "suite": "jin_transactions.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 51.31
+      "milliseconds": 70.34
     },
     {
       "suite": "jin_hardening.lua",
       "speed": "GAMESPEED_STANDARD",
-      "milliseconds": 31.98
+      "milliseconds": 53.55
     }
   ]
 }

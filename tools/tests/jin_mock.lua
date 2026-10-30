@@ -180,6 +180,7 @@ function Control()
  function c:SetHide(v)self.hidden=v end;function c:SetText(v)self.text=v end;function c:SetDisabled(v)self.disabled=v end
  function c:SetToolTipString(v)self.tooltip=v end;function c:RegisterCallback(e,fn)self.callback=fn end
  function c:CalculateSize()end;function c:ReprocessAnchoring()end;function c:CalculateInternalSize()end
+ function c:SetScrollValue(v)self.scrollValue=v end
  return c
 end
 Controls=setmetatable({},{__index=function(t,k)local c=Control();rawset(t,k,c);return c end})

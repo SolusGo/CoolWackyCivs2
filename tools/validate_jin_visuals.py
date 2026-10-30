@@ -25,10 +25,17 @@ def main():
    changed.append(name)
  assert len(changed)==63
  xml=ET.parse(V/'UI/JIN_Dynasty.xml');ids={e.get('ID'):e for e in xml.iter() if e.get('ID')}
+ scroll=ids['Scroll']
+ assert scroll.get('Vertical')=='1' and scroll.get('AutoScrollBar')=='1','native vertical scrolling/clipping is not configured'
+ assert 'VerticalScrollBar' not in scroll.attrib,'unsupported linked scrollbar attribute'
  native={e.tag for e in ET.parse(support_source().with_name('Styles.xml')).iter()}
  requested={e.get('Style')for e in xml.iter()if e.get('Style')};assert requested<=native,requested-native
  for node in xml.iter('Image'):
   assert (V/'Art'/node.get('Texture')).is_file(),node.get('Texture')
+  with Image.open(V/'Art'/node.get('Texture'))as im:
+   assert tuple(map(int,node.get('Size').split(',')))==im.size,('native image would crop its texture',node.get('ID'),node.get('Texture'))
+ row_size=tuple(map(int,ids['Root'].get('Size').split(',')))
+ assert 3*row_size[1]+2*int(ids['Rows'].get('Padding'))<=int(scroll.get('Size').split(',')[1]),'three complete rows must fit above the footer'
  for node in xml.iter('GridData'):assert (V/'Art'/node.get('Texture')).is_file()
  for key in ['Horse','Tribute','Villager','Karma','Landmark']:
   card=ids[key+'Card'];x,y=map(int,card.get('Offset').split(','));w,h=map(int,card.get('Size').split(','))
@@ -50,7 +57,7 @@ def main():
  assert [k for k in art_before if art_before[k]!=art_after[k]]==['UNIT_JIN_ZHANMA']
  assert art_after['UNIT_JIN_ZHANMA']=='ART_DEF_UNIT_U_JAPANESE_SAMURAI'
  assert after.execute('SELECT 1 FROM ArtDefine_UnitInfos WHERE Type=?',(art_after['UNIT_JIN_ZHANMA'],)).fetchone()
- result={'date':'2026-10-30','baseline':BASELINE,'compiled_dds':82,'existing_dds_refreshed':len(changed),'new_dds':19,'complete_legacy_mip_chains':True,'native_styles':sorted(requested),'gameplay_sql_identical_except_visual_metadata':True,'unit_model_changes':{'UNIT_JIN_ZHANMA':art_after['UNIT_JIN_ZHANMA']},'viewport_geometry':[[1280,720],[1920,1080]],'native_rendering':'NOT RUN','preview':'Actual shipped Lua/XML, modeled fonts; packed vanilla portraits use crest placeholders','sources':{p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in S.glob('*Paintings.png')}}
+ result={'date':'2026-10-30','baseline':BASELINE,'compiled_dds':82,'existing_dds_refreshed':len(changed),'new_dds':19,'complete_legacy_mip_chains':True,'native_styles':sorted(requested),'native_scroll_configuration':{'vertical':True,'automatic_scrollbar':True,'row_height':row_size[1],'three_complete_rows_fit':True},'static_image_texture_sizes_match':True,'civ_emblem':'Original gold seal-style 金 mark with matching tintable alpha','gameplay_sql_identical_except_visual_metadata':True,'unit_model_changes':{'UNIT_JIN_ZHANMA':art_after['UNIT_JIN_ZHANMA']},'viewport_geometry':[[1280,720],[1920,1080]],'native_rendering':'NOT RUN','preview':'Actual shipped Lua/XML; native pixel cropping and configured clipping, modeled fonts; packed vanilla portraits use crest placeholders','sources':{p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in S.glob('*Paintings.png')}}
  (V/'docs/GraphicsValidation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
  print('PASS Jin graphics: all 63 old DDS refreshed, 19 new DDS, complete mips, tintable flags, native styles, viewport geometry and unchanged gameplay SQL')
 if __name__=='__main__':main()

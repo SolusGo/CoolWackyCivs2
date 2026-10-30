@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.16.4 Jin emblem / native UI layout correction — 2026-10-30
+
+- Replace the horse portrait civ icon with an original gold seal-style 金 emblem and matching tintable alpha at every atlas size.
+- Fix the user-reported overflowing rows: configure native vertical scrolling and its automatic scrollbar, remove the unsupported linked-scrollbar attribute, and fit three complete illustrated rows above the footer. Reset list position on tab changes.
+- Fix cropped HUD/launcher images by matching control sizes to native texture pixels. Correct the preview's automatic resizing/unconditional clipping assumptions and add regressions that fail on the previously shipped XML. Preserve gameplay, save data and the turn-transition fix; native re-testing after this patch remains pending.
+
 ## 1.16.3 Full Jin visual refresh / mod version 17 — 2026-10-30
 
 - Replace all 63 shipped Jin DDS textures and add 19: original Aguda leader/Dawn/portrait art, twelve illustrated units, ten buildings/Landmarks, sixteen upgrade/effect images, parchment map, redesigned insignia, tintable flags and HUD medallions.

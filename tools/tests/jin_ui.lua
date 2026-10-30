@@ -2,7 +2,8 @@ local J=MapModData.JIN
 LoadJinUI();assert(not Controls.Open.hidden and Controls.Panel.hidden)
 Controls.Open.callback();assert(not Controls.Panel.hidden and #uiManager.rows>0)
 assert(Controls.Open.hidden,'launcher overlaps the open council')
-Controls.LandmarksTab.callback();assert(#uiManager.rows==6 and uiManager.rows[1].Action.disabled)
+Controls.Scroll.scrollValue=0.8;Controls.LandmarksTab.callback();assert(#uiManager.rows==6 and uiManager.rows[1].Action.disabled)
+assert(Controls.Scroll.scrollValue==0,'tab retained another list position')
 assert(not Controls.LandmarksActive.hidden and Controls.OverviewActive.hidden)
 for _,r in ipairs(uiManager.rows)do assert(r.Art.icon.atlas=='JIN_BUILDING_ATLAS')end
 Players[0].era=1;J.UIRefresh();assert(not uiManager.rows[1].Action.disabled)

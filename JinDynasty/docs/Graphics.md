@@ -4,7 +4,7 @@ This updates the entire shipped Jin 2D visual set, rather than only the council 
 
 | Visual group | Compiled textures | Change |
 | --- | ---: | --- |
-| Civilization medallion / tintable insignia | 18 | Painted horse-head identity and cleaner high-resolution monochrome heraldry |
+| Civilization medallion / tintable insignia | 18 | Original gold seal-style 金 emblem with matching monochrome heraldry |
 | Leader portrait / leader scene / Dawn | 11 | New detailed Aguda painting, intentional portrait crop and loading composition |
 | Unit portraits / flags | 18 | Twelve distinct illustrated units, including an actual antlered Reindeer Trader; supersampled tintable flags |
 | Buildings / Landmarks | 9 | Ten painted architectural vignettes in existing atlas slots |
@@ -16,6 +16,8 @@ This updates the entire shipped Jin 2D visual set, rather than only the council 
 | **Total** | **82** | **All 63 old DDS textures replaced, 19 added** |
 
 The council keeps the 980×680 footprint, six tabs, native scroll controls and all actions. Five metric cards replace the dense summary block; 64-pixel atlas portraits, clearer row titles/status, selected-tab markers and matching buttons improve hierarchy. The launcher hides while the council is open. The turn-start/load recovery fix, cached refreshes, closed-panel row avoidance and action validation remain covered by the executable suites.
+
+The user's native screenshots exposed defects missed by the original preview: rows overflowed because the ScrollPanel lacked `Vertical="1"`, and 64-pixel HUD textures were cropped by 40-pixel Image controls. The correction uses native vertical scrolling with `AutoScrollBar="1"`, 86-pixel rows (three fit completely), and exact 32-pixel HUD textures/controls. Tab changes return to the top. The model renderer now crops static images rather than resizing them and only clips a configured vertical panel. Validation fails on the previous XML and records both contracts explicitly. A bottom-of-Recruit preview exercises the end of the long list. Native after-fix rendering still requires a re-test; the supplied screenshots establish the before-fix failure.
 
 In-world art still uses native Civ V models and animations. Zhanma now references the installed sword-bearing Samurai model rather than a Rifleman, a visual stand-in without stat changes. This pass does not create custom GR2 models, skeletons or particle effects. Other units retain their native animated models. There is no new DLC requirement beyond the existing game/mod requirements.
 

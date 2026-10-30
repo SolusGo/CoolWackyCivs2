@@ -1,5 +1,9 @@
 # Jin testing record
 
+## 2026-10-30 native screenshot correction
+
+The provided in-game screenshots establish two failures in the earlier visual preview's assumptions: the list rendered below its viewport/footer, and Image controls cropped the oversized HUD textures. Before correction, the expanded graphics validator fails for missing native Vertical/AutoScrollBar settings and identifies all six static image/texture mismatches. The generator now uses the native vertical/automatic-scrollbar contract, exact-size HUD/launcher images and three complete rows; tab changes reset the native scroll position. The modeled renderer now honors static pixel cropping, configured clipping and scroll offsets. Top and bottom Recruit previews cover the long list. The previous twenty-turn/lifecycle tests remain active. Automated checks establish the configuration and geometry; native after-fix acceptance remains pending.
+
 ## 2026-10-30 full graphics pass
 
 All sixteen Jin suite/speed runs pass with five live resource cards, illustrated landmarks and thirteen distinct upgrade portraits. The existing twenty-turn visibility regression, UI error recovery and closed-panel allocation checks remain enabled. Dedicated `validate_jin_visuals.py` checks all 82 decoded/mipmapped DDS files, confirms every old texture changed, validates tintable flags and installed native styles, and compares the full old/current SQL database with only graphic metadata exempted. Zhanma is the sole model-reference change; numeric/gameplay columns remain identical. Six Lua/XML layout previews cover 1280×720, with an additional 1920×1080 view. These use modeled fonts, not native rendering. See [Graphics.md](Graphics.md) and GraphicsValidation.json.

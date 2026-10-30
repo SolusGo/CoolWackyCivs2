@@ -1,5 +1,11 @@
 # Jin Dynasty changelog
 
+## 1.13.4 Seal and native layout correction / collection 1.16.4 — 2026-10-30
+
+- Replace the horse portrait civ badge with an original 金 gold seal, including its monochrome/tintable version.
+- Correct the actual UI defects shown in user screenshots: rows did not scroll/clip because Vertical was absent, and native Image controls cropped oversized HUD textures. Use native automatic scrolling, three complete rows, exact-size textures and tab position resets.
+- Fix the modeled renderer so it no longer hides these defects; reject missing scroll settings and image/texture dimension mismatches. No gameplay or save changes.
+
 ## 1.13.3 Full visual refresh / collection 1.16.3, version 17 — 2026-10-30
 
 - Refresh all existing art and add a complete upgrade atlas and council skin: 82 DDS textures total, with retained original painted inputs and full legacy mip chains. Update every unit/building/Landmark portrait, leader/Dawn, map, flags, civilization identity and HUD icon.

@@ -7,9 +7,16 @@
   "complete_legacy_mip_chains": true,
   "native_styles": [
     "Grid9FrameButtons",
-    "GridBlackIndent8",
-    "VertSlider"
+    "GridBlackIndent8"
   ],
+  "native_scroll_configuration": {
+    "vertical": true,
+    "automatic_scrollbar": true,
+    "row_height": 86,
+    "three_complete_rows_fit": true
+  },
+  "static_image_texture_sizes_match": true,
+  "civ_emblem": "Original gold seal-style \u91d1 mark with matching tintable alpha",
   "gameplay_sql_identical_except_visual_metadata": true,
   "unit_model_changes": {
     "UNIT_JIN_ZHANMA": "ART_DEF_UNIT_U_JAPANESE_SAMURAI"
@@ -25,7 +32,7 @@
     ]
   ],
   "native_rendering": "NOT RUN",
-  "preview": "Actual shipped Lua/XML, modeled fonts; packed vanilla portraits use crest placeholders",
+  "preview": "Actual shipped Lua/XML; native pixel cropping and configured clipping, modeled fonts; packed vanilla portraits use crest placeholders",
   "sources": {
     "BuildingPaintings.png": "26bef88500175ddf6e10deb820858e8727a19944ff9ea207328ae23235e89c41",
     "UnitPaintings.png": "d8aae0d0f9192e77fea9d050ca26332e8151cc79142b28886fcf865a40ba2852",

@@ -731,15 +731,15 @@
     <File md5="CADF60B716E4A7B03F2442EE399BE2F0" import="0">TheUrgal/SQL/10_URGAL_Text.sql</File>
     <File md5="861AC69006BDEEEA1578CAC7982C6DC4" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
     <File md5="EDF457BD8FF891614885A62ED5DD03DC" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
-    <File md5="4008377ED211D62E8CDB2C1A342092C0" import="1">JinDynasty/Art/JIN_Alpha128.dds</File>
-    <File md5="35404C85EEF90FBB3C45D0DC9CFC0F0E" import="1">JinDynasty/Art/JIN_Alpha16.dds</File>
-    <File md5="D461AB47F9CA9157D7B864A68A6E3361" import="1">JinDynasty/Art/JIN_Alpha24.dds</File>
-    <File md5="F85F5CCCCDB02375D14D8F10EC5D0F4D" import="1">JinDynasty/Art/JIN_Alpha256.dds</File>
-    <File md5="09EA21E277093BC70A273FE6AD965FC5" import="1">JinDynasty/Art/JIN_Alpha32.dds</File>
-    <File md5="181028EE27804A52E282C8E724A73CBA" import="1">JinDynasty/Art/JIN_Alpha45.dds</File>
-    <File md5="5B055241290E688C8458483FB2A3E674" import="1">JinDynasty/Art/JIN_Alpha48.dds</File>
-    <File md5="1CB80507F19E27E4BAAE0E0C055CD759" import="1">JinDynasty/Art/JIN_Alpha64.dds</File>
-    <File md5="C2294FBAFCC1F98ED7F9C31963842BF7" import="1">JinDynasty/Art/JIN_Alpha80.dds</File>
+    <File md5="72120383503C2FCFA0751BF58CDE99DD" import="1">JinDynasty/Art/JIN_Alpha128.dds</File>
+    <File md5="3BF3FB17525315048E05C01A99E8F5F4" import="1">JinDynasty/Art/JIN_Alpha16.dds</File>
+    <File md5="A292F8EC04B3970C3769A4791FBBBF84" import="1">JinDynasty/Art/JIN_Alpha24.dds</File>
+    <File md5="D7371E4DECE6FC517A7C5250775E2D5E" import="1">JinDynasty/Art/JIN_Alpha256.dds</File>
+    <File md5="96AC6A79FEAF682C5114C041D348160C" import="1">JinDynasty/Art/JIN_Alpha32.dds</File>
+    <File md5="65C7CFF7E15228B69838510535362CD4" import="1">JinDynasty/Art/JIN_Alpha45.dds</File>
+    <File md5="41B7BDBF996041E6CB173732FCA6DA04" import="1">JinDynasty/Art/JIN_Alpha48.dds</File>
+    <File md5="0B96BE1472DA44496A769208036DADD3" import="1">JinDynasty/Art/JIN_Alpha64.dds</File>
+    <File md5="DE6C693FA14290E671E6A4F3B898DFA6" import="1">JinDynasty/Art/JIN_Alpha80.dds</File>
     <File md5="7C39E776E6015EE3BA50CFBEB229DEB5" import="1">JinDynasty/Art/JIN_Buildings128.dds</File>
     <File md5="1BB68AE56F5E0FB1A030D991A061FFD0" import="1">JinDynasty/Art/JIN_Buildings16.dds</File>
     <File md5="65D6BC1210DA8B1792032439CC4E06DF" import="1">JinDynasty/Art/JIN_Buildings24.dds</File>
@@ -764,15 +764,15 @@
     <File md5="A318B6B30142489B243CB1C20AB8926A" import="1">JinDynasty/Art/JIN_Header.dds</File>
     <File md5="96DA316395C66950C2769C8C22F124AB" import="1">JinDynasty/Art/JIN_HorseUI32.dds</File>
     <File md5="ECF5DA92EB77D71FCCA0CC5970B15498" import="1">JinDynasty/Art/JIN_HorseUI64.dds</File>
-    <File md5="20A0DB399A1E52D62E34268ACB197984" import="1">JinDynasty/Art/JIN_Icon128.dds</File>
-    <File md5="7CD10082C858C5F7AA812CEAEC822F1C" import="1">JinDynasty/Art/JIN_Icon16.dds</File>
-    <File md5="C9F5BC0FE455E9F7B501BABB16790D49" import="1">JinDynasty/Art/JIN_Icon24.dds</File>
-    <File md5="F937AAE57EDFE6F78B531DC1CA8287C6" import="1">JinDynasty/Art/JIN_Icon256.dds</File>
-    <File md5="85885AE88AFA792B210EA86114E505A9" import="1">JinDynasty/Art/JIN_Icon32.dds</File>
-    <File md5="F345D8CC123C75B53EA36C2EA1B6C8CC" import="1">JinDynasty/Art/JIN_Icon45.dds</File>
-    <File md5="42251239D804C2A9986C042B42DD00EC" import="1">JinDynasty/Art/JIN_Icon48.dds</File>
-    <File md5="F4680C9E3E19FBCE853CBC44FD29A1B3" import="1">JinDynasty/Art/JIN_Icon64.dds</File>
-    <File md5="58284313F1C461D759C83C7414B05601" import="1">JinDynasty/Art/JIN_Icon80.dds</File>
+    <File md5="38B958C9ADD9A65031352B9B4C72B2E1" import="1">JinDynasty/Art/JIN_Icon128.dds</File>
+    <File md5="52B795C78B179322B7CEA8D580DEBF6D" import="1">JinDynasty/Art/JIN_Icon16.dds</File>
+    <File md5="64C5CA9051C5DFB847635527F97705C1" import="1">JinDynasty/Art/JIN_Icon24.dds</File>
+    <File md5="BE8926CD7D272A67902A68E5F76BA63E" import="1">JinDynasty/Art/JIN_Icon256.dds</File>
+    <File md5="1A620CDA2E5C7D4492FD467AB8047A58" import="1">JinDynasty/Art/JIN_Icon32.dds</File>
+    <File md5="19A7A3527395F74E53A16606A3073954" import="1">JinDynasty/Art/JIN_Icon45.dds</File>
+    <File md5="6641E26BECBF59E35922D707B4A3E312" import="1">JinDynasty/Art/JIN_Icon48.dds</File>
+    <File md5="2DE619845D2C626C3FCD01FF37AFAD8D" import="1">JinDynasty/Art/JIN_Icon64.dds</File>
+    <File md5="C88C8C1B7B787239910E6B05062EAB89" import="1">JinDynasty/Art/JIN_Icon80.dds</File>
     <File md5="B64DDC82768E0B719A6618CD6796DEB3" import="1">JinDynasty/Art/JIN_KarmaUI32.dds</File>
     <File md5="91F61190E38211F10E11CA69405D9E89" import="1">JinDynasty/Art/JIN_KarmaUI64.dds</File>
     <File md5="DB58410B28A1FD53810C64FA74AB3754" import="1">JinDynasty/Art/JIN_Leader.dds</File>
@@ -795,7 +795,7 @@
     <File md5="A884C00281FEC759160DE0A37502489A" import="1">JinDynasty/Art/JIN_UI_Buttons.dds</File>
     <File md5="4A050967642434FD13C74917F0CEFF81" import="1">JinDynasty/Art/JIN_UI_Metric.dds</File>
     <File md5="34DF994EB184DF2C48BA824DCCA5FEB9" import="1">JinDynasty/Art/JIN_UI_Panel.dds</File>
-    <File md5="84E60EC235BD8BC9B392DDAB194E1F28" import="1">JinDynasty/Art/JIN_UI_Row.dds</File>
+    <File md5="CB8F2A03CEF85291CE000E8689E6A37F" import="1">JinDynasty/Art/JIN_UI_Row.dds</File>
     <File md5="99F9AC71C7ED6342015C68EEFFFF4EFC" import="1">JinDynasty/Art/JIN_Units128.dds</File>
     <File md5="C616FD27D94957C36223444EB0C968F0" import="1">JinDynasty/Art/JIN_Units16.dds</File>
     <File md5="31AD4971DD83A6358E28C09A32AD55C8" import="1">JinDynasty/Art/JIN_Units24.dds</File>
@@ -826,8 +826,8 @@
     <File md5="C4D8B24528FEF8AEA6EFECC997689B31" import="0">JinDynasty/SQL/02_JIN_Effects.sql</File>
     <File md5="F4A80EF4BC9CB887014466BC7E89C9B7" import="0">JinDynasty/SQL/03_JIN_Art.sql</File>
     <File md5="7F6D154E1E85544F6D9F93FCB921EA90" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
-    <File md5="9EE56AEE8C84F70A2E5632B6AE6EB776" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
-    <File md5="F01E4132A0B7D64F3C9B982792368CCA" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
+    <File md5="522D9829E148CF430D750FD7ABBD2F05" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
+    <File md5="39A2DADB5CFEA864E056F2211C9155B9" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
     <File md5="50929F7ECB540B258FA178E0CA71EA7B" import="1">TheThresholdCourt/Art/THC_Alpha128.dds</File>
     <File md5="97E2C10CB89B0E20CEC28EF4A7C0A1B1" import="1">TheThresholdCourt/Art/THC_Alpha16.dds</File>
     <File md5="A3562F7571138542C3DF55FA3627C64C" import="1">TheThresholdCourt/Art/THC_Alpha24.dds</File>

@@ -38,7 +38,8 @@ def render(lua,viewport):
     # Packed vanilla portraits use a crest placeholder in this modeled preview.
     art=Image.open(V/'Art'/f'JIN_{stem[0]}64.dds').convert('RGBA');art=art.crop(((i%stem[1])*64,(i//stem[1])*64,(i%stem[1]+1)*64,(i//stem[1]+1)*64))
    else:art=Image.open(V/'Art'/node.get('Texture')).convert('RGBA')
-   im.alpha_composite(art.resize((w,h)),(x,y));return
+   # Civ V crops a static texture to the Image rectangle; it does not resize it.
+   im.alpha_composite(art.crop((0,0,w,h)),(x,y));return
   if tag=='GridButton':im.alpha_composite(nine((w,h),c is not None and c.disabled is True),(x,y))
   if tag in ['Label','GridButton']:
    text=c.text if c is not None and c.text is not None else node.get('String','')
@@ -58,10 +59,15 @@ def render(lua,viewport):
     if node.get('Align')=='Center':tx=x+(w-d.textlength(line,font=f))/2
     d.text((tx+1,ty+1),line,font=f,fill=(0,0,0,200));d.text((tx,ty),line,font=f,fill=(115,109,104,255) if c is not None and c.disabled is True else color(node.get('Color0')))
   if tag=='ScrollPanel':
-   crop=Image.new('RGBA',(w,h));rowxml=ROOT.find('Instance/Grid');cy=0
+   rowxml=ROOT.find('Instance/Grid');step=pair(rowxml.get('Size'))[1]+int(node.find('Stack').get('Padding',0))
+   total=max(0,len(rows)*step-int(node.find('Stack').get('Padding',0)))
+   cy=-round((c.scrollValue or 0)*max(0,total-h)) if c is not None else 0
+   clip=node.get('Vertical')=='1'
+   crop=Image.new('RGBA',(w,h)) if clip else im
    for index in range(1,len(rows)+1):
-    draw(rowxml,crop,(0,0),(w,h),rows[index],(0,cy));cy+=100
-   im.alpha_composite(crop,(x,y));return
+    draw(rowxml,crop,(0,0),(w,h),rows[index],(0,cy)if clip else(x,y+cy));cy+=step
+   if clip:im.alpha_composite(crop,(x,y))
+   return
   cursor=0
   for child in node:
    if child.tag=='GridData':continue
@@ -81,6 +87,10 @@ def main():
  for tab in ['Overview','Landmarks','Recruit','Emissaries','Upgrades','Defense']:
   lua.execute('Controls.'+tab+'Tab.callback()')
   render(lua,(1280,720)).convert('RGB').save(S/f'UI-{tab}-1280.png')
+  if tab=='Recruit':
+   lua.execute('Controls.Scroll:SetScrollValue(1)')
+   render(lua,(1280,720)).convert('RGB').save(S/'UI-Recruit-bottom-1280.png')
+   lua.execute('Controls.Scroll:SetScrollValue(0)')
   if tab=='Landmarks':render(lua,(1920,1080)).convert('RGB').save(S/'UI-Landmarks-1920.png')
  print('Rendered six shipped-Lua/XML panel previews at 1280x720, plus 1920x1080; native rendering remains pending')
 if __name__=='__main__':main()
