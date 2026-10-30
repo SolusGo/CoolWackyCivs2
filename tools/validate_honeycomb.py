@@ -242,9 +242,12 @@ def art(d):
         name=p.relative_to(R).as_posix(); assert name in entries
         assert entries[name].get('import')==str(int(imported(p)))
         assert entries[name].get('md5')==hashlib.md5(p.read_bytes()).hexdigest().upper()
-    assert len([e for e in root.findall('EntryPoints/EntryPoint') if e.get('file')==ENTRIES[-1][0]])==1
+    assert len([e for e in root.findall('EntryPoints/EntryPoint') if e.get('file')=='TheHoneycombCommonwealth/Lua/HCC_Commonwealth.xml'])==1
     sql_order=[e.text for e in root.findall('Actions/OnModActivated/UpdateDatabase')]
-    assert sql_order[-5:]==[p.relative_to(R).as_posix() for p in sorted((V/'SQL').glob('*.sql'))]
+    own_sql=[p.relative_to(R).as_posix() for p in sorted((V/'SQL').glob('*.sql'))]
+    start=sql_order.index(own_sql[0])
+    assert sql_order[start:start+len(own_sql)]==own_sql
+    assert all(not name.startswith('TheHoneycombCommonwealth/') for name in sql_order[start+len(own_sql):])
     print('PASS HCC 40 DDS decoded/mipmapped, atlas/leader references, XML, VFS, hashes, single addin and append-only SQL order')
 
 def validate():

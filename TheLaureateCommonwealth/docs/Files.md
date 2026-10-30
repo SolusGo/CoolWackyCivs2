@@ -1,0 +1,92 @@
+# File inventory
+
+Repository-relative paths for this addition. Existing civilization gameplay and art remain unchanged.
+
+## Added
+
+- `TheLaureateCommonwealth/Art/LC_Alpha128.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha16.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha24.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha256.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha32.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha45.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha48.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha64.dds`
+- `TheLaureateCommonwealth/Art/LC_Alpha80.dds`
+- `TheLaureateCommonwealth/Art/LC_Dawn.dds`
+- `TheLaureateCommonwealth/Art/LC_Flag32.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon128.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon16.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon24.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon256.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon32.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon45.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon48.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon64.dds`
+- `TheLaureateCommonwealth/Art/LC_Icon80.dds`
+- `TheLaureateCommonwealth/Art/LC_Leader.dds`
+- `TheLaureateCommonwealth/Art/LC_LeaderScene.xml`
+- `TheLaureateCommonwealth/Art/LC_Map.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects128.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects16.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects24.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects256.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects32.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects45.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects48.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects64.dds`
+- `TheLaureateCommonwealth/Art/LC_Objects80.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait128.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait16.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait24.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait256.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait32.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait45.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait48.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait64.dds`
+- `TheLaureateCommonwealth/Art/LC_Portrait80.dds`
+- `TheLaureateCommonwealth/CHANGELOG.md`
+- `TheLaureateCommonwealth/Lua/LC_Commonwealth.lua`
+- `TheLaureateCommonwealth/Lua/LC_Commonwealth.xml`
+- `TheLaureateCommonwealth/README.md`
+- `TheLaureateCommonwealth/SQL/00_LC_Core.sql`
+- `TheLaureateCommonwealth/SQL/01_LC_Inheritance.sql`
+- `TheLaureateCommonwealth/SQL/02_LC_Effects.sql`
+- `TheLaureateCommonwealth/SQL/03_LC_Art.sql`
+- `TheLaureateCommonwealth/SQL/10_LC_Text.sql`
+- `TheLaureateCommonwealth/docs/Files.md`
+- `TheLaureateCommonwealth/docs/Implementation.md`
+- `TheLaureateCommonwealth/docs/Testing.md`
+- `TheLaureateCommonwealth/docs/Validation.json`
+- `art-source/IconAtlasMasters/LC_Icon256.png`
+- `art-source/IconAtlasMasters/LC_Objects256.png`
+- `art-source/IconAtlasMasters/LC_Portrait256.png`
+- `art-source/TheLaureateCommonwealth/Alpha.png`
+- `art-source/TheLaureateCommonwealth/Champion.png`
+- `art-source/TheLaureateCommonwealth/CivIcon.png`
+- `art-source/TheLaureateCommonwealth/Daphne.png`
+- `art-source/TheLaureateCommonwealth/Hall.png`
+- `art-source/TheLaureateCommonwealth/Icon.png`
+- `art-source/TheLaureateCommonwealth/Laurea.png`
+- `art-source/TheLaureateCommonwealth/Objects.png`
+- `art-source/TheLaureateCommonwealth/Portrait.png`
+- `art-source/TheLaureateCommonwealth/Preview.png`
+- `art-source/TheLaureateCommonwealth/Prompts.json`
+- `art-source/TheLaureateCommonwealth/README.md`
+- `docs/civilizations/TheLaureateCommonwealth.md`
+- `tools/generate_laureate.py`
+- `tools/prepare_laureate_art.py`
+- `tools/tests/laureate_assertions.lua`
+- `tools/tests/laureate_mock.lua`
+- `tools/validate_laureate.py`
+
+## Modified
+
+- `CHANGELOG.md`
+- `Cool Wacky Civs 2 (v 17).modinfo`
+- `CoolWackyCivs2.civ5proj`
+- `README.md`
+- `tools/build_mod.py`
+- `tools/standardize_icons.py`
+- `tools/validate_honeycomb.py`
+- `tools/validate_mod.py`

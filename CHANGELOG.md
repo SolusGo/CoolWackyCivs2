@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.16.0 The Laureate Commonwealth / mod version 17 — 2026-10-30
+
+- Add human-only Laurea, Keeper of the Unfading Crown, Daphne, The Evergreen Crown, Laureate Champion and Hall of Laurels. Preserve the specified balance and active CP Swordsman/Amphitheater properties.
+- Award native Golden Age progress for World Wonders, genuine Great Person creation and first Level 3 military recognition, with real game-speed scaling, saved receipts and capture/upgrade filtering. Golden Ages activate exact native +15% city Great Person and combat XP policy modifiers; Halls add +1 Local Happiness and one point per functioning building per turn.
+- Include five original paintings, 40 mipmapped DDS textures, static diplomacy, complete English text, guides, installed-schema/source checks and four-speed shipped-Lua lifecycle tests. Native game/render/save acceptance remains pending.
+- Append new content after released SQL, retain collection UUID/mod version and existing civ gameplay/art. Add optional art-preserving builds, LC mipmap support and an identity-based Honeycomb load-order regression check.
+
 ## 1.15.1 Honeycomb corrective audit / mod version 17 — 2026-10-30
 
 - Repair eight Honeycomb fault/lifecycle defects: interrupted snapshot recovery, receipt/silent setter failures, per-city isolation, reentrant removal, Exchange eligibility timing, partial-load cleanup and retired in-flight writers. Retain balance, human-only flags, SQL/art identities and legacy receipts.

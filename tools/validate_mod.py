@@ -160,3 +160,5 @@ if __name__=='__main__':
     validate_threshold()
     from validate_honeycomb import validate as validate_honeycomb
     validate_honeycomb()
+    from validate_laureate import validate as validate_laureate
+    validate_laureate()

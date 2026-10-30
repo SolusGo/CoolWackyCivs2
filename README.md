@@ -1,8 +1,10 @@
 # Cool Wacky Civs 2
 
-Sixteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Seventeen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 17 · **1.15.1 Honeycomb corrective audit**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 17 · **1.16.0 The Laureate Commonwealth**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+[The Laureate Commonwealth](TheLaureateCommonwealth/README.md), led by Laurea, Keeper of the Unfading Crown, earns Golden Age Points from completed World Wonders, newly created Great People and Level 3 military veterans. Golden Ages add 15% city Great Person generation and 15% combat XP. Includes the Swordsman-derived Laureate Champion, Hall of Laurels, original emerald/gold art and human-only selection. [Implementation and native acceptance](TheLaureateCommonwealth/docs/Testing.md).
 
 [The Honeycomb Commonwealth](TheHoneycombCommonwealth/README.md), led by Speaker Mellia, develops worked Plantations into capped city Production/Culture and Honey Exchange Gold. Includes the active Scout-derived Forager, original bee art and human-only selection. CP v151 requires owner-end staging for the next payout; the documented interturn difference and native acceptance checklist are in the guide. No release package is generated for this addition.
 
@@ -42,8 +44,9 @@ The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/
 | [The Jin Dynasty](docs/civilizations/JinDynasty.md) | Wanyan Aguda | Manage Horse stockpiles, recruit cavalry, establish Tributaries and choose branching Landmarks. | [Details](JinDynasty/README.md) |
 | [The Threshold Court](docs/civilizations/TheThresholdCourt.md) | Queen Elsewhere | Build distant doorways and pay to redeploy exhausted melee armies across the world. | [Details](TheThresholdCourt/README.md) |
 | [The Honeycomb Commonwealth](docs/civilizations/TheHoneycombCommonwealth.md) | Speaker Mellia | Work Plantations for capped city Production/Culture and Honey Exchange Gold. | [Details](TheHoneycombCommonwealth/README.md) |
+| [The Laureate Commonwealth](docs/civilizations/TheLaureateCommonwealth.md) | Laurea | Honor Wonders, Great People and military veterans to enter stronger Golden Ages. | [Details](TheLaureateCommonwealth/README.md) |
 
-All sixteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court and The Honeycomb Commonwealth are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All seventeen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth and The Laureate Commonwealth are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 
@@ -63,10 +66,10 @@ The pure-file builder does not require ModBuddy. Use Python 3.11 or later:
 ```powershell
 python -m pip install -r requirements-dev.txt
 python tools/prepare_art.py
-python tools/build_mod.py --manifest-only
+python tools/build_mod.py --manifest-only --preserve-art
 python tools/validate_mod.py
 python tools/benchmark.py
-python tools/build_mod.py
+python tools/build_mod.py --preserve-art
 python tools/verify_release.py
 ```
 
@@ -75,6 +78,8 @@ python tools/verify_release.py
 Civilization-specific validation, source audits and regeneration commands are documented in each guide above. The [documentation convention](docs/AddingCivilizations.md) covers adding future civilizations, and the [icon build notes](docs/IconConsistency.md) explain atlas dimensions and gold framing.
 
 Build products are a ZIP install folder and a genuine LZMA/7z `.civ5mod`, written to `dist/`. They are ignored by Git. ModBuddy users can open `CoolWackyCivs2.civ5sln`; `tools/build_mod.py` keeps its project and modinfo file lists, SQL ordering and VFS flags in sync.
+
+`--preserve-art` validates the existing framed atlases and retains their compiled bytes/mipmaps. Omit it when intentionally recompiling all icon families from their retained masters.
 
 ## Repository layout
 

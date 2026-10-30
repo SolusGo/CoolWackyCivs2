@@ -2,8 +2,8 @@
 <Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="17">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Sixteen civilizations, now including Speaker Mellia and the Honeycomb Commonwealth.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court and The Honeycomb Commonwealth. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Seventeen civilizations, now including Laurea and the Laureate Commonwealth.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth and The Laureate Commonwealth. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -916,6 +916,54 @@
     <File md5="4E2AD7483253FABCD97C522F64E91DA3" import="0">TheHoneycombCommonwealth/SQL/02_HCC_Effects.sql</File>
     <File md5="ED531E1B21356A380AAC95CBB73FF061" import="0">TheHoneycombCommonwealth/SQL/03_HCC_Art.sql</File>
     <File md5="6E5EF1877FF0F9C1F0BAABF155F8459A" import="0">TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</File>
+    <File md5="403C7FCA1174B82080EDC9E92120BA7F" import="1">TheLaureateCommonwealth/Art/LC_Alpha128.dds</File>
+    <File md5="787D70E5B10E26D95C72C2ACAF6E4469" import="1">TheLaureateCommonwealth/Art/LC_Alpha16.dds</File>
+    <File md5="5625FE5C00F9A7FDDE4FDF2B1FF0FFC4" import="1">TheLaureateCommonwealth/Art/LC_Alpha24.dds</File>
+    <File md5="5D646CA594B3697F39784A31EEC77032" import="1">TheLaureateCommonwealth/Art/LC_Alpha256.dds</File>
+    <File md5="E612E39E805B99B51DDEC90CE8017495" import="1">TheLaureateCommonwealth/Art/LC_Alpha32.dds</File>
+    <File md5="170E668446E310D71516832E2352B9AC" import="1">TheLaureateCommonwealth/Art/LC_Alpha45.dds</File>
+    <File md5="2AB2A8309DBC32CA010BFCA38E40B6F2" import="1">TheLaureateCommonwealth/Art/LC_Alpha48.dds</File>
+    <File md5="9CEBD57F4D8C47C3FCDB2016F1CE24A2" import="1">TheLaureateCommonwealth/Art/LC_Alpha64.dds</File>
+    <File md5="5D0736E516A7899BE0399C933654DE79" import="1">TheLaureateCommonwealth/Art/LC_Alpha80.dds</File>
+    <File md5="0C113AEDD8DC32CD54854B2EB5FAD9A9" import="1">TheLaureateCommonwealth/Art/LC_Dawn.dds</File>
+    <File md5="CA1DC13D4E584FB5464F0FE622B13097" import="1">TheLaureateCommonwealth/Art/LC_Flag32.dds</File>
+    <File md5="446C959417810C65BD99B463DCFBE1C8" import="1">TheLaureateCommonwealth/Art/LC_Icon128.dds</File>
+    <File md5="0EC25CB4DAC76E34F8551F8F783D1337" import="1">TheLaureateCommonwealth/Art/LC_Icon16.dds</File>
+    <File md5="60AA9740F9A07CF3C42047CBC4B0AE26" import="1">TheLaureateCommonwealth/Art/LC_Icon24.dds</File>
+    <File md5="3716AFDA8AA3F758C5625B4E71822B0B" import="1">TheLaureateCommonwealth/Art/LC_Icon256.dds</File>
+    <File md5="326A0BFAA72916BAC99D3A8263A092BC" import="1">TheLaureateCommonwealth/Art/LC_Icon32.dds</File>
+    <File md5="64A834960CC454216D24A5441B97828D" import="1">TheLaureateCommonwealth/Art/LC_Icon45.dds</File>
+    <File md5="D07A62178BEDFAA6DDAA23CE512DACA9" import="1">TheLaureateCommonwealth/Art/LC_Icon48.dds</File>
+    <File md5="BBB431ECC570BE4776A2686993DA3E78" import="1">TheLaureateCommonwealth/Art/LC_Icon64.dds</File>
+    <File md5="DFECBA03CEEA38E1503A9E28EC26B4C1" import="1">TheLaureateCommonwealth/Art/LC_Icon80.dds</File>
+    <File md5="742E70AD3E6D58E660743CFC9FEBA80E" import="1">TheLaureateCommonwealth/Art/LC_Leader.dds</File>
+    <File md5="3C44A724AA709F0A7C62271A0CB3F44D" import="1">TheLaureateCommonwealth/Art/LC_LeaderScene.xml</File>
+    <File md5="A4DC62BCB32AE846653AA609FB01964A" import="1">TheLaureateCommonwealth/Art/LC_Map.dds</File>
+    <File md5="03DFE6001DF218F1F14CD0A5AB8264D4" import="1">TheLaureateCommonwealth/Art/LC_Objects128.dds</File>
+    <File md5="8DF15105E51A8BA291DA9A08A5A2F4FC" import="1">TheLaureateCommonwealth/Art/LC_Objects16.dds</File>
+    <File md5="26FBBE81CC4752C416B19160FB4EDD69" import="1">TheLaureateCommonwealth/Art/LC_Objects24.dds</File>
+    <File md5="998AD565C947AC06DA1A20733A813AF9" import="1">TheLaureateCommonwealth/Art/LC_Objects256.dds</File>
+    <File md5="0E946A838A91D8C53FF647AFF5ACFA81" import="1">TheLaureateCommonwealth/Art/LC_Objects32.dds</File>
+    <File md5="FCDF4BF74F6F87DEEE4BBD9D7CA44A2D" import="1">TheLaureateCommonwealth/Art/LC_Objects45.dds</File>
+    <File md5="A5DE83CE4FD397A98ABF60DE3C9285AF" import="1">TheLaureateCommonwealth/Art/LC_Objects48.dds</File>
+    <File md5="BB1DAB23F078A2BB4A12008C12F63938" import="1">TheLaureateCommonwealth/Art/LC_Objects64.dds</File>
+    <File md5="9480E675535B1C1CB80FC87172738D97" import="1">TheLaureateCommonwealth/Art/LC_Objects80.dds</File>
+    <File md5="1860573075072DD4167DF4886DFBF950" import="1">TheLaureateCommonwealth/Art/LC_Portrait128.dds</File>
+    <File md5="C3FAED20DEA380006269A2D9A8ECE0DA" import="1">TheLaureateCommonwealth/Art/LC_Portrait16.dds</File>
+    <File md5="8C150F97BE11CE7A725DA044DE571F1A" import="1">TheLaureateCommonwealth/Art/LC_Portrait24.dds</File>
+    <File md5="7384FB860EA15D8E76C3669677011D6E" import="1">TheLaureateCommonwealth/Art/LC_Portrait256.dds</File>
+    <File md5="3DBEA4E95EC3B709353B7B7E835DD859" import="1">TheLaureateCommonwealth/Art/LC_Portrait32.dds</File>
+    <File md5="6C20F00DFBA191813EA6947765D40B5E" import="1">TheLaureateCommonwealth/Art/LC_Portrait45.dds</File>
+    <File md5="6B3EBB52BE0A1A3740F4B18E130311D0" import="1">TheLaureateCommonwealth/Art/LC_Portrait48.dds</File>
+    <File md5="8B75FD5757500F794E5BA67F02477130" import="1">TheLaureateCommonwealth/Art/LC_Portrait64.dds</File>
+    <File md5="E5F064D81D4E6F316EB65014FAF1FAD2" import="1">TheLaureateCommonwealth/Art/LC_Portrait80.dds</File>
+    <File md5="DFEB5CDC7DA2DB0F927547E9A1C5D1DD" import="1">TheLaureateCommonwealth/Lua/LC_Commonwealth.lua</File>
+    <File md5="6819AA76479263AEA62E1AA1933F7C61" import="0">TheLaureateCommonwealth/Lua/LC_Commonwealth.xml</File>
+    <File md5="9B13784CCF8CF38D7372173AFF7F974A" import="0">TheLaureateCommonwealth/SQL/00_LC_Core.sql</File>
+    <File md5="EE6D7D5C4A1F533D7328B0C4234898FA" import="0">TheLaureateCommonwealth/SQL/01_LC_Inheritance.sql</File>
+    <File md5="EB8ECE252379065327BFC9FAE806C268" import="0">TheLaureateCommonwealth/SQL/02_LC_Effects.sql</File>
+    <File md5="85490530170DB5574556BF5437138343" import="0">TheLaureateCommonwealth/SQL/03_LC_Art.sql</File>
+    <File md5="B1C875746DD473B9D1F8ACF15B816125" import="0">TheLaureateCommonwealth/SQL/10_LC_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -1001,6 +1049,11 @@
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/02_HCC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/03_HCC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheLaureateCommonwealth/SQL/00_LC_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheLaureateCommonwealth/SQL/01_LC_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheLaureateCommonwealth/SQL/02_LC_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheLaureateCommonwealth/SQL/03_LC_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheLaureateCommonwealth/SQL/10_LC_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -1067,6 +1120,10 @@
     <EntryPoint type="InGameUIAddin" file="TheHoneycombCommonwealth/Lua/HCC_Commonwealth.xml">
       <Name>A Thousand Small Hands</Name>
       <Description>Human-only shared worked-Plantation snapshots, city yields and Honey Exchange Gold.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheLaureateCommonwealth/Lua/LC_Commonwealth.xml">
+      <Name>The Evergreen Crown</Name>
+      <Description>Human-only achievement recognition, Golden Age modifiers and Hall of Laurels progress.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>
