@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.15.1 Honeycomb corrective audit / mod version 17 — 2026-10-30
+
+- Repair eight Honeycomb fault/lifecycle defects: interrupted snapshot recovery, receipt/silent setter failures, per-city isolation, reentrant removal, Exchange eligibility timing, partial-load cleanup and retired in-flight writers. Retain balance, human-only flags, SQL/art identities and legacy receipts.
+- Add durable unfinished binary targets, bounded/coalesced callback handling, verified native city resolution, 16 hardening regressions, SQL-backed modeled payout, Standard/Marathon large-game checks and 77 pinned-source contracts. Clarify loss-detection wording in Exchange help.
+- Independently match ten official v151 source files; preserve reliable owner-end staging and document exact native acceptance steps, sale restrictions and remaining limits. Existing civ gameplay and all artwork remain unchanged; native control initialization failed, so no live game/save/render result is claimed.
+
 ## 1.15.0 Honeycomb Commonwealth source preview / mod version 17 — 2026-10-30
 
 - Add human-only Speaker Mellia, First Comb, A Thousand Small Hands, Forager and Honey Exchange to the existing collection, with exact worked-Plantation city-yield caps and active CP Scout/Market inheritance.

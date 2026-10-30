@@ -1,5 +1,7 @@
 # Implementation and delivery report
 
+**Corrective audit:** [CorrectiveAudit.md](CorrectiveAudit.md) supersedes the original fault-handling assessment. Rules, SQL identities, dialogue and art are unchanged. [NativeAcceptance.md](NativeAcceptance.md) specifies controlled setup and actual economic-payout checks.
+
 ## Files and integration
 
 Created five SQL files (`00_HCC_Core`, `01_HCC_Inheritance`, `02_HCC_Effects`, `03_HCC_Art`, `10_HCC_Text`), `Lua/HCC_Commonwealth.lua` and its XML entry, `Art/HCC_LeaderScene.xml` and 40 DDS textures, README/changelog and these implementation/testing/source-audit records. Added `tools/generate_honeycomb.py`, `prepare_honeycomb_art.py`, `validate_honeycomb.py`, `tools/tests/honeycomb_assertions.lua`, the civilization reference page, original artwork/prompts under `art-source/TheHoneycombCommonwealth` and three retained masters under `art-source/IconAtlasMasters`.
@@ -34,13 +36,15 @@ Verified synchronous `GameEvents.PlayerDoneTurn(owner)` fires in `setTurnActive(
 
 ## Save, ownership and faults
 
-Actual dummy buildings are the sole saved yield state. There is no top-level, initialization, SequenceGameInitComplete or LoadScreenClose recount/reconciliation. Events are ignored before `Game.IsFinalInitialized()`, protecting partially restored cities. ScriptData appends only `[HCC1:rawTurn]`, replacing its prior receipt and preserving other systems' text. This blocks same-turn duplicate boundary events across reloads without saving counts or yield totals.
+Actual dummy buildings remain the applied saved yield state. Completed snapshots with only the legacy `[HCC1:rawTurn]` receipt are untouched on load. Unfinished synchronization now has a temporary `[HCCP2:...]` journal of city identity and seven binary targets, persisted before the first setter and removed after verified completion. Load-completion/gameplay recovery replays only those targets; it never recounts changed assignments or stores accumulating yield totals. Other ScriptData is preserved.
 
-Context identity guards prevent duplicate registration. Recreated/shutdown contexts retire callbacks, and retained callbacks check ownership. Reentrancy protection blocks setters' own dirty notifications. Each city's write batch receives one synchronous retry with the same count; persistent native failures log a diagnostic and cannot guarantee repair before payout. No city userdata survives callbacks.
+`Game.IsFinalInitialized()` is serialized by CP and alone cannot prove all cities are restored. A fresh context therefore ignores UI dirty notifications until a load/init completion or a verified gameplay event establishes readiness. Context recreation preserves ordinary applied snapshots.
+
+Context identity guards prevent duplicate registration. Recreated/shutdown contexts retire callbacks, and retained callbacks check ownership. Primitive-argument jobs coalesce reentrant notifications; observed Exchange loss remains revoked across a rebuild. The queue drains ordinary large batches with a 4,096-job pathological ceiling. Counts and Exchange eligibility are both frozen before setters. Every changed setter is read back through a newly resolved city; each city gets one retry, and a failed city does not block healthy cities. No city userdata survives mutation boundaries. Persistent storage/setter failures remain diagnosed and cannot guarantee repair before payout or retroactively recover a missed payout.
 
 Native nine-argument `CityCaptureComplete` follows city reconstruction. HCC reacquires x/y and clears all seven markers even for HCC→HCC gifts. Founding clears only the new city. NeverCapture also prevents ordinary native capture retention. CitySoldBuilding fires **after** DoSellBuilding, so missing-Exchange Gold clears synchronously. SpecificCityInfoDirty covers notified scripted removals without recounting; rebuilding does not restore Gold before a snapshot. Every processed owner's turn defensively clears only HCC markers from foreign cities or missing-Exchange Gold.
 
-Destroyed cities leave no retained city state. An external script that removes the Exchange without any sale/dirty event relies on the defensive next owner-turn pass; immediate observation of silent external mutation would require polling or DLL support. Collection multiplayer/hotseat flags remain disabled, though handlers always use the actual owner instead of the locally active player.
+Destroyed/transferred/reused city identities cannot receive a replayed target. An external script that removes the Exchange without observable absence relies on the defensive next owner-turn pass; silent/coalesced remove-and-rebuild cannot be guaranteed detected without polling/DLL support. Pure CP's zero-maintenance Market and Exchange are not manually sellable under native rules; sale hooks remain defensive without adding maintenance. Collection multiplayer/hotseat flags remain disabled, though handlers always use the actual owner.
 
 ## Validation and art
 

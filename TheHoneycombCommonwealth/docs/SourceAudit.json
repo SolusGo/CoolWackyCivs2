@@ -17,10 +17,34 @@
     "city plot count uses workable plot count": true,
     "reading save does not rerun economics": true,
     "Sight lost on upgrade native support": true,
+    "real building setter applies delta before returning": true,
+    "real setter no-bonus Lua argument": true,
+    "building flat yield enters native city base": true,
+    "base building yield updates cached native rates": true,
+    "city economics includes Production": true,
+    "Production payout consumes native Production rate": true,
+    "treasury payout uses net rate and stored Gold": true,
+    "treasury city rate includes native Gold yield": true,
+    "gross treasury rate includes city yields": true,
+    "player Culture includes city Culture rates": true,
+    "real and free buildings normally use max": true,
+    "zero-maintenance Market cannot be manually sold": true,
+    "dummy excluded from ordinary building count": true,
+    "no construction with Cost -1": true,
+    "native setters publish specific-city dirty": true,
+    "native free building setter publishes dirty": true,
+    "ScriptData serialized natively": true,
+    "dummy counts serialized natively": true,
+    "final initialized flag serialized and insufficient as load barrier": true,
+    "blocking diplomacy economics can precede GameCoreUpdateBegin": true,
+    "pre-AI unit hook is not an owner-economy boundary": true,
+    "autosave precedes owner-end staging": true,
+    "done turn precedes completed UI publications": true,
     "City:GetOwner": true,
     "City:GetID": true,
     "City:GetX": true,
     "City:GetY": true,
+    "City:GetGameTurnFounded": true,
     "City:GetNumBuilding": true,
     "City:GetNumRealBuilding": true,
     "City:SetNumRealBuilding": true,
@@ -43,9 +67,24 @@
     "Player:GetScriptData": true,
     "Player:SetScriptData": true,
     "Game:GetGameTurn": true,
-    "Game:IsFinalInitialized": true
+    "Game:IsFinalInitialized": true,
+    "official pinned SHA256 CustomMods.h": true,
+    "official pinned SHA256 CvPlayer.cpp": true,
+    "official pinned SHA256 CvPlayerAI.cpp": true,
+    "official pinned SHA256 CvGame.cpp": true,
+    "official pinned SHA256 CvCity.cpp": true,
+    "official pinned SHA256 CvBuildingClasses.cpp": true,
+    "official pinned SHA256 CvTreasury.cpp": true,
+    "official pinned SHA256 CvLuaCity.cpp": true,
+    "official pinned SHA256 CvLuaPlayer.cpp": true,
+    "official pinned SHA256 CvUnit.cpp": true
   },
   "timing_result": "Exact pre-economic start-of-owner-turn snapshot not guaranteed by exposed audited hooks. PlayerDoneTurn stages next payout from end-turn assignments; interturn changes wait until next snapshot. Native gameplay not run.",
+  "independent_remote_verification": {
+    "date": "2026-10-30",
+    "official_files_matched": 10,
+    "method": "Read official raw source over HTTPS and compare SHA-256 with local reference files; pinned digest assertions retained"
+  },
   "files": {
     "CustomMods.h": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CustomMods.h",
@@ -94,6 +133,18 @@
     "CvLuaUnit.cpp": {
       "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/Lua/CvLuaUnit.cpp",
       "sha256": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae"
+    },
+    "CvUnit.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvUnit.cpp",
+      "sha256": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875"
+    },
+    "CvBuildingClasses.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvBuildingClasses.cpp",
+      "sha256": "44959390632ce9646dbfc77752c22d965fadc53ff049098594a18477e3dd8a25"
+    },
+    "CvTreasury.cpp": {
+      "url": "https://raw.githubusercontent.com/LoneGazebo/Community-Patch-DLL/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvTreasury.cpp",
+      "sha256": "c6f466557b239da4fee84e115ff8d05d3e99fa5774277c312dd55c64f09bd818"
     }
   }
 }

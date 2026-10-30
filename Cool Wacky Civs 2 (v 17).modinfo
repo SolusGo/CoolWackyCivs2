@@ -909,13 +909,13 @@
     <File md5="602C6ACDF63EF53989CC04D014235C99" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait48.dds</File>
     <File md5="5220C06C4250484249F13B9A6057B47B" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait64.dds</File>
     <File md5="C2BAB936D30FF2959EC466C973DA2DD7" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait80.dds</File>
-    <File md5="A21F6830FF39F8E9BC28049D7A245BCA" import="1">TheHoneycombCommonwealth/Lua/HCC_Commonwealth.lua</File>
+    <File md5="A33DB0DC7636923DA680362C47AC70E2" import="1">TheHoneycombCommonwealth/Lua/HCC_Commonwealth.lua</File>
     <File md5="FFBF68BEAD06480C8C892399A07A0A6B" import="0">TheHoneycombCommonwealth/Lua/HCC_Commonwealth.xml</File>
     <File md5="3FFE5D362ED11EC42C41C4FED9BF63CC" import="0">TheHoneycombCommonwealth/SQL/00_HCC_Core.sql</File>
     <File md5="E490EE9DD9F0FB1F0517A209F8CBBEF8" import="0">TheHoneycombCommonwealth/SQL/01_HCC_Inheritance.sql</File>
     <File md5="4E2AD7483253FABCD97C522F64E91DA3" import="0">TheHoneycombCommonwealth/SQL/02_HCC_Effects.sql</File>
     <File md5="ED531E1B21356A380AAC95CBB73FF061" import="0">TheHoneycombCommonwealth/SQL/03_HCC_Art.sql</File>
-    <File md5="E67F39A9613AE5D0180097864595146F" import="0">TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</File>
+    <File md5="6E5EF1877FF0F9C1F0BAABF155F8459A" import="0">TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>

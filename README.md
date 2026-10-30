@@ -2,9 +2,11 @@
 
 Sixteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 17 · **1.15.0 Honeycomb Commonwealth preview**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 17 · **1.15.1 Honeycomb corrective audit**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
 [The Honeycomb Commonwealth](TheHoneycombCommonwealth/README.md), led by Speaker Mellia, develops worked Plantations into capped city Production/Culture and Honey Exchange Gold. Includes the active Scout-derived Forager, original bee art and human-only selection. CP v151 requires owner-end staging for the next payout; the documented interturn difference and native acceptance checklist are in the guide. No release package is generated for this addition.
+
+Its [corrective audit](TheHoneycombCommonwealth/docs/CorrectiveAudit.md) adds frozen-target recovery for interrupted writes, reliable removal/reentrancy handling and independent CP source checks without changing balance or art. [Native acceptance](TheHoneycombCommonwealth/docs/NativeAcceptance.md) remains pending because Windows control could not initialize.
 
 The Boundless City's [remote-workforce planner](TheBoundlessCity/docs/RemotePlanner.md) now compares jobs with displaced labour, offers a saved Food minimum, retains stable assignments and avoids rebuilding unchanged reservations. Large territories use cached yields and bounded candidate selection. Existing native capacity limits remain in force.
 

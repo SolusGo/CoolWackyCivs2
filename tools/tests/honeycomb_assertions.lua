@@ -1,5 +1,5 @@
 -- Exercise shipped callbacks, native-persistent building state and separate owners.
-local turn, writes, queries, initialized = 0, 0, 0, true
+local turn, writes, queries, initialized, dataWrites = 0, 0, 0, true, 0
 local function Event()
   local e = {handlers = {}}
   function e.Add(fn) e.handlers[#e.handlers + 1] = fn end
@@ -15,7 +15,8 @@ for _,name in ipairs({'PlayerDoneTurn','PlayerDoTurn','CityCaptureComplete','Cit
 for _,name in ipairs({'SpecificCityInfoDirty','LoadScreenClose','SequenceGameInitComplete'}) do Events[name] = Event() end
 MapModData, ContextPtr = {}, {SetShutdown = function() end}
 Game = {GetGameTurn = function() return turn end, GetActivePlayer = function() return 1 end,
-  IsFinalInitialized = function() return initialized end}
+  IsFinalInitialized = function() return initialized end,
+  GetGameSpeedType = function() return HCC_TEST_SPEED=='GAMESPEED_MARATHON' and 3 or 1 end}
 GameInfoTypes = {CIVILIZATION_HCC_COMMONWEALTH=10, IMPROVEMENT_PLANTATION=20, BUILDING_HCC_HONEY_EXCHANGE=30,
   BUILDING_HCC_PRODUCTION_1=41, BUILDING_HCC_PRODUCTION_2=42, BUILDING_HCC_PRODUCTION_3=43,
   BUILDING_HCC_PRODUCTION_4=44, BUILDING_HCC_CULTURE=45, BUILDING_HCC_GOLD_1=46, BUILDING_HCC_GOLD_2=47}
@@ -28,7 +29,13 @@ for id=0,2 do
   function p:GetCivilizationType() return self.civ end
   function p:IsAlive() return self.alive end
   function p:GetScriptData() return self.data end
-  function p:SetScriptData(v) self.data = v end
+  function p:SetScriptData(v)
+    dataWrites=dataWrites+1
+    if self.failReceipt and v:find('[HCC1:'..turn..']',1,true) then
+      self.failReceipt=false; error('receipt write failed before mutation')
+    end
+    self.data = v
+  end
   function p:GetCityByID(n) return self.cities[n] end
   function p:Cities() local k; return function() k=next(self.cities,k); return k and self.cities[k] end end
   Players[id] = p
@@ -43,12 +50,16 @@ local function City(id,owner)
   function c:GetOwner() return self.owner end
   function c:GetX() return self.x end
   function c:GetY() return self.y end
+  function c:GetGameTurnFounded() return self.founded or 0 end
   function c:GetNumRealBuilding(b) return self.buildings[b] or 0 end
-  function c:GetNumBuilding(b) return self:GetNumRealBuilding(b)+(self.free[b] or 0) end
+  function c:GetNumBuilding(b) return math.max(self:GetNumRealBuilding(b),self.free[b] or 0) end
   function c:SetNumRealBuilding(b,n,suppress)
     assert(suppress==true and (n==0 or n==1))
+    if (self.failBefore or 0)>0 then self.failBefore=self.failBefore-1; error('native setter fault BEFORE mutation') end
+    if (self.silent or 0)>0 then self.silent=self.silent-1; return end
     writes = writes+1; self.buildings[b]=n
     Events.SpecificCityInfoDirty.Fire(self.owner,self.id)
+    if HCCOnSet then HCCOnSet(self,b,n) end
     if self.fail>0 then self.fail=self.fail-1; error('native setter fault AFTER mutation') end
   end
   function c:GetNumCityPlots() return 37 end
@@ -175,3 +186,6 @@ assert(nativeProduction==2); GameEvents.PlayerDoTurn.Fire(0); Check(fresh,2,1,0,
 fresh.plots[1].pillaged=true; turn=turn+1; GameEvents.PlayerDoTurn.Fire(0)
 Check(fresh,2,1,0,0); GameEvents.PlayerDoneTurn.Fire(0); Check(fresh,1,0,0,0)
 print('PASS HCC shipped Lua A-I, K-N: qualification, caps, snapshots, reload, captures, multiple owners, sale/removal, idempotence, bounded retry (mock; native acceptance pending)')
+HCC_Test={City=City,Plot=Plot,Assign=Assign,Check=Check,Boundary=Boundary,Values=Values,Transfer=Transfer,
+  Writes=function() return writes end,Queries=function() return queries end,Turn=function() return turn end,
+  DataWrites=function() return dataWrites end,SetTurn=function(n) turn=n end}
