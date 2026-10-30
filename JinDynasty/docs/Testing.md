@@ -1,5 +1,9 @@
 # Jin testing record
 
+## 2026-10-30 full graphics pass
+
+All sixteen Jin suite/speed runs pass with five live resource cards, illustrated landmarks and thirteen distinct upgrade portraits. The existing twenty-turn visibility regression, UI error recovery and closed-panel allocation checks remain enabled. Dedicated `validate_jin_visuals.py` checks all 82 decoded/mipmapped DDS files, confirms every old texture changed, validates tintable flags and installed native styles, and compares the full old/current SQL database with only graphic metadata exempted. Zhanma is the sole model-reference change; numeric/gameplay columns remain identical. Six Lua/XML layout previews cover 1280×720, with an additional 1920×1080 view. These use modeled fonts, not native rendering. See [Graphics.md](Graphics.md) and GraphicsValidation.json.
+
 ## 2026-10-30 launcher regression
 
 The user reported that Jin's UI disappeared after a turn. The new shipped-panel regression failed before the fix with `Jin launcher did not return next turn`: the active player ID remained Jin, native turn activity changed, and the hidden launcher could not recover through `J.Refresh` because that optimization requires an open panel. Visibility now has explicit turn-end/start, load and player-change hooks plus a coalesced dirty-event fallback independent of panel contents. The end event hides immediately even before native flags change; deferred checks handle early start notifications. The expanded panel test passes 20 cycles, closed-launcher recovery, load/player switches and callback detachment. The existing closed-panel no-row-allocation check still passes. All 16 Jin suite/speed runs pass; no gameplay, balance or save-schema changes.

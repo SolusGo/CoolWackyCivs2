@@ -1,4 +1,5 @@
 include('InstanceManager')
+include('IconSupport')
 include('JIN_Core')
 local J=MapModData.JIN
 local C=J.C
@@ -8,8 +9,21 @@ local renderSerial,lastStamp;local roster,minors,resourceTypes
 local function loc(key) return Locale.ConvertTextKey('TXT_KEY_JIN_'..key) end
 local function coord(index) local p=J.Plot(index);return p and ('('..p:GetX()..','..p:GetY()..')') or '(lost)' end
 local function count(t)local n=0;for _ in pairs(t) do n=n+1 end;return n end
-local function row(label,button,kind,a,b,enabled,why)
- local instance=manager:GetInstance();instance.Text:SetText(label)
+local sections={Overview={'Grasslands','Pasture, Horses and local influence.'},Landmarks={'Landmark paths','Choose a path, then complete construction in your capital.'},Recruit={'Cavalry recruitment','Deploy cavalry using a stored Horse and native Gold.'},Emissaries={'Envoys and tribute','Independent Tributaries and paid hostile rebellions.'},Upgrades={'Imperial research','Permanent empire upgrades and military traditions.'},Defense={'Frontier defenses','Local defenders, emplacement readiness and Pagoda Groves.'}}
+local function row(label,button,kind,a,b,enabled,why,art)
+ local instance=manager:GetInstance()
+ local title,body=label:match('^(.-) — (.*)$')
+ instance.Title:SetText(title or sections[tab][1]);instance.Text:SetText(body or label)
+ local atlas,index='JIN_CIV_ATLAS',0
+ if art then atlas,index=art[1],art[2]
+ elseif kind=='RECRUIT' and GameInfo.Units[b] then atlas,index=GameInfo.Units[b].IconAtlas,GameInfo.Units[b].PortraitIndex
+ elseif kind=='LANDMARK' and GameInfo.Buildings[J.Building(a)] then atlas,index='JIN_BUILDING_ATLAS',GameInfo.Buildings[J.Building(a)].PortraitIndex
+ elseif kind=='SITE' then atlas,index='JIN_BUILDING_ATLAS',9
+ elseif kind=='TRIBUTARY' or kind=='BRIBE' then atlas,index='JIN_UNIT_ATLAS',8
+ elseif kind=='GARDEN' then atlas,index='JIN_BUILDING_ATLAS',0
+ elseif tab=='Defense' then atlas,index='JIN_UNIT_ATLAS',7 end
+ IconHookup(index,64,atlas,instance.Art)
+ instance.Status:SetText(button and (kind=='LOOK' and 'LOCATION' or (enabled==false and 'UNAVAILABLE' or 'AVAILABLE')) or '')
  instance.Root:SetToolTipString(why or label)
  instance.Action:SetHide(not button)
  if button then
@@ -50,7 +64,7 @@ local function render(force)
  local id=Game.GetActivePlayer();local visible=J.IsJin(id)
  visible=visible and Players[id]:IsTurnActive() and not ending
  J.panelOpen=visible and open;J.uiTab=tab
- Controls.Open:SetHide(not visible);Controls.Panel:SetHide(not visible or not open)
+ Controls.Open:SetHide(not visible or open);Controls.Panel:SetHide(not visible or not open)
  if not visible or not open then lastStamp=nil;return end
  if J.busy[id] then return end
  local s=J.State(id)
@@ -60,6 +74,14 @@ local function render(force)
  lastStamp=current;renderSerial=s.serial;manager:ResetInstances()
  local p=Players[id];local horses,capacity=J.Horses(id,s);local trib=J.Tributaries(id,s)
  local emplacements=J.Emplacements(id,s)
+ Controls.HorseValue:SetText(horses..' / '..capacity);Controls.HorseDetail:SetText('Melee +'..horses*C.meleeHP..' | Ranged +'..horses*C.rangedHP)
+ Controls.HorseCard:SetToolTipString('Active stored Horses. Each grants +'..C.meleeHP..' melee cavalry or +'..C.rangedHP..' ranged cavalry maximum HP.')
+ Controls.TributeValue:SetText(tostring(trib));Controls.TributeDetail:SetText('Intl. trade +'..(trib>0 and C.tradePercent or 0)..'%')
+ Controls.VillagerValue:SetText(J.Count(id,'MOUNTED_VILLAGER')..' / '..(C.villagerCap+C.tributaryVillagers*trib));Controls.VillagerDetail:SetText('Emissaries '..J.Count(id,'EMISSARY')..' / '..C.emissaryCap)
+ Controls.KarmaValue:SetText(s.karma..' / '..C.karmaMax);Controls.KarmaDetail:SetText(s.blessing>J.Now() and ('Blessing: '..(s.blessing-J.Now())..' turns') or 'Towards the next blessing')
+ Controls.LandmarkValue:SetText(J.Tier(s)..' / 3');Controls.LandmarkDetail:SetText('Emplacements: '..count(emplacements))
+ Controls.SectionTitle:SetText(sections[tab][1]);Controls.SectionDetail:SetText(sections[tab][2])
+ for key in pairs(sections) do Controls[key..'Active']:SetHide(key~=tab) end
  Controls.Overview:SetText(string.format('HORSES %d / %d    |    Cavalry maximum HP: melee +%d / ranged +%d[NEWLINE]TRIBUTARIES %d    |    Outgoing international income +%d%%    |    Mounted Villagers %d / %d    |    Emissaries %d / %d[NEWLINE]LANDMARKS %d / 3    |    EMPLACEMENTS %d    |    KARMA %d / %d    |    BLESSING %d turns',horses,capacity,horses*C.meleeHP,horses*C.rangedHP,trib,trib>0 and C.tradePercent or 0,J.Count(id,'MOUNTED_VILLAGER'),C.villagerCap+C.tributaryVillagers*trib,J.Count(id,'EMISSARY'),C.emissaryCap,J.Tier(s),count(emplacements),s.karma,C.karmaMax,math.max(0,s.blessing-J.Now())))
  if tab=='Overview' then
   row('Reindeer Traders: surplus Food supplements training while growth pauses; no unit Gold-purchase surcharge; native land-route speed 2. Tributary trade income is a separate bonus.',nil)
@@ -117,9 +139,9 @@ local function render(force)
   end end
   if not any then row('Train an Emissary after completing the second Landmark. Dragon Pavilion grants one free Emissary when capacity and deployment allow.',nil) end
  elseif tab=='Upgrades' then
-  for _,up in ipairs(C.upgrades) do
+  for i,up in ipairs(C.upgrades) do
    local legal=not s.upgrades[up.key] and J.Tech(id,up.tech) and p:GetGold()>=J.Scale(up.cost)
-   row(up.name..' — '..J.Scale(up.cost)..' Gold; '..(s.upgrades[up.key] and 'researched' or up.help),'Research','UPGRADE',up.key,nil,legal,s.upgrades[up.key] and 'Already researched.' or ('Requires '..Locale.ConvertTextKey(GameInfo.Technologies[up.tech].Description)..'. '..up.help))
+   row(up.name..' — '..J.Scale(up.cost)..' Gold; '..(s.upgrades[up.key] and 'researched' or up.help),'Research','UPGRADE',up.key,nil,legal,s.upgrades[up.key] and 'Already researched.' or ('Requires '..Locale.ConvertTextKey(GameInfo.Technologies[up.tech].Description)..'. '..up.help),{'JIN_UPGRADE_ATLAS',i-1})
   end
  elseif tab=='Defense' then
   for key,r in pairs(emplacements) do

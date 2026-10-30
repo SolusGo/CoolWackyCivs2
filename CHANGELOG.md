@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.16.3 Full Jin visual refresh / mod version 17 — 2026-10-30
+
+- Replace all 63 shipped Jin DDS textures and add 19: original Aguda leader/Dawn/portrait art, twelve illustrated units, ten buildings/Landmarks, sixteen upgrade/effect images, parchment map, redesigned insignia, tintable flags and HUD medallions.
+- Rebuild the council with five metric cards, illustrated rows, selected tabs and matching native button states. Keep its six tabs, actions, closed-panel caching and turn-start/load recovery. Use the installed sword-bearing Samurai model for Zhanma instead of a Rifleman; all numerical gameplay data remains identical.
+- Retain generated sources/prompts and deterministic compilation, complete legacy mip chains, viewport previews and an art-only SQL comparison. All sixteen Jin runs and dedicated graphic checks pass; native rendering/animation acceptance remains pending. Preserve other civilizations, UUID, mod version and save schemas.
+
 ## 1.16.2 Laureate recognition hardening / mod version 17 — 2026-10-30
 
 - Replace current-level-only veteran recognition with saved eligibility history. Foreign-achieved Level 3+ units stay ineligible through gifts, captures, upgrades, level refunds and return transfers; acquired low-level units and genuine Laureate births remain eligible.

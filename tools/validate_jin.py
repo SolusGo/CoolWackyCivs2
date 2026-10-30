@@ -87,7 +87,7 @@ def make_runtime(d,speed='GAMESPEED_STANDARD'):
  g.Text=lua.table_from(dict(d.execute("SELECT Tag,Text FROM Language_en_US WHERE Tag LIKE 'TXT_KEY_JIN_%'")))
  g.speedID=d.execute('SELECT ID FROM GameSpeeds WHERE Type=?',(speed,)).fetchone()[0]
  def include(name):
-  if name!='InstanceManager':lua.execute((V/'Lua'/(name+'.lua')).read_text(encoding='utf-8'))
+  if name not in ['InstanceManager','IconSupport']:lua.execute((V/'Lua'/(name+'.lua')).read_text(encoding='utf-8'))
  def load():
   lua.execute('ContextPtr=NewContext()')
   include('JIN_Core')
@@ -155,7 +155,7 @@ def main():
  ui=ET.parse(V/'UI/JIN_Dynasty.xml').getroot();panel=ui.find("Grid[@ID='Panel']")
  width,height=map(int,panel.get('Size').split(','))
  for viewport in [(1280,720),(1920,1080)]:assert width<=viewport[0] and height<=viewport[1]
- assert ui.find("Grid/ScrollPanel[@ID='Scroll']").get('Size')=='932,365'
+ assert ui.find("Grid/ScrollPanel[@ID='Scroll']").get('Size')=='932,276'
  assert not imported(V/'UI/JIN_Dynasty.xml') and imported(V/'Lua/JIN_Core.lua')
  result={'date':'2026-10-30','mod_version':VERSION,'runtime':'Lupa Lua 5.1, actual installed-schema SQL, synthetic native calls','native_gameplay':'NOT RUN','native_rendering':'NOT RUN','native_save_files':'NOT RUN','runs':runs}
  (V/'docs/Validation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')

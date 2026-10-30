@@ -1,5 +1,11 @@
 # Jin Dynasty changelog
 
+## 1.13.3 Full visual refresh / collection 1.16.3, version 17 — 2026-10-30
+
+- Refresh all existing art and add a complete upgrade atlas and council skin: 82 DDS textures total, with retained original painted inputs and full legacy mip chains. Update every unit/building/Landmark portrait, leader/Dawn, map, flags, civilization identity and HUD icon.
+- Add illustrated action rows, five live metric cards, active-tab markers and coordinated native button states; hide the launcher behind the open council. Preserve all action and turn-transition behavior.
+- Correct Zhanma's in-world appearance to the available sword-bearing Samurai model. Other animated models remain native Civ V assets; no custom meshes/animations are claimed. Gameplay and save schemas are unchanged. [Coverage, previews and tests](docs/Graphics.md).
+
 ## 1.13.2 UI hotfix / collection 1.16.1, version 17 — 2026-10-30
 
 - Fix the disappearing launcher after an AI turn: visibility refreshes now run independently of the closed-panel gameplay optimization. Explicit end/start/load/player hooks close stale panels and recover the launcher after native turn flags settle, without idle polling or closed-panel row allocation.

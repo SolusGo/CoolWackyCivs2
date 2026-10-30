@@ -2,7 +2,7 @@
 
 Wanyan Aguda leads a human-only Jurchen civilization adapted from **Age of Empires IV: Yue Fei's Legacy**. Requires Windows Civilization V: Brave New World and **Community Patch v151**. The original Cool Wacky Civs collection is not required.
 
-**Status: 1.13.2 UI hotfix preview.** The launcher now recovers after AI turns; restart Civ V after updating, then reload the same save. Executable SQL/Lua simulations cover the systems below; actual Civ V gameplay, UI rendering, save-file reloads and balance have **not** been verified. See [Testing](docs/Testing.md), [hardening findings and measurements](docs/Hardening.md) and [engine adaptations](docs/AoE4Fidelity.md).
+**Status: 1.13.3 full visual refresh.** [All Jin artwork and the council have been refreshed](docs/Graphics.md), with 82 textures, original illustrated unit/building/upgrade atlases and new leader/Dawn/map artwork. The launcher still recovers after AI turns; restart Civ V after updating, then reload the same save. Executable SQL/Lua simulations cover the systems below; actual Civ V gameplay, UI rendering, save-file reloads and balance have **not** been verified. See [Testing](docs/Testing.md), [hardening findings and measurements](docs/Hardening.md) and [engine adaptations](docs/AoE4Fidelity.md).
 
 ## Play flow
 

@@ -1,5 +1,7 @@
 # Original Jin artwork
 
+**Current graphics:** the [2026-10-30 full visual refresh](VisualRefresh/README.md) supersedes the compiled textures described below. All five new painted inputs, atlas masters, prompt specifications and layout previews are retained in VisualRefresh/. `prepare_jin_art.py` now invokes that complete 82-texture compiler. The files and original generation record below are preserved as the initial 2026-10-26 artwork, not the current production inputs.
+
 `Aguda.png` was generated with the built-in imagegen tool on 2026-10-26. It is an original historical interpretation of Aguda, not an official portrait or redistributed Age of Empires artwork. The approved generated output is retained in this repository. The leader, portrait crop and Dawn DDS derive from that one painting.
 
 Exact prompt:

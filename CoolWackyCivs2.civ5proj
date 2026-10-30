@@ -2803,10 +2803,16 @@
     <Content Include="JinDynasty/Art/JIN_GrasslandUI32.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="JinDynasty/Art/JIN_GrasslandUI64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="JinDynasty/Art/JIN_Header.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/Art/JIN_HorseUI32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_HorseUI64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/Art/JIN_Icon128.dds">
@@ -2839,6 +2845,9 @@
     <Content Include="JinDynasty/Art/JIN_KarmaUI32.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="JinDynasty/Art/JIN_KarmaUI64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="JinDynasty/Art/JIN_Leader.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -2849,6 +2858,9 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/Art/JIN_MenganUI32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_MenganUI64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/Art/JIN_Portrait128.dds">
@@ -2881,6 +2893,24 @@
     <Content Include="JinDynasty/Art/JIN_TributaryUI32.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="JinDynasty/Art/JIN_TributaryUI64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_UI_Accent.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_UI_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_UI_Metric.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_UI_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_UI_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="JinDynasty/Art/JIN_Units128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -2906,6 +2936,33 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/Art/JIN_Units80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/JIN_Upgrades80.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/Lua/JIN_Autonomy.lua">

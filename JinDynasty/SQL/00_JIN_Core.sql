@@ -74,7 +74,7 @@ DROP TABLE JINClone;
 INSERT INTO UnitClasses(Type,Description,DefaultUnit) VALUES ('UNITCLASS_JIN_ZHANMA','TXT_KEY_JIN_ZHANMA',NULL);
 INSERT INTO Civilization_UnitClassOverrides(CivilizationType,UnitClassType,UnitType) VALUES ('CIVILIZATION_JIN_DYNASTY','UNITCLASS_JIN_ZHANMA','UNIT_JIN_ZHANMA');
 CREATE TEMP TABLE JINClone AS SELECT * FROM "Units" WHERE Type='UNIT_RIFLEMAN';
-UPDATE JINClone SET "ID"=NULL,"Type"='UNIT_JIN_ZHANMA',"Class"='UNITCLASS_JIN_ZHANMA',"Description"='TXT_KEY_JIN_ZHANMA',"Help"='TXT_KEY_JIN_ZHANMA_HELP',"Strategy"='TXT_KEY_JIN_ZHANMA_HELP',"Civilopedia"='TXT_KEY_JIN_ZHANMA_HELP',"Cost"=300,"Moves"=2,"PrereqTech"='TECH_RIFLING',"IconAtlas"='JIN_UNIT_ATLAS',"PortraitIndex"=4,"UnitFlagAtlas"='JIN_FLAG_ATLAS',"UnitFlagIconOffset"=4,"GoodyHutUpgradeUnitClass"=NULL,"Combat"=42;
+UPDATE JINClone SET "ID"=NULL,"Type"='UNIT_JIN_ZHANMA',"Class"='UNITCLASS_JIN_ZHANMA',"Description"='TXT_KEY_JIN_ZHANMA',"Help"='TXT_KEY_JIN_ZHANMA_HELP',"Strategy"='TXT_KEY_JIN_ZHANMA_HELP',"Civilopedia"='TXT_KEY_JIN_ZHANMA_HELP',"Cost"=300,"Moves"=2,"PrereqTech"='TECH_RIFLING',"IconAtlas"='JIN_UNIT_ATLAS',"PortraitIndex"=4,"UnitFlagAtlas"='JIN_FLAG_ATLAS',"UnitFlagIconOffset"=4,"GoodyHutUpgradeUnitClass"=NULL,"Combat"=42,"UnitArtInfo"='ART_DEF_UNIT_U_JAPANESE_SAMURAI';
 INSERT INTO "Units" SELECT * FROM JINClone;
 DROP TABLE JINClone;
 INSERT INTO UnitClasses(Type,Description,DefaultUnit) VALUES ('UNITCLASS_JIN_ERUPTOR','TXT_KEY_JIN_ERUPTOR',NULL);

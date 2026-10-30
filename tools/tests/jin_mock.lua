@@ -183,7 +183,8 @@ function Control()
  return c
 end
 Controls=setmetatable({},{__index=function(t,k)local c=Control();rawset(t,k,c);return c end})
+function IconHookup(index,size,atlas,control)assert(index>=0 and size==64 and atlas);control.icon={index=index,size=size,atlas=atlas};return true end
 InstanceManager={new=function()local m={rows={}}
  function m:ResetInstances()self.rows={}end
- function m:GetInstance()local r={Root=Control(),Text=Control(),Action=Control()};self.rows[#self.rows+1]=r;return r end
+ function m:GetInstance()local r={Root=Control(),Title=Control(),Text=Control(),Action=Control(),Art=Control(),Status=Control()};self.rows[#self.rows+1]=r;return r end
  uiManager=m;return m end}

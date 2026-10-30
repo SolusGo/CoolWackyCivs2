@@ -7,8 +7,16 @@ R=Path(__file__).resolve().parents[1];V=R/'JinDynasty/Art';S=R/'art-source/JinDy
 SIZES=[16,24,32,45,48,64,80,128,256]
 GOLD='#dab76b';CREAM='#fff1c9';RED='#650e20';INK='#25121a'
 
-def symbol(kind,alpha=False):
- im=Image.new('RGBA',(256,256));d=ImageDraw.Draw(im)
+def symbol(kind,alpha=False,scale=1):
+ im=Image.new('RGBA',(256*scale,256*scale));native=ImageDraw.Draw(im)
+ class ScaledDraw:
+  def __getattr__(self,name):
+   def draw(xy,*args,**kwargs):
+    def scaled(v):return tuple(scaled(n)for n in v) if isinstance(v,(list,tuple)) else v*scale
+    if 'width' in kwargs:kwargs['width']*=scale
+    return getattr(native,name)(scaled(xy),*args,**kwargs)
+   return draw
+ d=ScaledDraw()
  if not alpha:d.ellipse((3,3,253,253),fill=RED,outline=GOLD,width=7)
  fg='white' if alpha else CREAM;gold=fg if alpha else GOLD
  def horse():
@@ -81,7 +89,7 @@ def symbol(kind,alpha=False):
  else:pagoda()
  return im
 
-def main():
+def legacy_main():
  V.mkdir(parents=True,exist_ok=True);S.mkdir(parents=True,exist_ok=True)
  painting=Image.open(S/'Aguda.png').convert('RGBA');w,h=painting.size
  portrait=ImageOps.fit(painting.crop((int(w*.04),0,int(w*.46),int(h*.77))),(256,256),Image.Resampling.LANCZOS)
@@ -112,4 +120,7 @@ def main():
  preview=Image.new('RGBA',(1024,768),INK);preview.alpha_composite(masters['Units'],(0,0));preview.convert('RGB').save(S/'Preview.png')
  print('Prepared',len(list(V.glob('*.dds'))),'original Jin DDS textures')
 
+def main():
+ from prepare_jin_visuals import main as compile_visuals
+ compile_visuals()
 if __name__=='__main__':main()

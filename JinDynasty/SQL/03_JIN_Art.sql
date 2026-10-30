@@ -52,3 +52,12 @@ INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColum
 INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_FLAG_ATLAS',80,'JIN_Flags80.dds',4,3);
 INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_FLAG_ATLAS',128,'JIN_Flags128.dds',4,3);
 INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_FLAG_ATLAS',256,'JIN_Flags256.dds',4,3);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',16,'JIN_Upgrades16.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',24,'JIN_Upgrades24.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',32,'JIN_Upgrades32.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',45,'JIN_Upgrades45.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',48,'JIN_Upgrades48.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',64,'JIN_Upgrades64.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',80,'JIN_Upgrades80.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',128,'JIN_Upgrades128.dds',4,4);
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES ('JIN_UPGRADE_ATLAS',256,'JIN_Upgrades256.dds',4,4);
