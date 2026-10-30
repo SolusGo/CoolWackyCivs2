@@ -1,5 +1,10 @@
 # The Laureate Commonwealth changelog
 
+## 1.0.2 — 2026-10-31
+
+- Fill PediaEntry for the veteran/Great Person recognition markers. Both already had a native Civilopedia category; NULL entry keys aborted the shared index and prevented later civilizations/leaders from appearing.
+- Correct the generator and add a native indexing regression covering the original category-five failure, all sixteen repaired categories and exact Jin/Aguda search. Marker persistence, recognition rules, bonuses and saved units are unchanged.
+
 ## 1.0.1 — 2026-10-30
 
 - Fix retrospective veteran awards for foreign Level 3+ acquisitions. Save eligibility history separately from the existing lifetime reward marker; retain legitimate low-level acquisitions, fresh Level 3 births and normal/scripted progression.

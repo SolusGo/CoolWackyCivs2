@@ -4,7 +4,7 @@ These are static/simulated checks. They do not claim native Civ V acceptance.
 """
 from collections import Counter
 from pathlib import Path
-import hashlib,json,re,struct,sys,time
+import hashlib,json,re,sqlite3,struct,sys,time
 from xml.etree import ElementTree as ET
 from PIL import Image
 from lupa.lua51 import LuaRuntime
@@ -61,6 +61,9 @@ def sql():
         assert (marker['CombatPercent'],marker['MovesChange'],marker['ExperiencePercent'])==(0,0,0)
     for promotion in [CROWN,VETERAN,GP]:
         assert not d.execute('SELECT 1 FROM UnitPromotions_UnitCombats WHERE PromotionType=?',(promotion,)).fetchone()
+    pedia_types=('PEDIA_MELEE','PEDIA_RANGED','PEDIA_NAVAL','PEDIA_HEAL','PEDIA_SCOUTING','PEDIA_AIR','PEDIA_SHARED','PEDIA_ATTRIBUTES')
+    bad=d.execute('SELECT Type FROM UnitPromotions WHERE PediaType IN ('+','.join('?' for _ in pedia_types)+') AND (PediaEntry IS NULL OR Description IS NULL)',pedia_types).fetchall()
+    assert not bad,('Civilopedia initialization would fail on promotion text',list(map(tuple,bad)))
     assert [r[0] for r in d.execute('SELECT UnitType FROM Unit_FreePromotions WHERE PromotionType=?',(CROWN,))]==[UNIT]
     policy=d.execute('SELECT * FROM Policies WHERE Type=?',(POLICY,)).fetchone()
     assert (policy['GreatPeopleRateModifier'],policy['ExpModifier'],policy['IsDummy'],policy['PolicyBranchType'])==(15,15,1,None)
@@ -193,10 +196,42 @@ def assets():
     for p in V.rglob('*.xml'): ET.parse(p)
     print('PASS Laureate Lua 5.1, manifest checksums, single simulation owner, 40 decoded mipmapped DDS and XML')
 
+def civilopedia(d):
+    from civilopedia import replay_index,support_source
+    text=dict(d.execute('SELECT Tag,Text FROM Language_en_US'))
+    fixture=sqlite3.connect(':memory:');d.backup(fixture);fixture.row_factory=sqlite3.Row
+    repairs=[]
+    # The archived test cache lacks Arabia's base leader link. Restore only that
+    # fixture row from installed game XML; never change the live cache or SQL.
+    if not fixture.execute("SELECT 1 FROM Civilization_Leaders WHERE CivilizationType='CIVILIZATION_ARABIA'").fetchone():
+        native_xml=support_source().parent.parent/'Gameplay/XML/Civilizations/CIV5Civilizations.xml'
+        row=next(r for r in ET.parse(native_xml).findall('Civilization_Leaders/Row') if r.findtext('CivilizationType')=='CIVILIZATION_ARABIA')
+        link=(row.findtext('CivilizationType'),row.findtext('LeaderheadType'))
+        assert fixture.execute('SELECT 1 FROM Leaders WHERE Type=?',(link[1],)).fetchone()
+        fixture.execute('INSERT INTO Civilization_Leaders(CivilizationType,LeaderheadType) VALUES (?,?)',link)
+        fixture.commit();repairs.append({'table':'Civilization_Leaders','row':link,'source':'Assets/Gameplay/XML/Civilizations/CIV5Civilizations.xml'})
+    broken=sqlite3.connect(':memory:');fixture.backup(broken);broken.row_factory=sqlite3.Row
+    broken.execute('UPDATE UnitPromotions SET PediaEntry=NULL WHERE Type IN (?,?)',(VETERAN,GP))
+    before=replay_index(broken,text);broken.close()
+    assert before['completed_categories']==[1,2,3,4] and before['failed_category']==5,before
+    assert before['search']['jin'] is None
+    after=replay_index(fixture,text)
+    assert after['completed_categories']==list(range(1,17)) and after['failed_category'] is None,after
+    jin=d.execute("SELECT ID FROM Civilizations WHERE Type='CIVILIZATION_JIN_DYNASTY'").fetchone()[0]
+    assert after['search']['jin']=={'entryName':'Jin','entryID':jin,'entryCategory':10},after
+    assert after['search']['wanyan aguda']['entryCategory']==10
+    report={'date':'2026-10-31','scope':'Native BNW indexing functions in Lua 5.1 with SQLite/localization adapters; rendered UI acceptance pending',
+            'cause':'Laureate internal markers had PEDIA_ATTRIBUTES but NULL PediaEntry; indexing stopped at category 5 before civilizations',
+            'promotions':[VETERAN,GP],'archived_fixture_repairs':repairs,'before':before,'after':after}
+    fixture.close()
+    (V/'docs/CivilopediaValidation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
+    print('PASS Civilopedia regression: original NULL entries stop category 5; corrected source indexes all 16 categories and exact Jin/Aguda search')
+    return {'categories':16,'original_failure_reproduced':True,'exact_jin_search':True}
+
 def validate():
-    start=time.perf_counter();d=sql();audit=source();runs=runtime(d);assets()
-    report={'date':'2026-10-30','scope':'static schema/source and Lua simulation; native gameplay pending',
-            'source':audit,**runs,'textures':40,'elapsed_seconds':round(time.perf_counter()-start,3)}
+    start=time.perf_counter();d=sql();pedia=civilopedia(d);audit=source();runs=runtime(d);assets()
+    report={'date':'2026-10-31','scope':'static schema/source and Lua simulation; native gameplay pending',
+            'source':audit,**runs,'civilopedia':pedia,'textures':40,'elapsed_seconds':round(time.perf_counter()-start,3)}
     (V/'docs').mkdir(exist_ok=True)
     (V/'docs/Validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     return report

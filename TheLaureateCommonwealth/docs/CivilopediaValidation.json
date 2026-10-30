@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-31",
+  "scope": "Native BNW indexing functions in Lua 5.1 with SQLite/localization adapters; rendered UI acceptance pending",
+  "cause": "Laureate internal markers had PEDIA_ATTRIBUTES but NULL PediaEntry; indexing stopped at category 5 before civilizations",
+  "promotions": [
+    "PROMOTION_LAUREL_LEVEL_REWARDED",
+    "PROMOTION_LC_PERSON_RECOGNIZED"
+  ],
+  "archived_fixture_repairs": [
+    {
+      "table": "Civilization_Leaders",
+      "row": [
+        "CIVILIZATION_ARABIA",
+        "LEADER_HARUN_AL_RASHID"
+      ],
+      "source": "Assets/Gameplay/XML/Civilizations/CIV5Civilizations.xml"
+    }
+  ],
+  "before": {
+    "source": "Assets/DLC/Expansion2/UI/Civilopedia/CivilopediaScreen.lua",
+    "source_sha256": "2ee2d25004202db0f68d26cd5ae61e171bcaaeb8e15c49780d90590a1be2ce2a",
+    "completed_categories": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "failed_category": 5,
+    "error": "[string \"G:\\SteamLibrary\\steamapps\\common\\Sid Meier'...\"]:681: bad argument #1 to 'ToLower' (string expected, got nil)\nstack traceback:\n\t[string \"G:\\SteamLibrary\\steamapps\\common\\Sid Meier'...\"]:681: in function <[string \"G:\\SteamLibrary\\steamapps\\common\\Sid Meier'...\"]:513>\n\t[C]: in function 'ToLower'",
+    "search": {
+      "jin": null,
+      "wanyan aguda": null,
+      "clones of sjin": null
+    }
+  },
+  "after": {
+    "source": "Assets/DLC/Expansion2/UI/Civilopedia/CivilopediaScreen.lua",
+    "source_sha256": "2ee2d25004202db0f68d26cd5ae61e171bcaaeb8e15c49780d90590a1be2ce2a",
+    "completed_categories": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "failed_category": null,
+    "search": {
+      "jin": {
+        "entryName": "Jin",
+        "entryID": 134,
+        "entryCategory": 10
+      },
+      "wanyan aguda": {
+        "entryName": "Wanyan Aguda",
+        "entryID": 1134,
+        "entryCategory": 10
+      },
+      "clones of sjin": null
+    }
+  }
+}

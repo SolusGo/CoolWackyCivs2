@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.16.5 Civilopedia indexing fix — 2026-10-31
+
+- Supply the missing PediaEntry keys on Laureate's two internal recognition promotions. PEDIA_ATTRIBUTES included them in native Civilopedia initialization, which failed at promotions before indexing civilizations and leaders; the Jin search could still find the earlier Clones of Sjin unit entry.
+- Reproduce the original failure with the installed BNW indexing code and active mod database, then verify that corrected source finishes all sixteen categories and exact Jin/Aguda lookup. Validate every collection promotion included by the native categories. No gameplay, save schema, artwork or mod UUID/version change.
+
 ## 1.16.4 Jin emblem / native UI layout correction — 2026-10-30
 
 - Replace the horse portrait civ icon with an original gold seal-style 金 emblem and matching tintable alpha at every atlas size.

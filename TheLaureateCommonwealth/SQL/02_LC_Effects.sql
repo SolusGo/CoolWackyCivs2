@@ -2,8 +2,8 @@
 INSERT INTO UnitPromotions(Type,Description,Help,AttackWoundedMod,HPHealedIfDestroyEnemy,LostWithUpgrade,CannotBeChosen,PortraitIndex,IconAtlas,PediaType,PediaEntry)
  VALUES ('PROMOTION_CROWNING_BLOW','TXT_KEY_LC_CROWN','TXT_KEY_LC_CROWN_HELP',15,15,0,1,0,'LC_OBJECT_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LC_CROWN');
 INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('UNIT_LAUREATE_CHAMPION','PROMOTION_CROWNING_BLOW');
-INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType) VALUES ('PROMOTION_LAUREL_LEVEL_REWARDED','TXT_KEY_LC_VETERAN','TXT_KEY_LC_VETERAN_HELP',0,0,1,0,0,'LC_CIV_ATLAS','PEDIA_ATTRIBUTES');
-INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType) VALUES ('PROMOTION_LC_PERSON_RECOGNIZED','TXT_KEY_LC_GP_MARK','TXT_KEY_LC_GP_MARK_HELP',0,0,1,0,0,'LC_CIV_ATLAS','PEDIA_ATTRIBUTES');
+INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType,PediaEntry) VALUES ('PROMOTION_LAUREL_LEVEL_REWARDED','TXT_KEY_LC_VETERAN','TXT_KEY_LC_VETERAN_HELP',0,0,1,0,0,'LC_CIV_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LC_VETERAN');
+INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType,PediaEntry) VALUES ('PROMOTION_LC_PERSON_RECOGNIZED','TXT_KEY_LC_GP_MARK','TXT_KEY_LC_GP_MARK_HELP',0,0,1,0,0,'LC_CIV_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LC_GP_MARK');
 -- CP IsDummy excludes this policy from policy counts. No branch makes it unselectable.
 INSERT INTO Policies(Type,Description,Help,IsDummy,GreatPeopleRateModifier,ExpModifier,PortraitIndex,IconAtlas,IconAtlasAchieved)
  VALUES ('POLICY_LC_GOLDEN_EXCELLENCE','TXT_KEY_LC_POLICY','TXT_KEY_LC_POLICY_HELP',1,15,15,0,'LC_CIV_ATLAS','LC_CIV_ATLAS');

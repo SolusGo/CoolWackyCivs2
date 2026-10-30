@@ -100,7 +100,7 @@ INSERT INTO UnitPromotions(Type,Description,Help,AttackWoundedMod,HPHealedIfDest
 INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('{UNIT}','{CROWN}');
 """
     for promotion,key in [(VETERAN,'VETERAN'),(GP,'GP_MARK')]:
-        effects+=f"INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType) VALUES ('{promotion}','TXT_KEY_LC_{key}','TXT_KEY_LC_{key}_HELP',0,0,1,0,0,'LC_CIV_ATLAS','PEDIA_ATTRIBUTES');\n"
+        effects+=f"INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType,PediaEntry) VALUES ('{promotion}','TXT_KEY_LC_{key}','TXT_KEY_LC_{key}_HELP',0,0,1,0,0,'LC_CIV_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LC_{key}');\n"
     effects+=f"""-- CP IsDummy excludes this policy from policy counts. No branch makes it unselectable.
 INSERT INTO Policies(Type,Description,Help,IsDummy,GreatPeopleRateModifier,ExpModifier,PortraitIndex,IconAtlas,IconAtlasAchieved)
  VALUES ('{POLICY}','TXT_KEY_LC_POLICY','TXT_KEY_LC_POLICY_HELP',1,15,15,0,'LC_CIV_ATLAS','LC_CIV_ATLAS');

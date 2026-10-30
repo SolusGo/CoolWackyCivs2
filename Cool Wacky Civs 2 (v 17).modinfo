@@ -980,7 +980,7 @@
     <File md5="6819AA76479263AEA62E1AA1933F7C61" import="0">TheLaureateCommonwealth/Lua/LC_Commonwealth.xml</File>
     <File md5="9B13784CCF8CF38D7372173AFF7F974A" import="0">TheLaureateCommonwealth/SQL/00_LC_Core.sql</File>
     <File md5="EE6D7D5C4A1F533D7328B0C4234898FA" import="0">TheLaureateCommonwealth/SQL/01_LC_Inheritance.sql</File>
-    <File md5="EB8ECE252379065327BFC9FAE806C268" import="0">TheLaureateCommonwealth/SQL/02_LC_Effects.sql</File>
+    <File md5="9262EB234D6CFD99C02AEF6A5990642F" import="0">TheLaureateCommonwealth/SQL/02_LC_Effects.sql</File>
     <File md5="85490530170DB5574556BF5437138343" import="0">TheLaureateCommonwealth/SQL/03_LC_Art.sql</File>
     <File md5="B1C875746DD473B9D1F8ACF15B816125" import="0">TheLaureateCommonwealth/SQL/10_LC_Text.sql</File>
   </Files>

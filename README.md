@@ -2,7 +2,9 @@
 
 Seventeen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 17 · **1.16.4 Jin seal and scrolling fix**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 17 · **1.16.5 Civilopedia indexing fix**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+The Civilopedia fix fills missing text keys on two Laureate recognition markers. Their incomplete metadata stopped the shared index before civilizations and leaders, leaving the navigation blank and Jin search unavailable. The regression replays all sixteen installed BNW indexing functions. Restart Civ V and reload the modded save after updating.
 
 The [full Jin visual refresh](JinDynasty/docs/Graphics.md) replaces all 63 existing textures and adds 19: new leader/Dawn art, painted unit/building/upgrade atlases, map, flags, HUD symbols and an illustrated council. It retains the turn-recovery fix and gameplay/save rules.
 

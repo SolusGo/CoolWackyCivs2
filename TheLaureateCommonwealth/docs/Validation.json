@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-30",
+  "date": "2026-10-31",
   "scope": "static schema/source and Lua simulation; native gameplay pending",
   "source": {
     "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
@@ -23,6 +23,11 @@
   "speeds": 4,
   "hardening_runs": 104,
   "required_veteran_cases_per_speed": 14,
+  "civilopedia": {
+    "categories": 16,
+    "original_failure_reproduced": true,
+    "exact_jin_search": true
+  },
   "textures": 40,
-  "elapsed_seconds": 14.099
+  "elapsed_seconds": 22.449
 }
