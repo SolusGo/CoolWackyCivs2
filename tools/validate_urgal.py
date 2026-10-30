@@ -125,7 +125,7 @@ def art_ui():
  assert set(re.findall(r'Controls\.(\w+)',(V/'UI/URGAL_Potions.lua').read_text()))<=controls
  assert ('TheUrgal/UI/URGAL_Potions.xml') in {e[0] for e in ENTRIES}
  for p in V.rglob('*.xml'): ET.parse(p)
- images=list((V/'Art').glob('*.dds'));assert len(images)==49
+ images=[p for p in (V/'Art').glob('*.dds') if not p.name.startswith('CWC2_')];assert len(images)==49
  for p in images:
   with Image.open(p) as im: im.load();assert im.width>0 and im.height>0
  assert not imported(V/'UI/URGAL_Potions.xml') and imported(V/'Lua/URGAL_Core.lua')
@@ -148,7 +148,7 @@ def art_ui():
   if node.get('Anchor').startswith('C,'):x=(pw-w)//2+x
   if node.get('Anchor').endswith(',B'):y=ph-y-h
   assert 0<=x and 0<=y and x+w<=pw and y+h<=ph
- assert icon.get('Offset')=='12,7' and panel.find("Label[@ID='Stockpile']").get('Offset')=='50,14'
+ assert icon.get('Offset')=='18,18' and panel.find("Label[@ID='Stockpile']").get('Offset')=='62,49'
  print('PASS 49 decoded DDS textures, purple/transparent mipmapped UI icon, viewport geometry, XML/control bindings and VFS flags')
 
 def sources():

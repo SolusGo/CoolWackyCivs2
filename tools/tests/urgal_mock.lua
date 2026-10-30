@@ -97,7 +97,7 @@ function Convert(old,newOwner,newID,upgrade,kind)
 end
 function LoadUI()
  Controls={}
- for _,name in ipairs({'Inventory','Stockpile','Status','Drink'}) do
+ for _,name in ipairs({'Inventory','Stockpile','Status','Drink','PotionArmy'}) do
   Controls[name]={SetHide=function(self,v) self.hidden=v end,SetText=function(self,v) self.text=v end,GetText=function(self) return self.text or '' end,GetSizeX=function(self) return #(self.text or '')*8 end,SetDisabled=function(self,v) self.disabled=v end,SetToolTipString=function(self,v) self.tooltip=v end,RegisterCallback=function(self,_,fn) self.click=fn end}
  end
  UI={IsCityScreenUp=function() return false end,IsGameCoreBusy=function() return false end,GetInterfaceMode=function() return 0 end}

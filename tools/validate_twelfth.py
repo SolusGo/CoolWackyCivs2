@@ -83,6 +83,9 @@ def sql():
         # Civ V routes Language_* updates through its localization database;
         # the gameplay cache alone need not contain that table.
         active.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
+        # Apply the collection's declared compatibility prelude before its civ.
+        for path in sorted((R/'Shared/SQL').glob('*.sql')):
+            active.executescript(path.read_text(encoding='utf-8'))
         if not active.execute('SELECT 1 FROM Civilizations WHERE Type=?',(CIV,)).fetchone():
             apply(active);active.row_factory=sqlite3.Row
             inherited(active,'Units','UNIT_PIKEMAN',UNIT,{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex','UnitFlagAtlas','UnitFlagIconOffset'})

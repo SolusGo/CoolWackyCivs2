@@ -1,0 +1,363 @@
+[
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "TheBoundlessCity",
+    "title": "THE BOUNDLESS WORKFORCE",
+    "accent": "#d4b873",
+    "motif": "blueprint",
+    "prefix": "CWC2_TheBoundlessCity",
+    "xml": [
+      "TheBoundlessCity/UI/BoundlessWorkforce.xml"
+    ],
+    "textures": {
+      "CWC2_TheBoundlessCity_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_TheBoundlessCity_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_TheBoundlessCity_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_TheBoundlessCity_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_TheBoundlessCity_Launcher_245x36.dds": [
+        245,
+        36
+      ],
+      "CWC2_TheBoundlessCity_Panel_900x700.dds": [
+        900,
+        700
+      ],
+      "CWC2_TheBoundlessCity_Row_834x66.dds": [
+        834,
+        66
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "TrainerRed",
+    "title": "CHAMPION TEAM",
+    "accent": "#eb8075",
+    "motif": "circuit",
+    "prefix": "CWC2_TrainerRed",
+    "xml": [
+      "TrainerRed/UI/RED_TeamPanel.xml"
+    ],
+    "textures": {
+      "CWC2_TrainerRed_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_TrainerRed_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_TrainerRed_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_TrainerRed_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_TrainerRed_Launcher_245x36.dds": [
+        245,
+        36
+      ],
+      "CWC2_TrainerRed_Panel_1000x690.dds": [
+        1000,
+        690
+      ],
+      "CWC2_TrainerRed_Row_924x102.dds": [
+        924,
+        102
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "McPvP",
+    "title": "MCPVP / SERVER BROWSER",
+    "accent": "#b2db6b",
+    "motif": "pixel",
+    "prefix": "CWC2_McPvP",
+    "xml": [
+      "McPvP/UI/MCP_ServerBrowser.xml"
+    ],
+    "textures": {
+      "CWC2_McPvP_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_McPvP_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_McPvP_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_McPvP_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_McPvP_Launcher_245x36.dds": [
+        245,
+        36
+      ],
+      "CWC2_McPvP_Panel_980x700.dds": [
+        980,
+        700
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "TheChildrenOfTheKingdom",
+    "title": "THE BOOK OF PRAYER",
+    "accent": "#dfc997",
+    "motif": "arches",
+    "prefix": "CWC2_TheChildrenOfTheKingdom",
+    "xml": [
+      "TheChildrenOfTheKingdom/UI/CK_Prayer.xml"
+    ],
+    "textures": {
+      "CWC2_TheChildrenOfTheKingdom_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_TheChildrenOfTheKingdom_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_TheChildrenOfTheKingdom_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_TheChildrenOfTheKingdom_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_TheChildrenOfTheKingdom_Launcher_245x36.dds": [
+        245,
+        36
+      ],
+      "CWC2_TheChildrenOfTheKingdom_Panel_760x610.dds": [
+        760,
+        610
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "The11Cats",
+    "title": "THE HOUSEHOLD",
+    "accent": "#e2b16e",
+    "motif": "paws",
+    "prefix": "CWC2_The11Cats",
+    "xml": [
+      "The11Cats/UI/THE11CATS_Household.xml"
+    ],
+    "textures": {
+      "CWC2_The11Cats_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_The11Cats_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_The11Cats_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_The11Cats_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_The11Cats_Row_394x376.dds": [
+        394,
+        376
+      ],
+      "CWC2_The11Cats_Row_394x306.dds": [
+        394,
+        306
+      ],
+      "CWC2_The11Cats_Launcher_245x36.dds": [
+        245,
+        36
+      ],
+      "CWC2_The11Cats_Panel_920x650.dds": [
+        920,
+        650
+      ],
+      "CWC2_The11Cats_Panel_904x634.dds": [
+        904,
+        634
+      ],
+      "CWC2_The11Cats_Panel_650x470.dds": [
+        650,
+        470
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "TheSubstituteClassroom",
+    "title": "MR. GARVEY / ROLL CALL",
+    "accent": "#ddca86",
+    "motif": "ruled",
+    "prefix": "CWC2_TheSubstituteClassroom",
+    "xml": [
+      "TheSubstituteClassroom/UI/GARVEY_RollCall.xml"
+    ],
+    "textures": {
+      "CWC2_TheSubstituteClassroom_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_TheSubstituteClassroom_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_TheSubstituteClassroom_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_TheSubstituteClassroom_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_TheSubstituteClassroom_Launcher_270x62.dds": [
+        270,
+        62
+      ],
+      "CWC2_TheSubstituteClassroom_Panel_750x610.dds": [
+        750,
+        610
+      ],
+      "CWC2_TheSubstituteClassroom_Panel_722x582.dds": [
+        722,
+        582
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "TheUrgal",
+    "title": "THE URGAL / BREWING STAND",
+    "accent": "#c396e9",
+    "motif": "orbits",
+    "prefix": "CWC2_TheUrgal",
+    "xml": [
+      "TheUrgal/UI/URGAL_Potions.xml"
+    ],
+    "textures": {
+      "CWC2_TheUrgal_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_TheUrgal_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_TheUrgal_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_TheUrgal_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_TheUrgal_Launcher_340x180.dds": [
+        340,
+        180
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "JinDynasty",
+    "title": "THE JIN DYNASTY",
+    "accent": "#d3ad68",
+    "motif": "heraldry",
+    "prefix": "CWC2_JinDynasty",
+    "xml": [
+      "JinDynasty/UI/JIN_Dynasty.xml"
+    ],
+    "textures": {
+      "CWC2_JinDynasty_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_JinDynasty_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_JinDynasty_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_JinDynasty_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_JinDynasty_Launcher_245x42.dds": [
+        245,
+        42
+      ],
+      "CWC2_JinDynasty_Panel_980x680.dds": [
+        980,
+        680
+      ],
+      "CWC2_JinDynasty_Row_910x86.dds": [
+        910,
+        86
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs2",
+    "civilization": "TheThresholdCourt",
+    "title": "THE THRESHOLD COURT",
+    "accent": "#b49ee5",
+    "motif": "arches",
+    "prefix": "CWC2_TheThresholdCourt",
+    "xml": [
+      "TheThresholdCourt/UI/THC_Transfer.xml"
+    ],
+    "textures": {
+      "CWC2_TheThresholdCourt_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC2_TheThresholdCourt_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC2_TheThresholdCourt_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC2_TheThresholdCourt_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC2_TheThresholdCourt_Launcher_300x110.dds": [
+        300,
+        110
+      ],
+      "CWC2_TheThresholdCourt_Panel_660x550.dds": [
+        660,
+        550
+      ]
+    }
+  }
+]

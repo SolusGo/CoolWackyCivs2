@@ -1,95 +1,101 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Context ID="JIN_Dynasty">
  <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="Open" Anchor="R,T" Offset="15,315" Size="245,42" String="JIN DYNASTY" Hidden="1">
-  <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+  <Image ID="CWC_ThemeBackground_Open" Anchor="L,T" Size="245,42" Texture="CWC2_JinDynasty_Launcher_245x42.dds" ConsumeMouse="0" />
+  <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
   <Image Anchor="L,T" Offset="8,5" Size="32,32" Texture="JIN_Icon32.dds" ConsumeMouse="0" />
  </GridButton>
  <Grid ID="Panel" Anchor="C,C" Size="980,680" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
-  <Image Anchor="L,T" Offset="0,0" Size="980,680" Texture="JIN_UI_Panel.dds" ConsumeMouse="0" />
+  <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="980,680" Texture="CWC2_JinDynasty_Panel_980x680.dds" ConsumeMouse="0" />
   <Image Anchor="L,T" Offset="8,8" Size="964,124" Texture="JIN_Header.dds" ConsumeMouse="0" />
   <Image Anchor="L,T" Offset="24,24" Size="80,80" Texture="JIN_Icon80.dds" ConsumeMouse="0" />
-  <Label Anchor="L,T" Offset="118,28" Font="TwCenMT24" Color0="255,232,180,255" Color1="0,0,0,220" FontStyle="Shadow" String="THE JIN DYNASTY" />
-  <Label Anchor="L,T" Offset="120,65" Font="TwCenMT18" Color0="220,185,125,255" Color1="0,0,0,220" FontStyle="Shadow" String="JURCHEN LEGACY" />
+  <Label Anchor="L,T" Offset="118,28" Font="TwCenMT24" Color0="233,208,161,255" Color1="0,0,0,230" FontStyle="Shadow" String="THE JIN DYNASTY" />
+  <Label Anchor="L,T" Offset="120,65" Font="TwCenMT18" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" String="JURCHEN LEGACY" />
   <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="Close" Anchor="R,T" Offset="22,20" Size="40,32" String="X">
-   <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
   </GridButton>
   <Grid ID="HorseCard" Anchor="L,T" Offset="24,142" Size="180,80">
    <Image Anchor="L,T" Offset="0,0" Size="180,80" Texture="JIN_UI_Metric.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Offset="12,15" Size="32,32" Texture="JIN_HorseUI32.dds" ConsumeMouse="0" ID="HorseSymbol" />
-   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="214,180,118,255" String="HORSES" />
-   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="HorseValue" ColorSet="Beige_Black_Alpha" />
-   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="HorseDetail" Color0="192,178,159,255" />
+   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="239,232,214,255" String="HORSES" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="HorseValue" ColorSet="Beige_Black_Alpha" Color0="233,208,161,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="HorseDetail" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   </Grid>
   <Grid ID="TributeCard" Anchor="L,T" Offset="212,142" Size="180,80">
    <Image Anchor="L,T" Offset="0,0" Size="180,80" Texture="JIN_UI_Metric.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Offset="12,15" Size="32,32" Texture="JIN_TributaryUI32.dds" ConsumeMouse="0" ID="TributarySymbol" />
-   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="214,180,118,255" String="TRIBUTARIES" />
-   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="TributeValue" ColorSet="Beige_Black_Alpha" />
-   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="TributeDetail" Color0="192,178,159,255" />
+   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="239,232,214,255" String="TRIBUTARIES" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="TributeValue" ColorSet="Beige_Black_Alpha" Color0="233,208,161,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="TributeDetail" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   </Grid>
   <Grid ID="VillagerCard" Anchor="L,T" Offset="400,142" Size="180,80">
    <Image Anchor="L,T" Offset="0,0" Size="180,80" Texture="JIN_UI_Metric.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Offset="12,15" Size="32,32" Texture="JIN_GrasslandUI32.dds" ConsumeMouse="0" ID="GrasslandSymbol" />
-   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="214,180,118,255" String="VILLAGERS" />
-   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="VillagerValue" ColorSet="Beige_Black_Alpha" />
-   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="VillagerDetail" Color0="192,178,159,255" />
+   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="239,232,214,255" String="VILLAGERS" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="VillagerValue" ColorSet="Beige_Black_Alpha" Color0="233,208,161,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="VillagerDetail" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   </Grid>
   <Grid ID="KarmaCard" Anchor="L,T" Offset="588,142" Size="180,80">
    <Image Anchor="L,T" Offset="0,0" Size="180,80" Texture="JIN_UI_Metric.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Offset="12,15" Size="32,32" Texture="JIN_KarmaUI32.dds" ConsumeMouse="0" ID="KarmaSymbol" />
-   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="214,180,118,255" String="KARMA" />
-   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="KarmaValue" ColorSet="Beige_Black_Alpha" />
-   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="KarmaDetail" Color0="192,178,159,255" />
+   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="239,232,214,255" String="KARMA" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="KarmaValue" ColorSet="Beige_Black_Alpha" Color0="233,208,161,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="KarmaDetail" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   </Grid>
   <Grid ID="LandmarkCard" Anchor="L,T" Offset="776,142" Size="180,80">
    <Image Anchor="L,T" Offset="0,0" Size="180,80" Texture="JIN_UI_Metric.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Offset="12,15" Size="32,32" Texture="JIN_MenganUI32.dds" ConsumeMouse="0" ID="MenganSymbol" />
-   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="214,180,118,255" String="LANDMARKS" />
-   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="LandmarkValue" ColorSet="Beige_Black_Alpha" />
-   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="LandmarkDetail" Color0="192,178,159,255" />
+   <Label Anchor="L,T" Offset="56,10" Font="TwCenMT14" Color0="239,232,214,255" String="LANDMARKS" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="56,28" Font="TwCenMT20" ID="LandmarkValue" ColorSet="Beige_Black_Alpha" Color0="233,208,161,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="12,59" Font="TwCenMT14" ID="LandmarkDetail" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   </Grid>
-  <Label ID="Overview" Font="TwCenMT16" Hidden="1" />
+  <Label ID="Overview" Font="TwCenMT16" Hidden="1" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   <Stack Anchor="L,T" Offset="24,236" StackGrowth="Right" Padding="8">
    <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="OverviewTab" Size="148,38" String="Grasslands">
-    <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
     <Image ID="OverviewActive" Anchor="C,B" Offset="0,3" Size="120,3" Texture="JIN_UI_Accent.dds" ConsumeMouse="0" />
    </GridButton>
    <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="LandmarksTab" Size="148,38" String="Landmarks">
-    <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
     <Image ID="LandmarksActive" Anchor="C,B" Offset="0,3" Size="120,3" Texture="JIN_UI_Accent.dds" ConsumeMouse="0" />
    </GridButton>
    <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="RecruitTab" Size="148,38" String="Recruit">
-    <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
     <Image ID="RecruitActive" Anchor="C,B" Offset="0,3" Size="120,3" Texture="JIN_UI_Accent.dds" ConsumeMouse="0" />
    </GridButton>
    <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="EmissariesTab" Size="148,38" String="Emissaries">
-    <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
     <Image ID="EmissariesActive" Anchor="C,B" Offset="0,3" Size="120,3" Texture="JIN_UI_Accent.dds" ConsumeMouse="0" />
    </GridButton>
    <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="UpgradesTab" Size="148,38" String="Upgrades">
-    <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
     <Image ID="UpgradesActive" Anchor="C,B" Offset="0,3" Size="120,3" Texture="JIN_UI_Accent.dds" ConsumeMouse="0" />
    </GridButton>
    <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="DefenseTab" Size="148,38" String="Defenses">
-    <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
     <Image ID="DefenseActive" Anchor="C,B" Offset="0,3" Size="120,3" Texture="JIN_UI_Accent.dds" ConsumeMouse="0" />
    </GridButton>
   </Stack>
-  <Label Anchor="L,T" Offset="28,291" Font="TwCenMT20" ID="SectionTitle" Color0="245,222,177,255" />
-  <Label Anchor="L,T" Offset="250,297" Font="TwCenMT14" ID="SectionDetail" Size="690,20" Color0="180,168,152,255" />
+  <Label Anchor="L,T" Offset="28,291" Font="TwCenMT20" ID="SectionTitle" Color0="233,208,161,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label Anchor="L,T" Offset="250,297" Font="TwCenMT14" ID="SectionDetail" Size="690,20" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   <ScrollPanel ID="Scroll" Anchor="L,T" Offset="24,322" Size="932,276" Vertical="1" AutoScrollBar="1">
    <Stack ID="Rows" Anchor="L,T" StackGrowth="Bottom" Padding="6" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="268" />
   </ScrollPanel>
-  <Label Anchor="L,T" Offset="28,616" Font="TwCenMT16" ID="Message" Size="920,44" WrapWidth="920" ColorSet="Beige_Black_Alpha" String="Select a tab to manage the dynasty. Hover an entry for its full requirements." />
+  <Label Anchor="L,T" Offset="28,616" Font="TwCenMT16" ID="Message" Size="920,44" WrapWidth="920" ColorSet="Beige_Black_Alpha" String="Select a tab to manage the dynasty. Hover an entry for its full requirements." Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="CWC_Guide_Panel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE JIN DYNASTY[NEWLINE][NEWLINE]Grasslands, horses and tribute sustain the Jurchen legacy." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
+  </GridButton>
  </Grid>
  <Instance Name="JIN_Row">
   <Grid ID="Root" Size="910,86" Style="GridBlackIndent8">
+   <Image ID="CWC_RowSurface_JIN_Row" Anchor="L,T" Size="910,86" Texture="CWC2_JinDynasty_Row_910x86.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Offset="0,0" Size="910,86" Texture="JIN_UI_Row.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Offset="12,11" Size="64,64" Texture="JIN_Icon64.dds" ConsumeMouse="0" ID="Art" />
    <Label Anchor="L,T" Offset="90,7" Font="TwCenMT18" ID="Title" Size="620,22" Color0="240,216,170,255" />
    <Label Anchor="L,T" Offset="90,31" Font="TwCenMT16" ID="Text" Size="620,48" WrapWidth="620" ColorSet="Beige_Black_Alpha" />
    <GridButton Font="TwCenMT16" ColorSet="Beige_Black_Alpha" ID="Action" Anchor="R,T" Offset="10,16" Size="162,38">
-    <GridData Style="Grid9FrameButtons" Texture="JIN_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_JinDynasty_Buttons.dds" />
    </GridButton>
    <Label ID="Status" Anchor="R,T" Offset="12,63" Size="158,18" Align="Center" Font="TwCenMT14" Color0="190,165,119,255" />
   </Grid>

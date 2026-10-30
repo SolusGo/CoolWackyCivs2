@@ -1,24 +1,24 @@
 {
   "date": "2026-10-25",
-  "mod_version": 13,
+  "mod_version": 18,
   "native_gameplay": "NOT TESTED IN GAME",
   "native_save_load": "NOT TESTED IN GAME",
   "baseline": {
     "companion_tables": 176,
-    "cp_activated_live_cache": false,
+    "cp_activated_live_cache": true,
     "worker_moves": 2,
     "worker_work_rate": 100
   },
   "source_contracts": 41,
   "lua": "5.1; shipped controller with synthetic native boundary",
   "suites_seconds": {
-    "conical_connections.lua": 0.002296,
-    "conical_lifecycle.lua": 0.00123,
-    "conical_resilience.lua": 0.041202,
-    "conical_context.lua": 0.004595,
-    "conical_faults.lua": 0.002015,
-    "conical_timing.lua": 0.000779,
-    "conical_ownership.lua": 0.001036
+    "conical_connections.lua": 0.005817,
+    "conical_lifecycle.lua": 0.002576,
+    "conical_resilience.lua": 0.078131,
+    "conical_context.lua": 0.008358,
+    "conical_faults.lua": 0.004313,
+    "conical_timing.lua": 0.001437,
+    "conical_ownership.lua": 0.001655
   },
   "art": "40 decoded mipmapped legacy DDS textures; original generated artwork",
   "synchronization": "Engine limitation unchanged: cached flag refresh precedes settlement, but PlayerDoTurn follows Production/Gold/Culture. Explicit phase simulation verifies old first-settlement counts, then correction for the subsequent settlement; no query/polling workaround.",

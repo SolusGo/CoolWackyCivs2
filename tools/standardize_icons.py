@@ -137,6 +137,14 @@ def standardize(root=ROOT, refresh=()):
         with Image.open(master) as image:
             source = image.convert("RGBA")
         assert source.size == (largest.size * largest.columns, largest.size * largest.rows), master
+        # Preserve the owning civilization's full-mip artwork contract.
+        # Scene textures are not rewritten by this atlas finishing step.
+        def mipmapped(path):
+            import struct
+            with path.open('rb') as stream: header=stream.read(128)
+            return len(header)==128 and struct.unpack_from('<I',header,28)[0]>1
+        full_mips=any(mipmapped(p) for p in largest.path.parent.glob('*.dds')
+                      if not p.stem[-1:].isdigit() and not p.stem.startswith(('CWC_', 'CWC2_')))
         cells = [source.crop((x * largest.size, y * largest.size,
                               (x + 1) * largest.size, (y + 1) * largest.size))
                  for y in range(largest.rows) for x in range(largest.columns)]
@@ -162,14 +170,14 @@ def standardize(root=ROOT, refresh=()):
                     pngs.append(str(png))
                 else:
                     stream = io.BytesIO()
-                    if name.startswith(('RED_', 'THE11CATS_', 'SABA_', 'GARVEY_', 'CONICAL_', 'UNRUNG_', 'LC_', 'JIN_')):
+                    if full_mips or name.startswith(('RED_', 'THE11CATS_', 'SABA_', 'GARVEY_', 'CONICAL_', 'UNRUNG_', 'LC_', 'JIN_')):
                         from prepare_red_art import raw_mips
                         encoded[atlas.path] = raw_mips(output)
                     else:
                         output.save(stream, format="DDS")
                         encoded[atlas.path] = stream.getvalue()
             if pngs:
-                result = subprocess.run([texconv, "-nologo", "-y", "-dx9", "-f", "DXT5", "-m", "0" if name.startswith(('RED_', 'THE11CATS_', 'SABA_', 'GARVEY_', 'CONICAL_', 'UNRUNG_', 'LC_', 'JIN_')) else "1",
+                result = subprocess.run([texconv, "-nologo", "-y", "-dx9", "-f", "DXT5", "-m", "0" if full_mips or name.startswith(('RED_', 'THE11CATS_', 'SABA_', 'GARVEY_', 'CONICAL_', 'UNRUNG_', 'LC_', 'JIN_')) else "1",
                                          "-o", str(stage), *pngs], capture_output=True, text=True)
                 if result.returncode:
                     raise RuntimeError(result.stdout + result.stderr)

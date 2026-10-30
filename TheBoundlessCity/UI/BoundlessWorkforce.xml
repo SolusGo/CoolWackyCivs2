@@ -1,96 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="BoundlessWorkforce">
  <Grid ID="Launcher" Anchor="R,T" Offset="14,148" Size="245,36" Style="GridBlackIndent8" Hidden="1">
-  <Image Anchor="L,T" Size="245,36" Texture="BC_UI_Launcher.dds" ConsumeMouse="0" />
+  <Image ID="CWC_ThemeBackground_Launcher" Anchor="L,T" Size="245,36" Texture="CWC2_TheBoundlessCity_Launcher_245x36.dds" ConsumeMouse="0" />
   <GridButton ID="Open" Anchor="C,C" Size="235,30" String="TXT_KEY_BC_WORKFORCE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
  </Grid>
- <Grid ID="Panel" Anchor="C,C" Size="900,700" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
-  <Image Anchor="L,T" Size="900,700" Texture="BC_UI_Panel.dds" ConsumeMouse="0" />
+ <Grid ID="Panel" Anchor="C,C" Size="900,700" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="900,700" Texture="CWC2_TheBoundlessCity_Panel_900x700.dds" ConsumeMouse="0" />
   <Image Anchor="L,T" Offset="18,18" Size="64,64" Texture="BoundlessIcon64.dds" ConsumeMouse="0" />
-  <Label ID="Title" Anchor="L,T" Offset="92,24" Font="TwCenMT24" String="TXT_KEY_BC_WORKFORCE" Color0="243,224,180,255" FontStyle="Shadow" Color1="0,0,0,220" />
-  <Label Anchor="L,T" Offset="92,55" Font="TwCenMT16" Color0="216,190,133,255" Color1="0,0,0,220" FontStyle="Shadow" String="TXT_KEY_BC_CAPITAL" />
+  <Label ID="Title" Anchor="L,T" Offset="92,24" Font="TwCenMT24" String="TXT_KEY_BC_WORKFORCE" Color0="234,214,166,255" FontStyle="Shadow" Color1="0,0,0,230" />
+  <Label Anchor="L,T" Offset="92,55" Font="TwCenMT16" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" String="TXT_KEY_BC_CAPITAL" />
   <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="50,32" String="X" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
   <GridButton ID="Siege" Anchor="R,T" Offset="80,56" Size="190,32" String="TXT_KEY_BC_SIEGE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
   <GridButton ID="FoodTarget" Anchor="R,T" Offset="280,56" Size="210,32" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
-  <ScrollPanel ID="OverviewScroll" Anchor="L,T" Offset="22,110" Size="856,184" Vertical="1">
+  <ScrollPanel ID="OverviewScroll" Anchor="L,T" Offset="22,110" Size="856,184" Vertical="1" AutoScrollBar="1">
    <Stack ID="Overview" Anchor="L,T" StackGrowth="Bottom" Padding="8">
-    <Label ID="CapitalStatus" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Hidden="1" />
+    <Label ID="CapitalStatus" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Hidden="1" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
     <Grid ID="SummaryBody" Size="836,1">
      <Stack ID="TerritoryStack" Anchor="L,T" StackGrowth="Bottom" Padding="4" Offset="12,0">
-      <Label WrapWidth="244" Font="TwCenMT18" String="TXT_KEY_BC_SUMMARY_TERRITORY" Color0="222,190,124,255" FontStyle="Shadow" Color1="0,0,0,220" />
-      <Label ID="Population" WrapWidth="244" Font="TwCenMT20" Color0="246,226,181,255" Color1="0,0,0,220" />
-      <Label ID="OwnedPlots" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="FrontierCulture" WrapWidth="244" Font="TwCenMT18" Color0="224,195,134,255" Color1="0,0,0,220" />
-      <Label ID="FrontierCost" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label WrapWidth="244" Font="TwCenMT18" String="TXT_KEY_BC_SUMMARY_TERRITORY" Color0="239,232,214,255" FontStyle="Shadow" Color1="0,0,0,230" />
+      <Label ID="Population" WrapWidth="244" Font="TwCenMT20" Color0="234,214,166,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="OwnedPlots" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="FrontierCulture" WrapWidth="244" Font="TwCenMT18" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="FrontierCost" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
      </Stack>
      <Stack ID="WorkforceStack" Anchor="L,T" Offset="294,0" StackGrowth="Bottom" Padding="4">
-      <Label WrapWidth="244" Font="TwCenMT18" String="TXT_KEY_BC_SUMMARY_WORKFORCE" Color0="222,190,124,255" FontStyle="Shadow" Color1="0,0,0,220" />
-      <Label ID="LocalWorkers" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="RemoteWorkers" WrapWidth="244" Font="TwCenMT18" Color0="142,218,190,255" Color1="0,0,0,220" />
-      <Label ID="Specialists" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="IdleLabourers" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="UnassignedCitizens" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label WrapWidth="244" Font="TwCenMT18" String="TXT_KEY_BC_SUMMARY_WORKFORCE" Color0="239,232,214,255" FontStyle="Shadow" Color1="0,0,0,230" />
+      <Label ID="LocalWorkers" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="RemoteWorkers" WrapWidth="244" Font="TwCenMT18" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="Specialists" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="IdleLabourers" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="UnassignedCitizens" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
      </Stack>
      <Stack ID="ManagementStack" Anchor="L,T" Offset="576,0" StackGrowth="Bottom" Padding="4">
-      <Label WrapWidth="244" Font="TwCenMT18" String="TXT_KEY_BC_SUMMARY_MANAGEMENT" Color0="222,190,124,255" FontStyle="Shadow" Color1="0,0,0,220" />
-      <Label ID="AvailableCitizens" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="AdditionalRemoteCapacity" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="MaximumRemoteCapacity" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="PendingRequests" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="LockedRequests" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-      <Label ID="SubjugationProgress" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      <Label WrapWidth="244" Font="TwCenMT18" String="TXT_KEY_BC_SUMMARY_MANAGEMENT" Color0="239,232,214,255" FontStyle="Shadow" Color1="0,0,0,230" />
+      <Label ID="AvailableCitizens" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="AdditionalRemoteCapacity" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="MaximumRemoteCapacity" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="PendingRequests" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="LockedRequests" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+      <Label ID="SubjugationProgress" WrapWidth="244" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
      </Stack>
     </Grid>
-    <Label ID="Automatons" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Hidden="1" />
-    <Label ID="Yields" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    <Label ID="Automatons" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Hidden="1" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+    <Label ID="Yields" Anchor="L,T" WrapWidth="836" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
    </Stack>
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="176" />
   </ScrollPanel>
   <GridButton ID="Mode" Anchor="L,T" Offset="22,306" Size="204,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
   <GridButton ID="Priority" Anchor="L,T" Offset="234,306" Size="204,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
   <GridButton ID="Direction" Anchor="L,T" Offset="446,306" Size="204,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
   <GridButton ID="Sort" Anchor="L,T" Offset="658,306" Size="216,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
-  <ScrollPanel ID="Scroll" Anchor="L,T" Offset="22,354" Size="856,210" Vertical="1">
+  <ScrollPanel ID="Scroll" Anchor="L,T" Offset="22,354" Size="856,210" Vertical="1" AutoScrollBar="1">
    <Stack ID="Rows" Anchor="L,T" StackGrowth="Bottom" Padding="4" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="202" />
   </ScrollPanel>
   <GridButton ID="Previous" Anchor="L,T" Offset="22,576" Size="160,34" String="TXT_KEY_BC_PREVIOUS" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
-  <Label ID="Page" Anchor="C,T" Offset="0,582" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Label ID="Page" Anchor="C,T" Offset="0,582" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   <GridButton ID="Next" Anchor="R,T" Offset="22,576" Size="160,34" String="TXT_KEY_BC_NEXT" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-   <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
-  <Label ID="Help" Anchor="L,T" Offset="32,626" Size="832,58" WrapWidth="832" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TXT_KEY_BC_CAPACITY" />
+  <Label ID="Help" Anchor="L,T" Offset="32,626" Size="832,58" WrapWidth="832" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TXT_KEY_BC_CAPACITY" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="CWC_Guide_Panel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE BOUNDLESS WORKFORCE[NEWLINE][NEWLINE]One charter. Countless districts. Every worker has a place." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
+  </GridButton>
  </Grid>
  <Instance Name="BoundlessPlotRow">
   <Grid ID="Root" Size="834,66" Style="GridBlackIndent8">
+   <Image ID="CWC_RowSurface_BoundlessPlotRow" Anchor="L,T" Size="834,66" Texture="CWC2_TheBoundlessCity_Row_834x66.dds" ConsumeMouse="0" />
    <Image Anchor="L,T" Size="834,66" Texture="BC_UI_Row.dds" ConsumeMouse="0" />
    <Image ID="AssignedMark" Anchor="L,C" Offset="2,0" Size="4,54" Texture="BC_UI_Assigned.dds" ConsumeMouse="0" Hidden="1" />
    <Image ID="PendingMark" Anchor="L,C" Offset="2,0" Size="4,54" Texture="BC_UI_Pending.dds" ConsumeMouse="0" Hidden="1" />
    <Label ID="Text" Anchor="L,C" Offset="12,0" Size="512,62" WrapWidth="512" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
    <GridButton ID="Locate" Anchor="R,C" Offset="210,0" Size="94,34" String="TXT_KEY_BC_LOCATE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-    <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
    </GridButton>
    <GridButton ID="Lock" Anchor="R,C" Offset="110,0" Size="94,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-    <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
    </GridButton>
    <GridButton ID="Assign" Anchor="R,C" Offset="10,0" Size="94,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
-    <GridData Style="Grid9FrameButtons" Texture="BC_UI_Buttons.dds" />
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
    </GridButton>
   </Grid>
  </Instance>

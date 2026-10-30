@@ -75,6 +75,8 @@ def runtime():
         print(f'PASS {test}{" ["+food_mode+"]" if food_mode else ""}: {time.perf_counter()-started:.3f}s (mock, not Civ V timing)')
 
 def package():
+    from validate_ui_refresh import run as validate_ui_refresh
+    validate_ui_refresh(R)
     from standardize_icons import validate as validate_icons
     validate_icons(R)
     root=ET.parse(R/(NAME+'.modinfo')).getroot()

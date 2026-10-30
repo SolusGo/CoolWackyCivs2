@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('SupportFunctions') -- native TruncateString measures the actual game font
 include('URGAL_Core')
 local U=MapModData.URGAL
@@ -12,13 +13,17 @@ local function Available()
   and (not UI.GetInterfaceMode or UI.GetInterfaceMode()==InterfaceModeTypes.INTERFACEMODE_SELECTION)
 end
 function U.Refresh()
- local show=Available(); Controls.Inventory:SetHide(not show)
+ if uiRecovery then uiRecovery:Sync() end
+ local show=Available();
+ show=show and (not uiRecovery or uiRecovery:Available())
+ Controls.Inventory:SetHide(not show)
  if not show then return end
  local id=Game.GetActivePlayer(); local s=U.State(id)
  if not s then
   Controls.Stockpile:SetText(U.Text('UNAVAILABLE'));Controls.Status:SetText('');Controls.Drink:SetDisabled(true);return
  end
  local now=U.Turn(); local count=U.Count(id)
+ Controls.PotionArmy:SetText("Affected army: "..count.." eligible melee units")
  local stockpile=U.Text('INVENTORY',s.potions)
  TruncateString(Controls.Stockpile,226,stockpile)
  Controls.Stockpile:SetToolTipString(stockpile)
@@ -63,3 +68,15 @@ U.Hook(Events,'InterfaceModeChanged',Queue)
 U.Hook(Events,'LoadScreenClose',function() ending=false;blocked={};city=false;leader=false;Queue() end)
 U.context:SetShowHideHandler(function(isHidden) if U.active then hidden=isHidden;Queue() end end)
 U.Refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='TheUrgal',civ='CIVILIZATION_URGAL',context=ContextPtr,
+  roots={Controls.Inventory},panels={},
+  request=function() U.QueueRefresh() end,
+  refresh=function() U.Refresh() end,
+  recover=function() blocked={};leader=false;city=false;hidden=false;ending=false end,repair=function()  end,
+  close=function()  end,manageContext=false}
+ uiRecovery:Refresh(true)
+end

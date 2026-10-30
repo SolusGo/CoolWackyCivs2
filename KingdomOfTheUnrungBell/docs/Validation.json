@@ -1,6 +1,6 @@
 {
   "companion_tables": 176,
-  "cp_activated_live_cache": false,
+  "cp_activated_live_cache": true,
   "static": "PASS",
   "lua51_mock_suites": [
     "unrung_quietude.lua",

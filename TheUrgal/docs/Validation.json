@@ -4,7 +4,7 @@
   "native_ui": "NOT TESTED IN GAME",
   "sql": {
     "companion_tables": 176,
-    "eligible_training_types": 210,
+    "eligible_training_types": 215,
     "human_only": true,
     "melee_city_attack_bonus": 50
   },

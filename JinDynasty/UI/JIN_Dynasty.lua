@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('InstanceManager')
 include('IconSupport')
 include('JIN_Core')
@@ -61,8 +62,10 @@ local function stamp(id,s)
  return table.concat(values,':')
 end
 local function render(force)
+ if uiRecovery then uiRecovery:Sync() end
  local id=Game.GetActivePlayer();local visible=J.IsJin(id)
  visible=visible and Players[id]:IsTurnActive() and not ending
+ visible=visible and (not uiRecovery or uiRecovery:Available())
  J.panelOpen=visible and open;J.uiTab=tab
  Controls.Open:SetHide(not visible or open);Controls.Panel:SetHide(not visible or not open)
  if not visible or not open then lastStamp=nil;return end
@@ -180,3 +183,15 @@ J.Hook(Events,'SerialEventGameDataDirty',queueVisibility)
 J.Hook(Events,'SerialEventCityInfoDirty',function()if open then J.Refresh(true)end end)
 J.Hook(GameEvents,'TeamTechResearched',function(team)if J.IsJin(Game.GetActivePlayer()) and Players[Game.GetActivePlayer()]:GetTeam()==team then J.Refresh(true)end end)
 J.UIRefresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='JinDynasty',civ='CIVILIZATION_CHINA',context=ContextPtr,
+  roots={Controls.Open,Controls.Panel},panels={Controls.Panel},
+  request=function() queueVisibility() end,
+  refresh=function() J.UIRefresh(false) end,
+  recover=function() ending=false end,repair=function() rendering=false end,
+  close=function() open=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

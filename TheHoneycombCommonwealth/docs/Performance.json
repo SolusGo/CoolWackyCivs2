@@ -6,32 +6,32 @@
       "foreign_plot_reads": 0,
       "owner_plot_reads": 5112,
       "script_writes_per_snapshot": 2,
-      "snapshot_mock_ms": 1.9999999999997797,
+      "snapshot_mock_ms": 3.9999999999995595,
       "total_cities": 803,
       "foreign_dirty_events": 4000,
       "foreign_building_writes": 0,
       "added_cities": 680,
       "owner_cities": 142,
-      "foreign_mock_ms": 16.000000000000014,
+      "foreign_mock_ms": 32.00000000000003,
       "duplicate_plot_reads": 0,
       "speed": "GAMESPEED_STANDARD",
-      "mock_total_ms": 53.661
+      "mock_total_ms": 104.099
     },
     {
       "players": 34,
       "foreign_plot_reads": 0,
       "owner_plot_reads": 5112,
       "script_writes_per_snapshot": 2,
-      "snapshot_mock_ms": 2.000000000000668,
+      "snapshot_mock_ms": 4.999999999999893,
       "total_cities": 803,
       "foreign_dirty_events": 4000,
       "foreign_building_writes": 0,
       "added_cities": 680,
       "owner_cities": 142,
-      "foreign_mock_ms": 16.000000000000014,
+      "foreign_mock_ms": 36.99999999999992,
       "duplicate_plot_reads": 0,
       "speed": "GAMESPEED_MARATHON",
-      "mock_total_ms": 54.237
+      "mock_total_ms": 107.854
     }
   ]
 }

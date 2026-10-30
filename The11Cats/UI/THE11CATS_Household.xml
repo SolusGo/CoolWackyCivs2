@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="THE11CATS_Household">
  <Instance Name="CatRow">
-  <GridButton ID="Button" Size="394,76" Style="BaseButton">
+  <GridButton ID="Button" Size="394,76" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
    <Image ID="Portrait" Anchor="L,C" Offset="5,0" Size="64,64" />
    <Label ID="Name" Anchor="L,T" Offset="78,9" WrapWidth="304" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
    <Label ID="State" Anchor="L,T" Offset="78,35" WrapWidth="304" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
@@ -9,19 +10,23 @@
  </Instance>
  <Instance Name="HomeCard">
   <Grid ID="Home" Size="394,376" Style="GridBlackIndent8">
+   <Image ID="CWC_RowSurface_HomeCard" Anchor="L,T" Size="394,376" Texture="CWC2_The11Cats_Row_394x376.dds" ConsumeMouse="0" />
    <Label ID="HomeName" Anchor="L,T" Offset="12,10" WrapWidth="370" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
    <Label ID="Capacity" Anchor="L,T" Offset="12,36" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-   <GridButton ID="Cat1" Anchor="L,T" Offset="6,62" Size="380,76" Style="BaseButton">
+   <GridButton ID="Cat1" Anchor="L,T" Offset="6,62" Size="380,76" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
     <Image ID="Portrait1" Anchor="L,C" Offset="4,0" Size="48,48" />
     <Label ID="Name1" Anchor="L,T" Offset="60,4" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
     <Label ID="Effect1" Anchor="L,T" Offset="60,27" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
    </GridButton>
-   <GridButton ID="Cat2" Anchor="L,T" Offset="6,140" Size="380,76" Style="BaseButton">
+   <GridButton ID="Cat2" Anchor="L,T" Offset="6,140" Size="380,76" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
     <Image ID="Portrait2" Anchor="L,C" Offset="4,0" Size="48,48" />
     <Label ID="Name2" Anchor="L,T" Offset="60,4" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
     <Label ID="Effect2" Anchor="L,T" Offset="60,27" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
    </GridButton>
-   <GridButton ID="Cat3" Anchor="L,T" Offset="6,218" Size="380,76" Style="BaseButton">
+   <GridButton ID="Cat3" Anchor="L,T" Offset="6,218" Size="380,76" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
     <Image ID="Portrait3" Anchor="L,C" Offset="4,0" Size="48,48" />
     <Label ID="Name3" Anchor="L,T" Offset="60,4" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
     <Label ID="Effect3" Anchor="L,T" Offset="60,27" WrapWidth="310" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
@@ -32,6 +37,7 @@
  </Instance>
  <Instance Name="BondCard">
   <Grid ID="Bond" Size="394,306" Style="GridBlackIndent8">
+   <Image ID="CWC_RowSurface_BondCard" Anchor="L,T" Size="394,306" Texture="CWC2_The11Cats_Row_394x306.dds" ConsumeMouse="0" />
    <Label ID="BondName" Anchor="L,T" Offset="12,10" WrapWidth="370" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
    <Label ID="Requirements" Anchor="L,T" Offset="12,40" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
    <Label ID="Bonus" Anchor="L,T" Offset="12,168" WrapWidth="370" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
@@ -40,46 +46,79 @@
   </Grid>
  </Instance>
  <Grid ID="Launcher" Anchor="R,T" Offset="14,356" Size="245,36" Style="GridBlackIndent8" Hidden="1">
-  <GridButton ID="Open" Anchor="C,C" Size="235,30" Style="BaseButton" String="TXT_KEY_THE11CATS_OPEN" />
+  <Image ID="CWC_ThemeBackground_Launcher" Anchor="L,T" Size="245,36" Texture="CWC2_The11Cats_Launcher_245x36.dds" ConsumeMouse="0" />
+  <GridButton ID="Open" Anchor="C,C" Size="235,30" String="TXT_KEY_THE11CATS_OPEN" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Grid ID="Panel" Anchor="C,C" Size="920,650" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
-  <Image ID="Background" Anchor="C,C" Size="904,634" Texture="THE11CATS_Household.dds" Color="255,255,255,255" />
-  <Label ID="Title" Anchor="L,T" Offset="26,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="70,30" Style="BaseButton" String="TXT_KEY_THE11CATS_CLOSE" />
-  <GridButton ID="Cats" Anchor="L,T" Offset="28,58" Size="88,30" Style="BaseButton" String="TXT_KEY_THE11CATS_CATS" />
-  <GridButton ID="Homes" Anchor="L,T" Offset="122,58" Size="88,30" Style="BaseButton" String="TXT_KEY_THE11CATS_HOMES" />
-  <GridButton ID="Bonds" Anchor="L,T" Offset="216,58" Size="128,30" Style="BaseButton" String="TXT_KEY_THE11CATS_BONDS" />
-  <GridButton ID="Story" Anchor="L,T" Offset="352,58" Size="196,30" Style="BaseButton" String="TXT_KEY_THE11CATS_STORY" />
-  <GridButton ID="Messages" Anchor="L,T" Offset="558,58" Size="160,30" Style="BaseButton" />
-  <ScrollPanel ID="RosterScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1">
+ <Grid ID="Panel" Anchor="C,C" Size="920,650" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="920,650" Texture="CWC2_The11Cats_Panel_920x650.dds" ConsumeMouse="0" />
+  <Image ID="Background" Anchor="C,C" Size="904,634" Texture="CWC2_The11Cats_Panel_904x634.dds" Color="255,255,255,255" ConsumeMouse="0" />
+  <Label ID="Title" Anchor="L,T" Offset="26,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" Color0="240,210,164,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="70,30" String="TXT_KEY_THE11CATS_CLOSE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Cats" Anchor="L,T" Offset="28,58" Size="88,30" String="TXT_KEY_THE11CATS_CATS" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Homes" Anchor="L,T" Offset="122,58" Size="88,30" String="TXT_KEY_THE11CATS_HOMES" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Bonds" Anchor="L,T" Offset="216,58" Size="128,30" String="TXT_KEY_THE11CATS_BONDS" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Story" Anchor="L,T" Offset="352,58" Size="196,30" String="TXT_KEY_THE11CATS_STORY" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Messages" Anchor="L,T" Offset="558,58" Size="160,30" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <ScrollPanel ID="RosterScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1" AutoScrollBar="1">
    <Stack ID="Roster" Anchor="L,T" StackGrowth="Bottom" Padding="4" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="472" />
   </ScrollPanel>
-  <ScrollPanel ID="HomesScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1" Hidden="1">
+  <ScrollPanel ID="HomesScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1" Hidden="1" AutoScrollBar="1">
    <Stack ID="HomesStack" Anchor="L,T" StackGrowth="Bottom" Padding="12" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="472" />
   </ScrollPanel>
-  <ScrollPanel ID="BondsScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1" Hidden="1">
+  <ScrollPanel ID="BondsScroll" Anchor="L,T" Offset="28,100" Size="410,480" Vertical="1" Hidden="1" AutoScrollBar="1">
    <Stack ID="BondsStack" Anchor="L,T" StackGrowth="Bottom" Padding="12" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="472" />
   </ScrollPanel>
   <Image ID="DetailPortrait" Anchor="L,T" Offset="460,102" Size="128,128" />
-  <Label ID="DetailName" Anchor="L,T" Offset="602,108" WrapWidth="280" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
-  <Label ID="DetailTrait" Anchor="L,T" Offset="602,146" WrapWidth="280" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-  <ScrollPanel ID="DetailsScroll" Anchor="L,T" Offset="460,240" Size="430,324" Vertical="1">
+  <Label ID="DetailName" Anchor="L,T" Offset="602,108" WrapWidth="280" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" Color0="240,210,164,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="DetailTrait" Anchor="L,T" Offset="602,146" WrapWidth="280" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <ScrollPanel ID="DetailsScroll" Anchor="L,T" Offset="460,240" Size="430,324" Vertical="1" AutoScrollBar="1">
    <Stack ID="DetailsStack" Anchor="L,T" StackGrowth="Bottom" Padding="12">
-    <Label ID="DetailState" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-    <Label ID="DetailEffect" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-    <Label ID="DetailBonds" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-    <Label ID="DetailBio" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-    <Label ID="DetailFamily" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
+    <Label ID="DetailState" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+    <Label ID="DetailEffect" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+    <Label ID="DetailBonds" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+    <Label ID="DetailBio" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+    <Label ID="DetailFamily" WrapWidth="400" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
    </Stack>
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="316" />
   </ScrollPanel>
-  <Label ID="Feedback" Anchor="L,B" Offset="30,30" WrapWidth="416" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Locate" Anchor="R,B" Offset="220,30" Size="175,40" Style="BaseButton" String="TXT_KEY_THE11CATS_LOCATE" />
-  <GridButton ID="Action" Anchor="R,B" Offset="28,30" Size="180,40" Style="BaseButton" />
+  <Label ID="Feedback" Anchor="L,B" Offset="30,30" WrapWidth="416" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Locate" Anchor="R,B" Offset="220,30" Size="175,40" String="TXT_KEY_THE11CATS_LOCATE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Action" Anchor="R,B" Offset="28,30" Size="180,40" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="CWC_Guide_Panel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE HOUSEHOLD[NEWLINE][NEWLINE]Eleven companions, warm homes and a family worth protecting." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Grid ID="Narrative" Anchor="C,C" Size="650,470" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+ <Grid ID="Narrative" Anchor="C,C" Size="650,470" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Narrative" Anchor="L,T" Size="650,470" Texture="CWC2_The11Cats_Panel_650x470.dds" ConsumeMouse="0" />
   <Image Anchor="L,T" Offset="24,24" Size="128,128" Texture="THE11CATS_Icon128.dds" />
-  <Label ID="StoryTitle" Anchor="L,T" Offset="172,35" WrapWidth="420" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
-  <Label ID="StoryText" Anchor="L,T" Offset="30,172" WrapWidth="590" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="StoryClose" Anchor="R,B" Offset="24,24" Size="100,35" Style="BaseButton" String="TXT_KEY_THE11CATS_CLOSE" />
+  <Label ID="StoryTitle" Anchor="L,T" Offset="172,35" WrapWidth="420" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" Color0="240,210,164,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="StoryText" Anchor="L,T" Offset="30,172" WrapWidth="590" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" Color0="240,210,164,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="StoryClose" Anchor="R,B" Offset="24,24" Size="100,35" String="TXT_KEY_THE11CATS_CLOSE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="CWC_Guide_Narrative" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE HOUSEHOLD[NEWLINE][NEWLINE]Eleven companions, warm homes and a family worth protecting." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_The11Cats_Buttons.dds" />
+  </GridButton>
  </Grid>
 </Context>

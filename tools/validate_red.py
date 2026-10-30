@@ -64,7 +64,13 @@ def source_audit():
  ignored={'Add','SetUpdate','ClearUpdate','SetText','SetHide','SetDisabled','SetSizeX','SetToolTipString','RegisterCallback','CalculateSize','ReprocessAnchoring','CalculateInternalSize','LookUpControl','IsHidden','ResetInstances','GetInstance','SetInputHandler','new'}
  used=set()
  for path in V.rglob('*.lua'):
-  for name in re.findall(r':([A-Z]\w+)\(',path.read_text(encoding='utf-8')):
+  code=path.read_text(encoding='utf-8')
+  # This Lua presentation object is covered by the shared recovery contract;
+  # its methods are not native Player/Unit/City bindings.
+  for name in re.findall(r'\buiRecovery:(\w+)\(',code):
+   assert name in {'Available','Reason','Sync','Refresh'},('Unknown presentation method',name,path)
+  code=re.sub(r'\buiRecovery:\w+\(', 'presentation(',code)
+  for name in re.findall(r':([A-Z]\w+)\(',code):
    if name not in ignored:assert name in unions,('Unverified native Lua method',name,path);used.add(name)
  h=(ref/'CustomMods.h').read_text(encoding='utf-8-sig')
  for name,signature in {'BattleStarted':'iii','BattleJoined':'iiib','BattleFinished':'','BattleDamageDelta':'ii','UnitUpgraded':'iiib','UnitConverted':'iiiib','CityProjectComplete':'iii','BarbariansCampCleared':'iii','UnitCreated':'iiiii','UnitPrekill':'iiiiibi','PlayerDoneTurn':'i','CanAirliftFrom':'iiii','CanAirliftTo':'iiii','CityCanAirlift':'ii','UnitPromoted':'iii'}.items():

@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('CK_Core')
 local K=MapModData.CKPrayer
 local opened,rendering,queued=false,false,false
@@ -6,11 +7,13 @@ local refresh
 local expectedStage,expectedReady
 local function eligible()
  local pid=Game.GetActivePlayer();local p=Players[pid]
- return K.Alive(pid) and p:IsTurnActive() and K.InterfaceReady()
+ return K.Alive(pid) and p:IsTurnActive() and ((uiRecovery and uiRecovery:Available()) or (not uiRecovery and K.InterfaceReady()))
 end
 local function render()
+ if uiRecovery then uiRecovery:Sync() end
  local pid=Game.GetActivePlayer();local show=eligible();local s=K.states[pid]
  if not show then opened=false end
+ show=show and (not uiRecovery or uiRecovery:Available())
  Controls.Launcher:SetHide(not show);Controls.Panel:SetHide(not (show and opened))
  if show and opened then
   if not s then
@@ -89,7 +92,20 @@ K.Hook(Events,'ActivePlayerTurnEnd',closeTransition)
 K.Hook(Events,'InterfaceModeChanged',closeTransition)
 ContextPtr:SetShowHideHandler(function(hidden) interface.hidden=hidden;closeTransition() end)
 ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
  if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then close();return true end
  return false
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='TheChildrenOfTheKingdom',civ='CIVILIZATION_CK_KINGDOM',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  request=function() deferRefresh() end,
+  refresh=function() refresh() end,
+  recover=function() interface.leader=false;interface.blocked={};interface.transition=false;interface.hidden=false end,repair=function() rendering=false end,
+  close=function() opened=false end,manageContext=false}
+ uiRecovery:Refresh(true)
+end

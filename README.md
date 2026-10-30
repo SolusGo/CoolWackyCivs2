@@ -2,7 +2,7 @@
 
 Seventeen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 17 · **1.16.5 Civilopedia indexing fix**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 18 · **1.17.0 Themed interface refresh**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
 
 The Civilopedia fix fills missing text keys on two Laureate recognition markers. Their incomplete metadata stopped the shared index before civilizations and leaders, leaving the navigation blank and Jin search unavailable. The regression replays all sixteen installed BNW indexing functions. Restart Civ V and reload the modded save after updating.
 
@@ -31,6 +31,8 @@ The Court's [corrective audit](TheThresholdCourt/docs/Hardening.md) removes unin
 The Boundless City now has an extensive [lore library](TheBoundlessCity/Lore/README.md) explaining how one municipal charter governs distant wards: shared law and citizenship, delegated government, distributed food stores, public works, finance and everyday life. The same books supply its expanded in-game Civilopedia chapters and histories.
 
 The Boundless Workforce has a new [custom graphical skin](TheBoundlessCity/docs/UIVisuals.md), with an engraved city header, brass/teal textures, matching controls and clearer district rows. [Layout preview and original art](art-source/TheBoundlessCity/WorkforceUI/README.md).
+
+The [interface refresh](docs/UIRefresh.md) gives all nine custom panels/HUDs their own themed skin and adds recovery from missed popup, diplomacy and turn-transition events.
 
 ## Civilization roster
 
@@ -61,7 +63,7 @@ All seventeen are human-playable. The Children of the Kingdom, The Twelfth Hour,
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 17).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 17).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 18).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 18).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 

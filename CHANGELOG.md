@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 18 — Themed interfaces and visibility recovery — 2026-10-31
+
+- Refreshed all 9 custom interfaces with civilization-specific artwork, colours, buttons, framed rows, native scrollbars and help.
+- Added native-screen reconciliation and recovery for missed popup/diplomacy events, early turn flags, loading and context restoration; protected render-error recovery and pending decisions.
+- Added Lua 5.1 lifecycle regressions, asset/control checks and layout previews. See [UI refresh and native acceptance](docs/UIRefresh.md).
+
 ## 1.16.5 Civilopedia indexing fix — 2026-10-31
 
 - Supply the missing PediaEntry keys on Laureate's two internal recognition promotions. PEDIA_ATTRIBUTES included them in native Civilopedia initialization, which failed at promotions before indexing civilizations and leaders; the Jin search could still find the earlier Clones of Sjin unit entry.

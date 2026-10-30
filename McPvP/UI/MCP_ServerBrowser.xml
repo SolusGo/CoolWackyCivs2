@@ -1,35 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="MCPServerBrowser">
  <Grid ID="Launcher" Anchor="R,T" Offset="14,232" Size="245,36" Style="GridBlackIndent8" Hidden="1">
-  <GridButton ID="Open" Anchor="C,C" Size="235,30" Style="BaseButton" String="TXT_KEY_MCPVP_BROWSER" />
+  <Image ID="CWC_ThemeBackground_Launcher" Anchor="L,T" Size="245,36" Texture="CWC2_McPvP_Launcher_245x36.dds" ConsumeMouse="0" />
+  <GridButton ID="Open" Anchor="C,C" Size="235,30" String="TXT_KEY_MCPVP_BROWSER" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Grid ID="Panel" Anchor="C,C" Size="980,700" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
-  <Label Anchor="L,T" Offset="24,18" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_MCPVP_BROWSER" />
-  <GridButton ID="Close" Anchor="R,T" Offset="22,16" Size="80,30" Style="BaseButton" String="TXT_KEY_MCPVP_CLOSE" />
-  <GridButton ID="QueueHG" Anchor="L,T" Offset="24,58" Size="280,32" Style="BaseButton" String="TXT_KEY_MCPVP_QUEUE_HG" />
-  <GridButton ID="QueueCTF" Anchor="L,T" Offset="314,58" Size="280,32" Style="BaseButton" String="TXT_KEY_MCPVP_QUEUE_CTF" />
-  <GridButton ID="QueueSAB" Anchor="L,T" Offset="604,58" Size="280,32" Style="BaseButton" String="TXT_KEY_MCPVP_QUEUE_SAB" />
-  <ScrollPanel ID="StatusScroll" Anchor="L,T" Offset="24,102" Size="928,220" Vertical="1">
+ <Grid ID="Panel" Anchor="C,C" Size="980,700" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="980,700" Texture="CWC2_McPvP_Panel_980x700.dds" ConsumeMouse="0" />
+  <Label Anchor="L,T" Offset="24,18" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_MCPVP_BROWSER" Color0="216,231,162,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Close" Anchor="R,T" Offset="22,16" Size="80,30" String="TXT_KEY_MCPVP_CLOSE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="QueueHG" Anchor="L,T" Offset="24,58" Size="280,32" String="TXT_KEY_MCPVP_QUEUE_HG" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="QueueCTF" Anchor="L,T" Offset="314,58" Size="280,32" String="TXT_KEY_MCPVP_QUEUE_CTF" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="QueueSAB" Anchor="L,T" Offset="604,58" Size="280,32" String="TXT_KEY_MCPVP_QUEUE_SAB" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <ScrollPanel ID="StatusScroll" Anchor="L,T" Offset="24,102" Size="928,220" Vertical="1" AutoScrollBar="1">
    <Stack ID="StatusStack" Anchor="L,T" StackGrowth="Bottom" Padding="8">
-    <Label ID="Summary" WrapWidth="900" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-    <Label ID="Objective" WrapWidth="900" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-    <Label ID="LastMatch" WrapWidth="900" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    <Label ID="Summary" WrapWidth="900" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+    <Label ID="Objective" WrapWidth="900" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+    <Label ID="LastMatch" WrapWidth="900" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
    </Stack>
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="212" />
   </ScrollPanel>
-  <GridButton ID="Locate" Anchor="L,T" Offset="24,332" Size="200,32" Style="BaseButton" String="TXT_KEY_MCPVP_LOCATE" />
-  <Label ID="UnitInfo" Anchor="L,T" Offset="236,337" WrapWidth="700" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Kangaroo" Anchor="L,T" Offset="24,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_KANGAROO" />
-  <GridButton ID="Stomper" Anchor="L,T" Offset="208,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_STOMPER" />
-  <GridButton ID="Endermage" Anchor="L,T" Offset="392,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_ENDERMAGE" />
-  <GridButton ID="Thor" Anchor="L,T" Offset="576,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_THOR" />
-  <GridButton ID="Viper" Anchor="L,T" Offset="760,376" Size="174,32" Style="BaseButton" String="TXT_KEY_MCPVP_VIPER" />
-  <Label ID="UnitDetails" Anchor="L,T" Offset="24,420" WrapWidth="924" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Target" Anchor="L,T" Offset="24,518" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_TARGET" />
-  <Label ID="TargetInfo" Anchor="L,T" Offset="254,524" WrapWidth="680" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Activate" Anchor="L,T" Offset="24,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_ACTIVATE" />
-  <GridButton ID="Steal" Anchor="L,T" Offset="254,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_STEAL" />
-  <GridButton ID="Return" Anchor="L,T" Offset="484,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_RETURN" />
-  <GridButton ID="Infiltrate" Anchor="L,T" Offset="714,562" Size="220,32" Style="BaseButton" String="TXT_KEY_MCPVP_INFILTRATE" />
-  <Label Anchor="L,T" Offset="24,618" WrapWidth="924" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TXT_KEY_MCPVP_PANEL_HELP" />
+  <GridButton ID="Locate" Anchor="L,T" Offset="24,332" Size="200,32" String="TXT_KEY_MCPVP_LOCATE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <Label ID="UnitInfo" Anchor="L,T" Offset="236,337" WrapWidth="700" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Kangaroo" Anchor="L,T" Offset="24,376" Size="174,32" String="TXT_KEY_MCPVP_KANGAROO" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Stomper" Anchor="L,T" Offset="208,376" Size="174,32" String="TXT_KEY_MCPVP_STOMPER" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Endermage" Anchor="L,T" Offset="392,376" Size="174,32" String="TXT_KEY_MCPVP_ENDERMAGE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Thor" Anchor="L,T" Offset="576,376" Size="174,32" String="TXT_KEY_MCPVP_THOR" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Viper" Anchor="L,T" Offset="760,376" Size="174,32" String="TXT_KEY_MCPVP_VIPER" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <Label ID="UnitDetails" Anchor="L,T" Offset="24,420" WrapWidth="924" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Target" Anchor="L,T" Offset="24,518" Size="220,32" String="TXT_KEY_MCPVP_TARGET" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <Label ID="TargetInfo" Anchor="L,T" Offset="254,524" WrapWidth="680" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Activate" Anchor="L,T" Offset="24,562" Size="220,32" String="TXT_KEY_MCPVP_ACTIVATE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Steal" Anchor="L,T" Offset="254,562" Size="220,32" String="TXT_KEY_MCPVP_STEAL" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Return" Anchor="L,T" Offset="484,562" Size="220,32" String="TXT_KEY_MCPVP_RETURN" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Infiltrate" Anchor="L,T" Offset="714,562" Size="220,32" String="TXT_KEY_MCPVP_INFILTRATE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
+  <Label Anchor="L,T" Offset="24,618" WrapWidth="924" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TXT_KEY_MCPVP_PANEL_HELP" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="CWC_Guide_Panel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="MCPVP / SERVER BROWSER[NEWLINE][NEWLINE]Select a veteran, choose a kit and queue the next match." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_McPvP_Buttons.dds" />
+  </GridButton>
  </Grid>
 </Context>

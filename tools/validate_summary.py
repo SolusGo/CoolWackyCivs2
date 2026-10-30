@@ -70,7 +70,8 @@ def skin():
     from prepare_boundless_ui import SIZES, S
     root=ET.parse(V/'UI/BoundlessWorkforce.xml').getroot()
     used={n.get('Texture') for n in root.iter() if n.get('Texture','').startswith('BC_UI_')}
-    assert used=={'BC_UI_'+name+'.dds' for name in SIZES}
+    assert used<={'BC_UI_'+name+'.dds' for name in SIZES}
+    assert {'BC_UI_Row.dds','BC_UI_Assigned.dds','BC_UI_Pending.dds'}<=used
     for name,size in SIZES.items():
         path=V/('Art/BC_UI_'+name+'.dds');raw=path.read_bytes()
         assert raw[:4]==b'DDS ' and raw[84:88]==b'\0'*4,'Legacy RGBA DDS required'
@@ -84,14 +85,14 @@ def skin():
             assert im.size==size and im.convert('RGBA').tobytes()==master.convert('RGBA').tobytes()
     for button in root.iter('GridButton'):
         data=button.find('GridData')
-        assert data is not None and data.get('Style')=='Grid9FrameButtons' and data.get('Texture')=='BC_UI_Buttons.dds'
+        assert data is not None and data.get('Style')=='Grid9FrameButtons' and data.get('Texture') in {'BC_UI_Buttons.dds','CWC2_TheBoundlessCity_Buttons.dds'}
     with Image.open(V/'Art/BC_UI_Buttons.dds') as sheet:
         assert len({sheet.crop((0,y,44,y+44)).tobytes() for y in [0,45,90,135]})==4
     rows=root.find("Instance/Grid[@ID='Root']")
     assert int(rows.get('Size').split(',')[1])*3+4*2<=210,'Three complete rows must fit'
     for image in root.iter('Image'):
         if image.get('Texture','').startswith('BC_UI_'):assert image.get('ConsumeMouse')=='0'
-    print('PASS Workforce skin: six exact legacy DDS/mip chains, source pixels, native nine-slice button states, click-through decoration and three complete rows')
+    print('PASS Workforce skin: six preserved legacy DDS/mip chains, source pixels, themed native nine-slice controls, click-through markers and three complete rows')
 
 
 def validate():

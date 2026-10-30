@@ -74,6 +74,9 @@ def sql():
         source=sqlite3.connect(cache.resolve().as_uri()+'?mode=ro',uri=True);active=sqlite3.connect(':memory:');source.backup(active);source.close()
         active.row_factory=sqlite3.Row
         active.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
+        # Match the collection's declared SQL order on a minimal active cache.
+        for path in sorted((R/'Shared/SQL').glob('*.sql')):
+            active.executescript(path.read_text(encoding='utf-8'))
         if not active.execute('SELECT 1 FROM Civilizations WHERE Type=?',(CIV,)).fetchone():
             apply(active);check_inheritance(active)
             print('PASS Circus activation on read-only copy of actual active CP cache')

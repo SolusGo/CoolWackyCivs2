@@ -9,7 +9,7 @@ from validate_urgal import support_source
 R=Path(__file__).resolve().parents[1];V=R/'JinDynasty';S=R/'art-source/JinDynasty/VisualRefresh'
 BASELINE='3b25b7859ac3f0508a0f6e875a7dd61bc60cf935'
 def main():
- textures=list((V/'Art').glob('*.dds'));assert len(textures)==82
+ textures=[p for p in (V/'Art').glob('*.dds') if not p.name.startswith('CWC2_')];assert len(textures)==82
  for path in textures:
   raw=path.read_bytes();assert raw[:4]==b'DDS ' and raw[84:88]!=b'DX10',path
   with Image.open(path)as im:

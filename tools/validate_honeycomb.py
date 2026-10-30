@@ -223,8 +223,14 @@ def art(d):
         width,height=struct.unpack_from('<I',raw,16)[0],struct.unpack_from('<I',raw,12)[0]
         levels=struct.unpack_from('<I',raw,28)[0]
         assert levels==math.floor(math.log2(max(width,height)))+1,'incomplete mip count'
-        assert raw[84:88]==b'\0'*4 and struct.unpack_from('<I',raw,88)[0]==32,'unexpected non-legacy DDS encoding'
-        assert len(raw)==128+sum(max(1,width>>i)*max(1,height>>i)*4 for i in range(levels)),('truncated mip payload',p)
+        fourcc=raw[84:88]
+        assert fourcc in [b'\0'*4,b'DXT5'],'unexpected non-legacy DDS encoding'
+        if fourcc==b'DXT5':
+            payload=sum(max(1,(max(1,width>>i)+3)//4)*max(1,(max(1,height>>i)+3)//4)*16 for i in range(levels))
+        else:
+            assert struct.unpack_from('<I',raw,88)[0]==32,'unexpected RGBA pixel depth'
+            payload=sum(max(1,width>>i)*max(1,height>>i)*4 for i in range(levels))
+        assert len(raw)==128+payload,('truncated mip payload',p)
         with Image.open(p) as im: im.load(); assert im.width>0 and im.height>0
     for atlas,size,filename,cols,rows in d.execute("SELECT * FROM IconTextureAtlases WHERE Atlas LIKE 'HCC_%'"):
         with Image.open(V/'Art'/filename) as im: assert im.size==(size*int(cols),size*int(rows))

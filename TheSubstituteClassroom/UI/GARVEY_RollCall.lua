@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('GARVEY_Core')
 include('GARVEY_Interface')
 local G=MapModData.Garvey
@@ -6,11 +7,13 @@ local expected
 local interface=G.interface
 local function eligible()
  local pid=Game.GetActivePlayer()
- return G.Human(pid) and Players[pid]:IsTurnActive() and G.InterfaceReady()
+ return G.Human(pid) and Players[pid]:IsTurnActive() and ((uiRecovery and uiRecovery:Available()) or (not uiRecovery and G.InterfaceReady()))
 end
 local function render()
+ if uiRecovery then uiRecovery:Sync() end
  local pid=Game.GetActivePlayer();local show=eligible();local s=G.Human(pid) and G.State(pid)
  if not show then opened=false end
+ show=show and (not uiRecovery or uiRecovery:Available())
  Controls.Launcher:SetHide(not show);Controls.Panel:SetHide(not (show and opened))
  if not show then return end
  if not s then
@@ -90,7 +93,20 @@ G.Hook(Events,'ActivePlayerTurnEnd',closeTransition)
 G.Hook(Events,'InterfaceModeChanged',closeTransition)
 ContextPtr:SetShowHideHandler(function(hidden) interface.hidden=hidden;closeTransition() end)
 ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
  if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end
  return false
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='TheSubstituteClassroom',civ='CIVILIZATION_GARVEY_CLASSROOM',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  request=function() G.QueueRefresh() end,
+  refresh=function() refresh() end,
+  recover=function() interface.leader=false;interface.blocked={};interface.transition=false;interface.hidden=false end,repair=function() rendering=false end,
+  close=function() opened=false end,manageContext=false}
+ uiRecovery:Refresh(true)
+end

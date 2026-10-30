@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('IconSupport');include('InstanceManager');include('RED_Core')
 local R=MapModData.RED_Legend
 local rows=InstanceManager:new('REDPartnerRow','Root',Controls.PartyRows)
@@ -28,6 +29,7 @@ local function cycle(list,current)
  return list[1]
 end
 local function world()
+ if uiRecovery then return uiRecovery:Available(),uiRecovery:Reason() end;
  if blocked or leader or UI.IsCityScreenUp() or UI.GetInterfaceMode()~=InterfaceModeTypes.INTERFACEMODE_SELECTION then return false end
  for _,name in ipairs({'CivilopediaScreen','TechTree','GenericPopup','SocialPolicyPopup','EconomicOverview','MilitaryOverview','DiploOverview','ProductionPopup','GameMenu','CultureOverview','ReligionOverview'}) do
   local control=ContextPtr:LookUpControl('/InGame/'..name);if control and not control:IsHidden() then return false end
@@ -58,11 +60,13 @@ local function detail(s,u)
 end
 local rendering=false
 refresh=function()
+ if uiRecovery then uiRecovery:Sync() end
  if rendering then return end;rendering=true
  local ok,err=pcall(function()
   local pid=Game.GetActivePlayer();local p=Players[pid];local s=R.States[pid]
   local visible=R.IsRed(pid) and p:IsAlive() and p:IsHuman() and p:IsTurnActive() and world() and s~=nil
-  Controls.Launcher:SetHide(not visible)
+ visible=visible and (not uiRecovery or uiRecovery:Available())
+ Controls.Launcher:SetHide(not visible)
   if not visible then opened=false end
   Controls.Panel:SetHide(not opened);if not opened then return end
   local team=R.Team(s);local silver=s.silver;local status=silver.phase
@@ -147,5 +151,18 @@ R.Hook(Events,'SerialEventGameMessagePopupShown',function() blocked=true;close()
 R.Hook(Events,'SerialEventGameMessagePopupProcessed',function() blocked=false;close() end)
 for _,name in ipairs({'GameplaySetActivePlayer','ActivePlayerTurnStart','LoadScreenClose'}) do R.Hook(Events,name,function() blocked=false;leader=false;close() end) end
 R.Hook(Events,'ActivePlayerTurnEnd',close);R.Hook(Events,'InterfaceModeChanged',close)
-ContextPtr:SetInputHandler(function(msg,key) if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then close();return true end return false end)
+ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
+ if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then close();return true end return false end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='TrainerRed',civ='CIVILIZATION_RED_INDIGO_CHAMPION',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  refresh=function() refresh() end,
+  recover=function() blocked=false;leader=false end,repair=function() rendering=false end,
+  close=function() opened=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

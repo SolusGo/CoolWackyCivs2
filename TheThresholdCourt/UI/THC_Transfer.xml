@@ -1,23 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="THC_Transfer">
  <Grid ID="Launcher" Anchor="R,T" Offset="14,280" Size="300,110" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
-  <GridButton ID="Open" Anchor="C,T" Offset="0,8" Size="284,34" Style="BaseButton" String="TXT_KEY_THC_TRANSFER">
+  <Image ID="CWC_ThemeBackground_Launcher" Anchor="L,T" Size="300,110" Texture="CWC2_TheThresholdCourt_Launcher_300x110.dds" ConsumeMouse="0" />
+  <GridButton ID="Open" Anchor="C,T" Offset="0,8" Size="284,34" String="TXT_KEY_THC_TRANSFER" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheThresholdCourt_Buttons.dds" />
    <Image ID="DoorwayIcon" Anchor="L,C" Offset="8,0" Size="24,24" Texture="THC_Icon24.dds" ConsumeMouse="0" />
   </GridButton>
-  <Label ID="Reason" Anchor="C,T" Offset="0,48" Size="278,54" WrapWidth="278" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" />
+  <Label ID="Reason" Anchor="C,T" Offset="0,48" Size="278,54" WrapWidth="278" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
  </Grid>
  <Grid ID="Panel" Anchor="C,C" Size="660,550" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
-  <Label ID="Title" Anchor="C,T" Offset="0,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_THC_TITLE" />
-  <Label ID="Header" Anchor="L,T" Offset="24,58" Size="610,82" WrapWidth="610" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
-  <ScrollPanel ID="Scroll" Anchor="C,T" Offset="0,146" Size="618,262" Vertical="1">
+  <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="660,550" Texture="CWC2_TheThresholdCourt_Panel_660x550.dds" ConsumeMouse="0" />
+  <Label ID="Title" Anchor="C,T" Offset="0,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_THC_TITLE" Color0="218,200,224,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="Header" Anchor="L,T" Offset="24,58" Size="610,82" WrapWidth="610" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <ScrollPanel ID="Scroll" Anchor="C,T" Offset="0,146" Size="618,262" Vertical="1" AutoScrollBar="1">
    <Stack ID="Destinations" Anchor="L,T" StackGrowth="Bottom" Padding="5" Size="600,0" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="254" />
   </ScrollPanel>
-  <Label ID="Feedback" Anchor="L,T" Offset="24,421" Size="610,56" WrapWidth="610" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Confirm" Anchor="L,B" Offset="24,24" Size="416,38" Style="BaseButton" String="TXT_KEY_THC_CONFIRM" />
-  <GridButton ID="Cancel" Anchor="R,B" Offset="24,24" Size="174,38" Style="BaseButton" String="TXT_KEY_THC_CANCEL" />
+  <Label ID="Feedback" Anchor="L,T" Offset="24,421" Size="610,56" WrapWidth="610" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Confirm" Anchor="L,B" Offset="24,24" Size="416,38" String="TXT_KEY_THC_CONFIRM" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheThresholdCourt_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Cancel" Anchor="R,B" Offset="24,24" Size="174,38" String="TXT_KEY_THC_CANCEL" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheThresholdCourt_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="CWC_Guide_Panel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE THRESHOLD COURT[NEWLINE][NEWLINE]Choose a doorway, inspect the destination and confirm a crossing." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheThresholdCourt_Buttons.dds" />
+  </GridButton>
  </Grid>
  <Instance Name="THC_Destination">
-  <GridButton ID="Row" Size="594,58" Style="BaseButton">
+  <GridButton ID="Row" Size="594,58" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheThresholdCourt_Buttons.dds" />
    <Label ID="Name" Anchor="L,T" Offset="12,5" Size="570,22" WrapWidth="570" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
    <Label ID="Status" Anchor="L,T" Offset="12,30" Size="570,22" WrapWidth="570" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" />
   </GridButton>

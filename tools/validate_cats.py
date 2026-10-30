@@ -208,7 +208,7 @@ def assets():
   for b in identity['emblem'][i+1:]:assert math.dist(a['center'],b['center'])>(a['diameter']+b['diameter'])/2,'overlapping cat medallions'
  assert identity['emblem'][0]['diameter']>max(p['diameter'] for p in identity['emblem'][1:])
  assert identity['scene_cats']=={'Leader':['AUSTIN'],'Dawn':['AUSTIN','LUNA']}
- assert len(list((V/'Art').glob('*.dds')))==50
+ assert len([p for p in (V/'Art').glob('*.dds') if not p.name.startswith('CWC2_')])==50
  print('PASS 11 unique source portraits/atlas cells, canonical indices, nonoverlapping 11-cat emblem, legacy full mip chains and BC3 scenes')
  print('PASS XML, Lua 5.1, UI controls, reusable instance architecture and decoded mipmapped DDS assets')
 

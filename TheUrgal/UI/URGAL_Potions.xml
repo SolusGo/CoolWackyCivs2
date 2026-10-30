@@ -1,9 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="URGAL_Potions">
- <Grid ID="Inventory" Anchor="R,T" Offset="14,276" Size="290,112" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
-  <Image ID="PotionIcon" Anchor="L,T" Offset="12,7" Size="32,32" Texture="URGAL_PotionUI32.dds" ConsumeMouse="0" />
-  <Label ID="Stockpile" Anchor="L,T" Offset="50,14" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <Label ID="Status" Anchor="C,T" Offset="0,43" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Drink" Anchor="C,B" Offset="0,10" Size="274,34" Style="BaseButton" String="TXT_KEY_URGAL_DRINK" />
+ <Grid ID="Inventory" Anchor="R,T" Offset="14,276" Size="340,180" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Inventory" Anchor="L,T" Size="340,180" Texture="CWC2_TheUrgal_Launcher_340x180.dds" ConsumeMouse="0" />
+  <Image ID="PotionIcon" Anchor="L,T" Offset="18,18" Size="32,32" Texture="URGAL_PotionUI32.dds" ConsumeMouse="0" />
+  <Label ID="Stockpile" Anchor="L,T" Offset="62,49" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="Status" Anchor="L,T" Offset="18,82" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" Size="304,22" />
+  <GridButton ID="Drink" Anchor="C,B" Offset="0,14" Size="304,36" String="TXT_KEY_URGAL_DRINK" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheUrgal_Buttons.dds" />
+  </GridButton>
+  <Label Anchor="L,T" Offset="62,18" Font="TwCenMT18" Color0="223,191,249,255" String="STRENGTH POTION" />
+  <Label ID="PotionArmy" Anchor="L,T" Offset="18,109" Font="TwCenMT14" Color0="196,178,212,255" Size="304,20" />
  </Grid>
 </Context>

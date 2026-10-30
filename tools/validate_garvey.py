@@ -195,7 +195,7 @@ def art(d):
   assert d.execute('SELECT 1 FROM IconTextureAtlases WHERE Atlas=? AND IconSize=32 AND IconsPerRow*IconsPerColumn>?',(atlas,index)).fetchone()
  for stem,size in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',(512,512)),('Board',(768,640))]:
   with Image.open(V/'Art'/f'GARVEY_{stem}.dds') as im:im.load();assert im.size==size
- assert len(list((V/'Art').glob('*.dds')))==41
+ assert len([p for p in (V/'Art').glob('*.dds') if not p.name.startswith('CWC2_')])==41
  assert ET.parse(V/'Art/GARVEY_LeaderScene.xml').getroot().get('FallbackImage')=='GARVEY_Leader.dds'
  root=ET.parse(V/'UI/GARVEY_RollCall.xml').getroot()
  controls={c.get('ID') for c in root.iter()}

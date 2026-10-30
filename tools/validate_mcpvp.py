@@ -46,7 +46,11 @@ def source_audit():
  ui={'SetUpdate','ClearUpdate','SetHide','SetText','SetDisabled','SetToolTipString','RegisterCallback','CalculateSize','ReprocessAnchoring','CalculateInternalSize','SetInputHandler','LookUpControl','IsHidden'}
  used=set()
  for p in V.rglob('*.lua'):
-  for name in re.findall(r':([A-Z]\w+)\(',p.read_text(encoding='utf-8')):
+  code=p.read_text(encoding='utf-8')
+  for name in re.findall(r'\buiRecovery:(\w+)\(',code):
+   assert name in {'Available','Reason','Sync','Refresh'},('Unknown presentation method',name,p)
+  code=re.sub(r'\buiRecovery:\w+\(', 'presentation(',code)
+  for name in re.findall(r':([A-Z]\w+)\(',code):
    if name not in ui:assert name in native,('Unknown native method',name,p);used.add(name)
  for kind,names in {'Unit':['CanMoveOrAttackInto','CanMoveThrough','GeneratePath','LastMissionPlot','PopMission','MaxMoves','SetXY','ChangeDamage','ChangeExperience','SetMadeAttack','IsOutOfAttacks','GetGameTurnCreated','IsInvisible'],
                     'City':['GetGameTurnFounded','GetOriginalOwner','SetNumRealBuilding','Plot'],

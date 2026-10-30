@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('InstanceManager')
 include('BoundlessCore')
 local B=MapModData.BoundlessCity
@@ -95,11 +96,13 @@ local function summary(s,info,cache)
  Controls.SummaryBody:SetSizeY(height)
 end
 local function render()
+ if uiRecovery then uiRecovery:Sync() end
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local reason
  if not B.IsBoundless(pid) or not p:IsHuman() or not p:IsAlive() then reason='inactive civilization'
  elseif not p:IsTurnActive() then reason='inactive turn'
  else reason=worldReason() end
+ if uiRecovery and not uiRecovery:Available() then reason=uiRecovery:Reason() end
  local visible=reason==nil
  local s=visible and B.State(pid);local city=s and B.City(s)
  if visible and (not s.capital or s.incompatible) then visible=false;reason=s.incompatible and 'incompatible state' or 'capital not founded' end
@@ -193,6 +196,7 @@ Controls.Sort:RegisterCallback(Mouse.eLClick,function() sort=cycle({'DISTANCE','
 Controls.Previous:RegisterCallback(Mouse.eLClick,function() page=page-1;refresh() end)
 Controls.Next:RegisterCallback(Mouse.eLClick,function() page=page+1;refresh() end)
 ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
  if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end
  return false
 end)
@@ -220,3 +224,15 @@ ContextPtr:SetShowHideHandler(function(hidden)
  if hidden then opened=false;Controls.Panel:SetHide(true) else resetVisibility() end
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='TheBoundlessCity',civ='CIVILIZATION_BOUNDLESS_CITY',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  request=function() deferRefresh() end,
+  refresh=function() refresh() end,
+  recover=function() blocked={};leaderScreen=false;transition=false;contexts={} end,repair=function() refreshing=false end,
+  close=function() opened=false end,manageContext=false}
+ uiRecovery:Refresh(true)
+end

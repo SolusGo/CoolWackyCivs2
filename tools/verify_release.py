@@ -1,6 +1,6 @@
 """Verify built ZIP/7z inventories, game-file bytes and the embedded modinfo."""
 from pathlib import Path
-import tempfile, zipfile
+import json, tempfile, zipfile
 import py7zr
 from build_mod import R,NAME,CIVILIZATIONS,files,relative
 
@@ -68,6 +68,12 @@ def main():
         sample += ['JinDynasty/'+p for p in ['Lua/JIN_Core.lua','Lua/JIN_State.lua','Lua/JIN_Military.lua','Lua/JIN_Autonomy.lua','Lua/JIN_Runtime.lua','Lua/JIN_Transactions.lua','Lua/JIN_Config.lua','UI/JIN_Dynasty.lua','UI/JIN_Dynasty.xml','SQL/00_JIN_Core.sql','SQL/02_JIN_Effects.sql','SQL/10_JIN_Text.sql','Art/JIN_Leader.dds','Art/JIN_Units256.dds','docs/Validation.json','docs/HardeningBenchmark.json','Balance.json']]
         sample += ['TheBoundlessCity/Art/BC_UI_'+name+'.dds' for name in ['Panel','Launcher','Row','Buttons','Assigned','Pending']]
         sample += ['TheThresholdCourt/'+p for p in ['Lua/THC_Core.lua','Lua/THC_State.lua','Lua/THC_Events.lua','UI/THC_Transfer.lua','UI/THC_Transfer.xml','SQL/00_THC_Core.sql','SQL/01_THC_Inheritance.sql','SQL/02_THC_Effects.sql','SQL/03_THC_Art.sql','SQL/10_THC_Text.sql','Art/THC_Leader.dds','Art/THC_Objects256.dds','docs/Validation.json']]
+        sample += ['Shared/UI/CWC2_Screen.lua']
+        for record in json.loads((R/'docs/UIRefreshInventory.json').read_text(encoding='utf-8')):
+            sample += record['xml']
+            sample += [name.removesuffix('.xml')+'.lua' for name in record['xml']]
+            sample += [record['civilization']+'/Art/'+name for name in record['textures'] if '_Panel_' in name or '_Launcher_' in name]
+        sample=list(dict.fromkeys(sample))
         with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z: z.extract(path=target,targets=sample)
         for name in sample: assert (target/name).read_bytes()==(R/name).read_bytes(),('7z stale bytes',name)
     print('PASS ZIP and genuine 7z/LZMA release:',len(expected),'files,',len(game),'game files, exact ZIP bytes, CRC and extracted 7z manifest/runtime/SQL')

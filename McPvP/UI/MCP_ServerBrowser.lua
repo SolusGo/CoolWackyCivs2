@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('MCP_Core')
 local M=MapModData.MCPVP
 local opened,leader,blocked,rendering=false,false,false,false
@@ -18,10 +19,12 @@ local function eligible()
  return true
 end
 local function refresh()
+ if uiRecovery then uiRecovery:Sync() end
  if rendering then return end;rendering=true
  local ok,err=pcall(function()
   local s=state();local show=s and s.mode~=nil and eligible()
-  Controls.Launcher:SetHide(not show);Controls.Panel:SetHide(not (show and opened))
+ show=show and (not uiRecovery or uiRecovery:Available())
+ Controls.Launcher:SetHide(not show);Controls.Panel:SetHide(not (show and opened))
   if not show or not opened then return end
   Controls.Summary:SetText('Current: '..M.Text(s.mode)..'    Queued: '..M.Text(s.queued)..'    Turns remaining: '..math.max(0,s.finish-M.Turn())..'[NEWLINE]Server Legacy: '..s.current..'    Lifetime: '..s.lifetime..'    Completed matches: '..s.completed..'[NEWLINE]Victories - HG: '..s.wins.HG..'    CTF: '..s.wins.CTF..'    Sabotage: '..s.wins.SAB)
   local objective
@@ -105,5 +108,18 @@ M.Hook(Events,'SerialEventGameMessagePopupProcessed',function() blocked=false;cl
 for _,name in ipairs({'GameplaySetActivePlayer','ActivePlayerTurnStart','LoadScreenClose'}) do M.Hook(Events,name,function() blocked=false;leader=false;close() end) end
 M.Hook(Events,'ActivePlayerTurnEnd',close)
 M.Hook(Events,'InterfaceModeChanged',close)
-ContextPtr:SetInputHandler(function(msg,key) if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then close();return true end return false end)
+ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
+ if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then close();return true end return false end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='McPvP',civ='CIVILIZATION_MCPVP',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  refresh=function() refresh() end,
+  recover=function() blocked=false;leader=false end,repair=function() rendering=false end,
+  close=function() opened=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

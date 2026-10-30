@@ -79,7 +79,10 @@ def source_audit():
         else:
             assert source.count('ContextPtr:SetUpdate(')==1
             assert re.search(r'ContextPtr:SetUpdate\(function\(\)\s*ContextPtr:ClearUpdate\(\);queued=false;interface.transition=false;refresh\(\)',source)
-        for name in re.findall(r':([A-Z]\w+)\(',source):
+        for name in re.findall(r'\buiRecovery:(\w+)\(',source):
+            assert name in {'Available','Reason','Sync','Refresh'},('Unknown presentation method',name,path)
+        native_source=re.sub(r'\buiRecovery:\w+\(', 'presentation(',source)
+        for name in re.findall(r':([A-Z]\w+)\(',native_source):
             assert name in native|ui,('unknown method',path,name);used.add(name)
     for method in ['IsNetworkMultiPlayer','IsHotSeat','GetGameTurn','GetGameSpeedType','GetActivePlayer']:
         assert method in native,method

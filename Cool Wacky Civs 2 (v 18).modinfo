@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="17">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="18">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
     <Teaser>Seventeen civilizations, now including Laurea and the Laureate Commonwealth.</Teaser>
@@ -25,6 +25,13 @@
   <Blocks />
   <Files>
     <File md5="F363BBCBE46118E5EDEF6853D67DCD4C" import="0">Shared/SQL/00_OptionalCompatibility.sql</File>
+    <File md5="C17DCAF30452E52CA1A6351001D939AE" import="1">Shared/UI/CWC2_Screen.lua</File>
+    <File md5="74C47F4129B33784133EE1DEC0E00E4E" import="1">McPvP/Art/CWC2_McPvP_Buttons.dds</File>
+    <File md5="50BDB4655250E3927E5D12C30BBC7095" import="1">McPvP/Art/CWC2_McPvP_Launcher.dds</File>
+    <File md5="2AA57E7132D16E7A05F80A9B795D2B76" import="1">McPvP/Art/CWC2_McPvP_Launcher_245x36.dds</File>
+    <File md5="37FA6677ABC119FFF2E2A96050FB01AD" import="1">McPvP/Art/CWC2_McPvP_Panel.dds</File>
+    <File md5="F8F0191F8E99276DD546F50AC3B41D14" import="1">McPvP/Art/CWC2_McPvP_Panel_980x700.dds</File>
+    <File md5="F907A592A043D32AFCB728155428B5C4" import="1">McPvP/Art/CWC2_McPvP_Row.dds</File>
     <File md5="10EC40062A849C440D5B3ACB96DC7EB2" import="1">McPvP/Art/MCP_Alpha128.dds</File>
     <File md5="EDB0ED396DD24563641575079608D4F1" import="1">McPvP/Art/MCP_Alpha16.dds</File>
     <File md5="7AF183BD6C4B4E32A0650B5DEF44348F" import="1">McPvP/Art/MCP_Alpha24.dds</File>
@@ -35,45 +42,45 @@
     <File md5="77000965571D8164384248177F7BAF09" import="1">McPvP/Art/MCP_Alpha64.dds</File>
     <File md5="890CCB2615F17EC2736C99A0EC650C03" import="1">McPvP/Art/MCP_Alpha80.dds</File>
     <File md5="8F61593F4E10C72B330AA8856295A3C2" import="1">McPvP/Art/MCP_Dawn.dds</File>
-    <File md5="1A244F873D8F1096EC4DE7BD9D40C2E0" import="1">McPvP/Art/MCP_Icon128.dds</File>
-    <File md5="E1E9A3D3A8FED1E3CB23CE9086316999" import="1">McPvP/Art/MCP_Icon16.dds</File>
-    <File md5="42970AC854F24D9A74845D35B432CECB" import="1">McPvP/Art/MCP_Icon24.dds</File>
-    <File md5="623E56C23DA17EC1A3AD614D2AF532E0" import="1">McPvP/Art/MCP_Icon256.dds</File>
-    <File md5="236E28C41D4848EA3F2DFF4F19939667" import="1">McPvP/Art/MCP_Icon32.dds</File>
-    <File md5="413E1A5624CA8AE09EAB0FE88AB0C076" import="1">McPvP/Art/MCP_Icon45.dds</File>
-    <File md5="99F4679C23B453312E5D6E48E4E1D418" import="1">McPvP/Art/MCP_Icon48.dds</File>
-    <File md5="AA4F40EFBFA241B6F7DE55ED3F16C94D" import="1">McPvP/Art/MCP_Icon64.dds</File>
-    <File md5="89E7ED946BA702C5BF432D7485A767E2" import="1">McPvP/Art/MCP_Icon80.dds</File>
+    <File md5="3EAAF864345C878B50DB73ED325411DB" import="1">McPvP/Art/MCP_Icon128.dds</File>
+    <File md5="091DAF9DCCBD26778749C4B1C6B374AD" import="1">McPvP/Art/MCP_Icon16.dds</File>
+    <File md5="701F1BA62C5D610517FF5D74F0258C21" import="1">McPvP/Art/MCP_Icon24.dds</File>
+    <File md5="603C4A263420E7A2A1796D8F9BE1EB68" import="1">McPvP/Art/MCP_Icon256.dds</File>
+    <File md5="8E398289A591D26AF460AC6E68768530" import="1">McPvP/Art/MCP_Icon32.dds</File>
+    <File md5="59A0BEC2DEE24F9E5FFD05BFC5716DDB" import="1">McPvP/Art/MCP_Icon45.dds</File>
+    <File md5="1745AAA19FAB213783F1EECA5B3CE199" import="1">McPvP/Art/MCP_Icon48.dds</File>
+    <File md5="2C276F4700E1FFAF66FBA651E20444E3" import="1">McPvP/Art/MCP_Icon64.dds</File>
+    <File md5="171350793D334A27A92DD4B978F9B3FF" import="1">McPvP/Art/MCP_Icon80.dds</File>
     <File md5="8F61593F4E10C72B330AA8856295A3C2" import="1">McPvP/Art/MCP_Leader.dds</File>
     <File md5="B9946594D73107A7E159998D975D0D95" import="1">McPvP/Art/MCP_LeaderScene.xml</File>
     <File md5="90AA883EF3CDFB4ED2A8DBBD63DBA0F6" import="1">McPvP/Art/MCP_Map.dds</File>
-    <File md5="071B51828507F29BA6513E2FFCA25D6A" import="1">McPvP/Art/MCP_Objects128.dds</File>
-    <File md5="94A889E954DB4E7ABABC7BC3808F0FE2" import="1">McPvP/Art/MCP_Objects16.dds</File>
-    <File md5="F6F6654532C433FEEB7A1A1C0997B1BC" import="1">McPvP/Art/MCP_Objects24.dds</File>
-    <File md5="386CBE39435DA22C91CC204BF97C4D7E" import="1">McPvP/Art/MCP_Objects256.dds</File>
-    <File md5="992916CEF7903C394413C409E2C3EFAB" import="1">McPvP/Art/MCP_Objects32.dds</File>
-    <File md5="1D702D9ACFB506BDFCDC1042FF8D3AD6" import="1">McPvP/Art/MCP_Objects45.dds</File>
-    <File md5="DA698DEAC473E5D8E85D39974B98C27A" import="1">McPvP/Art/MCP_Objects48.dds</File>
-    <File md5="7CC92FBFADEA3CF55541472015391CB1" import="1">McPvP/Art/MCP_Objects64.dds</File>
-    <File md5="32567A04C15258108163B71C8E5A4248" import="1">McPvP/Art/MCP_Objects80.dds</File>
-    <File md5="7D1871559F16F01A3AB7267F7FF17421" import="1">McPvP/Art/MCP_Portrait128.dds</File>
-    <File md5="841A2DFB240B36E545C7DFFCF94E4FFA" import="1">McPvP/Art/MCP_Portrait16.dds</File>
-    <File md5="5818FDE233881F9C6E51E52B4F2AFC2F" import="1">McPvP/Art/MCP_Portrait24.dds</File>
-    <File md5="F8B1EFFE734B47438073BF3FA1E874FA" import="1">McPvP/Art/MCP_Portrait256.dds</File>
-    <File md5="8B55304162A1EEE2B97D9B371E084C23" import="1">McPvP/Art/MCP_Portrait32.dds</File>
-    <File md5="083DF546E91B26B83B393301501A293B" import="1">McPvP/Art/MCP_Portrait45.dds</File>
-    <File md5="AB64011DC23A96208399DB76CDF52C58" import="1">McPvP/Art/MCP_Portrait48.dds</File>
-    <File md5="4CB972E5EBCDE9DCB9F336B163AC1391" import="1">McPvP/Art/MCP_Portrait64.dds</File>
-    <File md5="9FFC23AA863B6CD75A622E4C909DBBC9" import="1">McPvP/Art/MCP_Portrait80.dds</File>
-    <File md5="52EABEE5ADB790E2937FA15A6464B44F" import="1">McPvP/Art/MCP_Promotions128.dds</File>
-    <File md5="F0EA4ED8DC4062EF50CCB9FD515AF224" import="1">McPvP/Art/MCP_Promotions16.dds</File>
-    <File md5="E2A2553DE39B6815FCE63C98F0975711" import="1">McPvP/Art/MCP_Promotions24.dds</File>
-    <File md5="CBD1825232216E2B45B4984F79C28D65" import="1">McPvP/Art/MCP_Promotions256.dds</File>
-    <File md5="289D580C02B793FAEAF6E5F476222AE4" import="1">McPvP/Art/MCP_Promotions32.dds</File>
-    <File md5="D2CD41097CD5CFB5EBD78B883F0BBAA5" import="1">McPvP/Art/MCP_Promotions45.dds</File>
-    <File md5="2756A6654B36C01F98DA8D8C0B0124E6" import="1">McPvP/Art/MCP_Promotions48.dds</File>
-    <File md5="9753FFE3A43EA440DCA7BE5F614E93E3" import="1">McPvP/Art/MCP_Promotions64.dds</File>
-    <File md5="A1A367C626329354E428327ED7A4C5E7" import="1">McPvP/Art/MCP_Promotions80.dds</File>
+    <File md5="5AAD30DA15475ABE5DCB0060CDD959B2" import="1">McPvP/Art/MCP_Objects128.dds</File>
+    <File md5="7B498A7BF9CD23B8DF7464B3190CE371" import="1">McPvP/Art/MCP_Objects16.dds</File>
+    <File md5="759198AB9ABFF140D1D172BF613A54A1" import="1">McPvP/Art/MCP_Objects24.dds</File>
+    <File md5="93451ADD6EDAFF9F25D02416B0B66B29" import="1">McPvP/Art/MCP_Objects256.dds</File>
+    <File md5="41A4A0863130B90637DB96F5589093BD" import="1">McPvP/Art/MCP_Objects32.dds</File>
+    <File md5="3339ECA18314B07EAD2B04CBAAE49308" import="1">McPvP/Art/MCP_Objects45.dds</File>
+    <File md5="50ECF1923B88E6F4219703E4BA8F32E8" import="1">McPvP/Art/MCP_Objects48.dds</File>
+    <File md5="CAA32650514EB7707A64249D265EDAD9" import="1">McPvP/Art/MCP_Objects64.dds</File>
+    <File md5="EF072F9850E18B7941471A1AAFA1DBBD" import="1">McPvP/Art/MCP_Objects80.dds</File>
+    <File md5="01A23C86629C8658F7E1466C67143008" import="1">McPvP/Art/MCP_Portrait128.dds</File>
+    <File md5="17D2D714BCA6EAFFF87CEBDDFE4C4B16" import="1">McPvP/Art/MCP_Portrait16.dds</File>
+    <File md5="2DA05F98204534AD5D9B9504E7408AEA" import="1">McPvP/Art/MCP_Portrait24.dds</File>
+    <File md5="77DA640B586A728347BC0BD5C48F9E19" import="1">McPvP/Art/MCP_Portrait256.dds</File>
+    <File md5="6BD1DC02918DFCA558D491764E335D0B" import="1">McPvP/Art/MCP_Portrait32.dds</File>
+    <File md5="E29806DE068F47DE2561CD0D8E759765" import="1">McPvP/Art/MCP_Portrait45.dds</File>
+    <File md5="A88DB758B5AA1C76CDFA3A01EE39E73D" import="1">McPvP/Art/MCP_Portrait48.dds</File>
+    <File md5="94ADF399B000A1ECC3F7F0FCAD1AEF07" import="1">McPvP/Art/MCP_Portrait64.dds</File>
+    <File md5="A5BC00DFEBADD423F0D51190E58BBCCE" import="1">McPvP/Art/MCP_Portrait80.dds</File>
+    <File md5="8F6F1E2A33B876432C5DEF731FD1D747" import="1">McPvP/Art/MCP_Promotions128.dds</File>
+    <File md5="761389F0A8C1904C35771DBE3AE2B47C" import="1">McPvP/Art/MCP_Promotions16.dds</File>
+    <File md5="ECF163F828AB85B5CCD926584B13F8CC" import="1">McPvP/Art/MCP_Promotions24.dds</File>
+    <File md5="8BA3554863C24958D61659761F3E0088" import="1">McPvP/Art/MCP_Promotions256.dds</File>
+    <File md5="799A77C40194BE7E2ECCED5417B93034" import="1">McPvP/Art/MCP_Promotions32.dds</File>
+    <File md5="4422E39CEA004728E3EAF528062284FF" import="1">McPvP/Art/MCP_Promotions45.dds</File>
+    <File md5="57E815D734F2D7AE946D1535DF80DDD7" import="1">McPvP/Art/MCP_Promotions48.dds</File>
+    <File md5="D53ED186FD8DDA070DAC3E15C56A3D67" import="1">McPvP/Art/MCP_Promotions64.dds</File>
+    <File md5="8BD961B6DF8E568353399455356B4B73" import="1">McPvP/Art/MCP_Promotions80.dds</File>
     <File md5="2C97C3C79C9047EEA335034B2D97B746" import="1">McPvP/Lua/MCP_AI.lua</File>
     <File md5="E89F06B30DD834648EF9C62283DD078D" import="1">McPvP/Lua/MCP_Core.lua</File>
     <File md5="21EEAC080BB67D55D547E8FBD56E4EF3" import="1">McPvP/Lua/MCP_Events.lua</File>
@@ -86,8 +93,8 @@
     <File md5="202C7EF74E5C5375DC79008285FB3C28" import="0">McPvP/SQL/02_MCP_Effects.sql</File>
     <File md5="89565490B22006C312444DB3463DC4C1" import="0">McPvP/SQL/03_MCP_Art.sql</File>
     <File md5="95741DE84A63B86599FFCE094F99F2AB" import="0">McPvP/SQL/10_MCP_Text.sql</File>
-    <File md5="532A1863EEC7ABA1627BC637DD218DFF" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
-    <File md5="6607246C4E4B801E80BEC662372B5B44" import="0">McPvP/UI/MCP_ServerBrowser.xml</File>
+    <File md5="22A62595525B4815EA156C7C3F5D5B66" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
+    <File md5="C2783EBCE9A822776EC0B531C1FCD4A0" import="0">McPvP/UI/MCP_ServerBrowser.xml</File>
     <File md5="65A768B26F9653F9C1102755025C61C6" import="1">TheBoundlessCity/Art/BC_UI_Assigned.dds</File>
     <File md5="6341E878BF863C391ACA6A7F2359356F" import="1">TheBoundlessCity/Art/BC_UI_Buttons.dds</File>
     <File md5="CE5B29085A52AC380ECF5A7D33B6B1E9" import="1">TheBoundlessCity/Art/BC_UI_Launcher.dds</File>
@@ -105,30 +112,37 @@
     <File md5="DDC5E1FCC52F6B2867F4649F83C4D0E6" import="1">TheBoundlessCity/Art/BoundlessAlpha80.dds</File>
     <File md5="B6F11D9F8CB83E7A4F4F7809DE348CFD" import="1">TheBoundlessCity/Art/BoundlessDawn.dds</File>
     <File md5="A51A77982BD11CD273F40223D9EEF195" import="1">TheBoundlessCity/Art/BoundlessFlag32.dds</File>
-    <File md5="088CD481B8A76664CF6B8E314D75DE13" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
-    <File md5="1D6F33D78E54249E311A9C0AB9FB57C2" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
-    <File md5="AC1141A14B0D66E798BDA36554A8B30B" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
-    <File md5="951A815D945883391A4CAA4531E91CA5" import="1">TheBoundlessCity/Art/BoundlessIcon256.dds</File>
-    <File md5="C044C5869C40702A881780F1E6816668" import="1">TheBoundlessCity/Art/BoundlessIcon32.dds</File>
-    <File md5="F5E142D9C553A4DA22A5277127FDCA52" import="1">TheBoundlessCity/Art/BoundlessIcon45.dds</File>
-    <File md5="8DCE14AD48D76E12091B341101A56FCD" import="1">TheBoundlessCity/Art/BoundlessIcon48.dds</File>
-    <File md5="7A6DD8EB8922454FFB7F8AA2536A52D2" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
-    <File md5="FCD230BFDBD7A5C6E232DD46AAAA0126" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
+    <File md5="E25BE6976AE483810035A261F880ED7D" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
+    <File md5="81A8B4FA0974F4F13E82A099DC56F945" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
+    <File md5="A6AC47C1E91A8F954D6AB91A11015FD4" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
+    <File md5="AA4086C95347A3561844414A52BF494F" import="1">TheBoundlessCity/Art/BoundlessIcon256.dds</File>
+    <File md5="4B4FAA897E4FAA5467BD93B34876A166" import="1">TheBoundlessCity/Art/BoundlessIcon32.dds</File>
+    <File md5="A9106207DC494BE7E7BD0D834ECD6144" import="1">TheBoundlessCity/Art/BoundlessIcon45.dds</File>
+    <File md5="A9E388FD20120C354FB37E1D29C32047" import="1">TheBoundlessCity/Art/BoundlessIcon48.dds</File>
+    <File md5="E3C33592035C0B59EE4A95DFDC679CB1" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
+    <File md5="C45519AB0B33B74FB81A89234B112544" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
     <File md5="7EC3F5625C0ACD4FEC40FA95A9F8DD9B" import="1">TheBoundlessCity/Art/BoundlessLeader.dds</File>
     <File md5="6911E551F70C4357D0EAAE442428CF28" import="1">TheBoundlessCity/Art/BoundlessLeaderScene.xml</File>
     <File md5="DD675ECB6C942F88D8908C47E9C8F4E0" import="1">TheBoundlessCity/Art/BoundlessMap.dds</File>
-    <File md5="7893727CA99A68C0D7DAD820491F4A4D" import="1">TheBoundlessCity/Art/BoundlessObjects128.dds</File>
-    <File md5="46629031222F420739771CDCBE673C32" import="1">TheBoundlessCity/Art/BoundlessObjects16.dds</File>
-    <File md5="23E59AC9E78558A98819665637C29D2C" import="1">TheBoundlessCity/Art/BoundlessObjects24.dds</File>
-    <File md5="FC453D7CBE062D849A0DD1C4DF86E8AC" import="1">TheBoundlessCity/Art/BoundlessObjects256.dds</File>
-    <File md5="4D032EDA6ED43E0B333E392263D0FDC1" import="1">TheBoundlessCity/Art/BoundlessObjects32.dds</File>
-    <File md5="14AA96E6C75CB627D95A22AA9F494C50" import="1">TheBoundlessCity/Art/BoundlessObjects45.dds</File>
-    <File md5="AE35D5A150BA03748C82B00114484128" import="1">TheBoundlessCity/Art/BoundlessObjects48.dds</File>
-    <File md5="952CC24DB685EFCC0961647BA415F35B" import="1">TheBoundlessCity/Art/BoundlessObjects64.dds</File>
-    <File md5="031E0955590303F1377DC897DF69257D" import="1">TheBoundlessCity/Art/BoundlessObjects80.dds</File>
-    <File md5="FAF86BF55A401B2E892DB83F4CD8A3C8" import="1">TheBoundlessCity/Art/BoundlessPortrait128.dds</File>
-    <File md5="5EC1FDD623C5BF3BAC9A271DED1C5B2F" import="1">TheBoundlessCity/Art/BoundlessPortrait256.dds</File>
-    <File md5="1299EE7970AE78B0DEC0F26E12162E4C" import="1">TheBoundlessCity/Art/BoundlessPortrait64.dds</File>
+    <File md5="8745ED608066FDE45279C3129271D80C" import="1">TheBoundlessCity/Art/BoundlessObjects128.dds</File>
+    <File md5="F4F1415A3497D267B451B3C96C4DEC13" import="1">TheBoundlessCity/Art/BoundlessObjects16.dds</File>
+    <File md5="17F34AC361998594F50D670EE8D21717" import="1">TheBoundlessCity/Art/BoundlessObjects24.dds</File>
+    <File md5="B92A860A6B1AD25CA2ABD917556DE3F7" import="1">TheBoundlessCity/Art/BoundlessObjects256.dds</File>
+    <File md5="4253B8F70D7D7C9580DF42AF112F6EF2" import="1">TheBoundlessCity/Art/BoundlessObjects32.dds</File>
+    <File md5="62E5935569DC510C444A9FA40214B5D5" import="1">TheBoundlessCity/Art/BoundlessObjects45.dds</File>
+    <File md5="6D639F35D8D119AC434B4C6652624080" import="1">TheBoundlessCity/Art/BoundlessObjects48.dds</File>
+    <File md5="EEC0F9233CA30C6EB22B3E25D5E7FB7D" import="1">TheBoundlessCity/Art/BoundlessObjects64.dds</File>
+    <File md5="1137B4DAB79AB19F617958BA41780D20" import="1">TheBoundlessCity/Art/BoundlessObjects80.dds</File>
+    <File md5="2C76FC3D130EF0123665ACA5E53416F3" import="1">TheBoundlessCity/Art/BoundlessPortrait128.dds</File>
+    <File md5="E5E9DDB378A0287E053182EC108B9CB3" import="1">TheBoundlessCity/Art/BoundlessPortrait256.dds</File>
+    <File md5="AE089DD84BB40694D37089BABCC06BA3" import="1">TheBoundlessCity/Art/BoundlessPortrait64.dds</File>
+    <File md5="F32D5CB48F5677F55D733D7CAD70694D" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Buttons.dds</File>
+    <File md5="6A9827261CECFF47E65768279228BA2D" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Launcher.dds</File>
+    <File md5="F8DDBEDEBE44A00C9D866D3BE495BF67" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Launcher_245x36.dds</File>
+    <File md5="621704BAB43399964068D53F8F0D93AF" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Panel.dds</File>
+    <File md5="4507B9FB86EDA5C8BA709A6A4517FAEC" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Panel_900x700.dds</File>
+    <File md5="556A81390B4FD7B8923962994D56FFC3" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Row.dds</File>
+    <File md5="75DD515209B23A10A60D32BB1AC79B57" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Row_834x66.dds</File>
     <File md5="1EE1B4C1666A685743E3894366F9C11F" import="1">TheBoundlessCity/Lua/BoundlessAI.lua</File>
     <File md5="4E94B1DBC28593DC9E99F714879BB1AA" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
     <File md5="E7F0C53EFE55E65260B0B9B581DF1247" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
@@ -142,8 +156,8 @@
     <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
     <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
     <File md5="614070224EEEB0B1B623FD5A5653128E" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
-    <File md5="3221152FE6F10B716A0D187A8DA682F3" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
-    <File md5="18784827B96EC8861B7B38C61DC66E5A" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
+    <File md5="F352A5C8A9E1A2A42021130FB1DB58C9" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
+    <File md5="29F2CF0DA6785D2A678E596513E93885" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
     <File md5="6C112DA6BB2E1AF045D6CBE2C517B788" import="1">TheChildrenOfTheKingdom/Art/CKAlpha128.dds</File>
     <File md5="FA27E04B9CDD0F512CBEA584BC066238" import="1">TheChildrenOfTheKingdom/Art/CKAlpha16.dds</File>
     <File md5="3F8C8B0E51EED3367B878A7DA520A4D0" import="1">TheChildrenOfTheKingdom/Art/CKAlpha24.dds</File>
@@ -155,30 +169,36 @@
     <File md5="19BA5E27EC18EC2E103FA97EA4DCD28B" import="1">TheChildrenOfTheKingdom/Art/CKAlpha80.dds</File>
     <File md5="5681C4C799E2221F549A5773F834B10D" import="1">TheChildrenOfTheKingdom/Art/CKDawn.dds</File>
     <File md5="2F70695AF91A829C059E9F245BB7BE4F" import="1">TheChildrenOfTheKingdom/Art/CKFlag32.dds</File>
-    <File md5="1715E19F4CA92E227620C22142A20260" import="1">TheChildrenOfTheKingdom/Art/CKIcon128.dds</File>
-    <File md5="1B2CFA27D429FE382960E83FF83303EA" import="1">TheChildrenOfTheKingdom/Art/CKIcon16.dds</File>
-    <File md5="8589C763681AD0539D190825A88142EC" import="1">TheChildrenOfTheKingdom/Art/CKIcon24.dds</File>
-    <File md5="5E5CC5110311FFA67E98AAA92437D7CE" import="1">TheChildrenOfTheKingdom/Art/CKIcon256.dds</File>
-    <File md5="07C0E60FF7A51DFEE39A303F43D54B9B" import="1">TheChildrenOfTheKingdom/Art/CKIcon32.dds</File>
-    <File md5="78822E91F845D5EEBE4AB620D8CA205C" import="1">TheChildrenOfTheKingdom/Art/CKIcon45.dds</File>
-    <File md5="9020B4CBCF8B8CEA4EAA614A10FAA0A0" import="1">TheChildrenOfTheKingdom/Art/CKIcon48.dds</File>
-    <File md5="951C9F28F70E8F427AB9168AE9C81163" import="1">TheChildrenOfTheKingdom/Art/CKIcon64.dds</File>
-    <File md5="D78BBDAA450BCFF44D8825B2843845B2" import="1">TheChildrenOfTheKingdom/Art/CKIcon80.dds</File>
+    <File md5="11ABA92A4D2D287D1D6D962DF847657A" import="1">TheChildrenOfTheKingdom/Art/CKIcon128.dds</File>
+    <File md5="631384D82CD48A0EFE84350EC35ED1BB" import="1">TheChildrenOfTheKingdom/Art/CKIcon16.dds</File>
+    <File md5="F61D2AE512F4356D2BC49CDC21C74019" import="1">TheChildrenOfTheKingdom/Art/CKIcon24.dds</File>
+    <File md5="57A45324B400B985207C39FE728E96E5" import="1">TheChildrenOfTheKingdom/Art/CKIcon256.dds</File>
+    <File md5="F2CD095602DCA7BE85D8D6630B71FCCD" import="1">TheChildrenOfTheKingdom/Art/CKIcon32.dds</File>
+    <File md5="9EB53416B69282A85982F7CBEA3F16B5" import="1">TheChildrenOfTheKingdom/Art/CKIcon45.dds</File>
+    <File md5="05B74554358C7EC39E8E954AE84A8F38" import="1">TheChildrenOfTheKingdom/Art/CKIcon48.dds</File>
+    <File md5="817B97EE804EBC59D08A2CB7EE68DA27" import="1">TheChildrenOfTheKingdom/Art/CKIcon64.dds</File>
+    <File md5="6E12E6EAC5D2C965CEB2143F6B2BD594" import="1">TheChildrenOfTheKingdom/Art/CKIcon80.dds</File>
     <File md5="8BF57135C77A2CA0248C120400902A2E" import="1">TheChildrenOfTheKingdom/Art/CKLeader.dds</File>
     <File md5="9800BB5AB8FE90F9F51B47A2F4560F78" import="1">TheChildrenOfTheKingdom/Art/CKLeaderScene.xml</File>
     <File md5="243670B83187937D5BE3FDD46E099030" import="1">TheChildrenOfTheKingdom/Art/CKMap.dds</File>
-    <File md5="23FE3C120B2EA5B4032B72366E3582D8" import="1">TheChildrenOfTheKingdom/Art/CKObjects128.dds</File>
-    <File md5="49E5A5217D4F76028812B3215A242698" import="1">TheChildrenOfTheKingdom/Art/CKObjects16.dds</File>
-    <File md5="621C15085DC305CFF4468E3DA8DE2781" import="1">TheChildrenOfTheKingdom/Art/CKObjects24.dds</File>
-    <File md5="33E7F981224FFF0CC6DEE86DF9BB939D" import="1">TheChildrenOfTheKingdom/Art/CKObjects256.dds</File>
-    <File md5="23BABB553C9A7103D779191D46146500" import="1">TheChildrenOfTheKingdom/Art/CKObjects32.dds</File>
-    <File md5="D51736C300A5D84F932BC1862A89D455" import="1">TheChildrenOfTheKingdom/Art/CKObjects45.dds</File>
-    <File md5="3D0D40DD3F01C863DCCFF48BD72D280E" import="1">TheChildrenOfTheKingdom/Art/CKObjects48.dds</File>
-    <File md5="4CBF35905320F4E45BA8DC92047DE57C" import="1">TheChildrenOfTheKingdom/Art/CKObjects64.dds</File>
-    <File md5="D3F3DF3EEC05DF3D8B7134F3D6266D08" import="1">TheChildrenOfTheKingdom/Art/CKObjects80.dds</File>
-    <File md5="1415151AFA3E0B874D9B0A1E2F40B0E1" import="1">TheChildrenOfTheKingdom/Art/CKPortrait128.dds</File>
-    <File md5="2A67CAAD4EB6BDEF9C2134477CA0845D" import="1">TheChildrenOfTheKingdom/Art/CKPortrait256.dds</File>
-    <File md5="82C4B7F1BC1D1367FAF280D6E64C0D5A" import="1">TheChildrenOfTheKingdom/Art/CKPortrait64.dds</File>
+    <File md5="750B24672F5B0389582C2259DAD960A1" import="1">TheChildrenOfTheKingdom/Art/CKObjects128.dds</File>
+    <File md5="044656097C56BEC7B6207C0EB64C62D0" import="1">TheChildrenOfTheKingdom/Art/CKObjects16.dds</File>
+    <File md5="FD71CC8972D905AD20CAA1DB7F5C09EF" import="1">TheChildrenOfTheKingdom/Art/CKObjects24.dds</File>
+    <File md5="D6B16D9FCAF22E1807F52A1803EE9E20" import="1">TheChildrenOfTheKingdom/Art/CKObjects256.dds</File>
+    <File md5="73CC99FC12B58F7A4851AC0FA05A423E" import="1">TheChildrenOfTheKingdom/Art/CKObjects32.dds</File>
+    <File md5="6573F571B96E1BE8A4C610F68429551A" import="1">TheChildrenOfTheKingdom/Art/CKObjects45.dds</File>
+    <File md5="23D0B73393EB2CDC3D424E272BFD408E" import="1">TheChildrenOfTheKingdom/Art/CKObjects48.dds</File>
+    <File md5="89F262608D2E4CC30D8ACF17866C1EE8" import="1">TheChildrenOfTheKingdom/Art/CKObjects64.dds</File>
+    <File md5="17BF77F56B1EDB8D815C6062D2955CBB" import="1">TheChildrenOfTheKingdom/Art/CKObjects80.dds</File>
+    <File md5="1FA477FE847B9509CF3CFA9A8AFF119E" import="1">TheChildrenOfTheKingdom/Art/CKPortrait128.dds</File>
+    <File md5="ECF19E9FE792B5A2CB0E56269D51CD78" import="1">TheChildrenOfTheKingdom/Art/CKPortrait256.dds</File>
+    <File md5="E4B1CDB661561967F5BFF22744B73B98" import="1">TheChildrenOfTheKingdom/Art/CKPortrait64.dds</File>
+    <File md5="454037ADED44754227560582B0720852" import="1">TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Buttons.dds</File>
+    <File md5="768FC13CAE22AD70C7F1BD49574A5F52" import="1">TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Launcher.dds</File>
+    <File md5="1B48EC67B62B5AFEDE5B0B44AF688E13" import="1">TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Launcher_245x36.dds</File>
+    <File md5="DC0D25FFA1F521BA748A733351173D7B" import="1">TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Panel.dds</File>
+    <File md5="0D6AACB4D0F61A4F7353DF59D21263CA" import="1">TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Panel_760x610.dds</File>
+    <File md5="58FC179CE978495E3D5F58061EDE242E" import="1">TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Row.dds</File>
     <File md5="A839422F47A29EC089384FDB2A0F7A5B" import="1">TheChildrenOfTheKingdom/Lua/CK_Blessings.lua</File>
     <File md5="603F0B7FE2FFB62325EF75E8BBA6BFAA" import="1">TheChildrenOfTheKingdom/Lua/CK_Core.lua</File>
     <File md5="F0A230C450EE93D2FD9D88D8C607211C" import="1">TheChildrenOfTheKingdom/Lua/CK_Events.lua</File>
@@ -189,8 +209,8 @@
     <File md5="559B5F373E7E70DCF567AAC8585F7273" import="0">TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</File>
     <File md5="31BF4D2D447EB1C8A23D5AA59DDF7B6F" import="0">TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</File>
     <File md5="5D9D790B65884D6FD5028E648322BC38" import="0">TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</File>
-    <File md5="1B85939C91FC5CFAD880747E8E55B516" import="1">TheChildrenOfTheKingdom/UI/CK_Prayer.lua</File>
-    <File md5="EF42C212EF94C066122AC233E6FC52BD" import="0">TheChildrenOfTheKingdom/UI/CK_Prayer.xml</File>
+    <File md5="4A31C3A06BE17618504FBC811D92448A" import="1">TheChildrenOfTheKingdom/UI/CK_Prayer.lua</File>
+    <File md5="C5DE978C68D7F590E5D640898C8865A5" import="0">TheChildrenOfTheKingdom/UI/CK_Prayer.xml</File>
     <File md5="37E27BF1A38FB5781EF47F768DE26057" import="1">TheRepublicOfPigeons/Art/PigeonAlpha128.dds</File>
     <File md5="2A949A15E447F4BAC1B36C1FD87F7CC2" import="1">TheRepublicOfPigeons/Art/PigeonAlpha16.dds</File>
     <File md5="A89BF29B420A7338A67429A0840AC00C" import="1">TheRepublicOfPigeons/Art/PigeonAlpha24.dds</File>
@@ -233,6 +253,13 @@
     <File md5="85DCB9A62B9FE64FB8C1C2B675B17A5B" import="0">TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</File>
     <File md5="77596118D9F9574F4463FAB136C7C409" import="1">TheRepublicOfPigeons/UI/PigeonTrade.lua</File>
     <File md5="F892C2991855F86FB3BA7CAD2BB1DB94" import="0">TheRepublicOfPigeons/UI/PigeonTrade.xml</File>
+    <File md5="A7AAEE0F4A9B788862B91D4DB0847B6F" import="1">TrainerRed/Art/CWC2_TrainerRed_Buttons.dds</File>
+    <File md5="BC34C1EF8F78EA3857CAD855D5CF5396" import="1">TrainerRed/Art/CWC2_TrainerRed_Launcher.dds</File>
+    <File md5="43BAAE54A9B9EC16B0E2D1416ECF35D5" import="1">TrainerRed/Art/CWC2_TrainerRed_Launcher_245x36.dds</File>
+    <File md5="3F20A6EABA1F2A74D900D5D11AB3730F" import="1">TrainerRed/Art/CWC2_TrainerRed_Panel.dds</File>
+    <File md5="6E31F94835090AE4C8E96CDFB3998402" import="1">TrainerRed/Art/CWC2_TrainerRed_Panel_1000x690.dds</File>
+    <File md5="8DD6EF4D62E5A7E69732E306B8070C21" import="1">TrainerRed/Art/CWC2_TrainerRed_Row.dds</File>
+    <File md5="471ACC89B792A97CA71701C4199810AF" import="1">TrainerRed/Art/CWC2_TrainerRed_Row_924x102.dds</File>
     <File md5="5BC252079BA2B7BFE063F42EFA7BC5DC" import="1">TrainerRed/Art/RED_Alpha128.dds</File>
     <File md5="14668E30298886C758F4EDE1F37C1094" import="1">TrainerRed/Art/RED_Alpha16.dds</File>
     <File md5="37628F54D2EC8A630E73B8038599A81F" import="1">TrainerRed/Art/RED_Alpha24.dds</File>
@@ -307,8 +334,8 @@
     <File md5="ACFA058558313CA1F843E92C9B8BF00B" import="0">TrainerRed/SQL/03_RED_Promotions.sql</File>
     <File md5="6CF5482011F99978F8708288E992C1A9" import="0">TrainerRed/SQL/04_RED_Art.sql</File>
     <File md5="8BFBBF6756D32D06B8B173014C09315E" import="0">TrainerRed/SQL/10_RED_Text.sql</File>
-    <File md5="8872B3D93C1CFC15517B41CDFFB7C814" import="1">TrainerRed/UI/RED_TeamPanel.lua</File>
-    <File md5="8E86F1E5F1B7F439E653638AB26A885F" import="0">TrainerRed/UI/RED_TeamPanel.xml</File>
+    <File md5="0FCC1C9DE63B804C483749E80C9BC98A" import="1">TrainerRed/UI/RED_TeamPanel.lua</File>
+    <File md5="913590185406F9F736D5BE293A0B1BAD" import="0">TrainerRed/UI/RED_TeamPanel.xml</File>
     <File md5="C940F36E2B16C2925E5BE41AAE2D8376" import="1">TheTwelfthHour/Art/TWELFTH_Alpha128.dds</File>
     <File md5="E57C18091E573043E01FE9C205DC1A8A" import="1">TheTwelfthHour/Art/TWELFTH_Alpha16.dds</File>
     <File md5="54A85378C5979E18406B3E071A65C473" import="1">TheTwelfthHour/Art/TWELFTH_Alpha24.dds</File>
@@ -320,36 +347,36 @@
     <File md5="78E20201D224C3F1E1CFFD7B994A5F86" import="1">TheTwelfthHour/Art/TWELFTH_Alpha80.dds</File>
     <File md5="B7563755A8E0EBC92CFCA7FFC2CEAA48" import="1">TheTwelfthHour/Art/TWELFTH_Dawn.dds</File>
     <File md5="378484ED505864813420028DD1DB1691" import="1">TheTwelfthHour/Art/TWELFTH_Flag32.dds</File>
-    <File md5="F93701CAC48ED4BAED7E41E9A12A4C6B" import="1">TheTwelfthHour/Art/TWELFTH_Icon128.dds</File>
-    <File md5="9FC2566F6F1DAF91E8EEAE7350252889" import="1">TheTwelfthHour/Art/TWELFTH_Icon16.dds</File>
-    <File md5="8376F7CDBFED685536F39547A661CD9E" import="1">TheTwelfthHour/Art/TWELFTH_Icon24.dds</File>
-    <File md5="1FE012D08EA9813B8203A1F279BD1276" import="1">TheTwelfthHour/Art/TWELFTH_Icon256.dds</File>
-    <File md5="F2785D56247E0F5228236711E68F6154" import="1">TheTwelfthHour/Art/TWELFTH_Icon32.dds</File>
-    <File md5="EC4945AE03833A07A70A6AEF16D37204" import="1">TheTwelfthHour/Art/TWELFTH_Icon45.dds</File>
-    <File md5="FD152DAE8B0C2F93260B17FB7AB71551" import="1">TheTwelfthHour/Art/TWELFTH_Icon48.dds</File>
-    <File md5="5D23EDD7E68706C5403E98319BAB51A6" import="1">TheTwelfthHour/Art/TWELFTH_Icon64.dds</File>
-    <File md5="8E9FD7FF639B4F26BF5C37E2D1B90162" import="1">TheTwelfthHour/Art/TWELFTH_Icon80.dds</File>
+    <File md5="EBADFBDB50928C2D875E9AA153C1DD99" import="1">TheTwelfthHour/Art/TWELFTH_Icon128.dds</File>
+    <File md5="55CE3B79CE87225B01ED5D981C30A0FE" import="1">TheTwelfthHour/Art/TWELFTH_Icon16.dds</File>
+    <File md5="98046CE6BBB2AECC6F57E846DD161B84" import="1">TheTwelfthHour/Art/TWELFTH_Icon24.dds</File>
+    <File md5="D5A88054834293C33ADD3548A29954FA" import="1">TheTwelfthHour/Art/TWELFTH_Icon256.dds</File>
+    <File md5="35B2ED0F5D5DFD98D4731AB8AA31AA6E" import="1">TheTwelfthHour/Art/TWELFTH_Icon32.dds</File>
+    <File md5="553965ABE5E0F2686BF894AC5FD6023C" import="1">TheTwelfthHour/Art/TWELFTH_Icon45.dds</File>
+    <File md5="085FF3098A63CDF8209EBF71A067B93C" import="1">TheTwelfthHour/Art/TWELFTH_Icon48.dds</File>
+    <File md5="1E65A171CA2E497A45B2283E07D8A935" import="1">TheTwelfthHour/Art/TWELFTH_Icon64.dds</File>
+    <File md5="1B2AED322DCCC49506C00D1B1A9D50B5" import="1">TheTwelfthHour/Art/TWELFTH_Icon80.dds</File>
     <File md5="993C36A3FA47F24157B92C0D510FE00B" import="1">TheTwelfthHour/Art/TWELFTH_Leader.dds</File>
     <File md5="AC2045C6B9F4550B2236308354F91DEA" import="1">TheTwelfthHour/Art/TWELFTH_LeaderScene.xml</File>
     <File md5="8B5A0BF78606F16015272D0AFD648BBC" import="1">TheTwelfthHour/Art/TWELFTH_Map.dds</File>
-    <File md5="44A4EAF14A1EB8E4496663E551A157AC" import="1">TheTwelfthHour/Art/TWELFTH_Objects128.dds</File>
-    <File md5="694AD3F3F2E7F6857DDA20E191659144" import="1">TheTwelfthHour/Art/TWELFTH_Objects16.dds</File>
-    <File md5="C94573FA0C1C6BD1722FE64D6327BA95" import="1">TheTwelfthHour/Art/TWELFTH_Objects24.dds</File>
-    <File md5="8A33FEE7C051FC0B830CE6A2283E82B8" import="1">TheTwelfthHour/Art/TWELFTH_Objects256.dds</File>
-    <File md5="DABBCE7EBBD01C8DF2B3DCA27611B77A" import="1">TheTwelfthHour/Art/TWELFTH_Objects32.dds</File>
-    <File md5="CB3451AAD9A932FDF56E58D28D196996" import="1">TheTwelfthHour/Art/TWELFTH_Objects45.dds</File>
-    <File md5="EB2077255D5933D4D65D2DAF8C866F8F" import="1">TheTwelfthHour/Art/TWELFTH_Objects48.dds</File>
-    <File md5="9C1C4C978893C043EDCB89D9CF1B14CC" import="1">TheTwelfthHour/Art/TWELFTH_Objects64.dds</File>
-    <File md5="D28F78F917537BAC886E0EA51E692B79" import="1">TheTwelfthHour/Art/TWELFTH_Objects80.dds</File>
-    <File md5="D1C9F46DBACC29702DF9F7AC29E47B3B" import="1">TheTwelfthHour/Art/TWELFTH_Portrait128.dds</File>
-    <File md5="A3BCDE39BF49AE3173EC2E8538D97F78" import="1">TheTwelfthHour/Art/TWELFTH_Portrait16.dds</File>
-    <File md5="E541F024A309494699AEFCFD6385DCC4" import="1">TheTwelfthHour/Art/TWELFTH_Portrait24.dds</File>
-    <File md5="5D98A1DA9ED52029C4EDDAB26CA22E69" import="1">TheTwelfthHour/Art/TWELFTH_Portrait256.dds</File>
-    <File md5="F27AEAF4BD01CF2DDB46A4125AB4C137" import="1">TheTwelfthHour/Art/TWELFTH_Portrait32.dds</File>
-    <File md5="63D9CE3D13FC4CD36C6F8918964BB390" import="1">TheTwelfthHour/Art/TWELFTH_Portrait45.dds</File>
-    <File md5="20925D5A24749FA16C1DCE9CB57545C0" import="1">TheTwelfthHour/Art/TWELFTH_Portrait48.dds</File>
-    <File md5="B1A26D8A772F1222AD3EE81ED4C149C6" import="1">TheTwelfthHour/Art/TWELFTH_Portrait64.dds</File>
-    <File md5="5C5323E1106BAC841FF2B24391D21DD8" import="1">TheTwelfthHour/Art/TWELFTH_Portrait80.dds</File>
+    <File md5="B17A29EE7CF1A29651A0C4008976C859" import="1">TheTwelfthHour/Art/TWELFTH_Objects128.dds</File>
+    <File md5="0D79E6146F4DAFD457D17098018FC33F" import="1">TheTwelfthHour/Art/TWELFTH_Objects16.dds</File>
+    <File md5="69CA732CF4104FE3757083B60387EAC9" import="1">TheTwelfthHour/Art/TWELFTH_Objects24.dds</File>
+    <File md5="9E33526F698B9682881EAE492CA3CAD4" import="1">TheTwelfthHour/Art/TWELFTH_Objects256.dds</File>
+    <File md5="03D840FB209E32D4D319E7C9DEAFACCD" import="1">TheTwelfthHour/Art/TWELFTH_Objects32.dds</File>
+    <File md5="BB7261DAE4C4996772FDEAFD1374DF82" import="1">TheTwelfthHour/Art/TWELFTH_Objects45.dds</File>
+    <File md5="C14FDABF329F8D4870D74BBFDD843FA8" import="1">TheTwelfthHour/Art/TWELFTH_Objects48.dds</File>
+    <File md5="5D6E05D8DFEE0B1246EC2B46A2100B5A" import="1">TheTwelfthHour/Art/TWELFTH_Objects64.dds</File>
+    <File md5="AFFE2EB58DA134445D616EA018C5A789" import="1">TheTwelfthHour/Art/TWELFTH_Objects80.dds</File>
+    <File md5="1EC209F48D6B9B61D1BCD3E9C314FB05" import="1">TheTwelfthHour/Art/TWELFTH_Portrait128.dds</File>
+    <File md5="19CC9B8C955E2E41C60B46B76D2CD14E" import="1">TheTwelfthHour/Art/TWELFTH_Portrait16.dds</File>
+    <File md5="181DC0710F071734682260B56EE064D6" import="1">TheTwelfthHour/Art/TWELFTH_Portrait24.dds</File>
+    <File md5="63977DCDF37707C30BA07B6B69112F13" import="1">TheTwelfthHour/Art/TWELFTH_Portrait256.dds</File>
+    <File md5="D00DC87C0657BDD3F723AED5D2EB9E25" import="1">TheTwelfthHour/Art/TWELFTH_Portrait32.dds</File>
+    <File md5="1D47397EF10BF12358D6990A0D59A3DA" import="1">TheTwelfthHour/Art/TWELFTH_Portrait45.dds</File>
+    <File md5="146467B1727C363B42446EC1E81E6CF7" import="1">TheTwelfthHour/Art/TWELFTH_Portrait48.dds</File>
+    <File md5="D5DAF02339843D39CC919610723E79E7" import="1">TheTwelfthHour/Art/TWELFTH_Portrait64.dds</File>
+    <File md5="43E4F5B27A2A266D7129F17C30DA554A" import="1">TheTwelfthHour/Art/TWELFTH_Portrait80.dds</File>
     <File md5="79A8A85DB2B9F8B38883C0099C16EC43" import="1">TheTwelfthHour/Lua/TWELFTH_Chime.lua</File>
     <File md5="2CCD17D1A9B3E9C5EEA71384AC182932" import="0">TheTwelfthHour/SQL/00_TWELFTH_Core.sql</File>
     <File md5="990334D917DDFB9A86137111479174E7" import="0">TheTwelfthHour/SQL/01_TWELFTH_Inheritance.sql</File>
@@ -369,36 +396,36 @@
     <File md5="43605388D01E69DE532F6C504E39606A" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha80.dds</File>
     <File md5="3458B1DF940DF32A44756ED58CAB6B3D" import="1">TheWanderingCircus/Art/WCIRCUS_Dawn.dds</File>
     <File md5="EB3BF1F04F1DAF227400FF6DAC0F798B" import="1">TheWanderingCircus/Art/WCIRCUS_Flag32.dds</File>
-    <File md5="2BC78800B8E301A85796720ECD94B2DD" import="1">TheWanderingCircus/Art/WCIRCUS_Icon128.dds</File>
-    <File md5="BE38ECCA71264E22E8569753FDE03662" import="1">TheWanderingCircus/Art/WCIRCUS_Icon16.dds</File>
-    <File md5="65EBFA5CD0641E23F310114D9AE14626" import="1">TheWanderingCircus/Art/WCIRCUS_Icon24.dds</File>
-    <File md5="93507EB4ABAC6CD1D4B38532F5EC097D" import="1">TheWanderingCircus/Art/WCIRCUS_Icon256.dds</File>
-    <File md5="4FB2A02FD7CB6187620577834F8A3D88" import="1">TheWanderingCircus/Art/WCIRCUS_Icon32.dds</File>
-    <File md5="D8078821850978D18AB17459E87E2885" import="1">TheWanderingCircus/Art/WCIRCUS_Icon45.dds</File>
-    <File md5="E5FC926D83D7645A52173F4468873862" import="1">TheWanderingCircus/Art/WCIRCUS_Icon48.dds</File>
-    <File md5="8E6A6C7A9DE5BC731E396D8E3222113A" import="1">TheWanderingCircus/Art/WCIRCUS_Icon64.dds</File>
-    <File md5="3A13BBA181EC818D092A9E3C2554A9C2" import="1">TheWanderingCircus/Art/WCIRCUS_Icon80.dds</File>
+    <File md5="3C3E3F861201A8A2E5A03F02336241A5" import="1">TheWanderingCircus/Art/WCIRCUS_Icon128.dds</File>
+    <File md5="32ABAA4B3F3436027F65234E1657AC5C" import="1">TheWanderingCircus/Art/WCIRCUS_Icon16.dds</File>
+    <File md5="2F41CD57E40EE91DD3763E35B030DAAD" import="1">TheWanderingCircus/Art/WCIRCUS_Icon24.dds</File>
+    <File md5="93A8CEDB2F39452A68983F175ABA891C" import="1">TheWanderingCircus/Art/WCIRCUS_Icon256.dds</File>
+    <File md5="923B6F8606E6E0D654E7E30413B77B41" import="1">TheWanderingCircus/Art/WCIRCUS_Icon32.dds</File>
+    <File md5="2051CF876FEA0DF5F477E5BBB03403BC" import="1">TheWanderingCircus/Art/WCIRCUS_Icon45.dds</File>
+    <File md5="50BD207C65EAAB659677EB76B43552FA" import="1">TheWanderingCircus/Art/WCIRCUS_Icon48.dds</File>
+    <File md5="83A995E55F141004747863D15AD9473E" import="1">TheWanderingCircus/Art/WCIRCUS_Icon64.dds</File>
+    <File md5="7248BAF2608D230F45F4731B768ADD03" import="1">TheWanderingCircus/Art/WCIRCUS_Icon80.dds</File>
     <File md5="707513E4C9CA37B783F4915773520A63" import="1">TheWanderingCircus/Art/WCIRCUS_Leader.dds</File>
     <File md5="ADF3F93A9A3B834E93C6A475958E0BC2" import="1">TheWanderingCircus/Art/WCIRCUS_LeaderScene.xml</File>
     <File md5="93C15C009EA0967544E8A45A27B17A9E" import="1">TheWanderingCircus/Art/WCIRCUS_Map.dds</File>
-    <File md5="AEF047B49DE3EFD14EB8C31A9BA68CF8" import="1">TheWanderingCircus/Art/WCIRCUS_Objects128.dds</File>
-    <File md5="DE6DDC2C826C0B021CDE849481F8EE3B" import="1">TheWanderingCircus/Art/WCIRCUS_Objects16.dds</File>
-    <File md5="667767452C089BA1EF8D46D1CF1409BA" import="1">TheWanderingCircus/Art/WCIRCUS_Objects24.dds</File>
-    <File md5="6CFA3725ED5FD46847F9CBC2AD3706CA" import="1">TheWanderingCircus/Art/WCIRCUS_Objects256.dds</File>
-    <File md5="D587D2663052A9D984FB1CB44F473EC0" import="1">TheWanderingCircus/Art/WCIRCUS_Objects32.dds</File>
-    <File md5="F2D0E93E620B1F4022ECE861F1511746" import="1">TheWanderingCircus/Art/WCIRCUS_Objects45.dds</File>
-    <File md5="3004C27122E8331839BF2166CCB47CD8" import="1">TheWanderingCircus/Art/WCIRCUS_Objects48.dds</File>
-    <File md5="06CC6CE848A28681E0D11F66252141D9" import="1">TheWanderingCircus/Art/WCIRCUS_Objects64.dds</File>
-    <File md5="7AA47CB006D9F8BC87AC452AFA7E9593" import="1">TheWanderingCircus/Art/WCIRCUS_Objects80.dds</File>
-    <File md5="1FB56C2702B1B1C4FDE4CAB48F0BBAB4" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait128.dds</File>
-    <File md5="4403B0F47E78596FC754F9880EDA38CC" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait16.dds</File>
-    <File md5="16784A0887E7902C3D2535C3B0F1CBA9" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait24.dds</File>
-    <File md5="044F1AAB7706B4ED87DE83EC85171C41" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait256.dds</File>
-    <File md5="644C1EE259B43AF907F5082C9EDD41C8" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait32.dds</File>
-    <File md5="C0B4061621C556E2714AE2F011FA0357" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait45.dds</File>
-    <File md5="ED143A38D05350B2944B8F5D67EA47BF" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait48.dds</File>
-    <File md5="B78FB1273B87E4C0CD548CDAC4C734D1" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait64.dds</File>
-    <File md5="5BB32154F697C1080C231926E299C817" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait80.dds</File>
+    <File md5="4C87101D9705B26A9243B5055536AA5F" import="1">TheWanderingCircus/Art/WCIRCUS_Objects128.dds</File>
+    <File md5="D0ACACA66BDFA39EC541AD3B3DDF1B6E" import="1">TheWanderingCircus/Art/WCIRCUS_Objects16.dds</File>
+    <File md5="0E1E366C8116827893EA7AD36C18E72A" import="1">TheWanderingCircus/Art/WCIRCUS_Objects24.dds</File>
+    <File md5="569F628B4DEB698C9DC93ECEA276D824" import="1">TheWanderingCircus/Art/WCIRCUS_Objects256.dds</File>
+    <File md5="810A483AAB4AA1BBE047F8CABC9C8370" import="1">TheWanderingCircus/Art/WCIRCUS_Objects32.dds</File>
+    <File md5="1FB51FB77AF7AB9900E5BCE8A3383E48" import="1">TheWanderingCircus/Art/WCIRCUS_Objects45.dds</File>
+    <File md5="C953B72953D8141B74A678574700541A" import="1">TheWanderingCircus/Art/WCIRCUS_Objects48.dds</File>
+    <File md5="1383417E2A96E4B1D1AB7F5A5B638D4D" import="1">TheWanderingCircus/Art/WCIRCUS_Objects64.dds</File>
+    <File md5="0BF5D8185FBB21ACFE9D399BB5BD1C8C" import="1">TheWanderingCircus/Art/WCIRCUS_Objects80.dds</File>
+    <File md5="86C2F8F6CA94E0DB5C3E33D48FC70108" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait128.dds</File>
+    <File md5="333549B2C5B6EF1440E0F1526F5C429A" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait16.dds</File>
+    <File md5="C58060E3EDEF796D403404A56DCF0487" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait24.dds</File>
+    <File md5="3357AF0B861095C956A3CEDA9B80D7ED" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait256.dds</File>
+    <File md5="892EFA8570AA693EEA64923AF7D0F6B8" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait32.dds</File>
+    <File md5="1FC1688D8864514F131DE50602977C18" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait45.dds</File>
+    <File md5="F89F4F9798E72BB572958A5761F1F7B3" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait48.dds</File>
+    <File md5="8D456203F845F20D0F2360C10DB61BD2" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait64.dds</File>
+    <File md5="37873F2B53D427F02779693EC3413FA7" import="1">TheWanderingCircus/Art/WCIRCUS_Portrait80.dds</File>
     <File md5="7C65EAC42C6A54EB2ABC08C46162E12B" import="0">TheWanderingCircus/SQL/00_WCIRCUS_Core.sql</File>
     <File md5="8DC4C9770334C14601BF53EF020F0F57" import="0">TheWanderingCircus/SQL/01_WCIRCUS_Inheritance.sql</File>
     <File md5="60B15B7B8C56390981F653EFF6A4456B" import="0">TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</File>
@@ -406,6 +433,16 @@
     <File md5="E396EAFEB2EB5A7E6C7F46A84C759830" import="0">TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</File>
     <File md5="51BF44ED83E10409C78F769D4DD18642" import="1">TheWanderingCircus/UI/WanderingCircus.lua</File>
     <File md5="A986641AFEB4FA573DD6360B9779E18D" import="0">TheWanderingCircus/UI/WanderingCircus.xml</File>
+    <File md5="7E31ECAE5C5F1AD4A90BBD1CC6F31F82" import="1">The11Cats/Art/CWC2_The11Cats_Buttons.dds</File>
+    <File md5="52CDF5D4B25A075974AC4702AAD422E3" import="1">The11Cats/Art/CWC2_The11Cats_Launcher.dds</File>
+    <File md5="60057C4AEF9F04B8B90CB59156640727" import="1">The11Cats/Art/CWC2_The11Cats_Launcher_245x36.dds</File>
+    <File md5="924294160BE4FD16332F78173DD236C4" import="1">The11Cats/Art/CWC2_The11Cats_Panel.dds</File>
+    <File md5="49970FF91A96120009ACCCA02BD413E5" import="1">The11Cats/Art/CWC2_The11Cats_Panel_650x470.dds</File>
+    <File md5="9A119C89C9C17E3473F62B35E741C79B" import="1">The11Cats/Art/CWC2_The11Cats_Panel_904x634.dds</File>
+    <File md5="C1B16719B119E8D58B8EF9FC5C1ED030" import="1">The11Cats/Art/CWC2_The11Cats_Panel_920x650.dds</File>
+    <File md5="E471184B9ED0DA76E5217D9C6249AD19" import="1">The11Cats/Art/CWC2_The11Cats_Row.dds</File>
+    <File md5="353A2F11E6561AF73610880BB9DA67B4" import="1">The11Cats/Art/CWC2_The11Cats_Row_394x306.dds</File>
+    <File md5="0DD79E05FB9177308369353F4AE7555E" import="1">The11Cats/Art/CWC2_The11Cats_Row_394x376.dds</File>
     <File md5="59E898977EBF4CD443CC3D9C9E9E2465" import="1">The11Cats/Art/THE11CATS_Alpha128.dds</File>
     <File md5="021B5B32D3C5223CD45A3967ACA0AD16" import="1">The11Cats/Art/THE11CATS_Alpha16.dds</File>
     <File md5="3A3B4A89F38313535F229546F9CD88F4" import="1">The11Cats/Art/THE11CATS_Alpha24.dds</File>
@@ -466,8 +503,8 @@
     <File md5="4BFAFF2212CC8DCA891AF5C669722779" import="0">The11Cats/SQL/THE11CATS_02_Effects.sql</File>
     <File md5="FBCF3A8DEFE93F1E7A88297B4474DB78" import="0">The11Cats/SQL/THE11CATS_03_Art.sql</File>
     <File md5="037F09C11F96EE6CE0F6344710621986" import="0">The11Cats/SQL/THE11CATS_10_Text.sql</File>
-    <File md5="09EF578AAF4FDFBB331C4DB6171CC8F9" import="1">The11Cats/UI/THE11CATS_Household.lua</File>
-    <File md5="F2D61EA6C77EE6247F1ED27E47F0BF03" import="0">The11Cats/UI/THE11CATS_Household.xml</File>
+    <File md5="34C367DD4F0E917F2065ADBDE4BE5698" import="1">The11Cats/UI/THE11CATS_Household.lua</File>
+    <File md5="764B240336892837B2F18B0A8583AC92" import="0">The11Cats/UI/THE11CATS_Household.xml</File>
     <File md5="02D4766C2DA25E45764811D321FFB2C6" import="1">KingdomOfSaba/Art/SABA_Alpha128.dds</File>
     <File md5="3C087691F3BF150E01D9647E7A7467B7" import="1">KingdomOfSaba/Art/SABA_Alpha16.dds</File>
     <File md5="A4732756EC049DCC1FECDEA5984FC566" import="1">KingdomOfSaba/Art/SABA_Alpha24.dds</File>
@@ -516,6 +553,13 @@
     <File md5="B5509588AD51C1CE8DCDE0D80C5981EE" import="0">KingdomOfSaba/SQL/02_SABA_Effects.sql</File>
     <File md5="75CBEE329D7AE0B3A35DF9D6F8CE3AEE" import="0">KingdomOfSaba/SQL/03_SABA_Art.sql</File>
     <File md5="B5F9F6E9F9621823FD23EE78F36B4C9B" import="0">KingdomOfSaba/SQL/10_SABA_Text.sql</File>
+    <File md5="1F0CE51ACCD5D3C53FE78CFDBBCB6DF4" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Buttons.dds</File>
+    <File md5="DB716E91DB7BF624F96C115253E61392" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Launcher.dds</File>
+    <File md5="0A3F41B5DDCB71DA089D255E8D083F16" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Launcher_270x62.dds</File>
+    <File md5="524C92315C78A302AD232E6088977B86" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Panel.dds</File>
+    <File md5="9B7544A607C14194F38B0DDCC7ABCCCB" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Panel_722x582.dds</File>
+    <File md5="053781AD4FE2FD78630862B1F0DAA196" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Panel_750x610.dds</File>
+    <File md5="2F028F6BEC7E871DC9C955A2EFC5B7F2" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Row.dds</File>
     <File md5="F0655DA124B4DBA12A98DEBBA3781AF0" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha128.dds</File>
     <File md5="AB48E9299D643A819127E67B30C413CD" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha16.dds</File>
     <File md5="23F359975A046CBB48A8D1F758127795" import="1">TheSubstituteClassroom/Art/GARVEY_Alpha24.dds</File>
@@ -566,8 +610,8 @@
     <File md5="9AE1E2FA5066CA29F001097E65348F88" import="0">TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</File>
     <File md5="43FEAAD619DDA5571DBD20C05C353858" import="0">TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</File>
     <File md5="581B318EB1D6CDD24FD0D4C817E98181" import="0">TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</File>
-    <File md5="85B19A2212AF497107FF53C294D4B159" import="1">TheSubstituteClassroom/UI/GARVEY_RollCall.lua</File>
-    <File md5="BDD8A8326F2ACC7B93C30D6A934EEDF1" import="0">TheSubstituteClassroom/UI/GARVEY_RollCall.xml</File>
+    <File md5="E41153BDDEC006C2C40D72F51D38794C" import="1">TheSubstituteClassroom/UI/GARVEY_RollCall.lua</File>
+    <File md5="F32F508933D6A82C4E814595B8A2BB25" import="0">TheSubstituteClassroom/UI/GARVEY_RollCall.xml</File>
     <File md5="719D334BBE3E9F94DDB178A6CB3785D3" import="1">TheConicalUnion/Art/CONICAL_Alpha128.dds</File>
     <File md5="6E4B5B87C885598B3755368B0584EF6D" import="1">TheConicalUnion/Art/CONICAL_Alpha16.dds</File>
     <File md5="7AECEA76B2186D9A4A7B3C689DB619E1" import="1">TheConicalUnion/Art/CONICAL_Alpha24.dds</File>
@@ -672,6 +716,11 @@
     <File md5="F9B4F1B1C1A6E2B2BCE17D775E611FEA" import="0">KingdomOfTheUnrungBell/SQL/02_UNRUNG_Effects.sql</File>
     <File md5="A0C41C4FA6C17E347D189B7AE34B6DC5" import="0">KingdomOfTheUnrungBell/SQL/03_UNRUNG_Art.sql</File>
     <File md5="9CCCB41E1475D04EDC790D47FB3FEA20" import="0">KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</File>
+    <File md5="1A01510B8ED0B38E2571CCA44A225476" import="1">TheUrgal/Art/CWC2_TheUrgal_Buttons.dds</File>
+    <File md5="7027FADED56CBA36ACB8D098FEC648E3" import="1">TheUrgal/Art/CWC2_TheUrgal_Launcher.dds</File>
+    <File md5="0281C994FA832E134A37EF9C3158F6D8" import="1">TheUrgal/Art/CWC2_TheUrgal_Launcher_340x180.dds</File>
+    <File md5="0FC0C6CD6034D4E5BB4DC44F0CDA4636" import="1">TheUrgal/Art/CWC2_TheUrgal_Panel.dds</File>
+    <File md5="3534E44C7A3D6E66316C4C2C1872BE58" import="1">TheUrgal/Art/CWC2_TheUrgal_Row.dds</File>
     <File md5="0531E6D42727D015EC5571B894BC7C64" import="1">TheUrgal/Art/URGAL_Alpha128.dds</File>
     <File md5="4BDA0784D5D6EE9B5FCD8DF8EFBCFE99" import="1">TheUrgal/Art/URGAL_Alpha16.dds</File>
     <File md5="18D0573C102DE42DFE1C31E9F4C36531" import="1">TheUrgal/Art/URGAL_Alpha24.dds</File>
@@ -682,36 +731,36 @@
     <File md5="D21E34B16089068FCA3FD8456E6AD041" import="1">TheUrgal/Art/URGAL_Alpha64.dds</File>
     <File md5="26DF6D315E822909D96149C67D645248" import="1">TheUrgal/Art/URGAL_Alpha80.dds</File>
     <File md5="994DDD33365CDC0FDD1AB87BBA3793DB" import="1">TheUrgal/Art/URGAL_Dawn.dds</File>
-    <File md5="D5BB80FB48E0F2C5FAA087C8C47C7801" import="1">TheUrgal/Art/URGAL_Icon128.dds</File>
-    <File md5="AEC7337950C6E53533E07DD7AAF7272A" import="1">TheUrgal/Art/URGAL_Icon16.dds</File>
-    <File md5="BDAAE9100BA48BDCE59D141219C11300" import="1">TheUrgal/Art/URGAL_Icon24.dds</File>
-    <File md5="D3CBBA0567411D8C5BAB4E2FE8303815" import="1">TheUrgal/Art/URGAL_Icon256.dds</File>
-    <File md5="FEA2B07227C162CFDCB564B9759A5272" import="1">TheUrgal/Art/URGAL_Icon32.dds</File>
-    <File md5="6D9829BD1507638DABAC2DA72F34C9FF" import="1">TheUrgal/Art/URGAL_Icon45.dds</File>
-    <File md5="1B355C4C775B2BF085DB6A20C24207C5" import="1">TheUrgal/Art/URGAL_Icon48.dds</File>
-    <File md5="BE0D97FDD2475758D48AED64BBBD2C54" import="1">TheUrgal/Art/URGAL_Icon64.dds</File>
-    <File md5="00618C4FFDE0EBEAB217B9603D8A9FD5" import="1">TheUrgal/Art/URGAL_Icon80.dds</File>
+    <File md5="6DC9ED5DFE18C5C305F3C836425ABFB9" import="1">TheUrgal/Art/URGAL_Icon128.dds</File>
+    <File md5="D780D622E5228E5D81CC767895BCA47F" import="1">TheUrgal/Art/URGAL_Icon16.dds</File>
+    <File md5="D68BECAEEFD79ABCBD29F601990FA136" import="1">TheUrgal/Art/URGAL_Icon24.dds</File>
+    <File md5="002F65CD7D352BC07EF8C4B6FA63D5EB" import="1">TheUrgal/Art/URGAL_Icon256.dds</File>
+    <File md5="27ACDF808FDDB88007291E25BAE814EC" import="1">TheUrgal/Art/URGAL_Icon32.dds</File>
+    <File md5="3FBCEC1EFC8417C7E3432221E6DBFF22" import="1">TheUrgal/Art/URGAL_Icon45.dds</File>
+    <File md5="A489E0ED8500BBF1A14EF17A568346C9" import="1">TheUrgal/Art/URGAL_Icon48.dds</File>
+    <File md5="B246D5EF323CD183EDE54652920577C4" import="1">TheUrgal/Art/URGAL_Icon64.dds</File>
+    <File md5="AA715694D0A4CBD39D10DB11A639CD2F" import="1">TheUrgal/Art/URGAL_Icon80.dds</File>
     <File md5="8E0D8F877556C53C110260D23BAE1BDD" import="1">TheUrgal/Art/URGAL_Leader.dds</File>
     <File md5="B97EBEB188CE6FE4B13AB7F96A18F640" import="1">TheUrgal/Art/URGAL_LeaderScene.xml</File>
     <File md5="63CF6F95A1572F89F456A352CBBE4D65" import="1">TheUrgal/Art/URGAL_Map.dds</File>
-    <File md5="128BE722E6FD54FB8F96891E888A696F" import="1">TheUrgal/Art/URGAL_Objects128.dds</File>
-    <File md5="1BA88BB7BECD88BB1C864768FA498F8E" import="1">TheUrgal/Art/URGAL_Objects16.dds</File>
-    <File md5="BBCC3023CBD6298B3A33D8FA01285AB7" import="1">TheUrgal/Art/URGAL_Objects24.dds</File>
-    <File md5="5B6ADFED20153A44673674550298299D" import="1">TheUrgal/Art/URGAL_Objects256.dds</File>
-    <File md5="F0A651FB04EBA027F4A97B6CD41F4AC4" import="1">TheUrgal/Art/URGAL_Objects32.dds</File>
-    <File md5="2BB156E4951CDB6E033DA9F1631B2408" import="1">TheUrgal/Art/URGAL_Objects45.dds</File>
-    <File md5="7EC32DEEB8BDAD40C149C5E05BD47C80" import="1">TheUrgal/Art/URGAL_Objects48.dds</File>
-    <File md5="05764438F9518432C83265186B28F167" import="1">TheUrgal/Art/URGAL_Objects64.dds</File>
-    <File md5="5BB8241113941ACBA5639F4D62533555" import="1">TheUrgal/Art/URGAL_Objects80.dds</File>
-    <File md5="D3FD14F0E7D8C7EF345D8AE94CD6191A" import="1">TheUrgal/Art/URGAL_Portrait128.dds</File>
-    <File md5="C79B0EA86B4B537819297DD01E52627F" import="1">TheUrgal/Art/URGAL_Portrait16.dds</File>
-    <File md5="E735DBB1235F76ED246F8455DD185906" import="1">TheUrgal/Art/URGAL_Portrait24.dds</File>
-    <File md5="5EFED8269470AEC1F1ECC7EABF34115F" import="1">TheUrgal/Art/URGAL_Portrait256.dds</File>
-    <File md5="4471A67FBD45F052BBAE547FB4FBA84C" import="1">TheUrgal/Art/URGAL_Portrait32.dds</File>
-    <File md5="82C7767E2D4389AE66C5C9428A648E3B" import="1">TheUrgal/Art/URGAL_Portrait45.dds</File>
-    <File md5="ECA2DCE717D81969B255FE3786A8C6F8" import="1">TheUrgal/Art/URGAL_Portrait48.dds</File>
-    <File md5="8AE0D18AE5DF3353EE8151CB736C3669" import="1">TheUrgal/Art/URGAL_Portrait64.dds</File>
-    <File md5="19DA8305A264736DFE08313D5FBC1C2B" import="1">TheUrgal/Art/URGAL_Portrait80.dds</File>
+    <File md5="C3AB9CF3F637EE60E426220A8195DA03" import="1">TheUrgal/Art/URGAL_Objects128.dds</File>
+    <File md5="68CAE78D350DF45DA5520002F4E1811C" import="1">TheUrgal/Art/URGAL_Objects16.dds</File>
+    <File md5="B7E8EADFA52773750EAFAAE0A6055469" import="1">TheUrgal/Art/URGAL_Objects24.dds</File>
+    <File md5="63E5BD17E2C3990D3FA5D88E9928B62A" import="1">TheUrgal/Art/URGAL_Objects256.dds</File>
+    <File md5="3BC4F41548E19AB9E2905AAEF7E5C282" import="1">TheUrgal/Art/URGAL_Objects32.dds</File>
+    <File md5="C5564027A4612945AED8AB3E6F1B1DC3" import="1">TheUrgal/Art/URGAL_Objects45.dds</File>
+    <File md5="8A760FFD1B14365F4FA85C3EE4DA6FD8" import="1">TheUrgal/Art/URGAL_Objects48.dds</File>
+    <File md5="502D729EFA73AB4419332A38D2CA29A3" import="1">TheUrgal/Art/URGAL_Objects64.dds</File>
+    <File md5="91BFAF9AF4BCAB7DA9CFF3EC0EEC6382" import="1">TheUrgal/Art/URGAL_Objects80.dds</File>
+    <File md5="2CF84351C85B7FCED8E62D13B9ECD05B" import="1">TheUrgal/Art/URGAL_Portrait128.dds</File>
+    <File md5="DE637F3644A21F86248BEAB8A7AB38F2" import="1">TheUrgal/Art/URGAL_Portrait16.dds</File>
+    <File md5="77CF1B678750CF6E8F8DF841BB688B9C" import="1">TheUrgal/Art/URGAL_Portrait24.dds</File>
+    <File md5="723BE2E39CEEFB9B012A68E2F084BBFD" import="1">TheUrgal/Art/URGAL_Portrait256.dds</File>
+    <File md5="C41A5ED0077C32217CAC33A1230A55CB" import="1">TheUrgal/Art/URGAL_Portrait32.dds</File>
+    <File md5="CB282F386ABB4C5B02DACDA4B42C1279" import="1">TheUrgal/Art/URGAL_Portrait45.dds</File>
+    <File md5="3778C5D2E90B9FD5E3C059B106C4C38E" import="1">TheUrgal/Art/URGAL_Portrait48.dds</File>
+    <File md5="3D3172FD768BD151BDD366CB5C604F22" import="1">TheUrgal/Art/URGAL_Portrait64.dds</File>
+    <File md5="F874CBA82650E48F626D3797211D5F79" import="1">TheUrgal/Art/URGAL_Portrait80.dds</File>
     <File md5="D6C9122147EB51A67F339D1AD54AB7F0" import="1">TheUrgal/Art/URGAL_PotionUI32.dds</File>
     <File md5="9A9D1DF9D30473A80AB240F85E37545E" import="1">TheUrgal/Art/URGAL_Promotions128.dds</File>
     <File md5="EC4B1D7192762901EBE036B73C090D27" import="1">TheUrgal/Art/URGAL_Promotions16.dds</File>
@@ -729,8 +778,15 @@
     <File md5="6CAD6F3F432BF09231E3CAB60FA7A1FE" import="0">TheUrgal/SQL/02_URGAL_Effects.sql</File>
     <File md5="AEC5712E68039ADE48A5B9EE6DF0B485" import="0">TheUrgal/SQL/03_URGAL_Art.sql</File>
     <File md5="CADF60B716E4A7B03F2442EE399BE2F0" import="0">TheUrgal/SQL/10_URGAL_Text.sql</File>
-    <File md5="861AC69006BDEEEA1578CAC7982C6DC4" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
-    <File md5="EDF457BD8FF891614885A62ED5DD03DC" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
+    <File md5="FFB384482D7E4537B295C343C3F4D8E9" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
+    <File md5="2827BA1E6E670DD3AA9CF30CC3FF23B3" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
+    <File md5="EFC53D8FDAA66F6FA499ED5AF0A3FA0A" import="1">JinDynasty/Art/CWC2_JinDynasty_Buttons.dds</File>
+    <File md5="A9543BCE61A6E98CC0748BCE5148264C" import="1">JinDynasty/Art/CWC2_JinDynasty_Launcher.dds</File>
+    <File md5="6775ACF6CA423306814370A574CB0996" import="1">JinDynasty/Art/CWC2_JinDynasty_Launcher_245x42.dds</File>
+    <File md5="2FB57C0A66F81F43D6C93FA542602D4F" import="1">JinDynasty/Art/CWC2_JinDynasty_Panel.dds</File>
+    <File md5="02C63599DE87C688054785D5F2DB5311" import="1">JinDynasty/Art/CWC2_JinDynasty_Panel_980x680.dds</File>
+    <File md5="F8B43F95511F0C3377E62BA024515CDF" import="1">JinDynasty/Art/CWC2_JinDynasty_Row.dds</File>
+    <File md5="C056FEFC4C94C07E16FC91BA08CED999" import="1">JinDynasty/Art/CWC2_JinDynasty_Row_910x86.dds</File>
     <File md5="72120383503C2FCFA0751BF58CDE99DD" import="1">JinDynasty/Art/JIN_Alpha128.dds</File>
     <File md5="3BF3FB17525315048E05C01A99E8F5F4" import="1">JinDynasty/Art/JIN_Alpha16.dds</File>
     <File md5="A292F8EC04B3970C3769A4791FBBBF84" import="1">JinDynasty/Art/JIN_Alpha24.dds</File>
@@ -740,15 +796,15 @@
     <File md5="41B7BDBF996041E6CB173732FCA6DA04" import="1">JinDynasty/Art/JIN_Alpha48.dds</File>
     <File md5="0B96BE1472DA44496A769208036DADD3" import="1">JinDynasty/Art/JIN_Alpha64.dds</File>
     <File md5="DE6C693FA14290E671E6A4F3B898DFA6" import="1">JinDynasty/Art/JIN_Alpha80.dds</File>
-    <File md5="7C39E776E6015EE3BA50CFBEB229DEB5" import="1">JinDynasty/Art/JIN_Buildings128.dds</File>
-    <File md5="1BB68AE56F5E0FB1A030D991A061FFD0" import="1">JinDynasty/Art/JIN_Buildings16.dds</File>
-    <File md5="65D6BC1210DA8B1792032439CC4E06DF" import="1">JinDynasty/Art/JIN_Buildings24.dds</File>
-    <File md5="710C6CBF62EE5476A73D415107703069" import="1">JinDynasty/Art/JIN_Buildings256.dds</File>
-    <File md5="B9830C56826507376517B3446A3DFB92" import="1">JinDynasty/Art/JIN_Buildings32.dds</File>
+    <File md5="D6F82F8A7FCD4355EA38B79B5CD52C4C" import="1">JinDynasty/Art/JIN_Buildings128.dds</File>
+    <File md5="B810B5088384DA081655C0CA1BEE0A71" import="1">JinDynasty/Art/JIN_Buildings16.dds</File>
+    <File md5="FBF310298156D0A68B2A7B118BD843BC" import="1">JinDynasty/Art/JIN_Buildings24.dds</File>
+    <File md5="3DE3272975E2E4A155A9FEA236923A46" import="1">JinDynasty/Art/JIN_Buildings256.dds</File>
+    <File md5="0DD25B1A26ACD13E3BC52E682738EA7C" import="1">JinDynasty/Art/JIN_Buildings32.dds</File>
     <File md5="8D6E196531399C36244B4FF3C53744D6" import="1">JinDynasty/Art/JIN_Buildings45.dds</File>
-    <File md5="6C249B56AA29DC9411429D57DE583B66" import="1">JinDynasty/Art/JIN_Buildings48.dds</File>
-    <File md5="E95C7C3C17FED5BA15247FAEA4B5855B" import="1">JinDynasty/Art/JIN_Buildings64.dds</File>
-    <File md5="CE02BE8BC266A0673AD04360D997B4ED" import="1">JinDynasty/Art/JIN_Buildings80.dds</File>
+    <File md5="4EAB2328D6AF14A8FD163D97EAF54E6E" import="1">JinDynasty/Art/JIN_Buildings48.dds</File>
+    <File md5="BE8BD5082D39ABED04D4A335344D5F2D" import="1">JinDynasty/Art/JIN_Buildings64.dds</File>
+    <File md5="A4D2500FCA1BC239135A1CC4C64B69EC" import="1">JinDynasty/Art/JIN_Buildings80.dds</File>
     <File md5="3D8783D93CF0B6B29E21D320D683FD41" import="1">JinDynasty/Art/JIN_Dawn.dds</File>
     <File md5="4CC9327696DF959E641E390D1A5EBFF2" import="1">JinDynasty/Art/JIN_Flags128.dds</File>
     <File md5="F02D5D6B01BA8AE486E352717A5FD6E3" import="1">JinDynasty/Art/JIN_Flags16.dds</File>
@@ -764,15 +820,15 @@
     <File md5="A318B6B30142489B243CB1C20AB8926A" import="1">JinDynasty/Art/JIN_Header.dds</File>
     <File md5="96DA316395C66950C2769C8C22F124AB" import="1">JinDynasty/Art/JIN_HorseUI32.dds</File>
     <File md5="ECF5DA92EB77D71FCCA0CC5970B15498" import="1">JinDynasty/Art/JIN_HorseUI64.dds</File>
-    <File md5="38B958C9ADD9A65031352B9B4C72B2E1" import="1">JinDynasty/Art/JIN_Icon128.dds</File>
-    <File md5="52B795C78B179322B7CEA8D580DEBF6D" import="1">JinDynasty/Art/JIN_Icon16.dds</File>
-    <File md5="64C5CA9051C5DFB847635527F97705C1" import="1">JinDynasty/Art/JIN_Icon24.dds</File>
-    <File md5="BE8926CD7D272A67902A68E5F76BA63E" import="1">JinDynasty/Art/JIN_Icon256.dds</File>
-    <File md5="1A620CDA2E5C7D4492FD467AB8047A58" import="1">JinDynasty/Art/JIN_Icon32.dds</File>
-    <File md5="19A7A3527395F74E53A16606A3073954" import="1">JinDynasty/Art/JIN_Icon45.dds</File>
-    <File md5="6641E26BECBF59E35922D707B4A3E312" import="1">JinDynasty/Art/JIN_Icon48.dds</File>
-    <File md5="2DE619845D2C626C3FCD01FF37AFAD8D" import="1">JinDynasty/Art/JIN_Icon64.dds</File>
-    <File md5="C88C8C1B7B787239910E6B05062EAB89" import="1">JinDynasty/Art/JIN_Icon80.dds</File>
+    <File md5="439DDC5DA823479D4E00EEBC905B6A72" import="1">JinDynasty/Art/JIN_Icon128.dds</File>
+    <File md5="7BF0FB0F6A91A614CD73C0A21EED0694" import="1">JinDynasty/Art/JIN_Icon16.dds</File>
+    <File md5="EC5165F8B87917966CE820CECDF21D40" import="1">JinDynasty/Art/JIN_Icon24.dds</File>
+    <File md5="D75791C475686BBC7AE91354039A5ED9" import="1">JinDynasty/Art/JIN_Icon256.dds</File>
+    <File md5="648C21660FB95D4C4577E083B1F92525" import="1">JinDynasty/Art/JIN_Icon32.dds</File>
+    <File md5="91F25B165B35E0153D3C0C61EC40D87B" import="1">JinDynasty/Art/JIN_Icon45.dds</File>
+    <File md5="6C2A8E5505FDD69E116D41BC0C15DDDF" import="1">JinDynasty/Art/JIN_Icon48.dds</File>
+    <File md5="726F511F5BC72F3850BBFC36BA821E63" import="1">JinDynasty/Art/JIN_Icon64.dds</File>
+    <File md5="0CF6C55E11EB38060BB28239C38A0E12" import="1">JinDynasty/Art/JIN_Icon80.dds</File>
     <File md5="B64DDC82768E0B719A6618CD6796DEB3" import="1">JinDynasty/Art/JIN_KarmaUI32.dds</File>
     <File md5="91F61190E38211F10E11CA69405D9E89" import="1">JinDynasty/Art/JIN_KarmaUI64.dds</File>
     <File md5="DB58410B28A1FD53810C64FA74AB3754" import="1">JinDynasty/Art/JIN_Leader.dds</File>
@@ -780,15 +836,15 @@
     <File md5="923A51C091701F49A6C711E57E465D95" import="1">JinDynasty/Art/JIN_Map.dds</File>
     <File md5="F7AE0DCD67050DDF66355A2BF9AB8287" import="1">JinDynasty/Art/JIN_MenganUI32.dds</File>
     <File md5="49059D41FB928745B69A5343E4A40CC9" import="1">JinDynasty/Art/JIN_MenganUI64.dds</File>
-    <File md5="BB10246CA1B5D22211792209063E728F" import="1">JinDynasty/Art/JIN_Portrait128.dds</File>
-    <File md5="4DB4F84E1E0BE84E1BDFED370A15A634" import="1">JinDynasty/Art/JIN_Portrait16.dds</File>
-    <File md5="BF9E78530BD83AC4C529E01D1F5EE084" import="1">JinDynasty/Art/JIN_Portrait24.dds</File>
-    <File md5="AC3A83752D348C5AC6DDF57E9015E62B" import="1">JinDynasty/Art/JIN_Portrait256.dds</File>
-    <File md5="DA86B9212559BB66314F01ED70D386AA" import="1">JinDynasty/Art/JIN_Portrait32.dds</File>
+    <File md5="D2C2CF01B2A58F8455F0505A062211C1" import="1">JinDynasty/Art/JIN_Portrait128.dds</File>
+    <File md5="24EB3D6A0DDE7AC77BF86AA3651781AE" import="1">JinDynasty/Art/JIN_Portrait16.dds</File>
+    <File md5="CAB4E720BD30A6EF107CC2BE7DB82C5E" import="1">JinDynasty/Art/JIN_Portrait24.dds</File>
+    <File md5="C124C9DD6000552A15C3370E511126F3" import="1">JinDynasty/Art/JIN_Portrait256.dds</File>
+    <File md5="415BD95F099AD7EE704F7C59E480D408" import="1">JinDynasty/Art/JIN_Portrait32.dds</File>
     <File md5="4AE87EE283B15AD86A89F0EBFF85A726" import="1">JinDynasty/Art/JIN_Portrait45.dds</File>
-    <File md5="006EB4D47FA05F3C52AA8CE3F8090CF4" import="1">JinDynasty/Art/JIN_Portrait48.dds</File>
-    <File md5="1F4A879E721F351EC4FCD1C05200B5AB" import="1">JinDynasty/Art/JIN_Portrait64.dds</File>
-    <File md5="389DF50697F77379FF90DAA33B44D906" import="1">JinDynasty/Art/JIN_Portrait80.dds</File>
+    <File md5="1ED28BBA048F97DD7B50DF7FBDDD58D9" import="1">JinDynasty/Art/JIN_Portrait48.dds</File>
+    <File md5="7AE2C8BBFDFD1D98C23E58E75A50CC34" import="1">JinDynasty/Art/JIN_Portrait64.dds</File>
+    <File md5="FA3251DBF1400691E7B73EBE55E43C11" import="1">JinDynasty/Art/JIN_Portrait80.dds</File>
     <File md5="DF7E5E1F68147352907D0095A5817A69" import="1">JinDynasty/Art/JIN_TributaryUI32.dds</File>
     <File md5="EEAD9F113ABB921658ACCC6DB2F96BA8" import="1">JinDynasty/Art/JIN_TributaryUI64.dds</File>
     <File md5="D430CC2B6A67A4FB11FF08844A0BD010" import="1">JinDynasty/Art/JIN_UI_Accent.dds</File>
@@ -796,24 +852,24 @@
     <File md5="4A050967642434FD13C74917F0CEFF81" import="1">JinDynasty/Art/JIN_UI_Metric.dds</File>
     <File md5="34DF994EB184DF2C48BA824DCCA5FEB9" import="1">JinDynasty/Art/JIN_UI_Panel.dds</File>
     <File md5="CB8F2A03CEF85291CE000E8689E6A37F" import="1">JinDynasty/Art/JIN_UI_Row.dds</File>
-    <File md5="99F9AC71C7ED6342015C68EEFFFF4EFC" import="1">JinDynasty/Art/JIN_Units128.dds</File>
-    <File md5="C616FD27D94957C36223444EB0C968F0" import="1">JinDynasty/Art/JIN_Units16.dds</File>
-    <File md5="31AD4971DD83A6358E28C09A32AD55C8" import="1">JinDynasty/Art/JIN_Units24.dds</File>
-    <File md5="9D2004E3786D7E7788F6F98EE32B5166" import="1">JinDynasty/Art/JIN_Units256.dds</File>
-    <File md5="2DE170F2052063A92D647F84E6CCAF96" import="1">JinDynasty/Art/JIN_Units32.dds</File>
+    <File md5="78118542450318824326ED32681631C9" import="1">JinDynasty/Art/JIN_Units128.dds</File>
+    <File md5="7B541BCCF2A3DE3197E14E03DD708A7B" import="1">JinDynasty/Art/JIN_Units16.dds</File>
+    <File md5="1F01137DEA490FA77DBB3AE2FA9DD39A" import="1">JinDynasty/Art/JIN_Units24.dds</File>
+    <File md5="6907E4584BA857B2A348F8E51C92A50B" import="1">JinDynasty/Art/JIN_Units256.dds</File>
+    <File md5="20B2B1B837383A74990438C9947598FD" import="1">JinDynasty/Art/JIN_Units32.dds</File>
     <File md5="EDDB7D2E5D577253F0D50C8FC95021F2" import="1">JinDynasty/Art/JIN_Units45.dds</File>
-    <File md5="FB25066A60BDDE210F1489742E1BAEC6" import="1">JinDynasty/Art/JIN_Units48.dds</File>
-    <File md5="0EF96B533172BDB2F7C45D123215E205" import="1">JinDynasty/Art/JIN_Units64.dds</File>
-    <File md5="BDD3F69F0D91441EF081F3AAD96DA783" import="1">JinDynasty/Art/JIN_Units80.dds</File>
-    <File md5="8B30B58E0C8D7F44660D43D1592248A4" import="1">JinDynasty/Art/JIN_Upgrades128.dds</File>
-    <File md5="F1CFE60F0446ED340C019C65F4FF24CD" import="1">JinDynasty/Art/JIN_Upgrades16.dds</File>
-    <File md5="7D69488C84DD215204C6A6F692E149B2" import="1">JinDynasty/Art/JIN_Upgrades24.dds</File>
-    <File md5="00414D9DC37A2BC671FF934D4C98B567" import="1">JinDynasty/Art/JIN_Upgrades256.dds</File>
-    <File md5="FA4D6A976E460F914D3678A340BD3E0E" import="1">JinDynasty/Art/JIN_Upgrades32.dds</File>
-    <File md5="FD62E2892CEA4076F7EFCF3E30A30B7C" import="1">JinDynasty/Art/JIN_Upgrades45.dds</File>
-    <File md5="F02DD7B6924BF5AD90F0A3E8E8A8B9F1" import="1">JinDynasty/Art/JIN_Upgrades48.dds</File>
-    <File md5="6FC12383A5D99CFB87FFF7B835BA94B1" import="1">JinDynasty/Art/JIN_Upgrades64.dds</File>
-    <File md5="7BD34EF503BE5FAD785597B9984E6D31" import="1">JinDynasty/Art/JIN_Upgrades80.dds</File>
+    <File md5="F0C7B81A7C5AE9BCF5F55F43DFE8AE7A" import="1">JinDynasty/Art/JIN_Units48.dds</File>
+    <File md5="5DE5F8B61C7437BF6A5B45321C551FD1" import="1">JinDynasty/Art/JIN_Units64.dds</File>
+    <File md5="324EF07F23F81225413F7FB6FA2548A5" import="1">JinDynasty/Art/JIN_Units80.dds</File>
+    <File md5="9B7A418E7B77FD338BC92E264C064803" import="1">JinDynasty/Art/JIN_Upgrades128.dds</File>
+    <File md5="F6217A1EB8ECF098EC97C1C7040A8895" import="1">JinDynasty/Art/JIN_Upgrades16.dds</File>
+    <File md5="B8D9630A50724CF754AFB3030E449F56" import="1">JinDynasty/Art/JIN_Upgrades24.dds</File>
+    <File md5="5FCB3D8CD6E6BCEDF2E673FC394362B6" import="1">JinDynasty/Art/JIN_Upgrades256.dds</File>
+    <File md5="75A8FA681ED0A9D455660C5998D297BD" import="1">JinDynasty/Art/JIN_Upgrades32.dds</File>
+    <File md5="85C60AD62D9D4FF5D08EB9BECB9E9623" import="1">JinDynasty/Art/JIN_Upgrades45.dds</File>
+    <File md5="DAD095743DFEA0FA1BCF8B408FD9AC89" import="1">JinDynasty/Art/JIN_Upgrades48.dds</File>
+    <File md5="F609E4B977F2BA0153783F7E460A6F7D" import="1">JinDynasty/Art/JIN_Upgrades64.dds</File>
+    <File md5="D3E6D3CF7097159547EDA5799200DB9A" import="1">JinDynasty/Art/JIN_Upgrades80.dds</File>
     <File md5="B54B0BD86468CA342D5F362AB80D80C9" import="1">JinDynasty/Lua/JIN_Autonomy.lua</File>
     <File md5="19E4EC6BF9D3150D43893C57D9E76ACA" import="1">JinDynasty/Lua/JIN_Config.lua</File>
     <File md5="6944F8C6FC9B18C11F6F083F0D2688FC" import="1">JinDynasty/Lua/JIN_Core.lua</File>
@@ -826,8 +882,14 @@
     <File md5="C4D8B24528FEF8AEA6EFECC997689B31" import="0">JinDynasty/SQL/02_JIN_Effects.sql</File>
     <File md5="F4A80EF4BC9CB887014466BC7E89C9B7" import="0">JinDynasty/SQL/03_JIN_Art.sql</File>
     <File md5="7F6D154E1E85544F6D9F93FCB921EA90" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
-    <File md5="522D9829E148CF430D750FD7ABBD2F05" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
-    <File md5="39A2DADB5CFEA864E056F2211C9155B9" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
+    <File md5="59EA33A76FC724F5FF91457AA19A1951" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
+    <File md5="AA619CC1CC7E415B5A6D2CD84C6128AC" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
+    <File md5="1368D5CA0753EC373AF6290AC6163D07" import="1">TheThresholdCourt/Art/CWC2_TheThresholdCourt_Buttons.dds</File>
+    <File md5="45FFC54EAA971BC95E514BB7AF08D956" import="1">TheThresholdCourt/Art/CWC2_TheThresholdCourt_Launcher.dds</File>
+    <File md5="6F52660FE382935CB34554F68F481D3A" import="1">TheThresholdCourt/Art/CWC2_TheThresholdCourt_Launcher_300x110.dds</File>
+    <File md5="83990175EC2BAA73117D508929324AE5" import="1">TheThresholdCourt/Art/CWC2_TheThresholdCourt_Panel.dds</File>
+    <File md5="A929CBBF9C5B28765AE209CFDC18FFE1" import="1">TheThresholdCourt/Art/CWC2_TheThresholdCourt_Panel_660x550.dds</File>
+    <File md5="81EB5B2E89F292918E32B2B98355055C" import="1">TheThresholdCourt/Art/CWC2_TheThresholdCourt_Row.dds</File>
     <File md5="50929F7ECB540B258FA178E0CA71EA7B" import="1">TheThresholdCourt/Art/THC_Alpha128.dds</File>
     <File md5="97E2C10CB89B0E20CEC28EF4A7C0A1B1" import="1">TheThresholdCourt/Art/THC_Alpha16.dds</File>
     <File md5="A3562F7571138542C3DF55FA3627C64C" import="1">TheThresholdCourt/Art/THC_Alpha24.dds</File>
@@ -838,36 +900,36 @@
     <File md5="9BAC277564A53F5F9C0BF61C30128DF0" import="1">TheThresholdCourt/Art/THC_Alpha64.dds</File>
     <File md5="5105E72C4BA723556299FD58C9C41EDD" import="1">TheThresholdCourt/Art/THC_Alpha80.dds</File>
     <File md5="EEB12524F13009BF4276CAF6FBCA2F7F" import="1">TheThresholdCourt/Art/THC_Dawn.dds</File>
-    <File md5="0DBEB400E35E9BE3AFB3A6463FD0457F" import="1">TheThresholdCourt/Art/THC_Icon128.dds</File>
-    <File md5="4B27E6F34D83866BE454D749E61562AA" import="1">TheThresholdCourt/Art/THC_Icon16.dds</File>
-    <File md5="498E15601534A89174D32B861D8E519F" import="1">TheThresholdCourt/Art/THC_Icon24.dds</File>
-    <File md5="73EE5F3FBEC1E56F6296B21F94DAA496" import="1">TheThresholdCourt/Art/THC_Icon256.dds</File>
-    <File md5="8F939EE9F8F835919099DAAFB3CECCCD" import="1">TheThresholdCourt/Art/THC_Icon32.dds</File>
-    <File md5="D61CF00BB99750019D89D08F43F2D36B" import="1">TheThresholdCourt/Art/THC_Icon45.dds</File>
-    <File md5="5C75DE62F9726A6DEFB422ECB714D525" import="1">TheThresholdCourt/Art/THC_Icon48.dds</File>
-    <File md5="263012DB086A28883C3A184FA5C0F614" import="1">TheThresholdCourt/Art/THC_Icon64.dds</File>
-    <File md5="36C145C917562BD9BAACFC42842788F1" import="1">TheThresholdCourt/Art/THC_Icon80.dds</File>
+    <File md5="983EC2D8F126D3877A18F7690C342966" import="1">TheThresholdCourt/Art/THC_Icon128.dds</File>
+    <File md5="A115284584E9B1B79FFBB5E545674486" import="1">TheThresholdCourt/Art/THC_Icon16.dds</File>
+    <File md5="048F06ADC3BF87FD5804367FEB995A71" import="1">TheThresholdCourt/Art/THC_Icon24.dds</File>
+    <File md5="FB371DDD1BF9884D2CC83F0B5BED7038" import="1">TheThresholdCourt/Art/THC_Icon256.dds</File>
+    <File md5="041358381EB213709CE087B2771A6AC1" import="1">TheThresholdCourt/Art/THC_Icon32.dds</File>
+    <File md5="A3721BE4B5B002D36892D6CDA5000AF3" import="1">TheThresholdCourt/Art/THC_Icon45.dds</File>
+    <File md5="D9F661758A39A154A9293B8A6A688C8E" import="1">TheThresholdCourt/Art/THC_Icon48.dds</File>
+    <File md5="ABB3F7425352EA9FCA12EC82C2FA0B80" import="1">TheThresholdCourt/Art/THC_Icon64.dds</File>
+    <File md5="219AA310D7CAE7F1E1E475BC7AADF59A" import="1">TheThresholdCourt/Art/THC_Icon80.dds</File>
     <File md5="1E074A17D403C9D4E50DA5C658CEE2FA" import="1">TheThresholdCourt/Art/THC_Leader.dds</File>
     <File md5="B0DD0C9C8E171484A2C7E6B661C6BE2D" import="1">TheThresholdCourt/Art/THC_LeaderScene.xml</File>
     <File md5="C84BEEDC172D8168F2BFBA7F3179BFCF" import="1">TheThresholdCourt/Art/THC_Map.dds</File>
-    <File md5="682C78CA6E14EB7314E65590CB02D469" import="1">TheThresholdCourt/Art/THC_Objects128.dds</File>
-    <File md5="30AA74FD31752BDAD0CF9D1BFF1695B3" import="1">TheThresholdCourt/Art/THC_Objects16.dds</File>
-    <File md5="66BE71AAE822FBA881984C2CC35E9720" import="1">TheThresholdCourt/Art/THC_Objects24.dds</File>
-    <File md5="C4F20B90985F6900923016948C10C067" import="1">TheThresholdCourt/Art/THC_Objects256.dds</File>
-    <File md5="DC1B0D48618FFDFAF22268FD5D3D0FA1" import="1">TheThresholdCourt/Art/THC_Objects32.dds</File>
-    <File md5="E4EEF33B778ADDC314B2A778504FF86A" import="1">TheThresholdCourt/Art/THC_Objects45.dds</File>
-    <File md5="785B7E668F3C8FD44639BC041B3D48BA" import="1">TheThresholdCourt/Art/THC_Objects48.dds</File>
-    <File md5="D829D70C4D1E9F2EAF77F40C134F9E2C" import="1">TheThresholdCourt/Art/THC_Objects64.dds</File>
-    <File md5="CC0BFDA7404CD4C79F731FE8B164B793" import="1">TheThresholdCourt/Art/THC_Objects80.dds</File>
-    <File md5="1AF6617BC57D9D270FC1F4669C9BDBF6" import="1">TheThresholdCourt/Art/THC_Portrait128.dds</File>
-    <File md5="F4FDD7A3F5A0C566BF93DDCD0F705EE2" import="1">TheThresholdCourt/Art/THC_Portrait16.dds</File>
-    <File md5="AFDA39296B5DAEB3BA6A12C71737733E" import="1">TheThresholdCourt/Art/THC_Portrait24.dds</File>
-    <File md5="03ED566077AABF826B831FB2EC1227D5" import="1">TheThresholdCourt/Art/THC_Portrait256.dds</File>
-    <File md5="3E619614A63F31F0038DCB5488C5E722" import="1">TheThresholdCourt/Art/THC_Portrait32.dds</File>
-    <File md5="D2E74E3C5867BB98AE6BFF85A7694C04" import="1">TheThresholdCourt/Art/THC_Portrait45.dds</File>
-    <File md5="EDA70CDC3E8A89A5A68EF50AB5D541E5" import="1">TheThresholdCourt/Art/THC_Portrait48.dds</File>
-    <File md5="098F46EDC031F8F399D3FEF7E5B5D485" import="1">TheThresholdCourt/Art/THC_Portrait64.dds</File>
-    <File md5="566EA370348D39E63FC01C3F5132B123" import="1">TheThresholdCourt/Art/THC_Portrait80.dds</File>
+    <File md5="F2AA754F8CC73AE7128B939C1B0498A0" import="1">TheThresholdCourt/Art/THC_Objects128.dds</File>
+    <File md5="016DEF61F03A1063C01D7C4F790FBA5F" import="1">TheThresholdCourt/Art/THC_Objects16.dds</File>
+    <File md5="08BB0EE307F7C50B0D26155C22D2FD54" import="1">TheThresholdCourt/Art/THC_Objects24.dds</File>
+    <File md5="9A8D7ECCCDFE86CBF099239A4F1D8E68" import="1">TheThresholdCourt/Art/THC_Objects256.dds</File>
+    <File md5="FB3B338775A2C17EDECA36E12FF34417" import="1">TheThresholdCourt/Art/THC_Objects32.dds</File>
+    <File md5="F2FA38796D87F65029E308F54E4C569D" import="1">TheThresholdCourt/Art/THC_Objects45.dds</File>
+    <File md5="63AF57EE3A50AA659A030B0BD2D75508" import="1">TheThresholdCourt/Art/THC_Objects48.dds</File>
+    <File md5="3B1BAB680C85835F36D0272DE9F4FE43" import="1">TheThresholdCourt/Art/THC_Objects64.dds</File>
+    <File md5="759AC1E7009D5E9AF0BC649FCB5B6B2F" import="1">TheThresholdCourt/Art/THC_Objects80.dds</File>
+    <File md5="531D5225B24AFB6FAE88CBD6EE192309" import="1">TheThresholdCourt/Art/THC_Portrait128.dds</File>
+    <File md5="C45A262C8D50B342F62B4939E345853F" import="1">TheThresholdCourt/Art/THC_Portrait16.dds</File>
+    <File md5="923F81657F4228E9A26703DCF20ED72E" import="1">TheThresholdCourt/Art/THC_Portrait24.dds</File>
+    <File md5="06253ADF338513CF979EB16EFF042ED6" import="1">TheThresholdCourt/Art/THC_Portrait256.dds</File>
+    <File md5="9CF7D8059C7CA080AB5C60AD18D4D9E6" import="1">TheThresholdCourt/Art/THC_Portrait32.dds</File>
+    <File md5="0354F6AD1F7B00919124F0CD77F52EA1" import="1">TheThresholdCourt/Art/THC_Portrait45.dds</File>
+    <File md5="1C0D329934AAF7A60F6F160265153F88" import="1">TheThresholdCourt/Art/THC_Portrait48.dds</File>
+    <File md5="5FCCE7BE88EF2F5C4725518710874572" import="1">TheThresholdCourt/Art/THC_Portrait64.dds</File>
+    <File md5="E145249E62736E146702AB9E1A6647D3" import="1">TheThresholdCourt/Art/THC_Portrait80.dds</File>
     <File md5="3876289DBE98216584CB9FE2D3723F57" import="1">TheThresholdCourt/Art/THC_Promotions128.dds</File>
     <File md5="9F19581BCC4C33C19504E2791D5E0EB0" import="1">TheThresholdCourt/Art/THC_Promotions16.dds</File>
     <File md5="9A49D9832F5F3BC6DAE2CF3CE191CA08" import="1">TheThresholdCourt/Art/THC_Promotions24.dds</File>
@@ -885,8 +947,8 @@
     <File md5="C04F9D035CA9F66B8A2804FE911AF65B" import="0">TheThresholdCourt/SQL/02_THC_Effects.sql</File>
     <File md5="D5DC5AB8CEDEB1ACD4DE164F85CDB625" import="0">TheThresholdCourt/SQL/03_THC_Art.sql</File>
     <File md5="EC4D10DEB4142729510097411E4955DB" import="0">TheThresholdCourt/SQL/10_THC_Text.sql</File>
-    <File md5="2CD9550BB6F80383BD7D9C006972712D" import="1">TheThresholdCourt/UI/THC_Transfer.lua</File>
-    <File md5="B8753A1AB6DA1A630D4FFA669FA60184" import="0">TheThresholdCourt/UI/THC_Transfer.xml</File>
+    <File md5="E6FF27F3512EE5268F35EA58631EEB52" import="1">TheThresholdCourt/UI/THC_Transfer.lua</File>
+    <File md5="0CD8D68F72B9F83BD73A6110B5A18E41" import="0">TheThresholdCourt/UI/THC_Transfer.xml</File>
     <File md5="055F046D0FFEF0290891E57AE6BB5CC2" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha128.dds</File>
     <File md5="CA7BAAFC83FB29A27CC4465855D5D18D" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha16.dds</File>
     <File md5="5ACF26F02CB1454089F56C28368BEA54" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha24.dds</File>
@@ -898,36 +960,36 @@
     <File md5="98AF503075E2B42FAA4B73CAEEB3FCB1" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha80.dds</File>
     <File md5="1C75DDAB23152289AA5C08915A5B3045" import="1">TheHoneycombCommonwealth/Art/HCC_Dawn.dds</File>
     <File md5="54DF6290930389B075A15E5E1D6F8291" import="1">TheHoneycombCommonwealth/Art/HCC_Flag32.dds</File>
-    <File md5="E05F7E0A474AADEE9F795C5CCA44010A" import="1">TheHoneycombCommonwealth/Art/HCC_Icon128.dds</File>
-    <File md5="F18474418A5E644F391DB4A4D94C4921" import="1">TheHoneycombCommonwealth/Art/HCC_Icon16.dds</File>
-    <File md5="F74580DA50B41143078D5FA10A78B313" import="1">TheHoneycombCommonwealth/Art/HCC_Icon24.dds</File>
-    <File md5="BD765C1C46F4AD3FF2009B4672F48DF9" import="1">TheHoneycombCommonwealth/Art/HCC_Icon256.dds</File>
-    <File md5="C5F4E11A6761D834714527EE4899C8AE" import="1">TheHoneycombCommonwealth/Art/HCC_Icon32.dds</File>
+    <File md5="2753DCC93AE9ADCD8D42C0F6CF868DD5" import="1">TheHoneycombCommonwealth/Art/HCC_Icon128.dds</File>
+    <File md5="1248DCAF7BD3169F4D7A5D3003EE492B" import="1">TheHoneycombCommonwealth/Art/HCC_Icon16.dds</File>
+    <File md5="978762D2A9F1D8B4212724A59E6583CB" import="1">TheHoneycombCommonwealth/Art/HCC_Icon24.dds</File>
+    <File md5="7F04D096FFBDD17996AE9C37C8CD5F27" import="1">TheHoneycombCommonwealth/Art/HCC_Icon256.dds</File>
+    <File md5="2ED5CD5C0483AF469B302B5A943577B3" import="1">TheHoneycombCommonwealth/Art/HCC_Icon32.dds</File>
     <File md5="42AA49F860614D850EF45B0335A565FE" import="1">TheHoneycombCommonwealth/Art/HCC_Icon45.dds</File>
-    <File md5="F364A34228CD8696767F3F3307DCBCB4" import="1">TheHoneycombCommonwealth/Art/HCC_Icon48.dds</File>
-    <File md5="945DFE76A97F4BE392D51C9004EB822D" import="1">TheHoneycombCommonwealth/Art/HCC_Icon64.dds</File>
-    <File md5="58255D902731811F1AF097E71C74030B" import="1">TheHoneycombCommonwealth/Art/HCC_Icon80.dds</File>
+    <File md5="A0043D13BE1E3D1FD678A36CBFF4FB1E" import="1">TheHoneycombCommonwealth/Art/HCC_Icon48.dds</File>
+    <File md5="C5CD5ED405C5EA5D9887E1D490B7D698" import="1">TheHoneycombCommonwealth/Art/HCC_Icon64.dds</File>
+    <File md5="FED070005B778E3DEFFB77F99AA7F5B5" import="1">TheHoneycombCommonwealth/Art/HCC_Icon80.dds</File>
     <File md5="A6B00B84D759BFAE6DCA958618E1BAA7" import="1">TheHoneycombCommonwealth/Art/HCC_Leader.dds</File>
     <File md5="A0B8528E37D481A7ADE782F410D92DC6" import="1">TheHoneycombCommonwealth/Art/HCC_LeaderScene.xml</File>
     <File md5="9C8B080E41AB9514DC6AD9CE375C33E8" import="1">TheHoneycombCommonwealth/Art/HCC_Map.dds</File>
-    <File md5="BDB0942F9015EECE419EC030DE3133D6" import="1">TheHoneycombCommonwealth/Art/HCC_Objects128.dds</File>
-    <File md5="48B8D76B988A9F8C91F01BB8653BD063" import="1">TheHoneycombCommonwealth/Art/HCC_Objects16.dds</File>
-    <File md5="F71C5697AA322FBA3F715097300450C8" import="1">TheHoneycombCommonwealth/Art/HCC_Objects24.dds</File>
-    <File md5="44AC5ED0C3AF4DF794E1C7D81A3215C9" import="1">TheHoneycombCommonwealth/Art/HCC_Objects256.dds</File>
-    <File md5="17B8D2E85CD43BD474F83D299D145D16" import="1">TheHoneycombCommonwealth/Art/HCC_Objects32.dds</File>
+    <File md5="2C59B21F7F6F77BA0C559DDE44D4889E" import="1">TheHoneycombCommonwealth/Art/HCC_Objects128.dds</File>
+    <File md5="46390506F5BADFA66DC7FC9FDEB592C5" import="1">TheHoneycombCommonwealth/Art/HCC_Objects16.dds</File>
+    <File md5="67CBA6207BC8470CCFEBA0E0807FC4DD" import="1">TheHoneycombCommonwealth/Art/HCC_Objects24.dds</File>
+    <File md5="7EFB0C908D2902E6AACA0E4B4CC45AA1" import="1">TheHoneycombCommonwealth/Art/HCC_Objects256.dds</File>
+    <File md5="016FD4231468400FECFB777E28A3F600" import="1">TheHoneycombCommonwealth/Art/HCC_Objects32.dds</File>
     <File md5="C499D0A47FC301F340192908A2544B0A" import="1">TheHoneycombCommonwealth/Art/HCC_Objects45.dds</File>
-    <File md5="F7C2EDE6DB06A21413F4C95CB2459736" import="1">TheHoneycombCommonwealth/Art/HCC_Objects48.dds</File>
-    <File md5="E0BD0103B8BF9A66A00871D9FD09D824" import="1">TheHoneycombCommonwealth/Art/HCC_Objects64.dds</File>
-    <File md5="467EB55D1A9A65A9D6FF94E4919592B8" import="1">TheHoneycombCommonwealth/Art/HCC_Objects80.dds</File>
-    <File md5="DEF7D1C507D79E3390249F8D0FFAD039" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait128.dds</File>
-    <File md5="6BA6C951B233C0FBF35B6843D4B9CEB7" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait16.dds</File>
-    <File md5="BA6F50945CDC59B4C405D48DC1916C9F" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait24.dds</File>
-    <File md5="39DDE9866158791A599BF25FB5B5B1E1" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait256.dds</File>
-    <File md5="5BF1EC1D882FF64364536A30B92FFC0C" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait32.dds</File>
+    <File md5="6AF41D541244AF442D50C9CB3E0ED84F" import="1">TheHoneycombCommonwealth/Art/HCC_Objects48.dds</File>
+    <File md5="F825B485573D23481E230841EA5C4122" import="1">TheHoneycombCommonwealth/Art/HCC_Objects64.dds</File>
+    <File md5="1290F7B74A931DB0274114EFEB47C8A3" import="1">TheHoneycombCommonwealth/Art/HCC_Objects80.dds</File>
+    <File md5="1B7342F107765816C9C0D80D3D3A53C7" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait128.dds</File>
+    <File md5="9834681C34CA3BB89E71C775E10216D0" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait16.dds</File>
+    <File md5="D1B64ECAF9D3182EF44B1BE9309D1631" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait24.dds</File>
+    <File md5="1AADC3F34FA8FE6CB59726F9AAE2FA0E" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait256.dds</File>
+    <File md5="298CD054FF420B865C49CC7B179EC111" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait32.dds</File>
     <File md5="ECF988D520686C9F871B7B08260AD79D" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait45.dds</File>
-    <File md5="602C6ACDF63EF53989CC04D014235C99" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait48.dds</File>
-    <File md5="5220C06C4250484249F13B9A6057B47B" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait64.dds</File>
-    <File md5="C2BAB936D30FF2959EC466C973DA2DD7" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait80.dds</File>
+    <File md5="ABCB576211AE2482335788A9EA91B275" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait48.dds</File>
+    <File md5="184E44A8DC85A93522FBD43EAC884B36" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait64.dds</File>
+    <File md5="6261E1F96657446AB6BABFB9A5180B9B" import="1">TheHoneycombCommonwealth/Art/HCC_Portrait80.dds</File>
     <File md5="A33DB0DC7636923DA680362C47AC70E2" import="1">TheHoneycombCommonwealth/Lua/HCC_Commonwealth.lua</File>
     <File md5="FFBF68BEAD06480C8C892399A07A0A6B" import="0">TheHoneycombCommonwealth/Lua/HCC_Commonwealth.xml</File>
     <File md5="3FFE5D362ED11EC42C41C4FED9BF63CC" import="0">TheHoneycombCommonwealth/SQL/00_HCC_Core.sql</File>
@@ -946,36 +1008,36 @@
     <File md5="5D0736E516A7899BE0399C933654DE79" import="1">TheLaureateCommonwealth/Art/LC_Alpha80.dds</File>
     <File md5="0C113AEDD8DC32CD54854B2EB5FAD9A9" import="1">TheLaureateCommonwealth/Art/LC_Dawn.dds</File>
     <File md5="CA1DC13D4E584FB5464F0FE622B13097" import="1">TheLaureateCommonwealth/Art/LC_Flag32.dds</File>
-    <File md5="446C959417810C65BD99B463DCFBE1C8" import="1">TheLaureateCommonwealth/Art/LC_Icon128.dds</File>
-    <File md5="0EC25CB4DAC76E34F8551F8F783D1337" import="1">TheLaureateCommonwealth/Art/LC_Icon16.dds</File>
-    <File md5="60AA9740F9A07CF3C42047CBC4B0AE26" import="1">TheLaureateCommonwealth/Art/LC_Icon24.dds</File>
-    <File md5="3716AFDA8AA3F758C5625B4E71822B0B" import="1">TheLaureateCommonwealth/Art/LC_Icon256.dds</File>
-    <File md5="326A0BFAA72916BAC99D3A8263A092BC" import="1">TheLaureateCommonwealth/Art/LC_Icon32.dds</File>
+    <File md5="63C2C8B20D3B9E5FB4B2E51879B3F36F" import="1">TheLaureateCommonwealth/Art/LC_Icon128.dds</File>
+    <File md5="5CC41C729762D30AD728D0C2E92ACE62" import="1">TheLaureateCommonwealth/Art/LC_Icon16.dds</File>
+    <File md5="21805C0A7AB9FC9A7149EC05DDB79291" import="1">TheLaureateCommonwealth/Art/LC_Icon24.dds</File>
+    <File md5="8E7A760285290D439E4D933816D70318" import="1">TheLaureateCommonwealth/Art/LC_Icon256.dds</File>
+    <File md5="F845A3B24BC5D4B950D1EE61CA3CC23A" import="1">TheLaureateCommonwealth/Art/LC_Icon32.dds</File>
     <File md5="64A834960CC454216D24A5441B97828D" import="1">TheLaureateCommonwealth/Art/LC_Icon45.dds</File>
-    <File md5="D07A62178BEDFAA6DDAA23CE512DACA9" import="1">TheLaureateCommonwealth/Art/LC_Icon48.dds</File>
-    <File md5="BBB431ECC570BE4776A2686993DA3E78" import="1">TheLaureateCommonwealth/Art/LC_Icon64.dds</File>
-    <File md5="DFECBA03CEEA38E1503A9E28EC26B4C1" import="1">TheLaureateCommonwealth/Art/LC_Icon80.dds</File>
+    <File md5="9B1E427C5AF1A8FD583E8F00C5F1C7C4" import="1">TheLaureateCommonwealth/Art/LC_Icon48.dds</File>
+    <File md5="4E767B59DE7EDF6E1AC55B378AB2AA69" import="1">TheLaureateCommonwealth/Art/LC_Icon64.dds</File>
+    <File md5="0EF549B30887AE44BD7BE022355B6234" import="1">TheLaureateCommonwealth/Art/LC_Icon80.dds</File>
     <File md5="742E70AD3E6D58E660743CFC9FEBA80E" import="1">TheLaureateCommonwealth/Art/LC_Leader.dds</File>
     <File md5="3C44A724AA709F0A7C62271A0CB3F44D" import="1">TheLaureateCommonwealth/Art/LC_LeaderScene.xml</File>
     <File md5="A4DC62BCB32AE846653AA609FB01964A" import="1">TheLaureateCommonwealth/Art/LC_Map.dds</File>
-    <File md5="03DFE6001DF218F1F14CD0A5AB8264D4" import="1">TheLaureateCommonwealth/Art/LC_Objects128.dds</File>
-    <File md5="8DF15105E51A8BA291DA9A08A5A2F4FC" import="1">TheLaureateCommonwealth/Art/LC_Objects16.dds</File>
-    <File md5="26FBBE81CC4752C416B19160FB4EDD69" import="1">TheLaureateCommonwealth/Art/LC_Objects24.dds</File>
-    <File md5="998AD565C947AC06DA1A20733A813AF9" import="1">TheLaureateCommonwealth/Art/LC_Objects256.dds</File>
-    <File md5="0E946A838A91D8C53FF647AFF5ACFA81" import="1">TheLaureateCommonwealth/Art/LC_Objects32.dds</File>
+    <File md5="50B59009F3C06409C4024E901980DC2E" import="1">TheLaureateCommonwealth/Art/LC_Objects128.dds</File>
+    <File md5="8371CCFCFABC281653F7A2EE818325CD" import="1">TheLaureateCommonwealth/Art/LC_Objects16.dds</File>
+    <File md5="2073208939DD163404B6F9DFFEECC96D" import="1">TheLaureateCommonwealth/Art/LC_Objects24.dds</File>
+    <File md5="DBD02A1E1B377C28AF897AD80C0C0A79" import="1">TheLaureateCommonwealth/Art/LC_Objects256.dds</File>
+    <File md5="645B368F68C145A29F0E55448990517F" import="1">TheLaureateCommonwealth/Art/LC_Objects32.dds</File>
     <File md5="FCDF4BF74F6F87DEEE4BBD9D7CA44A2D" import="1">TheLaureateCommonwealth/Art/LC_Objects45.dds</File>
-    <File md5="A5DE83CE4FD397A98ABF60DE3C9285AF" import="1">TheLaureateCommonwealth/Art/LC_Objects48.dds</File>
-    <File md5="BB1DAB23F078A2BB4A12008C12F63938" import="1">TheLaureateCommonwealth/Art/LC_Objects64.dds</File>
-    <File md5="9480E675535B1C1CB80FC87172738D97" import="1">TheLaureateCommonwealth/Art/LC_Objects80.dds</File>
-    <File md5="1860573075072DD4167DF4886DFBF950" import="1">TheLaureateCommonwealth/Art/LC_Portrait128.dds</File>
-    <File md5="C3FAED20DEA380006269A2D9A8ECE0DA" import="1">TheLaureateCommonwealth/Art/LC_Portrait16.dds</File>
-    <File md5="8C150F97BE11CE7A725DA044DE571F1A" import="1">TheLaureateCommonwealth/Art/LC_Portrait24.dds</File>
-    <File md5="7384FB860EA15D8E76C3669677011D6E" import="1">TheLaureateCommonwealth/Art/LC_Portrait256.dds</File>
-    <File md5="3DBEA4E95EC3B709353B7B7E835DD859" import="1">TheLaureateCommonwealth/Art/LC_Portrait32.dds</File>
+    <File md5="98DD00374AC56D60283F3C6E639B7A50" import="1">TheLaureateCommonwealth/Art/LC_Objects48.dds</File>
+    <File md5="4BB9954AADEC0F18283732F8F40B92EF" import="1">TheLaureateCommonwealth/Art/LC_Objects64.dds</File>
+    <File md5="D4AAAD97FFE264A310D50E2129CB6049" import="1">TheLaureateCommonwealth/Art/LC_Objects80.dds</File>
+    <File md5="6EDE4BA0A7B704ED9512CD5A9C98BAF5" import="1">TheLaureateCommonwealth/Art/LC_Portrait128.dds</File>
+    <File md5="774D15221FCDDFEBAC02FF1DE375DF9F" import="1">TheLaureateCommonwealth/Art/LC_Portrait16.dds</File>
+    <File md5="B607143557AD08F1C455D92B3D4DF007" import="1">TheLaureateCommonwealth/Art/LC_Portrait24.dds</File>
+    <File md5="F7261F7184E5738AD4D6696876785CB0" import="1">TheLaureateCommonwealth/Art/LC_Portrait256.dds</File>
+    <File md5="8A14E93D43F079C51571479AEFEFE856" import="1">TheLaureateCommonwealth/Art/LC_Portrait32.dds</File>
     <File md5="6C20F00DFBA191813EA6947765D40B5E" import="1">TheLaureateCommonwealth/Art/LC_Portrait45.dds</File>
-    <File md5="6B3EBB52BE0A1A3740F4B18E130311D0" import="1">TheLaureateCommonwealth/Art/LC_Portrait48.dds</File>
-    <File md5="8B75FD5757500F794E5BA67F02477130" import="1">TheLaureateCommonwealth/Art/LC_Portrait64.dds</File>
-    <File md5="E5F064D81D4E6F316EB65014FAF1FAD2" import="1">TheLaureateCommonwealth/Art/LC_Portrait80.dds</File>
+    <File md5="4DB2059BAFBBD9DA367F3DD6B170F267" import="1">TheLaureateCommonwealth/Art/LC_Portrait48.dds</File>
+    <File md5="B7AE7132118D7A682AD750971AC72717" import="1">TheLaureateCommonwealth/Art/LC_Portrait64.dds</File>
+    <File md5="391B18C2DC28419EB074753FFC2DCDAE" import="1">TheLaureateCommonwealth/Art/LC_Portrait80.dds</File>
     <File md5="096AE505A7CDA574B21C6DD74F66C455" import="1">TheLaureateCommonwealth/Lua/LC_Commonwealth.lua</File>
     <File md5="6819AA76479263AEA62E1AA1933F7C61" import="0">TheLaureateCommonwealth/Lua/LC_Commonwealth.xml</File>
     <File md5="9B13784CCF8CF38D7372173AFF7F974A" import="0">TheLaureateCommonwealth/SQL/00_LC_Core.sql</File>

@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('InstanceManager')
 include('SupportFunctions')
 include('THC_Core')
@@ -62,11 +63,13 @@ local function DisplayPanel(u)
  Controls.Panel:SetHide(false)
 end
 function T.Refresh()
+ if uiRecovery then uiRecovery:Sync() end
  local show=ScreenAvailable();local u=show and Selection()
  local origin=u and T.Origin(Game.GetActivePlayer(),u)
  -- Keep an exhausted/ineligible military selection visible with a reason,
  -- but do not show a portal button for civilians, ranged units or other civs.
  local visible=origin and u:IsCombatUnit() and u:GetDomainType()==DomainTypes.DOMAIN_LAND and not u:IsRanged() and not u:IsEmbarked()
+ visible=visible and (not uiRecovery or uiRecovery:Available())
  Controls.Launcher:SetHide(not visible)
  if not visible then Close();return end
  local valid,reason=T.Validate(Game.GetActivePlayer(),u:GetID())
@@ -105,6 +108,7 @@ Controls.Confirm:RegisterCallback(Mouse.eLClick,function()
  T.QueueRefresh()
 end)
 ContextPtr:SetInputHandler(function(key,wparam)
+ if uiRecovery and not uiRecovery:Available() then return false end
  if opened and key==KeyEvents.KeyDown and wparam==Keys.VK_ESCAPE then Close();return true end
  return false
 end)
@@ -129,3 +133,15 @@ T.Hook(Events,'GameplaySetActivePlayer',ResetScreen)
 T.Hook(Events,'LoadScreenClose',ResetScreen)
 ContextPtr:SetShowHideHandler(function(h) hidden=h;if h then Close() end;T.QueueRefresh() end)
 T.Refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='TheThresholdCourt',civ='CIVILIZATION_THRESHOLD_COURT',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  request=function() T.QueueRefresh() end,
+  refresh=function() T.Refresh() end,
+  recover=function() ending=false;city=false;leader=false;hidden=false;popups={} end,repair=function()  end,
+  close=function() opened=false;snapshot=nil;chosen=nil end,manageContext=false}
+ uiRecovery:Refresh(true)
+end

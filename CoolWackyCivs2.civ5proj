@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>17</ModVersion>
+    <ModVersion>18</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -598,6 +598,27 @@
     <Content Include="Shared/SQL/00_OptionalCompatibility.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="Shared/UI/CWC2_Screen.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/CWC2_McPvP_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/CWC2_McPvP_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/CWC2_McPvP_Launcher_245x36.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/CWC2_McPvP_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/CWC2_McPvP_Panel_980x700.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="McPvP/Art/CWC2_McPvP_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="McPvP/Art/MCP_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -910,6 +931,27 @@
     <Content Include="TheBoundlessCity/Art/BoundlessPortrait64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="TheBoundlessCity/Art/CWC2_TheBoundlessCity_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/CWC2_TheBoundlessCity_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/CWC2_TheBoundlessCity_Launcher_245x36.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/CWC2_TheBoundlessCity_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/CWC2_TheBoundlessCity_Panel_900x700.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/CWC2_TheBoundlessCity_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheBoundlessCity/Art/CWC2_TheBoundlessCity_Row_834x66.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="TheBoundlessCity/Lua/BoundlessAI.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -1058,6 +1100,24 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheChildrenOfTheKingdom/Art/CKPortrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Launcher_245x36.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Panel_760x610.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheChildrenOfTheKingdom/Art/CWC2_TheChildrenOfTheKingdom_Row.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheChildrenOfTheKingdom/Lua/CK_Blessings.lua">
@@ -1221,6 +1281,27 @@
     </Content>
     <Content Include="TheRepublicOfPigeons/UI/PigeonTrade.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/CWC2_TrainerRed_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/CWC2_TrainerRed_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/CWC2_TrainerRed_Launcher_245x36.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/CWC2_TrainerRed_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/CWC2_TrainerRed_Panel_1000x690.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/CWC2_TrainerRed_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TrainerRed/Art/CWC2_TrainerRed_Row_924x102.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TrainerRed/Art/RED_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
@@ -1741,6 +1822,36 @@
     <Content Include="TheWanderingCircus/UI/WanderingCircus.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Launcher_245x36.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Panel_650x470.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Panel_904x634.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Panel_920x650.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Row_394x306.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="The11Cats/Art/CWC2_The11Cats_Row_394x376.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="The11Cats/Art/THE11CATS_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -2070,6 +2181,27 @@
     </Content>
     <Content Include="KingdomOfSaba/SQL/10_SABA_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Launcher_270x62.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Panel_722x582.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Panel_750x610.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheSubstituteClassroom/Art/GARVEY_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
@@ -2539,6 +2671,21 @@
     <Content Include="KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheUrgal/Art/CWC2_TheUrgal_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheUrgal/Art/CWC2_TheUrgal_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheUrgal/Art/CWC2_TheUrgal_Launcher_340x180.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheUrgal/Art/CWC2_TheUrgal_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheUrgal/Art/CWC2_TheUrgal_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="TheUrgal/Art/URGAL_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -2715,6 +2862,27 @@
     </Content>
     <Content Include="TheUrgal/UI/URGAL_Potions.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/CWC2_JinDynasty_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/CWC2_JinDynasty_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/CWC2_JinDynasty_Launcher_245x42.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/CWC2_JinDynasty_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/CWC2_JinDynasty_Panel_980x680.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/CWC2_JinDynasty_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="JinDynasty/Art/CWC2_JinDynasty_Row_910x86.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="JinDynasty/Art/JIN_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
@@ -3006,6 +3174,24 @@
     </Content>
     <Content Include="JinDynasty/UI/JIN_Dynasty.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/CWC2_TheThresholdCourt_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/CWC2_TheThresholdCourt_Launcher.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/CWC2_TheThresholdCourt_Launcher_300x110.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/CWC2_TheThresholdCourt_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/CWC2_TheThresholdCourt_Panel_660x550.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheThresholdCourt/Art/CWC2_TheThresholdCourt_Row.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TheThresholdCourt/Art/THC_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
@@ -3494,6 +3680,7 @@
     <Folder Include="McPvP\UI\" />
     <Folder Include="Shared\" />
     <Folder Include="Shared\SQL\" />
+    <Folder Include="Shared\UI\" />
     <Folder Include="The11Cats\" />
     <Folder Include="The11Cats\Art\" />
     <Folder Include="The11Cats\Lua\" />

@@ -1,3 +1,4 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
 include('IconSupport')
 include('InstanceManager')
 include('THE11CATS_Manager')
@@ -21,6 +22,7 @@ H.interface={leader=false,hidden=false,blocked={},transition=false}
 -- Native context names; queried only on event-triggered rendering and clicks.
 local screens={'CivilopediaScreen','TechTree','GenericPopup','TextPopup','SocialPolicyPopup','DiploOverview','EconomicOverview','MilitaryOverview','CultureOverview','EspionageOverview','ReligionOverview','LeagueOverviewPopup','LeagueSplash','LeagueProjectPopup','DiploVotePopup','VoteResultsPopup','VictoryProgress','GameMenu','NotificationLogPopup','ChooseFreeItem','ChooseReligion','ChoosePantheon','NewEraPopup','ProductionPopup','DeclareWarPopup','CityStateDiploPopup','EndGameMenu','PlayerChange','TechAwardPopup','ChooseIdeology','GreatWorkSplash','ChooseFaithGreatPerson','SetUnitName','SetCityName','AdvisorModal','ChooseInternationalTradeRoute'}
 function H.InterfaceReady()
+ if uiRecovery then return uiRecovery:Available() end
  local f=H.interface
  if f.hidden or f.leader or f.transition then return false end
  if not UI or not UI.IsCityScreenUp or not UI.GetInterfaceMode or UI.IsCityScreenUp() then return false end
@@ -93,7 +95,9 @@ local function renderHomes(s)
  Controls.HomesStack:CalculateSize();Controls.HomesStack:ReprocessAnchoring();Controls.HomesScroll:CalculateInternalSize()
 end
 local function render()
+ if uiRecovery then uiRecovery:Sync() end
  local show=eligible();if not show then opened=false;narrative=false end
+ show=show and (not uiRecovery or uiRecovery:Available())
  Controls.Launcher:SetHide(not show);Controls.Panel:SetHide(not (show and opened));Controls.Narrative:SetHide(not (show and narrative))
  if not show or not opened then return end
  local pid=Game.GetActivePlayer();local s=H.State(pid)
@@ -219,5 +223,19 @@ end
 H.Hook(Events,'ActivePlayerTurnEnd',closeTransition)
 H.Hook(Events,'InterfaceModeChanged',closeTransition)
 ContextPtr:SetShowHideHandler(function(hidden) H.interface.hidden=hidden;closeTransition() end)
-ContextPtr:SetInputHandler(function(msg,key) if (opened or narrative) and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then narrative=false;opened=false;H.Render();return true end;return false end)
+ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
+ if (opened or narrative) and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then narrative=false;opened=false;H.Render();return true end;return false end)
 H.Render()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC2_Screen')
+if CWC2_Screen then
+ uiRecovery=CWC2_Screen.New{name='The11Cats',civ='CIVILIZATION_THE11CATS',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel,Controls.Narrative},panels={Controls.Panel,Controls.Narrative},
+  request=function() H.Refresh() end,
+  refresh=function() H.Render() end,
+  recover=function() H.interface.leader=false;H.interface.blocked={};H.interface.transition=false;H.interface.hidden=false end,repair=function() rendering=false end,
+  close=function() opened=false;narrative=false end,manageContext=false}
+ uiRecovery:Refresh(true)
+end
