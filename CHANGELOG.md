@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.16.1 Jin launcher / Threshold style hotfix — 2026-10-30
+
+- Restore the Jin launcher at owner-turn start even after a closed-panel refresh hid it during AI turns. Handle early native turn flags, load and active-player transitions with coalesced one-shot refreshes; keep the panel closed between turns and retain closed-panel row caching.
+- Replace Threshold Court's undefined `GridBlack` panel style with native `GridBlackIndent8`. Validate its styles against the installed game's actual `Styles.xml` instead of accepting well-formed XML alone.
+- Reproduce both original defects; extend the shipped Jin panel test with 20 turn cycles, early flags, load/player switching and callback detachment. All 16 Jin and 32 four-speed Threshold suite runs pass. Native rendering after this hotfix remains unverified.
+- Retain mod version 17, UUID, gameplay values and save schemas. Existing saves need no migration; restart Civ V after installing the UI files.
+
 ## 1.16.0 The Laureate Commonwealth / mod version 17 — 2026-10-30
 
 - Add human-only Laurea, Keeper of the Unfading Crown, Daphne, The Evergreen Crown, Laureate Champion and Hall of Laurels. Preserve the specified balance and active CP Swordsman/Amphitheater properties.

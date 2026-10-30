@@ -156,6 +156,11 @@ def assets(d):
   row=d.execute('SELECT IconAtlas,PortraitIndex FROM '+table+' WHERE Type=?',(typ,)).fetchone()
   assert d.execute('SELECT 1 FROM IconTextureAtlases WHERE Atlas=? AND IconsPerRow*IconsPerColumn>?',tuple(row)).fetchone()
  ui=V/'UI/THC_Transfer.xml';ids={e.get('ID') for e in ET.parse(ui).iter() if e.get('ID')}
+ # Parsing well-formed XML cannot detect an undefined native control style.
+ from validate_urgal import support_source
+ styles={e.tag for e in ET.parse(support_source().with_name('Styles.xml')).iter()}
+ requested={e.get('Style') for e in ET.parse(ui).iter() if e.get('Style')}
+ assert requested<=styles,('undefined native Threshold UI styles',requested-styles)
  refs=set(re.findall(r'Controls\.([A-Za-z_]+)',ui.with_suffix('.lua').read_text(encoding='utf-8')));assert refs<=ids,refs-ids
  keys=set()
  for p in paths:
@@ -165,7 +170,7 @@ def assets(d):
  assert keys<=TEXT.keys(),keys-TEXT.keys()
  assert any(e[0]=='TheThresholdCourt/UI/THC_Transfer.xml' for e in ENTRIES)
  assert not imported(ui) and all(imported(p) for p in paths if p.suffix in ['.lua','.dds'])
- print('PASS Lua/XML syntax, localization, atlas bounds, 48 decoded DDS and InGameUIAddin controls')
+ print('PASS Lua/XML syntax, installed native control styles, localization, atlas bounds, 48 decoded DDS and InGameUIAddin controls')
 
 def sources():
  names=['CvLuaUnit.cpp','CvLuaCity.cpp','CvLuaPlayer.cpp','CvLuaPlot.cpp','CvUnit.cpp','CvPlayer.cpp','CvPlot.cpp','CvPromotionClasses.cpp','CvUnitClasses.cpp','CvTraitClasses.cpp','CustomMods.h']
@@ -221,7 +226,7 @@ def sources():
 
 def main():
  d,tables=sql();runs=runtime(d);assets(d);audit=sources()
- report={'date':'2026-10-26','revision':'1.14.1 hardening / mod version 17','native_gameplay':'NOT TESTED IN GAME','native_ui':'NOT TESTED IN GAME','native_saves':'NOT TESTED IN GAME','companion_tables':tables,'queen_traits':traits(d),'modeled_suite_runs':runs,'suites':SUITES,'source_audit':audit,
+ report={'date':'2026-10-30','revision':'1.16.1 UI hotfix / mod version 17','native_gameplay':'NOT TESTED IN GAME','native_ui':'NOT TESTED IN GAME','native_saves':'NOT TESTED IN GAME','companion_tables':tables,'queen_traits':traits(d),'modeled_suite_runs':runs,'suites':SUITES,'source_audit':audit,
  'reproduced_before_fix':['Queen also inherited TRAIT_RIVER_EXPANSION','Gifted exhaustion persisted after owner elimination','A promotion without a valid record vetoed unrelated movement','Late confirmed receipt recovery exhausted the next owner-turn','Corrupt player financial state prevented independent valid unit expiry'],
  'elimination_release':'PlayerDoTurn boundary strictly after crossing turn; unknown origin waits one saved quarantine turn with no living Court owner',
  'movement_opt_in':'Potential land melee types only; existing opt-ins on all other types retained; shipped Jin veto composed in tests',

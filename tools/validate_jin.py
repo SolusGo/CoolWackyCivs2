@@ -157,7 +157,7 @@ def main():
  for viewport in [(1280,720),(1920,1080)]:assert width<=viewport[0] and height<=viewport[1]
  assert ui.find("Grid/ScrollPanel[@ID='Scroll']").get('Size')=='932,365'
  assert not imported(V/'UI/JIN_Dynasty.xml') and imported(V/'Lua/JIN_Core.lua')
- result={'date':'2026-10-26','mod_version':VERSION,'runtime':'Lupa Lua 5.1, actual installed-schema SQL, synthetic native calls','native_gameplay':'NOT RUN','native_rendering':'NOT RUN','native_save_files':'NOT RUN','runs':runs}
+ result={'date':'2026-10-30','mod_version':VERSION,'runtime':'Lupa Lua 5.1, actual installed-schema SQL, synthetic native calls','native_gameplay':'NOT RUN','native_rendering':'NOT RUN','native_save_files':'NOT RUN','runs':runs}
  (V/'docs/Validation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
  print('PASS Jin:',len(runs),'executable Lua scenarios; native Civ V acceptance remains pending')
 

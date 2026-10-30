@@ -807,7 +807,7 @@
     <File md5="0A8D1F7DAA20A6679A88FFECDE03E368" import="0">JinDynasty/SQL/02_JIN_Effects.sql</File>
     <File md5="6DAE11A7C4FAD7B9A56A89C00CA8EE56" import="0">JinDynasty/SQL/03_JIN_Art.sql</File>
     <File md5="7F6D154E1E85544F6D9F93FCB921EA90" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
-    <File md5="6931FE9DA622180886058E8CF4064262" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
+    <File md5="A4060ED5FD5AD0D7944803F6BFCFB086" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
     <File md5="6E5FACCD988013B422047886F459C377" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
     <File md5="50929F7ECB540B258FA178E0CA71EA7B" import="1">TheThresholdCourt/Art/THC_Alpha128.dds</File>
     <File md5="97E2C10CB89B0E20CEC28EF4A7C0A1B1" import="1">TheThresholdCourt/Art/THC_Alpha16.dds</File>
@@ -867,7 +867,7 @@
     <File md5="D5DC5AB8CEDEB1ACD4DE164F85CDB625" import="0">TheThresholdCourt/SQL/03_THC_Art.sql</File>
     <File md5="EC4D10DEB4142729510097411E4955DB" import="0">TheThresholdCourt/SQL/10_THC_Text.sql</File>
     <File md5="2CD9550BB6F80383BD7D9C006972712D" import="1">TheThresholdCourt/UI/THC_Transfer.lua</File>
-    <File md5="8ABECA15C564617A2953E837BDA3788B" import="0">TheThresholdCourt/UI/THC_Transfer.xml</File>
+    <File md5="B8753A1AB6DA1A630D4FFA669FA60184" import="0">TheThresholdCourt/UI/THC_Transfer.xml</File>
     <File md5="055F046D0FFEF0290891E57AE6BB5CC2" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha128.dds</File>
     <File md5="CA7BAAFC83FB29A27CC4465855D5D18D" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha16.dds</File>
     <File md5="5ACF26F02CB1454089F56C28368BEA54" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha24.dds</File>

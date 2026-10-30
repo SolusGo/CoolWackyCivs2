@@ -67,7 +67,8 @@ for id=0,4 do
  function p:GetScriptData()return self.raw end;function p:SetScriptData(raw)self.raw=raw end
  function p:GetCapitalCity()return self.cities[1]end;function p:GetCityByID(i)for _,c in ipairs(self.cities)do if c.id==i then return c end end end
  function p:Cities()return Iterate(self.cities)end;function p:Units()return Iterate(self.units)end;function p:GetUnitByID(i)return self.units[i]end
- function p:GetCurrentEra()return self.era end;function p:IsTurnActive()return self.id==active end
+ function p:GetCurrentEra()return self.era end
+ function p:IsTurnActive()if self.turnActive~=nil then return self.turnActive end;return self.id==active end
  function p:HasPolicy(i)return self.policies[i] or false end;function p:SetHasPolicy(i,v)self.policies[i]=v end
  function p:GetGold()return self.gold end;function p:ChangeGold(n)self.gold=self.gold+n end
  function p:GetNumResourceAvailable()return self.resources end

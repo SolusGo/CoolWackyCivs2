@@ -1,5 +1,10 @@
 # Jin Dynasty changelog
 
+## 1.13.2 UI hotfix / collection 1.16.1, version 17 — 2026-10-30
+
+- Fix the disappearing launcher after an AI turn: visibility refreshes now run independently of the closed-panel gameplay optimization. Explicit end/start/load/player hooks close stale panels and recover the launcher after native turn flags settle, without idle polling or closed-panel row allocation.
+- Reproduce the pre-fix failure and test 20 successive turn cycles, early turn notifications, dirty-event recovery, load and player changes. All 16 Jin suite/speed runs pass. Gameplay and native save state are unchanged; restart Civ V and reload the same save after updating.
+
 ## 1.13.1 hardening preview / collection version 16 — 2026-10-26
 
 - Add deterministic autonomous local melee/ranged defense and return, deferred outside movement/turn callbacks. Prevent player missions and repeat activations; retain leash, capacity, cooldown, expiry, Chemistry and separate emplacement shots.

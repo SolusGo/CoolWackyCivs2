@@ -1,5 +1,11 @@
 # Jin testing record
 
+## 2026-10-30 launcher regression
+
+The user reported that Jin's UI disappeared after a turn. The new shipped-panel regression failed before the fix with `Jin launcher did not return next turn`: the active player ID remained Jin, native turn activity changed, and the hidden launcher could not recover through `J.Refresh` because that optimization requires an open panel. Visibility now has explicit turn-end/start, load and player-change hooks plus a coalesced dirty-event fallback independent of panel contents. The end event hides immediately even before native flags change; deferred checks handle early start notifications. The expanded panel test passes 20 cycles, closed-launcher recovery, load/player switches and callback detachment. The existing closed-panel no-row-allocation check still passes. All 16 Jin suite/speed runs pass; no gameplay, balance or save-schema changes.
+
+Restart Civ V after updating and reload the existing Jin save. Confirm the launcher returns each owner-turn with the panel closed. This hotfix has automated/source verification; its native rendering and real turn transition still need acceptance.
+
 No native Civ V session has been launched for this implementation. **Gameplay, UI rendering and actual save-file acceptance are NOT RUN.** SQL/serialization/movement/combat tests below use Lupa Lua 5.1 with behavioral native doubles and the actual installed database output. They do not establish in-game correctness.
 
 ## Reproduce

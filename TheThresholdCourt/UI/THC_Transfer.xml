@@ -6,7 +6,7 @@
   </GridButton>
   <Label ID="Reason" Anchor="C,T" Offset="0,48" Size="278,54" WrapWidth="278" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" />
  </Grid>
- <Grid ID="Panel" Anchor="C,C" Size="660,550" Style="GridBlack" ConsumeMouse="1" Hidden="1">
+ <Grid ID="Panel" Anchor="C,C" Size="660,550" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
   <Label ID="Title" Anchor="C,T" Offset="0,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_THC_TITLE" />
   <Label ID="Header" Anchor="L,T" Offset="24,58" Size="610,82" WrapWidth="610" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
   <ScrollPanel ID="Scroll" Anchor="C,T" Offset="0,146" Size="618,262" Vertical="1">

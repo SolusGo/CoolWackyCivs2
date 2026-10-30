@@ -2,7 +2,9 @@
 
 Seventeen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 17 · **1.16.0 The Laureate Commonwealth**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 17 · **1.16.1 UI hotfix**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+The UI hotfix restores Jin's launcher after AI turns and replaces Threshold Court's undefined panel style. Game rules and save data are unchanged; restart Civ V after updating, then reload the existing save.
 
 [The Laureate Commonwealth](TheLaureateCommonwealth/README.md), led by Laurea, Keeper of the Unfading Crown, earns Golden Age Points from completed World Wonders, newly created Great People and Level 3 military veterans. Golden Ages add 15% city Great Person generation and 15% combat XP. Includes the Swordsman-derived Laureate Champion, Hall of Laurels, original emerald/gold art and human-only selection. [Implementation and native acceptance](TheLaureateCommonwealth/docs/Testing.md).
 

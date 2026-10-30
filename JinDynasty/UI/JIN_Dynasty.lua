@@ -3,7 +3,7 @@ include('JIN_Core')
 local J=MapModData.JIN
 local C=J.C
 local manager=InstanceManager:new('JIN_Row','Root',Controls.Rows)
-local tab='Overview';local open=false;local rendering=false
+local tab='Overview';local open=false;local rendering=false;local ending=false
 local renderSerial,lastStamp;local roster,minors,resourceTypes
 local function loc(key) return Locale.ConvertTextKey('TXT_KEY_JIN_'..key) end
 local function coord(index) local p=J.Plot(index);return p and ('('..p:GetX()..','..p:GetY()..')') or '(lost)' end
@@ -48,7 +48,7 @@ local function stamp(id,s)
 end
 local function render(force)
  local id=Game.GetActivePlayer();local visible=J.IsJin(id)
- visible=visible and Players[id]:IsTurnActive()
+ visible=visible and Players[id]:IsTurnActive() and not ending
  J.panelOpen=visible and open;J.uiTab=tab
  Controls.Open:SetHide(not visible);Controls.Panel:SetHide(not visible or not open)
  if not visible or not open then lastStamp=nil;return end
@@ -142,8 +142,19 @@ Controls.Close:RegisterCallback(Mouse.eLClick,function()open=false;J.UIRefresh()
 for _,key in ipairs({'Overview','Landmarks','Recruit','Emissaries','Upgrades','Defense'}) do
  local selected=key;Controls[key..'Tab']:RegisterCallback(Mouse.eLClick,function()tab=selected;J.UIRefresh()end)
 end
-J.Hook(Events,'GameplaySetActivePlayer',function()open=false;J.UIRefresh()end)
-J.Hook(Events,'SerialEventGameDataDirty',function()if open then J.Refresh()end end)
+-- Visibility must refresh even while the panel is closed. Gameplay refreshes
+-- deliberately skip closed panels and cannot restore a hidden launcher alone.
+local function queueVisibility()
+ J.Defer('ui',function()J.UIRefresh(false)end)
+end
+local function resetVisibility()
+ ending=false;open=false;J.UIRefresh(false);queueVisibility()
+end
+J.Hook(Events,'ActivePlayerTurnEnd',function()ending=true;open=false;J.UIRefresh(false)end)
+J.Hook(Events,'ActivePlayerTurnStart',resetVisibility)
+J.Hook(Events,'GameplaySetActivePlayer',resetVisibility)
+J.Hook(Events,'LoadScreenClose',resetVisibility)
+J.Hook(Events,'SerialEventGameDataDirty',queueVisibility)
 J.Hook(Events,'SerialEventCityInfoDirty',function()if open then J.Refresh(true)end end)
 J.Hook(GameEvents,'TeamTechResearched',function(team)if J.IsJin(Game.GetActivePlayer()) and Players[Game.GetActivePlayer()]:GetTeam()==team then J.Refresh(true)end end)
 J.UIRefresh()

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 UI style hotfix / collection 1.16.1, version 17 — 2026-10-30
+
+- Replace undefined `GridBlack` with installed native `GridBlackIndent8`, fixing the reported Control Definition Error when the add-in loads, including games played as another civilization.
+- Validate every Threshold control style against the installed `Styles.xml`; all 32 four-speed modeled suites and the existing 65 CP source contracts pass. No gameplay/save changes. Restart Civ V after updating; native rendering after the hotfix remains unverified.
+
 ## 1.0.1 corrective hardening / collection 1.14.1, mod version 17 — 2026-10-26
 
 - Remove unintended Washington primary/shared gameplay trait inheritance. Only the three native personality companion tables remain eligible for cloning; validate Queen Elsewhere's complete trait relation and generator output.

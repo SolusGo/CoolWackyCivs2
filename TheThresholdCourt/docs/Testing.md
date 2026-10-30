@@ -1,5 +1,9 @@
 # Testing record and native acceptance checklist
 
+## 2026-10-30 style hotfix
+
+The reported Control Definition Error identifies `THC_Transfer.xml` and `GridBlack`. The installed native `Assets/UI/Styles.xml` contains `GridBlackIndent8`, but no `GridBlack`; XML syntax validation had missed this undefined style. The panel now uses the native definition and validation checks all requested Threshold styles against that installed inventory. All 32 four-speed suite runs and 65 pinned source contracts pass. No gameplay or save-schema change is involved. Restart Civ V after updating to reload the add-in XML; native dialog/panel rendering after the fix remains unverified.
+
 **Native Civ V gameplay, UI rendering and real save-file testing: NOT RUN.** Do not interpret the modeled Lua tests or installed-schema SQL checks as a native acceptance result. See [Validation.json](Validation.json) for executed suite/source-check details.
 
 ## Corrective 1.14.1 regression pass
