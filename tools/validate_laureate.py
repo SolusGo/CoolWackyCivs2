@@ -84,6 +84,12 @@ def source():
     def body(n,signature):
         start=s[n].index(signature);return s[n][start:s[n].index('\n}',start)+2]
     h=s['CustomMods.h'];p=s['CvPlayer.cpp'];u=s['CvUnit.cpp'];combat=s['CvUnitCombat.cpp']
+    kill=body('CvUnit.cpp','void CvUnit::kill(')
+    capture=body('CvUnit.cpp','/* static */ CvUnit* CvUnit::createCaptureUnit(')
+    definition=body('CvUnit.cpp','bool CvUnit::getCaptureDefinition(')
+    movement=body('CvUnit.cpp','void CvUnit::setXY(')
+    conversion=body('CvUnit.cpp','void CvUnit::convert(')
+    civilian_return=body('CvPlayer.cpp','void CvPlayer::DoCivilianReturnLogic(')
     checks={
       'v151 pin':bool(re.search(r'MOD_DLL_VERSION_NUMBER\s+\(\(uint\) 151\)',h)),
       'city constructed exact event':'"CityConstructed",' in h and '"iiibb"' in h,
@@ -112,18 +118,50 @@ def source():
       'meter binding changes real progress':'pkPlayer->ChangeGoldenAgeProgressMeterTimes100(iValue * 100)' in body('CvLuaPlayer.cpp','int CvLuaPlayer::lChangeGoldenAgeProgressMeter('),
       'native threshold retains overflow':'SetGoldenAgeProgressMeterTimes100(iOverflowTimes100)' in body('CvPlayer.cpp','void CvPlayer::DoProcessGoldenAge('),
       'local building happiness':'iLocalHappiness += GetBaseHappinessFromBuildings()' in s['CvCity.cpp'],
+      'combat prekill precedes capture-definition snapshot':kill.index('GAMEEVENT_UnitPrekill')<kill.index('getCaptureDefinition(&kCaptureDef)'),
+      'combat capture notice follows the snapshot':kill.index('getCaptureDefinition(&kCaptureDef)')<kill.index('GAMEEVENT_UnitCaptured'),
+      'source deletion precedes capture replacement':kill.index('deleteUnit(GetID())')<kill.index('CvUnit::createCaptureUnit(kCaptureDef)'),
+      'movement capture notice precedes capture snapshot':movement.index('GAMEEVENT_UnitCaptured')<movement.index('getCaptureDefinition(&kCaptureDef, getOwner())'),
+      'movement snapshot precedes forced noncapture death':movement.index('getCaptureDefinition(&kCaptureDef, getOwner())')<movement.index('pLoopUnit->setCapturingPlayer(NO_PLAYER)'),
+      'movement replacement occurs after stored snapshots':movement.index('kCaptureUnitList.push_back(kCaptureDef)')<movement.index('createCaptureUnit(kCaptureUnitList[uiCaptureIndex])'),
+      'capture definition preserves source ScenarioData':'kCaptureDef.iScenarioData = m_iScenarioData' in definition,
+      'replacement ScenarioData set after initialization':capture.index('initUnit(')<capture.index('setScenarioData(kCaptureDef.iScenarioData)'),
+      'original owner set before capture identity copy':capture.index('SetOriginalOwner(')<capture.index('setScenarioData('),
+      'capture does not copy source level':'setLevel(' not in capture,
+      'capture does not copy source ScriptData':'setScriptData(' not in capture,
+      'capture does not use native convert':'->convert(' not in capture,
+      'conversion copies level before conversion hook':conversion.index('setLevel(')<conversion.index('GAMEEVENT_UnitConverted'),
+      'conversion source exists until after hook':conversion.index('GAMEEVENT_UnitConverted')<conversion.index('pUnit->kill('),
+      'delayed final death loses original killer argument':'kill(false);' in body('CvUnit.cpp','bool CvUnit::doDelayedDeath('),
+      'delayed-death flag set after prekill notice':kill.index('GAMEEVENT_UnitPrekill')<kill.index('startDelayedDeath()'),
+      'native ScenarioData setter accepts signed integers':'const int iNewData = lua_tointeger(L, 2)' in body('CvLuaUnit.cpp','int CvLuaUnit::lSetScenarioData('),
+      'native ScenarioData is save serialized':'visitor(unit.m_iScenarioData)' in u,
+      'native ScriptData is save serialized':'visitor(unit.m_strScriptData)' in u,
+      'free policy application processes real modifiers':'processPolicies(eIndex, bNewValue ? 1 : -1)' in body('CvPlayer.cpp','void CvPlayer::setHasPolicy('),
     }
     for kind,methods in {'Player':'GetScriptData SetScriptData GetCurrentEra GetUnitByID Cities Units GetCivilizationType IsAlive IsHuman IsGoldenAge IsAnarchy HasPolicy SetHasPolicy GetGoldenAgeProgressMeterTimes100 ChangeGoldenAgeProgressMeter AddNotification GetCityByID GetID',
-                         'Unit':'GetScriptData SetScriptData IsGreatPerson IsCombatUnit GetOriginalOwner IsHasPromotion SetHasPromotion IsDead IsDelayedDeath GetLevel GetID GetUnitType GetName GetX GetY',
+                         'Unit':'GetScriptData SetScriptData IsGreatPerson IsCombatUnit GetOriginalOwner IsHasPromotion SetHasPromotion IsDead IsDelayedDeath GetLevel GetID GetOwner GetGameTurnCreated GetScenarioData SetScenarioData GetUnitType GetName GetX GetY',
                          'City':'GetOwner GetNumBuilding GetNumActiveBuilding IsResistance IsRazing GetX GetY'}.items():
         for method in methods.split(): checks[kind+':'+method]=bool(re.search(r'Method\(\s*'+method+r'\s*\)',s['CvLua'+kind+'.cpp']))
     for name,valid in checks.items(): assert valid,('CP source contract',name)
     hashes={n:hashlib.sha256((R/'tools/reference'/n).read_bytes()).hexdigest() for n in names}
+    for name,expected in {
+        'CustomMods.h':'7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11',
+        'CvUnit.cpp':'54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875',
+        'CvLuaUnit.cpp':'f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae',
+        'CvPlayer.cpp':'893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87',
+    }.items(): assert hashes[name]==expected,('changed pinned event-order source',name)
     print(f'PASS {len(checks)} pinned CP v151 source contracts (static, not engine execution)')
-    return {'commit':COMMIT,'contracts':len(checks),'sha256':hashes}
+    # This native path provides no correlated identity to Lua. Record the gap;
+    # do not turn an incorrect GP award into a passing gameplay assertion.
+    assert 'pUnit->kill(true)' in civilian_return and 'GET_PLAYER(eToPlayer).initUnit(' in civilian_return
+    assert '->convert(' not in civilian_return and 'GAMEEVENT' not in civilian_return and 'setScenarioData' not in civilian_return
+    limitation='Native civilian-return recreates units without an identity/conversion hook; returned Great Prophets can still be recognized as fresh births.'
+    print('LIMITATION: '+limitation)
+    return {'commit':COMMIT,'contracts':len(checks),'sha256':hashes,'known_limitations':[limitation]}
 
 def runtime(d):
-    count=0
+    count=0;cases=0
     for speed, in d.execute('SELECT GreatPeoplePercent FROM GameSpeeds'):
         lua=LuaRuntime();g=lua.globals();g.SPEED=speed
         policy=d.execute('SELECT GreatPeopleRateModifier,ExpModifier FROM Policies WHERE Type=?',(POLICY,)).fetchone()
@@ -132,7 +170,9 @@ def runtime(d):
         controller=(V/'Lua/LC_Commonwealth.lua').read_text()
         g.LoadController=lambda:lua.execute(controller)
         g.LoadController();lua.execute((R/'tools/tests/laureate_assertions.lua').read_text());count+=1
-    return count
+        assert g.LC_TEST_CASES>=26
+        cases+=g.LC_TEST_CASES
+    return {'speeds':count,'hardening_runs':cases,'required_veteran_cases_per_speed':14}
 
 def assets():
     for path in V.rglob('*.lua'): LuaRuntime().execute('assert(loadstring(...))',path.read_text())
@@ -154,9 +194,9 @@ def assets():
     print('PASS Laureate Lua 5.1, manifest checksums, single simulation owner, 40 decoded mipmapped DDS and XML')
 
 def validate():
-    start=time.perf_counter();d=sql();audit=source();speeds=runtime(d);assets()
+    start=time.perf_counter();d=sql();audit=source();runs=runtime(d);assets()
     report={'date':'2026-10-30','scope':'static schema/source and Lua simulation; native gameplay pending',
-            'source':audit,'speeds':speeds,'textures':40,'elapsed_seconds':round(time.perf_counter()-start,3)}
+            'source':audit,**runs,'textures':40,'elapsed_seconds':round(time.perf_counter()-start,3)}
     (V/'docs').mkdir(exist_ok=True)
     (V/'docs/Validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     return report

@@ -957,7 +957,7 @@
     <File md5="6B3EBB52BE0A1A3740F4B18E130311D0" import="1">TheLaureateCommonwealth/Art/LC_Portrait48.dds</File>
     <File md5="8B75FD5757500F794E5BA67F02477130" import="1">TheLaureateCommonwealth/Art/LC_Portrait64.dds</File>
     <File md5="E5F064D81D4E6F316EB65014FAF1FAD2" import="1">TheLaureateCommonwealth/Art/LC_Portrait80.dds</File>
-    <File md5="DFEB5CDC7DA2DB0F927547E9A1C5D1DD" import="1">TheLaureateCommonwealth/Lua/LC_Commonwealth.lua</File>
+    <File md5="096AE505A7CDA574B21C6DD74F66C455" import="1">TheLaureateCommonwealth/Lua/LC_Commonwealth.lua</File>
     <File md5="6819AA76479263AEA62E1AA1933F7C61" import="0">TheLaureateCommonwealth/Lua/LC_Commonwealth.xml</File>
     <File md5="9B13784CCF8CF38D7372173AFF7F974A" import="0">TheLaureateCommonwealth/SQL/00_LC_Core.sql</File>
     <File md5="EE6D7D5C4A1F533D7328B0C4234898FA" import="0">TheLaureateCommonwealth/SQL/01_LC_Inheritance.sql</File>

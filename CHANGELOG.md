@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.16.2 Laureate recognition hardening / mod version 17 — 2026-10-30
+
+- Replace current-level-only veteran recognition with saved eligibility history. Foreign-achieved Level 3+ units stay ineligible through gifts, captures, upgrades, level refunds and return transfers; acquired low-level units and genuine Laureate births remain eligible.
+- Replace tile/class capture guesses with a native-carried identity receipt that preserves and restores ScenarioData, recognition markers and threshold history across replacement IDs. Correct the source-order model for movement captures, combat captures and conversion; preserve pending Great Person awards and fix suppression of unrelated same-tile births.
+- Add safe old-save migration, duplicate/ID-reuse/reentrant-receipt protection, 26 four-speed hardening cases and 91 pinned CP v151 source contracts. Preserve SQL, numbers, artwork, identifiers, dependencies, version 17 and unrelated civ behavior. Native gameplay/save and ScenarioData coexistence acceptance remain pending.
+
 ## 1.16.1 Jin launcher / Threshold style hotfix — 2026-10-30
 
 - Restore the Jin launcher at owner-turn start even after a closed-panel refresh hid it during AI turns. Handle early native turn flags, load and active-player transitions with coalesced one-shot refreshes; keep the panel closed between turns and retain closed-panel row caching.

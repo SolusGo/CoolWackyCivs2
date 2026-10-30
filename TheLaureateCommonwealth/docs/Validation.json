@@ -3,7 +3,7 @@
   "scope": "static schema/source and Lua simulation; native gameplay pending",
   "source": {
     "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
-    "contracts": 67,
+    "contracts": 91,
     "sha256": {
       "CustomMods.h": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11",
       "CvCity.cpp": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2",
@@ -15,9 +15,14 @@
       "CvLuaUnit.cpp": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae",
       "CvPolicyClasses.cpp": "4fdf38c60e2cc7bc77d38991af04a2b1c13b858f003298365b95fa1f3cde9f22",
       "CvPromotionClasses.cpp": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a"
-    }
+    },
+    "known_limitations": [
+      "Native civilian-return recreates units without an identity/conversion hook; returned Great Prophets can still be recognized as fresh births."
+    ]
   },
   "speeds": 4,
+  "hardening_runs": 104,
+  "required_veteran_cases_per_speed": 14,
   "textures": 40,
-  "elapsed_seconds": 11.374
+  "elapsed_seconds": 14.099
 }

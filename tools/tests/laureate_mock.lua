@@ -57,9 +57,13 @@ function Player(id,civ)
 end
 function Unit(p,id,kind,gp,level)
  local u={id=id,kind=kind,owner=p.id,original=p.id,gp=gp or false,level=level or 1,
-  promotions={},data='OTHER_UNIT_DATA',x=4,y=6,dead=false,delayed=false}
+  promotions={},data='OTHER_UNIT_DATA',x=4,y=6,dead=false,delayed=false,scenario=0,born=Game.GetGameTurn()}
  GameInfo.Units[kind]=GameInfo.Units[kind] or {Class='CLASS_'..kind,Capture='CLASS_'..kind}
  function u:GetID() return self.id end
+ function u:GetOwner() return self.owner end
+ function u:GetGameTurnCreated() return self.born end
+ function u:GetScenarioData() return self.scenario end
+ function u:SetScenarioData(n) self.scenario=n end
  function u:GetUnitType() return self.kind end
  function u:GetOriginalOwner() return self.original end
  function u:GetX() return self.x end
@@ -99,21 +103,35 @@ end
 function Spawn(p,id,kind,gp,level)
  local u=Unit(p,id,kind,gp,level);GameEvents.UnitCreated.Fire(p.id,id,kind,4,6);return u
 end
-function Convert(fromP,toP,oldID,newID,kind,upgrade)
- local a=fromP.units[oldID];local b=Spawn(toP,newID,kind,a.gp,a.level)
+function Convert(fromP,toP,oldID,newID,kind,upgrade,afterCopy)
+ -- CP initializes at Level 1, emits UnitCreated, then convert copies level and
+ -- promotions, emits UnitConverted and finally kills the source with delay.
+ local a=fromP.units[oldID];local b=Spawn(toP,newID,kind,a.gp,1)
  for k,v in pairs(a.promotions) do b.promotions[k]=v end
- b.original=a.original
+ b.original=a.original;b.level=a.level
+ if afterCopy then afterCopy(a,b) end
  GameEvents.UnitConverted.Fire(fromP.id,toP.id,oldID,newID,upgrade)
  GameEvents.UnitPrekill.Fire(fromP.id,oldID,a.kind,4,6,true,-1)
  fromP.units[oldID]=nil;return b
 end
-function Capture(fromP,toP,oldID,newID)
+function Capture(fromP,toP,oldID,newID,between,afterCreate,combat)
  local a=fromP.units[oldID]
- GameEvents.UnitCaptured.Fire(toP.id,999,fromP.id,oldID,false,0)
+ if not combat then GameEvents.UnitCaptured.Fire(toP.id,999,fromP.id,oldID,false,0) end
+ if between then between(a) end
+ -- Movement snapshots before Prekill; combat kill snapshots AFTER Prekill.
+ local snapshot=not combat and a.scenario or nil
  GameEvents.UnitPrekill.Fire(fromP.id,oldID,a.kind,4,6,false,toP.id)
- GameEvents.UnitCaptured.Fire(toP.id,a.kind,fromP.id,oldID,false,1)
- local b=Spawn(toP,newID,a.kind,a.gp,a.level)
- b.original=a.original;fromP.units[oldID]=nil;return b
+ if combat then
+  snapshot=a.scenario
+  GameEvents.UnitCaptured.Fire(toP.id,a.kind,fromP.id,oldID,false,1)
+ end
+ fromP.units[oldID]=nil -- native deleteUnit precedes replacement init
+ -- createCaptureUnit does NOT copy XP/level/promotions/ScriptData. Its native
+ -- metadata assignment follows UnitCreated; this ordering is source-checked.
+ local b=Spawn(toP,newID,a.kind,a.gp,1)
+ if afterCreate then afterCreate(a,b) end
+ b.original=a.original;b.scenario=snapshot
+ return b
 end
 function Reload()
  ContextPtr={};LoadController();Events.LoadScreenClose.Fire()

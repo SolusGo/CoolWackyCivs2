@@ -2,7 +2,9 @@
 
 Seventeen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 17 · **1.16.1 UI hotfix**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 17 · **1.16.2 Laureate recognition hardening**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+The Laureate [recognition hardening](TheLaureateCommonwealth/docs/Hardening.md) prevents acquired foreign veterans from earning retrospective laurels and preserves legitimate low-level progression. Exact capture identities also protect genuine Great Person births on the same tile. Existing recognition markers remain valid; balance, SQL and artwork are unchanged.
 
 The UI hotfix restores Jin's launcher after AI turns and replaces Threshold Court's undefined panel style. Game rules and save data are unchanged; restart Civ V after updating, then reload the existing save.
 

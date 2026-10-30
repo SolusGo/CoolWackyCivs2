@@ -55,6 +55,7 @@ Repository-relative paths for this addition. Existing civilization gameplay and 
 - `TheLaureateCommonwealth/SQL/03_LC_Art.sql`
 - `TheLaureateCommonwealth/SQL/10_LC_Text.sql`
 - `TheLaureateCommonwealth/docs/Files.md`
+- `TheLaureateCommonwealth/docs/Hardening.md`
 - `TheLaureateCommonwealth/docs/Implementation.md`
 - `TheLaureateCommonwealth/docs/Testing.md`
 - `TheLaureateCommonwealth/docs/Validation.json`
@@ -90,3 +91,7 @@ Repository-relative paths for this addition. Existing civilization gameplay and 
 - `tools/standardize_icons.py`
 - `tools/validate_honeycomb.py`
 - `tools/validate_mod.py`
+
+## Recognition hardening (1.0.1)
+
+Adds `TheLaureateCommonwealth/docs/Hardening.md`. Updates the production Lua, the two Laureate Lua test files, `tools/validate_laureate.py`, the existing modinfo's Lua checksum, root/Laureate README and changelogs, and Laureate implementation/testing/validation/file-inventory documentation. No SQL, artwork, localization or project registration change.
