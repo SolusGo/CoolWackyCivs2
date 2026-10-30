@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.18.0 T1 - The ZOFGK Dynasty / mod version 19 — 2026-10-31
+
+- Add human-only Faker/T1 with five permanent Z-O-F-G-K roles, native city/wounded attack and feature movement bonuses, local hostile pressure and conditional friendly healing, and exclusive 10%/15% formations.
+- Preserve Recruit combat XP and +4% Strength per genuine upgrade through new native unit objects. Add saved role vacancies, speed-scaled recruitment, duplicate-event protection, ownership/capture guards and a compact roster panel.
+- Clone the active Warrior/Barracks and every supported companion row. Headquarters add Culture and native city-local land melee Production. Append new SQL and IDs after the released inventory; retain the collection UUID and existing save contracts.
+- Include the official red T1 emblem, original Faker/ZOFGK/Recruit/Headquarters paintings, symbolic promotions, 49 mipmapped DDS textures and editable sources/provenance.
+- Add dedicated actual-schema, pinned CP v151 source, four-speed Lua 5.1 lifecycle, DDS and integration checks, plus release inventory coverage. See [testing record](T1ZOFGK/docs/Testing.md) for results, the conservative capture-site guard and native checks still pending. No in-game acceptance is claimed.
+
 ## Version 18 — Themed interfaces and visibility recovery — 2026-10-31
 
 - Refreshed all 9 custom interfaces with civilization-specific artwork, colours, buttons, framed rows, native scrollbars and help.

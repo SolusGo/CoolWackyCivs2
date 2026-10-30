@@ -164,3 +164,5 @@ if __name__=='__main__':
     validate_honeycomb()
     from validate_laureate import validate as validate_laureate
     validate_laureate()
+    from validate_t1zofgk import validate as validate_t1zofgk
+    validate_t1zofgk()

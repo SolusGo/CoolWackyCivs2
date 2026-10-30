@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-31",
+  "scope": "actual SQL / pinned CP source / Lua 5.1 simulation / decoded assets",
+  "native_Civ_V": "NOT RUN",
+  "artwork": "complete; official T1 mark and original generated paintings",
+  "textures": 49,
+  "longest_recruit_upgrade_path": 7,
+  "development_tiers": 144,
+  "source": {
+    "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+    "checks": 52,
+    "sha256": {
+      "CustomMods.h": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11",
+      "CvUnit.cpp": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875",
+      "CvCity.cpp": "2e2cf69b58d2dcd585f6a534bb3a436699be3f976f020a30202e83f809f61bd2",
+      "CvPlayer.cpp": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87",
+      "CvPromotionClasses.cpp": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a",
+      "CvUnitClasses.cpp": "d96b806673cddb2508f5ccdef2ba622cd0cd12e89457f86b833ce4d2dfb348e3",
+      "CvLuaUnit.cpp": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae",
+      "CvLuaPlayer.cpp": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a",
+      "CvLuaCity.cpp": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24",
+      "CvLuaTeam.cpp": "1842484317f5c6bba8dc6dc492d9a1a0d6015c25d506717d3b92d5891a9d5498"
+    }
+  },
+  "runs": [
+    {
+      "train_percent": 67,
+      "assertions": 183
+    },
+    {
+      "train_percent": 100,
+      "assertions": 183
+    },
+    {
+      "train_percent": 150,
+      "assertions": 183
+    },
+    {
+      "train_percent": 300,
+      "assertions": 183
+    }
+  ],
+  "assertions": 732,
+  "elapsed_seconds": 8.897
+}

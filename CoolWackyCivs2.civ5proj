@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Seventeen civilizations, now including Laurea and the Laureate Commonwealth.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth and The Laureate Commonwealth. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Eighteen civilizations, now including Faker and T1 - The ZOFGK Dynasty.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth and T1 - The ZOFGK Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>18</ModVersion>
+    <ModVersion>19</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -461,6 +461,31 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheLaureateCommonwealth/SQL/10_LC_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>T1ZOFGK/SQL/00_T1Z_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>T1ZOFGK/SQL/01_T1Z_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>T1ZOFGK/SQL/02_T1Z_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>T1ZOFGK/SQL/03_T1Z_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>T1ZOFGK/SQL/10_T1Z_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -564,6 +589,12 @@
         <Name>The Evergreen Crown</Name>
         <Description>Human-only achievement recognition, Golden Age modifiers and Hall of Laurels progress.</Description>
         <FileName>TheLaureateCommonwealth/Lua/LC_Commonwealth.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>ZOFGK Roster</Name>
+        <Description>Human-only persistent legends, genuine Recruit development, local auras and roster summary.</Description>
+        <FileName>T1ZOFGK/UI/T1Z_Roster.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -3658,6 +3689,180 @@
     <Content Include="TheLaureateCommonwealth/SQL/10_LC_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Art/T1Z_Promotions80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/Lua/T1Z_Controller.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/SQL/00_T1Z_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/SQL/01_T1Z_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/SQL/02_T1Z_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/SQL/03_T1Z_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/SQL/10_T1Z_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/UI/T1Z_Roster.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="T1ZOFGK/UI/T1Z_Roster.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JinDynasty\" />
@@ -3681,6 +3886,11 @@
     <Folder Include="Shared\" />
     <Folder Include="Shared\SQL\" />
     <Folder Include="Shared\UI\" />
+    <Folder Include="T1ZOFGK\" />
+    <Folder Include="T1ZOFGK\Art\" />
+    <Folder Include="T1ZOFGK\Lua\" />
+    <Folder Include="T1ZOFGK\SQL\" />
+    <Folder Include="T1ZOFGK\UI\" />
     <Folder Include="The11Cats\" />
     <Folder Include="The11Cats\Art\" />
     <Folder Include="The11Cats\Lua\" />

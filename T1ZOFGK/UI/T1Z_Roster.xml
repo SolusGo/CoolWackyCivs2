@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="T1Z_Roster">
+  <Grid ID="Launcher" Anchor="R,T" Offset="14,280" Size="210,48" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+    <Image Anchor="L,C" Offset="5,0" Size="32,32" Texture="T1Z_Icon32.dds" ConsumeMouse="0" />
+    <Button ID="Open" Anchor="R,C" Offset="8,0" Size="166,36" Style="BaseButton" String="TXT_KEY_T1Z_PANEL" Font="TwCenMT18" />
+  </Grid>
+  <Grid ID="Panel" Anchor="C,C" Size="500,580" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+    <Image Anchor="L,T" Offset="16,14" Size="64,64" Texture="T1Z_Icon64.dds" ConsumeMouse="0" />
+    <Label Anchor="L,T" Offset="90,28" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_T1Z_PANEL" />
+    <ScrollPanel ID="Scroll" Anchor="C,T" Offset="0,88" Size="456,412" Vertical="1" AutoScrollBar="1">
+      <Stack Anchor="L,T" StackGrowth="Bottom" Padding="12" Size="432,0">
+        <Label ID="Summary" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" WrapWidth="428" />
+        <Label Font="TwCenMT14" ColorSet="Beige_Black_Alpha" WrapWidth="428" String="TXT_KEY_T1Z_PANEL_HELP" />
+      </Stack>
+      <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="404" />
+    </ScrollPanel>
+    <Button ID="Close" Anchor="C,B" Offset="0,24" Size="190,36" Style="BaseButton" String="TXT_KEY_T1Z_CLOSE" Font="TwCenMT18" />
+  </Grid>
+  <Script file="T1Z_Roster.lua" />
+</Context>

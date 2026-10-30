@@ -1,8 +1,10 @@
 # Cool Wacky Civs 2
 
-Seventeen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Eighteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 18 · **1.17.0 Themed interface refresh**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 19 · **1.18.0 T1 - The ZOFGK Dynasty**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+[T1 - The ZOFGK Dynasty](T1ZOFGK/README.md), led by Faker, develops five Ancient Era Recruits into permanent Zeus/Oner/Faker/Gumayusi/Keria veterans. Genuine upgrades add +4% Strength each; compact formations activate Five as One. Includes native conditional role bonuses, localized support/pressure, Headquarters recruitment, a roster panel, the official red T1 emblem and original painted art. Human-only. [Validation and native acceptance](T1ZOFGK/docs/Testing.md).
 
 The Civilopedia fix fills missing text keys on two Laureate recognition markers. Their incomplete metadata stopped the shared index before civilizations and leaders, leaving the navigation blank and Jin search unavailable. The regression replays all sixteen installed BNW indexing functions. Restart Civ V and reload the modded save after updating.
 
@@ -55,15 +57,16 @@ The [interface refresh](docs/UIRefresh.md) gives all nine custom panels/HUDs the
 | [The Threshold Court](docs/civilizations/TheThresholdCourt.md) | Queen Elsewhere | Build distant doorways and pay to redeploy exhausted melee armies across the world. | [Details](TheThresholdCourt/README.md) |
 | [The Honeycomb Commonwealth](docs/civilizations/TheHoneycombCommonwealth.md) | Speaker Mellia | Work Plantations for capped city Production/Culture and Honey Exchange Gold. | [Details](TheHoneycombCommonwealth/README.md) |
 | [The Laureate Commonwealth](docs/civilizations/TheLaureateCommonwealth.md) | Laurea | Honor Wonders, Great People and military veterans to enter stronger Golden Ages. | [Details](TheLaureateCommonwealth/README.md) |
+| [T1 - The ZOFGK Dynasty](docs/civilizations/T1ZOFGK.md) | Faker | Preserve five legendary recruits, develop veterans through upgrades and coordinate elite formations. | [Details](T1ZOFGK/README.md) |
 
-All seventeen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth and The Laureate Commonwealth are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All eighteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth and T1 are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 18).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 18).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 19).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 19).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 

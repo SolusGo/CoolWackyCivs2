@@ -69,6 +69,10 @@ def main():
         sample += ['TheBoundlessCity/Art/BC_UI_'+name+'.dds' for name in ['Panel','Launcher','Row','Buttons','Assigned','Pending']]
         sample += ['TheThresholdCourt/'+p for p in ['Lua/THC_Core.lua','Lua/THC_State.lua','Lua/THC_Events.lua','UI/THC_Transfer.lua','UI/THC_Transfer.xml','SQL/00_THC_Core.sql','SQL/01_THC_Inheritance.sql','SQL/02_THC_Effects.sql','SQL/03_THC_Art.sql','SQL/10_THC_Text.sql','Art/THC_Leader.dds','Art/THC_Objects256.dds','docs/Validation.json']]
         sample += ['Shared/UI/CWC2_Screen.lua']
+        sample += ['T1ZOFGK/'+p for p in ['Lua/T1Z_Controller.lua','UI/T1Z_Roster.lua','UI/T1Z_Roster.xml',
+            'SQL/00_T1Z_Core.sql','SQL/01_T1Z_Inheritance.sql','SQL/02_T1Z_Effects.sql',
+            'SQL/03_T1Z_Art.sql','SQL/10_T1Z_Text.sql','Art/T1Z_Leader.dds','Art/T1Z_Dawn.dds',
+            'Art/T1Z_Icon256.dds','Art/T1Z_Promotions45.dds','docs/Validation.json']]
         for record in json.loads((R/'docs/UIRefreshInventory.json').read_text(encoding='utf-8')):
             sample += record['xml']
             sample += [name.removesuffix('.xml')+'.lua' for name in record['xml']]

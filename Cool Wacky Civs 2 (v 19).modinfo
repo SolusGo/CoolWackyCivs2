@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="18">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="19">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Seventeen civilizations, now including Laurea and the Laureate Commonwealth.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth and The Laureate Commonwealth. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Eighteen civilizations, now including Faker and T1 - The ZOFGK Dynasty.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth and T1 - The ZOFGK Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -1045,6 +1045,64 @@
     <File md5="9262EB234D6CFD99C02AEF6A5990642F" import="0">TheLaureateCommonwealth/SQL/02_LC_Effects.sql</File>
     <File md5="85490530170DB5574556BF5437138343" import="0">TheLaureateCommonwealth/SQL/03_LC_Art.sql</File>
     <File md5="B1C875746DD473B9D1F8ACF15B816125" import="0">TheLaureateCommonwealth/SQL/10_LC_Text.sql</File>
+    <File md5="BDED00ADB4EAE28FB37FC2A0FC8D113B" import="1">T1ZOFGK/Art/T1Z_Alpha128.dds</File>
+    <File md5="F7E11B5152D3280097586F13E0841AFE" import="1">T1ZOFGK/Art/T1Z_Alpha16.dds</File>
+    <File md5="B2EDA81C7B1AB682920EFFC42CA71977" import="1">T1ZOFGK/Art/T1Z_Alpha24.dds</File>
+    <File md5="887BF1E860EE27D6E12DB1B5E7CF0E08" import="1">T1ZOFGK/Art/T1Z_Alpha256.dds</File>
+    <File md5="363941A740EB251E760796D0D4A07E7F" import="1">T1ZOFGK/Art/T1Z_Alpha32.dds</File>
+    <File md5="C71EFD1F3AE3D422FD8AC8BEED3E029D" import="1">T1ZOFGK/Art/T1Z_Alpha45.dds</File>
+    <File md5="77A5B0A485EAD342012FF7D909E3043C" import="1">T1ZOFGK/Art/T1Z_Alpha48.dds</File>
+    <File md5="E842B31FBAF917B1DE9C914FE3CE4634" import="1">T1ZOFGK/Art/T1Z_Alpha64.dds</File>
+    <File md5="675F94B4E882151A34F2777BA71BEA8E" import="1">T1ZOFGK/Art/T1Z_Alpha80.dds</File>
+    <File md5="7FF02F8B916A88A939053C2DD35D0B47" import="1">T1ZOFGK/Art/T1Z_Dawn.dds</File>
+    <File md5="363941A740EB251E760796D0D4A07E7F" import="1">T1ZOFGK/Art/T1Z_Flag32.dds</File>
+    <File md5="969B89E7288590A1196425C5CD5AAB79" import="1">T1ZOFGK/Art/T1Z_Icon128.dds</File>
+    <File md5="2FE94A5A012826459DA35EAFFB0FE6EB" import="1">T1ZOFGK/Art/T1Z_Icon16.dds</File>
+    <File md5="E56527BA45AC73A6E7A22ECA19F67474" import="1">T1ZOFGK/Art/T1Z_Icon24.dds</File>
+    <File md5="702F3AD0DE76322083F229C2C82F47F3" import="1">T1ZOFGK/Art/T1Z_Icon256.dds</File>
+    <File md5="428442E3814FCD579B53D73EA4C33E48" import="1">T1ZOFGK/Art/T1Z_Icon32.dds</File>
+    <File md5="63627C36FC6D717E85B799C187D16823" import="1">T1ZOFGK/Art/T1Z_Icon45.dds</File>
+    <File md5="ACFCC0800E835C685CD1732F1F68BE93" import="1">T1ZOFGK/Art/T1Z_Icon48.dds</File>
+    <File md5="1F18E8B487F7C7BE0845E23C5285CDB8" import="1">T1ZOFGK/Art/T1Z_Icon64.dds</File>
+    <File md5="712E70E7C18DCD5089E7571CF446D80A" import="1">T1ZOFGK/Art/T1Z_Icon80.dds</File>
+    <File md5="147CBED9988F9F05080581EB1C8B844D" import="1">T1ZOFGK/Art/T1Z_Leader.dds</File>
+    <File md5="06D197DAFB6850F0D2BF0587D56C687C" import="1">T1ZOFGK/Art/T1Z_LeaderScene.xml</File>
+    <File md5="9164340A9B6B3BEE66B3F504F3738DAC" import="1">T1ZOFGK/Art/T1Z_Map.dds</File>
+    <File md5="41DB122465F01DE18BCBD94E07776FEB" import="1">T1ZOFGK/Art/T1Z_Objects128.dds</File>
+    <File md5="96F276382A9CDF20A5E97B80417B1960" import="1">T1ZOFGK/Art/T1Z_Objects16.dds</File>
+    <File md5="0A05EC83616463FE362211FD37DA78D4" import="1">T1ZOFGK/Art/T1Z_Objects24.dds</File>
+    <File md5="EFBED4A9678BFE1FEE0AE304B94F641E" import="1">T1ZOFGK/Art/T1Z_Objects256.dds</File>
+    <File md5="D32AC9467A10BC7117CAB8F3DEA9486D" import="1">T1ZOFGK/Art/T1Z_Objects32.dds</File>
+    <File md5="248764B2AC95978EABEB2A8C28CC9AD8" import="1">T1ZOFGK/Art/T1Z_Objects45.dds</File>
+    <File md5="7FD60F1EE84B49982FC22DA12DD0A88C" import="1">T1ZOFGK/Art/T1Z_Objects48.dds</File>
+    <File md5="0CD0A57BCE1E004C13296C656FDBBB59" import="1">T1ZOFGK/Art/T1Z_Objects64.dds</File>
+    <File md5="A4901EA7BA0DFD9E84AD20B7774E5FAE" import="1">T1ZOFGK/Art/T1Z_Objects80.dds</File>
+    <File md5="C945EF2F28ABA63FF0106F73D0868961" import="1">T1ZOFGK/Art/T1Z_Portrait128.dds</File>
+    <File md5="09BE04D42976455C15C35FDA411297C7" import="1">T1ZOFGK/Art/T1Z_Portrait16.dds</File>
+    <File md5="68DC21C5A263FA1BCA22B35E701DF6E1" import="1">T1ZOFGK/Art/T1Z_Portrait24.dds</File>
+    <File md5="5F23559AB30FA1CCEE713D4318D9D38B" import="1">T1ZOFGK/Art/T1Z_Portrait256.dds</File>
+    <File md5="D0156735EE2D88631C40BF34D1F30C29" import="1">T1ZOFGK/Art/T1Z_Portrait32.dds</File>
+    <File md5="606327CE9C647BB2B70D4A71F6D80549" import="1">T1ZOFGK/Art/T1Z_Portrait45.dds</File>
+    <File md5="7F0D7675B4690968ECDA39DCE7746E84" import="1">T1ZOFGK/Art/T1Z_Portrait48.dds</File>
+    <File md5="6E7D5128E6B4591078FE9AC0B4A4EC64" import="1">T1ZOFGK/Art/T1Z_Portrait64.dds</File>
+    <File md5="A363825B7C7F438FFA9B5A453CA718FA" import="1">T1ZOFGK/Art/T1Z_Portrait80.dds</File>
+    <File md5="5764FCE62BD7814EDEC9C80668CA1BE7" import="1">T1ZOFGK/Art/T1Z_Promotions128.dds</File>
+    <File md5="EA83550AABACA31A1F06946D7FAD5B94" import="1">T1ZOFGK/Art/T1Z_Promotions16.dds</File>
+    <File md5="7776315792FD1D9580C1BDD59F1DF069" import="1">T1ZOFGK/Art/T1Z_Promotions24.dds</File>
+    <File md5="1A3CA15DDECB4A1D06E18FAAD362F399" import="1">T1ZOFGK/Art/T1Z_Promotions256.dds</File>
+    <File md5="A04CF13F310A47EF60D90409E1748184" import="1">T1ZOFGK/Art/T1Z_Promotions32.dds</File>
+    <File md5="38853C1BB74F1D8334FA2CCE6BEBC30F" import="1">T1ZOFGK/Art/T1Z_Promotions45.dds</File>
+    <File md5="71CF587CB474E2F9DB4700232B7747FF" import="1">T1ZOFGK/Art/T1Z_Promotions48.dds</File>
+    <File md5="4C4C03F3D125F5CF5BA36C1D298AC124" import="1">T1ZOFGK/Art/T1Z_Promotions64.dds</File>
+    <File md5="7F4618DB489E4DDF1E3130F61C2C4A68" import="1">T1ZOFGK/Art/T1Z_Promotions80.dds</File>
+    <File md5="843F2CE23DE8060CFCB3ED47D8991ED6" import="1">T1ZOFGK/Lua/T1Z_Controller.lua</File>
+    <File md5="40E5C5D80954EBC248C2771764A2258F" import="0">T1ZOFGK/SQL/00_T1Z_Core.sql</File>
+    <File md5="F4B9F65AF7605037102CDF6C75D1B2D8" import="0">T1ZOFGK/SQL/01_T1Z_Inheritance.sql</File>
+    <File md5="44A185342EBFBCFC12A0973E14565470" import="0">T1ZOFGK/SQL/02_T1Z_Effects.sql</File>
+    <File md5="A3D19470C6CC8C63FA0B6E26CF589A8A" import="0">T1ZOFGK/SQL/03_T1Z_Art.sql</File>
+    <File md5="093708F5AA1D7EF7FDADE88B8CB6632A" import="0">T1ZOFGK/SQL/10_T1Z_Text.sql</File>
+    <File md5="5D91C77F0AE50E933D8ED2666C3E7D87" import="1">T1ZOFGK/UI/T1Z_Roster.lua</File>
+    <File md5="C975ED09176CFC215A8EC940BE387A64" import="0">T1ZOFGK/UI/T1Z_Roster.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -1135,6 +1193,11 @@
       <UpdateDatabase>TheLaureateCommonwealth/SQL/02_LC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheLaureateCommonwealth/SQL/03_LC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheLaureateCommonwealth/SQL/10_LC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>T1ZOFGK/SQL/00_T1Z_Core.sql</UpdateDatabase>
+      <UpdateDatabase>T1ZOFGK/SQL/01_T1Z_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>T1ZOFGK/SQL/02_T1Z_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>T1ZOFGK/SQL/03_T1Z_Art.sql</UpdateDatabase>
+      <UpdateDatabase>T1ZOFGK/SQL/10_T1Z_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -1205,6 +1268,10 @@
     <EntryPoint type="InGameUIAddin" file="TheLaureateCommonwealth/Lua/LC_Commonwealth.xml">
       <Name>The Evergreen Crown</Name>
       <Description>Human-only achievement recognition, Golden Age modifiers and Hall of Laurels progress.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="T1ZOFGK/UI/T1Z_Roster.xml">
+      <Name>ZOFGK Roster</Name>
+      <Description>Human-only persistent legends, genuine Recruit development, local auras and roster summary.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

@@ -79,5 +79,7 @@ def main():
     prepare_jin()
     from prepare_threshold_art import main as prepare_threshold
     prepare_threshold()
+    from prepare_t1zofgk_art import main as prepare_t1zofgk
+    prepare_t1zofgk()
 
 if __name__=='__main__':main()
