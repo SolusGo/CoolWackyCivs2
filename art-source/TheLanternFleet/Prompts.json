@@ -1,0 +1,17 @@
+{
+  "mode": "built-in image_gen",
+  "prompts": {
+    "Leader": "Use case: stylized-concept. Asset type: Civilization V painted static leader screen, 16:9 wide landscape. Primary request: High Keeper Maren, elderly female maritime guardian with lined face and silver hair, wearing a weathered navy-blue coat with golden insignia, carrying a large glowing brass lantern. In her lighthouse chamber overlooking a stormy ocean; a lighthouse visible behind her through the window. Protective, cautious, hospitable dignity. Painterly historical strategy game illustration, maritime navy, gold and sea blue, warm lantern light against cold storm. Full coherent scene edge to edge, Maren at center, face clearly visible for portrait crop. No text, no watermark, no UI.",
+    "Dawn": "Use case: stylized-concept. Asset type: Civilization V Dawn of Man illustration, landscape 4:3. Lighthouse illuminating a stormy sea, wooden ships returning toward safe harbor, golden beam across rough navy and sea-blue water. Defensive maritime sanctuary, painted historical strategy game artwork, dramatic warm beacon and cold ocean. No text, no UI, no watermark.",
+    "Icon": "Use case: logo-brand. Asset type: Civilization V civilization emblem, square painted icon. A single large glowing brass golden maritime lantern, small lighthouse/beacon motif behind it, dark maritime navy and sea-blue background. Strong clear silhouette readable at small sizes, elegant detailed painted strategy-game icon, centered with broad padding, no border (added in compilation). No text, no watermark.",
+    "Unit": "Use case: stylized-concept. Asset type: Civilization V unit icon square. Beacon Cutter: ancient trireme naval warship with oars, a brass beacon lantern mounted near the prow, seaworthy wood hull, navy sail with simple gold lantern motif, sea-blue water and warm gold light. Painted historical strategy game unit portrait, centered readable silhouette with generous padding. No text, no UI, no border, no watermark.",
+    "Building": "Use case: stylized-concept. Asset type: Civilization V building icon square. Signal Lighthouse: stone coastal lighthouse with large brilliant golden brass lantern at its summit, navy and sea blue stormy sky, safe harbor below. Painted historical strategy game building portrait, readable central tower with generous padding. No text, no UI, no border, no watermark."
+  },
+  "sources": {
+    "Leader": "C:\\Users\\ThatOneYi\\.codex\\generated_images\\01a19286-3b87-71d1-8963-8caa7b4ee2bc\\exec-dec9ef7c-f290-4354-a72a-1a083c252c41.png",
+    "Dawn": "C:\\Users\\ThatOneYi\\.codex\\generated_images\\01a19286-3b87-71d1-8963-8caa7b4ee2bc\\exec-12d5fe48-9f7c-4827-91dd-831231b13e51.png",
+    "Icon": "C:\\Users\\ThatOneYi\\.codex\\generated_images\\01a19286-3b87-71d1-8963-8caa7b4ee2bc\\exec-ed102d57-f85b-4838-a820-ed64afc4a5bb.png",
+    "Unit": "C:\\Users\\ThatOneYi\\.codex\\generated_images\\01a19286-3b87-71d1-8963-8caa7b4ee2bc\\exec-f2d10dac-273b-495f-8924-b88e58f1dbab.png",
+    "Building": "C:\\Users\\ThatOneYi\\.codex\\generated_images\\01a19286-3b87-71d1-8963-8caa7b4ee2bc\\exec-28676f81-971c-44b9-a422-74287fd8ce28.png"
+  }
+}

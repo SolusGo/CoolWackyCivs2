@@ -268,7 +268,7 @@ def assets(d):
     for name,p in actual.items():
         assert declared[name].get('md5')==hashlib.md5(p.read_bytes()).hexdigest().upper(),('stale manifest: run tools/build_mod.py --manifest-only --preserve-art',name)
         assert declared[name].get('import')==str(int(imported(p))),('VFS flag',name)
-    assert root.get('id')==MOD_ID and root.get('version')==VERSION=='19'
+    assert root.get('id')==MOD_ID and root.get('version')==VERSION
     project=ET.parse(R/'CoolWackyCivs2.civ5proj');prefix='{'+NS+'}'
     registered={e.get('Include'):e.findtext(prefix+'ImportIntoVFS') for e in project.iter(prefix+'Content') if e.get('Include')}
     for name,p in actual.items():assert registered[name]==str(imported(p)),('project/VFS registration',name)

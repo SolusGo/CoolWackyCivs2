@@ -75,6 +75,8 @@ def main():
             'Art/T1Z_Icon256.dds','Art/T1Z_Promotions45.dds','docs/Validation.json']]
         sample += [relative(p) for p in game if p.relative_to(R).parts[0]=='TheRepublicOfFirstDrafts']
         sample += ['TheRepublicOfFirstDrafts/docs/Validation.json','TheRepublicOfFirstDrafts/README.md']
+        sample += [relative(p) for p in game if p.relative_to(R).parts[0]=='TheLanternFleet']
+        sample += ['TheLanternFleet/docs/Validation.json','TheLanternFleet/README.md']
         for record in json.loads((R/'docs/UIRefreshInventory.json').read_text(encoding='utf-8')):
             sample += record['xml']
             sample += [name.removesuffix('.xml')+'.lua' for name in record['xml']]

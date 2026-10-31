@@ -171,3 +171,6 @@ if __name__=='__main__':
 
     from validate_rfd import validate as validate_rfd
     validate_rfd()
+
+    from validate_lantern import validate as validate_lantern
+    validate_lantern()

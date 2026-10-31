@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="19">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="20">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Nineteen civilizations, now including The Republic of First Drafts.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty and The Republic of First Drafts. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Twenty civilizations, now including The Lantern Fleet.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty The Republic of First Drafts and The Lantern Fleet. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -1151,6 +1151,55 @@
     <File md5="2A821CAD1EE4659A09D6F64E1DF84D41" import="0">TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql</File>
     <File md5="E9817EF5C70257F39163D51B7986E2B5" import="0">TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql</File>
     <File md5="6DE294C19CE44C91B7ECEFCB865D0235" import="0">TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql</File>
+    <File md5="534B5053C4213C56FE2BBFBFE8DD21E7" import="1">TheLanternFleet/Art/LANTERN_Alpha128.dds</File>
+    <File md5="8D7542D5FF1C5BB71298DCB9CB4E6C88" import="1">TheLanternFleet/Art/LANTERN_Alpha16.dds</File>
+    <File md5="C7D42A5A301E7C0B013BF3DF9798566A" import="1">TheLanternFleet/Art/LANTERN_Alpha24.dds</File>
+    <File md5="971F2C86E86692F2C710FCDB6D22A4BB" import="1">TheLanternFleet/Art/LANTERN_Alpha256.dds</File>
+    <File md5="57FC8D80D5FE7CD6869D9209D69D0FD3" import="1">TheLanternFleet/Art/LANTERN_Alpha32.dds</File>
+    <File md5="4DD198B6354DA82C7DF3B60DA59A083A" import="1">TheLanternFleet/Art/LANTERN_Alpha45.dds</File>
+    <File md5="78472F0AA515698E8F98DD7766AB3CA5" import="1">TheLanternFleet/Art/LANTERN_Alpha48.dds</File>
+    <File md5="CA9B5E8C75A8ED69DB0795AC0D30440A" import="1">TheLanternFleet/Art/LANTERN_Alpha64.dds</File>
+    <File md5="A3DD630C09E7B2BAA98B31933864C0F9" import="1">TheLanternFleet/Art/LANTERN_Alpha80.dds</File>
+    <File md5="A44A29944043BA8652F458EB7D7B6842" import="1">TheLanternFleet/Art/LANTERN_Dawn.dds</File>
+    <File md5="57FC8D80D5FE7CD6869D9209D69D0FD3" import="1">TheLanternFleet/Art/LANTERN_Flag32.dds</File>
+    <File md5="34D596FD7F8F7FF08B141F1D29E6A259" import="1">TheLanternFleet/Art/LANTERN_Icon128.dds</File>
+    <File md5="3D15DF5802F487C79B64B710C2EEAF64" import="1">TheLanternFleet/Art/LANTERN_Icon16.dds</File>
+    <File md5="DA92569222CF48F51B02F32BE800777A" import="1">TheLanternFleet/Art/LANTERN_Icon24.dds</File>
+    <File md5="D2D2EB6A24FB4D526753BE6A8BA8F599" import="1">TheLanternFleet/Art/LANTERN_Icon256.dds</File>
+    <File md5="2CF9EA1B5F73AE7B1652B89188B43FF5" import="1">TheLanternFleet/Art/LANTERN_Icon32.dds</File>
+    <File md5="439DDB575FEFBA2BB193F5905AC78CC0" import="1">TheLanternFleet/Art/LANTERN_Icon45.dds</File>
+    <File md5="244205BC2116CEE20F2E26D49871034A" import="1">TheLanternFleet/Art/LANTERN_Icon48.dds</File>
+    <File md5="44850544DB4D6C2CE2983A1281861A06" import="1">TheLanternFleet/Art/LANTERN_Icon64.dds</File>
+    <File md5="8FF66C88BE718D4E3FAE771B9A257B86" import="1">TheLanternFleet/Art/LANTERN_Icon80.dds</File>
+    <File md5="E818C31883172838D1489C4BFC7DB1D3" import="1">TheLanternFleet/Art/LANTERN_Leader.dds</File>
+    <File md5="DD77EF6AF890F963D52F546FEB883BBC" import="1">TheLanternFleet/Art/LANTERN_LeaderScene.xml</File>
+    <File md5="A44A29944043BA8652F458EB7D7B6842" import="1">TheLanternFleet/Art/LANTERN_Map.dds</File>
+    <File md5="4ABE505E341BD1D98115FA8CA37AACAF" import="1">TheLanternFleet/Art/LANTERN_Objects128.dds</File>
+    <File md5="C98924123552E86AA84026C3CA289F3B" import="1">TheLanternFleet/Art/LANTERN_Objects16.dds</File>
+    <File md5="F3C051A6E67963F343018C12901A6152" import="1">TheLanternFleet/Art/LANTERN_Objects24.dds</File>
+    <File md5="7039E659DDCEA0D8200F6FA78C748B0A" import="1">TheLanternFleet/Art/LANTERN_Objects256.dds</File>
+    <File md5="6ED5574E89E27170FAF6323E0154F161" import="1">TheLanternFleet/Art/LANTERN_Objects32.dds</File>
+    <File md5="021A5A8D87AA415E1EE550B0A57F28D1" import="1">TheLanternFleet/Art/LANTERN_Objects45.dds</File>
+    <File md5="555AD0572844E6DBC434C5CD6A27A962" import="1">TheLanternFleet/Art/LANTERN_Objects48.dds</File>
+    <File md5="9BB789CA9417324717C95A5723E0CF90" import="1">TheLanternFleet/Art/LANTERN_Objects64.dds</File>
+    <File md5="B28A75471039537E613DE889C0C4CFB7" import="1">TheLanternFleet/Art/LANTERN_Objects80.dds</File>
+    <File md5="3947C7F43E9529135D455626CA85E322" import="1">TheLanternFleet/Art/LANTERN_Portrait128.dds</File>
+    <File md5="9CACF102505FEDDF650B86EA0BB81C1E" import="1">TheLanternFleet/Art/LANTERN_Portrait16.dds</File>
+    <File md5="A7CE3E2010625E26F0AB602D0542A56F" import="1">TheLanternFleet/Art/LANTERN_Portrait24.dds</File>
+    <File md5="66CCD28DBF9D68CCD467CA8BA2747B43" import="1">TheLanternFleet/Art/LANTERN_Portrait256.dds</File>
+    <File md5="6D72C7254ED0762DC99C52F9AC86B064" import="1">TheLanternFleet/Art/LANTERN_Portrait32.dds</File>
+    <File md5="BB34D343CBE1FCF96D6CA46E423C09D1" import="1">TheLanternFleet/Art/LANTERN_Portrait45.dds</File>
+    <File md5="36190EE8B426A33896F4F7830B03FB46" import="1">TheLanternFleet/Art/LANTERN_Portrait48.dds</File>
+    <File md5="A56623DAC6E1658B6E90270CA46AA361" import="1">TheLanternFleet/Art/LANTERN_Portrait64.dds</File>
+    <File md5="62CB616666209473692599F36E5AE541" import="1">TheLanternFleet/Art/LANTERN_Portrait80.dds</File>
+    <File md5="665AD5090B9FA459B7ACBABBCB735CEE" import="1">TheLanternFleet/Lua/LANTERN_Harbors.lua</File>
+    <File md5="EEEF2B9F25E3D5E9B3E70363887BFE6A" import="0">TheLanternFleet/Lua/LANTERN_Harbors.xml</File>
+    <File md5="4E08FF32C6BAD74C7EF877ED85019658" import="1">TheLanternFleet/Lua/LANTERN_TimingProbe.lua</File>
+    <File md5="A9268DD65313536964A3EA624C3951ED" import="0">TheLanternFleet/SQL/00_LANTERN_Core.sql</File>
+    <File md5="918BA686A2877DA420B22C4210FC332B" import="0">TheLanternFleet/SQL/01_LANTERN_Inheritance.sql</File>
+    <File md5="8C63E37880B370087C5FCD232AD4ABDA" import="0">TheLanternFleet/SQL/02_LANTERN_Effects.sql</File>
+    <File md5="00F64296D652F2D7347CA8A29F8FF58A" import="0">TheLanternFleet/SQL/03_LANTERN_Art.sql</File>
+    <File md5="88CF3C849F8F50C47F2ABB1B3378719F" import="0">TheLanternFleet/SQL/10_LANTERN_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -1251,6 +1300,11 @@
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheLanternFleet/SQL/00_LANTERN_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheLanternFleet/SQL/01_LANTERN_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheLanternFleet/SQL/02_LANTERN_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheLanternFleet/SQL/03_LANTERN_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheLanternFleet/SQL/10_LANTERN_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -1329,6 +1383,10 @@
     <EntryPoint type="InGameUIAddin" file="TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.xml">
       <Name>Nothing Is Ever Final</Name>
       <Description>Human-only permanent Building Class rewards and dynamic Revision Workshop Science.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheLanternFleet/Lua/LANTERN_Harbors.xml">
+      <Name>No Harbor Goes Dark</Name>
+      <Description>Turn-start guarded coastal city snapshots and Signal Lighthouse Gold.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

@@ -1,8 +1,10 @@
 # Cool Wacky Civs 2
 
-Nineteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Twenty civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 19 · **1.19.0 The Republic of First Drafts**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 20 · **1.20.0 The Lantern Fleet**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+[The Lantern Fleet](TheLanternFleet/README.md), led by High Keeper Maren, turns owned naval combat ships inside coastal city centers into fixed turn-start Science/Culture snapshots. Its Beacon Cutter adds Sight and friendly-territory Strength; Signal Lighthouse adds permanent Culture and conditional Gold. Includes original navy/gold art and human-only selection. **Native timing acceptance is pending:** the earlier candidate UI notification has source publication evidence, but executable dispatch and same-turn payouts remain unverified after application permission blocked launch. [Evidence and tests](TheLanternFleet/docs/Testing.md).
 
 [The Republic of First Drafts](TheRepublicOfFirstDrafts/README.md), led by Editor-in-Chief Marginalia, rewards each new qualifying Building Class once per game with speed-scaled Culture and Gold. Its Catapult-derived Ink Mortar gains +1 Movement/+1 Sight; its Revision Workshop adds Culture and capped Science from current city building diversity. Includes permanent save-scoped recognition, dynamic city reconciliation, original burgundy/parchment art and human-only selection. [Implementation and testing](TheRepublicOfFirstDrafts/docs/Implementation.md).
 
@@ -63,15 +65,16 @@ The [interface refresh](docs/UIRefresh.md) gives all nine custom panels/HUDs the
 | [The Laureate Commonwealth](docs/civilizations/TheLaureateCommonwealth.md) | Laurea | Honor Wonders, Great People and military veterans to enter stronger Golden Ages. | [Details](TheLaureateCommonwealth/README.md) |
 | [T1 - The ZOFGK Dynasty](docs/civilizations/T1ZOFGK.md) | Faker | Preserve five legendary recruits, develop veterans through upgrades and coordinate elite formations. | [Details](T1ZOFGK/README.md) |
 | [The Republic of First Drafts](docs/civilizations/TheRepublicOfFirstDrafts.md) | Editor-in-Chief Marginalia | Diversify institutions for permanent Culture/Gold rewards and current-city Workshop Science. | [Details](TheRepublicOfFirstDrafts/README.md) |
+| [The Lantern Fleet](docs/civilizations/TheLanternFleet.md) | High Keeper Maren | Guard coastal city centers for turn-start Science/Culture and Signal Lighthouse Gold. | [Details](TheLanternFleet/README.md) |
 
-All nineteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 and The Republic of First Drafts are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All twenty are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1, The Republic of First Drafts and The Lantern Fleet are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 19).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 19).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 20).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 20).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 

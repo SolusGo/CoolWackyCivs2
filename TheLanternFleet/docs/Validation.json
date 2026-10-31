@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-01",
+  "baseline": {
+    "cache": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\cache_backup\\Civ5DebugDatabase.db",
+    "cp": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch",
+    "cp_modinfo": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch\\(1) Community Patch (v 151).modinfo",
+    "cp_version": 151,
+    "baseline": "BNW snapshot; CP v151 schema overlaid explicitly in memory",
+    "read_only": true
+  },
+  "source_evidence": {
+    "sources": {
+      "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+      "directory": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Civ5\\WackyMods\\CoolWackyCivs2\\tools\\reference",
+      "files": 7
+    },
+    "publication_before_economy": true,
+    "PlayerDoTurn_after_economy": true,
+    "executable_event_mapping_and_synchronous_dispatch": "NOT VERIFIED; candidate AIProcessingStartedForPlayer requires native acceptance",
+    "source_url": "https://github.com/LoneGazebo/Community-Patch-DLL/blob/44c1e14ff75d80c1dba5c8a71e8289439a53aafb/CvGameCoreDLL_Expansion2/CvPlayer.cpp"
+  },
+  "companion_tables": 176,
+  "lua51_scenarios": [
+    "adjacent_ship_is_not_center",
+    "ai_lantern_works",
+    "capture_to_foreign_clears_immediately",
+    "capture_to_lantern_waits_for_actual_new_owner",
+    "cargo_ship_rejected",
+    "city_actual_owner_checked",
+    "dead_delayed_units_rejected",
+    "depart_after_snapshot_and_remove_next",
+    "embarked_even_if_sea_domain_rejected",
+    "embarked_land_rejected",
+    "enter_after_snapshot_waits",
+    "foreign_teammate_allied_units_rejected",
+    "inactive_and_tagged_progress_do_not_snapshot",
+    "inland_rejected",
+    "later_warship_accepted",
+    "lighthouse_built_after_snapshot_waits",
+    "lighthouse_combined",
+    "lighthouse_without_guard",
+    "midturn_context_without_receipt_does_not_evaluate",
+    "multiple_cities_independent",
+    "no_late_payout_fallback_or_load_movement_hooks",
+    "non_lantern_no_bonuses_or_scriptdata",
+    "one_owned_trireme",
+    "only_one_registration_and_shutdown",
+    "save_load_retains_counts_and_receipt",
+    "two_ships_do_not_stack",
+    "full_VM_restart_only_native_saved_state"
+  ],
+  "result": "PASS static/simulation checks",
+  "native_acceptance": "PENDING: executable start dispatch, same-turn payout, combat, upgrade, rendering and save serialization"
+}

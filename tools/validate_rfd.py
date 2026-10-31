@@ -199,7 +199,7 @@ def static(d):
         assert inventory[relative].get('md5')==hashlib.md5(p.read_bytes()).hexdigest().upper()
     order=[e.text for e in declared.findall('Actions/OnModActivated/UpdateDatabase')]
     own=[p.relative_to(R).as_posix() for p in sorted((V/'SQL').glob('*.sql'))]
-    assert order[-5:]==own
+    assert [p for p in order if p.startswith('TheRepublicOfFirstDrafts/SQL/')]==own
     for name, in d.execute("SELECT Filename FROM IconTextureAtlases WHERE Atlas LIKE 'RFD_%'"):
         assert (V/'Art'/name).is_file(),name
     for table,typ in [('Civilizations',CIV),('Leaders',LEADER),('Units',UNIT),('Buildings',WORKSHOP)]:

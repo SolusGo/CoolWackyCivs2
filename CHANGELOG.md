@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.20.0 The Lantern Fleet / mod version 20 — 2026-11-01
+
+- Add human-only High Keeper Maren, First Beacon, exact Guarded Harbor snapshots, Beacon Cutter and Signal Lighthouse. Append SQL to preserve released IDs and leave other gameplay unchanged.
+- Clone active CP151 Trireme/Lighthouse fields and companion relationships; add only the specified promotion and yields. Include full English text, coastal bias, five original paintings and 40 mipmapped DDS textures.
+- Pass 27 Lua 5.1 scenarios, actual-schema/altered-baseline inheritance, source publication ordering and asset/registration checks. **Native event dispatch and same-turn payout remain unverified** after Computer Use blocked Civ V launch. [Implementation, limitations and native acceptance](TheLanternFleet/docs/Implementation.md).
+
 ## 1.19.0 The Republic of First Drafts / mod version 19 — 2026-10-31
 
 - Add human-only Editor-in-Chief Marginalia, permanent first-possession Building Class rewards, construction-speed scaling and progressed-save seeding.
