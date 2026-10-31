@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.18.1 T1 corrective audit / mod version 19 — 2026-10-31
+
+- Correct delayed/returned gift role leakage, unauthorized formation/identity retention, acquired Recruit eligibility and CP transformations counted as upgrades. Preserve canonical numbers, old identities/save encodings and all v19 art.
+- Add targeted lifecycle cleanup, saved native upgrade proofs and an appended hidden acquired-provenance marker; preserve legitimate Scouted Talent/development and unrelated ScriptData/promotions.
+- Add failing-before/fixed-after regressions, read-only/prerequisite tests, complete pinned source fetching, setup documentation and frozen art verification. See [audit findings, executed results and pending native acceptance](T1ZOFGK/docs/Hardening.md).
+
 ## 1.18.0 T1 - The ZOFGK Dynasty / mod version 19 — 2026-10-31
 
 - Add human-only Faker/T1 with five permanent Z-O-F-G-K roles, native city/wounded attack and feature movement bonuses, local hostile pressure and conditional friendly healing, and exclusive 10%/15% formations.

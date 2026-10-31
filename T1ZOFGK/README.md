@@ -42,7 +42,9 @@ Train the original five early, protect them with supporting troops and save Gold
 
 ## Validation and limits
 
-See [Implementation](docs/Implementation.md), [Testing](docs/Testing.md), [validation report](docs/Validation.json) and [art provenance](../art-source/T1ZOFGK/README.md).
+See [corrective audit and save compatibility](docs/Hardening.md), [Implementation](docs/Implementation.md), [Testing](docs/Testing.md), [validation report](docs/Validation.json), [fresh checkout setup](../docs/ValidationSetup.md) and [art provenance](../art-source/T1ZOFGK/README.md).
+
+The corrective update prevents delayed/returned gifts from carrying active roster roles, validates registered unit identities and counts development only after a genuine native upgrade event. A hidden acquired-provenance marker preserves gift exclusion through native snapshots without changing combat numbers or erasing legitimate XP/development. Existing identifiers, cooldowns and token formats remain compatible; native save continuation still needs manual acceptance. All existing artwork is preserved.
 
 Gameplay state is stored in native promotions and namespaced ScriptData. No permanent frame polling or shared CityView changes are used. Ordinary city recruits are assigned immediately after native training; other free Recruit births settle at the next owner turn boundary so native conversion/capture initialization can finish.
 

@@ -4,20 +4,19 @@ Automated results are **static checks and Lua 5.1 simulations**, not a launched 
 
 ## Reproduce
 
-From the repository root, with `requirements-dev.txt` installed:
+First follow [the fresh checkout setup](../../docs/ValidationSetup.md): install Python dependencies and BNW/CP v151, create a clean read-only BNW debug snapshot, set the documented paths, and fetch the pinned references. From the repository root:
 
 ```powershell
-python tools/generate_t1zofgk.py
-python tools/prepare_t1zofgk_art.py
+python tools/audit_cp.py --fetch
 python tools/build_mod.py --manifest-only --preserve-art
-python tools/validate_t1zofgk.py
+python tools/validate_t1zofgk.py --compare-baseline 1d2ae91
 python tools/audit_cp.py
 python tools/validate_mod.py
 python tools/build_mod.py --preserve-art
 python tools/verify_release.py
 ```
 
-Use the repository `.venv/Scripts/python.exe` where available. Artwork regeneration reads the committed paintings and official mark; it does not call a paid image service. The built-in imagegen prompts and provenance are retained with the sources.
+Use the repository `.venv/Scripts/python.exe` where available. No SQL/art regeneration is needed to run the audit: committed SQL and working art are authoritative. The source generator is used only when intentionally changing definitions. Source downloads, audit scratch reports and synthetic setup fixtures remain under ignored `tools/reference`/`dist`, separate from released assets. Missing files, a wrong CP version, non-BNW or collection-populated snapshots and changed source pins fail preflight with setup instructions.
 
 ## Automated coverage
 
@@ -34,7 +33,9 @@ Use the repository `.venv/Scripts/python.exe` where available. Artwork regenerat
 | 30-34: Headquarters | Full base/companion inheritance with altered fixtures, native per-unit Production coverage including modded/mixed classes and defensive-only units, no Lua grants, local ownership/real-building eligibility |
 | 35-40: persistence and isolation | Same-turn reloads, repeat notices, simultaneous vacancies, no free spawns, gift/recapture exclusion, reused IDs, no-T1 fixture and unchanged existing database rows |
 
-The four speeds run the same lifecycle cases, with expected delays 7/10/15/30. Exact assertion counts, CP source hashes, longest upgrade path, DDS inventory and scope are recorded in [Validation.json](Validation.json). The focused run contains more than 700 runtime assertions across four speeds and 52 source/API checks; the collection source audit adds 184 checks. The current report is authoritative.
+The four speeds run the same lifecycle cases, with expected delays 7/10/15/30. [Validation.json](Validation.json) records the original lifecycle assertions plus isolated hardening cases, prerequisite tests, CP source hashes, upgrade graph and art/registration checks. [HardeningValidation.json](HardeningValidation.json) separately records actual baseline/current execution. The collection source audit adds 184 checks. Current executed reports are authoritative; none represents native gameplay.
+
+The isolated hardening suite models direct capture with **no source-promotion copy**, immediate gifting with native loss flags, and delayed gifts which snapshot before prekill and copy after Created. It also covers returned gifts, roleless same-turn returns, copied-token clones, lethal HP, health/class transformations, goody upgrades, duplicate events, partial controller recreation, simultaneous vacancies, ID reuse, foreign aura/formation cleanup and unrelated-state preservation. Manual late copies/in-place ownership changes are labeled defensive other-mod cases rather than attributed to native direct capture.
 
 `--preserve-art` keeps earlier civilization textures byte-for-byte unchanged. The full collection validator checks all Lua syntax, every XML/texture/manifest and existing civ regressions. `verify_release.py` compares complete ZIP bytes and 7z inventories/CRC, then extracts an authoritative sample including T1 runtime/SQL/art.
 
@@ -53,7 +54,9 @@ None of the following is claimed to have run in the actual game:
 9. Kill, delete, disband and gift members, including several in one turn. Save/reload during the cooldown. Confirm 7/10/15/30-turn eligibility, ready notices, no free replacements and Z-O-F-G-K priority. Try early units, purchases, captures, gifts, ranged/civilian/naval/defensive-only units and a city with a free/dummy rather than real Headquarters. Each successor should inherit only the role.
 10. Return/recapture an originally local Recruit, then create another unit with the old native ID. Confirm no duplicated role/history. Test direct native capture-site quarantine and a genuine city training event at that tile. Inspect Database.log and Lua.log for errors.
 11. Load an existing non-T1 save and start a different civilization. Confirm existing gameplay, panels, IDs and artwork remain correct. Multiplayer/hotseat/Mac are outside the collection's supported scope.
+12. In an original v19 save, send a developed member by distance gift to a city-state; save during transit, deliver and return it. Repeat with a roleless acquired Recruit, same-turn war/return and an air unit requiring no relocation. Confirm no role/formation survives the first available reconciliation, no unused initial slot is consumed, legitimate carried XP/development remains and the original cooldown is unchanged. Include legacy in-flight gifts created before this correction.
+13. Compare normal/goody upgrades to CP health transformations and unit-class substitutions. Only the genuine upgrades add +4%; role identity and prior tiers otherwise survive. Verify the hidden acquired marker never changes Strength, XP, movement or healing, is not selectable, and does not break the Civilopedia index.
 
 ## Known engine boundary
 
-The only intentional conservative assignment edge is a non-city free Recruit born at exactly a direct capture site on the same turn: CP exposes no correlated destination-ID callback, so it is barred from the initial roster unless a CityTrained event proves a local birth. Native free births elsewhere settle at an owner boundary. See [Implementation](Implementation.md) for the reason and saved contract. Native healing and combat calculations remain engine-owned; the simulations do not reproduce the complete engine.
+CP exposes no correlated destination ID for direct capture or delayed-gift returns. Exact-site capture quarantine remains; a type-only gift callback can also quarantine a reentrant unproven same-recipient/type free birth. Return gifts without movement are cleaned at the first subsequent native player boundary. Native free births settle at an owner boundary; starting replacements are handled at setup. Legacy roleless snapshots can lack the newly added provenance bit. See [the audit's timing and compatibility limits](Hardening.md). Native healing/combat calculations and real disk saves remain engine-owned and unverified by these simulations.

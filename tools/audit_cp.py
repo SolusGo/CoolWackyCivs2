@@ -1,6 +1,7 @@
 """Audit pinned official CP v151 source. --fetch downloads only into tools/reference."""
 from pathlib import Path
 import argparse, hashlib, json, re, urllib.request
+from validation_prerequisites import PrerequisiteError,require_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMIT = '44c1e14ff75d80c1dba5c8a71e8289439a53aafb'
@@ -9,7 +10,10 @@ FILES = ['CustomMods.h', 'CvCityCitizens.cpp', 'CvCityCitizens.h', 'CvCity.cpp',
          'CvPlot.cpp', 'CvUnit.cpp', 'CvUnitCombat.cpp', 'CvUnitMission.cpp', 'CvTeam.cpp',
          'CvBuilderTaskingAI.cpp', 'Lua/CvLuaCity.cpp', 'Lua/CvLuaPlayer.cpp', 'Lua/CvLuaPlot.cpp',
          'Lua/CvLuaUnit.cpp', 'Lua/CvLuaTeam.cpp', 'CvGame.cpp', 'Lua/CvLuaGame.cpp',
-         'CvTraitClasses.cpp', 'CvTraitClasses.h', 'CvCultureClasses.cpp', 'CvTradeClasses.cpp', 'CvDllNetMessageHandler.cpp', 'CvBuildingClasses.cpp', 'CvPolicyClasses.cpp']
+         'CvTraitClasses.cpp', 'CvTraitClasses.h', 'CvCultureClasses.cpp', 'CvTradeClasses.cpp', 'CvDllNetMessageHandler.cpp', 'CvBuildingClasses.cpp', 'CvPolicyClasses.cpp',
+         'CvPromotionClasses.cpp','CvUnitClasses.cpp','CvMinorCivAI.cpp','CvCity.h','CvCityConnections.cpp',
+         'CvPlayerAI.cpp','CvTreasury.cpp','CvGameCoreStructs.cpp','CustomModsGlobal.h','CvBarbarians.cpp',
+         'CvGameCoreDLL_Expansion2.vcxproj']
 METHODS = {
  'City': 'GetOwner GetX GetY GetID GetOriginalOwner GetPreviousOwner GetGameTurnFounded IsOriginalCapital '
          'GetPopulation GetAutomatons GetNumCityPlots GetCityIndexPlot IsWorkingPlot IsForcedWorkingPlot '
@@ -33,16 +37,34 @@ METHODS = {
  'Game': 'GetWinner GetVictory SetWinner IsVictoryValid GetImprovementUpgradeTime',
 }
 
+def source_url(path):
+    if path=='CustomModsGlobal.h':
+        return BASE.rsplit('CvGameCoreDLL_Expansion2/',1)[0]+'CvGameCoreDLLUtil/include/CustomModsGlobal.h'
+    return BASE+path
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--fetch', action='store_true')
     parser.add_argument('--source', type=Path, default=ROOT / 'tools/reference')
+    parser.add_argument('--report', type=Path, default=ROOT/'tools/reference/CP-v151-audit.json')
     args = parser.parse_args()
     if args.fetch:
+        resolved=args.source.resolve()
+        if not any(resolved.is_relative_to(base.resolve()) for base in [ROOT/'tools/reference',ROOT/'dist']):
+            parser.error('--fetch output must stay in tools/reference or dist, separate from released assets')
         args.source.mkdir(parents=True, exist_ok=True)
+        inventory={}
         for path in FILES:
-            (args.source / Path(path).name).write_bytes(urllib.request.urlopen(BASE + path, timeout=30).read())
+            try:
+                data=urllib.request.urlopen(source_url(path), timeout=30).read()
+            except Exception as exc:parser.exit(2,f'Cannot fetch pinned CP source {path}: {exc}. Check network access and retry --fetch.\n')
+            target=args.source/Path(path).name;temporary=target.with_suffix(target.suffix+'.download')
+            temporary.write_bytes(data);temporary.replace(target)
+            inventory[target.name]={'url':source_url(path),'sha256':hashlib.sha256(data).hexdigest()}
+        (args.source/'CP-v151-sources.json').write_text(json.dumps({'commit':COMMIT,'files':inventory},indent=2)+'\n',encoding='utf-8',newline='\n')
+    try:require_sources([Path(p).name for p in FILES],args.source)
+    except PrerequisiteError as exc:parser.exit(2,str(exc)+'\n')
     sources = {Path(p).name: (args.source / Path(p).name).read_text(encoding='utf-8-sig') for p in FILES}
     checks = []
     def check(name, condition):
@@ -123,8 +145,9 @@ def main():
     report = {'official_commit': COMMIT, 'dll_version': 151,
               'scope': 'source availability/ABI assertions; NOT launched-game verification',
               'passed_assertions': len(checks), 'checks': checks,
-              'sources': {p: {'url': BASE+p, 'sha256': hashlib.sha256((args.source/Path(p).name).read_bytes()).hexdigest()} for p in FILES}}
-    (ROOT/'TheBoundlessCity/docs/SourceAudit.json').write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8', newline='\n')
+              'sources': {p: {'url': source_url(p), 'sha256': hashlib.sha256((args.source/Path(p).name).read_bytes()).hexdigest()} for p in FILES}}
+    args.report.parent.mkdir(parents=True,exist_ok=True)
+    args.report.write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(f'PASS {len(checks)} pinned CP v151 source assertions ({COMMIT})')
 
 

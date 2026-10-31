@@ -8,7 +8,7 @@
   "development_tiers": 144,
   "source": {
     "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
-    "checks": 52,
+    "checks": 74,
     "sha256": {
       "CustomMods.h": "7b7de803c983122ab90d6495480bd93569211fd1036385f5b0f60c6c59a80a11",
       "CvUnit.cpp": "54ea19c86652cc814784e084337dda3a9e47a9e7c4d70d6d7e7e83511b43a875",
@@ -16,11 +16,649 @@
       "CvPlayer.cpp": "893bb58411b5a9b0f8af60f9eaa760c8766590c440ae6bd52c7736b88df56b87",
       "CvPromotionClasses.cpp": "e6873117f395c6cfd01ff8eafafbf5fa6df376bb66158e650e72377aaee45d5a",
       "CvUnitClasses.cpp": "d96b806673cddb2508f5ccdef2ba622cd0cd12e89457f86b833ce4d2dfb348e3",
+      "CvMinorCivAI.cpp": "a525e9b5c2dc760c92cd6894e7c4a1c756ba73534bc97ea39b48ce97fdc99fd9",
       "CvLuaUnit.cpp": "f652c97d6f5cd6383463fbb9a34a733bb6d373fd6b7512011fe3d69107b268ae",
       "CvLuaPlayer.cpp": "515e4080f98f4a120235722de646c366fb2fd77b90fce02a9d3bdc516a3b482a",
       "CvLuaCity.cpp": "2b3b947c94e16457636ae9c5e1a3c675f692434d2dac40d92f66e81f0a850e24",
-      "CvLuaTeam.cpp": "1842484317f5c6bba8dc6dc492d9a1a0d6015c25d506717d3b92d5891a9d5498"
+      "CvLuaTeam.cpp": "1842484317f5c6bba8dc6dc492d9a1a0d6015c25d506717d3b92d5891a9d5498",
+      "CvLuaGame.cpp": "a2bee0ef0210f71eae8e09f3209755f7bf64ee6177dc8f52ee01de8fa893655b"
     }
+  },
+  "environment": {
+    "database": {
+      "cache": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\cache_backup\\Civ5DebugDatabase.db",
+      "cp": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch",
+      "cp_modinfo": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch\\(1) Community Patch (v 151).modinfo",
+      "cp_version": 151,
+      "baseline": "BNW snapshot; CP v151 schema overlaid explicitly in memory",
+      "read_only": true
+    },
+    "sources": {
+      "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+      "directory": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Civ5\\WackyMods\\CoolWackyCivs2\\tools\\reference",
+      "files": 12
+    },
+    "game": {
+      "directory": "G:\\SteamLibrary\\steamapps\\common\\Sid Meier's Civilization V",
+      "files": [
+        "Assets/UI/SupportFunctions.lua",
+        "Assets/UI/Styles.xml",
+        "Assets/UI/IconSupport.lua",
+        "Assets/DLC/Expansion2/UI/Civilopedia/CivilopediaScreen.lua"
+      ]
+    }
+  },
+  "prerequisites": {
+    "tests": 12,
+    "status": "PASS",
+    "scope": "synthetic setup failures and read-only SQLite fixtures"
+  },
+  "hardening": {
+    "cases": 25,
+    "runs": [
+      {
+        "case": "air_return_context_recreated_before_copy",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "air_return_without_movement",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "capture_near_upgrade_and_reused_id",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "class_replacement_not_upgrade",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "cooldowns_and_simultaneous_losses",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "copied_token_cannot_steal_role_on_upgrade",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "copied_token_death_cannot_vacate_real_member",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "delayed_city_state_gift",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 5
+      },
+      {
+        "case": "duplicate_creation_near_minor_gift",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "faker_and_keria_transfer_cleanup",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "foreign_formation_on_load",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "goody_upgrade_exactly_once",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "health_transform_not_upgrade",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "immediate_gift_and_return_history",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 9
+      },
+      {
+        "case": "in_place_owner_change",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_at_boundary",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_on_movement",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "lethal_hp_before_prekill",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "militaristic_gift_not_local_birth",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "movement_capture_no_duplicate",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "no_t1_isolation",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "normal_capture_no_promotion_copy",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 6
+      },
+      {
+        "case": "returned_distance_gift",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 7
+      },
+      {
+        "case": "roleless_gift_return_preserves_exclusion",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "upgrade_context_checkpoints",
+        "train_percent": 67,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "air_return_context_recreated_before_copy",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "air_return_without_movement",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "capture_near_upgrade_and_reused_id",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "class_replacement_not_upgrade",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "cooldowns_and_simultaneous_losses",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "copied_token_cannot_steal_role_on_upgrade",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "copied_token_death_cannot_vacate_real_member",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "delayed_city_state_gift",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 5
+      },
+      {
+        "case": "duplicate_creation_near_minor_gift",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "faker_and_keria_transfer_cleanup",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "foreign_formation_on_load",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "goody_upgrade_exactly_once",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "health_transform_not_upgrade",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "immediate_gift_and_return_history",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 9
+      },
+      {
+        "case": "in_place_owner_change",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_at_boundary",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_on_movement",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "lethal_hp_before_prekill",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "militaristic_gift_not_local_birth",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "movement_capture_no_duplicate",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "no_t1_isolation",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "normal_capture_no_promotion_copy",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 6
+      },
+      {
+        "case": "returned_distance_gift",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 7
+      },
+      {
+        "case": "roleless_gift_return_preserves_exclusion",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "upgrade_context_checkpoints",
+        "train_percent": 100,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "air_return_context_recreated_before_copy",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "air_return_without_movement",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "capture_near_upgrade_and_reused_id",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "class_replacement_not_upgrade",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "cooldowns_and_simultaneous_losses",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "copied_token_cannot_steal_role_on_upgrade",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "copied_token_death_cannot_vacate_real_member",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "delayed_city_state_gift",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 5
+      },
+      {
+        "case": "duplicate_creation_near_minor_gift",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "faker_and_keria_transfer_cleanup",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "foreign_formation_on_load",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "goody_upgrade_exactly_once",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "health_transform_not_upgrade",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "immediate_gift_and_return_history",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 9
+      },
+      {
+        "case": "in_place_owner_change",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_at_boundary",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_on_movement",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "lethal_hp_before_prekill",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "militaristic_gift_not_local_birth",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "movement_capture_no_duplicate",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "no_t1_isolation",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "normal_capture_no_promotion_copy",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 6
+      },
+      {
+        "case": "returned_distance_gift",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 7
+      },
+      {
+        "case": "roleless_gift_return_preserves_exclusion",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "upgrade_context_checkpoints",
+        "train_percent": 150,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "air_return_context_recreated_before_copy",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "air_return_without_movement",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "capture_near_upgrade_and_reused_id",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "class_replacement_not_upgrade",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "cooldowns_and_simultaneous_losses",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "copied_token_cannot_steal_role_on_upgrade",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "copied_token_death_cannot_vacate_real_member",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "delayed_city_state_gift",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 5
+      },
+      {
+        "case": "duplicate_creation_near_minor_gift",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "faker_and_keria_transfer_cleanup",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 4
+      },
+      {
+        "case": "foreign_formation_on_load",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "goody_upgrade_exactly_once",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "health_transform_not_upgrade",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "immediate_gift_and_return_history",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 9
+      },
+      {
+        "case": "in_place_owner_change",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_at_boundary",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "late_foreign_copy_on_movement",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "lethal_hp_before_prekill",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "militaristic_gift_not_local_birth",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 2
+      },
+      {
+        "case": "movement_capture_no_duplicate",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "no_t1_isolation",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 1
+      },
+      {
+        "case": "normal_capture_no_promotion_copy",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 6
+      },
+      {
+        "case": "returned_distance_gift",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 7
+      },
+      {
+        "case": "roleless_gift_return_preserves_exclusion",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      },
+      {
+        "case": "upgrade_context_checkpoints",
+        "train_percent": 300,
+        "status": "PASS",
+        "assertions": 3
+      }
+    ],
+    "assertions": 308,
+    "failures": 0
   },
   "runs": [
     {
@@ -41,5 +679,5 @@
     }
   ],
   "assertions": 732,
-  "elapsed_seconds": 8.897
+  "elapsed_seconds": 16.412
 }

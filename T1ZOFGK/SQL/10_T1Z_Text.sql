@@ -1,3 +1,5 @@
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_T1Z_ACQUIRED','Acquired Unit History');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_T1Z_ACQUIRED_HELP','Internal acquisition provenance. This unit was acquired rather than locally created for the initial roster. It keeps legitimate Scouted Talent and development, but cannot automatically claim a roster role. No combat effect.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_T1Z_ADJECTIVE','T1');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_T1Z_ATTACKED_1','We have faced difficult games before. Stay focused; the next decision matters.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_T1Z_CITY_1','T1 HQ');

@@ -2,6 +2,8 @@
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from collections import Counter
+from validation_prerequisites import main_check
+if __name__=='__main__':main_check(collection=True)
 import hashlib,re,struct,time
 from database import database,quote
 from build_mod import R,files,NAME,NS,ENTRY,ENTRIES,imported,MOD_ID,VERSION,DEPS

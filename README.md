@@ -2,7 +2,9 @@
 
 Eighteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 19 · **1.18.0 T1 - The ZOFGK Dynasty**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 19 · **1.18.1 T1 corrective audit**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+The [T1 corrective audit](T1ZOFGK/docs/Hardening.md) hardens delayed/returned gifts, roster authorization and genuine-upgrade accounting without changing balance or working artwork. [Fresh checkout validation setup](docs/ValidationSetup.md) documents the external BNW/CP snapshot, source fetch and read-only tests. Native acceptance remains pending.
 
 [T1 - The ZOFGK Dynasty](T1ZOFGK/README.md), led by Faker, develops five Ancient Era Recruits into permanent Zeus/Oner/Faker/Gumayusi/Keria veterans. Genuine upgrades add +4% Strength each; compact formations activate Five as One. Includes native conditional role bonuses, localized support/pressure, Headquarters recruitment, a roster panel, the official red T1 emblem and original painted art. Human-only. [Validation and native acceptance](T1ZOFGK/docs/Testing.md).
 

@@ -14,7 +14,7 @@ local function EventsReset()GameEvents=Group();Events=Group();LuaEvents=Group()e
 function Reset()
   EventsReset();MapModData={};ContextPtr={};turn=0;nextID=1;notifications={};unitScans=0
   DomainTypes={DOMAIN_LAND=0,DOMAIN_SEA=1,DOMAIN_AIR=2};NotificationTypes={NOTIFICATION_GENERIC=1}
-  Game={GetGameTurn=function()return turn end,GetGameSpeedType=function()return 0 end,GetActivePlayer=function()return 0 end}
+  Game={GetGameTurn=function()return turn end,GetStartTurn=function()return 0 end,GetGameSpeedType=function()return 0 end,GetActivePlayer=function()return 0 end}
   GameInfo={GameSpeeds={[0]={TrainPercent=SPEED}}}
   Locale={ConvertTextKey=function(key,...)
     local text=Translations[key] or key;local args={...}
@@ -102,21 +102,65 @@ function Die(u)
   GameEvents.UnitPrekill(u.pid,u.id,u.kind,u.x,u.y,false,-1)
   u.dead=true;Players[u.pid].units[u.id]=nil
 end
-function Convert(u,pid,kind,upgrade,repeatEvent)
+function Convert(u,pid,kind,upgrade,repeatEvent,options)
+  options=options or {}
   local to=MakeUnit(pid,kind,u.x,u.y)
-  if upgrade then GameEvents.UnitUpgraded(u.pid,u.id,to.id,false)end
+  if options.afterCreated then options.afterCreated(u,to)end
+  if upgrade and not options.noUpgradeEvent then
+    GameEvents.UnitUpgraded(u.pid,u.id,to.id,options.goody or false)
+    if options.repeatUpgrade then GameEvents.UnitUpgraded(u.pid,u.id,to.id,options.goody or false)end
+  end
+  if options.afterUpgrade then options.afterUpgrade(u,to)end
   -- CP overwrites destination promotions, copies original owner, then emits
   -- UnitConverted, while the source still exists. ScriptData is NOT copied.
   for _,promotion in pairs(GameInfoTypes)do
-    if NativePromotions[promotion] then to.promos[promotion]=u.promos[promotion] or nil end
+    local row=NativePromotions[promotion]
+    if row then
+      local retained=not options.gift or row.LostOnGifting==0
+      to.promos[promotion]=retained and u.promos[promotion] or nil
+    end
   end
+  for promotion in pairs(u.promos)do if not NativePromotions[promotion] then to.promos[promotion]=true end end
   to.original=u.original
   to.born=u.born
+  if options.afterCopy then options.afterCopy(u,to)end
   GameEvents.UnitConverted(u.pid,pid,u.id,to.id,upgrade or false)
   if repeatEvent then GameEvents.UnitConverted(u.pid,pid,u.id,to.id,upgrade or false)end
   Die(u);return to
 end
 function Upgrade(u,kind,duplicate)return Convert(u,u.pid,kind,true,duplicate)end
+function Gift(u,pid)return Convert(u,pid,u.kind,false,true,{gift=true})end
+-- Native direct capture recreates a unit WITHOUT copying promotions or
+-- ScriptData. It must not be confused with delayed city-state gifts below.
+function DirectCapture(u,pid,reason)
+  local original,kind,x,y=u.original,u.kind,u.x,u.y
+  if reason==0 then GameEvents.UnitCaptured(pid,0,u.pid,u.id,false,0)end
+  GameEvents.UnitPrekill(u.pid,u.id,u.kind,u.x,u.y,true,pid);u.delayed=true
+  GameEvents.UnitPrekill(u.pid,u.id,u.kind,u.x,u.y,false,pid)
+  if reason~=0 then GameEvents.UnitCaptured(pid,kind,u.pid,u.id,false,1)end
+  u.dead=true;Players[u.pid].units[u.id]=nil
+  local to=MakeUnit(pid,kind,x,y);to.original=original
+  return to
+end
+function DistanceSend(u)
+  local gift={owner=u.pid,kind=u.kind,born=u.born,original=u.original,promos={},domain=u.domain}
+  -- CvPlayer::AddIncomingUnit snapshots before UnitPrekill.
+  for id in pairs(u.promos)do gift.promos[id]=true end
+  Die(u);return gift
+end
+function DistanceDeliver(gift,pid,returning,jump,afterCreated)
+  local to=MakeUnit(pid,gift.kind,8,0);to.domain=gift.domain
+  if afterCreated then afterCreated(to) end
+  to.original=gift.original;to.born=gift.born
+  -- applyToUnit runs AFTER UnitCreated. Returns ignore LostOnGifting.
+  for id in pairs(gift.promos)do
+    local row=NativePromotions[id]
+    if returning or not row or row.LostOnGifting==0 then to.promos[id]=true end
+  end
+  if not returning then GameEvents.PlayerGifted(gift.owner,pid,-1,gift.kind,-1,-1)end
+  if jump and to.domain~=2 then Move(to,9,0)end
+  return to
+end
 function Reload(hard)
   if hard then EventsReset();MapModData={}end
   ContextPtr={};LoadController();Events.LoadScreenClose();Events.SequenceGameInitComplete()

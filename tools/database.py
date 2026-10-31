@@ -2,6 +2,7 @@
 from pathlib import Path
 import re, sqlite3
 from xml.etree import ElementTree as ET
+from validation_prerequisites import inspect_database,paths,SCHEMA_FILES
 
 def quote(s):
     return '"' + s.replace('"', '""') + '"'
@@ -13,14 +14,11 @@ def is_cp_cache(cache):
             d.execute("SELECT 1 FROM sqlite_master WHERE name='CustomModOptions'").fetchone())
 
 def database(cache=None, cp=None):
-    user = Path.home() / "Documents/My Games/Sid Meier's Civilization 5"
-    cache = Path(cache) if cache else user / 'cache_backup/Civ5DebugDatabase.db'
-    cp = Path(cp) if cp else user / 'MODS/(1) Community Patch'
+    cache,cp=paths(cache,cp)
+    inspect_database(cache,cp)
     source = sqlite3.connect(cache.resolve().as_uri() + '?mode=ro', uri=True)
     d = sqlite3.connect(':memory:'); source.backup(d); source.close()
-    for relative in ['City/Buildings/BuildingTableChanges.sql', 'UnitPromotions/PromotionTableChanges.sql',
-                     'Units/UnitTableChanges.sql', 'Policies/PolicyTableChanges.sql',
-                     'AI/LeaderTableChanges.sql', 'Civilizations/CivilizationTableChanges.sql']:
+    for relative in SCHEMA_FILES:
         text = (cp / 'Database Changes' / relative).read_text(encoding='utf-8-sig')
         for sql in re.findall(r'ALTER\s+TABLE\s+[^;]+?\s+ADD\s+.*?;', text, re.I | re.S):
             try: d.execute(sql)

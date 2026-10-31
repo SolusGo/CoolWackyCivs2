@@ -38,6 +38,7 @@ TEXT={
  'SYNERGY_15':'Five as One - Full Roster','SYNERGY_15_HELP':'Temporary +15% Strength. All five distinct living ZOFGK roles are within two hexes including this unit. Replaces the +10% tier; the tiers never stack.',
  'PRESSURE':'Demon King Pressure','PRESSURE_HELP':'Temporary -10% Strength while within one hex of an enemy Faker. Removed on movement, death, transfer or peace. Non-stacking; military units only.',
  'SUPPORT':'Keria Support','SUPPORT_HELP':'Temporary +5 HP to otherwise legal normal healing while adjacent to a friendly Keria. Does not heal directly, cannot exceed maximum HP and cannot enable otherwise forbidden healing. Military units only; excludes Keria himself.',
+ 'ACQUIRED':'Acquired Unit History','ACQUIRED_HELP':'Internal acquisition provenance. This unit was acquired rather than locally created for the initial roster. It keeps legitimate Scouted Talent and development, but cannot automatically claim a roster role. No combat effect.',
  'CIV_PEDIA':'T1 is a Korean esports organization with a legacy rooted in SK Telecom T1. This civilization commemorates the historical ZOFGK lineup: Choi "Zeus" Woo-je (top), Moon "Oner" Hyeon-joon (jungle), Lee "Faker" Sang-hyeok (mid), Lee "Gumayusi" Min-hyeong (ADC) and Ryu "Keria" Min-seok (support).[NEWLINE][NEWLINE]After reaching the 2022 World Championship final and losing a five-game series to DRX, the five returned to win the 2023 title in Seoul against Weibo Gaming. In 2024 they defended the title in London, defeating Bilibili Gaming in another five-game final. The 2023 and 2024 victories became a defining chapter in the organization\'s history. This is a tribute to that historical roster, not a statement about the current team.[NEWLINE][NEWLINE]Five Legends, One Dynasty. The first five Recruits gain roles in Z-O-F-G-K order, including the starting Warrior replacement. Each role survives genuine upgrades. Three or four distinct roles within two hexes grant +10% Strength; all five grant +15% instead. Only roster units benefit. Normal units never count toward the formation.[NEWLINE][NEWLINE]Legendary Development adds +4% permanent Strength per real Recruit upgrade, alongside Scouted Talent\'s +15% combat XP. Level-ups and promotion choices add no development. Death erases that individual\'s XP and history. Lost roles wait 7/10/15/30 turns on Quick/Standard/Epic/Marathon, then go to the next newly produced non-ranged land military unit in a city with a real Headquarters. Purchased units can join the initial Recruit roster, but cannot fill a replacement vacancy. Gifts and captures cannot recruit. A successor receives only its role, never the deceased\'s history.',
  'LEADER_PEDIA':'Lee "Faker" Sang-hyeok became the central figure of SK Telecom T1\'s League of Legends legacy after his professional debut in 2013. Celebrated for mechanical precision, leadership, adaptability and calm under pressure, he became known as the Unkillable Demon King.[NEWLINE][NEWLINE]This tribute focuses on the ZOFGK era. Faker led a roster of developing stars through the heartbreak of the 2022 Worlds final, the 2023 championship in Seoul and a successful title defense in London in 2024. His civilization celebrates the trust and discipline of a team, not invulnerability: preserving veterans and training successors remain essential.',
  'DAWN':'Faker, the Unkillable Demon King, you stand at the heart of a dynasty that transformed five extraordinary individuals into legends. Under your leadership, Zeus, Oner, Gumayusi and Keria rose together, challenging the world\'s greatest and claiming victories that echoed across generations. Your strength was never merely the brilliance of one player, but the trust, discipline and unity of an unforgettable roster.[NEWLINE][NEWLINE]From the 2022 final to back-to-back World Championships in 2023 and 2024, your team forged a legacy through practice and perseverance.[NEWLINE][NEWLINE]Will you discover a new generation of champions, preserve their legacy through the ages, and lead T1 to victory once more?',
@@ -77,7 +78,8 @@ def main():
     core="""-- Community Patch v151 events; no Vox Populi dependency.
 UPDATE CustomModOptions SET Value=1 WHERE Name IN
  ('EVENTS_CITY','EVENTS_PLAYER_TURN','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS',
-  'EVENTS_UNIT_UPGRADES','EVENTS_UNIT_PREKILL','EVENTS_UNIT_CAPTURE');
+  'EVENTS_UNIT_UPGRADES','EVENTS_UNIT_PREKILL','EVENTS_UNIT_CAPTURE',
+  'EVENTS_MINORS_INTERACTION','EVENTS_MINORS_GIFTS');
 INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES
  ('COLOR_T1Z_RED',0.89,0.0,0.17,1),('COLOR_T1Z_BLACK',0.035,0.035,0.045,1),('COLOR_T1Z_WHITE',1,1,1,1);
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES
@@ -113,6 +115,16 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_T1Z_ZOFGK',
     promotion('PRESSURE',9,CombatPercent=-10)
     promotion('SUPPORT',10,FriendlyHealChange=5,NeutralHealChange=5,EnemyHealChange=5)
     for i in range(1,DEVELOPMENT_TIERS+1): promotion('DEVELOPMENT_'+str(i),6,CombatPercent=4*i)
+    # Append after every released promotion: existing IDs remain unchanged.
+    promotion('ACQUIRED',5,ShowInUnitPanel=0)
+    effects+="""-- Native delayed gifts snapshot BEFORE prekill, then copy AFTER Created.
+-- Roles and formation/aura effects never travel as gifting privileges. Return
+-- gifts ignore this native flag and are also reconciled by the controller.
+UPDATE UnitPromotions SET LostOnGifting=1 WHERE Type IN
+ ('PROMOTION_T1Z_ZEUS','PROMOTION_T1Z_ONER','PROMOTION_T1Z_FAKER',
+  'PROMOTION_T1Z_GUMAYUSI','PROMOTION_T1Z_KERIA','PROMOTION_T1Z_SYNERGY_10',
+  'PROMOTION_T1Z_SYNERGY_15','PROMOTION_T1Z_PRESSURE','PROMOTION_T1Z_SUPPORT');
+"""
     effects+=f"INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('{UNIT}','PROMOTION_T1Z_SCOUTED');\n"
     effects+=f"""-- Add to, rather than replace, the inherited Barracks values.
 UPDATE Building_YieldChanges SET Yield=Yield+1 WHERE BuildingType='{HQ}' AND YieldType='YIELD_CULTURE';

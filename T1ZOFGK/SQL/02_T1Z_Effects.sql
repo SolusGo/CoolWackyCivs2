@@ -155,6 +155,14 @@ INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,C
 INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,PortraitIndex,IconAtlas,PediaType,PediaEntry,CombatPercent) VALUES ('PROMOTION_T1Z_DEVELOPMENT_142','TXT_KEY_T1Z_DEVELOPMENT_142','TXT_KEY_T1Z_DEVELOPMENT_142_HELP',0,0,1,6,'T1Z_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_T1Z_DEVELOPMENT_142',568);
 INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,PortraitIndex,IconAtlas,PediaType,PediaEntry,CombatPercent) VALUES ('PROMOTION_T1Z_DEVELOPMENT_143','TXT_KEY_T1Z_DEVELOPMENT_143','TXT_KEY_T1Z_DEVELOPMENT_143_HELP',0,0,1,6,'T1Z_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_T1Z_DEVELOPMENT_143',572);
 INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,PortraitIndex,IconAtlas,PediaType,PediaEntry,CombatPercent) VALUES ('PROMOTION_T1Z_DEVELOPMENT_144','TXT_KEY_T1Z_DEVELOPMENT_144','TXT_KEY_T1Z_DEVELOPMENT_144_HELP',0,0,1,6,'T1Z_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_T1Z_DEVELOPMENT_144',576);
+INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,PortraitIndex,IconAtlas,PediaType,PediaEntry,ShowInUnitPanel) VALUES ('PROMOTION_T1Z_ACQUIRED','TXT_KEY_T1Z_ACQUIRED','TXT_KEY_T1Z_ACQUIRED_HELP',0,0,1,5,'T1Z_PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_T1Z_ACQUIRED',0);
+-- Native delayed gifts snapshot BEFORE prekill, then copy AFTER Created.
+-- Roles and formation/aura effects never travel as gifting privileges. Return
+-- gifts ignore this native flag and are also reconciled by the controller.
+UPDATE UnitPromotions SET LostOnGifting=1 WHERE Type IN
+ ('PROMOTION_T1Z_ZEUS','PROMOTION_T1Z_ONER','PROMOTION_T1Z_FAKER',
+  'PROMOTION_T1Z_GUMAYUSI','PROMOTION_T1Z_KERIA','PROMOTION_T1Z_SYNERGY_10',
+  'PROMOTION_T1Z_SYNERGY_15','PROMOTION_T1Z_PRESSURE','PROMOTION_T1Z_SUPPORT');
 INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('UNIT_T1Z_RECRUIT','PROMOTION_T1Z_SCOUTED');
 -- Add to, rather than replace, the inherited Barracks values.
 UPDATE Building_YieldChanges SET Yield=Yield+1 WHERE BuildingType='BUILDING_T1Z_HEADQUARTERS' AND YieldType='YIELD_CULTURE';
