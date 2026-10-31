@@ -73,6 +73,8 @@ def main():
             'SQL/00_T1Z_Core.sql','SQL/01_T1Z_Inheritance.sql','SQL/02_T1Z_Effects.sql',
             'SQL/03_T1Z_Art.sql','SQL/10_T1Z_Text.sql','Art/T1Z_Leader.dds','Art/T1Z_Dawn.dds',
             'Art/T1Z_Icon256.dds','Art/T1Z_Promotions45.dds','docs/Validation.json']]
+        sample += [relative(p) for p in game if p.relative_to(R).parts[0]=='TheRepublicOfFirstDrafts']
+        sample += ['TheRepublicOfFirstDrafts/docs/Validation.json','TheRepublicOfFirstDrafts/README.md']
         for record in json.loads((R/'docs/UIRefreshInventory.json').read_text(encoding='utf-8')):
             sample += record['xml']
             sample += [name.removesuffix('.xml')+'.lua' for name in record['xml']]

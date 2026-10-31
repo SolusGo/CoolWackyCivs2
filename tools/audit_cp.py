@@ -13,7 +13,7 @@ FILES = ['CustomMods.h', 'CvCityCitizens.cpp', 'CvCityCitizens.h', 'CvCity.cpp',
          'CvTraitClasses.cpp', 'CvTraitClasses.h', 'CvCultureClasses.cpp', 'CvTradeClasses.cpp', 'CvDllNetMessageHandler.cpp', 'CvBuildingClasses.cpp', 'CvPolicyClasses.cpp',
          'CvPromotionClasses.cpp','CvUnitClasses.cpp','CvMinorCivAI.cpp','CvCity.h','CvCityConnections.cpp',
          'CvPlayerAI.cpp','CvTreasury.cpp','CvGameCoreStructs.cpp','CustomModsGlobal.h','CvBarbarians.cpp',
-         'CvGameCoreDLL_Expansion2.vcxproj']
+         'CvGameCoreDLL_Expansion2.vcxproj','CvInfos.cpp']
 METHODS = {
  'City': 'GetOwner GetX GetY GetID GetOriginalOwner GetPreviousOwner GetGameTurnFounded IsOriginalCapital '
          'GetPopulation GetAutomatons GetNumCityPlots GetCityIndexPlot IsWorkingPlot IsForcedWorkingPlot '

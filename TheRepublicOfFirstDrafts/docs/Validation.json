@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-31",
+  "baseline": {
+    "cache": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\cache_backup\\Civ5DebugDatabase.db",
+    "cp": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch",
+    "cp_modinfo": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch\\(1) Community Patch (v 151).modinfo",
+    "cp_version": 151,
+    "baseline": "BNW snapshot; CP v151 schema overlaid explicitly in memory",
+    "read_only": true
+  },
+  "source_contracts": {
+    "sources": {
+      "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+      "directory": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Civ5\\WackyMods\\CoolWackyCivs2\\tools\\reference",
+      "files": 7
+    },
+    "checks": {
+      "saved player ScriptData": true,
+      "owner-turn hook": true,
+      "construction speed field": true,
+      "start turn API": true,
+      "game speed API": true,
+      "purchase/construction hook": true,
+      "building sale hook": true,
+      "Sight lost during native upgrade": true,
+      "player GetScriptData": true,
+      "player SetScriptData": true,
+      "player GetJONSCultureTimes100": true,
+      "player ChangeJONSCultureTimes100": true,
+      "player GetGoldTimes100": true,
+      "player ChangeGold": true
+    }
+  },
+  "companion_tables": 176,
+  "lua51_scenarios": [
+    "advanced_start_is_a_new_game",
+    "ambiguous_recovery_preserves_external_earnings",
+    "capture_recapture_and_reused_city_id",
+    "class_dedup_and_city_independence",
+    "dummy_failure_reconciles_exact_target",
+    "duplicate_turn_and_context_handlers",
+    "dynamic_loss_and_workshop_removal",
+    "existing_progressed_save_seeds",
+    "failed_acknowledgement_never_duplicates",
+    "failed_final_commit_recovers_gold",
+    "failed_preparation_never_pays",
+    "faith_purchase_only_and_zero_cost",
+    "first_and_repeated_classes",
+    "hidden_variant_cannot_borrow_class",
+    "human_guards_and_separate_ledgers",
+    "invalid_state_fails_closed",
+    "journal_before_and_after_yield_failures",
+    "marathon",
+    "no_transient_or_event_payout",
+    "purchases_free_and_captured",
+    "quick_and_epic",
+    "runtime_speed_and_individual_rounding",
+    "sale_rebuild_and_context_reload",
+    "thresholds_and_cap",
+    "wonders_palace_and_dummy_exclusions",
+    "full_VM_restart_saved_class_ledger"
+  ],
+  "native_game_tests": "NOT RUN; see Testing.md",
+  "result": "PASS"
+}

@@ -168,3 +168,6 @@ if __name__=='__main__':
     validate_laureate()
     from validate_t1zofgk import validate as validate_t1zofgk
     validate_t1zofgk()
+
+    from validate_rfd import validate as validate_rfd
+    validate_rfd()

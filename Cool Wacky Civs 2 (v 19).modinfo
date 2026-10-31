@@ -2,8 +2,8 @@
 <Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="19">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Eighteen civilizations, now including Faker and T1 - The ZOFGK Dynasty.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth and T1 - The ZOFGK Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Nineteen civilizations, now including The Republic of First Drafts.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty and The Republic of First Drafts. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>1</AffectsSavedGames>
@@ -1103,6 +1103,54 @@
     <File md5="A183FA8D2FAB364DF6DA8D124841F649" import="0">T1ZOFGK/SQL/10_T1Z_Text.sql</File>
     <File md5="5D91C77F0AE50E933D8ED2666C3E7D87" import="1">T1ZOFGK/UI/T1Z_Roster.lua</File>
     <File md5="C975ED09176CFC215A8EC940BE387A64" import="0">T1ZOFGK/UI/T1Z_Roster.xml</File>
+    <File md5="CD4FAA6F054C7E3E953FCD008474A3FB" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha128.dds</File>
+    <File md5="70CA696E94AF25D8522BC84BA83BF669" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha16.dds</File>
+    <File md5="F6F7964749BB69B33072CD30E43AB9FD" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha24.dds</File>
+    <File md5="B0BBA75E70B0864E42F7852360759887" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha256.dds</File>
+    <File md5="A496F5E321FAA296BAA4E49E3661F93F" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha32.dds</File>
+    <File md5="CC9C5A956B859BA5BB3EC259C8F04AD0" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha45.dds</File>
+    <File md5="BE73B0543EEFFCEC481D614395216B6D" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha48.dds</File>
+    <File md5="DEB38EEC1CD16A6D0016DD1EE9CD92F8" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha64.dds</File>
+    <File md5="F6E120FDF737EA81D4C57DAF85D3AE5F" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha80.dds</File>
+    <File md5="DC2938F21FCDC81012659645C77E4D35" import="1">TheRepublicOfFirstDrafts/Art/RFD_Dawn.dds</File>
+    <File md5="A496F5E321FAA296BAA4E49E3661F93F" import="1">TheRepublicOfFirstDrafts/Art/RFD_Flag32.dds</File>
+    <File md5="0564C954B80EBE13399E9D90B02F56D5" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon128.dds</File>
+    <File md5="E1325866BBE6196534BEFC30364D76E7" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon16.dds</File>
+    <File md5="232B3785217BC1221D8F75A0BA74C0BE" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon24.dds</File>
+    <File md5="D3D9B7B95B3F5D6FA75424E90584F50B" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon256.dds</File>
+    <File md5="3D3DC48284232E89E7FF7F3CE436E092" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon32.dds</File>
+    <File md5="FA63CF931ED7C09A60E928CA26F6F2BE" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon45.dds</File>
+    <File md5="E567CDD5397C455E1EFF622556588167" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon48.dds</File>
+    <File md5="917DD82AF410682456EE01E1D37A3045" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon64.dds</File>
+    <File md5="C6DAFBFFBC95656CCCF534C8CB80A28A" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon80.dds</File>
+    <File md5="A8A109A4E7DC9B5AC8432531CB42CD91" import="1">TheRepublicOfFirstDrafts/Art/RFD_Leader.dds</File>
+    <File md5="D36C9EA79A853DF143507021AE18B2D0" import="1">TheRepublicOfFirstDrafts/Art/RFD_LeaderScene.xml</File>
+    <File md5="526B952BB69F7A91396AB26EE2BC8BB9" import="1">TheRepublicOfFirstDrafts/Art/RFD_Map.dds</File>
+    <File md5="F52B1D0AB88E1C72C23AAB7ABDE163C0" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects128.dds</File>
+    <File md5="5F0F6939DADD89DE446B3D1435254CE1" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects16.dds</File>
+    <File md5="A12072AA4C6F7D24996519DFE78C5570" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects24.dds</File>
+    <File md5="2D6694921AB757AD2954177327C9EC89" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects256.dds</File>
+    <File md5="F973F179E21604CB7DD6367F69A6586B" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects32.dds</File>
+    <File md5="B9A99A2E0E3D485E4C144FB028178086" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects45.dds</File>
+    <File md5="528224DBD6E1C21A8A4C529E9A6276AC" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects48.dds</File>
+    <File md5="C86219D59B70DFC072AA7D18451CD77C" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects64.dds</File>
+    <File md5="9A4B0FC11DDBD74D6340A08D4CFD7B85" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects80.dds</File>
+    <File md5="B2C3E880A12EA8B1A95030124D4278FB" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait128.dds</File>
+    <File md5="4DBC611ECB0AECE9CC71BF1DADDB0360" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait16.dds</File>
+    <File md5="EDDF9E8260CEEC492EAF311B0F77FCE0" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait24.dds</File>
+    <File md5="07D67C64570068318129AD3BA6C3D7D0" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait256.dds</File>
+    <File md5="B39DBCF77EA3F6B0E793907A0AC3AC68" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait32.dds</File>
+    <File md5="9642073A446A2C35C9F554782F8079FD" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait45.dds</File>
+    <File md5="3CCAB414F6D9FF236DBCCA1DFA4711E8" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait48.dds</File>
+    <File md5="DB7421DC75AEED421F9FC52FA7E5F8C7" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait64.dds</File>
+    <File md5="28240ADE52330CC66F31DF37732E6618" import="1">TheRepublicOfFirstDrafts/Art/RFD_Portrait80.dds</File>
+    <File md5="276DEB5ED475E5E995333EED8EA07E75" import="1">TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.lua</File>
+    <File md5="791437A64673EB9ECFC0F872D09FD210" import="0">TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.xml</File>
+    <File md5="8F4BD6E54226D020FAD6CEE301D5B99F" import="0">TheRepublicOfFirstDrafts/SQL/00_RFD_Core.sql</File>
+    <File md5="C38806263A6F9E7BB6BB398EFE32C724" import="0">TheRepublicOfFirstDrafts/SQL/01_RFD_Inheritance.sql</File>
+    <File md5="2A821CAD1EE4659A09D6F64E1DF84D41" import="0">TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql</File>
+    <File md5="E9817EF5C70257F39163D51B7986E2B5" import="0">TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql</File>
+    <File md5="6DE294C19CE44C91B7ECEFCB865D0235" import="0">TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -1198,6 +1246,11 @@
       <UpdateDatabase>T1ZOFGK/SQL/02_T1Z_Effects.sql</UpdateDatabase>
       <UpdateDatabase>T1ZOFGK/SQL/03_T1Z_Art.sql</UpdateDatabase>
       <UpdateDatabase>T1ZOFGK/SQL/10_T1Z_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/00_RFD_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/01_RFD_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -1272,6 +1325,10 @@
     <EntryPoint type="InGameUIAddin" file="T1ZOFGK/UI/T1Z_Roster.xml">
       <Name>ZOFGK Roster</Name>
       <Description>Human-only persistent legends, genuine Recruit development, local auras and roster summary.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.xml">
+      <Name>Nothing Is Ever Final</Name>
+      <Description>Human-only permanent Building Class rewards and dynamic Revision Workshop Science.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

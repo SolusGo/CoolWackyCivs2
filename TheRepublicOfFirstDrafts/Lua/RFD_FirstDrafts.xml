@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context Name="RFD_FirstDrafts">
+  <Script file="RFD_FirstDrafts.lua" />
+</Context>

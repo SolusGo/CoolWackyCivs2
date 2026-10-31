@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-31",
+  "command": ".venv/Scripts/python.exe tools/validate_mod.py",
+  "exit_code": 0,
+  "scope": "Full collection regression, including RFD",
+  "log_sha256": "925a5667f51bed736fd934206151869dec0931f9fbfc0b53ade3d6795ad39690",
+  "native_gameplay": "NOT RUN",
+  "fixture": "Installed BNW snapshot + installed CP v151 schema overlay, in memory",
+  "source_audit_assertions": 184,
+  "rfd_source_contracts": 14,
+  "rfd_lua51_scenarios": 26,
+  "rfd_companion_tables": 176,
+  "game_files": 1127,
+  "decoded_atlas_sizes": 779,
+  "leaders": 19,
+  "framed_cells": 1269,
+  "previous_game_files_unchanged": 1079
+}

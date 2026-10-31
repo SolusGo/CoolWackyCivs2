@@ -1,8 +1,10 @@
 # Cool Wacky Civs 2
 
-Eighteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
+Nineteen civilizations for Civilization V: Brave New World and **Community Patch v151**. This is an independent collection; the original Cool Wacky Civs mod is not required.
 
-**Current source:** mod version 19 · **1.18.1 T1 corrective audit**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+**Current source:** mod version 19 · **1.19.0 The Republic of First Drafts**. [Changelog](CHANGELOG.md) · [GitHub](https://github.com/SolusGo/CoolWackyCivs2)
+
+[The Republic of First Drafts](TheRepublicOfFirstDrafts/README.md), led by Editor-in-Chief Marginalia, rewards each new qualifying Building Class once per game with speed-scaled Culture and Gold. Its Catapult-derived Ink Mortar gains +1 Movement/+1 Sight; its Revision Workshop adds Culture and capped Science from current city building diversity. Includes permanent save-scoped recognition, dynamic city reconciliation, original burgundy/parchment art and human-only selection. [Implementation and testing](TheRepublicOfFirstDrafts/docs/Implementation.md).
 
 The [T1 corrective audit](T1ZOFGK/docs/Hardening.md) hardens delayed/returned gifts, roster authorization and genuine-upgrade accounting without changing balance or working artwork. [Fresh checkout validation setup](docs/ValidationSetup.md) documents the external BNW/CP snapshot, source fetch and read-only tests. Native acceptance remains pending.
 
@@ -60,8 +62,9 @@ The [interface refresh](docs/UIRefresh.md) gives all nine custom panels/HUDs the
 | [The Honeycomb Commonwealth](docs/civilizations/TheHoneycombCommonwealth.md) | Speaker Mellia | Work Plantations for capped city Production/Culture and Honey Exchange Gold. | [Details](TheHoneycombCommonwealth/README.md) |
 | [The Laureate Commonwealth](docs/civilizations/TheLaureateCommonwealth.md) | Laurea | Honor Wonders, Great People and military veterans to enter stronger Golden Ages. | [Details](TheLaureateCommonwealth/README.md) |
 | [T1 - The ZOFGK Dynasty](docs/civilizations/T1ZOFGK.md) | Faker | Preserve five legendary recruits, develop veterans through upgrades and coordinate elite formations. | [Details](T1ZOFGK/README.md) |
+| [The Republic of First Drafts](docs/civilizations/TheRepublicOfFirstDrafts.md) | Editor-in-Chief Marginalia | Diversify institutions for permanent Culture/Gold rewards and current-city Workshop Science. | [Details](TheRepublicOfFirstDrafts/README.md) |
 
-All eighteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth and T1 are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
+All nineteen are human-playable. The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 and The Republic of First Drafts are human-only. Each guide lists unique units/buildings, mechanics, engine limits and testing records.
 
 **Status:** implementation preview. Native gameplay, rendering and save testing remain incomplete; see each civilization's testing record for the outstanding checks.
 

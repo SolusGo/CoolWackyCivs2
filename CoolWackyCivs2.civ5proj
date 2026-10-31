@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Eighteen civilizations, now including Faker and T1 - The ZOFGK Dynasty.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth and T1 - The ZOFGK Dynasty. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Nineteen civilizations, now including The Republic of First Drafts.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty and The Republic of First Drafts. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -486,6 +486,31 @@
         <Type>UpdateDatabase</Type>
         <FileName>T1ZOFGK/SQL/10_T1Z_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfFirstDrafts/SQL/00_RFD_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfFirstDrafts/SQL/01_RFD_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -595,6 +620,12 @@
         <Name>ZOFGK Roster</Name>
         <Description>Human-only persistent legends, genuine Recruit development, local auras and roster summary.</Description>
         <FileName>T1ZOFGK/UI/T1Z_Roster.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Nothing Is Ever Final</Name>
+        <Description>Human-only permanent Building Class rewards and dynamic Revision Workshop Science.</Description>
+        <FileName>TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -3863,6 +3894,150 @@
     <Content Include="T1ZOFGK/UI/T1Z_Roster.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Art/RFD_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/SQL/00_RFD_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/SQL/01_RFD_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JinDynasty\" />
@@ -3918,6 +4093,10 @@
     <Folder Include="TheLaureateCommonwealth\Art\" />
     <Folder Include="TheLaureateCommonwealth\Lua\" />
     <Folder Include="TheLaureateCommonwealth\SQL\" />
+    <Folder Include="TheRepublicOfFirstDrafts\" />
+    <Folder Include="TheRepublicOfFirstDrafts\Art\" />
+    <Folder Include="TheRepublicOfFirstDrafts\Lua\" />
+    <Folder Include="TheRepublicOfFirstDrafts\SQL\" />
     <Folder Include="TheRepublicOfPigeons\" />
     <Folder Include="TheRepublicOfPigeons\Art\" />
     <Folder Include="TheRepublicOfPigeons\SQL\" />

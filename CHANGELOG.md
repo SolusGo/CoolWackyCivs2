@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.19.0 The Republic of First Drafts / mod version 19 — 2026-10-31
+
+- Add human-only Editor-in-Chief Marginalia, permanent first-possession Building Class rewards, construction-speed scaling and progressed-save seeding.
+- Add a player ScriptData class ledger with recoverable payout journaling; keep historical rewards independent of current-city Revision Workshop Science.
+- Clone the active Catapult/Workshop and supported companion tables, adding only +1 Movement/+1 Sight and +1 Culture/capped dynamic Science respectively.
+- Include six original paintings, 40 mipmapped DDS textures, complete English localization, static diplomacy and an invisible gameplay context. Append SQL to preserve released IDs.
+- Add CP v151 source contracts, actual-schema/altered-baseline inheritance, lifecycle/fault/restart Lua 5.1 simulations and art/manifest checks. [Executed evidence and outstanding native acceptance](TheRepublicOfFirstDrafts/docs/Testing.md).
+
 ## 1.18.1 T1 corrective audit / mod version 19 — 2026-10-31
 
 - Correct delayed/returned gift role leakage, unauthorized formation/identity retention, acquired Recruit eligibility and CP transformations counted as upgrades. Preserve canonical numbers, old identities/save encodings and all v19 art.
