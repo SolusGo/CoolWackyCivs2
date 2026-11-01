@@ -58,7 +58,7 @@ function LF_Tests.only_one_registration_and_shutdown()
   ContextPtr.shutdown();assert(#Events.AIProcessingStartedForPlayer.handlers==0 and #GameEvents.CityCaptureComplete.handlers==0)
 end
 function LF_Tests.no_late_payout_fallback_or_load_movement_hooks()
-  LF_Load();assert(#GameEvents.PlayerDoTurn.handlers==0 and #GameEvents.UnitSetXY.handlers==0
+  LF_Load();local reads=LF_Qualifies;GameEvents.PlayerDoTurn.Fire(0);LF_Counts(0,0);assert(LF_Qualifies==reads);assert(#GameEvents.PlayerDoTurn.handlers==1 and #GameEvents.UnitSetXY.handlers==0
     and #Events.LoadScreenClose.handlers==0 and #Events.ActivePlayerTurnStart.handlers==0)
 end
 function LF_Tests.inactive_and_tagged_progress_do_not_snapshot()

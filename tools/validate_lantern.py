@@ -3,16 +3,18 @@
 This validator does NOT certify executable event dispatch or economic payouts.
 """
 from collections import Counter
+import argparse
 import hashlib
 import json
 import math
 import re
 import struct
+import subprocess
 from xml.etree import ElementTree as ET
 from PIL import Image
 from lupa.lua51 import LuaRuntime
 from database import database, quote
-from build_mod import files, imported, NAME, NS
+from build_mod import files, imported, NAME, NS, PROPS
 from generate_lantern import R, V, CIV, LEADER, UNIT, LIGHTHOUSE, DUMMIES, TEXT, CITIES
 from validation_prerequisites import inspect_database, require_sources, inspect_game, CP_COMMIT
 
@@ -76,7 +78,7 @@ def sql_checks():
     assert not d.execute("SELECT 1 FROM Civilization_FreeUnits WHERE CivilizationType=? AND UnitClassType='UNITCLASS_TRIREME'",(CIV,)).fetchone()
     promotion=d.execute("SELECT VisibilityChange,FriendlyLandsModifier,OutsideFriendlyLandsModifier,LostWithUpgrade,CannotBeChosen FROM UnitPromotions WHERE Type='PROMOTION_LANTERN_FRIENDLY_WATERS'").fetchone()
     assert promotion[:]==(1,15,0,0,1),tuple(promotion)
-    assert list(d.execute("SELECT UnitType FROM Unit_FreePromotions WHERE PromotionType='PROMOTION_LANTERN_FRIENDLY_WATERS'"))[0][0]==UNIT
+    assert [r[0] for r in d.execute("SELECT UnitType FROM Unit_FreePromotions WHERE PromotionType='PROMOTION_LANTERN_FRIENDLY_WATERS'")]==[UNIT]
     for dummy,expected in zip(DUMMIES,[{'YIELD_SCIENCE':2,'YIELD_CULTURE':1},{'YIELD_GOLD':2}]):
         row=d.execute('SELECT * FROM Buildings WHERE Type=?',(dummy,)).fetchone()
         for key,value in {'Cost':-1,'FaithCost':-1,'GreatWorkCount':-1,'NeverCapture':1,'NukeImmune':1,
@@ -110,26 +112,99 @@ INSERT INTO Unit_ResourceQuantityRequirements VALUES ('UNIT_TRIREME','RESOURCE_I
     return d,count
 
 
+def vm(code=None):
+    code=code or (V/'Lua/LANTERN_Harbors.lua').read_text(encoding='utf-8')
+    lua=LuaRuntime();lua.globals().LF_LoadSource=lambda:lua.execute(code)
+    logs=lua.table()
+    def capture(*parts): logs[len(logs)+1]=' '.join(map(str,parts))
+    lua.globals().print=capture
+    lua.globals().LF_Logs=logs
+    for name in ['lantern_mock.lua','lantern_assertions.lua','lantern_hardening.lua']:
+        lua.execute((R/'tools/tests'/name).read_text(encoding='utf-8'))
+    return lua
+
+
 def runtime():
-    code=(V/'Lua/LANTERN_Harbors.lua').read_text(encoding='utf-8')
-    def vm():
-        lua=LuaRuntime();lua.globals().LF_LoadSource=lambda:lua.execute(code)
-        lua.execute((R/'tools/tests/lantern_mock.lua').read_text(encoding='utf-8'))
-        lua.execute((R/'tools/tests/lantern_assertions.lua').read_text(encoding='utf-8'))
-        return lua
     names=sorted(vm().globals().LF_Tests.keys())
     for name in names:
         lua=vm()
         try:lua.globals().LF_Tests[name]()
-        except Exception as exc:raise AssertionError('Lantern Lua scenario '+name+': '+str(exc)) from exc
+        except Exception as exc:
+            for line in lua.globals().LF_Logs.values(): print(line)
+            raise AssertionError('Lantern Lua scenario '+name+': '+str(exc)) from exc
     first=vm();first.execute('LF_Load();LF_Guard();LF_Harbor.buildings[2]=1;LF_Start()')
     saved=(first.globals().Players[0].data,dict(first.globals().LF_Harbor.buildings))
     second=vm();second.globals().Players[0].data=saved[0]
     for key,value in saved[1].items():second.globals().LF_Harbor.buildings[key]=value
     second.execute('LF_Turn=11;Players[0].active=true;LF_Load();Events.AIProcessingStartedForPlayer.Fire(0);LF_Counts(1,1);assert(LF_Writes==0);LF_Start();LF_Counts(0,0)')
     names.append('full_VM_restart_only_native_saved_state')
+    # Destroy the entire Lua VM after a partial write. Transfer only ScriptData
+    # and real building counts; neither closures nor MapModData survives.
+    first=vm();first.execute("""LF_Load();LF_Guard();LF_Harbor.buildings[2]=1
+      local set=LF_Harbor.SetNumRealBuilding
+      LF_Harbor.SetNumRealBuilding=function(s,b,n)if b==4 then error('persistent Gold write failure')end;set(s,b,n)end
+      LF_Start();LF_Counts(1,0)""")
+    saved=(first.globals().Players[0].data,dict(first.globals().LF_Harbor.buildings))
+    second=vm();second.globals().Players[0].data=saved[0]
+    for key,value in saved[1].items():second.globals().LF_Harbor.buildings[key]=value
+    second.execute('LF_Turn=11;Players[0].active=true;LF_Load();LF_Counts(1,1);assert(LF_Qualifies==0);Events.AIProcessingStartedForPlayer.Fire(0);LF_Counts(1,1);LF_Start();LF_Counts(0,0)')
+    names.append('full_VM_restart_partial_snapshot_frozen_targets')
+    first=vm();first.execute("LF_Load();LF_Harbor.IsCoastal=function()error('interrupted qualification')end;LF_Start()")
+    second=vm();second.globals().Players[0].data=first.globals().Players[0].data
+    second.execute('LF_Turn=11;Players[0].active=true;LF_Guard();LF_Load();Events.AIProcessingStartedForPlayer.Fire(0);LF_Counts(0,0);assert(LF_Qualifies==0);LF_Start();LF_Counts(1,0)')
+    names.append('full_VM_restart_incomplete_reservation_never_rescans')
+    lua=vm()
+    lua.execute('''
+      Game.GetActivePlayer=function()return 0 end
+      YieldTypes={YIELD_SCIENCE=0,YIELD_CULTURE=1,YIELD_GOLD=2}
+      local p=Players[0];p.research=100;p.culture=200;p.gold=300
+      p.GetCurrentResearch=function()return 7 end
+      p.GetResearchProgressTimes100=function(s,tech)assert(tech==7);return s.research end
+      p.GetGoldTimes100=function(s)return s.gold end
+      p.GetJONSCultureTimes100=function(s)return s.culture end
+      LF_Harbor.GetYieldRate=function()return 0 end
+      LF_Load()
+    ''')
+    probe=(V/'Lua/LANTERN_TimingProbe.lua').read_text(encoding='utf-8')
+    lua.execute(probe);lua.execute(probe)
+    lua.execute('''
+      assert(#Events.AIProcessingStartedForPlayer.handlers==2 and #GameEvents.PlayerDoTurn.handlers==2)
+      local data=Players[0].data;local a=LANTERN_TimingMark('A',0)
+      Players[0].research=300;Players[0].culture=300;Players[0].gold=500
+      local b=LANTERN_TimingMark('B',0);local d=LANTERN_TimingDelta(a,b)
+      assert(d.research100==200 and d.culture100==100 and d.gold100==200)
+      assert(LF_Writes==0 and Players[0].data==data)
+      LANTERN_StopTimingProbe()
+      assert(#Events.AIProcessingStartedForPlayer.handlers==1 and #GameEvents.PlayerDoTurn.handlers==1)
+    ''')
+    names.append('shipped_read_only_probe_progress_stock_deltas_and_retirement')
     print('PASS Lantern',len(names),'Lua 5.1 scenarios (simulation, not native timing)')
     return names
+
+
+def compare_baseline(ref):
+    code=subprocess.check_output(['git','show',ref+':TheLanternFleet/Lua/LANTERN_Harbors.lua'],cwd=R,text=True)
+    cases=['first_legitimate_human_notification_not_consumed_by_init',
+           'first_legitimate_scenario_ai_notification_not_consumed_by_init',
+           'partial_snapshot_one_dummy_retries_without_requalifying',
+           'partial_snapshot_after_one_city_uses_frozen_targets',
+           'setter_error_after_native_mutation_is_acknowledged_once',
+           'save_reload_after_partial_update_uses_intent_not_current_ships',
+           'capture_during_snapshot_write_is_not_dropped',
+           'status_after_observed_economy_is_rejected']
+    failures={}
+    original=subprocess.check_output(['git','show',ref+':tools/tests/lantern_assertions.lua'],cwd=R,text=True)
+    retained=set(re.findall(r'function LF_Tests\.([a-z0-9_]+)\(',original))
+    assert retained <= set(vm().globals().LF_Tests.keys())
+    for name in cases:
+        before=vm(code)
+        try:before.globals().LF_Tests[name]()
+        except Exception as exc:failures[name]=str(exc).splitlines()[0]
+        after=vm();after.globals().LF_Tests[name]()
+    assert len(failures)==len(cases),('expected reproducible baseline failures',failures)
+    print('PASS before/after:',len(cases),'failing baseline regressions fixed in shipped controller')
+    return {'baseline':ref,'baseline_failures':failures,'current_passes':cases,'legacy_scenarios_retained':len(retained)+1,
+            'scope':'Lua API/failure simulation only; not economic timing evidence'}
 
 
 def static(d):
@@ -149,9 +224,13 @@ def static(d):
         assert declared[name].get('md5')==hashlib.md5(p.read_bytes()).hexdigest().upper()
     order=[e.text for e in root.findall('Actions/OnModActivated/UpdateDatabase')]
     own_sql=[p.relative_to(R).as_posix() for p in sorted((V/'SQL').glob('*.sql'))]
-    # Later civilizations append after this released module.
+    # Later civilizations append after this released module; its own activation
+    # sequence must remain contiguous and ordered, rather than forever being last.
     start=order.index(own_sql[0])
     assert order[start:start+len(own_sql)]==own_sql
+    assert 'T1 - The ZOFGK Dynasty, The Republic of First Drafts' in PROPS['Description']
+    assert root.findtext('Properties/MinCompatibleSaveVersion')=='1'
+    assert root.findtext('Properties/SupportsMultiplayer')=='0'
     basenames=Counter(p.name.casefold() for p in files() if imported(p));assert max(basenames.values())==1
     for filename, in d.execute("SELECT Filename FROM IconTextureAtlases WHERE Atlas LIKE 'LANTERN_%'"):assert (V/'Art'/filename).is_file(),filename
     for p in (V/'Art').glob('*.dds'):
@@ -164,7 +243,7 @@ def static(d):
 
 
 def source_contract():
-    names=['CvPlayer.cpp','CvUnit.cpp','CvLuaCity.cpp','CvLuaUnit.cpp','CvCity.cpp','CvPlot.cpp','CvPromotionClasses.cpp']
+    names=['CvPlayer.cpp','CvUnit.cpp','CvLuaCity.cpp','CvLuaUnit.cpp','CvCity.cpp','CvPlot.cpp','CvPromotionClasses.cpp','CvLuaPlayer.cpp','CvLuaGame.cpp','CvLuaPlot.cpp','CvBuildingClasses.cpp']
     evidence=require_sources(names)
     sources={n:(R/'tools/reference'/n).read_text(encoding='utf-8-sig') for n in names}
     p=sources['CvPlayer.cpp']
@@ -173,7 +252,7 @@ def source_contract():
     assert activation.index('PublishPlayerTurnStatus(DLLUIClass::TURN_START') < activation.index('doTurn();')
     positions=[economy.index(s) for s in ['pLoopCity->doTurn();','GetTreasury()->DoGold();','changeJONSCultureTimes100(GetTotalJONSCulturePerTurnTimes100());','doResearch();','"PlayerDoTurn"']]
     assert positions==sorted(positions)
-    for method in ['IsCoastal','Plot']:assert 'Method('+method+');' in sources['CvLuaCity.cpp']
+    for method in ['IsCoastal','Plot','GetID','GetX','GetY','GetGameTurnFounded','GetNumRealBuilding','SetNumRealBuilding']:assert 'Method('+method+');' in sources['CvLuaCity.cpp']
     for method in ['IsCombatUnit','IsEmbarked','GetDomainType','IsDead','IsDelayedDeath']:assert 'Method('+method+');' in sources['CvLuaUnit.cpp']
     assert 'return plot()->isCoastalLand(iMinWaterSize);' in sources['CvCity.cpp']
     unit=sources['CvUnit.cpp']
@@ -188,23 +267,46 @@ def source_contract():
     for column in ['VisibilityChange','FriendlyLandsModifier','LostWithUpgrade']:
         assert 'kResults.Get' in promotion and '"'+column+'"' in promotion
     assert 'visitor(player.m_strScriptData);' in p
+    assert 'visitor(city.m_iGameTurnFounded);' in sources['CvCity.cpp']
+    assert 'visitor(MakeConstSpan(cityBuildings.m_paiNumRealBuilding, iNumBuildings));' in sources['CvBuildingClasses.cpp']
+    combat=unit.split('bool CvUnit::IsCombatUnit() const',1)[1].split('}',1)[0]
+    assert 'return (m_iBaseCombat > 0);' in combat
+    assert 'pkPlot->getUnitByIndex(iIndex)' in sources['CvLuaPlot.cpp']
+    assert 'Method(GetStartTurn);' in sources['CvLuaGame.cpp']
+    for method in ['GetScriptData','SetScriptData','GetCurrentResearch','GetResearchProgressTimes100','GetGoldTimes100','GetJONSCultureTimes100']:
+        assert 'Method('+method+');' in sources['CvLuaPlayer.cpp']
+    for method in ['GetUnit','GetNumUnits']:
+        assert 'Method('+method+');' in sources['CvLuaPlot.cpp']
+    assert activation.index('doTurn();') < activation.index('PublishActivePlayerTurnStart();')
     game=inspect_game()
     ui=(__import__('pathlib').Path(game['directory'])/'Assets/UI/InGame/TurnProcessing.lua').read_text(encoding='utf-8-sig')
     assert 'Events.AIProcessingStartedForPlayer.Add( OnAITurnStart );' in ui
-    print('PASS Lantern pinned CP151 API, promotion and publication-order evidence; executable dispatch UNVERIFIED')
+    load=(__import__('pathlib').Path(game['directory'])/'Assets/UI/FrontEnd/LoadScreen.lua').read_text(encoding='utf-8-sig')
+    assert 'if (not UI:IsLoadedGame()) then' in load
+    assert 'TXT_KEY_BEGIN_GAME_BUTTON_CONTINUE' in load
+    print('PASS Lantern pinned CP151 API, saved identity, research progress, lifecycle API and publication-order evidence; executable dispatch UNVERIFIED')
     return {'sources':evidence,'publication_before_economy':True,'PlayerDoTurn_after_economy':True,
+            'lifecycle_API_evidence':{'source':'Assets/UI/FrontEnd/LoadScreen.lua','sha256':hashlib.sha256(load.encode('utf-8')).hexdigest(),'usage':'UI:IsLoadedGame() selects Begin versus Continue'},
+            'human_status_delivery':'NOT VERIFIED; installed listener filters humans, which is not proof of executable dispatch',
+            'initial_lifecycle_ordering':'NOT VERIFIED in game; native loaded/start-turn API predicates are simulated',
+            'multiplayer':'UNSUPPORTED by current manifest; interleaved ownership tested only as a simulation',
             'executable_event_mapping_and_synchronous_dispatch':'NOT VERIFIED; candidate AIProcessingStartedForPlayer requires native acceptance',
             'source_url':f'https://github.com/LoneGazebo/Community-Patch-DLL/blob/{CP_COMMIT}/CvGameCoreDLL_Expansion2/CvPlayer.cpp'}
 
 
-def validate():
+def validate(baseline_ref=None):
     source=source_contract();d,count=sql_checks();static(d);scenarios=runtime()
     result={'date':'2026-11-01','baseline':inspect_database(),'source_evidence':source,
-            'companion_tables':count,'lua51_scenarios':scenarios,'result':'PASS static/simulation checks',
-            'native_acceptance':'PENDING: executable start dispatch, same-turn payout, combat, upgrade, rendering and save serialization'}
+            'companion_tables':count,'lua51_scenarios':scenarios,'result':'STATICALLY VALIDATED, NATIVE ACCEPTANCE PENDING',
+            'native_acceptance':'NOT RUN: user explicitly instructed not to launch Civ V. Human dispatch, tag/activity assumptions, initial lifecycle ordering, same-turn payout, combat, upgrade, rendering and save serialization remain pending.'}
+    if baseline_ref:result['before_after']=compare_baseline(baseline_ref)
     (V/'docs').mkdir(exist_ok=True)
     (V/'docs/Validation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
     return result
 
 
-if __name__=='__main__':validate()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--compare-baseline')
+    args=parser.parse_args()
+    validate(args.compare_baseline)

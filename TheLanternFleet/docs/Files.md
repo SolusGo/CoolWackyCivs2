@@ -89,3 +89,15 @@ Paths below are relative to the collection root. Existing civilization gameplay 
 - `docs/civilizations/TheLanternFleet.md`: short play guide.
 
 Generated ZIP/7z packages and validation logs live in ignored `dist/` and `tools/reference/`; proprietary game files are not committed.
+
+
+## Corrective audit — 2026-11-01
+
+The original addition inventory above is historical. The current checkout has newer work and version 23 metadata; this audit does not bump it. [Hardening.md](Hardening.md) gives the exact current audit file list, root causes, engine evidence, failure limits and test results. New development/evidence files are:
+
+- `tools/tests/lantern_hardening.lua`
+- `tools/validate_lantern_collection.py`
+- `TheLanternFleet/docs/Hardening.md`
+- `TheLanternFleet/docs/CollectionRegression.json`
+
+Existing Lantern runtime/probe, mock/assertions, validator, documentation and Validation.json are updated. Only the two Lantern Lua hashes in the current manifest are refreshed; original SQL, all artwork, project/actions/entries, compatibility flags and other civilization files are preserved.

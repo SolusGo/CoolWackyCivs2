@@ -1211,9 +1211,9 @@
     <File md5="36190EE8B426A33896F4F7830B03FB46" import="1">TheLanternFleet/Art/LANTERN_Portrait48.dds</File>
     <File md5="A56623DAC6E1658B6E90270CA46AA361" import="1">TheLanternFleet/Art/LANTERN_Portrait64.dds</File>
     <File md5="62CB616666209473692599F36E5AE541" import="1">TheLanternFleet/Art/LANTERN_Portrait80.dds</File>
-    <File md5="665AD5090B9FA459B7ACBABBCB735CEE" import="1">TheLanternFleet/Lua/LANTERN_Harbors.lua</File>
+    <File md5="BB10E2CF83BB2973A993665D2F81A26A" import="1">TheLanternFleet/Lua/LANTERN_Harbors.lua</File>
     <File md5="EEEF2B9F25E3D5E9B3E70363887BFE6A" import="0">TheLanternFleet/Lua/LANTERN_Harbors.xml</File>
-    <File md5="4E08FF32C6BAD74C7EF877ED85019658" import="1">TheLanternFleet/Lua/LANTERN_TimingProbe.lua</File>
+    <File md5="F5F3810453C84BC097DAF9B49E0169C1" import="1">TheLanternFleet/Lua/LANTERN_TimingProbe.lua</File>
     <File md5="A9268DD65313536964A3EA624C3951ED" import="0">TheLanternFleet/SQL/00_LANTERN_Core.sql</File>
     <File md5="918BA686A2877DA420B22C4210FC332B" import="0">TheLanternFleet/SQL/01_LANTERN_Inheritance.sql</File>
     <File md5="8C63E37880B370087C5FCD232AD4ABDA" import="0">TheLanternFleet/SQL/02_LANTERN_Effects.sql</File>

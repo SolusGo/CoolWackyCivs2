@@ -2,7 +2,7 @@
 
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheLanternFleet.md).
 
-High Keeper Maren leads a human-selectable defensive maritime civilization for **Brave New World + Community Patch v151 (CP only)**. Capital: **First Beacon**. Preferred victories: Science / Culture. This is source-complete with original art; **native turn-event dispatch and same-turn economic settlement remain an integration acceptance requirement**, not a passed test.
+High Keeper Maren leads a human-selectable defensive maritime civilization for **Brave New World + Community Patch v151 (CP only)**. Capital: **First Beacon**. Preferred victories: Science / Culture. **STATICALLY VALIDATED, NATIVE ACCEPTANCE PENDING.** The corrective audit preserves the original art and exact design, hardens first-turn admission and frozen-target recovery, and leaves native event delivery/economic timing explicitly unverified. [Audit findings and remaining risks](docs/Hardening.md).
 
 | Unique | Effect |
 | --- | --- |
@@ -14,7 +14,7 @@ One qualifying ship is enough. Extra ships never stack. Cargo Ships, civilians, 
 
 With a Signal Lighthouse and a qualifying guard, the added base yields are **+2 Science, +2 Culture, +2 Gold**. None scales with era; ordinary engine yield modifiers still apply. The Lighthouse's +1 Culture needs no ship.
 
-The two hidden real-building counts represent a fixed snapshot. Moving in after the check waits until next turn; moving out afterward keeps this turn's snapshot. A Lighthouse completed after the check also waits for the next snapshot for conditional Gold. Loading does not reevaluate or pay an extra reward. City capture clears both conditional buildings immediately, even when the recipient is another Lantern player. Its next genuine turn-start check uses actual ownership.
+The two hidden real-building counts represent a fixed snapshot. Moving in after the check waits until next turn; moving out afterward keeps this turn's snapshot. A Lighthouse completed after the check also waits for the next snapshot for conditional Gold. Ordinary loads retain completed counts without reevaluation or extra rewards. Interrupted snapshots may finish from their saved targets, without checking later ship positions. Actual economic settlement interrupted by an error cannot be retroactively repaired by the dummy journal. City capture clears both conditional buildings immediately, even when the recipient is another Lantern player. Its next genuine turn-start check uses actual ownership.
 
 Selection is human-only (`Playable=1`, `AIPlayable=0`); scripted/scenario AI Lantern players still run the same ownership-based rules. No starting ships, unit spawning, era multipliers, extra resources or custom gameplay panel are added.
 

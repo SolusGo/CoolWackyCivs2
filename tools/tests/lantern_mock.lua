@@ -13,8 +13,9 @@ MapModData={}
 Events={AIProcessingStartedForPlayer=LF_Event(),LoadScreenClose=LF_Event(),
   SerialEventUnitMoveToHex=LF_Event(),ActivePlayerTurnStart=LF_Event(),SequenceGameInitComplete=LF_Event()}
 GameEvents={CityCaptureComplete=LF_Event(),PlayerDoTurn=LF_Event(),CityConstructed=LF_Event(),UnitSetXY=LF_Event()}
-LF_Turn,LF_Writes=10,0
-Game={GetGameTurn=function() return LF_Turn end}
+LF_Turn,LF_Writes,LF_StartTurn,LF_Loaded,LF_Qualifies=10,0,0,true,0
+Game={GetGameTurn=function() return LF_Turn end,GetStartTurn=function()return LF_StartTurn end}
+UI={IsLoadedGame=function()return LF_Loaded end}
 ContextPtr={SetShutdown=function(self,f) self.shutdown=f end}
 function LF_Unit(owner,domain,combat,embarked)
   return {owner=owner or 0,domain=domain or 1,combat=combat~=false,embarked=embarked or false,
@@ -22,16 +23,23 @@ function LF_Unit(owner,domain,combat,embarked)
     IsCombatUnit=function(s)return s.combat end,IsEmbarked=function(s)return s.embarked end,
     IsDead=function(s)return s.dead or false end,IsDelayedDeath=function(s)return s.delayed or false end}
 end
+LF_MapCities={}
 function LF_City(owner,coast)
-  local c={owner=owner or 0,coast=coast~=false,buildings={},units={}}
+  local c={owner=owner or 0,coast=coast~=false,buildings={},units={},id=LF_NextCityID or 1,x=(LF_NextCityID or 1)-1,y=0,born=0}
+  LF_NextCityID=(LF_NextCityID or 1)+1
+  c.GetID=function(s)return s.id end
+  c.GetX=function(s)return s.x end
+  c.GetY=function(s)return s.y end
+  c.GetGameTurnFounded=function(s)return s.born end
   c.GetOwner=function(s)return s.owner end
-  c.IsCoastal=function(s,min)assert(min==-1);return s.coast end
+  c.IsCoastal=function(s,min)assert(min==-1);LF_Qualifies=LF_Qualifies+1;return s.coast end
   c.GetNumRealBuilding=function(s,b)return s.buildings[b] or 0 end
   c.GetNumBuilding=c.GetNumRealBuilding
   c.SetNumRealBuilding=function(s,b,n) assert(n==0 or n==1);s.buildings[b]=n;LF_Writes=LF_Writes+1 end
   local plot={GetNumUnits=function()return #c.units end,GetUnit=function(s,i)return c.units[i+1] end,
     GetPlotCity=function()return c end}
   c.Plot=function()return plot end
+  LF_MapCities[c.x..','..c.y]=c
   return c
 end
 function LF_Player(id,civ)
@@ -43,7 +51,10 @@ function LF_Player(id,civ)
 end
 Players={[0]=LF_Player(0),[1]=LF_Player(1,9),[2]=LF_Player(2)}
 LF_Harbor=LF_City(0,true);Players[0].cities={LF_Harbor}
-Map={GetPlot=function()return LF_Harbor:Plot() end}
+Map={GetPlot=function(x,y)
+  local city=LF_MapCities[x..','..y]
+  if city and not city.destroyed then return city:Plot() end
+end}
 function LF_Load() LF_LoadSource() end
 function LF_Start(id,advance)
   if advance~=false then LF_Turn=LF_Turn+1 end
