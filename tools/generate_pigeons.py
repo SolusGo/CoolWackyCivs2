@@ -67,7 +67,7 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES
     core += clone('Civilizations', 'CIVILIZATION_AMERICA', CIV,
         Description='TXT_KEY_PIGEON_CIV', ShortDescription='TXT_KEY_PIGEON_SHORT', Adjective='TXT_KEY_PIGEON_ADJECTIVE',
         Civilopedia='TXT_KEY_PIGEON_CIV_PEDIA', CivilopediaTag='TXT_KEY_PIGEON_CIV5', Strategy='TXT_KEY_PIGEON_STRATEGY',
-        DefaultPlayerColor='PLAYERCOLOR_PIGEON', Playable=1, AIPlayable=1, PackageID=None,
+        DefaultPlayerColor='PLAYERCOLOR_PIGEON', Playable=1, AIPlayable=0, PackageID=None,
         DawnOfManQuote='TXT_KEY_PIGEON_DAWN', DawnOfManAudio='', DawnOfManImage='PigeonDawn.dds', MapImage='PigeonMap.dds',
         PortraitIndex=0, IconAtlas='PIGEON_CIV_ATLAS', AlphaIconAtlas='PIGEON_ALPHA_ATLAS')
     core += clone('Leaders', 'LEADER_WASHINGTON', LEADER,

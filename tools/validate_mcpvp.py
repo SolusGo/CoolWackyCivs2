@@ -15,6 +15,7 @@ def sql():
  for p in files():
   if p.suffix=='.sql':d.executescript(p.read_text(encoding='utf-8'))
  for t,typ in [('Civilizations','CIVILIZATION_MCPVP'),('Leaders','LEADER_MCPVP_OLD_GUARD'),('Units','UNIT_MCPVP_VETERAN'),('Buildings','BUILDING_MCPVP_HUB')]:assert d.execute('SELECT 1 FROM '+t+' WHERE Type=?',(typ,)).fetchone(),typ
+ assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_MCPVP'").fetchone())==(1,0)
  for t,old,new,allowed in [('Units','UNIT_SCOUT','UNIT_MCPVP_VETERAN',{'ID','Type','Combat','Description','Civilopedia','Help','Strategy','IconAtlas','PortraitIndex'}),('Buildings','BUILDING_BARRACKS','BUILDING_MCPVP_HUB',{'ID','Type','Description','Civilopedia','Help','Strategy','IconAtlas','PortraitIndex'})]:
   a=d.execute('SELECT * FROM '+t+' WHERE Type=?',(old,)).fetchone();b=d.execute('SELECT * FROM '+t+' WHERE Type=?',(new,)).fetchone()
   for k in a.keys():

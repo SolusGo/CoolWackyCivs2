@@ -17,7 +17,7 @@ def sql():
     before={t:d.execute('SELECT * FROM '+t+' WHERE Type=?',(n,)).fetchone() for t,n in
             [('Civilizations','CIVILIZATION_AMERICA'),('Units','UNIT_WORKER'),('Buildings','BUILDING_MONUMENT')]}
     for path in sorted((V/'SQL').glob('*.sql')):d.executescript(path.read_text(encoding='utf-8'))
-    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_BOUNDLESS_CITY'").fetchone())==(1,1)
+    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_BOUNDLESS_CITY'").fetchone())==(1,0)
     for table,old,new,allowed in [
         ('Units','UNIT_WORKER','UNIT_BC_SURVEYOR',{'ID','Type','Moves','WorkRate','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex','UnitFlagAtlas','UnitFlagIconOffset'}),
         ('Buildings','BUILDING_MONUMENT','BUILDING_BC_REGISTRY',{'ID','Type','Description','Help','Strategy','Civilopedia','IconAtlas','PortraitIndex'})]:
@@ -56,6 +56,9 @@ def sql():
     from validate_boundless_lore import validate as validate_lore
     validate_lore(d)
     print('PASS actual BNW/CP SQL, complete Worker/Monument inheritance, starting Settler, UI localization and art references')
+    d.close()
+    from validate_human_only import run as validate_selection
+    validate_selection()
 
 def syntax():
     lua=LuaRuntime();check=lua.eval('function(s,n) local f,e=loadstring(s,n);assert(f,e) end')

@@ -1,5 +1,7 @@
 # The Republic of Pigeons
 
+Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
+
 Led by **Postmaster General Coo**, with **Coopolis** as its capital. A slate blue and cream republic of couriers, rooftop assemblies and dependable correspondence. Requires Brave New World and **Community Patch v151**; packaged in Cool Wacky Civs 2 version 5.
 
 ![Postmaster General Coo](../art-source/TheRepublicOfPigeons/CooAndCoopolis.png)
@@ -16,6 +18,6 @@ Explore early to find safe caravan destinations. Put several routes in a develop
 
 Coo has high land-trade, origin, recon, Science, Culture, commerce and diplomacy flavors, friendly approaches and moderate defensive priorities. The normal engine chooses trade routes and production; no custom AI planner claims to understand the Lua yields. Trade disruption uses ordinary CP diplomacy penalties; there is no extra custom hostility ability.
 
-Build with the root [instructions](../README.md). Install the version 5 ZIP, enable CP and this collection, then start a **new game** as Coo. Normal AI opponents receive the same bonuses. Multiplayer/hotseat/Mac remain disabled at the collection level. Pigeon yields are reconstructed from native routes after load without saved Lua state; native save/load verification remains outstanding.
+Build with the root [instructions](../README.md). Install the version 5 ZIP, enable CP and this collection, then start a **new game** as Coo. AI opponents cannot select Coo in new games. Multiplayer/hotseat/Mac remain disabled at the collection level. Pigeon yields are reconstructed from native routes after load without saved Lua state; native save/load verification remains outstanding.
 
 See [Implementation.md](docs/Implementation.md), [Testing.md](docs/Testing.md), [CHANGELOG.md](CHANGELOG.md), and the [roster page](../docs/civilizations/TheRepublicOfPigeons.md). All art is included. Static diplomacy and the Scout model are deliberate compatible presentation choices; no commissioned model, animation or voice track is required.

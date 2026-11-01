@@ -1,5 +1,7 @@
 # The Boundless City
 
+Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
+
 > There shall be no second city. For the first shall have no end.
 
 An original Civilization V civilization led by **The First Architect**, built for **Brave New World + Community Patch v151**. Its capital is **The Heart of the World**. The theme combines a medieval settlement, golden civic architecture and an interconnected metropolis spreading across the world.
@@ -132,7 +134,7 @@ Quarantine clears queues/automation, blocks production and new trade routes invo
 
 ## AI and balance
 
-The AI is selectable and uses the same frontier, Registry, citizen reservations and one-city guards. Each owner turn chooses Food when growth is constrained, Production when defense is thin, and Balanced otherwise. Existing leader flavors are preserved. Surveyors share cached resource/yield/remote candidates. Native build IDs, unit creation identity and ownership are revalidated; dead/upgraded/stale targets are dropped. Busy targets remain reserved. Failed routes wait three turns before retry, units rotate fairly, and all calls share at most 12 native paths per owner turn. Budget deferral preserves a valid saved target. There is no distance/land-area cutoff or overwrite of busy native orders.
+For older saves containing an AI-controlled Architect, the preserved controller uses the same frontier, Registry, citizen reservations and one-city guards. Each owner turn chooses Food when growth is constrained, Production when defense is thin, and Balanced otherwise. Existing leader flavors are preserved. Surveyors share cached resource/yield/remote candidates. Native build IDs, unit creation identity and ownership are revalidated; dead/upgraded/stale targets are dropped. Busy targets remain reserved. Failed routes wait three turns before retry, units rotate fairly, and all calls share at most 12 native paths per owner turn. Budget deferral preserves a valid saved target. There is no distance/land-area cutoff or overwrite of busy native orders.
 
 Native pathfinding, later homeland-AI orders and distant cross-continent development still require live verification. The custom worker planner does not teleport units or promise ocean development with land Workers. **Full AI compatibility has not been verified.**
 

@@ -6,7 +6,7 @@ The civilization selection map now uses an original [parchment city atlas](../..
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)
 
-**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human/AI selectable:** yes · **Collection:** mod v14, preview
+**Leader:** The First Architect · **Capital:** The Heart of the World · **Target:** BNW + CP v151 · **Human selectable:** yes · **AI selectable:** no · **Collection:** mod v14, preview
 
 ## Identity and uniques
 

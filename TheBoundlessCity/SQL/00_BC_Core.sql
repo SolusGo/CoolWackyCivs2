@@ -6,7 +6,7 @@ INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES ('COLOR_BC_BLUE',0.035,0.09
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PLAYERCOLOR_BC','COLOR_BC_BLUE','COLOR_BC_GOLD','COLOR_PLAYER_WHITE_TEXT');
 INSERT INTO Traits(Type,Description,ShortDescription,NoAnnexing,StaysAliveZeroCities) VALUES ('TRAIT_BC_ONE_WORLD','TXT_KEY_BC_TRAIT_HELP','TXT_KEY_BC_TRAIT',1,1);
 CREATE TEMP TABLE BCClone AS SELECT * FROM "Civilizations" WHERE Type='CIVILIZATION_AMERICA';
-UPDATE BCClone SET "ID"=NULL,"Type"='CIVILIZATION_BOUNDLESS_CITY',"Description"='TXT_KEY_BC_CIV',"ShortDescription"='TXT_KEY_BC_SHORT',"Adjective"='TXT_KEY_BC_ADJECTIVE',"Civilopedia"='TXT_KEY_BC_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_CIV5_BC',"Strategy"='TXT_KEY_BC_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_BC',"Playable"=1,"AIPlayable"=1,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_BC_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='BoundlessDawn.dds',"MapImage"='BoundlessMap.dds',"PortraitIndex"=0,"IconAtlas"='BC_CIV_ATLAS',"AlphaIconAtlas"='BC_ALPHA_ATLAS';
+UPDATE BCClone SET "ID"=NULL,"Type"='CIVILIZATION_BOUNDLESS_CITY',"Description"='TXT_KEY_BC_CIV',"ShortDescription"='TXT_KEY_BC_SHORT',"Adjective"='TXT_KEY_BC_ADJECTIVE',"Civilopedia"='TXT_KEY_BC_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_CIV5_BC',"Strategy"='TXT_KEY_BC_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_BC',"Playable"=1,"AIPlayable"=0,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_BC_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='BoundlessDawn.dds',"MapImage"='BoundlessMap.dds',"PortraitIndex"=0,"IconAtlas"='BC_CIV_ATLAS',"AlphaIconAtlas"='BC_ALPHA_ATLAS';
 INSERT INTO "Civilizations" SELECT * FROM BCClone;
 DROP TABLE BCClone;
 CREATE TEMP TABLE BCClone AS SELECT * FROM "Leaders" WHERE Type='LEADER_WASHINGTON';

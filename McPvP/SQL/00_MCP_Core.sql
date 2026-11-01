@@ -10,7 +10,7 @@ INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES
 INSERT INTO Traits(Type,Description,ShortDescription) VALUES
  ('TRAIT_MCPVP_MORE_GAME','TXT_KEY_MCPVP_TRAIT_HELP','TXT_KEY_MCPVP_TRAIT');
 CREATE TEMP TABLE MCPClone AS SELECT * FROM "Civilizations" WHERE Type='CIVILIZATION_AMERICA';
-UPDATE MCPClone SET "ID"=NULL,"Type"='CIVILIZATION_MCPVP',"Description"='TXT_KEY_MCPVP_CIV',"ShortDescription"='TXT_KEY_MCPVP_SHORT',"Adjective"='TXT_KEY_MCPVP_ADJECTIVE',"Civilopedia"='TXT_KEY_MCPVP_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_MCPVP_CIV5',"Strategy"='TXT_KEY_MCPVP_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_MCPVP',"Playable"=1,"AIPlayable"=1,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_MCPVP_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='MCP_Dawn.dds',"MapImage"='MCP_Map.dds',"PortraitIndex"=0,"IconAtlas"='MCPVP_CIV_ATLAS',"AlphaIconAtlas"='MCPVP_ALPHA_ATLAS';
+UPDATE MCPClone SET "ID"=NULL,"Type"='CIVILIZATION_MCPVP',"Description"='TXT_KEY_MCPVP_CIV',"ShortDescription"='TXT_KEY_MCPVP_SHORT',"Adjective"='TXT_KEY_MCPVP_ADJECTIVE',"Civilopedia"='TXT_KEY_MCPVP_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_MCPVP_CIV5',"Strategy"='TXT_KEY_MCPVP_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_MCPVP',"Playable"=1,"AIPlayable"=0,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_MCPVP_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='MCP_Dawn.dds',"MapImage"='MCP_Map.dds',"PortraitIndex"=0,"IconAtlas"='MCPVP_CIV_ATLAS',"AlphaIconAtlas"='MCPVP_ALPHA_ATLAS';
 INSERT INTO "Civilizations" SELECT * FROM MCPClone;
 DROP TABLE MCPClone;
 CREATE TEMP TABLE MCPClone AS SELECT * FROM "Leaders" WHERE Type='LEADER_WASHINGTON';

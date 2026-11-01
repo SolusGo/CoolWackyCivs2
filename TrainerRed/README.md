@@ -1,5 +1,7 @@
 # Trainer Red — The Living Legend
 
+Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
+
 **The Indigo Champion**, led by **Trainer Red, the Silent Champion**. Capital: **Pallet Town**. A civilization for Brave New World and **Community Patch v151**, included in Cool Wacky Civs 2 **mod version 7 / 1.4.0 preview**. Domination is preferred; Science is secondary.
 
 ![Red on Mt. Silver](../art-source/TrainerRed/RedOnSilver.png)
@@ -91,7 +93,7 @@ Snorlax's saved one-tile allowance also applies after Battle Items. Known melee 
 
 The upper-right **Champion Team** button opens six scrolling party slots, including names, icons, types, HP/max HP, Training/rank, XP/level, Ribbons, Ace and Summit status. It shows capacity and project/countdown state. Select, inspect, assign/release, bond, item and airlift commands are explicit. Opening/refreshing is read-only. The panel closes for city, diplomacy, popup and nonselection contexts. No permanent frame loop runs.
 
-AI uses the same Training, assignments, bonds, Battle Items, project eligibility and return logic. It favors role diversity, retreats badly hurt veterans when a city path is available, prioritizes the Plateau and queues Mt. Silver when its capital is reasonably safe. It searches every city's full queue, then appends one project to a safe city with strong Production, preserving existing orders and invested Production. Native tactical AI retains army command; returning ranged partners also choose legal visible high-value shots. AI-only gameplay remains a required native test.
+For older saves containing AI Red, the preserved controller uses the same Training, assignments, bonds, Battle Items, project eligibility and return logic. It favors role diversity, retreats badly hurt veterans when a city path is available, prioritizes the Plateau and queues Mt. Silver when its capital is reasonably safe. It searches every city's full queue, then appends one project to a safe city with strong Production, preserving existing orders and invested Production. Native tactical AI retains army command; returning ranged partners also choose legal visible high-value shots. AI-only gameplay remains a required native test.
 
 The [stability audit](docs/StabilityAudit.md) records confirmed defects, corrective changes, regression evidence and remaining native checks. Existing version-1 save ledgers migrate additively. Gameplay bonuses, cooldowns, project cost and journey duration are unchanged.
 

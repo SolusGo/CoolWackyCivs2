@@ -1,5 +1,7 @@
 # McPvP — The Endless Lobby
 
+Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
+
 **Leader:** The Old Guard. **Capital:** Lobby One. **UA:** Just One More Game. **UU:** Veteran PvPer (Scout). **UB:** Original Server Hub (Barracks). Built for BNW and Community Patch v151. Preferred victories: Domination and Culture.
 
 The match ends. The memories don't.
@@ -46,7 +48,7 @@ Time-based mechanics use the actual GameSpeed `TrainPercent`, rounded to the nea
 
 Authoritative state lives in the selected save's player and unit ScriptData, preserving other mods' data. Serial-tagged records, creation turns and explicit upgrade handoffs protect against stale IDs. Save/load restores modes, Legacy, cooldowns, flag origins, missions, debuff expiry and remembrance. Corrupt or future state is rejected without overwriting it. The other collection civilizations keep their own save formats.
 
-AI McPvP checks reachable military/recon opportunities, assigns role-based kits and uses real objective actions. Verified native route queries are checked for legal land travel; a bounded weighted search provides detours when necessary. Carriers prefer safer return routes, and infiltrators hold their operational area. Routes are rechecked as units, access and targets change; repeatedly failed movement is released and briefly cooled down. Busy units and unrelated native orders are preserved. Search limits may defer or decline distant objectives, and the game's tactical AI can still change plans. No objective is awarded for free. See the [reliability report](docs/ReliabilityReport.md) for exact budgets and remaining native checks.
+In older saves, AI McPvP checks reachable military/recon opportunities, assigns role-based kits and uses real objective actions. Verified native route queries are checked for legal land travel; a bounded weighted search provides detours when necessary. Carriers prefer safer return routes, and infiltrators hold their operational area. Routes are rechecked as units, access and targets change; repeatedly failed movement is released and briefly cooled down. Busy units and unrelated native orders are preserved. Search limits may defer or decline distant objectives, and the game's tactical AI can still change plans. No objective is awarded for free. See the [reliability report](docs/ReliabilityReport.md) for exact budgets and remaining native checks.
 
 Single-player is the supported target. Multiplayer and hotseat remain disabled in the collection; Browser mutation commands also reject network multiplayer. Custom actions use the collection's existing single simulation-owning UI-addin pattern and have not been proven synchronized in multiplayer.
 

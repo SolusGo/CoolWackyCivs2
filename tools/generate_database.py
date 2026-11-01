@@ -128,7 +128,7 @@ INSERT INTO Traits(Type,Description,ShortDescription,NoAnnexing,StaysAliveZeroCi
     core += clone('Civilizations', 'CIVILIZATION_AMERICA', 'CIVILIZATION_BOUNDLESS_CITY',
         Description='TXT_KEY_BC_CIV', ShortDescription='TXT_KEY_BC_SHORT', Adjective='TXT_KEY_BC_ADJECTIVE',
         Civilopedia='TXT_KEY_BC_CIV_PEDIA', CivilopediaTag='TXT_KEY_CIV5_BC', Strategy='TXT_KEY_BC_STRATEGY',
-        DefaultPlayerColor='PLAYERCOLOR_BC', Playable=1, AIPlayable=1, PackageID=None,
+        DefaultPlayerColor='PLAYERCOLOR_BC', Playable=1, AIPlayable=0, PackageID=None,
         DawnOfManQuote='TXT_KEY_BC_DAWN', DawnOfManAudio='', DawnOfManImage='BoundlessDawn.dds',
         MapImage='BoundlessMap.dds', PortraitIndex=0, IconAtlas='BC_CIV_ATLAS', AlphaIconAtlas='BC_ALPHA_ATLAS')
     core += clone('Leaders', 'LEADER_WASHINGTON', 'LEADER_BC_ARCHITECT',

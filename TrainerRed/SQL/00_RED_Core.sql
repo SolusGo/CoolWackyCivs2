@@ -9,7 +9,7 @@ INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES
  ('PLAYERCOLOR_RED_INDIGO','COLOR_RED_CRIMSON','COLOR_RED_SILVER','COLOR_PLAYER_WHITE_TEXT');
 INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_RED_LIVING_LEGEND','TXT_KEY_RED_TRAIT_HELP','TXT_KEY_RED_TRAIT');
 CREATE TEMP TABLE REDClone AS SELECT * FROM "Civilizations" WHERE Type='CIVILIZATION_AMERICA';
-UPDATE REDClone SET "ID"=NULL,"Type"='CIVILIZATION_RED_INDIGO_CHAMPION',"Description"='TXT_KEY_RED_CIV',"ShortDescription"='TXT_KEY_RED_SHORT',"Adjective"='TXT_KEY_RED_ADJECTIVE',"Civilopedia"='TXT_KEY_RED_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_RED_CIV5',"Strategy"='TXT_KEY_RED_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_RED_INDIGO',"Playable"=1,"AIPlayable"=1,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_RED_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='RED_Dawn.dds',"MapImage"='RED_Map.dds',"PortraitIndex"=0,"IconAtlas"='RED_CIV_ATLAS',"AlphaIconAtlas"='RED_ALPHA_ATLAS';
+UPDATE REDClone SET "ID"=NULL,"Type"='CIVILIZATION_RED_INDIGO_CHAMPION',"Description"='TXT_KEY_RED_CIV',"ShortDescription"='TXT_KEY_RED_SHORT',"Adjective"='TXT_KEY_RED_ADJECTIVE',"Civilopedia"='TXT_KEY_RED_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_RED_CIV5',"Strategy"='TXT_KEY_RED_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_RED_INDIGO',"Playable"=1,"AIPlayable"=0,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_RED_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='RED_Dawn.dds',"MapImage"='RED_Map.dds',"PortraitIndex"=0,"IconAtlas"='RED_CIV_ATLAS',"AlphaIconAtlas"='RED_ALPHA_ATLAS';
 INSERT INTO "Civilizations" SELECT * FROM REDClone;
 DROP TABLE REDClone;
 CREATE TEMP TABLE REDClone AS SELECT * FROM "Leaders" WHERE Type='LEADER_WASHINGTON';

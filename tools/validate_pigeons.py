@@ -50,7 +50,7 @@ def sql():
     for table,rows in snapshot.items():
         current=[tuple(r) for r in d.execute('SELECT * FROM '+table+" WHERE Type NOT LIKE '%PIGEON_%' ORDER BY ID")]
         assert current==rows,('unexpected native/Boundless mutation',table)
-    assert tuple(d.execute('SELECT Playable,AIPlayable FROM Civilizations WHERE Type=?',(CIV,)).fetchone())==(1,1)
+    assert tuple(d.execute('SELECT Playable,AIPlayable FROM Civilizations WHERE Type=?',(CIV,)).fetchone())==(1,0)
     assert d.execute('SELECT CivilizationType FROM Civilization_UnitClassOverrides WHERE UnitType=?',(UNIT,)).fetchone()[0]==CIV
     assert d.execute('SELECT CivilizationType FROM Civilization_BuildingClassOverrides WHERE BuildingType=?',(ROOST,)).fetchone()[0]==CIV
     assert d.execute('SELECT COUNT(*) FROM Civilization_CityNames WHERE CivilizationType=?',(CIV,)).fetchone()[0]==24

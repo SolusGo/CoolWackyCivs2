@@ -8,7 +8,7 @@ INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES
 INSERT INTO Traits(Type,Description,ShortDescription) VALUES
  ('TRAIT_PIGEON_MESSAGES','TXT_KEY_PIGEON_TRAIT_HELP','TXT_KEY_PIGEON_TRAIT');
 CREATE TEMP TABLE PIGEONClone AS SELECT * FROM "Civilizations" WHERE Type='CIVILIZATION_AMERICA';
-UPDATE PIGEONClone SET "ID"=NULL,"Type"='CIVILIZATION_PIGEON_REPUBLIC',"Description"='TXT_KEY_PIGEON_CIV',"ShortDescription"='TXT_KEY_PIGEON_SHORT',"Adjective"='TXT_KEY_PIGEON_ADJECTIVE',"Civilopedia"='TXT_KEY_PIGEON_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_PIGEON_CIV5',"Strategy"='TXT_KEY_PIGEON_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_PIGEON',"Playable"=1,"AIPlayable"=1,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_PIGEON_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='PigeonDawn.dds',"MapImage"='PigeonMap.dds',"PortraitIndex"=0,"IconAtlas"='PIGEON_CIV_ATLAS',"AlphaIconAtlas"='PIGEON_ALPHA_ATLAS';
+UPDATE PIGEONClone SET "ID"=NULL,"Type"='CIVILIZATION_PIGEON_REPUBLIC',"Description"='TXT_KEY_PIGEON_CIV',"ShortDescription"='TXT_KEY_PIGEON_SHORT',"Adjective"='TXT_KEY_PIGEON_ADJECTIVE',"Civilopedia"='TXT_KEY_PIGEON_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_PIGEON_CIV5',"Strategy"='TXT_KEY_PIGEON_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_PIGEON',"Playable"=1,"AIPlayable"=0,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_PIGEON_DAWN',"DawnOfManAudio"='',"DawnOfManImage"='PigeonDawn.dds',"MapImage"='PigeonMap.dds',"PortraitIndex"=0,"IconAtlas"='PIGEON_CIV_ATLAS',"AlphaIconAtlas"='PIGEON_ALPHA_ATLAS';
 INSERT INTO "Civilizations" SELECT * FROM PIGEONClone;
 DROP TABLE PIGEONClone;
 CREATE TEMP TABLE PIGEONClone AS SELECT * FROM "Leaders" WHERE Type='LEADER_WASHINGTON';

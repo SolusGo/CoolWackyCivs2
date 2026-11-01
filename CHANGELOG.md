@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.20.1 Human-only roster / mod version 21 — 2026-11-01
+
+- Disable AI selection for The Boundless City, The Republic of Pigeons, Trainer Red and McPvP. All twenty civilizations remain selectable by humans.
+- Keep generated SQL consistent with the source policy and validate the complete activated roster, including unchanged selection flags for unrelated civilizations.
+- Applies to new-game civilization selection; existing AI players in saved games retain their civilizations and runtime recovery support.
+
 ## 1.20.0 The Lantern Fleet / mod version 20 — 2026-11-01
 
 - Add human-only High Keeper Maren, First Beacon, exact Guarded Harbor snapshots, Beacon Cutter and Signal Lighthouse. Append SQL to preserve released IDs and leave other gameplay unchanged.

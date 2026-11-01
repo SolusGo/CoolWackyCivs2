@@ -52,7 +52,7 @@ def standalone():
    d.execute('DROP TABLE '+quote(row[0]))
  for path in files():
   if path.suffix=='.sql':d.executescript(path.read_text(encoding='utf-8'))
- assert d.execute("SELECT AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_RED_INDIGO_CHAMPION'").fetchone()[0]==1
+ assert d.execute("SELECT AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_RED_INDIGO_CHAMPION'").fetchone()[0]==0
  print('PASS collection SQL without optional third-party metadata tables; guarded legacy inheritance')
 
 def source_audit():
