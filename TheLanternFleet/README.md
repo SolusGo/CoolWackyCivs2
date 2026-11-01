@@ -2,6 +2,8 @@
 
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheLanternFleet.md).
 
+**Final verification (2026-11-02):** [Current evidence, native acceptance limits and recommendation](docs/FinalVerification.md).
+
 High Keeper Maren leads a human-selectable defensive maritime civilization for **Brave New World + Community Patch v151 (CP only)**. Capital: **First Beacon**. Preferred victories: Science / Culture. **STATICALLY VALIDATED, NATIVE ACCEPTANCE PENDING.** The corrective audit preserves the original art and exact design, hardens first-turn admission and frozen-target recovery, and leaves native event delivery/economic timing explicitly unverified. [Audit findings and remaining risks](docs/Hardening.md).
 
 | Unique | Effect |

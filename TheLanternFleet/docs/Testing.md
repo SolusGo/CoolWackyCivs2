@@ -1,5 +1,7 @@
 # Validation and native acceptance
 
+**Current final pass:** [2026-11-02 verification](FinalVerification.md), including the explicit unavailable live-cache probe and current recommendation. The earlier audit record below is retained.
+
 **Verdict: STATICALLY VALIDATED, NATIVE ACCEPTANCE PENDING.** No native game test was run. The user explicitly instructed not to launch Civ V; this audit does not ask to override that restriction.
 
 ## Executed checks

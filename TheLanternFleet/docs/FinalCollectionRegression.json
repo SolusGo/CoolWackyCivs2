@@ -1,0 +1,90 @@
+{
+  "result": "PASS_AVAILABLE_CHECKS",
+  "scope": "All available collection checks in two phases; not an unqualified pristine-live-cache or native acceptance pass",
+  "civilizations": [
+    "TheBoundlessCity",
+    "TheRepublicOfPigeons",
+    "TrainerRed",
+    "McPvP",
+    "TheChildrenOfTheKingdom",
+    "TheTwelfthHour",
+    "TheWanderingCircus",
+    "The11Cats",
+    "KingdomOfSaba",
+    "TheSubstituteClassroom",
+    "TheConicalUnion",
+    "KingdomOfTheUnrungBell",
+    "TheUrgal",
+    "JinDynasty",
+    "TheThresholdCourt",
+    "TheHoneycombCommonwealth",
+    "TheLaureateCommonwealth",
+    "T1ZOFGK",
+    "TheRepublicOfFirstDrafts",
+    "TheLanternFleet",
+    "TheTriumphalImperium"
+  ],
+  "preserved_civilization_files": 1381,
+  "continuation_redirected_report_writes": [
+    "TheConicalUnion/docs/SourceAudit.json",
+    "TheConicalUnion/docs/Validation.json",
+    "KingdomOfTheUnrungBell/docs/SourceAudit.json",
+    "KingdomOfTheUnrungBell/docs/SaveApiAudit.json",
+    "KingdomOfTheUnrungBell/docs/Validation.json",
+    "TheUrgal/docs/Validation.json",
+    "JinDynasty/docs/SourceAudit.json",
+    "JinDynasty/docs/Validation.json",
+    "TheThresholdCourt/docs/Validation.json",
+    "TheHoneycombCommonwealth/docs/SourceAudit.json",
+    "TheHoneycombCommonwealth/docs/Performance.json",
+    "TheLaureateCommonwealth/docs/CivilopediaValidation.json",
+    "TheLaureateCommonwealth/docs/Validation.json",
+    "T1ZOFGK/docs/Validation.json",
+    "TheRepublicOfFirstDrafts/docs/Validation.json",
+    "TheLanternFleet/docs/Validation.json",
+    "TheTriumphalImperium/docs/Validation.json"
+  ],
+  "continuation_elapsed_seconds": 257.7,
+  "native_tests": "NOT RUN: user prohibited launching Civ V",
+  "date": "2026-11-02",
+  "audited_commit": "920cbcbc2277bb78d6c263037003ffb1cd61961f",
+  "unavailable_checks": [
+    {
+      "check": "optional pristine live-cache activation fixture",
+      "result": "UNAVAILABLE",
+      "affected_validators": [
+        "twelfth",
+        "circus",
+        "saba",
+        "conical_union",
+        "unrung"
+      ],
+      "path": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\cache\\Civ5DebugDatabase.db",
+      "reason": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\cache\\Civ5DebugDatabase.db already contains this collection. Capture a baseline without Cool Wacky Civs 2 to avoid duplicate definitions."
+    }
+  ],
+  "execution_phases": [
+    {
+      "coverage": "core/package/coexistence and validators through Classroom",
+      "log_sha256": "b6cf2a44c93699dd1c5c8a2dd6fe22a6dcc9e005a46c896b75590fc3a647be3f",
+      "stopped_at": "Conical optional populated live-cache probe"
+    },
+    {
+      "coverage": "Conical through Triumphal",
+      "modules": [
+        "conical_union",
+        "unrung",
+        "urgal",
+        "jin",
+        "threshold",
+        "honeycomb",
+        "laureate",
+        "t1zofgk",
+        "rfd",
+        "lantern",
+        "triumphal"
+      ],
+      "result": "PASS available checks"
+    }
+  ]
+}
