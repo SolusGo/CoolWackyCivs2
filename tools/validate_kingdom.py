@@ -187,7 +187,9 @@ def assets(d):
     for p in (V/'Art').glob('*.dds'):
         with Image.open(p) as im: im.load()
     all_sources='\n'.join(p.read_text(encoding='utf-8') for p in V.rglob('*') if p.suffix in ['.sql','.xml','.lua'])
-    keys=set(re.findall(r'TXT_KEY_CK_[A-Z_0-9]+',all_sources))
+    # Article SQL composes prefixes; the dedicated guide validator checks the
+    # resulting chapters. A trailing underscore is not a complete display key.
+    keys={k for k in re.findall(r'TXT_KEY_CK_[A-Z_0-9]+',all_sources) if not k.endswith('_')}
     assert keys<={'TXT_KEY_CK_'+k for k in TEXT}|{'TXT_KEY_CK_CIV5','TXT_KEY_CK_FAITHFUL'},keys-{'TXT_KEY_CK_'+k for k in TEXT}
     print('PASS Kingdom Lua 5.1 syntax, UI XML/control IDs, localization and all 34 decoded DDS references')
 

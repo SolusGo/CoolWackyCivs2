@@ -1,0 +1,35 @@
+{
+  "database": {
+    "cache": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\cache_backup\\Civ5DebugDatabase.db",
+    "cp": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch",
+    "cp_modinfo": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Sid Meier's Civilization 5\\MODS\\(1) Community Patch\\(1) Community Patch (v 151).modinfo",
+    "cp_version": 151,
+    "baseline": "BNW snapshot; CP v151 schema overlaid explicitly in memory",
+    "read_only": true
+  },
+  "source_pin": {
+    "commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+    "directory": "C:\\Users\\ThatOneYi\\Documents\\My Games\\Civ5\\WackyMods\\CoolWackyCivs2\\tools\\reference",
+    "files": 11
+  },
+  "in_game": "NOT RUN",
+  "lua_contracts": [
+    {
+      "speed": "GAMESPEED_QUICK",
+      "assertions": 169
+    },
+    {
+      "speed": "GAMESPEED_STANDARD",
+      "assertions": 169
+    },
+    {
+      "speed": "GAMESPEED_EPIC",
+      "assertions": 169
+    },
+    {
+      "speed": "GAMESPEED_MARATHON",
+      "assertions": 169
+    }
+  ],
+  "result": "PASS static/database/Lua-mock validation; native gameplay/rendering acceptance outstanding"
+}

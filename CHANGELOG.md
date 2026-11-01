@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.22.0 / mod version 23 - The Triumphal Imperium - 2026-11-01
+
+- Add Imperator Aurelion, The Unbroken and the Hall of Triumphs as an isolated human-only civilization. Victory Momentum rewards verified major military combat kills and conquests, decays across quiet owner-turn cycles, and drives native military strength/Production tiers.
+- Add save-safe combat/capture receipts, once-per-site conquest rewards, Bronze Working Hall deferral, ownership cleanup, original-type movement and a compact six-laurel interface.
+- Include coherent generated artwork, 40 full-mip DDS textures, localization, Civilopedia strategy/lore, tests and an optional standalone installer. Native gameplay/rendering acceptance is explicitly not claimed.
+- Preserve all earlier civilization source and art, including The Laureate Commonwealth. Append the new module after the released database inventory.
+- Update legacy localization validators to distinguish composed Civilopedia SQL prefixes from display keys; the dedicated guide validator continues to check every generated chapter.
+
 ## 1.21.0 / mod version 22 - Civilopedia and strategy handbook - 2026-11-01
 
 - Add practical opening, development, victory conversion, pros/cons, counterplay and matchup guidance for all twenty civilizations, with linked repository guides.

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context Name="TRI_Panel">
+  <Grid ID="MomentumPanel" Anchor="R,T" Offset="16,86" Size="336,100" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+    <Image Anchor="L,T" Offset="10,10" Size="32,32" Texture="TRI_Icon32.dds" />
+    <Label ID="MomentumTitle" Anchor="L,T" Offset="48,12" Font="TwCenMT18" Color0="235,200,117,255" />
+    <Image ID="Laurel1" Anchor="L,T" Offset="48,40" Size="24,24" Texture="TRI_Alpha24.dds" Color="225,183,83,255" />
+    <Image ID="Laurel2" Anchor="L,T" Offset="86,40" Size="24,24" Texture="TRI_Alpha24.dds" Color="225,183,83,255" />
+    <Image ID="Laurel3" Anchor="L,T" Offset="124,40" Size="24,24" Texture="TRI_Alpha24.dds" Color="225,183,83,255" />
+    <Image ID="Laurel4" Anchor="L,T" Offset="162,40" Size="24,24" Texture="TRI_Alpha24.dds" Color="225,183,83,255" />
+    <Image ID="Laurel5" Anchor="L,T" Offset="200,40" Size="24,24" Texture="TRI_Alpha24.dds" Color="225,183,83,255" />
+    <Image ID="Laurel6" Anchor="L,T" Offset="238,40" Size="24,24" Texture="TRI_Alpha24.dds" Color="225,183,83,255" />
+    <Label ID="MomentumEffects" Anchor="L,T" Offset="16,76" Font="TwCenMT14" Color0="235,224,198,255" />
+  </Grid>
+  <Script file="TRI_Panel.lua" />
+</Context>

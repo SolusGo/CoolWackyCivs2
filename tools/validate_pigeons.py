@@ -67,6 +67,9 @@ def sql():
     for key,value in TEXT.items():assert d.execute('SELECT Text FROM Language_en_US WHERE Tag=?',('TXT_KEY_PIGEON_'+key,)).fetchone()[0]==value
     # Check every exact Pigeon TXT_KEY reference and diplomacy wildcard against actual text.
     for path in (V/'SQL').glob('*.sql'):
+        # Guide SQL contains optional GLOB copy patterns, not display references;
+        # validate_strategy_guides separately checks every resulting native chapter.
+        if path.name=='90_PlayerGuide.sql':continue
         for key in set(re.findall(r"'(TXT_KEY_PIGEON_[^']+)'",path.read_text())):
             if key in ['TXT_KEY_PIGEON_CIV5','TXT_KEY_PIGEON_COO']:continue # Civilopedia prefixes
             assert d.execute('SELECT 1 FROM Language_en_US WHERE Tag LIKE ?',(key,)).fetchone(),key

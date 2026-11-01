@@ -30,7 +30,9 @@ def sql():
  known={r[0] for r in d.execute('SELECT Tag FROM Language_en_US')}
  for p in V.rglob('*'):
   if p.suffix in ['.sql','.xml']:
-   for key in re.findall(r'TXT_KEY_MCPVP_[A-Z0-9_]+',p.read_text(encoding='utf-8')):assert key in known or key+'1' in known,key
+   # Native guide SQL composes article prefixes; complete chapters are checked
+   # by validate_strategy_guides, while actual display references stay strict.
+   for key in re.findall(r'TXT_KEY_MCPVP_[A-Z0-9_]+',p.read_text(encoding='utf-8')):assert key.endswith('_') or key in known or key+'1' in known,key
  for t in ['Civilizations','Leaders','Units','Buildings','UnitPromotions']:
   for row in d.execute('SELECT * FROM '+t+" WHERE Type GLOB '*MCPVP*'"):
    atlas=d.execute('SELECT IconsPerRow*IconsPerColumn FROM IconTextureAtlases WHERE Atlas=? LIMIT 1',(row['IconAtlas'],)).fetchone()

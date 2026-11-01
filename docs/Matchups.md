@@ -28,6 +28,7 @@ These are conditional opportunities and threats, not a tier list. Read the linke
 | [T1](strategy/T1ZOFGK.md) | [The Relentless Seven](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/CristianoRonaldo.md), [Sol Intellect](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/SolIntellect.md) | [Indigo Champion](strategy/TrainerRed.md), [The Filthy Realm](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/FilthyRealm.md) |
 | [The Republic of First Drafts](strategy/TheRepublicOfFirstDrafts.md) | [Sol Intellect](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/SolIntellect.md), [Saba](strategy/KingdomOfSaba.md) | [Shattered Empire](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/TheShatteredEmpire.md), [McPvP](strategy/McPvP.md) |
 | [The Lantern Fleet](strategy/TheLanternFleet.md) | [Pigeon Republic](strategy/TheRepublicOfPigeons.md), [The Conical Union](strategy/TheConicalUnion.md) | [Sol Intellect](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/SolIntellect.md), [Jin](strategy/JinDynasty.md) |
+| [The Triumphal Imperium](strategy/TheTriumphalImperium.md) | [The Conical Union](strategy/TheConicalUnion.md), [The Lantern Fleet](strategy/TheLanternFleet.md) | [Laureate Commonwealth](strategy/TheLaureateCommonwealth.md), [The Threshold Court](strategy/TheThresholdCourt.md) |
 
 [Matchups in the other collection](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/Matchups.md)
 

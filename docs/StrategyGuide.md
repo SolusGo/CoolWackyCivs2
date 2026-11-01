@@ -28,6 +28,7 @@ All custom civs are human-only. Named custom-civ comparisons are theorycraft/sce
 | [T1](strategy/T1ZOFGK.md) | Five persistent roles and long-lived upgrade development | Domination; Culture supported by Headquarters development |
 | [The Republic of First Drafts](strategy/TheRepublicOfFirstDrafts.md) | Institutional variety and permanent first-possession rewards | Science or Culture |
 | [The Lantern Fleet](strategy/TheLanternFleet.md) | Defensive coastal development and turn-start naval snapshots | Science or Culture |
+| [The Triumphal Imperium](strategy/TheTriumphalImperium.md) | Victory-fed military strength and mobilisation that fade during quiet campaigns | Domination |
 
 ## Reading an advantage
 

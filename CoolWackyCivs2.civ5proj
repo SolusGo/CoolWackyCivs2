@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
   <PropertyGroup>
     <Name>Cool Wacky Civs 2</Name>
-    <Teaser>Twenty civilizations, now including The Lantern Fleet.</Teaser>
-    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty The Republic of First Drafts and The Lantern Fleet. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
+    <Teaser>Twenty-one civilizations, now including The Triumphal Imperium.</Teaser>
+    <Description>The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty, The Republic of First Drafts, The Lantern Fleet and The Triumphal Imperium. Requires BNW and Community Patch v151. See the included civilization guides.</Description>
     <Authors>SolusGo</Authors>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs2</Homepage>
     <AffectsSavedGames>true</AffectsSavedGames>
@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>22</ModVersion>
+    <ModVersion>23</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -636,6 +636,36 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheLanternFleet/SQL/90_PlayerGuide.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheTriumphalImperium/SQL/00_TRI_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheTriumphalImperium/SQL/01_TRI_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheTriumphalImperium/SQL/02_TRI_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheTriumphalImperium/SQL/03_TRI_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheTriumphalImperium/SQL/10_TRI_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheTriumphalImperium/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -757,6 +787,12 @@
         <Name>No Harbor Goes Dark</Name>
         <Description>Turn-start guarded coastal city snapshots and Signal Lighthouse Gold.</Description>
         <FileName>TheLanternFleet/Lua/LANTERN_Harbors.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Victory Momentum</Name>
+        <Description>Persistent combat victories, military mobilisation and a compact laurel indicator.</Description>
+        <FileName>TheTriumphalImperium/UI/TRI_Panel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -4376,6 +4412,162 @@
     <Content Include="TheLanternFleet/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Art/TRI_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Lua/TRI_Bonuses.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Lua/TRI_Gameplay.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/Lua/TRI_State.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/SQL/00_TRI_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/SQL/01_TRI_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/SQL/02_TRI_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/SQL/03_TRI_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/SQL/10_TRI_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/UI/TRI_Panel.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheTriumphalImperium/UI/TRI_Panel.xml">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JinDynasty\" />
@@ -4453,6 +4645,11 @@
     <Folder Include="TheThresholdCourt\Lua\" />
     <Folder Include="TheThresholdCourt\SQL\" />
     <Folder Include="TheThresholdCourt\UI\" />
+    <Folder Include="TheTriumphalImperium\" />
+    <Folder Include="TheTriumphalImperium\Art\" />
+    <Folder Include="TheTriumphalImperium\Lua\" />
+    <Folder Include="TheTriumphalImperium\SQL\" />
+    <Folder Include="TheTriumphalImperium\UI\" />
     <Folder Include="TheTwelfthHour\" />
     <Folder Include="TheTwelfthHour\Art\" />
     <Folder Include="TheTwelfthHour\Lua\" />
