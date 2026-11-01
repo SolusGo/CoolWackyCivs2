@@ -1,5 +1,7 @@
 # The Threshold Court
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheThresholdCourt.md).
+
 **Queen Elsewhere — Every Door Leads Somewhere.** Human-playable only, for Windows Civilization V: Brave New World and Community Patch v151. Included in Cool Wacky Civs 2 version 17. Single player; no multiplayer/hotseat or AI portal behavior.
 
 **1.14.1 corrective hardening:** [audit, exact changed files and regression results](docs/Hardening.md). Queen Elsewhere now has only her intended trait. Start a new game for a clean baseline: older v17 saves may retain native cached Washington effects, and no automatic aggregate-trait migration is claimed.
@@ -19,7 +21,7 @@ Military occupancy is deliberately strict: any combat unit on the destination ma
 
 ## First crossing
 
-1. Build the package from the root using `python tools/build_mod.py`, or install the generated `dist/Cool Wacky Civs 2 (v 17).zip`. Extract its folder into the game's `MODS` directory. The `.modinfo` must be directly inside the installed folder. Use one version of the collection at a time.
+1. Build the package from the root using `python tools/build_mod.py`, or install the generated `dist/Cool Wacky Civs 2 (v 22).zip`. Extract its folder into the game's `MODS` directory. The `.modinfo` must be directly inside the installed folder. Use one version of the collection at a time.
 2. Enable Community Patch v151 and Cool Wacky Civs 2 in **Mods**, enter modded single-player setup and select **Queen Elsewhere**. Start a new game for the new civilization.
 3. Found The First Door and another city. Research the active CP Market prerequisite and construct a Threshold House in each city.
 4. Put a Hingeguard or another eligible land melee combat unit with movement remaining on The First Door's city tile. Leave the other city's military slot empty. Reserve at least the displayed Gold cost.

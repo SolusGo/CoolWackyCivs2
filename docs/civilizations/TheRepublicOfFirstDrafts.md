@@ -1,5 +1,7 @@
 # The Republic of First Drafts
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheRepublicOfFirstDrafts.md).
+
 Editor-in-Chief Marginalia leads a scholarly republic whose Editorial Department regards every institution as a work in progress. First Edition is its capital. Intermediate complexity (3/5); preferred victories are Science and Culture. Human-only; requires BNW + Community Patch v151.
 
 **Nothing Is Ever Final:** the first possession of each qualifying ordinary Building Class grants 12 Culture and 20 Gold on Standard speed, scaled by the active construction percentage. Evaluation happens at the next owner-turn scan while the building is still present. This empire-wide class history is permanent across losses and saves.

@@ -1,5 +1,7 @@
 # The Jin Dynasty
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/JinDynasty.md).
+
 Wanyan Aguda leads a human-only Jurchen civilization adapted from **Age of Empires IV: Yue Fei's Legacy**. Requires Windows Civilization V: Brave New World and **Community Patch v151**. The original Cool Wacky Civs collection is not required.
 
 **Status: 1.13.4 seal and layout correction.** [All Jin artwork and the council have been refreshed](docs/Graphics.md), with 82 textures, original illustrated unit/building/upgrade atlases and new leader/Dawn/map artwork. The civ icon is now a gold seal-style 金 mark. The latest correction addresses the native screenshots' overflowing lists and cropped HUD symbols. The launcher still recovers after AI turns; restart Civ V after updating, then reload the same save. Executable SQL/Lua simulations cover the systems below; actual Civ V gameplay, UI rendering, save-file reloads and balance have **not** been verified. See [Testing](docs/Testing.md), [hardening findings and measurements](docs/Hardening.md) and [engine adaptations](docs/AoE4Fidelity.md).
@@ -55,7 +57,7 @@ Mountain Hall's meter reaches 1,000 Karma. Worked nearby tiles generate 10 Karma
 
 All balance inputs are in [Balance.json](Balance.json), including the unit/building/landmark/upgrade inventories. Run `python tools/generate_jin.py` after editing it; ship the generated SQL and `JIN_Config.lua`. Support buildings initially cost 90 (War Stable/Machine Workshop) and 100 (Monastery). Native inherited CP companion effects remain subject to the active CP database.
 
-Build from the repository root with the commands in the collection README. Extract `dist/Cool Wacky Civs 2 (v 16).zip` into your actual Civ V `MODS` directory so the version-16 modinfo sits directly inside its install folder. Remove the older collection install first; the collection UUID is preserved. Enable BNW, Community Patch and this collection, then **start a new single-player game** and select Aguda. No ModBuddy is needed.
+Build from the repository root with the commands in the collection README. Extract `dist/Cool Wacky Civs 2 (v 22).zip` into your actual Civ V `MODS` directory so the version-16 modinfo sits directly inside its install folder. Remove the older collection install first; the collection UUID is preserved. Enable BNW, Community Patch and this collection, then **start a new single-player game** and select Aguda. No ModBuddy is needed.
 
 New games are required to add Jin to a pre-Jin collection save. This hardening patch retains mod version 16, UUID and schema 1: valid existing Jin progression, Horse stocks, choices, rewards and deployed temporary units are retained. New order budgets and transaction receipts are optional saved fields. Runtime caches are rebuilt on load. Older native saves still require the acceptance checklist; back up saves before upgrading and avoid downgrading a save containing a pending transaction to 1.13.0. Single-player Windows only; no AI strategy, multiplayer, hotseat or Mac support.
 

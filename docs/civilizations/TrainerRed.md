@@ -1,5 +1,7 @@
 # The Indigo Champion
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TrainerRed.md).
+
 **Leader:** Trainer Red, the Silent Champion. **Capital:** Pallet Town. **Ability:** The Living Legend. Preferred victories: Domination, then Science.
 
 From a young trainer's first steps to the silent final challenge on Mt. Silver, Red develops a small group of irreplaceable military partners. Battle-earned Training unlocks exclusive ranks. The Champion Team grows from two to six, learns from worthy opponents and collects Ribbons through first original-capital conquests.

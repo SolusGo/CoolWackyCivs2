@@ -67,10 +67,10 @@ def sql():
     assert [r[0] for r in d.execute('SELECT UnitType FROM Unit_FreePromotions WHERE PromotionType=?',(CROWN,))]==[UNIT]
     policy=d.execute('SELECT * FROM Policies WHERE Type=?',(POLICY,)).fetchone()
     assert (policy['GreatPeopleRateModifier'],policy['ExpModifier'],policy['IsDummy'],policy['PolicyBranchType'])==(15,15,1,None)
-    for k,v in TEXT.items(): assert d.execute('SELECT Text FROM Language_en_US WHERE Tag=?',('TXT_KEY_LC_'+k,)).fetchone()[0]==v
+    for k,v in TEXT.items(): assert d.execute('SELECT Text FROM Language_en_US WHERE Tag=?',('TXT_KEY_LAUREATE_'+k,)).fetchone()[0]==v
     for path in (V/'SQL').glob('*.sql'):
-        for tag in re.findall(r"'(TXT_KEY_LC_[A-Z_0-9]+)'",path.read_text()):
-            if tag in ('TXT_KEY_LC_CIV5','TXT_KEY_LC_LAUREA'): continue
+        for tag in re.findall(r"'(TXT_KEY_LAUREATE_[A-Z_0-9]+)'",path.read_text()):
+            if tag in ('TXT_KEY_LAUREATE_CIV5','TXT_KEY_LAUREATE_LAUREA'): continue
             assert d.execute('SELECT 1 FROM Language_en_US WHERE Tag=?',(tag,)).fetchone(),tag
     assert d.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
     altered=database()

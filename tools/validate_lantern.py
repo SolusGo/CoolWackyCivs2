@@ -148,7 +148,8 @@ def static(d):
         assert declared[name].get('import')==str(int(imported(p)))
         assert declared[name].get('md5')==hashlib.md5(p.read_bytes()).hexdigest().upper()
     order=[e.text for e in root.findall('Actions/OnModActivated/UpdateDatabase')]
-    assert order[-5:]==[p.relative_to(R).as_posix() for p in sorted((V/'SQL').glob('*.sql'))]
+    own_sql=[p.relative_to(R).as_posix() for p in sorted((V/'SQL').glob('*.sql'))]
+    assert order[-len(own_sql):]==own_sql
     basenames=Counter(p.name.casefold() for p in files() if imported(p));assert max(basenames.values())==1
     for filename, in d.execute("SELECT Filename FROM IconTextureAtlases WHERE Atlas LIKE 'LANTERN_%'"):assert (V/'Art'/filename).is_file(),filename
     for p in (V/'Art').glob('*.dds'):

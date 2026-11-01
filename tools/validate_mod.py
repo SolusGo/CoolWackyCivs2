@@ -59,6 +59,8 @@ def sql():
     d.close()
     from validate_human_only import run as validate_selection
     validate_selection()
+    from validate_strategy_guides import run as validate_player_guides
+    validate_player_guides()
 
 def syntax():
     lua=LuaRuntime();check=lua.eval('function(s,n) local f,e=loadstring(s,n);assert(f,e) end')

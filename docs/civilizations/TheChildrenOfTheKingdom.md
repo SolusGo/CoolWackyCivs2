@@ -1,5 +1,7 @@
 # The Children of the Kingdom
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheChildrenOfTheKingdom.md).
+
 **Leader:** The Faithful · **Capital:** Sanctuary · **Human-playable only**
 
 Inspired respectfully by the Lord's Prayer, this fictional civilization pursues Culture and Diplomacy through steady devotion and defensive perseverance. Its early bonuses are modest; permanent Grace grows only through full prayer cycles, independently of conquest.

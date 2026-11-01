@@ -1,5 +1,7 @@
 # The Conical Union
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheConicalUnion.md).
+
 **High Marshal Bollard** leads a human-only society of sentient traffic cones from **Permanent Detour**. Requires Civilization V: Brave New World and **Community Patch v151**, independently of full Vox Populi. Included in Cool Wacky Civs 2 version 13 / 1.10.0 preview.
 
 | Unique | Effect |

@@ -28,10 +28,10 @@ local function Put(obj,key,value)
 end
 local function Notice(p,key,a,b,x,y)
   if p:IsHuman() then
-    local tag='TXT_KEY_LC_NOTICE_'..key
+    local tag='TXT_KEY_LAUREATE_NOTICE_'..key
     local message=a~=nil and b~=nil and Locale.ConvertTextKey(tag,a,b) or Locale.ConvertTextKey(tag)
     p:AddNotification(NotificationTypes.NOTIFICATION_GENERIC,message,
-      Locale.ConvertTextKey('TXT_KEY_LC_NOTICE_TITLE'),x or -1,y or -1)
+      Locale.ConvertTextKey('TXT_KEY_LAUREATE_NOTICE_TITLE'),x or -1,y or -1)
   end
 end
 local function Scaled(p,base,era) return math.floor((base+era*math.max(0,p:GetCurrentEra()))*speed/100) end

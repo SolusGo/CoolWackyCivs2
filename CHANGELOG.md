@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.21.0 / mod version 22 - Civilopedia and strategy handbook - 2026-11-01
+
+- Add practical opening, development, victory conversion, pros/cons, counterplay and matchup guidance for all twenty civilizations, with linked repository guides.
+- Put strategy first on civilization and leader Civilopedia pages while retaining the existing lore and biographies. Use unique article/display text keys so the new information stays independent of the original collection.
+- Matchups are conditional mechanical analysis, not tested rankings; all civilizations remain human-only and multiplayer remains unsupported. No balance, save schema or artwork changes.
+- Separate Laureate player-color, atlas and localization identifiers from Last City so both collections can activate and keep their Civilopedia presentation independent. Existing unit identities, numerical effects and save markers are unchanged.
+
 ## 1.20.1 Human-only roster / mod version 21 — 2026-11-01
 
 - Disable AI selection for The Boundless City, The Republic of Pigeons, Trainer Red and McPvP. All twenty civilizations remain selectable by humans.

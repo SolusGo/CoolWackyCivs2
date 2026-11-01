@@ -1,5 +1,7 @@
 # The Lantern Fleet — High Keeper Maren
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheLanternFleet.md).
+
 A defensive naval economy favoring Science and Culture. Capital: First Beacon. Human-selectable only; scenario AI uses the same rules.
 
 - **No Harbor Goes Dark:** +2 Science/+1 Culture per coastal city with at least one owned naval combat ship inside its center at owner-turn start.

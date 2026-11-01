@@ -1,5 +1,7 @@
 # McPvP — The Endless Lobby
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/McPvP.md).
+
 Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
 
 **Leader:** The Old Guard. **Capital:** Lobby One. **UA:** Just One More Game. **UU:** Veteran PvPer (Scout). **UB:** Original Server Hub (Barracks). Built for BNW and Community Patch v151. Preferred victories: Domination and Culture.

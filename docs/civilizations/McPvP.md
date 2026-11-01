@@ -1,5 +1,7 @@
 # McPvP — The Endless Lobby
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/McPvP.md).
+
 **Leader:** The Old Guard. **Capital:** Lobby One. **Ability:** Just One More Game. Preferred victories: Domination and Culture.
 
 Manage a PvP server through changing turn-based objectives. Queue Hardcore Games, Capture the Flag or Sabotage in the Server Browser; prepare your kits, preserve your Veterans and earn Server Legacy through participation. A race to a contested Feast, a flag brought home and a successful infiltration all become part of your capital's cultural memory.

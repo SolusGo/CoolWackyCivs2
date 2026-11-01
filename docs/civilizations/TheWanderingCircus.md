@@ -1,5 +1,7 @@
 # The Wandering Circus — Ringmaster Aurelio
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheWanderingCircus.md).
+
 A whimsical civilization of performers, musicians and stagehands, settled around **Grand Pavilion**. Its crimson tents and golden lanterns turn patient infrastructure work into local celebrations. Human-only, BNW/CP v151; favor **Culture**, with **Science** second.
 
 - **The Show Must Go On:** a Carnival Crew ending a turn in your city can begin a three-owner-turn Grand Festival next turn, providing +3 Culture/+2 Gold. Each city can start again twelve turns after its previous start. No consumption, no stacking; departure after activation does not interrupt the show.

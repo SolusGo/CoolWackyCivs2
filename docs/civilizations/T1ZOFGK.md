@@ -1,5 +1,7 @@
 # T1 - The ZOFGK Dynasty
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/T1ZOFGK.md).
+
 | Detail | Value |
 | --- | --- |
 | Leader / Capital | Faker / T1 HQ |

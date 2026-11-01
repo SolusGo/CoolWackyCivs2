@@ -1,5 +1,7 @@
 # The Urgal
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheUrgal.md).
+
 **Leader:** Urgal. **Capital:** The Feast. **Origin:** MCPVP Hardcore Games. **Preferred victory:** Domination. **Requires:** BNW and Community Patch v151. **Human-only:** `Playable=1`, `AIPlayable=0` in setup, with human-only runtime guards.
 
 Prepare your army. Position your units. Drink Strength II. Become terrifying for five Standard-speed turns, then return to normal combat.

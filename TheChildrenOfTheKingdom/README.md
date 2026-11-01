@@ -1,5 +1,7 @@
 # The Children of the Kingdom
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheChildrenOfTheKingdom.md).
+
 **The Faithful · Sanctuary · Thy Kingdom Come**
 
 A sincere, fictional civilization inspired by the Lord's Prayer (Matthew 6:9–13), for Civilization V: Brave New World with **Community Patch v151**. Favor Culture and Diplomacy, build Houses of Prayer, and protect experienced Keepers while consistent prayer strengthens the capital.
@@ -38,7 +40,7 @@ The closing doxology is retained as a seventh gameplay stage. Its use varies amo
 
 ## Installation and development
 
-Enable BNW, Community Patch v151, and **Cool Wacky Civs 2 (v 8)** through Mods. This civilization is included in the collection; it has no standalone mod UUID and adds no external sound or music assets. The existing four civilizations remain in the same collection.
+Enable BNW, Community Patch v151, and **Cool Wacky Civs 2 (v 22)** through Mods. This civilization is included in the collection; it has no standalone mod UUID and adds no external sound or music assets. The existing four civilizations remain in the same collection.
 
 ```powershell
 .\.venv\Scripts\python.exe tools/generate_kingdom.py

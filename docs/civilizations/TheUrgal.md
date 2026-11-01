@@ -1,5 +1,7 @@
 # The Urgal
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheUrgal.md).
+
 | | |
 | --- | --- |
 | Leader | Urgal |

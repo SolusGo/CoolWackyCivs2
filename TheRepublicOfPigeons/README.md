@@ -1,5 +1,7 @@
 # The Republic of Pigeons
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheRepublicOfPigeons.md).
+
 Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
 
 Led by **Postmaster General Coo**, with **Coopolis** as its capital. A slate blue and cream republic of couriers, rooftop assemblies and dependable correspondence. Requires Brave New World and **Community Patch v151**; packaged in Cool Wacky Civs 2 version 5.

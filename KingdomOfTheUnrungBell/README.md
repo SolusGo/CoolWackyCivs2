@@ -1,5 +1,7 @@
 # The Kingdom of the Unrung Bell
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/KingdomOfTheUnrungBell.md).
+
 **Keeper Sable · Stillhaven · Culture / Science · Advanced · intentionally human-only.** Requires Windows Civilization V: Brave New World and standalone Community Patch v151. Part of Cool Wacky Civs 2, mod version 14 / 1.11.0 preview.
 
 Implementation preview: database, gameplay Lua, persistence, English Civilopedia/diplomacy and original artwork are integrated and automated checks pass. **Native gameplay is not verified. Exact exclusively owned-target combat behavior is not available through CP v151's native friendly-land modifier.** See the limits below; this is not a claim that every specification requirement has been met.
@@ -46,7 +48,7 @@ Loading restores records, reconciles actual war, repairs city yields and units, 
 
 ## Installation, saves and testing
 
-Build with `python tools/build_mod.py` and install `dist/Cool Wacky Civs 2 (v 14).zip` through the Mods folder as described in the collection README. Remove the older collection folder before installing. **Start a new game to select Sable.** Existing identifiers and insertion order precede this addition; the collection UUID and minimum compatible save version are retained, but older-save continuation is unverified. Back up saves. This is not a migration promise.
+Build with `python tools/build_mod.py` and install `dist/Cool Wacky Civs 2 (v 22).zip` through the Mods folder as described in the collection README. Remove the older collection folder before installing. **Start a new game to select Sable.** Existing identifiers and insertion order precede this addition; the collection UUID and minimum compatible save version are retained, but older-save continuation is unverified. Back up saves. This is not a migration promise.
 
 Run `python tools/validate_unrung.py`, then `python tools/validate_mod.py`, build, and `python tools/verify_release.py`. These test SQL in memory, inspect pinned source, decode DDS and execute the shipped controller under Lua 5.1 mocks. They do not launch Civ V. See the [full acceptance matrix](docs/Testing.md), [implementation details](docs/Implementation.md), [source evidence](docs/SourceAudit.json), and [machine-readable validation](docs/Validation.json).
 

@@ -1,5 +1,7 @@
 # T1 - The ZOFGK Dynasty
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/T1ZOFGK.md).
+
 **Faker** leads a human-only Civilization V: Brave New World civilization requiring **Community Patch v151**. It is part of Cool Wacky Civs 2, not a standalone mod. Start a new game and choose T1; AI random selection excludes it. Capital: **T1 HQ**. Preferred victories: Domination, then Culture. Complexity: **4/5**.
 
 The historical Zeus/Oner/Faker/Gumayusi/Keria roster reached the 2022 Worlds final and won consecutive World Championships in 2023 and 2024. This civilization commemorates that lineup rather than presenting it as the current team.

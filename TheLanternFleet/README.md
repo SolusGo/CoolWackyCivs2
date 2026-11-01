@@ -1,5 +1,7 @@
 # The Lantern Fleet
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheLanternFleet.md).
+
 High Keeper Maren leads a human-selectable defensive maritime civilization for **Brave New World + Community Patch v151 (CP only)**. Capital: **First Beacon**. Preferred victories: Science / Culture. This is source-complete with original art; **native turn-event dispatch and same-turn economic settlement remain an integration acceptance requirement**, not a passed test.
 
 | Unique | Effect |

@@ -1,5 +1,7 @@
 # The Substitute Classroom — Mr. Garvey
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheSubstituteClassroom.md).
+
 From **Room 101**, turn attendance into authority. A human-only **economy / military timing** civilization for BNW + Community Patch v151, complexity **3/5**.
 
 - **Insubordinate and Churlish:** every 12 player turns, choose an 8-turn student bonus: military Production, Culture, Science, combat, or Timothy's reliable broad economy. The first Roll Call unlocks 12 turns after founding the capital; pending choices wait indefinitely.

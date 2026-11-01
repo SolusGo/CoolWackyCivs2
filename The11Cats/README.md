@@ -1,5 +1,7 @@
 # The 11 Cats
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/The11Cats.md).
+
 **Austin — King of the House.** A peaceful, human-only civilization for Brave New World and Community Patch v151. Austin, adopted in 2013, is permanently the first member of this real family. Ten companions join across six historical chapters. The household's final milestone is **11 / 11 — Everyone Is Home.** It grants no extra yields.
 
 ## Play

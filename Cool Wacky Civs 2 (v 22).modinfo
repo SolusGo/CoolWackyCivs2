@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="21">
+<Mod id="f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392" version="22">
   <Properties>
     <Name>Cool Wacky Civs 2</Name>
     <Teaser>Twenty civilizations, now including The Lantern Fleet.</Teaser>
@@ -93,6 +93,7 @@
     <File md5="202C7EF74E5C5375DC79008285FB3C28" import="0">McPvP/SQL/02_MCP_Effects.sql</File>
     <File md5="89565490B22006C312444DB3463DC4C1" import="0">McPvP/SQL/03_MCP_Art.sql</File>
     <File md5="95741DE84A63B86599FFCE094F99F2AB" import="0">McPvP/SQL/10_MCP_Text.sql</File>
+    <File md5="F04069A54A909F0719F188DC9DB43377" import="0">McPvP/SQL/90_PlayerGuide.sql</File>
     <File md5="22A62595525B4815EA156C7C3F5D5B66" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
     <File md5="C2783EBCE9A822776EC0B531C1FCD4A0" import="0">McPvP/UI/MCP_ServerBrowser.xml</File>
     <File md5="65A768B26F9653F9C1102755025C61C6" import="1">TheBoundlessCity/Art/BC_UI_Assigned.dds</File>
@@ -156,6 +157,7 @@
     <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
     <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
     <File md5="614070224EEEB0B1B623FD5A5653128E" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
+    <File md5="9E2617CD2DE8F631DB6D8FF698A12508" import="0">TheBoundlessCity/SQL/90_PlayerGuide.sql</File>
     <File md5="F352A5C8A9E1A2A42021130FB1DB58C9" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
     <File md5="29F2CF0DA6785D2A678E596513E93885" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
     <File md5="6C112DA6BB2E1AF045D6CBE2C517B788" import="1">TheChildrenOfTheKingdom/Art/CKAlpha128.dds</File>
@@ -209,6 +211,7 @@
     <File md5="559B5F373E7E70DCF567AAC8585F7273" import="0">TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</File>
     <File md5="31BF4D2D447EB1C8A23D5AA59DDF7B6F" import="0">TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</File>
     <File md5="5D9D790B65884D6FD5028E648322BC38" import="0">TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</File>
+    <File md5="B9B7C7BB9AC2ABAFE0F56A6E8772BC1C" import="0">TheChildrenOfTheKingdom/SQL/90_PlayerGuide.sql</File>
     <File md5="4A31C3A06BE17618504FBC811D92448A" import="1">TheChildrenOfTheKingdom/UI/CK_Prayer.lua</File>
     <File md5="C5DE978C68D7F590E5D640898C8865A5" import="0">TheChildrenOfTheKingdom/UI/CK_Prayer.xml</File>
     <File md5="37E27BF1A38FB5781EF47F768DE26057" import="1">TheRepublicOfPigeons/Art/PigeonAlpha128.dds</File>
@@ -251,6 +254,7 @@
     <File md5="8C6005C7FF9E39E8FE372E8618337280" import="0">TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</File>
     <File md5="83627C53CEADA38647091BAA56FA8C50" import="0">TheRepublicOfPigeons/SQL/03_PIGEON_Art.sql</File>
     <File md5="85DCB9A62B9FE64FB8C1C2B675B17A5B" import="0">TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</File>
+    <File md5="1C03B557B973064D2495F76708B8CC69" import="0">TheRepublicOfPigeons/SQL/90_PlayerGuide.sql</File>
     <File md5="77596118D9F9574F4463FAB136C7C409" import="1">TheRepublicOfPigeons/UI/PigeonTrade.lua</File>
     <File md5="F892C2991855F86FB3BA7CAD2BB1DB94" import="0">TheRepublicOfPigeons/UI/PigeonTrade.xml</File>
     <File md5="A7AAEE0F4A9B788862B91D4DB0847B6F" import="1">TrainerRed/Art/CWC2_TrainerRed_Buttons.dds</File>
@@ -334,6 +338,7 @@
     <File md5="ACFA058558313CA1F843E92C9B8BF00B" import="0">TrainerRed/SQL/03_RED_Promotions.sql</File>
     <File md5="6CF5482011F99978F8708288E992C1A9" import="0">TrainerRed/SQL/04_RED_Art.sql</File>
     <File md5="8BFBBF6756D32D06B8B173014C09315E" import="0">TrainerRed/SQL/10_RED_Text.sql</File>
+    <File md5="C6D34B7476B349E47379ADFADF30DFDD" import="0">TrainerRed/SQL/90_PlayerGuide.sql</File>
     <File md5="0FCC1C9DE63B804C483749E80C9BC98A" import="1">TrainerRed/UI/RED_TeamPanel.lua</File>
     <File md5="913590185406F9F736D5BE293A0B1BAD" import="0">TrainerRed/UI/RED_TeamPanel.xml</File>
     <File md5="C940F36E2B16C2925E5BE41AAE2D8376" import="1">TheTwelfthHour/Art/TWELFTH_Alpha128.dds</File>
@@ -383,6 +388,7 @@
     <File md5="45C7F82A60BF2138487BB6812BC9833D" import="0">TheTwelfthHour/SQL/02_TWELFTH_Effects.sql</File>
     <File md5="B71998C80502D3836A285551706B4489" import="0">TheTwelfthHour/SQL/03_TWELFTH_Art.sql</File>
     <File md5="06E70F2C58848871DE7F83815CFDC306" import="0">TheTwelfthHour/SQL/10_TWELFTH_Text.sql</File>
+    <File md5="8A2E788DA21A856CA4264E0C432F00A2" import="0">TheTwelfthHour/SQL/90_PlayerGuide.sql</File>
     <File md5="43217D06FB64D2AF75E8521502A4740D" import="1">TheTwelfthHour/UI/TWELFTH_Clock.lua</File>
     <File md5="125B219971789A183A18690A676CE677" import="0">TheTwelfthHour/UI/TWELFTH_Clock.xml</File>
     <File md5="BC09E76737B6AA4DE71958009B45A9E5" import="1">TheWanderingCircus/Art/WCIRCUS_Alpha128.dds</File>
@@ -431,6 +437,7 @@
     <File md5="60B15B7B8C56390981F653EFF6A4456B" import="0">TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</File>
     <File md5="48F8E8EB3586A37189BE7C3B477C0237" import="0">TheWanderingCircus/SQL/03_WCIRCUS_Art.sql</File>
     <File md5="E396EAFEB2EB5A7E6C7F46A84C759830" import="0">TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</File>
+    <File md5="CE44B30D3FB15ADCB6BF65117E2E3D03" import="0">TheWanderingCircus/SQL/90_PlayerGuide.sql</File>
     <File md5="51BF44ED83E10409C78F769D4DD18642" import="1">TheWanderingCircus/UI/WanderingCircus.lua</File>
     <File md5="A986641AFEB4FA573DD6360B9779E18D" import="0">TheWanderingCircus/UI/WanderingCircus.xml</File>
     <File md5="7E31ECAE5C5F1AD4A90BBD1CC6F31F82" import="1">The11Cats/Art/CWC2_The11Cats_Buttons.dds</File>
@@ -498,6 +505,7 @@
     <File md5="CE543D69F38E6C2B6A0ADB7D53A2CC60" import="1">The11Cats/Lua/THE11CATS_Manager.lua</File>
     <File md5="398EFB5380FC87F1B701A7E3B6C64B27" import="1">The11Cats/Lua/THE11CATS_Presentation.lua</File>
     <File md5="151858C3CF020AFFB7998B4985D44F7B" import="1">The11Cats/Lua/THE11CATS_Safety.lua</File>
+    <File md5="9866666289B77642A6D0839EEF6D2ACC" import="0">The11Cats/SQL/90_PlayerGuide.sql</File>
     <File md5="A56BD3AB5E2CBA55130FD4DA898C768F" import="0">The11Cats/SQL/THE11CATS_00_Core.sql</File>
     <File md5="25392F087D20A9D31D24CB17847EEC5E" import="0">The11Cats/SQL/THE11CATS_01_Inheritance.sql</File>
     <File md5="4BFAFF2212CC8DCA891AF5C669722779" import="0">The11Cats/SQL/THE11CATS_02_Effects.sql</File>
@@ -553,6 +561,7 @@
     <File md5="B5509588AD51C1CE8DCDE0D80C5981EE" import="0">KingdomOfSaba/SQL/02_SABA_Effects.sql</File>
     <File md5="75CBEE329D7AE0B3A35DF9D6F8CE3AEE" import="0">KingdomOfSaba/SQL/03_SABA_Art.sql</File>
     <File md5="B5F9F6E9F9621823FD23EE78F36B4C9B" import="0">KingdomOfSaba/SQL/10_SABA_Text.sql</File>
+    <File md5="1F33474C0ED027593F84A8DD9E7CEF70" import="0">KingdomOfSaba/SQL/90_PlayerGuide.sql</File>
     <File md5="1F0CE51ACCD5D3C53FE78CFDBBCB6DF4" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Buttons.dds</File>
     <File md5="DB716E91DB7BF624F96C115253E61392" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Launcher.dds</File>
     <File md5="0A3F41B5DDCB71DA089D255E8D083F16" import="1">TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Launcher_270x62.dds</File>
@@ -610,6 +619,7 @@
     <File md5="9AE1E2FA5066CA29F001097E65348F88" import="0">TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</File>
     <File md5="43FEAAD619DDA5571DBD20C05C353858" import="0">TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</File>
     <File md5="581B318EB1D6CDD24FD0D4C817E98181" import="0">TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</File>
+    <File md5="63BB75A0A656F4B6B62BDEFC1E0F0F9A" import="0">TheSubstituteClassroom/SQL/90_PlayerGuide.sql</File>
     <File md5="E41153BDDEC006C2C40D72F51D38794C" import="1">TheSubstituteClassroom/UI/GARVEY_RollCall.lua</File>
     <File md5="F32F508933D6A82C4E814595B8A2BB25" import="0">TheSubstituteClassroom/UI/GARVEY_RollCall.xml</File>
     <File md5="719D334BBE3E9F94DDB178A6CB3785D3" import="1">TheConicalUnion/Art/CONICAL_Alpha128.dds</File>
@@ -660,6 +670,7 @@
     <File md5="7E2EAA81DF8826B66AF49D94D023BBD0" import="0">TheConicalUnion/SQL/02_CONICAL_Effects.sql</File>
     <File md5="14C88EB25B20E090FDF2E73EFD64CDCA" import="0">TheConicalUnion/SQL/03_CONICAL_Art.sql</File>
     <File md5="0CFE8B45974A9A5A29692EBDD0E460B2" import="0">TheConicalUnion/SQL/10_CONICAL_Text.sql</File>
+    <File md5="9DE285F716268BB4662E2911A64E2CF4" import="0">TheConicalUnion/SQL/90_PlayerGuide.sql</File>
     <File md5="8D2F0348B803FF05176B9EF07077C6DE" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Alpha128.dds</File>
     <File md5="3591288EC411B1B02070728BE7893566" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Alpha16.dds</File>
     <File md5="CCCD9AF901FB5B30CE17AC619AFF3AF2" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Alpha24.dds</File>
@@ -716,6 +727,7 @@
     <File md5="F9B4F1B1C1A6E2B2BCE17D775E611FEA" import="0">KingdomOfTheUnrungBell/SQL/02_UNRUNG_Effects.sql</File>
     <File md5="A0C41C4FA6C17E347D189B7AE34B6DC5" import="0">KingdomOfTheUnrungBell/SQL/03_UNRUNG_Art.sql</File>
     <File md5="9CCCB41E1475D04EDC790D47FB3FEA20" import="0">KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</File>
+    <File md5="660E50BCEFE139922AB873FC7F37967E" import="0">KingdomOfTheUnrungBell/SQL/90_PlayerGuide.sql</File>
     <File md5="1A01510B8ED0B38E2571CCA44A225476" import="1">TheUrgal/Art/CWC2_TheUrgal_Buttons.dds</File>
     <File md5="7027FADED56CBA36ACB8D098FEC648E3" import="1">TheUrgal/Art/CWC2_TheUrgal_Launcher.dds</File>
     <File md5="0281C994FA832E134A37EF9C3158F6D8" import="1">TheUrgal/Art/CWC2_TheUrgal_Launcher_340x180.dds</File>
@@ -778,6 +790,7 @@
     <File md5="6CAD6F3F432BF09231E3CAB60FA7A1FE" import="0">TheUrgal/SQL/02_URGAL_Effects.sql</File>
     <File md5="AEC5712E68039ADE48A5B9EE6DF0B485" import="0">TheUrgal/SQL/03_URGAL_Art.sql</File>
     <File md5="CADF60B716E4A7B03F2442EE399BE2F0" import="0">TheUrgal/SQL/10_URGAL_Text.sql</File>
+    <File md5="26CB39142FD08135246DE7741F584570" import="0">TheUrgal/SQL/90_PlayerGuide.sql</File>
     <File md5="FFB384482D7E4537B295C343C3F4D8E9" import="1">TheUrgal/UI/URGAL_Potions.lua</File>
     <File md5="2827BA1E6E670DD3AA9CF30CC3FF23B3" import="0">TheUrgal/UI/URGAL_Potions.xml</File>
     <File md5="EFC53D8FDAA66F6FA499ED5AF0A3FA0A" import="1">JinDynasty/Art/CWC2_JinDynasty_Buttons.dds</File>
@@ -882,6 +895,7 @@
     <File md5="C4D8B24528FEF8AEA6EFECC997689B31" import="0">JinDynasty/SQL/02_JIN_Effects.sql</File>
     <File md5="F4A80EF4BC9CB887014466BC7E89C9B7" import="0">JinDynasty/SQL/03_JIN_Art.sql</File>
     <File md5="7F6D154E1E85544F6D9F93FCB921EA90" import="0">JinDynasty/SQL/10_JIN_Text.sql</File>
+    <File md5="B6061CE25F36C59B0094493E2CE1B8CF" import="0">JinDynasty/SQL/90_PlayerGuide.sql</File>
     <File md5="59EA33A76FC724F5FF91457AA19A1951" import="1">JinDynasty/UI/JIN_Dynasty.lua</File>
     <File md5="AA619CC1CC7E415B5A6D2CD84C6128AC" import="0">JinDynasty/UI/JIN_Dynasty.xml</File>
     <File md5="1368D5CA0753EC373AF6290AC6163D07" import="1">TheThresholdCourt/Art/CWC2_TheThresholdCourt_Buttons.dds</File>
@@ -947,6 +961,7 @@
     <File md5="C04F9D035CA9F66B8A2804FE911AF65B" import="0">TheThresholdCourt/SQL/02_THC_Effects.sql</File>
     <File md5="D5DC5AB8CEDEB1ACD4DE164F85CDB625" import="0">TheThresholdCourt/SQL/03_THC_Art.sql</File>
     <File md5="EC4D10DEB4142729510097411E4955DB" import="0">TheThresholdCourt/SQL/10_THC_Text.sql</File>
+    <File md5="F615D982AC45D84DFD347A22D68310F5" import="0">TheThresholdCourt/SQL/90_PlayerGuide.sql</File>
     <File md5="E6FF27F3512EE5268F35EA58631EEB52" import="1">TheThresholdCourt/UI/THC_Transfer.lua</File>
     <File md5="0CD8D68F72B9F83BD73A6110B5A18E41" import="0">TheThresholdCourt/UI/THC_Transfer.xml</File>
     <File md5="055F046D0FFEF0290891E57AE6BB5CC2" import="1">TheHoneycombCommonwealth/Art/HCC_Alpha128.dds</File>
@@ -997,6 +1012,7 @@
     <File md5="4E2AD7483253FABCD97C522F64E91DA3" import="0">TheHoneycombCommonwealth/SQL/02_HCC_Effects.sql</File>
     <File md5="ED531E1B21356A380AAC95CBB73FF061" import="0">TheHoneycombCommonwealth/SQL/03_HCC_Art.sql</File>
     <File md5="6E5EF1877FF0F9C1F0BAABF155F8459A" import="0">TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</File>
+    <File md5="2CEAF2B95F7A44EE836C125975818B88" import="0">TheHoneycombCommonwealth/SQL/90_PlayerGuide.sql</File>
     <File md5="403C7FCA1174B82080EDC9E92120BA7F" import="1">TheLaureateCommonwealth/Art/LC_Alpha128.dds</File>
     <File md5="787D70E5B10E26D95C72C2ACAF6E4469" import="1">TheLaureateCommonwealth/Art/LC_Alpha16.dds</File>
     <File md5="5625FE5C00F9A7FDDE4FDF2B1FF0FFC4" import="1">TheLaureateCommonwealth/Art/LC_Alpha24.dds</File>
@@ -1038,13 +1054,14 @@
     <File md5="4DB2059BAFBBD9DA367F3DD6B170F267" import="1">TheLaureateCommonwealth/Art/LC_Portrait48.dds</File>
     <File md5="B7AE7132118D7A682AD750971AC72717" import="1">TheLaureateCommonwealth/Art/LC_Portrait64.dds</File>
     <File md5="391B18C2DC28419EB074753FFC2DCDAE" import="1">TheLaureateCommonwealth/Art/LC_Portrait80.dds</File>
-    <File md5="096AE505A7CDA574B21C6DD74F66C455" import="1">TheLaureateCommonwealth/Lua/LC_Commonwealth.lua</File>
+    <File md5="2BADC20FDFDE25221C930AA6C2DC8629" import="1">TheLaureateCommonwealth/Lua/LC_Commonwealth.lua</File>
     <File md5="6819AA76479263AEA62E1AA1933F7C61" import="0">TheLaureateCommonwealth/Lua/LC_Commonwealth.xml</File>
-    <File md5="9B13784CCF8CF38D7372173AFF7F974A" import="0">TheLaureateCommonwealth/SQL/00_LC_Core.sql</File>
+    <File md5="61DE84EE69DC3ECA0C39CAE5599130A8" import="0">TheLaureateCommonwealth/SQL/00_LC_Core.sql</File>
     <File md5="EE6D7D5C4A1F533D7328B0C4234898FA" import="0">TheLaureateCommonwealth/SQL/01_LC_Inheritance.sql</File>
-    <File md5="9262EB234D6CFD99C02AEF6A5990642F" import="0">TheLaureateCommonwealth/SQL/02_LC_Effects.sql</File>
-    <File md5="85490530170DB5574556BF5437138343" import="0">TheLaureateCommonwealth/SQL/03_LC_Art.sql</File>
-    <File md5="B1C875746DD473B9D1F8ACF15B816125" import="0">TheLaureateCommonwealth/SQL/10_LC_Text.sql</File>
+    <File md5="AE6AC6592D4536F84CDA0934ABA0D7A2" import="0">TheLaureateCommonwealth/SQL/02_LC_Effects.sql</File>
+    <File md5="F5FF35BF9AC447292E0576085075EA53" import="0">TheLaureateCommonwealth/SQL/03_LC_Art.sql</File>
+    <File md5="82F110A95606800DDE2EA3D7C727A072" import="0">TheLaureateCommonwealth/SQL/10_LC_Text.sql</File>
+    <File md5="93C8F5707A7673D0C83B57CA4D9FE645" import="0">TheLaureateCommonwealth/SQL/90_PlayerGuide.sql</File>
     <File md5="BDED00ADB4EAE28FB37FC2A0FC8D113B" import="1">T1ZOFGK/Art/T1Z_Alpha128.dds</File>
     <File md5="F7E11B5152D3280097586F13E0841AFE" import="1">T1ZOFGK/Art/T1Z_Alpha16.dds</File>
     <File md5="B2EDA81C7B1AB682920EFFC42CA71977" import="1">T1ZOFGK/Art/T1Z_Alpha24.dds</File>
@@ -1101,6 +1118,7 @@
     <File md5="4D871E28307D9311583F6B7E771F45E8" import="0">T1ZOFGK/SQL/02_T1Z_Effects.sql</File>
     <File md5="A3D19470C6CC8C63FA0B6E26CF589A8A" import="0">T1ZOFGK/SQL/03_T1Z_Art.sql</File>
     <File md5="A183FA8D2FAB364DF6DA8D124841F649" import="0">T1ZOFGK/SQL/10_T1Z_Text.sql</File>
+    <File md5="99E44DCB0273FB642ABCDDD284BA8747" import="0">T1ZOFGK/SQL/90_PlayerGuide.sql</File>
     <File md5="5D91C77F0AE50E933D8ED2666C3E7D87" import="1">T1ZOFGK/UI/T1Z_Roster.lua</File>
     <File md5="C975ED09176CFC215A8EC940BE387A64" import="0">T1ZOFGK/UI/T1Z_Roster.xml</File>
     <File md5="CD4FAA6F054C7E3E953FCD008474A3FB" import="1">TheRepublicOfFirstDrafts/Art/RFD_Alpha128.dds</File>
@@ -1151,6 +1169,7 @@
     <File md5="2A821CAD1EE4659A09D6F64E1DF84D41" import="0">TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql</File>
     <File md5="E9817EF5C70257F39163D51B7986E2B5" import="0">TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql</File>
     <File md5="6DE294C19CE44C91B7ECEFCB865D0235" import="0">TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql</File>
+    <File md5="100A879757E6ECC3A95BF1C5DF71CF39" import="0">TheRepublicOfFirstDrafts/SQL/90_PlayerGuide.sql</File>
     <File md5="534B5053C4213C56FE2BBFBFE8DD21E7" import="1">TheLanternFleet/Art/LANTERN_Alpha128.dds</File>
     <File md5="8D7542D5FF1C5BB71298DCB9CB4E6C88" import="1">TheLanternFleet/Art/LANTERN_Alpha16.dds</File>
     <File md5="C7D42A5A301E7C0B013BF3DF9798566A" import="1">TheLanternFleet/Art/LANTERN_Alpha24.dds</File>
@@ -1200,6 +1219,7 @@
     <File md5="8C63E37880B370087C5FCD232AD4ABDA" import="0">TheLanternFleet/SQL/02_LANTERN_Effects.sql</File>
     <File md5="00F64296D652F2D7347CA8A29F8FF58A" import="0">TheLanternFleet/SQL/03_LANTERN_Art.sql</File>
     <File md5="88CF3C849F8F50C47F2ABB1B3378719F" import="0">TheLanternFleet/SQL/10_LANTERN_Text.sql</File>
+    <File md5="488D5E7A9A570C89E3E2129829264579" import="0">TheLanternFleet/SQL/90_PlayerGuide.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -1209,37 +1229,45 @@
       <UpdateDatabase>McPvP/SQL/02_MCP_Effects.sql</UpdateDatabase>
       <UpdateDatabase>McPvP/SQL/03_MCP_Art.sql</UpdateDatabase>
       <UpdateDatabase>McPvP/SQL/10_MCP_Text.sql</UpdateDatabase>
+      <UpdateDatabase>McPvP/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/00_BC_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/01_BC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/02_BC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/03_BC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheBoundlessCity/SQL/10_BC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoundlessCity/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheChildrenOfTheKingdom/SQL/00_CK_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheChildrenOfTheKingdom/SQL/01_CK_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheChildrenOfTheKingdom/SQL/02_CK_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheChildrenOfTheKingdom/SQL/03_CK_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheChildrenOfTheKingdom/SQL/10_CK_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheChildrenOfTheKingdom/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/01_PIGEON_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/02_PIGEON_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/03_PIGEON_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfPigeons/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TrainerRed/SQL/00_RED_Core.sql</UpdateDatabase>
       <UpdateDatabase>TrainerRed/SQL/01_RED_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TrainerRed/SQL/02_RED_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TrainerRed/SQL/03_RED_Promotions.sql</UpdateDatabase>
       <UpdateDatabase>TrainerRed/SQL/04_RED_Art.sql</UpdateDatabase>
       <UpdateDatabase>TrainerRed/SQL/10_RED_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TrainerRed/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheTwelfthHour/SQL/00_TWELFTH_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheTwelfthHour/SQL/01_TWELFTH_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheTwelfthHour/SQL/02_TWELFTH_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheTwelfthHour/SQL/03_TWELFTH_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheTwelfthHour/SQL/10_TWELFTH_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheTwelfthHour/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheWanderingCircus/SQL/00_WCIRCUS_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheWanderingCircus/SQL/01_WCIRCUS_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheWanderingCircus/SQL/02_WCIRCUS_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheWanderingCircus/SQL/03_WCIRCUS_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheWanderingCircus/SQL/90_PlayerGuide.sql</UpdateDatabase>
+      <UpdateDatabase>The11Cats/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>The11Cats/SQL/THE11CATS_00_Core.sql</UpdateDatabase>
       <UpdateDatabase>The11Cats/SQL/THE11CATS_01_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>The11Cats/SQL/THE11CATS_02_Effects.sql</UpdateDatabase>
@@ -1250,61 +1278,73 @@
       <UpdateDatabase>KingdomOfSaba/SQL/02_SABA_Effects.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfSaba/SQL/03_SABA_Art.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfSaba/SQL/10_SABA_Text.sql</UpdateDatabase>
+      <UpdateDatabase>KingdomOfSaba/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheSubstituteClassroom/SQL/00_GARVEY_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheSubstituteClassroom/SQL/01_GARVEY_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheSubstituteClassroom/SQL/02_GARVEY_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheSubstituteClassroom/SQL/03_GARVEY_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheSubstituteClassroom/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheConicalUnion/SQL/00_CONICAL_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheConicalUnion/SQL/01_CONICAL_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheConicalUnion/SQL/02_CONICAL_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheConicalUnion/SQL/03_CONICAL_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheConicalUnion/SQL/10_CONICAL_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheConicalUnion/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/00_UNRUNG_Core.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/01_UNRUNG_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/02_UNRUNG_Effects.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/03_UNRUNG_Art.sql</UpdateDatabase>
       <UpdateDatabase>KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</UpdateDatabase>
+      <UpdateDatabase>KingdomOfTheUnrungBell/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheUrgal/SQL/00_URGAL_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheUrgal/SQL/01_URGAL_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheUrgal/SQL/02_URGAL_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheUrgal/SQL/03_URGAL_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheUrgal/SQL/10_URGAL_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheUrgal/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>JinDynasty/SQL/00_JIN_Core.sql</UpdateDatabase>
       <UpdateDatabase>JinDynasty/SQL/01_JIN_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>JinDynasty/SQL/02_JIN_Effects.sql</UpdateDatabase>
       <UpdateDatabase>JinDynasty/SQL/03_JIN_Art.sql</UpdateDatabase>
       <UpdateDatabase>JinDynasty/SQL/10_JIN_Text.sql</UpdateDatabase>
+      <UpdateDatabase>JinDynasty/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheThresholdCourt/SQL/00_THC_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheThresholdCourt/SQL/01_THC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheThresholdCourt/SQL/02_THC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheThresholdCourt/SQL/03_THC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheThresholdCourt/SQL/10_THC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheThresholdCourt/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/00_HCC_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/01_HCC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/02_HCC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/03_HCC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheHoneycombCommonwealth/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheLaureateCommonwealth/SQL/00_LC_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheLaureateCommonwealth/SQL/01_LC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheLaureateCommonwealth/SQL/02_LC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheLaureateCommonwealth/SQL/03_LC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheLaureateCommonwealth/SQL/10_LC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheLaureateCommonwealth/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>T1ZOFGK/SQL/00_T1Z_Core.sql</UpdateDatabase>
       <UpdateDatabase>T1ZOFGK/SQL/01_T1Z_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>T1ZOFGK/SQL/02_T1Z_Effects.sql</UpdateDatabase>
       <UpdateDatabase>T1ZOFGK/SQL/03_T1Z_Art.sql</UpdateDatabase>
       <UpdateDatabase>T1ZOFGK/SQL/10_T1Z_Text.sql</UpdateDatabase>
+      <UpdateDatabase>T1ZOFGK/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/00_RFD_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/01_RFD_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/02_RFD_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/03_RFD_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheRepublicOfFirstDrafts/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheLanternFleet/SQL/00_LANTERN_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheLanternFleet/SQL/01_LANTERN_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheLanternFleet/SQL/02_LANTERN_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheLanternFleet/SQL/03_LANTERN_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheLanternFleet/SQL/10_LANTERN_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheLanternFleet/SQL/90_PlayerGuide.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>

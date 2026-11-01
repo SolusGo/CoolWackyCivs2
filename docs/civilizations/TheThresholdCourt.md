@@ -1,5 +1,7 @@
 # The Threshold Court
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheThresholdCourt.md).
+
 **Queen Elsewhere — Every Door Leads Somewhere.** An ancient kingdom joined by secret doors, human-only in BNW + Community Patch v151. Her throne room has thirteen doors. Twelve connect her realm; the thirteenth has never opened.
 
 | Unique | Effect |

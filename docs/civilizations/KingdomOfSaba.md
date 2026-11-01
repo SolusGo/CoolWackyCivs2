@@ -1,5 +1,7 @@
 # The Kingdom of Saba — Karib'il Watar
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/KingdomOfSaba.md).
+
 From **Ma'rib**, an ancient South Arabian kingdom turns seasonal water into enduring settlements. A simple historical civilization for **Science / Culture**, complexity **2/5**, human-only under BNW + Community Patch v151.
 
 - **Where the Desert Blooms:** River city centers receive +1 Food/+1 Production. Desert centers, including Desert Hills, receive +1 Culture. Flat city bonuses stack while Saba owns a qualifying city, including an acquired city.

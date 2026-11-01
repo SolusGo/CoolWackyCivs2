@@ -1,5 +1,7 @@
 # The Republic of Pigeons
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheRepublicOfPigeons.md).
+
 **Postmaster General Coo** leads a trade and exploration civilization from **Coopolis**. Reliable correspondence supplies knowledge and culture; busy rooftops supply practical work.
 
 | Feature | Rules |

@@ -1,5 +1,7 @@
 # The Conical Union
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheConicalUnion.md).
+
 **Leader:** High Marshal Bollard · **Capital:** Permanent Detour · **Victories:** Science / Domination · **Complexity:** 3/5 · **Human only**
 
 Sentient traffic cones administer an efficient empire of roads, defensive offices and extremely durable temporary closures.

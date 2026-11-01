@@ -1,5 +1,7 @@
 # The Wandering Circus
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheWanderingCircus.md).
+
 **Ringmaster Aurelio** leads this human-only civilization for Civilization V: Brave New World and Windows **Community Patch v151**. Capital: **Grand Pavilion**. Favor Culture, with Science as a secondary path.
 
 **The Show Must Go On:** end a Carnival Crew's turn on one of your city-center plots. At the next owner-turn, an eligible city hosts a Grand Festival: **+3 Culture and +2 Gold for three owner-turns**. A festival beginning at T is active at T, T+1 and T+2, expires at T+3, and permits its next start at T+12. Each city has its own schedule, including the capital. Extra Crews never stack. Crews are not consumed; after activation they can leave and the show continues. Ordinary and captured foreign Workers cannot trigger shows.
@@ -21,7 +23,7 @@ Develop improvements between festivals, then bring a Crew back before an eligibl
 
 ## Installation and validation
 
-Build the collection with `.venv\Scripts\python.exe tools/build_mod.py` (or Python with `requirements-dev.txt` installed). Extract `dist/Cool Wacky Civs 2 (v 9).zip` into the Civ V `MODS` directory; the versioned folder must contain its `.modinfo` directly. Remove the older collection install folder, enable Community Patch and Cool Wacky Civs 2 in Mods, then choose Ringmaster Aurelio in single-player setup. The collection UUID is unchanged. The original CoolWackyCivs mod is separate and unnecessary.
+Build the collection with `.venv\Scripts\python.exe tools/build_mod.py` (or Python with `requirements-dev.txt` installed). Extract `dist/Cool Wacky Civs 2 (v 22).zip` into the Civ V `MODS` directory; the versioned folder must contain its `.modinfo` directly. Remove the older collection install folder, enable Community Patch and Cool Wacky Civs 2 in Mods, then choose Ringmaster Aurelio in single-player setup. The collection UUID is unchanged. The original CoolWackyCivs mod is separate and unnecessary.
 
 Focused validation: `python tools/validate_circus.py`. Collection validation: `python tools/validate_mod.py`. Development regeneration: `python tools/generate_circus.py`, `python tools/prepare_circus_art.py`, then `python tools/build_mod.py --manifest-only`. The builder registers new atlas families before finishing their textures and hashing them. The shared icon compiler requires DirectXTex `texconv`; committed assets are sufficient for installation. After deliberately changing retained 256px icon artwork, use the shared compiler's `--refresh-sources` option for the affected atlas.
 

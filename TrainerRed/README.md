@@ -1,5 +1,7 @@
 # Trainer Red — The Living Legend
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TrainerRed.md).
+
 Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
 
 **The Indigo Champion**, led by **Trainer Red, the Silent Champion**. Capital: **Pallet Town**. A civilization for Brave New World and **Community Patch v151**, included in Cool Wacky Civs 2 **mod version 7 / 1.4.0 preview**. Domination is preferred; Science is secondary.

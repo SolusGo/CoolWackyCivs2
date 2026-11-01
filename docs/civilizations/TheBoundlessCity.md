@@ -1,5 +1,7 @@
 # The Boundless City
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheBoundlessCity.md).
+
 > There shall be no second city. For the first shall have no end.
 
 The civilization selection map now uses an original [parchment city atlas](../../TheBoundlessCity/docs/MapArtwork.md), fitted to the native map window.

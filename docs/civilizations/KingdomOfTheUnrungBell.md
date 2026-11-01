@@ -1,5 +1,7 @@
 # The Kingdom of the Unrung Bell
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/KingdomOfTheUnrungBell.md).
+
 **Keeper Sable · Capital: Stillhaven · Culture / Science · Advanced · human-only**
 
 The Kingdom remembers a bell whose terrible sound ended an age of war. Sable protects the peace that grew around its silence, while the Bellwardens guard the chains.

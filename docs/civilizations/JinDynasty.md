@@ -1,5 +1,7 @@
 # The Jin Dynasty — Wanyan Aguda
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/JinDynasty.md).
+
 **Jurchen Legacy** recreates the linked Horse economy, mobile labor, Emissary diplomacy and fortified cavalry response of Age of Empires IV's Jin. Human-playable only. Requires BNW and Windows Community Patch v151; start a new game.
 
 Train expensive fast Mounted Villagers, then choose and construct one Landmark in each of three paired tiers. Every completion offers a chosen Grassland with five-Horse capacity. Retain Horses for exact cavalry maximum HP, or spend them with Gold to recruit cavalry instantly near a War Stable. Great Pasture supplies an additional independent Horse source. Specialized Iron Pagodas, Mohe horse archers, two-bolt Bed Crossbows, Zhanma infantry and short-range Eruptors give the army distinct roles.

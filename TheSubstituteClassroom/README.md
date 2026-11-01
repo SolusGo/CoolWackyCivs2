@@ -1,5 +1,7 @@
 # The Substitute Classroom — Mr. Garvey
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheSubstituteClassroom.md).
+
 Human-only civilization for **Brave New World + Community Patch v151**. No Vox Populi requirement. Capital: **Room 101**. Included in collection version 12 / 1.9.0 preview.
 
 ## Insubordinate and Churlish

@@ -74,19 +74,19 @@ UPDATE CustomModOptions SET Value=1 WHERE Name IN
 INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES
  ('COLOR_LC_EMERALD',0.025,0.18,0.105,1),('COLOR_LC_GOLD',0.93,0.73,0.25,1);
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES
- ('PLAYERCOLOR_LC','COLOR_LC_EMERALD','COLOR_LC_GOLD','COLOR_PLAYER_WHITE_TEXT');
+ ('PLAYERCOLOR_LAUREATE','COLOR_LC_EMERALD','COLOR_LC_GOLD','COLOR_PLAYER_WHITE_TEXT');
 INSERT INTO Traits(Type,Description,ShortDescription) VALUES
- ('TRAIT_EVERGREEN_CROWN','TXT_KEY_LC_TRAIT_HELP','TXT_KEY_LC_TRAIT');
+ ('TRAIT_EVERGREEN_CROWN','TXT_KEY_LAUREATE_TRAIT_HELP','TXT_KEY_LAUREATE_TRAIT');
 """
-    core+=clone('Civilizations','CIVILIZATION_AMERICA',CIV,Description='TXT_KEY_LC_CIV',ShortDescription='TXT_KEY_LC_SHORT',Adjective='TXT_KEY_LC_ADJECTIVE',Civilopedia='TXT_KEY_LC_CIV_PEDIA',CivilopediaTag='TXT_KEY_LC_CIV5',Strategy='TXT_KEY_LC_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_LC',Playable=1,AIPlayable=0,PackageID=None,DawnOfManQuote='TXT_KEY_LC_DAWN',DawnOfManAudio='',DawnOfManImage='LC_Dawn.dds',MapImage='LC_Map.dds',PortraitIndex=0,IconAtlas='LC_CIV_ATLAS',AlphaIconAtlas='LC_ALPHA_ATLAS')
-    core+=clone('Leaders','LEADER_WASHINGTON',LEADER,Description='TXT_KEY_LC_LEADER',Civilopedia='TXT_KEY_LC_LEADER_PEDIA',CivilopediaTag='TXT_KEY_LC_LAUREA',PackageID=None,PortraitIndex=0,IconAtlas='LC_LEADER_ATLAS',ArtDefineTag='LC_LeaderScene.xml',DoFWillingness=6,DiploBalance=7,Loyalty=8,Chattiness=4,Meanness=4)
+    core+=clone('Civilizations','CIVILIZATION_AMERICA',CIV,Description='TXT_KEY_LAUREATE_CIV',ShortDescription='TXT_KEY_LAUREATE_SHORT',Adjective='TXT_KEY_LAUREATE_ADJECTIVE',Civilopedia='TXT_KEY_LAUREATE_CIV_PEDIA',CivilopediaTag='TXT_KEY_LAUREATE_CIV5',Strategy='TXT_KEY_LAUREATE_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_LAUREATE',Playable=1,AIPlayable=0,PackageID=None,DawnOfManQuote='TXT_KEY_LAUREATE_DAWN',DawnOfManAudio='',DawnOfManImage='LC_Dawn.dds',MapImage='LC_Map.dds',PortraitIndex=0,IconAtlas='LAUREATE_CIV_ATLAS',AlphaIconAtlas='LAUREATE_ALPHA_ATLAS')
+    core+=clone('Leaders','LEADER_WASHINGTON',LEADER,Description='TXT_KEY_LAUREATE_LEADER',Civilopedia='TXT_KEY_LAUREATE_LEADER_PEDIA',CivilopediaTag='TXT_KEY_LAUREATE_LAUREA',PackageID=None,PortraitIndex=0,IconAtlas='LAUREATE_LEADER_ATLAS',ArtDefineTag='LC_LeaderScene.xml',DoFWillingness=6,DiploBalance=7,Loyalty=8,Chattiness=4,Meanness=4)
     core+=f"INSERT INTO Civilization_Leaders VALUES ('{CIV}','{LEADER}');\nINSERT INTO Leader_Traits VALUES ('{LEADER}','{TRAIT}');\n"
-    core+=clone('Units','UNIT_SWORDSMAN',UNIT,Description='TXT_KEY_LC_UNIT',Civilopedia='TXT_KEY_LC_UNIT_PEDIA',Help='TXT_KEY_LC_UNIT_HELP',Strategy='TXT_KEY_LC_UNIT_STRATEGY',IconAtlas='LC_OBJECT_ATLAS',PortraitIndex=0,UnitFlagAtlas='LC_FLAG_ATLAS',UnitFlagIconOffset=0)
-    core+=clone('Buildings','BUILDING_AMPHITHEATER',HALL,Description='TXT_KEY_LC_HALL',Civilopedia='TXT_KEY_LC_HALL_PEDIA',Help='TXT_KEY_LC_HALL_HELP',Strategy='TXT_KEY_LC_HALL_STRATEGY',IconAtlas='LC_OBJECT_ATLAS',PortraitIndex=1)
+    core+=clone('Units','UNIT_SWORDSMAN',UNIT,Description='TXT_KEY_LAUREATE_UNIT',Civilopedia='TXT_KEY_LAUREATE_UNIT_PEDIA',Help='TXT_KEY_LAUREATE_UNIT_HELP',Strategy='TXT_KEY_LAUREATE_UNIT_STRATEGY',IconAtlas='LAUREATE_OBJECT_ATLAS',PortraitIndex=0,UnitFlagAtlas='LAUREATE_FLAG_ATLAS',UnitFlagIconOffset=0)
+    core+=clone('Buildings','BUILDING_AMPHITHEATER',HALL,Description='TXT_KEY_LAUREATE_HALL',Civilopedia='TXT_KEY_LAUREATE_HALL_PEDIA',Help='TXT_KEY_LAUREATE_HALL_HELP',Strategy='TXT_KEY_LAUREATE_HALL_STRATEGY',IconAtlas='LAUREATE_OBJECT_ATLAS',PortraitIndex=1)
     core+=f"UPDATE Buildings SET Happiness=Happiness+1 WHERE Type='{HALL}';\n"
     core+=f"INSERT INTO Civilization_UnitClassOverrides VALUES ('{CIV}','UNITCLASS_SWORDSMAN','{UNIT}');\nINSERT INTO Civilization_BuildingClassOverrides VALUES ('{CIV}','BUILDINGCLASS_AMPHITHEATER','{HALL}');\n"
     for table,key,count in [('Civilization_CityNames','CITY',len(CITIES)),('Civilization_SpyNames','SPY',10)]:
-        for i in range(1,count+1): core+=f"INSERT INTO {table} VALUES ('{CIV}','TXT_KEY_LC_{key}_{i}');\n"
+        for i in range(1,count+1): core+=f"INSERT INTO {table} VALUES ('{CIV}','TXT_KEY_LAUREATE_{key}_{i}');\n"
     personality={'Leader_Flavors','Leader_MajorCivApproachBiases','Leader_MinorCivApproachBiases'}
     skip=tuple(t for t, in d.execute("SELECT name FROM sqlite_master WHERE type='table'") if t not in personality)
     inherit=companions(d,'Leader_','LeaderType','LEADER_WASHINGTON',LEADER,skip)
@@ -96,23 +96,23 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES
     inherit+=companions(d,'Building_','BuildingType','BUILDING_AMPHITHEATER',HALL)
     effects=f"""-- Native wounded-unit attack and post-combat military kill healing.
 INSERT INTO UnitPromotions(Type,Description,Help,AttackWoundedMod,HPHealedIfDestroyEnemy,LostWithUpgrade,CannotBeChosen,PortraitIndex,IconAtlas,PediaType,PediaEntry)
- VALUES ('{CROWN}','TXT_KEY_LC_CROWN','TXT_KEY_LC_CROWN_HELP',15,15,0,1,0,'LC_OBJECT_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LC_CROWN');
+ VALUES ('{CROWN}','TXT_KEY_LAUREATE_CROWN','TXT_KEY_LAUREATE_CROWN_HELP',15,15,0,1,0,'LAUREATE_OBJECT_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LAUREATE_CROWN');
 INSERT INTO Unit_FreePromotions(UnitType,PromotionType) VALUES ('{UNIT}','{CROWN}');
 """
     for promotion,key in [(VETERAN,'VETERAN'),(GP,'GP_MARK')]:
-        effects+=f"INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType,PediaEntry) VALUES ('{promotion}','TXT_KEY_LC_{key}','TXT_KEY_LC_{key}_HELP',0,0,1,0,0,'LC_CIV_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LC_{key}');\n"
+        effects+=f"INSERT INTO UnitPromotions(Type,Description,Help,LostWithUpgrade,LostOnGifting,CannotBeChosen,ShowInUnitPanel,PortraitIndex,IconAtlas,PediaType,PediaEntry) VALUES ('{promotion}','TXT_KEY_LAUREATE_{key}','TXT_KEY_LAUREATE_{key}_HELP',0,0,1,0,0,'LAUREATE_CIV_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LAUREATE_{key}');\n"
     effects+=f"""-- CP IsDummy excludes this policy from policy counts. No branch makes it unselectable.
 INSERT INTO Policies(Type,Description,Help,IsDummy,GreatPeopleRateModifier,ExpModifier,PortraitIndex,IconAtlas,IconAtlasAchieved)
- VALUES ('{POLICY}','TXT_KEY_LC_POLICY','TXT_KEY_LC_POLICY_HELP',1,15,15,0,'LC_CIV_ATLAS','LC_CIV_ATLAS');
+ VALUES ('{POLICY}','TXT_KEY_LAUREATE_POLICY','TXT_KEY_LAUREATE_POLICY_HELP',1,15,15,0,'LAUREATE_CIV_ATLAS','LAUREATE_CIV_ATLAS');
 """
     for response,key in [('FIRST_GREETING','GREETING'),('DECLAREWAR','WAR'),('ATTACKED','ATTACKED'),('DEFEATED','DEFEAT'),('PEACE_MADE_BY_HUMAN_GRACIOUS','PEACE'),('PEACE_MADE_BY_HUMAN_UNGRACIOUS','PEACE'),('PEACE_OFFER','PEACE_OFFER'),('GREETING_POLITE_HELLO','FRIENDLY'),('GREETING_NEUTRAL_HELLO','NEUTRAL'),('GREETING_HOSTILE_HELLO','HOSTILE'),('TRADE_ACCEPT_GENEROUS','TRADE'),('TRADE_ACCEPT_ACCEPTABLE','TRADE')]:
-        effects+=f"INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('{LEADER}','RESPONSE_{response}','TXT_KEY_LC_{key}_%',1);\n"
+        effects+=f"INSERT INTO Diplomacy_Responses(LeaderType,ResponseType,Response,Bias) VALUES ('{LEADER}','RESPONSE_{response}','TXT_KEY_LAUREATE_{key}_%',1);\n"
     effects+=f"UPDATE Leader_Flavors SET Flavor=8 WHERE LeaderType='{LEADER}' AND FlavorType IN ('FLAVOR_CULTURE','FLAVOR_WONDER','FLAVOR_GREAT_PEOPLE');\n"
     art=''
     for atlas,stem,cols in [('CIV','Icon',1),('ALPHA','Alpha',1),('OBJECT','Objects',2),('LEADER','Portrait',1)]:
-        for size in [16,24,32,45,48,64,80,128,256]: art+=f"INSERT INTO IconTextureAtlases VALUES ('LC_{atlas}_ATLAS',{size},'LC_{stem}{size}.dds',{cols},1);\n"
-    art+="INSERT INTO IconTextureAtlases VALUES ('LC_FLAG_ATLAS',32,'LC_Flag32.dds',1,1);\n"
-    text=''.join("INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_"+k+"','"+v.replace("'","''")+"');\n" for k,v in sorted(TEXT.items()))
+        for size in [16,24,32,45,48,64,80,128,256]: art+=f"INSERT INTO IconTextureAtlases VALUES ('LAUREATE_{atlas}_ATLAS',{size},'LC_{stem}{size}.dds',{cols},1);\n"
+    art+="INSERT INTO IconTextureAtlases VALUES ('LAUREATE_FLAG_ATLAS',32,'LC_Flag32.dds',1,1);\n"
+    text=''.join("INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LAUREATE_"+k+"','"+v.replace("'","''")+"');\n" for k,v in sorted(TEXT.items()))
     for name,content in [('00_LC_Core',core),('01_LC_Inheritance',inherit),('02_LC_Effects',effects),('03_LC_Art',art),('10_LC_Text',text)]:
         (V/'SQL'/f'{name}.sql').write_text(content,encoding='utf-8',newline='\n')
     print('Generated Laureate identity, active Swordsman/Amphitheater inheritance and exact modifiers')

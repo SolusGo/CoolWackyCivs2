@@ -1,5 +1,7 @@
 # The Republic of First Drafts
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheRepublicOfFirstDrafts.md).
+
 **Leader:** Editor-in-Chief Marginalia · **Capital:** First Edition · **Complexity:** Intermediate (3/5) · **Preferred victories:** Science / Culture.
 
 A republic of writers, architects, engineers, scholars and publishers rewards experimentation and continuous revision. Marginalia, in her annotated academic robes and crooked spectacles, presides over the Editorial Department. Its philosophy: **Nothing Is Ever Final.**
@@ -28,7 +30,7 @@ Build varied affordable institutions to gain early Culture and Gold, then develo
 
 Requires Windows Civilization V **Brave New World + Community Patch v151**. Vox Populi is not required. This civilization has `Playable=1`, `AIPlayable=0`; its Lua effects only benefit living human Republic players. Multiplayer/hotseat support is unchanged from the collection and is not claimed.
 
-This is part of **Cool Wacky Civs 2 (v 19)**, using its existing UUID and ModBuddy project. Install the collection normally through the Mods menu; do not install this directory as a separate mod. `tools/build_mod.py` appends this civilization after all released SQL to preserve their IDs. SQL loads in numeric order. One `InGameUIAddin` loads `Lua/RFD_FirstDrafts.xml`; the Lua script, diplomacy scene and DDS textures use VFS imports. SQL and the entry XML do not. There is no gameplay panel or shared CityView override.
+This is part of **Cool Wacky Civs 2 (v 22)**, using its existing UUID and ModBuddy project. Install the collection normally through the Mods menu; do not install this directory as a separate mod. `tools/build_mod.py` appends this civilization after all released SQL to preserve their IDs. SQL loads in numeric order. One `InGameUIAddin` loads `Lua/RFD_FirstDrafts.xml`; the Lua script, diplomacy scene and DDS textures use VFS imports. SQL and the entry XML do not. There is no gameplay panel or shared CityView override.
 
 ## Saves and initialization
 

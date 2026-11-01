@@ -1,5 +1,7 @@
 # The Kingdom of Saba
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/KingdomOfSaba.md).
+
 **Karib'il Watar** leads a modest historical civilization of ancient South Arabian water management. Capital: **Ma'rib**. Preferred victories: **Science / Culture**. Complexity: **2/5**. Requires Civilization V: Brave New World and Windows Community Patch v151; Community Balance Patch/Vox Populi is not required. Human-playable only (`Playable=1`, `AIPlayable=0`); no AI strategy is provided.
 
 | Unique | Exact effect |

@@ -18,7 +18,7 @@
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <Guid>f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392</Guid>
     <ProjectGuid>{AA4AD1C1-C12D-4D53-9CB9-19714C36EA01}</ProjectGuid>
-    <ModVersion>21</ModVersion>
+    <ModVersion>22</ModVersion>
     <SafeName>CoolWackyCivs2</SafeName>
     <AssemblyName>CoolWackyCivs2</AssemblyName>
     <RootNamespace>CoolWackyCivs2</RootNamespace>
@@ -59,6 +59,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>McPvP/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheBoundlessCity/SQL/00_BC_Core.sql</FileName>
       </Action>
       <Action>
@@ -80,6 +85,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheBoundlessCity/SQL/10_BC_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheBoundlessCity/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -109,6 +119,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheChildrenOfTheKingdom/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheRepublicOfPigeons/SQL/00_PIGEON_Core.sql</FileName>
       </Action>
       <Action>
@@ -130,6 +145,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfPigeons/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -164,6 +184,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TrainerRed/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheTwelfthHour/SQL/00_TWELFTH_Core.sql</FileName>
       </Action>
       <Action>
@@ -189,6 +214,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheTwelfthHour/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheWanderingCircus/SQL/00_WCIRCUS_Core.sql</FileName>
       </Action>
       <Action>
@@ -210,6 +240,16 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheWanderingCircus/SQL/10_WCIRCUS_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheWanderingCircus/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>The11Cats/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -264,6 +304,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>KingdomOfSaba/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheSubstituteClassroom/SQL/00_GARVEY_Core.sql</FileName>
       </Action>
       <Action>
@@ -285,6 +330,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheSubstituteClassroom/SQL/10_GARVEY_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheSubstituteClassroom/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -314,6 +364,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheConicalUnion/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>KingdomOfTheUnrungBell/SQL/00_UNRUNG_Core.sql</FileName>
       </Action>
       <Action>
@@ -335,6 +390,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>KingdomOfTheUnrungBell/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -364,6 +424,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheUrgal/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>JinDynasty/SQL/00_JIN_Core.sql</FileName>
       </Action>
       <Action>
@@ -385,6 +450,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>JinDynasty/SQL/10_JIN_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>JinDynasty/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -414,6 +484,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheThresholdCourt/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheHoneycombCommonwealth/SQL/00_HCC_Core.sql</FileName>
       </Action>
       <Action>
@@ -435,6 +510,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheHoneycombCommonwealth/SQL/10_HCC_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheHoneycombCommonwealth/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -464,6 +544,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheLaureateCommonwealth/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>T1ZOFGK/SQL/00_T1Z_Core.sql</FileName>
       </Action>
       <Action>
@@ -485,6 +570,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>T1ZOFGK/SQL/10_T1Z_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>T1ZOFGK/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -514,6 +604,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheRepublicOfFirstDrafts/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheLanternFleet/SQL/00_LANTERN_Core.sql</FileName>
       </Action>
       <Action>
@@ -535,6 +630,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheLanternFleet/SQL/10_LANTERN_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheLanternFleet/SQL/90_PlayerGuide.sql</FileName>
       </Action>
     </ModActions>
     <ModContent>
@@ -895,6 +995,9 @@
     <Content Include="McPvP/SQL/10_MCP_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="McPvP/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="McPvP/UI/MCP_ServerBrowser.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -1084,6 +1187,9 @@
     <Content Include="TheBoundlessCity/SQL/10_BC_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheBoundlessCity/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheBoundlessCity/UI/BoundlessWorkforce.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -1243,6 +1349,9 @@
     <Content Include="TheChildrenOfTheKingdom/SQL/10_CK_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheChildrenOfTheKingdom/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheChildrenOfTheKingdom/UI/CK_Prayer.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -1367,6 +1476,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheRepublicOfPigeons/SQL/10_PIGEON_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheRepublicOfPigeons/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheRepublicOfPigeons/UI/PigeonTrade.lua">
@@ -1618,6 +1730,9 @@
     <Content Include="TrainerRed/SQL/10_RED_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TrainerRed/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TrainerRed/UI/RED_TeamPanel.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -1765,6 +1880,9 @@
     <Content Include="TheTwelfthHour/SQL/10_TWELFTH_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheTwelfthHour/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheTwelfthHour/UI/TWELFTH_Clock.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -1907,6 +2025,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheWanderingCircus/SQL/10_WCIRCUS_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheWanderingCircus/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheWanderingCircus/UI/WanderingCircus.lua">
@@ -2110,6 +2231,9 @@
     <Content Include="The11Cats/Lua/THE11CATS_Safety.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
+    <Content Include="The11Cats/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="The11Cats/SQL/THE11CATS_00_Core.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
@@ -2273,6 +2397,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="KingdomOfSaba/SQL/10_SABA_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="KingdomOfSaba/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheSubstituteClassroom/Art/CWC2_TheSubstituteClassroom_Buttons.dds">
@@ -2446,6 +2573,9 @@
     <Content Include="TheSubstituteClassroom/SQL/10_GARVEY_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheSubstituteClassroom/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheSubstituteClassroom/UI/GARVEY_RollCall.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -2594,6 +2724,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheConicalUnion/SQL/10_CONICAL_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheConicalUnion/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="KingdomOfTheUnrungBell/Art/UNRUNG_Alpha128.dds">
@@ -2762,6 +2895,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="KingdomOfTheUnrungBell/SQL/10_UNRUNG_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="KingdomOfTheUnrungBell/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheUrgal/Art/CWC2_TheUrgal_Buttons.dds">
@@ -2948,6 +3084,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheUrgal/SQL/10_URGAL_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheUrgal/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheUrgal/UI/URGAL_Potions.lua">
@@ -3262,6 +3401,9 @@
     <Content Include="JinDynasty/SQL/10_JIN_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="JinDynasty/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="JinDynasty/UI/JIN_Dynasty.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -3457,6 +3599,9 @@
     <Content Include="TheThresholdCourt/SQL/10_THC_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheThresholdCourt/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheThresholdCourt/UI/THC_Transfer.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -3607,6 +3752,9 @@
     <Content Include="TheHoneycombCommonwealth/SQL/10_HCC_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheHoneycombCommonwealth/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheLaureateCommonwealth/Art/LC_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -3749,6 +3897,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheLaureateCommonwealth/SQL/10_LC_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheLaureateCommonwealth/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="T1ZOFGK/Art/T1Z_Alpha128.dds">
@@ -3919,6 +4070,9 @@
     <Content Include="T1ZOFGK/SQL/10_T1Z_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="T1ZOFGK/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="T1ZOFGK/UI/T1Z_Roster.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -4069,6 +4223,9 @@
     <Content Include="TheRepublicOfFirstDrafts/SQL/10_RFD_Text.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheRepublicOfFirstDrafts/SQL/90_PlayerGuide.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheLanternFleet/Art/LANTERN_Alpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -4214,6 +4371,9 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheLanternFleet/SQL/10_LANTERN_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheLanternFleet/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
   </ItemGroup>

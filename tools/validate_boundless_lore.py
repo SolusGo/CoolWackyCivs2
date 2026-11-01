@@ -54,8 +54,12 @@ def validate(d=None):
         assert not re.search(r'^#|\*\*|\]\(',value),key
     civ=d.execute("SELECT CivilopediaTag,Civilopedia,DawnOfManQuote FROM Civilizations WHERE Type='CIVILIZATION_BOUNDLESS_CITY'").fetchone()
     leader=d.execute("SELECT CivilopediaTag,Civilopedia FROM Leaders WHERE Type='LEADER_BC_ARCHITECT'").fetchone()
-    assert tuple(civ)==(CIV_PREFIX,'TXT_KEY_BC_CIV_PEDIA','TXT_KEY_BC_DAWN')
-    assert tuple(leader)==(LEADER_PREFIX,'TXT_KEY_BC_LEADER_PEDIA')
+    guide='TXT_KEY_CWC2_GUIDE_THEBOUNDLESSCITY'
+    assert civ['CivilopediaTag'] in (CIV_PREFIX,guide+'_CIV')
+    assert leader['CivilopediaTag'] in (LEADER_PREFIX,guide+'_LEADER')
+    assert civ['DawnOfManQuote']=='TXT_KEY_BC_DAWN'
+    assert strings[civ['Civilopedia']]==strings['TXT_KEY_BC_CIV_PEDIA']
+    assert strings[leader['Civilopedia']]==strings['TXT_KEY_BC_LEADER_PEDIA']
     for table,kind,key in [('Buildings','BUILDING_BC_REGISTRY','TXT_KEY_BC_REGISTRY_PEDIA'),
                            ('Units','UNIT_BC_SURVEYOR','TXT_KEY_BC_SURVEYOR_PEDIA')]:
         assert d.execute('SELECT Civilopedia FROM '+table+' WHERE Type=?',(kind,)).fetchone()[0]==key

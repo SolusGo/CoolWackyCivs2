@@ -1,5 +1,7 @@
 # The Honeycomb Commonwealth
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheHoneycombCommonwealth.md).
+
 **Speaker Mellia**, elected by the Council of Hives, leads an intelligent honeybee federation from **First Comb**. Human-only; BNW + Community Patch v151. Science / Culture; complexity 3/5.
 
 | Feature | Effect |

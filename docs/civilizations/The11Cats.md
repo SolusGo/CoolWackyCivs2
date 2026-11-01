@@ -1,5 +1,7 @@
 # The 11 Cats — Austin, King of the House
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/The11Cats.md).
+
 A peaceful, human-only civilization for BNW and Community Patch v151. Austin was adopted in 2013; across the eras, ten unique companions join his household. The supplied emblem shows the white, long-haired King at its center.
 
 **King of the House:** genuine We Love the King Day celebrations last 25% longer. House Cats Settle In for +1 Culture and exact personal local bonuses, with three residents per city. Specific family combinations grant modest local bonds. All identities survive displacement through protective recovery.

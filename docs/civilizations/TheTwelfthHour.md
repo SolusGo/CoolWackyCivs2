@@ -1,5 +1,7 @@
 # The Twelfth Hour
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheTwelfthHour.md).
+
 **Leader:** The Keeper of Seconds. **Capital:** Last Minute. **Human selectable only.**
 
 A mysterious industrial society measures its achievements against the Grand Clock. Every factory and observatory follows a shared schedule, culminating in the Grand Chime.

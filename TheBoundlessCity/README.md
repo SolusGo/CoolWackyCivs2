@@ -1,5 +1,7 @@
 # The Boundless City
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheBoundlessCity.md).
+
 Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.
 
 > There shall be no second city. For the first shall have no end.

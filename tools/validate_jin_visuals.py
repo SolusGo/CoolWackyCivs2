@@ -45,6 +45,9 @@ def main():
  # promotion icon columns and a new texture atlas may differ, never gameplay.
  before=database();after=database()
  for path in sorted((V/'SQL').glob('*.sql')):
+  # The separately validated player guide changes text references only and did
+  # not exist at the graphics baseline. Keep the original mechanics comparison.
+  if path.name=='90_PlayerGuide.sql':continue
   relative=path.relative_to(R).as_posix()
   before.executescript(subprocess.check_output(['git','show',BASELINE+':'+relative],cwd=R).decode('utf-8'))
   after.executescript(path.read_text(encoding='utf-8'))

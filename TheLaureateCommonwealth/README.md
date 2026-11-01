@@ -1,5 +1,7 @@
 # The Laureate Commonwealth
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheLaureateCommonwealth.md).
+
 **Laurea — Keeper of the Unfading Crown** leads a human-only civilization for Civilization V: Brave New World and **Community Patch v151 only**. Capital: **Daphne**. Dark emerald and gold; emblem: a golden laurel wreath and white star. No Vox Populi or additional DLL is required.
 
 Victory is the recognition of excellence. Pursue Culture through Wonders, writers and civic institutions; a disciplined army and a prosperous republic also support Domination and Diplomacy.

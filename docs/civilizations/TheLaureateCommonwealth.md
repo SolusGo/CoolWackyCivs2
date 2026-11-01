@@ -1,5 +1,7 @@
 # The Laureate Commonwealth
 
+**Strategy:** [Opening, strengths, weaknesses and matchups](../strategy/TheLaureateCommonwealth.md).
+
 **Leader:** Laurea, Keeper of the Unfading Crown. **Capital:** Daphne. Human-only, BNW + Community Patch v151.
 
 **The Evergreen Crown** recognizes World Wonders, Great People and Level 3 military veterans with normal Golden Age Points. Rewards scale by current Era and game speed. Golden Ages add 15% city Great Person generation and 15% combat XP.
