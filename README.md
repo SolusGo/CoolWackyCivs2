@@ -1,8 +1,8 @@
 # Cool Wacky Civs 2
 
-21 human-only civilizations for Civilization V: Brave New World and Windows **Community Patch v151**. An independent collection; the original mod is not required.
+22 human-only civilizations for Civilization V: Brave New World and Windows **Community Patch v151**. An independent collection; the original mod is not required.
 
-**Current source:** mod version 23 - **The Triumphal Imperium**. [Changelog](CHANGELOG.md)
+**Current source:** mod version 24 - **The Covenant**. [Changelog](CHANGELOG.md)
 
 **Start here:** [Choose a playstyle](docs/StrategyGuide.md) · [Who pressures whom](docs/Matchups.md) · [Installation and builds](#playing-the-mod)
 
@@ -35,13 +35,14 @@ Named custom-civ matchups are conditional theorycraft or scenario comparisons, n
 | The Republic of First Drafts | Editor-in-Chief Marginalia | Institutional variety and permanent first-possession rewards | [Strategy](docs/strategy/TheRepublicOfFirstDrafts.md) · [Full rules](TheRepublicOfFirstDrafts/README.md) |
 | The Lantern Fleet | High Keeper Maren | Defensive coastal development and turn-start naval snapshots | [Strategy](docs/strategy/TheLanternFleet.md) · [Full rules](TheLanternFleet/README.md) |
 | The Triumphal Imperium | Imperator Aurelion | Earned Victory Momentum, military mobilisation and relentless offensives | [Strategy](docs/strategy/TheTriumphalImperium.md) · [Full rules](TheTriumphalImperium/README.md) |
+| The Covenant | The Scribe | Mandatory Scripture recall, spaced reviews and recurring exams | [Strategy](docs/strategy/TheCovenant.md) · [Full rules](TheCovenant/README.md) |
 
-All 21 have `Playable=1`, `AIPlayable=0`. Native gameplay, rendering and save acceptance remain incomplete; the full rules and testing records distinguish implemented mechanics from outstanding engine checks.
+All 22 have `Playable=1`, `AIPlayable=0`. Native gameplay, rendering and save acceptance remain incomplete; the full rules and testing records distinguish implemented mechanics from outstanding engine checks.
 
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 23).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 23).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 24).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 24).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 
@@ -56,6 +57,7 @@ python -m pip install -r requirements-dev.txt
 python tools/prepare_art.py
 python tools/build_mod.py --manifest-only --preserve-art
 python tools/validate_mod.py
+python tools/validate_covenant.py
 python tools/benchmark.py
 python tools/build_mod.py --preserve-art
 python tools/verify_release.py

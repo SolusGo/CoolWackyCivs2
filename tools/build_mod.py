@@ -5,10 +5,10 @@ import hashlib,sys,zipfile
 R=Path(__file__).resolve().parents[1]
 MOD_ID='f6859d5b-50bf-4a7e-b5d3-bdc2d6e69392'
 PROJECT_ID='aa4ad1c1-c12d-4d53-9cb9-19714c36ea01'
-VERSION='23'
+VERSION='24'
 NAME='Cool Wacky Civs 2 (v '+VERSION+')'
 ENTRY='TheBoundlessCity/UI/BoundlessWorkforce.xml'
-CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom','TheTwelfthHour','TheWanderingCircus','The11Cats','KingdomOfSaba','TheSubstituteClassroom','TheConicalUnion','KingdomOfTheUnrungBell','TheUrgal','JinDynasty','TheThresholdCourt','TheHoneycombCommonwealth','TheLaureateCommonwealth','T1ZOFGK','TheRepublicOfFirstDrafts','TheLanternFleet','TheTriumphalImperium')
+CIVILIZATIONS=('TheBoundlessCity','TheRepublicOfPigeons','TrainerRed','McPvP','TheChildrenOfTheKingdom','TheTwelfthHour','TheWanderingCircus','The11Cats','KingdomOfSaba','TheSubstituteClassroom','TheConicalUnion','KingdomOfTheUnrungBell','TheUrgal','JinDynasty','TheThresholdCourt','TheHoneycombCommonwealth','TheLaureateCommonwealth','T1ZOFGK','TheRepublicOfFirstDrafts','TheLanternFleet','TheTriumphalImperium','TheCovenant')
 ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-driven workforce panel.'),
  ('TheRepublicOfPigeons/UI/PigeonTrade.xml','Messages on the Wing','Pigeon trade-route yields and Rooftop Roost production.'),
  ('TrainerRed/UI/RED_TeamPanel.xml','Champion Team','Trainer Red simulation and event-driven Champion Team panel.'),
@@ -29,11 +29,12 @@ ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-dri
  ('T1ZOFGK/UI/T1Z_Roster.xml','ZOFGK Roster','Human-only persistent legends, genuine Recruit development, local auras and roster summary.'),
  ('TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.xml','Nothing Is Ever Final','Human-only permanent Building Class rewards and dynamic Revision Workshop Science.'),
  ('TheLanternFleet/Lua/LANTERN_Harbors.xml','No Harbor Goes Dark','Turn-start guarded coastal city snapshots and Signal Lighthouse Gold.'),
- ('TheTriumphalImperium/UI/TRI_Panel.xml','Victory Momentum','Persistent combat victories, military mobilisation and a compact laurel indicator.')]
+ ('TheTriumphalImperium/UI/TRI_Panel.xml','Victory Momentum','Persistent combat victories, military mobilisation and a compact laurel indicator.'),
+ ('TheCovenant/UI/CovenantGate.xml','Written on the Heart','Mandatory typed Scripture recall, spaced reviews and five-passage exams.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
-PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Twenty-one civilizations, now including The Triumphal Imperium.',
- 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty, The Republic of First Drafts, The Lantern Fleet and The Triumphal Imperium. Requires BNW and Community Patch v151. See the included civilization guides.',
+PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Twenty-two civilizations, now including The Covenant.',
+ 'Description':'The Boundless City, The Republic of Pigeons, The Indigo Champion, McPvP - The Endless Lobby, The Children of the Kingdom, The Twelfth Hour, The Wandering Circus, The 11 Cats, The Kingdom of Saba, The Substitute Classroom, The Conical Union, The Kingdom of the Unrung Bell, The Urgal, The Jin Dynasty, The Threshold Court, The Honeycomb Commonwealth, The Laureate Commonwealth, T1 - The ZOFGK Dynasty, The Republic of First Drafts, The Lantern Fleet, The Triumphal Imperium, and The Covenant. Requires BNW and Community Patch v151. See the included civilization guides.',
  'Authors':'SolusGo','Homepage':'https://github.com/SolusGo/CoolWackyCivs2',
  'AffectsSavedGames':'1','MinCompatibleSaveVersion':'1','SupportsSinglePlayer':'1','SupportsMultiplayer':'0',
  'SupportsHotSeat':'0','SupportsMac':'0','ReloadAudioSystem':'0','ReloadLandmarkSystem':'0',
@@ -47,7 +48,7 @@ def files():
     # Append new database content after the entire released inventory. Preserve
     # existing insertion order/IDs rather than alphabetically interleaving a civ.
     return sorted(paths,key=lambda p:(p.relative_to(R).parts[0]!='Shared',
-                                     {'TheTwelfthHour':1,'TheWanderingCircus':2,'The11Cats':3,'KingdomOfSaba':4,'TheSubstituteClassroom':5,'TheConicalUnion':6,'KingdomOfTheUnrungBell':7,'TheUrgal':8,'JinDynasty':9,'TheThresholdCourt':10,'TheHoneycombCommonwealth':11,'TheLaureateCommonwealth':12,'T1ZOFGK':13,'TheRepublicOfFirstDrafts':14,'TheLanternFleet':15,'TheTriumphalImperium':16}.get(p.relative_to(R).parts[0],0),p.as_posix()))
+                                     {'TheTwelfthHour':1,'TheWanderingCircus':2,'The11Cats':3,'KingdomOfSaba':4,'TheSubstituteClassroom':5,'TheConicalUnion':6,'KingdomOfTheUnrungBell':7,'TheUrgal':8,'JinDynasty':9,'TheThresholdCourt':10,'TheHoneycombCommonwealth':11,'TheLaureateCommonwealth':12,'T1ZOFGK':13,'TheRepublicOfFirstDrafts':14,'TheLanternFleet':15,'TheTriumphalImperium':16,'TheCovenant':17}.get(p.relative_to(R).parts[0],0),p.as_posix()))
 def relative(p): return p.relative_to(R).as_posix()
 def imported(p): return p.suffix!='.sql' and relative(p) not in {e[0] for e in ENTRIES}
 
@@ -57,7 +58,9 @@ def manifests():
     for k,v in PROPS.items(): ET.SubElement(props,k).text=v
     deps=ET.SubElement(root,'Dependencies')
     for typ,id,minimum,title in DEPS: ET.SubElement(deps,typ,id=id,minversion=minimum,maxversion='999',title=title)
-    ET.SubElement(root,'References');ET.SubElement(root,'Blocks')
+    ET.SubElement(root,'References')
+    blockers=ET.SubElement(root,'Blocks')
+    ET.SubElement(blockers,'Mod',id='c8d1d902-8c46-4aec-9a1b-37b76bfb849d',minversion='0',maxversion='999',title='The Covenant standalone')
     content=ET.SubElement(root,'Files')
     for p in paths: ET.SubElement(content,'File',md5=hashlib.md5(p.read_bytes()).hexdigest().upper(),**{'import':str(int(imported(p)))}).text=relative(p)
     actions=ET.SubElement(ET.SubElement(root,'Actions'),'OnModActivated')
@@ -93,7 +96,10 @@ def manifests():
     for typ,id,minimum,title in DEPS:
         a=ET.SubElement(deps,tag('Association'))
         for k,v in [('Type',typ),('Name',title),('Id',id),('MinVersion',minimum),('MaxVersion','999')]:ET.SubElement(a,tag(k)).text=v
-    ET.SubElement(group,tag('ModReferences'));ET.SubElement(group,tag('ModBlockers'))
+    ET.SubElement(group,tag('ModReferences'))
+    blockers=ET.SubElement(group,tag('ModBlockers'))
+    block=ET.SubElement(blockers,tag('Association'))
+    for k,v in [('Type','Mod'),('Name','The Covenant standalone'),('Id','c8d1d902-8c46-4aec-9a1b-37b76bfb849d'),('MinVersion','0'),('MaxVersion','999')]: ET.SubElement(block,tag(k)).text=v
     for config in ['Default','Deploy Only','Package Only']:
         g=ET.SubElement(proj,tag('PropertyGroup'),Condition=f" '$(Configuration)' == '{config}' ")
         ET.SubElement(g,tag('OutputPath')).text='.'

@@ -182,3 +182,7 @@ if __name__=='__main__':
 
     from validate_triumphal import validate as validate_triumphal
     validate_triumphal()
+
+
+    from validate_covenant import main as validate_covenant
+    validate_covenant()

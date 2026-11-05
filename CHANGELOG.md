@@ -1,5 +1,13 @@
 # Changelog
 
+## The Covenant / mod version 24 — 2026-11-06
+
+- Added The Covenant under The Scribe as the collection's 22nd human-only civilization. Written on the Heart adds city Culture and once-per-turn Faith/Culture rewards for unaided recall; Scriptoria replace Shrines and Tabernacles replace Temples.
+- Added mandatory reference-and-word recall for the five supplied NIV passages, including corrected John 14:29. Mistakes restart the passage, studying removes its clean reward, spaced reviews continue, and all five return every tenth campaign turn.
+- Persisted unfinished checks, assistance, section progress and schedules through the save-data store. Added paste-change rejection and a non-dismissible modal gate scoped to the Covenant player.
+- Updated the collection builder, ModBuddy project, manifest, roster, guides and focused Lua 5.1 tests. Existing civilization source files are unchanged. Stock Egyptian/Ramesses/Shrine/Temple art is referenced; no new art is bundled.
+- Offline engine/UI-model, manifest and actual-database checks pass. Native gameplay, keyboard dispatch, popup/rendering behavior and real save-file round trips remain unverified; see [testing](TheCovenant/docs/Testing.md).
+
 ## 1.22.0 / mod version 23 - The Triumphal Imperium - 2026-11-01
 
 - Add Imperator Aurelion, The Unbroken and the Hall of Triumphs as an isolated human-only civilization. Victory Momentum rewards verified major military combat kills and conquests, decays across quiet owner-turn cycles, and drives native military strength/Production tiers.

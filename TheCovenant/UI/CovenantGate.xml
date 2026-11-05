@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="CovenantGate" Hidden="1" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow">
+  <Box ID="Backdrop" Anchor="C,C" Size="Full,Full" Color="5,10,20,245" ConsumeMouse="1">
+    <Grid ID="Panel" Anchor="C,C" Size="920,640" Style="Grid9DetailFive140" Padding="0,0" ConsumeMouse="1">
+      <Label Anchor="C,T" Offset="0,24" Font="TwCenMT28" String="THE COVENANT"/>
+      <Label ID="Mode" Anchor="C,T" Offset="0,62" Font="TwCenMT20"/>
+      <Image Anchor="C,T" Offset="0,96" Size="844,3" Texture="HorizontalTrim.dds"/>
+      <Label ID="Progress" Anchor="C,T" Offset="0,112" Font="TwCenMT16"/>
+      <Label ID="Title" Anchor="C,T" Offset="0,144" WrapWidth="830" Font="TwCenMT24"/>
+      <Label ID="Instructions" Anchor="C,T" Offset="0,186" WrapWidth="820" Font="TwCenMT18"/>
+      <Label ID="Passage" Anchor="L,T" Offset="46,236" WrapWidth="826" Font="TwCenMT20"/>
+      <Box ID="AnswerPanel" Anchor="C,T" Offset="0,322" Size="830,48" Color="196,170,110,255">
+        <Box Anchor="C,C" Size="826,44" Color="10,17,27,255">
+          <EditBox ID="Answer" Anchor="C,C" Size="806,28" Font="TwCenMT20" MaxLength="512" CallOnChar="1" EditMode="1" FocusStop="0"/>
+        </Box>
+      </Box>
+      <Label ID="Feedback" Anchor="C,T" Offset="0,398" WrapWidth="820" Font="TwCenMT18"/>
+      <GridButton ID="Submit" Anchor="C,B" Offset="-212,106" Size="400,42" Style="BaseButton">
+        <Label ID="SubmitLabel" Anchor="C,C" Font="TwCenMT20" String="CHECK RECALL"/>
+      </GridButton>
+      <GridButton ID="Study" Anchor="C,B" Offset="212,106" Size="400,42" Style="BaseButton">
+        <Label Anchor="C,C" Font="TwCenMT20" String="STUDY AGAIN (RESTARTS CHECK)"/>
+      </GridButton>
+      <Label ID="Footer" Anchor="C,B" Offset="0,60" WrapWidth="820" Font="TwCenMT16"/>
+      <Label Anchor="C,B" Offset="0,26" Font="TwCenMT14" String="The game resumes after recall. No skip button. NIV passages supplied by the player."/>
+    </Grid>
+  </Box>
+</Context>
