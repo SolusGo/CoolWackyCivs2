@@ -43,7 +43,7 @@ SELECT 'CIVILIZATION_COVENANT_MEMORY', BuildingClassType FROM Civilization_FreeB
 INSERT INTO Civilization_Start_Along_River (CivilizationType, StartAlongRiver)
 VALUES ('CIVILIZATION_COVENANT_MEMORY', 1);
 
--- Stock art is referenced from the player's installed game, never redistributed.
+-- Native building models are inherited; 03_COVENANT_Art.sql replaces the 2D portraits.
 INSERT INTO Buildings
  (Type, BuildingClass, Description, Civilopedia, Strategy, Help, Cost, FaithCost,
   PrereqTech, GoldMaintenance, HurryCostModifier, MinAreaSize, ConquestProb,

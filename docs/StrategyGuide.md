@@ -29,7 +29,7 @@ All custom civs are human-only. Named custom-civ comparisons are theorycraft/sce
 | [The Republic of First Drafts](strategy/TheRepublicOfFirstDrafts.md) | Institutional variety and permanent first-possession rewards | Science or Culture |
 | [The Lantern Fleet](strategy/TheLanternFleet.md) | Defensive coastal development and turn-start naval snapshots | Science or Culture |
 | [The Triumphal Imperium](strategy/TheTriumphalImperium.md) | Victory-fed military strength and mobilisation that fade during quiet campaigns | Domination |
-| [The Covenant](strategy/TheCovenant.md) | Mandatory typed Scripture recall and a Faith/Culture economy | Culture or a conventional protected research economy |
+| [The Covenant](strategy/TheCovenant.md) | Mandatory Scripture recall with a conventional Faith and Culture economy | Culture or a protected research economy |
 
 ## Reading an advantage
 

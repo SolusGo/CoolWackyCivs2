@@ -29,6 +29,7 @@ These are conditional opportunities and threats, not a tier list. Read the linke
 | [The Republic of First Drafts](strategy/TheRepublicOfFirstDrafts.md) | [Sol Intellect](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/SolIntellect.md), [Saba](strategy/KingdomOfSaba.md) | [Shattered Empire](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/TheShatteredEmpire.md), [McPvP](strategy/McPvP.md) |
 | [The Lantern Fleet](strategy/TheLanternFleet.md) | [Pigeon Republic](strategy/TheRepublicOfPigeons.md), [The Conical Union](strategy/TheConicalUnion.md) | [Sol Intellect](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/strategy/SolIntellect.md), [Jin](strategy/JinDynasty.md) |
 | [The Triumphal Imperium](strategy/TheTriumphalImperium.md) | [The Conical Union](strategy/TheConicalUnion.md), [The Lantern Fleet](strategy/TheLanternFleet.md) | [Laureate Commonwealth](strategy/TheLaureateCommonwealth.md), [The Threshold Court](strategy/TheThresholdCourt.md) |
+| [The Covenant](strategy/TheCovenant.md) | [Pigeon Republic](strategy/TheRepublicOfPigeons.md), [Children of the Kingdom](strategy/TheChildrenOfTheKingdom.md) | [The Triumphal Imperium](strategy/TheTriumphalImperium.md), [The Boundless City](strategy/TheBoundlessCity.md) |
 
 [Matchups in the other collection](https://github.com/SolusGo/CoolWackyCivs/blob/main/docs/Matchups.md)
 

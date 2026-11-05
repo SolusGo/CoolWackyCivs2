@@ -1,0 +1,14 @@
+{
+  "scope": "Installed Firaxis Lua/XML source inspection, not native API execution",
+  "shipped_scripts_sha256": {
+    "Assets\\UI\\InGame\\Popups\\SetCityName.lua": "51940303bb146acad63b34891f0cb36b9480bd6199e6153d09b4b4c6a96ea7b1",
+    "Assets\\UI\\InGame\\Popups\\SetUnitName.lua": "5efb78043a53f37ecf5d6908c2b0b00db0e1d96370b44933b853d56bb8139416",
+    "Assets\\DLC\\DLC_01\\Scenarios\\Mongol Scenario\\CivsAlive.lua": "eb719bac055f701702524e8466d3216258c5d219ab69f4c29edda7404812f61b"
+  },
+  "modal_input_contract": "Rename dialogs use CallOnChar=1, EditMode=1, RegisterCallback(text,control,enterPressedOrLostFocus), and a context handler returning true for unhandled input",
+  "save_contract": "Modding.OpenSaveData returned functions are called with dot notation in shipped scenarios",
+  "popup_contract": "QueuePopup and DequeuePopup have local ownership; visibility alone does not establish queue membership. No per-context membership query verified in shipped scripts",
+  "cp_source_commit": "44c1e14ff75d80c1dba5c8a71e8289439a53aafb",
+  "native_ui_tested": false,
+  "native_save_round_trip_tested": false
+}

@@ -674,7 +674,17 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheCovenant/SQL/03_COVENANT_Art.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TheCovenant/SQL/10_COVENANT_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheCovenant/SQL/90_PlayerGuide.sql</FileName>
       </Action>
     </ModActions>
     <ModContent>
@@ -4592,6 +4602,138 @@
     <Content Include="TheTriumphalImperium/UI/TRI_Panel.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Alpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Dawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Flag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Icon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Leader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_LeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Map.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Objects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_Portrait80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_UI_Buttons.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_UI_Panel.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/Art/COVENANT_UI_Trim.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="TheCovenant/Lua/CovenantMemory.lua">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -4601,7 +4743,13 @@
     <Content Include="TheCovenant/SQL/00_COVENANT_Core.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="TheCovenant/SQL/03_COVENANT_Art.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="TheCovenant/SQL/10_COVENANT_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheCovenant/SQL/90_PlayerGuide.sql">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="TheCovenant/UI/CovenantGate.lua">
@@ -4658,6 +4806,7 @@
     <Folder Include="TheConicalUnion\Lua\" />
     <Folder Include="TheConicalUnion\SQL\" />
     <Folder Include="TheCovenant\" />
+    <Folder Include="TheCovenant\Art\" />
     <Folder Include="TheCovenant\Lua\" />
     <Folder Include="TheCovenant\SQL\" />
     <Folder Include="TheCovenant\UI\" />

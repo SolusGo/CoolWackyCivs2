@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 import struct
+import sqlite3
 import time
 from xml.etree import ElementTree as ET
 from PIL import Image
@@ -130,10 +131,17 @@ INSERT INTO Building_YieldChanges(BuildingType,YieldType,Yield) VALUES ('BUILDIN
     cache=Path.home()/"Documents/My Games/Sid Meier's Civilization 5/cache/Civ5DebugDatabase.db"
     active_cache = cache.exists() and is_cp_cache(cache)
     if active_cache:
-        active=database(cache=cache)
+        # Inspect the already activated CP cache without asking the clean
+        # baseline adapter to activate the collection a second time.
+        source=sqlite3.connect(cache.resolve().as_uri()+'?mode=ro',uri=True)
+        active=sqlite3.connect(':memory:');source.backup(active);source.close()
+        active.row_factory=sqlite3.Row
+        active.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
         for p in sorted((R/'Shared/SQL').glob('*.sql')):active.executescript(p.read_text(encoding='utf-8'))
         if not active.execute('SELECT 1 FROM Civilizations WHERE Type=?',(CIV,)).fetchone():
             apply(active);inheritance(active)
+        else:print('SKIP active-cache activation: Conical Union already present; clean-schema checks passed')
+        active.close()
     print(f'PASS Conical SQL: all released rows/IDs preserved; {companion_count} companion tables; Worker/Walls inheritance, exact yields, overrides, localization and changed-base regressions')
     print('CP-activated live cache:', 'validated read-only copy' if active_cache else 'UNAVAILABLE (menu/vanilla cache); installed v151 schema applied to backup in memory')
     return d, {'companion_tables':companion_count, 'cp_activated_live_cache':bool(active_cache),

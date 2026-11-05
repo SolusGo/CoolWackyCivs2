@@ -79,6 +79,9 @@ def main():
         sample += ['TheLanternFleet/docs/Validation.json','TheLanternFleet/README.md']
         sample += [relative(p) for p in game if p.relative_to(R).parts[0]=='TheTriumphalImperium']
         sample += ['TheTriumphalImperium/docs/Validation.json','TheTriumphalImperium/README.md']
+        sample += [relative(p) for p in game if p.relative_to(R).parts[0]=='TheCovenant']
+        sample += ['TheCovenant/docs/SourceAudit.json','TheCovenant/docs/AuditReport.md']
+        sample += ['TheCovenant/docs/Graphics.md','TheCovenant/docs/GraphicsValidation.json']
         for record in json.loads((R/'docs/UIRefreshInventory.json').read_text(encoding='utf-8')):
             sample += record['xml']
             sample += [name.removesuffix('.xml')+'.lua' for name in record['xml']]

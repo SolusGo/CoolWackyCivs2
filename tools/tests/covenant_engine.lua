@@ -73,12 +73,14 @@ test("assistance and mistakes reset mastery; intervals stay bounded", function()
     s.clearedTurn = -1
     -- Avoid exam turns in this isolated interval test.
     if (turn + 1) % 10 == 0 then turn = turn + 1 end
+    if turn >= 9 then s.lastExamTurn = turn end -- isolate intervals from overdue exams
     assert(M.Begin(s, turn).phase == 'reference')
     assert(complete(s).clean)
     assert(s.lessons[1].clean == clean and s.lessons[1].due == turn + interval)
     turn = turn + interval
   end
   assert(M.Mastered(s) == 1)
+  s.lastExamTurn = turn
   M.Begin(s, turn)
   M.Study(s)
   assert(M.Mastered(s) == 0)
@@ -121,7 +123,7 @@ test("malformed saves fail closed rather than executing arbitrary text", functio
   M.Begin(s, 0)
   local encoded = M.Encode(s)
   assert(not M.Decode(encoded .. ',123', V))
-  assert(not M.Decode(encoded:gsub('^1,', '2,'), V))
+  assert(not M.Decode(encoded:gsub('^2,', '999,'), V))
 end)
 
 test("paste detection covers insertion and replacement selections", function()
@@ -131,5 +133,102 @@ test("paste detection covers insertion and replacement selections", function()
   assert(M.InsertedCharacters('', 'full pasted verse') > 1)
   assert(M.InsertedCharacters('xxx', 'gold refined') > 1)
   assert(M.InsertedCharacters('xx', 'ab') > 1)
+end)
+
+test("reference components never collapse digits or lose range boundaries", function()
+  for _, v in ipairs(V) do
+    assert(M.ReferenceMatches(v.reference, v.reference))
+    assert(M.ReferenceMatches(v.reference:upper():gsub(' ', ''):gsub(':', ' : '):gsub('-', ' - '), v.reference))
+  end
+  for _, bad in ipairs({
+    'Revelation 31:7-18', 'Revelation 3:1-718', 'Revelation 3:1718',
+    'Revelation 3:17', 'Revelation 3:17-19', 'Revelation 3:18-17',
+    'Revelation 3:17-18-19', 'Revelation 3:17,18', 'Revelation 3:17 to 18',
+    'Revelation 3 17 18', 'Revelation 3::17-18', 'Revelation 3:17-',
+    'Revelation 03:17-18', 'Revelation 3:017-18', 'Revelation 3:17-018',
+    'Revelation 0:17-18', 'Revelation 3:0-18', 'Revelation 3:17-0',
+    'Revelations 3:17-18', 'Rev 3:17-18', 'Reve lation 3:17-18',
+    'Revelation 3:1 7-18', 'Revelation 3:17-1 8', 'Revelation 3:17-18 extra',
+    'Revelation 3:17-18.', 'Revelation +3:17-18', 'Revelation 3.0:17-18',
+    'Revelation 3:17/18', 'Revelation 3:17:18', 'Revelation 3:17\226\128\139-18'
+  }) do assert(not M.ReferenceMatches(bad, V[1].reference), bad) end
+  for _, bad in ipairs({'John 1:429', 'John 14:2-9', 'John 14:29-29', 'John 14:29-'}) do
+    assert(not M.ReferenceMatches(bad, V[5].reference), bad)
+  end
+  assert(not M.ReferenceMatches('', ''))
+  assert(not M.ReferenceMatches(nil, V[1].reference))
+  for _, space in ipairs({'\194\160', '\226\128\137', '\226\128\175', '\227\128\128', '\t'}) do
+    for _, dash in ipairs({'-', '\226\128\147', '\226\128\148'}) do
+      assert(M.ReferenceMatches(space .. 'REVELATION' .. space .. '3' .. space .. ':' .. space .. '17' .. space .. dash .. space .. '18' .. space, V[1].reference))
+    end
+    assert(M.FirstDifference('you' .. space .. 'are rich', 'you are rich') == nil)
+  end
+end)
+
+test("Unicode single-character insertion and selection replacements", function()
+  assert(M.InsertedCharacters('word', 'word\226\128\153') == 1)
+  assert(M.InsertedCharacters('xxx', '\226\128\156') == 1)
+  assert(M.InsertedCharacters('xxx', 'a\226\128\153') == 2)
+  assert(M.InsertedCharacters('abc', 'axc') == 1)
+  assert(M.InsertedCharacters('abc', 'abc') == 0)
+  assert(M.InsertedCharacters('abc', '') == 0)
+end)
+
+test("interrupted ordinary review settles on completion turn", function()
+  local s = M.New(0, #V)
+  for t = 0, 4 do M.Begin(s, t); complete(s) end
+  M.Begin(s, 5)
+  M.Answer(s, V, V[1].reference, 6)
+  local r
+  for _, section in ipairs(V[1].sections) do r = M.Answer(s, V, section, 6) end
+  assert(r.clean and s.clearedTurn == 6 and s.lessons[1].due == 8)
+  assert(not M.Begin(s, 6))
+end)
+
+test("skipped examination boundary catches up and preserves pending order", function()
+  local s = M.New(0, #V)
+  for t = 0, 4 do M.Begin(s, t); complete(s) end
+  local session = M.Begin(s, 11)
+  assert(session.exam and #session.queue == 5 and session.queue[1] == 2)
+  local encoded = M.Encode(s)
+  s = assert(M.Decode(encoded, V))
+  assert(M.Begin(s, 20).turn == 11)
+  for n = 1, 5 do
+    local id = s.session.queue[1]
+    M.Answer(s, V, V[id].reference, 20)
+    for _, section in ipairs(V[id].sections) do M.Answer(s, V, section, 20) end
+  end
+  assert(s.clearedTurn == 20 and s.lastExamTurn == 11)
+  assert(M.Begin(s, 20).exam and #s.session.queue == 5)
+  for n = 1, 5 do complete(s) end
+  assert(not M.Begin(s, 20))
+end)
+
+test("legacy v1 progress migrates without changing pending state", function()
+  local legacy = '1,37,-1,-1,1,37,0,1,3,2,1,1,5,0,0,37,1,0,0,38,0,0,0,39,0,0,0,40,0,0,0,41,0'
+  local s = assert(M.Decode(legacy, V))
+  assert(s.session.phase == 'section' and s.session.section == 2 and s.session.assisted)
+  assert(s.lessons[1].failures == 1 and s.rewardTurn == -1)
+  local encoded = M.Encode(s)
+  assert(encoded:sub(1,2) == '2,' and M.Encode(assert(M.Decode(encoded, V))) == encoded)
+end)
+
+test("corrupt numeric payloads fail without throwing", function()
+  local s = M.New(0, #V); M.Begin(s, 0)
+  local encoded = M.Encode(s)
+  for cut = 0, #encoded - 1 do
+    local ok = pcall(M.Decode, encoded:sub(1, cut), V)
+    assert(ok, cut)
+  end
+  for _, corrupt in ipairs({
+    encoded:gsub('^2,0,%-1,%-1,%-1', '2,0,-2,-1,-1'),
+    encoded:gsub('^2,0,%-1,%-1,%-1', '2,0,-1,9,-1'),
+    '1,0,-1,-1,1,0,0,0,1,1,1,1,5,0,0,0,0,0,0,1,0,0,0,2,0,0,0,3,0,0,0,4,0',
+    '1,0,-1,-1,1,0,0,1,2,2,1,1,5,0,0,0,0,0,0,1,0,0,0,2,0,0,0,3,0,0,0,4,0',
+    string.rep('1,', 3000), '2,0,-1,-1,-1,0,5,999999999999999999999999999,0,0,0'
+  }) do
+    local ok, decoded = pcall(M.Decode, corrupt, V)
+    assert(ok and not decoded, corrupt)
+  end
 end)
 return tests

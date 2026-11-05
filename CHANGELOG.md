@@ -1,5 +1,21 @@
 # Changelog
 
+## Covenant action recovery / mod version 24 — 2026-11-06
+
+- Fix a reproduced callback failure that could permanently latch Submit after a UI refresh exception. Protect Submit/Study actions and recover the existing saved progression/view without repeating answers or rewards.
+- Add render/save/partial-yield fault regressions. Keep all Scripture, balance, original graphics, save keys and the other civilizations intact; see the [current audit report](TheCovenant/docs/AuditReport.md).
+
+## Covenant original graphics / mod version 24 — 2026-11-06
+
+- Add original navy-and-gold Covenant art in the collection's established format: civilization/leader/building atlas families, tintable emblem/flag, static leader scene, Dawn illustration, map and recall UI materials.
+- Preserve gameplay and saved progress. Keep other civilizations' files intact; retain raw art, prompts, compiler and previews. See [graphics notes](TheCovenant/docs/Graphics.md).
+
+## Covenant reliability revision / mod version 24 — 2026-11-06
+
+- Correct structured Bible reference validation, hidden-popup queue churn, Unicode edit counting and carried-session scheduling. Preserve Scripture wording, numerical balance and the other civilizations' mechanics.
+- Harden callback/semaphore ownership, catch up due examinations before unlocking, and migrate original v24 saved progress with a journalled per-turn reward cap.
+- Register Covenant strategy/Civilopedia content in the existing guide workflow. Expand Lua 5.1, UI-contract, persistence, SQL and release verification; retain explicit native testing limits. See [audit report](TheCovenant/docs/AuditReport.md).
+
 ## The Covenant / mod version 24 — 2026-11-06
 
 - Added The Covenant under The Scribe as the collection's 22nd human-only civilization. Written on the Heart adds city Culture and once-per-turn Faith/Culture rewards for unaided recall; Scriptoria replace Shrines and Tabernacles replace Temples.

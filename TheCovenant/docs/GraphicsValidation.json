@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-06",
+  "scope": "Historical graphics-only revision evidence; current callback recovery and test totals are recorded in AuditReport.md",
+  "tool": "built-in image_gen",
+  "prompt_set": "art-source/TheCovenant/Prompts.json",
+  "original_paintings": {
+    "Scribe.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "5ea35aca4873a40da0b19ceeb58d4b2f1ac77c2e7971db6522b3c6ed5f7c7ae7"
+    },
+    "Scriptorium.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "e1f25f1ae44306cf81223524561e9ef1e21123f2271e23225d84ce486a4d3885"
+    },
+    "Tabernacle.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "22ef89ef9f2b23d3f16516c2d13d533297f6168d8caa3991289850198df08b55"
+    },
+    "Dawn.png": {
+      "size": [
+        1448,
+        1086
+      ],
+      "sha256": "89201cd0c62463ffae96baf69bcea63c01133505ff07a501ceb2170ff931cb5d"
+    },
+    "Map.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "9c32396fa87577d23f2de16a8e3ead377a57d0bfadd0a7db761748aac82fd4d1"
+    }
+  },
+  "dds_textures": 43,
+  "atlas_sizes": [
+    16,
+    24,
+    32,
+    45,
+    48,
+    64,
+    80,
+    128,
+    256
+  ],
+  "atlas_declarations": 37,
+  "colour_diameter": 0.9,
+  "leader_diameter": 0.75,
+  "encoding": "legacy RGBA DDS, complete mip chain",
+  "scene_sizes": {
+    "Leader": [
+      1600,
+      900
+    ],
+    "Dawn": [
+      1024,
+      768
+    ],
+    "Map": [
+      512,
+      512
+    ]
+  },
+  "ui_sizes": {
+    "Panel": [
+      920,
+      640
+    ],
+    "Buttons": [
+      44,
+      180
+    ],
+    "Trim": [
+      844,
+      3
+    ]
+  },
+  "art_overlay_gameplay_snapshot": "PASS",
+  "native_rendering": "NOT RUN",
+  "preview": "actual shipped Lua/XML and compiled DDS with modeled fonts",
+  "retained_native_models": true,
+  "save_schema_or_gameplay_changes": false,
+  "gameplay_lua_vs_pre_graphics_release": "byte-identical (memory engine, Scripture data and gate lifecycle)",
+  "focused_validation": "PASS (15 engine groups + 18 additional UI/persistence groups + graphics/SQL contracts)",
+  "collection_checks": "PASS SQL, 22 guides/77 lore chapters, Lua 5.1 syntax, whole manifest/project/VFS/DDS checks and original-collection coexistence",
+  "shared_icon_validation": {
+    "atlas_sizes": 890,
+    "custom_leaders": 22,
+    "framed_cells": 1377,
+    "result": "PASS"
+  },
+  "other_civilization_files_preserved": 1443,
+  "manifest_game_files": 1300
+}

@@ -5,7 +5,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 from PIL import Image
 from lupa.lua51 import LuaRuntime
-from database import database,quote
+from database import database,quote,is_cp_cache
 from build_mod import files
 from generate_saba import R,V,CIV,LEADER,UNIT,CISTERN,PROMOTION,DUMMIES,TEXT,CITIES
 
@@ -87,13 +87,20 @@ INSERT INTO Building_YieldChanges(BuildingType,YieldType,Yield) VALUES ('BUILDIN
     assert altered.execute('SELECT SABA_TestScalar FROM Buildings WHERE Type=?',(CISTERN,)).fetchone()[0]==73
     assert yields(altered,CISTERN)['YIELD_FOOD']==1 and yields(altered,CISTERN)['YIELD_GOLD']==5
     cache=Path.home()/"Documents/My Games/Sid Meier's Civilization 5/cache/Civ5DebugDatabase.db"
-    if cache.exists():
-        active=database(cache=cache)
+    if cache.exists() and is_cp_cache(cache):
+        # This optional cache can already contain the collection. Clone it
+        # read-only, as Twelfth/Circus do; the clean adapter correctly rejects it.
+        source=sqlite3.connect(cache.resolve().as_uri()+'?mode=ro',uri=True)
+        active=sqlite3.connect(':memory:');source.backup(active);source.close()
+        active.row_factory=sqlite3.Row
+        active.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
         for p in sorted((R/'Shared/SQL').glob('*.sql')):active.executescript(p.read_text(encoding='utf-8'))
         if not active.execute('SELECT 1 FROM Civilizations WHERE Type=?',(CIV,)).fetchone():
             apply(active);inheritance(active)
             print('PASS Saba activation on read-only active-cache copy with installed CP schema')
         else:print('SKIP active-cache activation: Saba already present')
+        active.close()
+    else:print('SKIP Saba raw active-cache activation: no cache with Community Patch loaded')
     print('PASS Saba real-schema SQL, all released rows/IDs preserved, exact bonuses, full inheritance and changed-base/companion regressions')
     return d
 

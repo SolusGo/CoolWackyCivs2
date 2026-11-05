@@ -1274,12 +1274,58 @@
     <File md5="75978FB1C782602FAAEA25DCB6A6BE97" import="0">TheTriumphalImperium/SQL/90_PlayerGuide.sql</File>
     <File md5="B9B2858B9F481B9814EF59A7B830019B" import="1">TheTriumphalImperium/UI/TRI_Panel.lua</File>
     <File md5="6779637E025682B2E612B8786CCD3AC2" import="0">TheTriumphalImperium/UI/TRI_Panel.xml</File>
-    <File md5="A71A87952D814E24B6F52456C76D6D0B" import="1">TheCovenant/Lua/CovenantMemory.lua</File>
+    <File md5="BACB09DFE6DB837F33479A21C02FA74A" import="1">TheCovenant/Art/COVENANT_Alpha128.dds</File>
+    <File md5="CB69B15F58A0CE41416A6989360ED9F4" import="1">TheCovenant/Art/COVENANT_Alpha16.dds</File>
+    <File md5="0B92370EC69579ED5EFDC64AE716227D" import="1">TheCovenant/Art/COVENANT_Alpha24.dds</File>
+    <File md5="143944958F07C6586621D89987D273B2" import="1">TheCovenant/Art/COVENANT_Alpha256.dds</File>
+    <File md5="D3FD13C2C35F705C8E444C42472B243C" import="1">TheCovenant/Art/COVENANT_Alpha32.dds</File>
+    <File md5="854AD72D8BD59E4E01E0270A43CEBB08" import="1">TheCovenant/Art/COVENANT_Alpha45.dds</File>
+    <File md5="3225B0645CC7082783AB64AF5F69814C" import="1">TheCovenant/Art/COVENANT_Alpha48.dds</File>
+    <File md5="DDEB42F2C00FCC48B5F74B43DD1B2073" import="1">TheCovenant/Art/COVENANT_Alpha64.dds</File>
+    <File md5="129832EA4CC798751D51C03F91A21FCE" import="1">TheCovenant/Art/COVENANT_Alpha80.dds</File>
+    <File md5="A182EC1D8D014D4411A9AD99155024AB" import="1">TheCovenant/Art/COVENANT_Dawn.dds</File>
+    <File md5="7A898DF4A4781E434388C5A2C76CC036" import="1">TheCovenant/Art/COVENANT_Flag32.dds</File>
+    <File md5="9BA24B07D2C27B02DE6880297ECB5B96" import="1">TheCovenant/Art/COVENANT_Icon128.dds</File>
+    <File md5="E560FBB97E9F12764AAA6F7D381C10A9" import="1">TheCovenant/Art/COVENANT_Icon16.dds</File>
+    <File md5="628A14FBD785FFFD5A18B8C9605E9C52" import="1">TheCovenant/Art/COVENANT_Icon24.dds</File>
+    <File md5="986FFE83C7DD6F79E9C002E22E5D73D5" import="1">TheCovenant/Art/COVENANT_Icon256.dds</File>
+    <File md5="47A6C9C4C52A95E00A60F170B8B188FD" import="1">TheCovenant/Art/COVENANT_Icon32.dds</File>
+    <File md5="8D7B7697DBD4F3A114DABA8DB86E431D" import="1">TheCovenant/Art/COVENANT_Icon45.dds</File>
+    <File md5="381166AAE0C7AF60B95BAF77D3C6EDF0" import="1">TheCovenant/Art/COVENANT_Icon48.dds</File>
+    <File md5="867940E8C6A592D0121BF1215B207007" import="1">TheCovenant/Art/COVENANT_Icon64.dds</File>
+    <File md5="97724223AD8C5C6FD63CF017F7560BD9" import="1">TheCovenant/Art/COVENANT_Icon80.dds</File>
+    <File md5="87E4D468920CBDB2478CA0BEFB884CF0" import="1">TheCovenant/Art/COVENANT_Leader.dds</File>
+    <File md5="27CC8CF7A1AC2E0A22F348A013A0DC2A" import="1">TheCovenant/Art/COVENANT_LeaderScene.xml</File>
+    <File md5="F3741EED6AE9002B2CC1B683F4B9E274" import="1">TheCovenant/Art/COVENANT_Map.dds</File>
+    <File md5="2D605BD2B9AECE19A2BB6E68DAFE97DD" import="1">TheCovenant/Art/COVENANT_Objects128.dds</File>
+    <File md5="EA3FF71093BEB8551FF895D6EC80B6C1" import="1">TheCovenant/Art/COVENANT_Objects16.dds</File>
+    <File md5="9788A884C743FC057B5105F0F9F85ECA" import="1">TheCovenant/Art/COVENANT_Objects24.dds</File>
+    <File md5="649C3719539A6F380B559834C5C39793" import="1">TheCovenant/Art/COVENANT_Objects256.dds</File>
+    <File md5="9E5A0CD1FEEF2FA6E51A7A332A573C16" import="1">TheCovenant/Art/COVENANT_Objects32.dds</File>
+    <File md5="F8E4FEB0A86AA9B7C6EA43D3C2BD07E7" import="1">TheCovenant/Art/COVENANT_Objects45.dds</File>
+    <File md5="238ADD98ED80091B690330FE6BACE03B" import="1">TheCovenant/Art/COVENANT_Objects48.dds</File>
+    <File md5="C67EE4E4BC386DF8A37493CC91AE22A6" import="1">TheCovenant/Art/COVENANT_Objects64.dds</File>
+    <File md5="4E6CA0B3F7D17C47578E2774C4CEE6B0" import="1">TheCovenant/Art/COVENANT_Objects80.dds</File>
+    <File md5="97E844759A01DB563BAD2E904E29D166" import="1">TheCovenant/Art/COVENANT_Portrait128.dds</File>
+    <File md5="FE501166A6328C3A93A5656A9F225754" import="1">TheCovenant/Art/COVENANT_Portrait16.dds</File>
+    <File md5="D87179F09799771C42096027634EEA21" import="1">TheCovenant/Art/COVENANT_Portrait24.dds</File>
+    <File md5="8FE13C4D5526D1E1AC0F7EAA0AA6FBEA" import="1">TheCovenant/Art/COVENANT_Portrait256.dds</File>
+    <File md5="E59B0DFEBCBE5867F47C13B40C9991B6" import="1">TheCovenant/Art/COVENANT_Portrait32.dds</File>
+    <File md5="3FA7F0F0DC27BBB28C2D5F53C52BA59C" import="1">TheCovenant/Art/COVENANT_Portrait45.dds</File>
+    <File md5="A3AAF2110000C812613D167729556C9A" import="1">TheCovenant/Art/COVENANT_Portrait48.dds</File>
+    <File md5="FB04062D059D4291DB4C3B4C4F8C0863" import="1">TheCovenant/Art/COVENANT_Portrait64.dds</File>
+    <File md5="D20ACDCFEB2C7379FD846D9FED5CC226" import="1">TheCovenant/Art/COVENANT_Portrait80.dds</File>
+    <File md5="7C935C93FF46408E8A7742A828E400BE" import="1">TheCovenant/Art/COVENANT_UI_Buttons.dds</File>
+    <File md5="7804FAFB4356D9A63D61B4C447799183" import="1">TheCovenant/Art/COVENANT_UI_Panel.dds</File>
+    <File md5="3002CE3618859D50EE49B206911AF602" import="1">TheCovenant/Art/COVENANT_UI_Trim.dds</File>
+    <File md5="A4500623FA9552241DD6031907A21956" import="1">TheCovenant/Lua/CovenantMemory.lua</File>
     <File md5="9CB77D8376F2AC5DFDD0EFA0FC471B29" import="1">TheCovenant/Lua/CovenantVerses.lua</File>
-    <File md5="95E9C9FC9A6F84204D43E4E40190F26D" import="0">TheCovenant/SQL/00_COVENANT_Core.sql</File>
-    <File md5="7769E6BE96AB937FF3F7436EBE76ECFB" import="0">TheCovenant/SQL/10_COVENANT_Text.sql</File>
-    <File md5="8E86E630D7247452AA1F6257D6967486" import="1">TheCovenant/UI/CovenantGate.lua</File>
-    <File md5="A06F8A61B60DE525DDF9D11464C4A643" import="0">TheCovenant/UI/CovenantGate.xml</File>
+    <File md5="9437BDE6DBF145F20FC03E785B4777CA" import="0">TheCovenant/SQL/00_COVENANT_Core.sql</File>
+    <File md5="2962597470DCDAB88C5B44046FEAB04B" import="0">TheCovenant/SQL/03_COVENANT_Art.sql</File>
+    <File md5="D945D3DC056201AAB0A48A52B5112497" import="0">TheCovenant/SQL/10_COVENANT_Text.sql</File>
+    <File md5="368644F2F318DEF2607C07B48E3A7961" import="0">TheCovenant/SQL/90_PlayerGuide.sql</File>
+    <File md5="178A85388E2D24CD447314E033FD9CB3" import="1">TheCovenant/UI/CovenantGate.lua</File>
+    <File md5="A806B8AA41BB398794539A16B122353E" import="0">TheCovenant/UI/CovenantGate.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -1412,7 +1458,9 @@
       <UpdateDatabase>TheTriumphalImperium/SQL/10_TRI_Text.sql</UpdateDatabase>
       <UpdateDatabase>TheTriumphalImperium/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheCovenant/SQL/00_COVENANT_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheCovenant/SQL/03_COVENANT_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheCovenant/SQL/10_COVENANT_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheCovenant/SQL/90_PlayerGuide.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>

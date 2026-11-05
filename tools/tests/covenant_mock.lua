@@ -12,7 +12,7 @@ local function control()
   function c:SetHide(hide) self.hidden = hide end
   function c:SetDisabled(disabled) self.disabled = disabled end
   function c:SetOffsetX(x) self.x = x end
-  function c:TakeFocus() self.focused = true end
+  function c:TakeFocus() self.focused = true; self.focusCalls = (self.focusCalls or 0) + 1 end
   function c:RegisterCallback(a, b)
     if b then self.click = b else self.editCallback = a end
   end
@@ -26,28 +26,41 @@ function ContextPtr:IsHidden() return self.hidden end
 function ContextPtr:SetInputHandler(f) self.input = f end
 function ContextPtr:SetShowHideHandler(f) self.showHide = f end
 function ContextPtr:SetUpdate(f) self.update = f end
-UIManager = {}
+UIManager = {queueCalls = 0, dequeueCalls = 0, blocked = false, member = false}
+function UIManager:refresh()
+  local hidden = self.blocked or not self.member
+  if ContextPtr.hidden ~= hidden then
+    ContextPtr.hidden = hidden
+    ContextPtr.showHide(hidden, false)
+  end
+end
 function UIManager:QueuePopup(context, priority)
-  context.hidden = false
-  context.showHide(false, false)
+  assert(context == ContextPtr and priority == PopupPriority.eUtmost)
+  assert(not self.member, 'duplicate queue entry')
+  self.queueCalls = self.queueCalls + 1
+  self.member = true
+  self:refresh()
 end
 function UIManager:DequeuePopup(context)
-  context.hidden = true
-  context.showHide(true, false)
+  assert(context == ContextPtr)
+  self.dequeueCalls = self.dequeueCalls + 1
+  self.member = false
+  self:refresh()
 end
-semaphores = 0
+semaphores, timerIncrements, timerDecrements = 0, 0, 0
 UI = {
-  incTurnTimerSemaphore = function() semaphores = semaphores + 1 end,
-  decTurnTimerSemaphore = function() semaphores = semaphores - 1 end
+  incTurnTimerSemaphore = function() semaphores = semaphores + 1; timerIncrements = timerIncrements + 1; assert(semaphores == 1) end,
+  decTurnTimerSemaphore = function() semaphores = semaphores - 1; timerDecrements = timerDecrements + 1; assert(semaphores == 0) end
 }
 Mouse = {eLClick = 1}
 PopupPriority = {eUtmost = 999}
 KeyEvents = {KeyDown = 1, KeyUp = 2}
 Keys = {VK_ESCAPE = 27, VK_RETURN = 13, VK_SPACE = 32}
 GameInfoTypes = {CIVILIZATION_COVENANT_MEMORY = 55}
-turn, activePlayer, network, hotseat = 0, 0, false, false
+turn, startTurn, activePlayer, network, hotseat = 0, 0, 0, false, false
 Game = {
   GetGameTurn = function() return turn end,
+  GetStartTurn = function() return startTurn end,
   GetActivePlayer = function() return activePlayer end,
   IsNetworkMultiPlayer = function() return network end
 }
@@ -62,8 +75,8 @@ function player:ChangeFaith(n) self.faith = self.faith + n end
 function player:ChangeJONSCulture(n) self.culture = self.culture + n end
 Players = {[0] = player}
 Modding = {OpenSaveData = function() return {
-  GetValue = function(self, key) return saved[key] end,
-  SetValue = function(self, key, value) saved[key] = value end
+  GetValue = function(key, ...) assert(type(key) == 'string' and select('#', ...) == 0); return saved[key] end,
+  SetValue = function(key, value, ...) assert(type(key) == 'string' and select('#', ...) == 0); saved[key] = value end
 } end}
 Events = {}
 for _, name in ipairs({'ActivePlayerTurnStart', 'LoadScreenClose', 'GameplaySetActivePlayer'}) do
@@ -85,7 +98,7 @@ function typeText(text)
 end
 function currentState()
   for key, value in pairs(saved) do
-    if not key:find('_RewardTurn') then return CovenantMemory.Decode(value, CovenantVerses) end
+    if key:match('^CovenantMemory_v1_.*_P' .. activePlayer .. '$') then return CovenantMemory.Decode(value, CovenantVerses) end
   end
 end
 function finishPassage()

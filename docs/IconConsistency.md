@@ -1,5 +1,7 @@
 # Civilization icon framing
 
+The Covenant (v24 graphics revision) uses the same nine-size colour/alpha/leader/object families, a monochrome flag, full mip chains and shared 90%/75% framing. `tools/prepare_covenant_art.py` compiles five original paintings plus procedural Scripture/quill heraldry and three UI materials into 43 legacy RGBA DDS textures. Its original PNGs and exact built-in imagegen prompts are retained under `art-source/TheCovenant`; `tools/preview_covenant.py` renders the shipped interface with modeled fonts. No other families are recompiled by that tool.
+
 Jin (version 16) adds original Aguda loading/leader artwork, crimson-and-gold
 civilization/unit/building atlas families, monochrome alpha/flags and a schematic
 map. `tools/prepare_jin_art.py` compiles the retained sources in
