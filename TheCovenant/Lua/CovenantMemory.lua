@@ -49,14 +49,109 @@ function M.ReferenceMatches(answer, expected)
   return true
 end
 
-function M.FirstDifference(answer, expected)
+function M.DifferenceDetails(answer, expected)
   local a, b = {}, {}
   for word in M.Normalize(answer):gmatch("%S+") do a[#a + 1] = word end
   for word in M.Normalize(expected):gmatch("%S+") do b[#b + 1] = word end
   for i = 1, math.max(#a, #b) do
-    if a[i] ~= b[i] then return i end
+    if a[i] ~= b[i] then
+      local detail = {word = i, actual = a[i], expected = b[i], kind = "word",
+        part = table.concat(b, " ", math.max(1, i - 2), math.min(#b, i + 2))}
+      if a[i] and b[i] and a[i] == b[i + 1] and a[i + 1] == b[i] then
+        detail.kind = "order"
+        detail.actualNext, detail.expectedNext = a[i + 1], b[i + 1]
+      elseif not a[i] or (b[i + 1] and a[i] == b[i + 1]) then
+        detail.kind = "missing"
+      elseif not b[i] or (a[i + 1] and a[i + 1] == b[i]) then
+        detail.kind = "extra"
+      else
+        for letter = 1, math.max(#a[i], #b[i]) do
+          local actual, wanted = a[i]:sub(letter, letter), b[i]:sub(letter, letter)
+          if actual ~= wanted then
+            detail.letter, detail.actualLetter, detail.expectedLetter = letter, actual, wanted
+            break
+          end
+        end
+      end
+      return detail
+    end
   end
   return nil
+end
+
+function M.FirstDifference(answer, expected)
+  local detail = M.DifferenceDetails(answer, expected)
+  return detail and detail.word or nil
+end
+
+function M.MaskedSection(answer, expected)
+  local typed, slots = {}, {}
+  for word in M.Normalize(answer):gmatch("%S+") do typed[#typed + 1] = word end
+  -- Retain the original section's case, punctuation and spacing in the display.
+  -- Only apostrophes WITHIN a word belong to its spelling, not closing quotes.
+  local cursor = 1
+  while true do
+    local first, last = expected:find("[A-Za-z0-9]+", cursor)
+    if not first then break end
+    while true do
+      local width = expected:sub(last + 1, last + 1) == "'" and 1
+        or ((expected:sub(last + 1, last + 3) == "\226\128\152"
+          or expected:sub(last + 1, last + 3) == "\226\128\153") and 3 or nil)
+      if not width or not expected:sub(last + width + 1, last + width + 1):match("[A-Za-z0-9]") then break end
+      local _, tail = expected:find("[A-Za-z0-9]+", last + width + 1)
+      last = tail
+    end
+    slots[#slots + 1] = {first = first, last = last, word = M.Normalize(expected:sub(first, last))}
+    cursor = last + 1
+  end
+  local n, m, distance = #slots, #typed, {}
+  if n == 0 then return m > 0 and "____" or expected end
+  -- Word alignment preserves correct text AFTER omissions/extra words. Treat
+  -- adjacent transpositions as one mistake and blank BOTH reordered words.
+  for i = 1, n + 1 do distance[i] = {}; distance[i][m + 1] = n - i + 1 end
+  for j = 1, m + 1 do distance[n + 1][j] = m - j + 1 end
+  for i = n, 1, -1 do
+    for j = m, 1, -1 do
+      local cost = slots[i].word == typed[j] and 0 or 1
+      local best = math.min(distance[i + 1][j + 1] + cost,
+        distance[i + 1][j] + 1, distance[i][j + 1] + 1)
+      if i < n and j < m and slots[i].word == typed[j + 1] and slots[i + 1].word == typed[j] then
+        best = math.min(best, distance[i + 2][j + 2] + 1)
+      end
+      distance[i][j] = best
+    end
+  end
+  local correct, extra, i, j = {}, {}, 1, 1
+  while i <= n or j <= m do
+    if i > n then extra[n] = true; j = j + 1
+    elseif j > m then i = i + 1
+    elseif slots[i].word == typed[j] and distance[i][j] == distance[i + 1][j + 1] then
+      correct[i] = true; i = i + 1; j = j + 1
+    elseif i < n and j < m and slots[i].word == typed[j + 1] and slots[i + 1].word == typed[j]
+        and distance[i][j] == distance[i + 2][j + 2] + 1 then
+      i = i + 2; j = j + 2
+    elseif distance[i][j] == distance[i + 1][j + 1] + 1 then
+      i = i + 1; j = j + 1
+    elseif distance[i][j] == distance[i + 1][j] + 1 then
+      i = i + 1
+    else
+      extra[i - 1] = true; j = j + 1
+    end
+  end
+  local out = {expected:sub(1, slots[1].first - 1)}
+  if extra[0] then out[#out + 1] = "____ " end
+  for index, slot in ipairs(slots) do
+    out[#out + 1] = correct[index] and expected:sub(slot.first, slot.last) or "____"
+    local separator = expected:sub(slot.last + 1, slots[index + 1] and slots[index + 1].first - 1 or #expected)
+    out[#out + 1] = separator
+    if extra[index] then
+      -- A whole run of extra input is one blank, keeping long answers bounded.
+      if not separator:match("%s$") then out[#out + 1] = " " end
+      out[#out + 1] = "____"
+      if index < n then out[#out + 1] = " " end
+    end
+  end
+  return table.concat(out)
 end
 
 function M.WordCount(text)
@@ -162,11 +257,14 @@ function M.Answer(s, verses, answer, turn)
   assert(session.phase ~= "study", "Hide the passage before attempting recall")
   local id = session.queue[1]
   local verse, lesson = verses[id], s.lessons[id]
-  local correct, difference
+  local correct, difference, detail, section, expectedReference
   if session.phase == "reference" then
     correct = M.ReferenceMatches(answer, verse.reference)
+    expectedReference = verse.reference
   else
-    difference = M.FirstDifference(answer, verse.sections[session.section])
+    section = session.section
+    detail = M.DifferenceDetails(answer, verse.sections[section])
+    difference = detail and detail.word or nil
     correct = difference == nil
   end
   if not correct then
@@ -175,7 +273,9 @@ function M.Answer(s, verses, answer, turn)
     session.assisted = true
     session.phase = "reference"
     session.section = 1
-    return {kind = "wrong", difference = difference}
+    return {kind = "wrong", difference = difference, detail = detail,
+      section = section, expectedReference = expectedReference,
+      maskedSection = section and M.MaskedSection(answer, verse.sections[section]) or nil}
   end
   if session.phase == "reference" then
     session.phase = "section"

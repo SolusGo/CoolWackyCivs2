@@ -1,5 +1,7 @@
 # Covenant v24 reliability audit — 2026-11-06
 
+This report records the reliability revision before the later 10-second study/detailed-feedback change. See [Testing.md](Testing.md) and the changelog for current focused counts and the subsequent native display observation.
+
 Scope: implementation correctness, reliability and regression coverage, rechecked after the original-graphics revision. Scripture wording, all numerical balance, the collection UUID and civilization identifiers are unchanged. Native Civ V was not launched or tested during this audit.
 
 ## Confirmed defects corrected

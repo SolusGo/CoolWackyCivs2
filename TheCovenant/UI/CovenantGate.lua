@@ -48,10 +48,15 @@ local function focus(clear)
 end
 
 local function startStudyTimer()
-  local verse = verses[state.session.queue[1]]
-  local words = 0
-  for _ in verse.text:gmatch("%S+") do words = words + 1 end
-  studyRemaining = math.max(12, math.ceil(words * 0.35))
+  studyRemaining = 10
+end
+
+local function wrongAnswerFeedback(result)
+  if not result.maskedSection then
+    return "Reference incorrect. Expected " .. result.expectedReference .. ".[NEWLINE]Restart from the reference."
+  end
+  return "Section " .. result.section .. ": ____ marks mistakes. Restart from the reference.[NEWLINE]"
+    .. result.maskedSection
 end
 
 local function render()
@@ -192,9 +197,7 @@ local function submitAnswer()
     if not answerEdited then return end
     local result = M.Answer(state, verses, answer, Game.GetGameTurn())
     if result.kind == "wrong" then
-      feedback = result.difference
-        and ("The wording first differed at word " .. result.difference .. ". Start again with the reference. Use Study again if needed.")
-        or "That reference is not correct. Try again, or study the passage and start over."
+      feedback = wrongAnswerFeedback(result)
     elseif result.kind == "next" then
       feedback = "Correct. Keep going from memory."
     else

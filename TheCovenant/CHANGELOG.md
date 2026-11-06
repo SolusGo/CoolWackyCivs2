@@ -1,5 +1,16 @@
 # Covenant changelog
 
+## Masked section feedback / v24 — 2026-11-06
+
+- Replace the word/letter error explanation with the whole section, retaining correctly recalled words and blanking mistakes with `____` at the player's request. Preserve original case/punctuation and align around omissions, extra text and reordered words.
+- Keep the 10-second study timer, assisted restarts, save format and rewards. Pass 18 engine and 25 UI/persistence groups, including multi-error alignment and bounded feedback tests.
+
+## Study timing and error feedback / v24 — 2026-11-06
+
+- Use a fixed 10-second study/restudy countdown for every passage, replacing the length-scaled minimum at the player's request. Reading longer remains possible.
+- Show the first incorrect section/word and differing letter, missing/extra words, swapped pairs and the correct reference. Preserve assisted restarts, rewards, Scripture and existing save encoding.
+- Extend focused coverage to 17 engine groups and 24 additional UI/persistence groups. Record the observed native study-screen display separately from pending native input/feedback acceptance.
+
 ## Action recovery / v24 — 2026-11-06
 
 - Release the Submit/Study re-entry guard even when a save, UI refresh or reward call throws. Retry persistence and repaint the current prompt before accepting another action; never replay the submitted answer or a partially applied reward.

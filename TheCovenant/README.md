@@ -15,9 +15,11 @@ The Scribe leads a fictional, human-only civilization built for memorising five 
 
 The first five campaign turns introduce Revelation 3:17–18, Hebrews 9:8, Malachi 3:1, Hebrews 8:5 and the corrected John 14:29, in that order. The supplied wording is stored in `Lua/CovenantVerses.lua`.
 
-Study the full passage in numbered sections for at least 12 seconds, with more time for longer text. Hide it, type its book/chapter/verse reference from the theme cue, then type every section in order. Section word counts identify typing boundaries. Click **Check recall** after each answer.
+Study the full passage in numbered sections for at least 10 seconds. Every passage uses the same 10-second minimum, including **Study again**; you can keep studying for longer. Hide it, type its book/chapter/verse reference from the theme cue, then type every section in order. Section word counts identify typing boundaries. Click **Check recall** after each answer.
 
 For section recall, case, punctuation, curly quotes and extra spaces are ignored. References require the correct book, chapter and exact verse/range with a colon; spaces and hyphen/en-dash formatting are flexible. Missing, extra, reordered or misspelled words fail. A mistake restarts the entire passage from its reference and removes the unaided reward. **Study again** reveals the text for another timed study, then requires a fresh complete attempt. Large pasted text changes are rejected; text-change callbacks cannot reliably identify every clipboard action or distinguish batched input from paste.
+
+After a mistake, feedback shows the whole submitted section: correctly recalled words remain visible and incorrect or missing words become `____`. Correct words after a missed/extra word stay in place; reordered words are blanked too. An extra run of entered text appears as an additional blank. Original capitalization and punctuation are retained. Incorrect references show the correct reference. The passage still restarts and the attempt remains assisted.
 
 The modal gate has no skip/close button. Escape, Return, game shortcuts and outside clicks do not dismiss it. Complete recall resumes play. Other civilizations, AI players, network games and hotseat do not receive this gate.
 

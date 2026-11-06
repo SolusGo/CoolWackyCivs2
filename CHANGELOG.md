@@ -1,5 +1,14 @@
 # Changelog
 
+## Covenant masked section feedback / mod version 24 — 2026-11-06
+
+- Show the whole failed section with correct words retained and mistakes blanked, replacing the confusing word/letter explanation. Align missing, extra and reordered words without hiding the correct remainder. Preserve study timing and all gameplay/save rules.
+
+## Covenant study timing and feedback / mod version 24 — 2026-11-06
+
+- Set study/restudy to a fixed 10 seconds at the player's request. Identify the first wrong section/word/letter, omissions, extra words and adjacent swaps after a failed answer; show the expected reference for reference errors.
+- Keep Scripture, review intervals, rewards, assisted restarts, save keys/encoding and all other civilizations unchanged. Add focused timer and feedback regressions.
+
 ## Covenant action recovery / mod version 24 — 2026-11-06
 
 - Fix a reproduced callback failure that could permanently latch Submit after a UI refresh exception. Protect Submit/Study actions and recover the existing saved progression/view without repeating answers or rewards.

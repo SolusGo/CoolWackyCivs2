@@ -1,6 +1,56 @@
 -- Each scenario runs in a fresh Lua 5.1 fixture. These are contract tests,
 -- NOT evidence of native EditBox dispatch or native popup queue membership.
 return {
+  ["every study and restudy unlocks at exactly ten visible seconds"] = function()
+    for id = 1, #CovenantVerses do
+      turn = id - 1; Events.ActivePlayerTurnStart.fire()
+      assert(currentState().session.phase == 'study' and Controls.Submit.disabled)
+      tick(9.75); click('Submit')
+      assert(currentState().session.phase == 'study' and Controls.Submit.disabled)
+      tick(0.25)
+      assert(not Controls.Submit.disabled)
+      click('Submit'); assert(currentState().session.phase == 'reference')
+      click('Study'); assert(Controls.Submit.disabled)
+      tick(9.75); assert(Controls.Submit.disabled)
+      tick(0.25); assert(not Controls.Submit.disabled)
+      finishPassage()
+    end
+    assert(player.faith == 0 and player.culture == 0 and semaphores == 0)
+  end,
+  ["feedback shows the full section with only mistakes blanked"] = function()
+    Events.LoadScreenClose.fire(); tick(10); click('Submit')
+    typeText('wrong reference'); click('Submit')
+    assert(Controls.Feedback:GetText():find('Expected Revelation 3:17-18', 1, true))
+    local cases = {
+      {'You say I am ricg I have acquired wealth and do not need a thing', [=[You say, 'I am ____; I have acquired wealth and do not need a thing.']=]},
+      {'You say I rich I have acquired wealth and do not need a thing', [=[You say, 'I ____ rich; I have acquired wealth and do not need a thing.']=]},
+      {'You say I am very rich I have acquired wealth and do not need a thing', [=[You say, 'I am ____ rich; I have acquired wealth and do not need a thing.']=]},
+      {'You say I rich am I have acquired wealth and do not need a thing', [=[You say, 'I ____ ____; I have acquired wealth and do not need a thing.']=]},
+    }
+    for _, case in ipairs(cases) do
+      typeText(CovenantVerses[1].reference); click('Submit')
+      typeText(case[1]); click('Submit')
+      local text = Controls.Feedback:GetText()
+      assert(text == 'Section 1: ____ marks mistakes. Restart from the reference.[NEWLINE]' .. case[2], text)
+      assert(text:find('Restart from the reference.', 1, true))
+      assert(currentState().session.phase == 'reference' and currentState().session.assisted)
+      assert(Controls.Answer:GetText() == '')
+    end
+    finishPassage()
+    assert(currentState().lessons[1].failures == 5 and player.faith == 0 and semaphores == 0)
+  end,
+  ["masked feedback cannot expand or render pasted UI markup"] = function()
+    Events.LoadScreenClose.fire(); tick(10); click('Submit')
+    for _, answer in ipairs({'[COLOR_RED] wrong [NEWLINE]', string.rep('x ', 200)}) do
+      typeText(CovenantVerses[1].reference); click('Submit')
+      typeText(answer); click('Submit')
+      local text = Controls.Feedback:GetText()
+      assert(#text < 300 and not text:find('[COLOR_RED]', 1, true))
+      local _, newlines = text:gsub('%[NEWLINE%]', '')
+      assert(newlines == 1)
+    end
+    assert(currentState().session.assisted and player.faith == 0 and semaphores == 1)
+  end,
   ["action recovery paints a newly due exam without releasing the gate"] = function()
     turn = 5; Events.LoadScreenClose.fire()
     for t = 5, 8 do turn = t; Events.ActivePlayerTurnStart.fire(); finishPassage() end

@@ -77,6 +77,7 @@ def main():
     lua=ui_runtime();lua.execute('Events.LoadScreenClose.fire()');render(lua,'UI-Study.png')
     lua.execute("tick(60);click('Submit');typeText('Revelation 3:17-18')");render(lua,'UI-Reference.png')
     lua.execute("click('Submit');typeText('You say,')");render(lua,'UI-Recall.png')
-    print('Rendered Study, Reference and Recall from actual Lua/XML/DDS; native rendering NOT RUN')
+    lua.execute("typeText('You say I am ricg I have acquired wealth and do not need a thing');click('Submit')");render(lua,'UI-Error.png')
+    print('Rendered Study, Reference, Recall and Error from actual Lua/XML/DDS; these are modeled previews')
 
 if __name__=='__main__':main()

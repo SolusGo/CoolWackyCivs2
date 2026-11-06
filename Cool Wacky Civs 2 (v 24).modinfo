@@ -1318,13 +1318,13 @@
     <File md5="7C935C93FF46408E8A7742A828E400BE" import="1">TheCovenant/Art/COVENANT_UI_Buttons.dds</File>
     <File md5="7804FAFB4356D9A63D61B4C447799183" import="1">TheCovenant/Art/COVENANT_UI_Panel.dds</File>
     <File md5="3002CE3618859D50EE49B206911AF602" import="1">TheCovenant/Art/COVENANT_UI_Trim.dds</File>
-    <File md5="A4500623FA9552241DD6031907A21956" import="1">TheCovenant/Lua/CovenantMemory.lua</File>
+    <File md5="56AD1A4C4393D7A882C61EC7527AB460" import="1">TheCovenant/Lua/CovenantMemory.lua</File>
     <File md5="9CB77D8376F2AC5DFDD0EFA0FC471B29" import="1">TheCovenant/Lua/CovenantVerses.lua</File>
     <File md5="9437BDE6DBF145F20FC03E785B4777CA" import="0">TheCovenant/SQL/00_COVENANT_Core.sql</File>
     <File md5="2962597470DCDAB88C5B44046FEAB04B" import="0">TheCovenant/SQL/03_COVENANT_Art.sql</File>
     <File md5="D945D3DC056201AAB0A48A52B5112497" import="0">TheCovenant/SQL/10_COVENANT_Text.sql</File>
     <File md5="368644F2F318DEF2607C07B48E3A7961" import="0">TheCovenant/SQL/90_PlayerGuide.sql</File>
-    <File md5="178A85388E2D24CD447314E033FD9CB3" import="1">TheCovenant/UI/CovenantGate.lua</File>
+    <File md5="0B670A0911D70E5F110F1CB450B46945" import="1">TheCovenant/UI/CovenantGate.lua</File>
     <File md5="A806B8AA41BB398794539A16B122353E" import="0">TheCovenant/UI/CovenantGate.xml</File>
   </Files>
   <Actions>
