@@ -1,5 +1,6 @@
 """Original geometric lobby art and symbols. No external textures or artwork."""
 from pathlib import Path
+from setup_art import fit_canvas, write_map
 from PIL import Image, ImageDraw, ImageFont
 from prepare_red_art import raw_mips
 
@@ -80,7 +81,9 @@ def main():
   master.save(S/(stem+'.png'))
   for size in SIZES:(V/f'MCP_{stem}{size}.dds').write_bytes(raw_mips(master.resize((size*len(kinds),size),Image.Resampling.LANCZOS)))
  painting=scene();painting.save(S/'Lobby.png')
- for name,im in [('Leader',painting),('Dawn',painting),('Map',painting.resize((512,384),Image.Resampling.LANCZOS))]: (V/f'MCP_{name}.dds').write_bytes(raw_mips(im))
+ (V/'MCP_Leader.dds').write_bytes(raw_mips(fit_canvas(painting, (1600, 900))))
+ (V/'MCP_Dawn.dds').write_bytes(raw_mips(painting))
+ write_map(painting, V/'MCP_Map.dds')
  (V/'MCP_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="MCP_Leader.dds" />\n',encoding='utf-8',newline='\n')
  print('Generated 48 DDS assets and static scene from original geometric art')
 

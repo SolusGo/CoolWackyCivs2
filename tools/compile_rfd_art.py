@@ -1,5 +1,6 @@
 """Package generated RFD raster masters as padded, mipmapped legacy DXT5 DDS."""
 from pathlib import Path
+from setup_art import map_canvas
 import os
 import shutil
 import subprocess
@@ -54,7 +55,8 @@ def main():
             export(mono.resize((size,size),Image.Resampling.LANCZOS),f'RFD_Alpha{size}')
         export(mono.resize((32,32),Image.Resampling.LANCZOS),'RFD_Flag32')
         for name, dimensions in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',(1024,768))]:
-            export(ImageOps.fit(images[name],dimensions), 'RFD_'+name)
+            image = map_canvas(images[name]) if name == 'Map' else ImageOps.fit(images[name], dimensions)
+            export(image, 'RFD_'+name)
     print('Compiled 40 RFD DDS textures, legacy DXT5 with mip chains')
 
 

@@ -1,5 +1,6 @@
 """Compile original Saba painting and collection-style drawn symbols to DDS."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
 
@@ -71,7 +72,7 @@ def main():
         for size in SIZES:(V/f'SABA_{stem}{size}.dds').write_bytes(raw_mips(master.resize((size*(2 if stem=='Objects' else 1),size),Image.Resampling.LANCZOS)))
     save(symbol('sentinel',True),'SABA_Flag32.dds',(32,32))
     save(painting,'SABA_Leader.dds',(1600,900));save(painting,'SABA_Dawn.dds',(1024,768))
-    map_image().save(S/'SabaMap.png');save(map_image(),'SABA_Map.dds',(512,512))
+    map_image().save(S/'SabaMap.png');write_map(map_image(), V/'SABA_Map.dds')
     (V/'SABA_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="SABA_Leader.dds" />\n',encoding='utf-8',newline='\n')
     preview=Image.new('RGBA',(1024,256),TEAL)
     for i,im in enumerate([masters['Icon'],masters['Portrait'],symbol('sentinel'),symbol('cistern')]):

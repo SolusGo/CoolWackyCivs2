@@ -270,7 +270,8 @@ def art(d):
     for table,typ in [('Civilizations',CIV),('Leaders',LEADER),('Units',UNIT),('Buildings',OFFICE)]:
         atlas,index=d.execute('SELECT IconAtlas,PortraitIndex FROM '+table+' WHERE Type=?',(typ,)).fetchone()
         assert d.execute('SELECT 1 FROM IconTextureAtlases WHERE Atlas=? AND IconSize=32 AND IconsPerRow*IconsPerColumn>?',(atlas,index)).fetchone()
-    for stem,size in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',(512,512))]:
+    from setup_art import MAP_SIZE
+    for stem,size in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',MAP_SIZE)]:
         with Image.open(V/'Art'/f'CONICAL_{stem}.dds') as im:im.load();assert im.size==size
     assert len(list((V/'Art').glob('*.dds')))==40
     assert ET.parse(V/'Art/CONICAL_LeaderScene.xml').getroot().get('FallbackImage')=='CONICAL_Leader.dds'

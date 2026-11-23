@@ -1,5 +1,6 @@
 """Compile retained original paintings and a code-native bee alpha to real mipmapped DDS."""
 from pathlib import Path
+from setup_art import write_map
 import math
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
@@ -60,7 +61,8 @@ def main():
             (V/f'HCC_{stem}{size}.dds').write_bytes(raw_mips(out))
     (V/'HCC_Flag32.dds').write_bytes(raw_mips(alpha().resize((32,32),Image.Resampling.LANCZOS)))
     for name,im,size in [('Leader',painting,(1600,900)), ('Dawn',painting,(1024,768)), ('Map',map_image(),(512,512))]:
-        (V/f'HCC_{name}.dds').write_bytes(raw_mips(ImageOps.fit(im,size,Image.Resampling.LANCZOS)))
+        if name=='Map':write_map(im, V/f'HCC_{name}.dds')
+        else:(V/f'HCC_{name}.dds').write_bytes(raw_mips(ImageOps.fit(im,size,Image.Resampling.LANCZOS)))
     (V/'HCC_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="HCC_Leader.dds" />\n',encoding='utf-8',newline='\n')
     preview = Image.new('RGBA',(1024,256),'#38220e')
     for i,im in enumerate([masters['Icon'],masters['Portrait'],objects.crop((0,0,256,256)),objects.crop((256,0,512,256))]):

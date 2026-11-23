@@ -4,7 +4,7 @@ The civilization selection screen showed the First Architect painting in its map
 
 The map now has its own original parchment atlas: a continuous golden city plan, river crossings, coastline and connected island districts. [Source artwork, exact built-in image-generation prompt and provenance](../../art-source/TheBoundlessCity/README.md) are retained in the repository.
 
-The installed Firaxis `Assets/UI/FrontEnd/GameSetup/GameSetupScreen.xml` defines `LargeMapImage` as 360×410, and its Lua selects `Civilizations.MapImage` directly. `tools/prepare_boundless_map.py` fits the map into the upper-left 360×410 window of a 512×512 legacy RGBA DDS, with transparent right/bottom gutters and a complete mip chain. [BoundlessMapPreview.png](../../art-source/TheBoundlessCity/BoundlessMapPreview.png) shows the active window.
+The installed Firaxis `Assets/UI/FrontEnd/GameSetup/GameSetupScreen.xml` defines `LargeMapImage` as 360×410, and its Lua selects `Civilizations.MapImage` directly. `tools/prepare_boundless_map.py` fits the map into the upper-left 360×410 window of a 360×412 legacy RGBA DDS with a complete mip chain. [BoundlessMapPreview.png](../../art-source/TheBoundlessCity/BoundlessMapPreview.png) shows the active window.
 
 Regenerate only this asset with:
 

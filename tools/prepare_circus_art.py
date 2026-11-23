@@ -1,5 +1,6 @@
 """Original circus painting and collection-style drawn symbols -> mipmapped DDS."""
 from pathlib import Path
+from setup_art import write_map
 import math
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
@@ -69,7 +70,7 @@ def main():
         for size in SIZES: (V/f'WCIRCUS_{stem}{size}.dds').write_bytes(raw_mips(master.resize((size*(2 if stem=='Objects' else 1),size),Image.Resampling.LANCZOS)))
     save(symbol('crew',True),'WCIRCUS_Flag32.dds',(32,32))
     save(painting,'WCIRCUS_Leader.dds',(1600,900));save(painting,'WCIRCUS_Dawn.dds',(1024,768))
-    map_image().save(S/'CircusMap.png');save(map_image(),'WCIRCUS_Map.dds',(512,512))
+    map_image().save(S/'CircusMap.png');write_map(map_image(), V/'WCIRCUS_Map.dds')
     (V/'WCIRCUS_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="WCIRCUS_Leader.dds" />\n',encoding='utf-8',newline='\n')
     print('Compiled 40 circus DDS textures, original map/symbols, painting and static leader scene')
 

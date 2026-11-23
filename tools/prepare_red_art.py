@@ -1,5 +1,6 @@
 """Compile original Red paintings and collection-style vector-drawn symbols to DDS."""
 from pathlib import Path
+from setup_art import map_canvas
 import io, math, shutil, struct, subprocess, tempfile
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
@@ -98,7 +99,7 @@ def map_art():
 def main():
  V.mkdir(parents=True,exist_ok=True);S.mkdir(parents=True,exist_ok=True)
  leader=Image.open(S/'RedOnSilver.png').convert('RGBA');dawn=Image.open(S/'SilverDawn.png').convert('RGBA')
- outputs={'RED_Leader':ImageOps.fit(leader,(1600,900)),'RED_Dawn':ImageOps.fit(dawn,(1024,768)),'RED_Map':map_art()}
+ outputs={'RED_Leader':ImageOps.fit(leader,(1600,900)),'RED_Dawn':ImageOps.fit(dawn,(1024,768)),'RED_Map':map_canvas(map_art())}
  promo=['CAUGHT','TRAINED','PROVEN','CHAMPION','LEGENDARY','RIBBON','BOND','SUMMIT']+NAMES+['BLOOM_STATUS','HORIZON']+['ACE']*16
  for size in SIZES:
   outputs[f'RED_Icon{size}']=emblem('CIV').resize((size,size),Image.Resampling.LANCZOS)

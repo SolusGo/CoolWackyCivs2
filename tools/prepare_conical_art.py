@@ -1,5 +1,6 @@
 """Compile retained original Conical Union paintings with the collection DDS pipeline."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
 
@@ -53,7 +54,7 @@ def main():
     save(cone_alpha(), 'CONICAL_Flag32.dds', (32, 32))
     save(painting, 'CONICAL_Leader.dds', (1600, 900))
     save(painting, 'CONICAL_Dawn.dds', (1024, 768))
-    save(network_map(), 'CONICAL_Map.dds', (512, 512))
+    write_map(network_map(), V/'CONICAL_Map.dds')
     (V/'CONICAL_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="CONICAL_Leader.dds" />\n', encoding='utf-8', newline='\n')
     preview = Image.new('RGBA', (1024, 256), '#20272d')
     for i, im in enumerate([masters['Icon'], portrait, objects.crop((256, 0, 512, 256)), objects.crop((0, 0, 256, 256))]):

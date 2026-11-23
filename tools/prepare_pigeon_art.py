@@ -1,5 +1,6 @@
 """Package original Coo artwork and repo-style code-drawn postal insignia as DDS."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image, ImageDraw, ImageOps
 R=Path(__file__).resolve().parents[1]
 V=R/'TheRepublicOfPigeons/Art'
@@ -59,7 +60,7 @@ def main():
     source=Image.open(SOURCE/'CooAndCoopolis.png').convert('RGBA')
     save(source,'PigeonDawn.dds',(1024,768))
     save(source,'PigeonLeader.dds',(1600,900))
-    postal_map().save(V/'PigeonMap.dds')
+    write_map(postal_map(), V/'PigeonMap.dds')
     # Portrait crop retains Coo's face and ceremonial cap from the master illustration.
     portrait=source.crop((175,30,685,540))
     for size in SIZES:

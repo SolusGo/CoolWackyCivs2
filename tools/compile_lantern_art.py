@@ -1,5 +1,6 @@
 """Package generated LANTERN raster masters as padded, mipmapped legacy DXT5 DDS."""
 from pathlib import Path
+from setup_art import map_canvas
 import os
 import shutil
 import subprocess
@@ -54,7 +55,8 @@ def main():
         export(mono.resize((32,32),Image.Resampling.LANCZOS),'LANTERN_Flag32')
         images['Map'] = images['Dawn']
         for name, dimensions in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',(1024,768))]:
-            export(ImageOps.fit(images[name],dimensions), 'LANTERN_'+name)
+            image = map_canvas(images[name]) if name == 'Map' else ImageOps.fit(images[name], dimensions)
+            export(image, 'LANTERN_'+name)
     print('Compiled 40 LANTERN DDS textures, legacy DXT5 with mip chains')
 
 

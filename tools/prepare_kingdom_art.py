@@ -1,5 +1,6 @@
 """Compile the original Kingdom painting and repository-style drawn icons to mipmapped DDS."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
 
@@ -51,7 +52,7 @@ def main():
     for x,y in [(254,202),(156,292),(325,330),(220,367),(330,146)]:
         d.ellipse((x-9,y-9,x+9,y+9),fill=BLUE,outline=WHITE,width=3)
     seal=emblem('civ').resize((115,115),Image.Resampling.LANCZOS);map_image.alpha_composite(seal,(370,375))
-    save(map_image,'CKMap.dds',(512,512))
+    write_map(map_image, V/'CKMap.dds')
     for size in SIZES:
         save(emblem('civ'),f'CKIcon{size}.dds',(size,size))
         save(emblem('civ',True),f'CKAlpha{size}.dds',(size,size))

@@ -1,5 +1,6 @@
 """Compile retained original paintings and simple alpha symbols to mipmapped DDS."""
 from pathlib import Path
+from setup_art import write_map
 import math
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
@@ -45,7 +46,7 @@ def main():
     save(dawn,'TWELFTH_Dawn.dds',(1024,768))
     leader = Image.open(S/'KeeperOfSeconds.png').convert('RGBA')
     save(leader,'TWELFTH_Leader.dds',(1600,900))
-    save(dawn,'TWELFTH_Map.dds',(512,512))
+    write_map(ImageOps.fit(dawn,(512,512),Image.Resampling.LANCZOS), V/'TWELFTH_Map.dds')
     for size in SIZES:
         save(icon,f'TWELFTH_Icon{size}.dds',(size,size))
         save(alpha_clock(),f'TWELFTH_Alpha{size}.dds',(size,size))

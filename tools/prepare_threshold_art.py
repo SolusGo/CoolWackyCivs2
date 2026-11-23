@@ -1,5 +1,6 @@
 """Compile retained paintings and collection-style doorway symbols to DDS."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image,ImageDraw,ImageOps
 from prepare_red_art import raw_mips
 
@@ -55,7 +56,7 @@ def main():
  for a,b in [((107,111),(370,356)),((339,113),(138,329)),((107,111),(138,329)),((339,113),(370,356))]:d.line([a,b],fill='#785f38',width=3)
  small=door(True).resize((34,34),Image.Resampling.LANCZOS)
  for x,y in [(107,111),(339,113),(138,329),(370,356)]:im.alpha_composite(small,(x-17,y-17))
- (V/'THC_Map.dds').write_bytes(raw_mips(im))
+ write_map(im, V/'THC_Map.dds')
  (V/'THC_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="THC_Leader.dds" />\n',encoding='utf-8',newline='\n')
  preview=Image.new('RGBA',(1024,256),INK)
  for i,im in enumerate([door(),portrait,guard,house()]):preview.alpha_composite(ImageOps.fit(im,(256,256),Image.Resampling.LANCZOS),(i*256,0))

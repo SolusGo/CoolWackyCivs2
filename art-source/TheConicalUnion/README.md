@@ -10,7 +10,7 @@ Four original raster images were created with the **built-in imagegen tool** on 
 | `DetourOffice.png` | Walls replacement icon, municipal defenses, cones and signage. |
 | `Preview.png` | Deterministic source contact sheet from the compiler. |
 
-`tools/prepare_conical_art.py` compiles these sources to 40 legacy RGBA DDS files with full mip chains: four nine-size atlas families (civilization/alpha/leader/two-slot objects), 32px flag, 1600×900 leader, 1024×768 Dawn and 512×512 schematic map. The map is an original code-drawn administrative road-network illustration. Monochrome cone/flag marks are original code-drawn silhouettes for native player tinting.
+`tools/prepare_conical_art.py` compiles these sources to 40 legacy RGBA DDS files with full mip chains: four nine-size atlas families (civilization/alpha/leader/two-slot objects), 32px flag, 1600×900 leader, 1024×768 Dawn and 360×412 schematic map. The map is an original code-drawn administrative road-network illustration. Monochrome cone/flag marks are original code-drawn silhouettes for native player tinting.
 
 The collection builder's `standardize_icons.py` retains the largest color masters in `art-source/IconAtlasMasters/CONICAL_*.png`, adds the shared gold rim and transparent padding, and encodes block-aligned atlases as legacy DXT5. Other sizes retain legacy RGBA. Both paths use complete mipmaps for this civilization; no DX10 DDS headers. Object slot 0 is Detour Office; slot 1 is Road Crew. Alpha/flag sheets are untinted white with transparent band cutouts. The DDS outputs and gold framing are deterministic; generation itself is not a reproducible pixel-for-pixel operation.
 

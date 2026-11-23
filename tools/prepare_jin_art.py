@@ -1,5 +1,6 @@
 """Original Jin iconography and loading painting, compiled to legacy mipmapped DDS."""
 from pathlib import Path
+from setup_art import write_map
 import math
 from PIL import Image,ImageDraw,ImageOps
 from prepare_red_art import raw_mips
@@ -115,7 +116,7 @@ def legacy_main():
  for x,y,label in [(187,92,'HUINING'),(132,194,'ZHONGDU'),(176,287,'KAIFENG')]:
   md.ellipse((x-6,y-6,x+6,y+6),fill=RED);md.text((x+10,y-5),label,fill=INK)
  md.text((60,385),'JIN DYNASTY / 1115-1234',fill=INK)
- mapim.save(S/'Map.png');(V/'JIN_Map.dds').write_bytes(raw_mips(mapim))
+ mapim.save(S/'Map.png');write_map(mapim, V/'JIN_Map.dds')
  (V/'JIN_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="JIN_Leader.dds"/>\n',encoding='utf-8',newline='\n')
  preview=Image.new('RGBA',(1024,768),INK);preview.alpha_composite(masters['Units'],(0,0));preview.convert('RGB').save(S/'Preview.png')
  print('Prepared',len(list(V.glob('*.dds'))),'original Jin DDS textures')

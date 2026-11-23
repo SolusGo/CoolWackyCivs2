@@ -193,7 +193,8 @@ def art(d):
  for table,typ in [('Civilizations',CIV),('Leaders',LEADER),('Units',UNIT),('Buildings',OFFICE)]:
   atlas,index=d.execute('SELECT IconAtlas,PortraitIndex FROM '+table+' WHERE Type=?',(typ,)).fetchone()
   assert d.execute('SELECT 1 FROM IconTextureAtlases WHERE Atlas=? AND IconSize=32 AND IconsPerRow*IconsPerColumn>?',(atlas,index)).fetchone()
- for stem,size in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',(512,512)),('Board',(768,640))]:
+ from setup_art import MAP_SIZE
+ for stem,size in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',MAP_SIZE),('Board',(768,640))]:
   with Image.open(V/'Art'/f'GARVEY_{stem}.dds') as im:im.load();assert im.size==size
  assert len([p for p in (V/'Art').glob('*.dds') if not p.name.startswith('CWC2_')])==41
  assert ET.parse(V/'Art/GARVEY_LeaderScene.xml').getroot().get('FallbackImage')=='GARVEY_Leader.dds'

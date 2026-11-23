@@ -4,6 +4,7 @@ No image generation, network access or 3D unit-art edits occur in this build.
 Original reference: art-source/The11Cats/Emblem.png (never overwritten).
 """
 from pathlib import Path
+from setup_art import map_canvas
 import hashlib, json, math, os, shutil, subprocess, tempfile
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 from prepare_red_art import raw_mips
@@ -95,7 +96,8 @@ def main():
         stage=Path(temp);pngs=[]
         for stem,(source,size) in scenes.items():
             path=stage/f'THE11CATS_{stem}.png'
-            ImageOps.fit(source,size,Image.Resampling.LANCZOS).save(path);pngs.append(str(path))
+            (map_canvas(source) if stem=='Map' else ImageOps.fit(source,size,Image.Resampling.LANCZOS)).save(path)
+            pngs.append(str(path))
         result=subprocess.run([texconv(),'-nologo','-y','-dx9','-f','DXT5','-m','0','-o',str(stage),*pngs],capture_output=True,text=True)
         if result.returncode:raise RuntimeError(result.stdout+result.stderr)
         for stem in scenes:(V/f'THE11CATS_{stem}.dds').write_bytes((stage/f'THE11CATS_{stem}.dds').read_bytes())

@@ -75,7 +75,7 @@ to one per global turn, with separate maximum and decay messages.
 Six original built-in imagegen paintings supply civilization, leader, unit,
 building, Dawn of Man and selection-map art. Forty legacy full-mip DDS textures
 include standard 16/24/32/45/48/64/80/128/256 atlases, a monochrome flag, 1600×900
-static leader, 1024×768 dawn and 512×512 map. The unit uses the existing Swordsman
+static leader, 1024×768 dawn and 360×412 map. The unit uses the existing Swordsman
 animated model. No new animated leader, spoken dialogue or soundtrack is supplied.
 Sources and the generation prompt set are retained in `../art-source/TheTriumphalImperium/`.
 

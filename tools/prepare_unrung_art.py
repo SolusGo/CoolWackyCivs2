@@ -1,5 +1,6 @@
 """Compile original generated Unrung Bell paintings into legacy mipmapped DDS."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
 
@@ -52,7 +53,7 @@ def main():
     for x,y in [(206,231),(293,142),(310,346),(142,320)]:
         d.ellipse((x-9,y-9,x+9,y+9),fill='#d8dbe2')
     d.line([(206,231),(293,142),(310,346),(142,320),(206,231)],fill='#838d9c',width=3)
-    (V/'UNRUNG_Map.dds').write_bytes(raw_mips(im))
+    write_map(im, V/'UNRUNG_Map.dds')
     (V/'UNRUNG_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="UNRUNG_Leader.dds" />\n',encoding='utf-8',newline='\n')
     preview=Image.new('RGBA',(1024,256),'#101825')
     for i,im in enumerate([masters['Icon'],portrait,objects.crop((256,0,512,256)),objects.crop((0,0,256,256))]):

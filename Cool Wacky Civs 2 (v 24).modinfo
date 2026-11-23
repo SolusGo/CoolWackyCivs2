@@ -53,9 +53,9 @@
     <File md5="1745AAA19FAB213783F1EECA5B3CE199" import="1">McPvP/Art/MCP_Icon48.dds</File>
     <File md5="2C276F4700E1FFAF66FBA651E20444E3" import="1">McPvP/Art/MCP_Icon64.dds</File>
     <File md5="171350793D334A27A92DD4B978F9B3FF" import="1">McPvP/Art/MCP_Icon80.dds</File>
-    <File md5="8F61593F4E10C72B330AA8856295A3C2" import="1">McPvP/Art/MCP_Leader.dds</File>
+    <File md5="08BFE6919645B8C124D988FAA9075AE7" import="1">McPvP/Art/MCP_Leader.dds</File>
     <File md5="B9946594D73107A7E159998D975D0D95" import="1">McPvP/Art/MCP_LeaderScene.xml</File>
-    <File md5="90AA883EF3CDFB4ED2A8DBBD63DBA0F6" import="1">McPvP/Art/MCP_Map.dds</File>
+    <File md5="48AFB4FE8E318E914D11BFF3FE4DB1B5" import="1">McPvP/Art/MCP_Map.dds</File>
     <File md5="5AAD30DA15475ABE5DCB0060CDD959B2" import="1">McPvP/Art/MCP_Objects128.dds</File>
     <File md5="7B498A7BF9CD23B8DF7464B3190CE371" import="1">McPvP/Art/MCP_Objects16.dds</File>
     <File md5="759198AB9ABFF140D1D172BF613A54A1" import="1">McPvP/Art/MCP_Objects24.dds</File>
@@ -126,7 +126,7 @@
     <File md5="C45519AB0B33B74FB81A89234B112544" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
     <File md5="7EC3F5625C0ACD4FEC40FA95A9F8DD9B" import="1">TheBoundlessCity/Art/BoundlessLeader.dds</File>
     <File md5="6911E551F70C4357D0EAAE442428CF28" import="1">TheBoundlessCity/Art/BoundlessLeaderScene.xml</File>
-    <File md5="DD675ECB6C942F88D8908C47E9C8F4E0" import="1">TheBoundlessCity/Art/BoundlessMap.dds</File>
+    <File md5="E8648E4ACD5CF9CE6AC81DF9F20A126B" import="1">TheBoundlessCity/Art/BoundlessMap.dds</File>
     <File md5="8745ED608066FDE45279C3129271D80C" import="1">TheBoundlessCity/Art/BoundlessObjects128.dds</File>
     <File md5="F4F1415A3497D267B451B3C96C4DEC13" import="1">TheBoundlessCity/Art/BoundlessObjects16.dds</File>
     <File md5="17F34AC361998594F50D670EE8D21717" import="1">TheBoundlessCity/Art/BoundlessObjects24.dds</File>
@@ -184,7 +184,7 @@
     <File md5="6E12E6EAC5D2C965CEB2143F6B2BD594" import="1">TheChildrenOfTheKingdom/Art/CKIcon80.dds</File>
     <File md5="8BF57135C77A2CA0248C120400902A2E" import="1">TheChildrenOfTheKingdom/Art/CKLeader.dds</File>
     <File md5="9800BB5AB8FE90F9F51B47A2F4560F78" import="1">TheChildrenOfTheKingdom/Art/CKLeaderScene.xml</File>
-    <File md5="243670B83187937D5BE3FDD46E099030" import="1">TheChildrenOfTheKingdom/Art/CKMap.dds</File>
+    <File md5="E8FADA1E42A52401621479DDD0BAFF3B" import="1">TheChildrenOfTheKingdom/Art/CKMap.dds</File>
     <File md5="750B24672F5B0389582C2259DAD960A1" import="1">TheChildrenOfTheKingdom/Art/CKObjects128.dds</File>
     <File md5="044656097C56BEC7B6207C0EB64C62D0" import="1">TheChildrenOfTheKingdom/Art/CKObjects16.dds</File>
     <File md5="FD71CC8972D905AD20CAA1DB7F5C09EF" import="1">TheChildrenOfTheKingdom/Art/CKObjects24.dds</File>
@@ -238,7 +238,7 @@
     <File md5="C2255B0AEA5ADF5A81BBC0CABCAF6AF3" import="1">TheRepublicOfPigeons/Art/PigeonIcon80.dds</File>
     <File md5="E7CFE51F57868E9AC434A4F5D5995C31" import="1">TheRepublicOfPigeons/Art/PigeonLeader.dds</File>
     <File md5="68FFF7A54771E7F702B4382262A66767" import="1">TheRepublicOfPigeons/Art/PigeonLeaderScene.xml</File>
-    <File md5="7BAADF7B2AD480C3A54E61A92FC9BF9E" import="1">TheRepublicOfPigeons/Art/PigeonMap.dds</File>
+    <File md5="CE0DD9811BA434B1D48A9BB00EFB934D" import="1">TheRepublicOfPigeons/Art/PigeonMap.dds</File>
     <File md5="1029A93837DCDC97264AA2B7CA3AEC6E" import="1">TheRepublicOfPigeons/Art/PigeonObjects128.dds</File>
     <File md5="A0A18C9E5DBFBECF26A6CB44395175D8" import="1">TheRepublicOfPigeons/Art/PigeonObjects16.dds</File>
     <File md5="423AD191525AE1B08AF9611FDCF03141" import="1">TheRepublicOfPigeons/Art/PigeonObjects24.dds</File>
@@ -297,7 +297,7 @@
     <File md5="52CA791CBC20C523AFCD959CE83326F6" import="1">TrainerRed/Art/RED_Identities80.dds</File>
     <File md5="6FAC6862C577958C407F058CA70FDAE7" import="1">TrainerRed/Art/RED_Leader.dds</File>
     <File md5="EA7BCDCDB3741625E7DEE85FB1927391" import="1">TrainerRed/Art/RED_LeaderScene.xml</File>
-    <File md5="2EDB14FF741B5FF230E7070614F05C9F" import="1">TrainerRed/Art/RED_Map.dds</File>
+    <File md5="3FB35C2A91315E893B0791CA593DA628" import="1">TrainerRed/Art/RED_Map.dds</File>
     <File md5="D4809484CF8C38AE7971353B71D5D2BA" import="1">TrainerRed/Art/RED_Objects128.dds</File>
     <File md5="9A5A6C8BD9A2F3240B5E7877CC826CE5" import="1">TrainerRed/Art/RED_Objects16.dds</File>
     <File md5="817D36918A26E02AC43E546276C98CAE" import="1">TrainerRed/Art/RED_Objects24.dds</File>
@@ -365,7 +365,7 @@
     <File md5="1B2AED322DCCC49506C00D1B1A9D50B5" import="1">TheTwelfthHour/Art/TWELFTH_Icon80.dds</File>
     <File md5="993C36A3FA47F24157B92C0D510FE00B" import="1">TheTwelfthHour/Art/TWELFTH_Leader.dds</File>
     <File md5="AC2045C6B9F4550B2236308354F91DEA" import="1">TheTwelfthHour/Art/TWELFTH_LeaderScene.xml</File>
-    <File md5="8B5A0BF78606F16015272D0AFD648BBC" import="1">TheTwelfthHour/Art/TWELFTH_Map.dds</File>
+    <File md5="C9EA6A387FB67CFC7434D41222514F96" import="1">TheTwelfthHour/Art/TWELFTH_Map.dds</File>
     <File md5="B17A29EE7CF1A29651A0C4008976C859" import="1">TheTwelfthHour/Art/TWELFTH_Objects128.dds</File>
     <File md5="0D79E6146F4DAFD457D17098018FC33F" import="1">TheTwelfthHour/Art/TWELFTH_Objects16.dds</File>
     <File md5="69CA732CF4104FE3757083B60387EAC9" import="1">TheTwelfthHour/Art/TWELFTH_Objects24.dds</File>
@@ -415,7 +415,7 @@
     <File md5="7248BAF2608D230F45F4731B768ADD03" import="1">TheWanderingCircus/Art/WCIRCUS_Icon80.dds</File>
     <File md5="707513E4C9CA37B783F4915773520A63" import="1">TheWanderingCircus/Art/WCIRCUS_Leader.dds</File>
     <File md5="ADF3F93A9A3B834E93C6A475958E0BC2" import="1">TheWanderingCircus/Art/WCIRCUS_LeaderScene.xml</File>
-    <File md5="93C15C009EA0967544E8A45A27B17A9E" import="1">TheWanderingCircus/Art/WCIRCUS_Map.dds</File>
+    <File md5="FF5A766375CB51099718301E17107722" import="1">TheWanderingCircus/Art/WCIRCUS_Map.dds</File>
     <File md5="4C87101D9705B26A9243B5055536AA5F" import="1">TheWanderingCircus/Art/WCIRCUS_Objects128.dds</File>
     <File md5="D0ACACA66BDFA39EC541AD3B3DDF1B6E" import="1">TheWanderingCircus/Art/WCIRCUS_Objects16.dds</File>
     <File md5="0E1E366C8116827893EA7AD36C18E72A" import="1">TheWanderingCircus/Art/WCIRCUS_Objects24.dds</File>
@@ -484,7 +484,7 @@
     <File md5="C2897997E76CCAC792732753ABB35FEB" import="1">The11Cats/Art/THE11CATS_Icon80.dds</File>
     <File md5="39237B7483412CECDC64BC6CC65B2103" import="1">The11Cats/Art/THE11CATS_Leader.dds</File>
     <File md5="2E18F8657D4E534FCE13520B7B8719E0" import="1">The11Cats/Art/THE11CATS_LeaderScene.xml</File>
-    <File md5="F915E5638A411CB3BA78337464A4AF31" import="1">The11Cats/Art/THE11CATS_Map.dds</File>
+    <File md5="823A36DC495417F64B0C4D4B97C8B3D2" import="1">The11Cats/Art/THE11CATS_Map.dds</File>
     <File md5="4D5AAFEEA4A3165DDEAD0867F6A130E8" import="1">The11Cats/Art/THE11CATS_Objects128.dds</File>
     <File md5="7B7E803148EBD1AB420BA6342E0D4A69" import="1">The11Cats/Art/THE11CATS_Objects16.dds</File>
     <File md5="56AC2ABD5136A95E713B156B6A75F43D" import="1">The11Cats/Art/THE11CATS_Objects24.dds</File>
@@ -537,7 +537,7 @@
     <File md5="397E9E828869C2ACCC720CA9BB7106E0" import="1">KingdomOfSaba/Art/SABA_Icon80.dds</File>
     <File md5="D2B06F1E77AA89E2DA7F92E47A453E45" import="1">KingdomOfSaba/Art/SABA_Leader.dds</File>
     <File md5="6B1F6154BCA068FCF6DB66F4784A31E2" import="1">KingdomOfSaba/Art/SABA_LeaderScene.xml</File>
-    <File md5="E0DED6D9045589A71085D9A28618A7EB" import="1">KingdomOfSaba/Art/SABA_Map.dds</File>
+    <File md5="6FFAEB4D3664E3F024FB8B7923E25356" import="1">KingdomOfSaba/Art/SABA_Map.dds</File>
     <File md5="F14CE906E72FC3A5F9A1F8CEAE696C56" import="1">KingdomOfSaba/Art/SABA_Objects128.dds</File>
     <File md5="466BC342E324E70ACA5229AD330B71DA" import="1">KingdomOfSaba/Art/SABA_Objects16.dds</File>
     <File md5="C902E4C3B8705E57775159740BC58521" import="1">KingdomOfSaba/Art/SABA_Objects24.dds</File>
@@ -594,7 +594,7 @@
     <File md5="8CD0DC661CAD9842838F3E8ECA0CE099" import="1">TheSubstituteClassroom/Art/GARVEY_Icon80.dds</File>
     <File md5="67DE484EDE48DF6908B90D4C196C6ADA" import="1">TheSubstituteClassroom/Art/GARVEY_Leader.dds</File>
     <File md5="9CE185E93FD5D29D75E5F89F8F942934" import="1">TheSubstituteClassroom/Art/GARVEY_LeaderScene.xml</File>
-    <File md5="C4DE2AB0138256D876ECBF47ACFB6398" import="1">TheSubstituteClassroom/Art/GARVEY_Map.dds</File>
+    <File md5="1EB7B0E7D676D52B6F8D09209796FECF" import="1">TheSubstituteClassroom/Art/GARVEY_Map.dds</File>
     <File md5="01BDEF57B185411766084A3DD3D19DB6" import="1">TheSubstituteClassroom/Art/GARVEY_Objects128.dds</File>
     <File md5="DC25E2C036D66C96B7EEA5BFE292357E" import="1">TheSubstituteClassroom/Art/GARVEY_Objects16.dds</File>
     <File md5="8B44C9C0B6ECE4B6A567289C7F0AC102" import="1">TheSubstituteClassroom/Art/GARVEY_Objects24.dds</File>
@@ -646,7 +646,7 @@
     <File md5="2E86EDC45E6C8A189AC1394750DFCE5C" import="1">TheConicalUnion/Art/CONICAL_Icon80.dds</File>
     <File md5="5E85031DB539C3D428139C1078D1F686" import="1">TheConicalUnion/Art/CONICAL_Leader.dds</File>
     <File md5="6A35E626EDFDDAF530FCF60A727E2462" import="1">TheConicalUnion/Art/CONICAL_LeaderScene.xml</File>
-    <File md5="47ACF55F8FA4110BA156E6EFB7753194" import="1">TheConicalUnion/Art/CONICAL_Map.dds</File>
+    <File md5="BDB9AFD16D71947A35A82770DAC0DD16" import="1">TheConicalUnion/Art/CONICAL_Map.dds</File>
     <File md5="BD0B52FCFC08368AE8C86124ED0DFB38" import="1">TheConicalUnion/Art/CONICAL_Objects128.dds</File>
     <File md5="0BCCBB48EB2F8DD6060F08ADE58E7074" import="1">TheConicalUnion/Art/CONICAL_Objects16.dds</File>
     <File md5="A1D141C007FA1EC5AA4ECFA400E85F7D" import="1">TheConicalUnion/Art/CONICAL_Objects24.dds</File>
@@ -694,7 +694,7 @@
     <File md5="F2541969117CD5DAC6159E2DB13EAD29" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Icon80.dds</File>
     <File md5="94DB190D21EA4F837B46521AFB8424CF" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Leader.dds</File>
     <File md5="D377FB35C113BF4CC8A48C4A4AE5E0F4" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_LeaderScene.xml</File>
-    <File md5="99F9BEA5318A854807DD095ABF99F4BE" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Map.dds</File>
+    <File md5="1BC221801857522953F488A797BDA9C1" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Map.dds</File>
     <File md5="71F5087FA9BF674A7A32EB9C3D2B01F5" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Objects128.dds</File>
     <File md5="417108D4CF84C1C06962441A544104B4" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Objects16.dds</File>
     <File md5="5383545A6EE68E0A0B00E650B0054954" import="1">KingdomOfTheUnrungBell/Art/UNRUNG_Objects24.dds</File>
@@ -756,7 +756,7 @@
     <File md5="AA715694D0A4CBD39D10DB11A639CD2F" import="1">TheUrgal/Art/URGAL_Icon80.dds</File>
     <File md5="8E0D8F877556C53C110260D23BAE1BDD" import="1">TheUrgal/Art/URGAL_Leader.dds</File>
     <File md5="B97EBEB188CE6FE4B13AB7F96A18F640" import="1">TheUrgal/Art/URGAL_LeaderScene.xml</File>
-    <File md5="63CF6F95A1572F89F456A352CBBE4D65" import="1">TheUrgal/Art/URGAL_Map.dds</File>
+    <File md5="812366C5CEBFBDD41B3C923333D2B78E" import="1">TheUrgal/Art/URGAL_Map.dds</File>
     <File md5="C3AB9CF3F637EE60E426220A8195DA03" import="1">TheUrgal/Art/URGAL_Objects128.dds</File>
     <File md5="68CAE78D350DF45DA5520002F4E1811C" import="1">TheUrgal/Art/URGAL_Objects16.dds</File>
     <File md5="B7E8EADFA52773750EAFAAE0A6055469" import="1">TheUrgal/Art/URGAL_Objects24.dds</File>
@@ -848,7 +848,7 @@
     <File md5="91F61190E38211F10E11CA69405D9E89" import="1">JinDynasty/Art/JIN_KarmaUI64.dds</File>
     <File md5="DB58410B28A1FD53810C64FA74AB3754" import="1">JinDynasty/Art/JIN_Leader.dds</File>
     <File md5="1B40BB757D62536AFE37D165360DAB9E" import="1">JinDynasty/Art/JIN_LeaderScene.xml</File>
-    <File md5="923A51C091701F49A6C711E57E465D95" import="1">JinDynasty/Art/JIN_Map.dds</File>
+    <File md5="B1E347C59E3FACC523CE1EDEF22B84BE" import="1">JinDynasty/Art/JIN_Map.dds</File>
     <File md5="F7AE0DCD67050DDF66355A2BF9AB8287" import="1">JinDynasty/Art/JIN_MenganUI32.dds</File>
     <File md5="49059D41FB928745B69A5343E4A40CC9" import="1">JinDynasty/Art/JIN_MenganUI64.dds</File>
     <File md5="D2C2CF01B2A58F8455F0505A062211C1" import="1">JinDynasty/Art/JIN_Portrait128.dds</File>
@@ -927,7 +927,7 @@
     <File md5="219AA310D7CAE7F1E1E475BC7AADF59A" import="1">TheThresholdCourt/Art/THC_Icon80.dds</File>
     <File md5="1E074A17D403C9D4E50DA5C658CEE2FA" import="1">TheThresholdCourt/Art/THC_Leader.dds</File>
     <File md5="B0DD0C9C8E171484A2C7E6B661C6BE2D" import="1">TheThresholdCourt/Art/THC_LeaderScene.xml</File>
-    <File md5="C84BEEDC172D8168F2BFBA7F3179BFCF" import="1">TheThresholdCourt/Art/THC_Map.dds</File>
+    <File md5="36CD97C7F67ED09505075D7D97B1817C" import="1">TheThresholdCourt/Art/THC_Map.dds</File>
     <File md5="F2AA754F8CC73AE7128B939C1B0498A0" import="1">TheThresholdCourt/Art/THC_Objects128.dds</File>
     <File md5="016DEF61F03A1063C01D7C4F790FBA5F" import="1">TheThresholdCourt/Art/THC_Objects16.dds</File>
     <File md5="08BB0EE307F7C50B0D26155C22D2FD54" import="1">TheThresholdCourt/Art/THC_Objects24.dds</File>
@@ -988,7 +988,7 @@
     <File md5="FED070005B778E3DEFFB77F99AA7F5B5" import="1">TheHoneycombCommonwealth/Art/HCC_Icon80.dds</File>
     <File md5="A6B00B84D759BFAE6DCA958618E1BAA7" import="1">TheHoneycombCommonwealth/Art/HCC_Leader.dds</File>
     <File md5="A0B8528E37D481A7ADE782F410D92DC6" import="1">TheHoneycombCommonwealth/Art/HCC_LeaderScene.xml</File>
-    <File md5="9C8B080E41AB9514DC6AD9CE375C33E8" import="1">TheHoneycombCommonwealth/Art/HCC_Map.dds</File>
+    <File md5="189D7A7FA75A8348F33CB758F14ECAE3" import="1">TheHoneycombCommonwealth/Art/HCC_Map.dds</File>
     <File md5="2C59B21F7F6F77BA0C559DDE44D4889E" import="1">TheHoneycombCommonwealth/Art/HCC_Objects128.dds</File>
     <File md5="46390506F5BADFA66DC7FC9FDEB592C5" import="1">TheHoneycombCommonwealth/Art/HCC_Objects16.dds</File>
     <File md5="67CBA6207BC8470CCFEBA0E0807FC4DD" import="1">TheHoneycombCommonwealth/Art/HCC_Objects24.dds</File>
@@ -1037,7 +1037,7 @@
     <File md5="0EF549B30887AE44BD7BE022355B6234" import="1">TheLaureateCommonwealth/Art/LC_Icon80.dds</File>
     <File md5="742E70AD3E6D58E660743CFC9FEBA80E" import="1">TheLaureateCommonwealth/Art/LC_Leader.dds</File>
     <File md5="3C44A724AA709F0A7C62271A0CB3F44D" import="1">TheLaureateCommonwealth/Art/LC_LeaderScene.xml</File>
-    <File md5="A4DC62BCB32AE846653AA609FB01964A" import="1">TheLaureateCommonwealth/Art/LC_Map.dds</File>
+    <File md5="904281A0D2F941C3481428D2B0A087B5" import="1">TheLaureateCommonwealth/Art/LC_Map.dds</File>
     <File md5="50B59009F3C06409C4024E901980DC2E" import="1">TheLaureateCommonwealth/Art/LC_Objects128.dds</File>
     <File md5="8371CCFCFABC281653F7A2EE818325CD" import="1">TheLaureateCommonwealth/Art/LC_Objects16.dds</File>
     <File md5="2073208939DD163404B6F9DFFEECC96D" import="1">TheLaureateCommonwealth/Art/LC_Objects24.dds</File>
@@ -1086,7 +1086,7 @@
     <File md5="712E70E7C18DCD5089E7571CF446D80A" import="1">T1ZOFGK/Art/T1Z_Icon80.dds</File>
     <File md5="147CBED9988F9F05080581EB1C8B844D" import="1">T1ZOFGK/Art/T1Z_Leader.dds</File>
     <File md5="06D197DAFB6850F0D2BF0587D56C687C" import="1">T1ZOFGK/Art/T1Z_LeaderScene.xml</File>
-    <File md5="9164340A9B6B3BEE66B3F504F3738DAC" import="1">T1ZOFGK/Art/T1Z_Map.dds</File>
+    <File md5="91F15C4166C1B3B38B1CD7AA1423325E" import="1">T1ZOFGK/Art/T1Z_Map.dds</File>
     <File md5="41DB122465F01DE18BCBD94E07776FEB" import="1">T1ZOFGK/Art/T1Z_Objects128.dds</File>
     <File md5="96F276382A9CDF20A5E97B80417B1960" import="1">T1ZOFGK/Art/T1Z_Objects16.dds</File>
     <File md5="0A05EC83616463FE362211FD37DA78D4" import="1">T1ZOFGK/Art/T1Z_Objects24.dds</File>
@@ -1145,7 +1145,7 @@
     <File md5="C6DAFBFFBC95656CCCF534C8CB80A28A" import="1">TheRepublicOfFirstDrafts/Art/RFD_Icon80.dds</File>
     <File md5="A8A109A4E7DC9B5AC8432531CB42CD91" import="1">TheRepublicOfFirstDrafts/Art/RFD_Leader.dds</File>
     <File md5="D36C9EA79A853DF143507021AE18B2D0" import="1">TheRepublicOfFirstDrafts/Art/RFD_LeaderScene.xml</File>
-    <File md5="526B952BB69F7A91396AB26EE2BC8BB9" import="1">TheRepublicOfFirstDrafts/Art/RFD_Map.dds</File>
+    <File md5="3A6914E608735BF8F0C42BFD4D79CF5A" import="1">TheRepublicOfFirstDrafts/Art/RFD_Map.dds</File>
     <File md5="F52B1D0AB88E1C72C23AAB7ABDE163C0" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects128.dds</File>
     <File md5="5F0F6939DADD89DE446B3D1435254CE1" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects16.dds</File>
     <File md5="A12072AA4C6F7D24996519DFE78C5570" import="1">TheRepublicOfFirstDrafts/Art/RFD_Objects24.dds</File>
@@ -1194,7 +1194,7 @@
     <File md5="8FF66C88BE718D4E3FAE771B9A257B86" import="1">TheLanternFleet/Art/LANTERN_Icon80.dds</File>
     <File md5="E818C31883172838D1489C4BFC7DB1D3" import="1">TheLanternFleet/Art/LANTERN_Leader.dds</File>
     <File md5="DD77EF6AF890F963D52F546FEB883BBC" import="1">TheLanternFleet/Art/LANTERN_LeaderScene.xml</File>
-    <File md5="A44A29944043BA8652F458EB7D7B6842" import="1">TheLanternFleet/Art/LANTERN_Map.dds</File>
+    <File md5="732BEBE104ADA60A9B07F2452D1384F1" import="1">TheLanternFleet/Art/LANTERN_Map.dds</File>
     <File md5="4ABE505E341BD1D98115FA8CA37AACAF" import="1">TheLanternFleet/Art/LANTERN_Objects128.dds</File>
     <File md5="C98924123552E86AA84026C3CA289F3B" import="1">TheLanternFleet/Art/LANTERN_Objects16.dds</File>
     <File md5="F3C051A6E67963F343018C12901A6152" import="1">TheLanternFleet/Art/LANTERN_Objects24.dds</File>
@@ -1244,7 +1244,7 @@
     <File md5="DA495591135DFCA1A294A6CB7EF8B16B" import="1">TheTriumphalImperium/Art/TRI_Icon80.dds</File>
     <File md5="9F2E4E5B0A3E2BC0AFD9F2CA4C509DDC" import="1">TheTriumphalImperium/Art/TRI_Leader.dds</File>
     <File md5="F81C844E20D8A945A52DED6B0700E823" import="1">TheTriumphalImperium/Art/TRI_LeaderScene.xml</File>
-    <File md5="474D19BFA8D2A50256C323B244302C67" import="1">TheTriumphalImperium/Art/TRI_Map.dds</File>
+    <File md5="C0E26422640403AE7EE89DE2EA2F7DA6" import="1">TheTriumphalImperium/Art/TRI_Map.dds</File>
     <File md5="2288A7CDB1E509FB9127F3A68B8389E9" import="1">TheTriumphalImperium/Art/TRI_Objects128.dds</File>
     <File md5="6FCE966C76C2F5ABCDF20ACBF9308A5E" import="1">TheTriumphalImperium/Art/TRI_Objects16.dds</File>
     <File md5="DB116CBD203397E6EF61FBA8B23AE667" import="1">TheTriumphalImperium/Art/TRI_Objects24.dds</File>
@@ -1296,7 +1296,7 @@
     <File md5="97724223AD8C5C6FD63CF017F7560BD9" import="1">TheCovenant/Art/COVENANT_Icon80.dds</File>
     <File md5="87E4D468920CBDB2478CA0BEFB884CF0" import="1">TheCovenant/Art/COVENANT_Leader.dds</File>
     <File md5="27CC8CF7A1AC2E0A22F348A013A0DC2A" import="1">TheCovenant/Art/COVENANT_LeaderScene.xml</File>
-    <File md5="F3741EED6AE9002B2CC1B683F4B9E274" import="1">TheCovenant/Art/COVENANT_Map.dds</File>
+    <File md5="4A84DA87AAFD56A287EC48FE6A760D5E" import="1">TheCovenant/Art/COVENANT_Map.dds</File>
     <File md5="2D605BD2B9AECE19A2BB6E68DAFE97DD" import="1">TheCovenant/Art/COVENANT_Objects128.dds</File>
     <File md5="EA3FF71093BEB8551FF895D6EC80B6C1" import="1">TheCovenant/Art/COVENANT_Objects16.dds</File>
     <File md5="9788A884C743FC057B5105F0F9F85ECA" import="1">TheCovenant/Art/COVENANT_Objects24.dds</File>

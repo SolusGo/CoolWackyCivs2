@@ -1,5 +1,6 @@
 """Compile original generated Garvey painting and drawn collection-style icons."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image,ImageDraw,ImageOps
 from prepare_red_art import raw_mips
 R=Path(__file__).resolve().parents[1]
@@ -50,7 +51,7 @@ def main():
  plan=Image.new('RGBA',(512,512),'#c9b98e');d=ImageDraw.Draw(plan)
  for box in [(45,45,220,195),(292,45,467,195),(45,310,220,467),(292,310,467,467)]:d.rectangle(box,fill=GREEN,outline=GOLD,width=9)
  d.rectangle((240,45,272,467),fill=CHALK);d.rectangle((45,235,467,267),fill=CHALK)
- d.ellipse((109,96,157,144),fill=RED);plan.save(S/'ClassroomPlan.png');save(plan,'GARVEY_Map.dds',(512,512))
+ d.ellipse((109,96,157,144),fill=RED);plan.save(S/'ClassroomPlan.png');write_map(plan, V/'GARVEY_Map.dds')
  board=Image.new('RGBA',(768,640),GREEN);d=ImageDraw.Draw(board)
  d.rectangle((4,4,763,635),outline=GOLD,width=8)
  for y in range(190,620,90):d.line((20,y,748,y),fill='#24513e',width=2)

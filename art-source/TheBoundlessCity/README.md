@@ -12,6 +12,6 @@ Final prompt:
 
 `BoundlessCityMap.png` is an original overhead fantasy atlas generated with the **built-in image_gen tool**, replacing the reused leader painting in the map slot. The exact final request is preserved in [BoundlessCityMap.prompt.txt](BoundlessCityMap.prompt.txt). No CLI fallback or third-party artwork was used.
 
-`tools/prepare_boundless_map.py` compiles it to `TheBoundlessCity/Art/BoundlessMap.dds`: a 360×410 active window on a transparent 512×512 legacy RGBA canvas, with full mipmaps. `BoundlessMapPreview.png` shows that window at its display size. The general art script calls this dedicated compiler; leader artwork remains sourced from `ArchitectAndWorld.png`. See [MapArtwork.md](../../TheBoundlessCity/docs/MapArtwork.md).
+`tools/prepare_boundless_map.py` compiles it to `TheBoundlessCity/Art/BoundlessMap.dds`: a 360×410 active window on a 360×412 legacy RGBA canvas, with full mipmaps. `BoundlessMapPreview.png` shows that window at its display size. The general art script calls this dedicated compiler; leader artwork remains sourced from `ArchitectAndWorld.png`. See [MapArtwork.md](../../TheBoundlessCity/docs/MapArtwork.md).
 
 ![Civilization map display preview](BoundlessMapPreview.png)

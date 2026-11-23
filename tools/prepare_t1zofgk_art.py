@@ -4,6 +4,7 @@ Paintings are built-in imagegen outputs; no substitute leader/unit paintings.
 Only crop/resize/export work is performed on those finished illustrations.
 """
 from pathlib import Path
+from setup_art import write_map
 import json, math
 from PIL import Image,ImageDraw,ImageOps,ImageFont
 from dds_mips import raw_mips
@@ -124,8 +125,10 @@ def main():
             (V/f'T1Z_{stem}{size}.dds').write_bytes(raw_mips(out))
     (V/'T1Z_Flag32.dds').write_bytes(raw_mips(alpha.resize((32,32),Image.Resampling.LANCZOS)))
     for name,im,size in [('Leader',leader,(1600,900)),('Dawn',Image.open(S/'ZOFGK.png'),(1024,768)),('Map',map_image(),(512,512))]:
-        if name=='Map':im.save(S/'Map.png')
-        (V/f'T1Z_{name}.dds').write_bytes(raw_mips(ImageOps.fit(im,size,Image.Resampling.LANCZOS)))
+        if name=='Map':
+            im.save(S/'Map.png')
+            write_map(im, V/f'T1Z_{name}.dds')
+        else:(V/f'T1Z_{name}.dds').write_bytes(raw_mips(ImageOps.fit(im,size,Image.Resampling.LANCZOS)))
     (V/'T1Z_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="T1Z_Leader.dds" />\n',encoding='utf-8',newline='\n')
     preview=Image.new('RGBA',(1024,768),'#18141a')
     for i,cell in enumerate([icon,portrait,objects.crop((0,0,256,256)),objects.crop((256,0,512,256))]):preview.alpha_composite(frame_cell(cell,256,i==1,preserve_art=True),(i*256,0))

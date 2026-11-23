@@ -1,5 +1,6 @@
 """Compile original Urgal paintings and deterministic symbols to legacy DDS."""
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
 
@@ -65,8 +66,7 @@ def main():
  d.rectangle((159,181,201,223),fill='#53345c',outline='#e3c167',width=4)
  d.text((150,235),'THE FEAST',fill='#35243c')
  d.text((81,371),'HARDCORE GAMES ARENA',fill='#35243c')
- mapImage=Image.new('RGBA',(512,512),'#d4c09b');mapImage.alpha_composite(arena,(0,0))
- (V/'URGAL_Map.dds').write_bytes(raw_mips(mapImage));arena.save(S/'ArenaMap.png')
+ write_map(arena, V/'URGAL_Map.dds');arena.save(S/'ArenaMap.png')
  (V/'URGAL_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="URGAL_Leader.dds" />\n',encoding='utf-8',newline='\n')
  preview=Image.new('RGBA',(1024,256),'#17101e')
  for i,im in enumerate([masters['Icon'],portrait,objects.crop((256,0,512,256)),objects.crop((0,0,256,256))]):

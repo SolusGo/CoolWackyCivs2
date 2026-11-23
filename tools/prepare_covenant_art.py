@@ -4,6 +4,7 @@ Nine atlas sizes, 90% gold-rim colour cells, 75% leader cells, monochrome
 alpha/flag textures and complete legacy RGBA mip chains. No other civ is touched.
 """
 from pathlib import Path
+from setup_art import write_map
 import math
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 from dds_mips import raw_mips
@@ -113,7 +114,8 @@ def main():
     (V/'COVENANT_Flag32.dds').write_bytes(raw_mips(alpha.resize((32,32),Image.Resampling.LANCZOS)))
     for name,size in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',(512,512))]:
         image=images['Scribe' if name=='Leader' else name]
-        (V/f'COVENANT_{name}.dds').write_bytes(raw_mips(ImageOps.fit(image,size,Image.Resampling.LANCZOS)))
+        if name=='Map':write_map(ImageOps.fit(image,size,Image.Resampling.LANCZOS), V/f'COVENANT_{name}.dds')
+        else:(V/f'COVENANT_{name}.dds').write_bytes(raw_mips(ImageOps.fit(image,size,Image.Resampling.LANCZOS)))
     (V/'COVENANT_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="COVENANT_Leader.dds" />\n',encoding='utf-8',newline='\n')
     trim=Image.new('RGBA',UI_SIZES['Trim']);td=ImageDraw.Draw(trim)
     for y,color in enumerate(('#55452c','#d6b66e','#463b2b')):td.line((0,y,843,y),fill=color)

@@ -4,6 +4,7 @@ Reuse the collection's monochrome laurel/flag convention and gold circular frame
 All textures are legacy RGBA DDS with complete mip chains (including 45px slots).
 """
 from pathlib import Path
+from setup_art import write_map
 from PIL import Image, ImageOps, ImageDraw
 from dds_mips import raw_mips
 from standardize_icons import frame_cell
@@ -39,7 +40,8 @@ def main():
     (V/'TRI_Flag32.dds').write_bytes(raw_mips(alpha(True).resize((32,32),Image.Resampling.LANCZOS)))
     for name,size in [('Leader',(1600,900)),('Dawn',(1024,768)),('Map',(512,512))]:
         source=images['Aurelion' if name=='Leader' else name]
-        (V/f'TRI_{name}.dds').write_bytes(raw_mips(ImageOps.fit(source,size,Image.Resampling.LANCZOS)))
+        if name=='Map':write_map(ImageOps.fit(source,size,Image.Resampling.LANCZOS), V/f'TRI_{name}.dds')
+        else:(V/f'TRI_{name}.dds').write_bytes(raw_mips(ImageOps.fit(source,size,Image.Resampling.LANCZOS)))
     (V/'TRI_LeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="TRI_Leader.dds" />\n',encoding='utf-8',newline='\n')
     preview=Image.new('RGB',(1024,760),'#340912');draw=ImageDraw.Draw(preview)
     for i,name in enumerate(('Icon','Portrait','Unbroken','Hall')):
