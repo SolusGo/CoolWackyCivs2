@@ -1,10 +1,11 @@
 include('TRI_Gameplay')
+include('CWC2_Screen')
 if TRI.panelReady then return end
 TRI.panelReady = true
-local cityScreen, leaderScreen = false, false
-function TRI.RefreshUI()
+local recovery
+local function paint()
   local player = Players[Game.GetActivePlayer()]
-  local visible = TRI.IsImperium(player) and not cityScreen and not leaderScreen
+  local visible = TRI.IsImperium(player) and recovery:Available()
   Controls.MomentumPanel:SetHide(not visible)
   if not visible then return end
   local m = TRI.Momentum(player)
@@ -14,11 +15,11 @@ function TRI.RefreshUI()
   local status = Locale.ConvertTextKey(m >= 4 and 'TXT_KEY_TRI_UI_ACTIVE' or 'TXT_KEY_TRI_UI_INACTIVE')
   Controls.MomentumPanel:SetToolTipString(Locale.ConvertTextKey('TXT_KEY_TRI_UI_TIP', m, m*2, m*4, status))
 end
-TRI.Hook(Events, 'GameplaySetActivePlayer', TRI.RefreshUI)
-TRI.Hook(Events, 'ActivePlayerTurnStart', TRI.RefreshUI)
-TRI.Hook(Events, 'LoadScreenClose', function() cityScreen=false; leaderScreen=false; TRI.RefreshUI() end)
-TRI.Hook(Events, 'SerialEventEnterCityScreen', function() cityScreen=true; TRI.RefreshUI() end)
-TRI.Hook(Events, 'SerialEventExitCityScreen', function() cityScreen=false; TRI.RefreshUI() end)
-TRI.Hook(Events, 'AILeaderMessage', function() leaderScreen=true; TRI.RefreshUI() end)
-TRI.Hook(Events, 'LeavingLeaderViewMode', function() leaderScreen=false; TRI.RefreshUI() end)
+recovery = CWC2_Screen.New{
+  name='Triumphal Imperium', context=ContextPtr, civ='CIVILIZATION_TRIUMPHAL_IMPERIUM',
+  roots={Controls.MomentumPanel}, panels={Controls.MomentumPanel}, refresh=paint,
+}
+function TRI.RefreshUI()
+  recovery:Refresh()
+end
 TRI.RefreshUI()

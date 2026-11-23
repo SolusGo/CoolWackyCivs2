@@ -13,7 +13,8 @@ for _,name in ipairs({'BattleStarted','BattleJoined','BattleFinished','UnitPreki
  'CityTrained','UnitSetXY','CityConstructed','CitySoldBuilding','CityCanConstruct','PlayerDoTurn'}) do GameEvents[name]=Event() end
 for _,name in ipairs({'SequenceGameInitComplete','LoadScreenClose','GameplaySetActivePlayer',
  'ActivePlayerTurnStart','SerialEventEnterCityScreen','SerialEventExitCityScreen','AILeaderMessage',
- 'LeavingLeaderViewMode'}) do Events[name]=Event() end
+ 'LeavingLeaderViewMode','ActivePlayerTurnEnd','SerialEventGameMessagePopupShown',
+ 'SerialEventGameMessagePopupProcessed'}) do Events[name]=Event() end
 MapModData={};ContextPtr={SetShutdown=function(self,f) self.shutdown=f end}
 local turn,active=0,0
 Game={GetGameTurn=function() return turn end,GetActivePlayer=function() return active end}

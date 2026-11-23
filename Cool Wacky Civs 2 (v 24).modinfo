@@ -1272,7 +1272,7 @@
     <File md5="FC273EDC5F19BCC787A4FA1913C80403" import="0">TheTriumphalImperium/SQL/03_TRI_Art.sql</File>
     <File md5="44D0AD5585F5AB0D10270567F7E8BC31" import="0">TheTriumphalImperium/SQL/10_TRI_Text.sql</File>
     <File md5="75978FB1C782602FAAEA25DCB6A6BE97" import="0">TheTriumphalImperium/SQL/90_PlayerGuide.sql</File>
-    <File md5="B9B2858B9F481B9814EF59A7B830019B" import="1">TheTriumphalImperium/UI/TRI_Panel.lua</File>
+    <File md5="4540E3B002185204D66FA30063A7CA47" import="1">TheTriumphalImperium/UI/TRI_Panel.lua</File>
     <File md5="6779637E025682B2E612B8786CCD3AC2" import="0">TheTriumphalImperium/UI/TRI_Panel.xml</File>
     <File md5="BACB09DFE6DB837F33479A21C02FA74A" import="1">TheCovenant/Art/COVENANT_Alpha128.dds</File>
     <File md5="CB69B15F58A0CE41416A6989360ED9F4" import="1">TheCovenant/Art/COVENANT_Alpha16.dds</File>

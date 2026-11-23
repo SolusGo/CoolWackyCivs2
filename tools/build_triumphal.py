@@ -12,7 +12,8 @@ ENTRY='TheTriumphalImperium/UI/TRI_Panel.xml'
 def build():
     out=R/'dist';out.mkdir(exist_ok=True)
     stage=out/NAME;stage.mkdir(exist_ok=True)
-    game=[R/'Shared/SQL/00_OptionalCompatibility.sql']+sorted(p for p in V.rglob('*') if p.suffix in ('.sql','.xml','.lua','.dds'))
+    game=[R/'Shared/SQL/00_OptionalCompatibility.sql',R/'Shared/UI/CWC2_Screen.lua']
+    game.extend(sorted(p for p in V.rglob('*') if p.suffix in ('.sql','.xml','.lua','.dds')))
     game.sort(key=lambda p:(p.relative_to(R).parts[0]!='Shared',p.as_posix()))
     root=ET.Element('Mod',id=ID,version='1')
     props=ET.SubElement(root,'Properties')

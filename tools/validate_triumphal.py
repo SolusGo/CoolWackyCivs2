@@ -135,7 +135,7 @@ def runtime(d):
         lua.globals().SPEED=speed
         lua.execute((R/'tools/tests/triumphal_mock.lua').read_text(encoding='utf-8'))
         def include(name):
-            path=V/'Lua'/(name+'.lua')
+            path=(R/'Shared/UI' if name=='CWC2_Screen' else V/'Lua')/(name+'.lua')
             lua.execute(path.read_text(encoding='utf-8'))
         def panel():lua.execute((V/'UI/TRI_Panel.lua').read_text(encoding='utf-8'))
         lua.globals().include=include;lua.globals().LoadPanel=panel
