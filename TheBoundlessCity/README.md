@@ -1,5 +1,9 @@
 # The Boundless City
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![The First Architect in the diplomacy scene](../docs/artwork/leaders/TheBoundlessCity.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheBoundlessCity.md).
 
 Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.

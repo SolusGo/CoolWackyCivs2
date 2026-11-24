@@ -1,10 +1,14 @@
 # Cool Wacky Civs 2
 
+![Pigeon couriers fly over lantern barges and a circus pavilion in a canal city](docs/artwork/cover.jpg)
+
 22 human-only civilizations for Civilization V: Brave New World and Windows **Community Patch v151**. An independent collection; the original mod is not required.
 
 **Current source:** mod version 24 - **The Covenant**. [Changelog](CHANGELOG.md)
 
-**Start here:** [Choose a playstyle](docs/StrategyGuide.md) · [Who pressures whom](docs/Matchups.md) · [Installation and builds](#playing-the-mod)
+**Start here** · [Civilization gallery](docs/Civilizations.md) · [Choose a playstyle](docs/StrategyGuide.md) · [Matchups](docs/Matchups.md) · [Installation](#playing-the-mod) · [Build and validation](#building-and-checking)
+
+**More packs** · [Cool Wacky Civs](https://github.com/SolusGo/CoolWackyCivs) · [Cool Wacky Civs 3](https://github.com/SolusGo/CoolWackyCivs3)
 
 Every guide includes opening priorities, development, late-game conversion, pros, cons, mistakes, counterplay and four named matchup examples. The in-game civilization and leader Civilopedia pages show practical guidance before their preserved lore.
 
@@ -42,7 +46,7 @@ All 22 have `Playable=1`, `AIPlayable=0`. Native gameplay, rendering and save ac
 ## Playing the mod
 
 1. Install Civilization V with Brave New World and the Windows **Community Patch v151**.
-2. Build the release below, or use the provided archive. Extract `dist/Cool Wacky Civs 2 (v 24).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The extracted folder must contain `Cool Wacky Civs 2 (v 24).modinfo` directly. Remove the older installation before installing this version; all versions share one collection UUID.
+2. Build the [install ZIP](#building-and-checking) and extract `dist/Cool Wacky Civs 2 (v 24).zip` into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The `Cool Wacky Civs 2 (v 24).modinfo` file should sit directly inside the extracted mod folder. Replace any older installation of this pack, since all versions share one collection UUID.
 3. Enable **Community Patch** and **Cool Wacky Civs 2** through the game's **Mods** menu, then enter modded single-player setup and choose a leader.
 4. Follow the civilization's guide above for its opening moves and custom panel.
 

@@ -1,5 +1,9 @@
 # The Kingdom of the Unrung Bell
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Keeper Sable in the diplomacy scene](../docs/artwork/leaders/KingdomOfTheUnrungBell.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/KingdomOfTheUnrungBell.md).
 
 **Keeper Sable · Stillhaven · Culture / Science · Advanced · intentionally human-only.** Requires Windows Civilization V: Brave New World and standalone Community Patch v151. Part of Cool Wacky Civs 2, mod version 14 / 1.11.0 preview.

@@ -1,5 +1,9 @@
 # The Triumphal Imperium
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Imperator Aurelion in the diplomacy scene](../docs/artwork/leaders/TheTriumphalImperium.jpg)
+
 **Imperator Aurelion — One Victory Demands Another.**
 
 A human-only Civilization V: Brave New World civilization for Windows Community

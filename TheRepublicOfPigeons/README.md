@@ -1,5 +1,7 @@
 # The Republic of Pigeons
 
+[Civilization gallery](../docs/Civilizations.md)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheRepublicOfPigeons.md).
 
 Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.

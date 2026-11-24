@@ -1,5 +1,9 @@
 # The Covenant — Written on the Heart
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![The Scribe in the diplomacy scene](../docs/artwork/leaders/TheCovenant.jpg)
+
 The Scribe leads a fictional, human-only civilization built for memorising five NIV Bible passages. Requires **Cool Wacky Civs 2 v24**, Brave New World and Windows Community Patch v151. Start a new modded single-player game as **The Scribe / Covenant**.
 
 ## Civilization

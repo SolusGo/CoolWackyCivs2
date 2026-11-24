@@ -1,5 +1,9 @@
 # The Republic of First Drafts
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Editor-in-Chief Marginalia in the diplomacy scene](../docs/artwork/leaders/TheRepublicOfFirstDrafts.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheRepublicOfFirstDrafts.md).
 
 **Leader:** Editor-in-Chief Marginalia · **Capital:** First Edition · **Complexity:** Intermediate (3/5) · **Preferred victories:** Science / Culture.

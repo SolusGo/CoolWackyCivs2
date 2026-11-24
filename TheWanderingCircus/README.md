@@ -1,5 +1,9 @@
 # The Wandering Circus
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Ringmaster Aurelio in the diplomacy scene](../docs/artwork/leaders/TheWanderingCircus.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheWanderingCircus.md).
 
 **Ringmaster Aurelio** leads this human-only civilization for Civilization V: Brave New World and Windows **Community Patch v151**. Capital: **Grand Pavilion**. Favor Culture, with Science as a secondary path.

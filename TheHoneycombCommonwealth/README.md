@@ -1,5 +1,9 @@
 # The Honeycomb Commonwealth
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Speaker Mellia in the diplomacy scene](../docs/artwork/leaders/TheHoneycombCommonwealth.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheHoneycombCommonwealth.md).
 
 **Speaker Mellia — A Thousand Small Hands.** Human-playable only (`Playable=1`, `AIPlayable=0`) in Civilization V: Brave New World + **Community Patch v151 only**. Integrated into Cool Wacky Civs 2, mod version 17; no Vox Populi, additional DLL or custom-civ dependency. Capital: **First Comb**. Preferred victories: **Science / Culture**. Complexity: **3/5**.

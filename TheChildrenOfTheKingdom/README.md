@@ -1,5 +1,9 @@
 # The Children of the Kingdom
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![The Faithful in the diplomacy scene](../docs/artwork/leaders/TheChildrenOfTheKingdom.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheChildrenOfTheKingdom.md).
 
 **The Faithful · Sanctuary · Thy Kingdom Come**

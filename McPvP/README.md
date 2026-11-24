@@ -1,5 +1,9 @@
 # McPvP — The Endless Lobby
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![The block-built McPvP lobby under a full moon](../docs/artwork/leaders/McPvP.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/McPvP.md).
 
 Human playable only. AI selection is disabled for new games; existing AI controllers remain available for compatibility with older saves.

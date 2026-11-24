@@ -1,5 +1,9 @@
 # The Urgal
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Urgal in the diplomacy scene](../docs/artwork/leaders/TheUrgal.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheUrgal.md).
 
 **Leader:** Urgal. **Capital:** The Feast. **Origin:** MCPVP Hardcore Games. **Preferred victory:** Domination. **Requires:** BNW and Community Patch v151. **Human-only:** `Playable=1`, `AIPlayable=0` in setup, with human-only runtime guards.

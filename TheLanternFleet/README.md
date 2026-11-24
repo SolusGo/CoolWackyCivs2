@@ -1,5 +1,9 @@
 # The Lantern Fleet
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![High Keeper Maren in the diplomacy scene](../docs/artwork/leaders/TheLanternFleet.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheLanternFleet.md).
 
 **Final verification (2026-11-02):** [Current evidence, native acceptance limits and recommendation](docs/FinalVerification.md).

@@ -1,5 +1,9 @@
 # T1 - The ZOFGK Dynasty
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Faker in the diplomacy scene](../docs/artwork/leaders/T1ZOFGK.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/T1ZOFGK.md).
 
 **Faker** leads a human-only Civilization V: Brave New World civilization requiring **Community Patch v151**. It is part of Cool Wacky Civs 2, not a standalone mod. Start a new game and choose T1; AI random selection excludes it. Capital: **T1 HQ**. Preferred victories: Domination, then Culture. Complexity: **4/5**.

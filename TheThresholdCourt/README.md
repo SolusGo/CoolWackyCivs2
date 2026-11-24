@@ -1,5 +1,9 @@
 # The Threshold Court
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Queen Elsewhere in the diplomacy scene](../docs/artwork/leaders/TheThresholdCourt.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheThresholdCourt.md).
 
 **Queen Elsewhere — Every Door Leads Somewhere.** Human-playable only, for Windows Civilization V: Brave New World and Community Patch v151. Included in Cool Wacky Civs 2 version 17. Single player; no multiplayer/hotseat or AI portal behavior.

@@ -1,5 +1,9 @@
 # The Twelfth Hour
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![The Keeper of Seconds in the diplomacy scene](../docs/artwork/leaders/TheTwelfthHour.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheTwelfthHour.md).
 
 **The Keeper of Seconds** rules from **Last Minute**. A human-playable industrial clockwork civilization for Civilization V: Brave New World and Windows Community Patch **v151**. `Playable=1`, `AIPlayable=0`.

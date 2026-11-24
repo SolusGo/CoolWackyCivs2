@@ -1,5 +1,9 @@
 # The Jin Dynasty
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Wanyan Aguda in the diplomacy scene](../docs/artwork/leaders/JinDynasty.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/JinDynasty.md).
 
 Wanyan Aguda leads a human-only Jurchen civilization adapted from **Age of Empires IV: Yue Fei's Legacy**. Requires Windows Civilization V: Brave New World and **Community Patch v151**. The original Cool Wacky Civs collection is not required.
