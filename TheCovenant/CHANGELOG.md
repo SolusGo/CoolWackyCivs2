@@ -1,5 +1,14 @@
 # Covenant changelog
 
+## Skippable recall / v24 — 2026-11-23
+
+- Add an always-available Skip this turn button for study, recall and whole exams. Persist dismissal across same-turn reloads without awarding passes, mastery or yields; retain completed progress and permit later reviews.
+
+## Punctuation and regional spelling / v24 — 2026-11-06
+
+- Accept realise/realize and corresponding inflections in grading and masked feedback. Preserve existing punctuation tolerance, including comma/semicolon substitutions and omitted final punctuation.
+- Add all-section punctuation regressions, bidirectional spelling checks and a clean UI review with normal rewards. Focused validation: 20 engine and 26 UI/persistence groups. Scripture, save identity and progression rules are unchanged.
+
 ## Masked section feedback / v24 — 2026-11-06
 
 - Replace the word/letter error explanation with the whole section, retaining correctly recalled words and blanking mistakes with `____` at the player's request. Preserve original case/punctuation and align around omissions, extra text and reordered words.

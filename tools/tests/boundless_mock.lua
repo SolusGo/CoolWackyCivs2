@@ -131,6 +131,10 @@ function cityMethods:SetName(name) self.name=name end
 function cityMethods:GetNumCityPlots() return #self.localPlots+1 end
 function cityMethods:GetCityIndexPlot(i) return self.localPlots[i] end
 function cityMethods:IsWorkingPlot(p) return self.worked[p.n] or false end
+function cityMethods:CanWork(p)
+ return p.owner==self.owner and not p:IsCity() and not p.enemy and not p.blockaded
+  and not p.mountain and (not p.water or Teams[self.owner]:IsWaterWork())
+end
 function cityMethods:IsForcedWorkingPlot(p) return self.forced[p.n] or false end
 function cityMethods:GetSpecialistCount(id) assert(id==0);return self.defaults end
 function cityMethods:GetTotalSpecialistCount() return self.specialists end

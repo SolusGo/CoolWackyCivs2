@@ -39,7 +39,7 @@ Named custom-civ matchups are conditional theorycraft or scenario comparisons, n
 | The Republic of First Drafts | Editor-in-Chief Marginalia | Institutional variety and permanent first-possession rewards | [Strategy](docs/strategy/TheRepublicOfFirstDrafts.md) · [Full rules](TheRepublicOfFirstDrafts/README.md) |
 | The Lantern Fleet | High Keeper Maren | Defensive coastal development and turn-start naval snapshots | [Strategy](docs/strategy/TheLanternFleet.md) · [Full rules](TheLanternFleet/README.md) |
 | The Triumphal Imperium | Imperator Aurelion | Earned Victory Momentum, military mobilisation and relentless offensives | [Strategy](docs/strategy/TheTriumphalImperium.md) · [Full rules](TheTriumphalImperium/README.md) |
-| The Covenant | The Scribe | Mandatory Scripture recall, spaced reviews and recurring exams | [Strategy](docs/strategy/TheCovenant.md) · [Full rules](TheCovenant/README.md) |
+| The Covenant | The Scribe | Skippable Scripture recall, spaced reviews and recurring exams | [Strategy](docs/strategy/TheCovenant.md) · [Full rules](TheCovenant/README.md) |
 
 All 22 have `Playable=1`, `AIPlayable=0`. Native gameplay, rendering and save acceptance remain incomplete; the full rules and testing records distinguish implemented mechanics from outstanding engine checks.
 

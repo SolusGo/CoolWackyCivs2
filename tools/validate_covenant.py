@@ -84,7 +84,19 @@ def lifecycle_tests():
         ui = ui_runtime(damaged)
         ui.execute('Events.LoadScreenClose.fire(); assert(currentState().session.assisted and currentState().session.phase == "study")')
     print('PASS invalid saves restart safely with mandatory assisted introduction')
-    return len(names) + 4
+    # Reload the actual post-Skip journal into a fresh UI context in the same turn.
+    skipped = ui_runtime()
+    skipped.execute("Events.LoadScreenClose.fire(); click('Skip')")
+    resumed = ui_runtime(dict(skipped.globals().saved.items()))
+    resumed.execute('''
+      Events.LoadScreenClose.fire(); tick(1)
+      assert(not currentState().session and ContextPtr.hidden and semaphores == 0)
+      assert(player.faith == 0 and player.culture == 0)
+      turn = 1; Events.ActivePlayerTurnStart.fire()
+      assert(currentState().session.phase == 'study' and not ContextPtr.hidden)
+    ''')
+    print('PASS skip journal survives same-turn reload and permits later reviews')
+    return len(names) + 5
 
 def native_source_contracts():
     # Inspect shipped source, never substitute a mock for native execution.

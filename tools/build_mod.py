@@ -30,7 +30,7 @@ ENTRIES=[(ENTRY,'The Boundless Workforce','One simulation owner and an event-dri
  ('TheRepublicOfFirstDrafts/Lua/RFD_FirstDrafts.xml','Nothing Is Ever Final','Human-only permanent Building Class rewards and dynamic Revision Workshop Science.'),
  ('TheLanternFleet/Lua/LANTERN_Harbors.xml','No Harbor Goes Dark','Turn-start guarded coastal city snapshots and Signal Lighthouse Gold.'),
  ('TheTriumphalImperium/UI/TRI_Panel.xml','Victory Momentum','Persistent combat victories, military mobilisation and a compact laurel indicator.'),
- ('TheCovenant/UI/CovenantGate.xml','Written on the Heart','Mandatory typed Scripture recall, spaced reviews and five-passage exams.')]
+ ('TheCovenant/UI/CovenantGate.xml','Written on the Heart','Typed Scripture recall with a Skip button, spaced reviews and five-passage exams.')]
 NS='http://schemas.microsoft.com/developer/msbuild/2003'
 ET.register_namespace('',NS)
 PROPS={'Name':'Cool Wacky Civs 2','Teaser':'Twenty-two civilizations, now including The Covenant.',

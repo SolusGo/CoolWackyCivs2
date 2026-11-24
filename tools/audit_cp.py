@@ -16,7 +16,7 @@ FILES = ['CustomMods.h', 'CvCityCitizens.cpp', 'CvCityCitizens.h', 'CvCity.cpp',
          'CvGameCoreDLL_Expansion2.vcxproj','CvInfos.cpp']
 METHODS = {
  'City': 'GetOwner GetX GetY GetID GetOriginalOwner GetPreviousOwner GetGameTurnFounded IsOriginalCapital '
-         'GetPopulation GetAutomatons GetNumCityPlots GetCityIndexPlot IsWorkingPlot IsForcedWorkingPlot '
+         'GetPopulation GetAutomatons GetNumCityPlots GetCityIndexPlot CanWork IsWorkingPlot IsForcedWorkingPlot '
          'GetSpecialistCount GetTotalSpecialistCount GetExtraSpecialistYieldOfType GetNumBuilding '
          'GetNumRealBuilding SetNumRealBuilding SetName GetJONSCulturePerTurn FoodDifference AlterWorkingPlot '
          'DoTask GetBaseYieldRateFromMisc ChangeBaseYieldRateFromMisc GetBaseYieldRateFromTerrain '

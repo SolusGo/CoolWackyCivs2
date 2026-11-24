@@ -1,3 +1,7 @@
+-- The InGameUIAddin loader can expose the context before it is queued.
+ContextPtr:SetHide(true)
+Controls.Backdrop:SetHide(true)
+
 include("CovenantVerses")
 include("CovenantMemory")
 
@@ -11,6 +15,7 @@ local studyRemaining, elapsed = 0, 0
 local feedback = ""
 local checking, submitting = false, false
 local actionRecovery = false
+local deferredTurn
 local changingText, previousText = false, ""
 local answerEdited = false
 
@@ -64,7 +69,7 @@ local function render()
   if not session then return end
   local verse = verses[session.queue[1]]
   local study = session.phase == "study"
-  Controls.Mode:SetText(session.exam and "TEN-TURN EXAM - ALL FIVE PASSAGES" or "WRITTEN ON THE HEART - MANDATORY RECALL")
+  Controls.Mode:SetText(session.exam and "TEN-TURN EXAM - ALL FIVE PASSAGES" or "WRITTEN ON THE HEART - SCRIPTURE RECALL")
   Controls.Progress:SetText("Turn " .. (Game.GetGameTurn() + 1) .. "  |  " .. #session.queue .. " passage(s) remaining  |  " .. M.Mastered(state) .. "/5 mastered")
   Controls.Title:SetText(study and (verse.reference .. " (" .. verse.translation .. ")") or verse.cue)
   Controls.Passage:SetHide(not study)
@@ -90,16 +95,18 @@ local function render()
     Controls.Feedback:SetText(feedback)
   end
   Controls.Footer:SetText(session.assisted
-    and "Learning attempt: completing this check unlocks the game. An unaided later review earns Faith and Culture."
+    and "Learning attempt: recall or skip to resume play. An unaided later review earns Faith and Culture."
     or "Unaided review: exact words required. Case and punctuation are ignored. A mistake restarts this passage.")
 end
 
 local function close()
+  Controls.Backdrop:SetHide(true)
   if queued then
     -- Clear ownership before native callbacks (which may be synchronous).
     queued = false
     UIManager:DequeuePopup(ContextPtr)
   end
+  if not ContextPtr:IsHidden() then ContextPtr:SetHide(true) end
   if timerHeld then timerHeld = false; UI.decTurnTimerSemaphore() end
 end
 
@@ -108,6 +115,7 @@ local function checkState()
   local id = Game.GetActivePlayer()
   if activeID ~= id then
     activeID = id
+    deferredTurn = nil
     state = states[id]
     if not state then
       state = M.Decode(storage.GetValue(key(id)), verses)
@@ -125,11 +133,20 @@ local function checkState()
     end
     save()
   end
+  if deferredTurn == Game.GetGameTurn() then return end
   if actionRecovery then
     -- An action may have advanced before a save/control/yield call failed.
     -- Persist that state and repair its view, never replay the answer or reward.
-    save()
-    if state.session then render(); focus(true) end
+    local ok, err = pcall(function()
+      save()
+      if state.session then render(); focus(true) end
+    end)
+    if not ok then
+      -- Retry the pending check on a later turn without blocking this one.
+      deferredTurn = Game.GetGameTurn()
+      close()
+      error(err)
+    end
     actionRecovery = false
   end
   local alreadyPending = state.session ~= nil
@@ -220,8 +237,8 @@ local function submitAnswer()
   focus(true)
 end
 
-local function runAction(action)
-  if submitting or actionRecovery then return end
+local function runAction(action, allowRecovery)
+  if submitting or (actionRecovery and not allowRecovery) then return end
   submitting = true
   local ok, err = pcall(action)
   submitting = false
@@ -261,23 +278,37 @@ Controls.Study:RegisterCallback(Mouse.eLClick, function()
   runAction(study)
 end)
 
+local function skip()
+  if not eligible() or activeID ~= Game.GetActivePlayer() or not queued
+      or ContextPtr:IsHidden() or not state or not state.session then return end
+  M.Skip(state, Game.GetGameTurn())
+  save()
+  close()
+  actionRecovery = false
+  Events.GameplayAlertMessage("The Covenant: recall skipped for this turn. No skip reward. Play resumes.")
+end
+Controls.Skip:RegisterCallback(Mouse.eLClick, function()
+  runAction(skip, true)
+end)
+
 -- Match the shipped SetCityName/SetUnitName modal EditBox pattern: consume
 -- unhandled game input. Native child-control dispatch is NOT simulated by tests.
 -- Do not clear/refocus on ordinary keys: that breaks selection and navigation.
 -- Enter/lost-focus EditBox callbacks never submit; only the button does.
 ContextPtr:SetInputHandler(function(uiMsg, wParam, lParam)
-  return true
+  return queued and timerHeld and activeID == Game.GetActivePlayer() and eligible()
 end)
 
 ContextPtr:SetShowHideHandler(function(isHide, isInit)
   if isInit then return end
-  if not isHide and (not queued or not state or not state.session or not eligible()
-      or activeID ~= Game.GetActivePlayer()) then return end
-  if not isHide and not timerHeld then
+  local show = not isHide and queued and state and state.session
+    and activeID == Game.GetActivePlayer() and eligible()
+  Controls.Backdrop:SetHide(not show)
+  if show and not timerHeld then
     timerHeld = true
     UI.incTurnTimerSemaphore()
-    if state and state.session and state.session.phase ~= "study" then focus(false) end
-  elseif isHide and timerHeld then
+    if state.session.phase ~= "study" then focus(false) end
+  elseif not show and timerHeld then
     timerHeld = false
     UI.decTurnTimerSemaphore()
   end
@@ -287,7 +318,7 @@ ContextPtr:SetUpdate(function(delta)
   if queued and state and state.session and state.session.phase == "study" and not ContextPtr:IsHidden() then
     local old = math.ceil(studyRemaining)
     studyRemaining = math.max(0, studyRemaining - delta)
-    if old ~= math.ceil(studyRemaining) then render() end
+    if old ~= math.ceil(studyRemaining) then runAction(render) end
   end
   elapsed = elapsed + delta
   if elapsed >= 0.25 then

@@ -3,14 +3,14 @@
 [Player handbook](../StrategyGuide.md) · [Matchups](../Matchups.md) · [Full mechanics](../../TheCovenant/README.md)
 
 **Leader:** The Scribe  
-**Playstyle:** Mandatory Scripture recall with a conventional Faith and Culture economy  
+**Playstyle:** Skippable Scripture recall with a conventional Faith and Culture economy  
 **Suggested victories:** Culture or a protected research economy
 
 Protect population, production and borders while learning five passages. Written on the Heart adds +1 Culture per city. An unaided review earns 10 Faith and 5 Culture multiplied by the era index plus one, at most once per game turn, including examinations.
 
 ## Opening priorities
 
-Recall Revelation before moving starting units. Study its five numbered sections aloud, hide the text, then enter the reference and every section in order. The next four introductions cover the remaining passages. Settle, explore and defend normally; a Scriptorium supplies 2 Faith and 1 Culture.
+Study Revelation before moving starting units, or skip the check for this turn without a reward. Study its five numbered sections aloud, hide the text, then enter the reference and every section in order. The next four introductions cover the remaining passages. Settle, explore and defend normally; a Scriptorium supplies 2 Faith and 1 Culture.
 
 ## Develop the engine
 
@@ -18,7 +18,7 @@ Tabernacles supply 3 Faith and 1 Science with the Temple cost, technology, maint
 
 ## Convert the advantage
 
-Use religious and cultural development for normal victory routes. Every tenth campaign turn requires all five passages in rotating order. Three consecutive unaided reviews mark mastery, but mastered passages remain in the review schedule. A failed or studied attempt resets that passage streak.
+Use religious and cultural development for normal victory routes. Every tenth campaign turn offers all five passages in rotating order; Skip this turn dismisses the remaining exam. Three consecutive unaided reviews mark mastery, but mastered passages remain in the review schedule. A failed or studied attempt resets that passage streak.
 
 ## Pros
 
@@ -28,7 +28,7 @@ Use religious and cultural development for normal victory routes. Every tenth ca
 
 ## Cons and opportunity costs
 
-- Mandatory recall interrupts play and provides no skip button.
+- Recall interrupts play until completed or skipped; skipping grants no reward or mastery.
 - Mistakes or studying forfeit that passage reward and shorten review spacing.
 - The civilization has no unique military unit or special combat advantage.
 

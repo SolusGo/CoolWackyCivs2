@@ -68,7 +68,7 @@ def syntax():
     print('PASS every Lua source parses under Lua 5.1')
 
 def runtime():
-    tests=['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua','workforce_stress.lua','completion_safety.lua','siege_safety.lua','stability_assertions.lua','ai_stability.lua','engine_completion.lua','dispatcher_contract.lua','food_turn_order.lua','remote_planner.lua']
+    tests=['boundless_assertions.lua','frontier_assertions.lua','ui_assertions.lua','workforce_stress.lua','completion_safety.lua','siege_safety.lua','stability_assertions.lua','ai_stability.lua','engine_completion.lua','dispatcher_contract.lua','food_turn_order.lua','remote_planner.lua','reservation_release.lua']
     for test,food_mode in [(name,None) for name in tests]+[('food_turn_order.lua','AUTO'),('food_turn_order.lua','HYBRID')]:
         lua=LuaRuntime()
         def include(name):

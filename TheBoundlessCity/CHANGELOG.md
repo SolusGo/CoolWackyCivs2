@@ -1,5 +1,11 @@
 # The Boundless City changelog
 
+## Turn 135 citizen-reassignment crash hotfix — 2026-11-02
+
+- Replace reservation release through `TASK_REMOVE_SLACKER` with checked individual returns to native local tiles. The captured CP v151 crash rejects an already-worked tile during that task's bulk governor allocation; Lua cannot catch the fatal assertion.
+- Recheck work status/native `CanWork`, journal completed returns, retain blocked returns for retry, and track mod-returned native locks separately from player locks. Pending returns never establish remote reservation proof.
+- Preserve v23 identity, schema 3 and existing saves through optional fields. Add crash-path, reload, turn-renewal, blocked/no-op/fault, population-loss and stale-row regressions, plus a guarded installer with backups. Native turn-135 replay remains the acceptance check.
+
 ## Remote workforce planner — 2026-10-26
 
 - Evaluate ordinary labourer and local withdrawal costs, preserve Manual requests/Hybrid locks and add a saved Food minimum with native feedback and unmet-target reporting.

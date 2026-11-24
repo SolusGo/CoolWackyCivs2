@@ -1,5 +1,13 @@
 # Changelog
 
+## Covenant skippable recall / mod version 24 — 2026-11-23
+
+- Add an always-available Skip this turn button for study, recall and whole exams. Persist dismissal across same-turn reloads without awarding passes, mastery or yields; retain completed progress and permit later reviews.
+
+## Covenant punctuation and regional spelling / mod version 24 — 2026-11-06
+
+- Accept realise/realize spelling variants in recall and masked feedback. Verify punctuation substitutions and omissions across every section, with normal clean-review rewards and unchanged Scripture/save identity.
+
 ## Covenant masked section feedback / mod version 24 — 2026-11-06
 
 - Show the whole failed section with correct words retained and mistakes blanked, replacing the confusing word/letter explanation. Align missing, extra and reordered words without hiding the correct remainder. Preserve study timing and all gameplay/save rules.

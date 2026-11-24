@@ -4,6 +4,11 @@ local M = CovenantMemory
 local intervals = {1, 2, 4, 8, 12}
 local phases = {study = 1, reference = 2, section = 3}
 local phaseNames = {"study", "reference", "section"}
+-- Explicit regional spellings, not fuzzy matching: other word/tense errors fail.
+local spellingAliases = {
+  realise = "realize", realises = "realizes", realised = "realized",
+  realising = "realizing", realisation = "realization", realisations = "realizations"
+}
 
 local function whitespace(text)
   -- Lua 5.1 %s is byte/locale based. Handle the common Unicode spaces explicitly.
@@ -17,6 +22,7 @@ function M.Normalize(text)
   text = text:gsub("\226\128\156", '"'):gsub("\226\128\157", '"')
   text = text:gsub("\226\128\147", "-"):gsub("\226\128\148", "-")
   text = text:gsub("'", ""):gsub("[^a-z0-9%s]", " ")
+  text = text:gsub("%S+", spellingAliases)
   return (text:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
@@ -201,14 +207,18 @@ local function prepare(s)
   s.session.section = 1
 end
 
+local function latestExamTurn(s, turn)
+  return s.startTurn + math.floor((turn - s.startTurn + 1) / 10) * 10 - 1
+end
+
 function M.Begin(s, turn)
   if s.session then return s.session end
   local queue, allSeen = {}, true
   for _, lesson in ipairs(s.lessons) do
     if lesson.passes == 0 then allSeen = false end
   end
-  local examTurn = s.startTurn + math.floor((turn - s.startTurn + 1) / 10) * 10 - 1
-  -- An interrupted/skipped boundary remains due; never discard a pending queue.
+  local examTurn = latestExamTurn(s, turn)
+  -- An unhandled boundary remains due; explicit Skip settles it for this turn.
   local exam = allSeen and examTurn >= s.startTurn + 9 and s.lastExamTurn < examTurn
   if not exam and s.clearedTurn >= turn then return nil end
   if exam then
@@ -235,6 +245,20 @@ function M.Begin(s, turn)
   s.session = {turn = turn, exam = exam, queue = queue}
   prepare(s)
   return s.session
+end
+
+function M.Skip(s, turn)
+  if not s.session then return false end
+  turn = math.max(turn or s.session.turn, s.session.turn)
+  s.clearedTurn = turn
+  -- Dismiss the whole check, including an overdue exam behind a carried review.
+  -- Reuse the existing journal so reloads cannot immediately reopen the gate.
+  local examTurn = latestExamTurn(s, turn)
+  if examTurn >= s.startTurn + 9 then
+    s.lastExamTurn = math.max(s.lastExamTurn, examTurn)
+  end
+  s.session = nil
+  return true
 end
 
 function M.Study(s)

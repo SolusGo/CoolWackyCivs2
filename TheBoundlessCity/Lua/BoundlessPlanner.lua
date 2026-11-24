@@ -106,7 +106,7 @@ function B.PlanJobs(s,city,bias,previous)
  end
  local worked={};local costsJobs={};local known=0
  for _,r in pairs(locals) do
-  if city:IsWorkingPlot(r.plot) and (s.mode=='AUTO' or not city:IsForcedWorkingPlot(r.plot)) then
+  if city:IsWorkingPlot(r.plot) and (s.mode=='AUTO' or s.nativeReturns[r.plot:GetPlotIndex()] or not city:IsForcedWorkingPlot(r.plot)) then
    local job={index=r.index,plot=r.plot,score=B.JobScore(s,B.PlotYields(r.plot),bias)}
    worked[#worked+1]=job;costsJobs[#costsJobs+1]=job
   end

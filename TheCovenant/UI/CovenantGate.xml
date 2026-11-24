@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Context ID="CovenantGate" Hidden="1" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow">
-  <Box ID="Backdrop" Anchor="C,C" Size="Full,Full" Color="5,10,20,245" ConsumeMouse="1">
+  <Box ID="Backdrop" Anchor="C,C" Size="Full,Full" Color="5,10,20,245" ConsumeMouse="1" Hidden="1">
     <Grid ID="Panel" Anchor="C,C" Size="920,640" Style="GridBlackIndent8" Padding="0,0" ConsumeMouse="1">
       <Image ID="CovenantThemeBackground" Anchor="L,T" Size="920,640" Texture="COVENANT_UI_Panel.dds" ConsumeMouse="0"/>
       <Image Anchor="L,T" Offset="38,20" Size="64,64" Texture="COVENANT_Icon64.dds" ConsumeMouse="0"/>
@@ -26,7 +26,10 @@
         <Label Anchor="C,C" Font="TwCenMT20" String="STUDY AGAIN (RESTARTS CHECK)"/>
       </GridButton>
       <Label ID="Footer" Anchor="C,B" Offset="0,60" WrapWidth="820" Font="TwCenMT16"/>
-      <Label Anchor="C,B" Offset="0,26" Font="TwCenMT14" String="The game resumes after recall. No skip button. NIV passages supplied by the player."/>
+      <GridButton ID="Skip" Anchor="C,B" Offset="0,18" Size="340,32">
+        <GridData Style="Grid9FrameButtons" Texture="COVENANT_UI_Buttons.dds"/>
+        <Label Anchor="C,C" Font="TwCenMT18" String="SKIP THIS TURN (NO REWARD)"/>
+      </GridButton>
     </Grid>
   </Box>
 </Context>

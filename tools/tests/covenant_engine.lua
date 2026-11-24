@@ -40,6 +40,39 @@ test("punctuation and case ignored; word changes rejected", function()
   assert(not M.ReferenceMatches('Hebrews 8:5', V[2].reference))
 end)
 
+test("section punctuation may change or be omitted", function()
+  for _, verse in ipairs(V) do
+    for _, section in ipairs(verse.sections) do
+      for _, answer in ipairs({
+        section:gsub(';', ','), section:gsub(',', ';'),
+        section:gsub('%p', ''), (section:gsub('[%p]+$', ''))
+      }) do
+        assert(not M.FirstDifference(answer, section), answer)
+        assert(M.MaskedSection(answer, section) == section, answer)
+      end
+    end
+  end
+end)
+
+test("regional realise spellings match without accepting word or tense errors", function()
+  for _, pair in ipairs({
+    {'realise', 'realize'}, {'realises', 'realizes'}, {'realised', 'realized'},
+    {'realising', 'realizing'}, {'realisation', 'realization'}, {'realisations', 'realizations'}
+  }) do
+    assert(not M.FirstDifference(pair[1]:upper(), pair[2]))
+    assert(not M.FirstDifference(pair[2], pair[1]))
+    assert(M.MaskedSection(pair[1], pair[2]) == pair[2])
+    assert(M.MaskedSection(pair[2], pair[1]) == pair[1])
+  end
+  local section = V[1].sections[2]
+  assert(not M.FirstDifference(section:gsub('realize', 'realise'):gsub('%p', ''), section))
+  assert(M.MaskedSection(section:gsub('realize', 'realise'):gsub('wretched', 'wretced'), section)
+    == 'But you do not realize that you are ____, pitiful, poor, blind and naked.')
+  for _, bad in ipairs({'realie', 'realice', 'realised', 'realizes', 'understand', ''}) do
+    assert(M.FirstDifference(bad, 'realize') == 1, bad)
+  end
+end)
+
 test("five turns introduce all passages; same turn cannot farm", function()
   local s = M.New(0, #V)
   for turn = 0, 4 do
@@ -282,5 +315,53 @@ test("masked sections retain correct context around every kind of mistake", func
   assert(M.MaskedSection('You say I am ricg I have acquired wealth and do not need a thing', original)
     == [=[You say, 'I am ____; I have acquired wealth and do not need a thing.']=])
   assert(not M.MaskedSection('[COLOR_RED] wrong', original):find('[COLOR_RED]', 1, true))
+end)
+test("skip preserves lessons and journals this turn across reloads", function()
+  local s = M.New(0, #V)
+  for turn = 0, 4 do M.Begin(s, turn); complete(s) end
+  s.lessons[1].passes, s.lessons[1].clean = 4, 3
+  M.Begin(s, 5)
+  M.Answer(s, V, V[1].reference)
+  M.Answer(s, V, V[1].sections[1])
+  local lessons = {}
+  for i, lesson in ipairs(s.lessons) do
+    lessons[i] = table.concat({lesson.passes, lesson.clean, lesson.due, lesson.failures}, ',')
+  end
+  assert(M.Skip(s, 5) and not s.session and s.clearedTurn == 5)
+  assert(not M.Skip(s, 5) and not M.Begin(s, 5))
+  s = assert(M.Decode(M.Encode(s), V))
+  assert(not M.Begin(s, 5) and s.rewardTurn == -1 and M.Mastered(s) == 1)
+  for i, lesson in ipairs(s.lessons) do
+    assert(table.concat({lesson.passes, lesson.clean, lesson.due, lesson.failures}, ',') == lessons[i])
+  end
+  assert(M.Begin(s, 6) and not s.session.exam)
+end)
+
+test("skip dismisses exams and carried checks without immediate catchup", function()
+  for _, start in ipairs({0, 37}) do
+    local s = M.New(start, #V)
+    M.Begin(s, start); assert(M.Skip(s, start))
+    assert(M.Decode(M.Encode(s), V) and M.Begin(s, start + 1).phase == 'study')
+    for i = 1, 5 do
+      if not s.session then M.Begin(s, start + i) end
+      complete(s)
+    end
+    M.Begin(s, start + 9)
+    assert(s.session.exam and #s.session.queue == 5)
+    complete(s)
+    local passed = s.lessons[2].passes
+    s.rewardTurn = start + 9
+    assert(M.Skip(s, start + 9) and not M.Begin(s, start + 9))
+    s = assert(M.Decode(M.Encode(s), V))
+    assert(s.lastExamTurn == start + 9 and s.rewardTurn == start + 9 and s.lessons[2].passes == passed)
+    assert(not M.Begin(s, start + 9))
+    M.Begin(s, start + 10); assert(not s.session.exam)
+    assert(M.Skip(s, start + 19) and s.lastExamTurn == start + 19)
+    s = assert(M.Decode(M.Encode(s), V))
+    assert(not M.Begin(s, start + 19))
+    assert(not M.Begin(s, start + 20).exam)
+    M.Skip(s, start + 20)
+    assert(M.Begin(s, start + 29).exam)
+  end
 end)
 return tests

@@ -1,6 +1,101 @@
 -- Each scenario runs in a fresh Lua 5.1 fixture. These are contract tests,
 -- NOT evidence of native EditBox dispatch or native popup queue membership.
 return {
+  ["persistent popup failures allow skip or release input until the next turn"] = function()
+    local set = Controls.Instructions.SetText
+    Events.LoadScreenClose.fire(); tick(10)
+    Controls.Instructions.SetText = function() error('persistent recall rendering failure') end
+    click('Submit'); click('Skip')
+    assert(not UIManager.member and semaphores == 0 and not currentState().session)
+
+    Controls.Instructions.SetText = set
+    turn = 1; Events.ActivePlayerTurnStart.fire(); tick(10)
+    Controls.Instructions.SetText = function() error('persistent recall rendering failure') end
+    click('Submit'); tick(2)
+    assert(not UIManager.member and semaphores == 0 and currentState().session.phase == 'reference')
+    Controls.Instructions.SetText = set
+    tick(1)
+    assert(not UIManager.member and player.faith == 0 and player.culture == 0)
+    turn = 2; Events.ActivePlayerTurnStart.fire()
+    assert(UIManager.member and currentState().session.phase == 'reference')
+    finishPassage()
+    assert(not UIManager.member and semaphores == 0)
+  end,
+  ["add-in stays inert outside a queued Covenant recall"] = function()
+    assert(ContextPtr.hidden and Controls.Backdrop.hidden)
+    player.civ = 0
+    ContextPtr:SetHide(false)
+    Events.LoadScreenClose.fire(); tick(1)
+    assert(ContextPtr.hidden and Controls.Backdrop.hidden)
+    assert(not ContextPtr.input(KeyEvents.KeyDown, Keys.VK_ESCAPE, 0))
+    assert(UIManager.queueCalls == 0 and semaphores == 0 and currentState() == nil)
+
+    player.civ = GameInfoTypes.CIVILIZATION_COVENANT_MEMORY
+    Events.ActivePlayerTurnStart.fire()
+    assert(not ContextPtr.hidden and not Controls.Backdrop.hidden)
+    assert(Controls.Instructions:GetText() ~= '' and semaphores == 1)
+    assert(ContextPtr.input(KeyEvents.KeyDown, Keys.VK_ESCAPE, 0))
+    click('Skip')
+    assert(ContextPtr.hidden and Controls.Backdrop.hidden and semaphores == 0)
+    assert(not ContextPtr.input(KeyEvents.KeyDown, Keys.VK_ESCAPE, 0))
+  end,
+  ["skip works immediately during study reference and section recall"] = function()
+    for t, phase in ipairs({'study', 'reference', 'section'}) do
+      turn = t - 1; Events.ActivePlayerTurnStart.fire()
+      assert(not Controls.Skip.hidden and not Controls.Skip.disabled)
+      if phase ~= 'study' then tick(10); click('Submit') end
+      if phase == 'section' then typeText(CovenantVerses[1].reference); click('Submit') end
+      assert(currentState().session.phase == phase)
+      click('Skip'); click('Skip'); tick(2); Events.LoadScreenClose.fire()
+      local s = currentState()
+      assert(not s.session and s.clearedTurn == turn)
+      assert(s.lessons[1].passes == 0 and s.lessons[1].failures == 0)
+      assert(ContextPtr.hidden and not UIManager.member and semaphores == 0)
+    end
+    assert(player.faith == 0 and player.culture == 0 and timerIncrements == timerDecrements)
+  end,
+  ["skip dismisses the rest of an exam and preserves already earned rewards"] = function()
+    for t = 0, 4 do turn = t; Events.ActivePlayerTurnStart.fire(); finishPassage() end
+    turn = 9; Events.ActivePlayerTurnStart.fire(); finishPassage()
+    assert(currentState().session.exam and #currentState().session.queue == 4)
+    assert(player.faith == 10 and player.culture == 5)
+    click('Skip'); tick(2); Events.ActivePlayerTurnStart.fire(); click('Skip')
+    assert(not currentState().session and currentState().lastExamTurn == 9)
+    assert(ContextPtr.hidden and semaphores == 0 and player.faith == 10 and player.culture == 5)
+    turn = 10; Events.ActivePlayerTurnStart.fire()
+    assert(currentState().session and not currentState().session.exam)
+  end,
+  ["failed skip save recovers without reopening or granting a reward"] = function()
+    Events.LoadScreenClose.fire()
+    local original = saved
+    saved = setmetatable({}, {__index = original, __newindex = function() error('injected skip save failure') end})
+    click('Skip')
+    saved = original; tick(1)
+    assert(not currentState().session and currentState().clearedTurn == turn)
+    assert(ContextPtr.hidden and semaphores == 0 and not UIManager.member)
+    assert(player.faith == 0 and player.culture == 0)
+  end,
+  ["punctuation and regional spelling variants keep recall correct and unaided"] = function()
+    for t = 0, 5 do
+      turn = t; Events.ActivePlayerTurnStart.fire()
+      local state = currentState()
+      local verse = CovenantVerses[state.session.queue[1]]
+      if state.session.phase == 'study' then tick(10); click('Submit') end
+      typeText(verse.reference); click('Submit')
+      for index, section in ipairs(verse.sections) do
+        local answer = section:gsub('realize', 'realise')
+        if index % 2 == 0 then answer = answer:gsub('%p', '')
+        else answer = answer:gsub(';', ','):gsub('[%p]+$', '') end
+        typeText(answer); click('Submit')
+        assert(not Controls.Feedback:GetText():find('____', 1, true))
+        if index < #verse.sections then assert(currentState().session.section == index + 1) end
+      end
+      assert(not currentState().session and semaphores == 0)
+      for _, lesson in ipairs(currentState().lessons) do assert(lesson.failures == 0) end
+    end
+    assert(currentState().lessons[1].clean == 1 and currentState().rewardTurn == 5)
+    assert(player.faith == 10 and player.culture == 5)
+  end,
   ["every study and restudy unlocks at exactly ten visible seconds"] = function()
     for id = 1, #CovenantVerses do
       turn = id - 1; Events.ActivePlayerTurnStart.fire()

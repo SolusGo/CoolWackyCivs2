@@ -62,10 +62,10 @@ function B.State(pid)
   local length=tonumber(data:sub(first,last):match(':(%d+):'))
   local ok,value=pcall(decode,data:sub(last+1,last+length))
   if ok then
-   for _,name in ipairs({'locks','assignments','rewards','selected','excluded','pending','returned','history','sieges','aiTargets','subjugated'}) do
+   for _,name in ipairs({'locks','assignments','rewards','selected','excluded','pending','returned','history','sieges','aiTargets','subjugated','nativeReturns'}) do
     if value[name]~=nil and type(value[name])~='table' then ok=false end
    end
-   for _,name in ipairs({'reserved','withdrawn','lastTurn','developmentTurn'}) do
+   for _,name in ipairs({'reserved','withdrawn','lastTurn','developmentTurn','releasePending'}) do
     if value[name]~=nil and (type(value[name])~='number' or value[name]~=math.floor(value[name])) then ok=false end
    end
    ok=ok and data:sub(last+length+1,last+length+1)=='|'
@@ -91,6 +91,7 @@ function B.State(pid)
   if s.version==2 then s.version=3 end -- new optional military records; no progress reset
   s.subjugated=s.subjugated or {}
   s.selected=s.selected or {};s.withdrawn=math.max(0,tonumber(s.withdrawn) or 0)
+  s.nativeReturns=s.nativeReturns or {};s.releasePending=math.max(0,s.releasePending or 0)
   s.sieges=s.sieges or {};s.returned=s.returned or {};s.aiTargets=s.aiTargets or {};s.history=s.history or {};s.phase=s.phase or 'RECOVER'
   s.lastTurn=s.lastTurn or -1
   s.excluded=s.excluded or {};s.pending=s.pending or {};s.reserved=math.max(0,tonumber(s.reserved) or 0)
@@ -98,12 +99,12 @@ function B.State(pid)
   if s.foodTarget~=nil and (type(s.foodTarget)~='number' or s.foodTarget~=math.floor(s.foodTarget) or s.foodTarget< -1 or s.foodTarget>20) then s.foodTarget=nil end
   if s.mode~='AUTO' and s.mode~='HYBRID' and s.mode~='MANUAL' then s.mode='AUTO' end
   if not ({ANY=true,NORTH=true,EAST=true,SOUTH=true,WEST=true})[s.direction] then s.direction='ANY' end
-  for _,tableName in ipairs({'locks','selected','excluded','assignments','rewards','sieges'}) do
+  for _,tableName in ipairs({'locks','selected','excluded','assignments','rewards','sieges','nativeReturns'}) do
    for n in pairs(s[tableName]) do
     if type(n)~='number' or n<0 or n>=Map.GetNumPlots() or n~=math.floor(n) then s[tableName][n]=nil end
    end
   end
-  for _,name in ipairs({'locks','selected','excluded','rewards'}) do
+  for _,name in ipairs({'locks','selected','excluded','rewards','nativeReturns'}) do
    for n,v in pairs(s[name]) do if v~=true then s[name][n]=nil end end
   end
   for n,r in pairs(s.assignments) do local p=Map.GetPlotByIndex(n)

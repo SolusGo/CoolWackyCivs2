@@ -817,7 +817,7 @@
       <Content>
         <Type>InGameUIAddin</Type>
         <Name>Written on the Heart</Name>
-        <Description>Mandatory typed Scripture recall, spaced reviews and five-passage exams.</Description>
+        <Description>Typed Scripture recall with a Skip button, spaced reviews and five-passage exams.</Description>
         <FileName>TheCovenant/UI/CovenantGate.xml</FileName>
       </Content>
     </ModContent>

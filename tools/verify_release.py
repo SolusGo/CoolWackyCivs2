@@ -1,6 +1,6 @@
 """Verify built ZIP/7z inventories, game-file bytes and the embedded modinfo."""
 from pathlib import Path
-import json, tempfile, zipfile
+import json, tempfile, zipfile, zlib
 import py7zr
 from build_mod import R,NAME,CIVILIZATIONS,files,relative
 
@@ -17,7 +17,12 @@ def main():
         assert {n.removeprefix(NAME+'/') for n in z.namelist()}==set(expected),'ZIP inventory'
         for name,p in expected.items(): assert z.read(NAME+'/'+name)==p.read_bytes(),('ZIP stale bytes',name)
     with py7zr.SevenZipFile(R/'dist'/(NAME+'.civ5mod')) as z:
-        assert set(z.getnames())==set(expected),'7z inventory'
+        entries={entry.filename:entry for entry in z.list()}
+        assert len(z.getnames())==len(expected) and set(entries)==set(expected),'7z inventory'
+        for name,p in expected.items():
+            data=p.read_bytes()
+            entry=entries[name]
+            assert (entry.uncompressed,entry.crc32)==(len(data),zlib.crc32(data)),('7z stale bytes',name)
         assert z.testzip() is None,'7z CRC'
     # Extract a small authoritative sample, confined to the ignored workspace output.
     with tempfile.TemporaryDirectory(prefix='verify-release-',dir=R/'dist') as temporary:

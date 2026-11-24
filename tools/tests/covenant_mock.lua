@@ -21,18 +21,20 @@ end
 Controls = setmetatable({}, {__index = function(t, k)
   local c = control(); rawset(t, k, c); return c
 end})
-ContextPtr = {hidden = true}
+-- Model an add-in exposed by its loader before the first queue request.
+ContextPtr = {hidden = false}
 function ContextPtr:IsHidden() return self.hidden end
+function ContextPtr:SetHide(hidden)
+  if self.hidden == hidden then return end
+  self.hidden = hidden
+  if self.showHide then self.showHide(hidden, false) end
+end
 function ContextPtr:SetInputHandler(f) self.input = f end
 function ContextPtr:SetShowHideHandler(f) self.showHide = f end
 function ContextPtr:SetUpdate(f) self.update = f end
 UIManager = {queueCalls = 0, dequeueCalls = 0, blocked = false, member = false}
 function UIManager:refresh()
-  local hidden = self.blocked or not self.member
-  if ContextPtr.hidden ~= hidden then
-    ContextPtr.hidden = hidden
-    ContextPtr.showHide(hidden, false)
-  end
+  ContextPtr:SetHide(self.blocked or not self.member)
 end
 function UIManager:QueuePopup(context, priority)
   assert(context == ContextPtr and priority == PopupPriority.eUtmost)

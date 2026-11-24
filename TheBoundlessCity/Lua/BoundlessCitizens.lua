@@ -15,6 +15,7 @@ function B.LabourerYield(city,yield)
  return (B.DefaultBase[yield] or 0)+(count>0 and extra/count or 0)
 end
 function B.Census(s,city)
+ s.nativeReturns=s.nativeReturns or {}
  local a={population=city:GetPopulation(),specialists=city:GetTotalSpecialistCount(),
   defaults=city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN')),localCount=0,localLocked=0,
   localMaximum=0,slotMaximum=0,remote=0,remoteLocked=0,pending=0,locks=0}
@@ -27,9 +28,10 @@ function B.Census(s,city)
   if city:IsWorkingPlot(r.plot) then
    a.localCount=a.localCount+1
    local forced=city:IsForcedWorkingPlot(r.plot)
-   if forced and s.mode~='AUTO' then a.localLocked=a.localLocked+1 end
+   if not forced then s.nativeReturns[n]=nil end
+   if forced and not s.nativeReturns[n] and s.mode~='AUTO' then a.localLocked=a.localLocked+1 end
    words[#words+1]=n..':'..tostring(forced)
-  end
+  else s.nativeReturns[n]=nil end
  end
  for _,row in ipairs(B.SlotBuildings) do
   if city:GetNumBuilding(row.ID)>0 then
@@ -66,6 +68,50 @@ function B.Census(s,city)
  a.availableCitizens=math.max(0,a.population-a.specialists-a.localLocked-(s.mode~='AUTO' and a.remoteLocked or 0))
  if a.automata>0 then a.availableCitizens=0 end
  return a,locals
+end
+-- REMOVE_SLACKER runs the full native governor. CP v151 can reject a stale
+-- batch there (CvCityCitizens.cpp:1550), and Lua pcall cannot catch its fatal
+-- assertion. Return one real default to a currently legal, unworked local
+-- tile instead. CanWork prevents DoAlterWorkingPlot's ownership-override path,
+-- which would also invoke the full governor. Never click the city center.
+function B.ReleaseReservations(s,city)
+ local census,locals=B.Census(s,city)
+ local pending=(s.withdrawn or 0)+(s.releasePending or 0)
+ s.withdrawn=0
+ s.releasePending=math.min(pending,census.automata>0 and census.defaults or census.realDefaults)
+ B.Save(s)
+ if census.automata>0 then return end -- cannot identify ordinary labourers
+ local rows={};local cache=B.Cache(s)
+ for n,r in pairs(locals) do
+  rows[#rows+1]={n=n,index=r.index,plot=r.plot,original=(cache.reservationJobs or {})[n],score=B.Score(s,r.plot)}
+ end
+ table.sort(rows,function(a,b)
+  local ao,bo=a.original==true,b.original==true
+  if ao~=bo then return ao end
+  if a.score~=b.score then return a.score>b.score end
+  return a.index<b.index
+ end)
+ for _,r in ipairs(rows) do
+  local current=B.Census(s,city)
+  if current.automata>0 then break end
+  s.releasePending=math.min(s.releasePending,current.realDefaults)
+  if s.releasePending==0 then break end
+  local before=current.defaults
+  -- Recheck immediately before every native call; preceding calls can fire
+  -- external callbacks. A stale worked row must never be toggled back off.
+  if before>0 and not r.plot:IsCity() and not city:IsWorkingPlot(r.plot) and city:CanWork(r.plot) then
+   local ok,err=pcall(city.AlterWorkingPlot,city,r.index)
+   if city:IsWorkingPlot(r.plot) and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==before-1 then
+    s.releasePending=s.releasePending-1;s.nativeReturns[r.n]=true;B.Save(s)
+   end
+   assert(ok,err) -- journal a completed native return even if its callback raises
+  end
+ end
+ -- A blocked/resisting city may have nowhere legal to return the person.
+ -- Keep a saved retry count, never treat it as a verified remote reservation.
+ local final=B.Census(s,city)
+ s.releasePending=math.min(s.releasePending,final.automata>0 and final.defaults or final.realDefaults)
+ B.Save(s)
 end
 local function vector(text)
  local values={}
@@ -282,19 +328,18 @@ function B.Reconcile(s)
  end
  B.PlannerUpdate(s,city)
  local signature=B.Signature(s,city)
- if not cache.force and not cache.reservationCheck and cache.signature==signature then return true end
+ if not cache.force and not cache.reservationCheck and (s.releasePending or 0)==0 and cache.signature==signature then return true end
  cache.force=nil;B.Busy[s.pid]=true
  local ok,err=pcall(function()
   local previous=s.assignments
   local function reset()
    s.phase='RECONCILE';s.assignments={};s.reserved=0;B.Save(s);B.ApplyLedger(city,{},{})
-   local release=math.min(s.withdrawn or 0,city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN')))
-   for _=1,release do city:DoTask(TaskTypes.TASK_REMOVE_SLACKER,0,-1,0);s.withdrawn=math.max(0,s.withdrawn-1);B.Save(s) end
-   s.withdrawn=0;cache.governorKey=nil;cache.topKey=nil;cache.reservationJobs={}
+   B.ReleaseReservations(s,city)
+   cache.governorKey=nil;cache.topKey=nil;cache.reservationJobs={}
   end
   local census=B.Census(s,city)
   if not cache.signature or s.phase~='IDLE' or (cache.governorKey and cache.governorKey~=census.governorKey)
-   or (cache.reservationCheck and (s.withdrawn or 0)>0) then reset() end
+   or (s.releasePending or 0)>0 or (cache.reservationCheck and (s.withdrawn or 0)>0) then reset() end
   cache.reservationCheck=nil
   local environment=signature
   local bias=cache.foodEnvironment==environment and cache.foodBias or 0
@@ -306,11 +351,20 @@ function B.Reconcile(s)
    if B.Census(s,city).protected<plan.count then cache.governorKey=nil end
    for _,r in ipairs(plan.worked) do
     if B.Census(s,city).protected>=plan.count then break end
-    s.phase='RECONCILE';B.Save(s)
-    local before=city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))
-    city:AlterWorkingPlot(r.index)
-    if not city:IsWorkingPlot(r.plot) and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==before+1 then
-     s.withdrawn=s.withdrawn+1;cache.reservationJobs=cache.reservationJobs or {};cache.reservationJobs[r.plot:GetPlotIndex()]=true;B.Save(s)
+    -- Plans are snapshots; callbacks may already have moved this worker.
+    if city:IsWorkingPlot(r.plot) and city:CanWork(r.plot) then
+     s.phase='RECONCILE';B.Save(s)
+     local before=city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))
+     local changed,err=pcall(city.AlterWorkingPlot,city,r.index)
+     if not city:IsWorkingPlot(r.plot) and city:GetSpecialistCount(B.ID('SPECIALIST_CITIZEN'))==before+1 then
+      local index=r.plot:GetPlotIndex()
+      s.nativeReturns[index]=nil
+      s.withdrawn=s.withdrawn+1
+      cache.reservationJobs=cache.reservationJobs or {}
+      cache.reservationJobs[index]=true
+      B.Save(s)
+     end
+     assert(changed,err)
     end
    end
    local actual=B.Census(s,city);local assignments={}
