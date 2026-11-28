@@ -4,6 +4,8 @@ Original custom interface artwork, created on 2026-10-24 for the Boundless City.
 
 ![Layout preview with sample data](Preview.png)
 
+[Living Atlas layout preview](AtlasPreview.png)
+
 The preview uses the shipped DDS textures and XML positions, with sample data and approximate Windows fonts. It is not a screenshot from Civ V. Its labelled yield counters stand in for the game's native yield glyphs.
 
 ## Sources and regeneration
@@ -20,6 +22,7 @@ The preview uses the shipped DDS textures and XML positions, with sample data an
 | BC_UI_Buttons | 64×256 | Four 44×44 native button states at y=0/45/90/135 |
 | BC_UI_Assigned | 4×54 | Teal assigned/ready mark |
 | BC_UI_Pending | 4×54 | Amber pending-request mark |
+| BC_UI_AtlasHeader | 856×184 | Navy register, engraved map detail and split-arch seal |
 
 Run from the repository root:
 
@@ -30,6 +33,6 @@ python tools/build_mod.py --manifest-only
 python tools/validate_summary.py
 ```
 
-Compilation writes legacy uncompressed RGBA DDS files with full mip chains into `TheBoundlessCity/Art`. The six textures use about 3.8 MB on disk; repeated rows reuse the same assets. The existing collection atlas finisher does not alter these interface textures.
+Compilation writes legacy uncompressed RGBA DDS files with full mip chains into `TheBoundlessCity/Art`. Repeated rows reuse the same assets. Run `python tools/prepare_boundless_ui.py --atlas-only` to rebuild just the atlas header.
 
 The native nine-slice geometry comes from the installed game's `Assets/UI/Styles.xml`, `Grid9FrameButtons`: 8/28/8 slices, 44px cell extent and 45px state stride. Each button supplies its own GridData texture; no global style or vanilla texture is replaced. Hover, pressed and disabled rendering still require the native check in [UIVisuals.md](../../../TheBoundlessCity/docs/UIVisuals.md).

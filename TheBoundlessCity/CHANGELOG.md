@@ -1,5 +1,10 @@
 # The Boundless City changelog
 
+## Living Atlas and border notices — 2026-11-28
+
+- Show named wards, their markers and tiles, and credited remote jobs and gross yields in the Workforce panel. Add the split arch to the launcher and Frontier Surveyor pennant.
+- Notify the player when Culture claims a tile. Each notice names the ward and direction and opens the map at the claimed coordinates.
+
 ## Gold split-arch emblem — 2026-11-28
 
 - Use the supplied navy-and-gold seal for the civilization icon and Workforce panel. Use the same arch silhouette when Civ V applies player colors. Existing saves need no migration.

@@ -19,7 +19,7 @@ Game.SetWinner=function(t,v) assert(not insideCapture);winner=t;victory=v;winner
 Game.GetImprovementUpgradeTime=function() return 2 end
 GameInfoTypes.VICTORY_DOMINATION=2
 GameInfo={GameSpeeds=setmetatable({},{__index=function() return {CulturePercent=speed} end}),
- Units={[400]={Found=0},[401]={Found=1}},Builds={[0]={ID=0,ImprovementType='IMPROVEMENT_FARM'},[1]={ID=1,Repair=1}},Resources={},Improvements={}}
+ Units={[400]={Found=0},[401]={Found=1}},Builds={[0]={ID=0,ImprovementType='IMPROVEMENT_FARM'},[1]={ID=1,Repair=1}},Resources={},Improvements={},Terrains={},Features={}}
 setmetatable(GameInfo.Builds,{__call=function(t) local i=-1;return function() i=i+1;return t[i] end end})
 local function rows(values)
  return setmetatable(values,{__call=function(t,filter)
@@ -41,7 +41,7 @@ local function event() local a={};local fire=function(...) for _,fn in ipairs(a)
  return setmetatable({Add=function(fn) a[#a+1]=fn end,Fire=fire,Test=test},{__call=function(_,...) return fire(...) end}) end
 GameEvents={};for _,n in ipairs({'PlayerDoTurn','PlayerDoneTurn','PlayerCanFoundCity','PlayerCanTrain','CityCanTrain',
  'CityCanConstruct','CityCanCreate','CityCanMaintain','CityCanAcquirePlot','PlayerCanCreateTradeRoute','DeclareWar','MakePeace','PlayerCanBuyOut','PlayerCityFounded','UnitCreated','UnitConverted','CityCaptureComplete','TileOwnershipChanged',
- 'PlayerBuilt','TileImprovementChanged','TileFeatureChanged','TileRouteChanged','SetPopulation','TeamTechResearched','CityConstructed','PlayerAdoptPolicy','UnitSetXY'}) do GameEvents[n]=event() end
+ 'PlayerBuilt','TileImprovementChanged','TileFeatureChanged','TileRouteChanged','SetPopulation','TeamTechResearched','CityConstructed','CityBoughtPlot','PlayerAdoptPolicy','UnitSetXY'}) do GameEvents[n]=event() end
 Events={SerialEventCityInfoDirty=event(),LoadScreenClose=event()};LuaEvents={BoundlessChanged=event()}
 ContextPtr={}
 function ContextPtr:SetUpdate(fn)
@@ -61,6 +61,8 @@ local plotMethods={}
 function plotMethods:GetPlotIndex() return self.n end
 function plotMethods:GetX() return self.x end
 function plotMethods:GetY() return self.y end
+function plotMethods:GetTerrainType() return self.terrain or -1 end
+function plotMethods:GetFeatureType() return self.feature or -1 end
 function plotMethods:GetOwner() return self.owner end
 function plotMethods:GetPlotCity() return self.city end
 function plotMethods:IsCity() return self.city~=nil end
@@ -233,7 +235,10 @@ end
 function playerMethods:IsTurnActive() return true end
 function playerMethods:GetCurrentEra() return 0 end
 function playerMethods:GetTeam() return self.pid end
-function playerMethods:AddNotification() end
+function playerMethods:AddNotification(kind,text,title,x,y)
+ self.notifications=self.notifications or {}
+ self.notifications[#self.notifications+1]={kind=kind,text=text,title=title,x=x,y=y}
+end
 function playerMethods:GetUnitByID(id) for _,u in ipairs(self.units) do if u.id==id and not u.dead then return u end end end
 function playerMethods:ChangeJONSCulture(n) cultureAward=cultureAward+n end
 function playerMethods:GetNumMilitaryUnits() return 2 end

@@ -99,6 +99,7 @@
     <File md5="22A62595525B4815EA156C7C3F5D5B66" import="1">McPvP/UI/MCP_ServerBrowser.lua</File>
     <File md5="C2783EBCE9A822776EC0B531C1FCD4A0" import="0">McPvP/UI/MCP_ServerBrowser.xml</File>
     <File md5="65A768B26F9653F9C1102755025C61C6" import="1">TheBoundlessCity/Art/BC_UI_Assigned.dds</File>
+    <File md5="8C6BB0905265151F64CBE49627D540B5" import="1">TheBoundlessCity/Art/BC_UI_AtlasHeader.dds</File>
     <File md5="6341E878BF863C391ACA6A7F2359356F" import="1">TheBoundlessCity/Art/BC_UI_Buttons.dds</File>
     <File md5="CE5B29085A52AC380ECF5A7D33B6B1E9" import="1">TheBoundlessCity/Art/BC_UI_Launcher.dds</File>
     <File md5="AD945FD153CEF33D0B1EBF2FD9D1F67C" import="1">TheBoundlessCity/Art/BC_UI_Panel.dds</File>
@@ -114,7 +115,7 @@
     <File md5="01067AC122D3A7431E656553A8979636" import="1">TheBoundlessCity/Art/BoundlessAlpha64.dds</File>
     <File md5="0D08372C57BCB35AB88BEEEEA979A490" import="1">TheBoundlessCity/Art/BoundlessAlpha80.dds</File>
     <File md5="B6F11D9F8CB83E7A4F4F7809DE348CFD" import="1">TheBoundlessCity/Art/BoundlessDawn.dds</File>
-    <File md5="A51A77982BD11CD273F40223D9EEF195" import="1">TheBoundlessCity/Art/BoundlessFlag32.dds</File>
+    <File md5="FA7D9B57658F3640BEEE3CABFC31E38F" import="1">TheBoundlessCity/Art/BoundlessFlag32.dds</File>
     <File md5="78C9D907A83DC4912DC6CBD8C2E282AD" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
     <File md5="B6EE7B25D85F6BE836AA97C3EB4E4A6F" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
     <File md5="560DE90F27DCA91BA833AB34371AA8D6" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
@@ -147,9 +148,10 @@
     <File md5="556A81390B4FD7B8923962994D56FFC3" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Row.dds</File>
     <File md5="75DD515209B23A10A60D32BB1AC79B57" import="1">TheBoundlessCity/Art/CWC2_TheBoundlessCity_Row_834x66.dds</File>
     <File md5="1EE1B4C1666A685743E3894366F9C11F" import="1">TheBoundlessCity/Lua/BoundlessAI.lua</File>
+    <File md5="262EC567116AFBEEF40EF50F46B93707" import="1">TheBoundlessCity/Lua/BoundlessAtlas.lua</File>
     <File md5="42A700C10BB94FEA13EF14F8F4EEDEEA" import="1">TheBoundlessCity/Lua/BoundlessCitizens.lua</File>
-    <File md5="E7F0C53EFE55E65260B0B9B581DF1247" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
-    <File md5="367B3CF593F5569EAC3626F36DD98F3D" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
+    <File md5="581485AFC2D8A0305D6DC9F7CB7750C1" import="1">TheBoundlessCity/Lua/BoundlessCore.lua</File>
+    <File md5="344344AB3AB8BCB6812E10EC81875F5F" import="1">TheBoundlessCity/Lua/BoundlessEvents.lua</File>
     <File md5="B79832C8069B5D844EFF0951198EB026" import="1">TheBoundlessCity/Lua/BoundlessMilitary.lua</File>
     <File md5="77B4034F01062612AE3C12BF41BF3461" import="1">TheBoundlessCity/Lua/BoundlessPersistence.lua</File>
     <File md5="2B0383DB251D585E6CEF55A598658DB1" import="1">TheBoundlessCity/Lua/BoundlessPlanner.lua</File>
@@ -158,10 +160,10 @@
     <File md5="36E736BD59C756960EFD3CD08BDACFD8" import="0">TheBoundlessCity/SQL/01_BC_Inheritance.sql</File>
     <File md5="286233B6F15BDC6D73A23C1E177418DD" import="0">TheBoundlessCity/SQL/02_BC_Effects.sql</File>
     <File md5="584AFC9BB00EEC98C0D8E23E8453AE75" import="0">TheBoundlessCity/SQL/03_BC_Art.sql</File>
-    <File md5="614070224EEEB0B1B623FD5A5653128E" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
+    <File md5="EC050665332906638E1B28E91DDE1217" import="0">TheBoundlessCity/SQL/10_BC_Text.sql</File>
     <File md5="9E2617CD2DE8F631DB6D8FF698A12508" import="0">TheBoundlessCity/SQL/90_PlayerGuide.sql</File>
-    <File md5="F352A5C8A9E1A2A42021130FB1DB58C9" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
-    <File md5="29F2CF0DA6785D2A678E596513E93885" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
+    <File md5="7A684954B5CE3039C7F67AE0162E5529" import="1">TheBoundlessCity/UI/BoundlessWorkforce.lua</File>
+    <File md5="E9FB1BC4A83627F519E37F796C00B8F5" import="0">TheBoundlessCity/UI/BoundlessWorkforce.xml</File>
     <File md5="6C112DA6BB2E1AF045D6CBE2C517B788" import="1">TheChildrenOfTheKingdom/Art/CKAlpha128.dds</File>
     <File md5="FA27E04B9CDD0F512CBEA584BC066238" import="1">TheChildrenOfTheKingdom/Art/CKAlpha16.dds</File>
     <File md5="3F8C8B0E51EED3367B878A7DA520A4D0" import="1">TheChildrenOfTheKingdom/Art/CKAlpha24.dds</File>

@@ -3,9 +3,10 @@ include('InstanceManager')
 include('BoundlessCore')
 local B=MapModData.BoundlessCity
 local instances=InstanceManager:new('BoundlessPlotRow','Root',Controls.Rows)
+local atlasInstances=InstanceManager:new('BoundlessAtlasRow','AtlasRowRoot',Controls.AtlasRows)
 local opened,leaderScreen,refreshing,transition=false,false,false,false
 local blocked={};local page=1;local sort='DISTANCE';local message=''
-local siege=false
+local siege,atlas,wardKey=false,false,nil
 local refresh;local lastVisibility,lastError;local contexts={};local transitionRevision=0
 -- Context IDs from BNW InGame.xml. Query actual visibility: popup notifications
 -- can be missed, or (DeclareWarPopup) report Processed while still displayed.
@@ -57,12 +58,61 @@ local function closeForTransition()
  opened=false;transition=true;transitionRevision=transitionRevision+1;refresh();deferRefresh()
 end
 local function resetVisibility()
- blocked={};contexts={};leaderScreen=false;closeForTransition()
+ blocked={};contexts={};leaderScreen=false;atlas=false;wardKey=nil;closeForTransition()
 end
 local yieldIcons={'[ICON_FOOD]','[ICON_PRODUCTION]','[ICON_GOLD]','[ICON_RESEARCH]','[ICON_CULTURE]','[ICON_PEACE]'}
 local function yields(values,plain)
  local words={};for i,y in ipairs(B.Yields) do words[#words+1]=(values[i] or 0)..' '..(plain and B.Text(y.name) or yieldIcons[i]) end
  return table.concat(words,plain and ' / ' or '   ')
+end
+local function pageBounds(count)
+ local pages=math.max(1,math.ceil(count/B.Config.PageSize));page=math.max(1,math.min(page,pages))
+ Controls.Page:SetText(page..' / '..pages..'  ('..count..')')
+ Controls.Previous:SetDisabled(page<=1);Controls.Next:SetDisabled(page>=pages)
+ return (page-1)*B.Config.PageSize+1,math.min(page*B.Config.PageSize,count)
+end
+local function renderAtlas(s)
+ local view=B.Atlas(s)
+ local ward=view.byName[wardKey]
+ if not ward then wardKey=nil end
+ local rows=ward and ward.plots or view.wards
+ Controls.AtlasTitle:SetText(ward and B.AtlasWardName(ward.key) or B.Text('ATLAS'))
+ Controls.AtlasStats:SetText(ward and B.Text('ATLAS_WARD_INFO',#ward.plots,ward.workers)
+  or B.Text('ATLAS_OVERVIEW',#view.wards,view.count,view.workers))
+ Controls.AtlasYields:SetHide(not ward)
+ if ward then
+  Controls.AtlasYields:SetText(B.Text('ATLAS_GROSS',yields(ward.yields)))
+  Controls.AtlasYields:SetToolTipString(B.Text('ATLAS_GROSS',yields(ward.yields,true)))
+ end
+ Controls.AtlasBack:SetHide(not ward)
+ Controls.AtlasInfo:CalculateSize();Controls.AtlasInfo:ReprocessAnchoring()
+ Controls.Help:SetText(B.Text('ATLAS_HELP'))
+ local first,last=pageBounds(#rows)
+ atlasInstances:ResetInstances()
+ for i=first,last do
+  local row=rows[i];local control=atlasInstances:GetInstance()
+  local index=ward and row.n or row.marker.n
+  local plot=Map.GetPlotByIndex(index)
+  local text
+  if ward then
+   text=B.Text('ATLAS_PLOT_ROW',B.AtlasPlotName(s,plot),plot:GetX(),plot:GetY(),row.distance,
+    B.Text(row.credit and 'ATLAS_JOB' or 'ATLAS_NO_JOB'))
+  else
+   text=B.Text('ATLAS_WARD_ROW',B.AtlasWardName(row.key),#row.plots,row.workers,plot:GetX(),plot:GetY())
+  end
+  control.AtlasRowText:SetText(text)
+  control.AtlasRowText:SetToolTipString(row.credit and B.Text('ATLAS_GROSS',yields(row.credit,true)) or text)
+  control.AtlasRowInspect:SetHide(ward~=nil)
+  local key=row.key
+  control.AtlasRowInspect:RegisterCallback(Mouse.eLClick,function()
+   if key then wardKey=key;page=1;refresh() end
+  end)
+  control.AtlasRowLocate:RegisterCallback(Mouse.eLClick,function()
+   local target=Map.GetPlotByIndex(index)
+   if target and target:GetOwner()==s.pid then opened=false;refresh();UI.LookAt(target,0) end
+  end)
+ end
+ Controls.AtlasRows:CalculateSize();Controls.AtlasRows:ReprocessAnchoring();Controls.AtlasScroll:CalculateInternalSize()
 end
 local summaryFields={
  {'Population','SUMMARY_POPULATION','population'}, {'OwnedPlots','SUMMARY_OWNED','owned'},
@@ -112,6 +162,12 @@ local function render()
  if not visible then opened=false end
  Controls.Panel:SetHide(not opened)
  if not opened then return end
+ Controls.Atlas:SetText(B.Text(atlas and 'WORKFORCE_VIEW' or 'ATLAS'))
+ Controls.AtlasOverview:SetHide(not atlas);Controls.AtlasScroll:SetHide(not atlas)
+ Controls.OverviewScroll:SetHide(atlas);Controls.Scroll:SetHide(atlas)
+ Controls.FoodTarget:SetHide(atlas);Controls.Siege:SetHide(atlas)
+ Controls.Mode:SetHide(atlas);Controls.Priority:SetHide(atlas);Controls.Direction:SetHide(atlas);Controls.Sort:SetHide(atlas)
+ if atlas then renderAtlas(s);return end
  if not city then siege=true end
  local info=city and B.Summary(s);local cache=B.Ownership(s)
  summary(s,info,cache)
@@ -132,9 +188,9 @@ local function render()
  Controls.Siege:SetText(B.Text(siege and 'WORKFORCE_VIEW' or 'SIEGE'))
  local rows=siege and B.SiegeRows(s) or B.RemoteRows(s,sort)
  if siege then Controls.Help:SetText(message~='' and message or B.Text('SIEGE_HELP')) end
- local pages=math.max(1,math.ceil(#rows/B.Config.PageSize));page=math.max(1,math.min(page,pages))
+ local first,last=pageBounds(#rows)
  instances:ResetInstances()
- for i=(page-1)*B.Config.PageSize+1,math.min(page*B.Config.PageSize,#rows) do
+ for i=first,last do
   local row=rows[i];local control=instances:GetInstance();row.plot=row.plot or Map.GetPlotByIndex(row.n)
   local assigned=s.assignments[row.n]~=nil
   local locked=s.mode~='AUTO' and s.locks[row.n]~=nil
@@ -169,8 +225,6 @@ local function render()
   local plot=row.plot
   control.Locate:RegisterCallback(Mouse.eLClick,function() UI.LookAt(plot,0) end)
  end
- Controls.Page:SetText(page..' / '..pages..'  ('..#rows..')')
- Controls.Previous:SetDisabled(page<=1);Controls.Next:SetDisabled(page>=pages)
  Controls.Rows:CalculateSize();Controls.Rows:ReprocessAnchoring();Controls.Scroll:CalculateInternalSize()
 end
 refresh=function()
@@ -186,6 +240,8 @@ local function cycle(list,current)
  return list[1]
 end
 Controls.Open:RegisterCallback(Mouse.eLClick,function() opened=not opened;page=1;message='';refresh() end)
+Controls.Atlas:RegisterCallback(Mouse.eLClick,function() atlas=not atlas;wardKey=nil;page=1;message='';refresh() end)
+Controls.AtlasBack:RegisterCallback(Mouse.eLClick,function() wardKey=nil;page=1;refresh() end)
 Controls.Siege:RegisterCallback(Mouse.eLClick,function() siege=not siege;page=1;message='';refresh() end)
 Controls.Close:RegisterCallback(Mouse.eLClick,function() opened=false;refresh() end)
 Controls.Mode:RegisterCallback(Mouse.eLClick,function() local pid=Game.GetActivePlayer();B.Action(pid,'MODE',cycle({'AUTO','MANUAL','HYBRID'},B.State(pid).mode));refresh() end)

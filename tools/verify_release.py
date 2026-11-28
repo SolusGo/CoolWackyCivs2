@@ -30,6 +30,9 @@ def main():
         assert target.parent==(R/'dist').resolve(),'unsafe extraction target'
         sample=[NAME+'.modinfo','TheBoundlessCity/Lua/BoundlessPlanner.lua',
                 'TheBoundlessCity/Lua/BoundlessCitizens.lua','TheBoundlessCity/UI/BoundlessWorkforce.xml',
+                'TheBoundlessCity/Lua/BoundlessAtlas.lua','TheBoundlessCity/UI/BoundlessWorkforce.lua',
+                'TheBoundlessCity/Art/BC_UI_AtlasHeader.dds','TheBoundlessCity/Art/BoundlessFlag32.dds',
+                'TheBoundlessCity/docs/LivingAtlas.md',
                 'TheConicalUnion/Lua/ConicalUnion.xml',
                 'TheConicalUnion/Lua/ConicalUnion.lua',
                 'TheConicalUnion/SQL/00_CONICAL_Core.sql',

@@ -6,6 +6,8 @@
 
 ![The Boundless City’s gold split-arch seal](../../art-source/IconAtlasMasters/BoundlessIcon256.png)
 
+Open **The Boundless Workforce → Living Atlas** to browse named wards, jump to their landmarks or tiles, and see what their current remote jobs supply. A new Culture claim reports the ward, direction, distance, and coordinates in a clickable notification. [Atlas preview and controls](../../TheBoundlessCity/docs/LivingAtlas.md).
+
 The civilization selection map now uses an original [parchment city atlas](../../TheBoundlessCity/docs/MapArtwork.md), fitted to the native map window.
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)

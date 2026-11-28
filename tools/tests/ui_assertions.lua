@@ -5,7 +5,7 @@ for _,name in ipairs({'GameplaySetActivePlayer','ActivePlayerTurnStart','ActiveP
  'SerialEventGameMessagePopupProcessed','InterfaceModeChanged','SerialEventGameDataDirty'}) do Events[name]=event() end
 local native={mode=0,city=false,leader=false,turn=true}
 UI={GetInterfaceMode=function() return native.mode end,IsCityScreenUp=function() return native.city end,
- GetLeaderHeadRootUp=function() return native.leader end,LookAt=function() end}
+ GetLeaderHeadRootUp=function() return native.leader end,LookAt=function(plot) LocatedPlot=plot end}
 local turnActive=Players[0].IsTurnActive
 Players[0].IsTurnActive=function() return native.turn end
 InterfaceModeTypes={INTERFACEMODE_SELECTION=0};ButtonPopupTypes={BUTTONPOPUP_CHOOSEPRODUCTION=1}
@@ -31,14 +31,25 @@ for _,path in ipairs({'/InGame/SocialPolicyPopup','/InGame/DeclareWarPopup','/In
 end
 function ContextPtr:LookUpControl(path) return nativeScreens[path] end
 Controls={};for _,name in ipairs({'Rows','Launcher','Panel','Yields','Mode','Priority','FoodTarget','Direction','Sort','Help','Page','Previous','Next','Scroll','Open','Close','Siege',
+ 'Atlas','AtlasOverview','AtlasScroll','AtlasRows','AtlasTitle','AtlasStats','AtlasInfo','AtlasYields','AtlasBack',
  'Population','OwnedPlots','FrontierCulture','FrontierCost','LocalWorkers','RemoteWorkers','Specialists','IdleLabourers',
  'UnassignedCitizens','AvailableCitizens','AdditionalRemoteCapacity','MaximumRemoteCapacity','PendingRequests','LockedRequests',
  'SubjugationProgress','CapitalStatus','Automatons','TerritoryStack','WorkforceStack','ManagementStack','SummaryBody','Overview','OverviewScroll'}) do Controls[name]=control() end
 InstanceManager={}
-function InstanceManager:new()
+function InstanceManager:new(name)
  local manager={count=0}
- function manager:ResetInstances() self.count=0;UIRows={} end
- function manager:GetInstance() self.count=self.count+1;assert(self.count<=16,'UI rows must be paged');local row={Text=control(),Assign=control(),Lock=control(),Locate=control(),AssignedMark=control(),PendingMark=control()};UIRows[#UIRows+1]=row;return row end
+ local isAtlas=name=='BoundlessAtlasRow'
+ function manager:ResetInstances() self.count=0;if isAtlas then AtlasRows={} else UIRows={} end end
+ function manager:GetInstance()
+  self.count=self.count+1;assert(self.count<=16,'UI rows must be paged')
+  local row
+  if isAtlas then
+   row={AtlasRowText=control(),AtlasRowInspect=control(),AtlasRowLocate=control()};AtlasRows[#AtlasRows+1]=row
+  else
+   row={Text=control(),Assign=control(),Lock=control(),Locate=control(),AssignedMark=control(),PendingMark=control()};UIRows[#UIRows+1]=row
+  end
+  return row
+ end
  return manager
 end
 LoadWorkforceUI()

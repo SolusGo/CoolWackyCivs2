@@ -1,5 +1,9 @@
 # Changelog
 
+## Boundless Living Atlas / mod version 24 — 2026-11-28
+
+- Add a read-only ward atlas, split-arch Workforce and Surveyor artwork, and clickable notifications for new Culture border claims. Existing saves retain their gameplay and state.
+
 ## Boundless City emblem / mod version 24 — 2026-11-28
 
 - Replace the civilization's icon and tintable player emblem with the supplied gold split arch. The existing mod identity and save format carry over.

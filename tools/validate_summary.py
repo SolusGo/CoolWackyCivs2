@@ -62,6 +62,11 @@ def layout(text):
         key = node.get('String', '')
         if key.startswith('TXT_KEY_BC_'):
             assert key in text, key
+    for name in ('AtlasOverview', 'AtlasScroll'):
+        x,y=map(int,ids[name].get('Offset').split(','))
+        w,h=map(int,ids[name].get('Size').split(','))
+        assert x+w<=900 and y+h<=564 and ids[name].get('Hidden')=='1', name
+    assert ids['AtlasScroll'].find('ScrollBar') is not None
     print('PASS summary XML: 15 statistics, natural-height wrapped columns, scrolling yields, unchanged 900x700 panel and disjoint action/list bounds')
 
 
@@ -92,7 +97,7 @@ def skin():
     assert int(rows.get('Size').split(',')[1])*3+4*2<=210,'Three complete rows must fit'
     for image in root.iter('Image'):
         if image.get('Texture','').startswith('BC_UI_'):assert image.get('ConsumeMouse')=='0'
-    print('PASS Workforce skin: six preserved legacy DDS/mip chains, source pixels, themed native nine-slice controls, click-through markers and three complete rows')
+    print('PASS Workforce skin: legacy DDS/mip chains, source pixels, themed native nine-slice controls, click-through markers and three complete rows')
 
 
 def validate():

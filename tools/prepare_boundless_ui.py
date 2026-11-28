@@ -3,15 +3,16 @@
 No network calls. Keeps the existing game artwork and all other civ assets intact.
 """
 from pathlib import Path
+import argparse
 import random
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageOps
 from prepare_red_art import raw_mips
 
 R = Path(__file__).resolve().parents[1]
 S = R / 'art-source/TheBoundlessCity/WorkforceUI'
 V = R / 'TheBoundlessCity/Art'
 SIZES = {'Panel': (900, 700), 'Launcher': (245, 36), 'Row': (834, 66),
-         'Buttons': (64, 256), 'Assigned': (4, 54), 'Pending': (4, 54)}
+         'Buttons': (64, 256), 'Assigned': (4, 54), 'Pending': (4, 54), 'AtlasHeader': (856, 184)}
 
 
 def material(size, top=(18, 39, 43), bottom=(9, 22, 28), seed=17):
@@ -88,22 +89,48 @@ def buttons():
     return sheet
 
 
+def atlas_header():
+    width, height = SIZES['AtlasHeader']
+    image = material((width, height), (19, 35, 51), (8, 21, 34))
+    with Image.open(S.parent / 'BoundlessCityMap.png') as source:
+        map_detail = ImageOps.fit(source.convert('RGBA'), (420, height), Image.Resampling.LANCZOS)
+    fade = Image.new('L', map_detail.size)
+    draw = ImageDraw.Draw(fade)
+    for x in range(map_detail.width):
+        draw.line((x, 0, x, height - 1), fill=round(175 * min(1, x / 220)))
+    map_detail.putalpha(ImageChops.multiply(fade, map_detail.getchannel('A')))
+    image.alpha_composite(map_detail, (width - map_detail.width, 0))
+    draw = ImageDraw.Draw(image)
+    rim(draw, (0, 0, width - 1, height - 1), True)
+    draw.line((25, 17, 535, 17), fill='#8b754d')
+    draw.line((25, 17, 25, 32), fill='#8b754d')
+    with Image.open(R / 'art-source/IconAtlasMasters/BoundlessIcon256.png') as seal:
+        icon = seal.convert('RGBA').resize((128, 128), Image.Resampling.LANCZOS)
+        image.alpha_composite(icon, (width - 161, 28))
+    return image
+
+
 def assets():
     row = material(SIZES['Row'], (23,43,48), (12,29,36));d=ImageDraw.Draw(row)
     rim(d,(0,0,833,65));d.line((524,10,524,55),fill='#3b4e48')
     launcher = material(SIZES['Launcher']);rim(ImageDraw.Draw(launcher),(0,0,244,35),True)
     return {'Panel':panel(), 'Launcher':launcher, 'Row':row, 'Buttons':buttons(),
             'Assigned':material(SIZES['Assigned'],(128,222,185),(40,115,104)),
-            'Pending':material(SIZES['Pending'],(236,196,114),(143,103,51))}
+            'Pending':material(SIZES['Pending'],(236,196,114),(143,103,51)),
+            'AtlasHeader':atlas_header()}
 
 
-def main():
+def main(atlas_only=False):
     V.mkdir(parents=True,exist_ok=True)
-    for name,im in assets().items():
+    textures = {'AtlasHeader': atlas_header()} if atlas_only else assets()
+    for name,im in textures.items():
         assert im.size == SIZES[name]
         im.save(S/('BC_UI_'+name+'.png'))
         (V/('BC_UI_'+name+'.dds')).write_bytes(raw_mips(im))
-    print('Compiled six original Workforce DDS textures with complete mip chains')
+    print(f'Compiled {len(textures)} Workforce DDS textures with complete mip chains')
 
 
-if __name__ == '__main__':main()
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--atlas-only', action='store_true')
+    main(parser.parse_args().atlas_only)

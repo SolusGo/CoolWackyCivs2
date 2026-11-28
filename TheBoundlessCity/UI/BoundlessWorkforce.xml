@@ -5,6 +5,7 @@
   <GridButton ID="Open" Anchor="C,C" Size="235,30" String="TXT_KEY_BC_WORKFORCE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
+  <Image Anchor="L,C" Offset="11,0" Size="24,24" Texture="BoundlessIcon24.dds" ConsumeMouse="0" />
  </Grid>
  <Grid ID="Panel" Anchor="C,C" Size="900,700" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
   <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="900,700" Texture="CWC2_TheBoundlessCity_Panel_900x700.dds" ConsumeMouse="0" />
@@ -12,6 +13,9 @@
   <Label ID="Title" Anchor="L,T" Offset="92,24" Font="TwCenMT24" String="TXT_KEY_BC_WORKFORCE" Color0="234,214,166,255" FontStyle="Shadow" Color1="0,0,0,230" />
   <Label Anchor="L,T" Offset="92,55" Font="TwCenMT16" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" String="TXT_KEY_BC_CAPITAL" />
   <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="50,32" String="X" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="Atlas" Anchor="R,T" Offset="116,18" Size="146,30" String="TXT_KEY_BC_ATLAS" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
   <GridButton ID="Siege" Anchor="R,T" Offset="80,56" Size="190,32" String="TXT_KEY_BC_SIEGE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
@@ -54,6 +58,17 @@
    </Stack>
    <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="176" />
   </ScrollPanel>
+  <Grid ID="AtlasOverview" Anchor="L,T" Offset="22,110" Size="856,184" Hidden="1">
+   <Image Anchor="L,T" Size="856,184" Texture="BC_UI_AtlasHeader.dds" ConsumeMouse="0" />
+   <Stack ID="AtlasInfo" Anchor="L,T" Offset="24,23" StackGrowth="Bottom" Padding="8">
+    <Label ID="AtlasTitle" WrapWidth="580" Font="TwCenMT24" Color0="234,214,166,255" FontStyle="Shadow" Color1="0,0,0,230" />
+    <Label ID="AtlasStats" WrapWidth="580" Font="TwCenMT18" Color0="239,232,214,255" FontStyle="Shadow" Color1="0,0,0,230" />
+    <Label ID="AtlasYields" WrapWidth="580" Font="TwCenMT16" Color0="239,232,214,255" FontStyle="Shadow" Color1="0,0,0,230" />
+   </Stack>
+   <GridButton ID="AtlasBack" Anchor="L,B" Offset="24,14" Size="140,30" String="TXT_KEY_BC_ATLAS_BACK" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
+   </GridButton>
+  </Grid>
   <GridButton ID="Mode" Anchor="L,T" Offset="22,306" Size="204,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
@@ -70,6 +85,10 @@
    <Stack ID="Rows" Anchor="L,T" StackGrowth="Bottom" Padding="4" />
    <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="202" />
   </ScrollPanel>
+  <ScrollPanel ID="AtlasScroll" Anchor="L,T" Offset="22,306" Size="856,258" Vertical="1" AutoScrollBar="1" Hidden="1">
+   <Stack ID="AtlasRows" Anchor="L,T" StackGrowth="Bottom" Padding="4" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="250" />
+  </ScrollPanel>
   <GridButton ID="Previous" Anchor="L,T" Offset="22,576" Size="160,34" String="TXT_KEY_BC_PREVIOUS" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
@@ -82,6 +101,19 @@
    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
   </GridButton>
  </Grid>
+ <Instance Name="BoundlessAtlasRow">
+  <Grid ID="AtlasRowRoot" Size="834,66" Style="GridBlackIndent8">
+   <Image Anchor="L,T" Size="834,66" Texture="BC_UI_Row.dds" ConsumeMouse="0" />
+   <Image Anchor="L,C" Offset="12,0" Size="32,32" Texture="BoundlessIcon32.dds" ConsumeMouse="0" />
+   <Label ID="AtlasRowText" Anchor="L,C" Offset="54,0" Size="462,62" WrapWidth="462" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <GridButton ID="AtlasRowInspect" Anchor="R,C" Offset="116,0" Size="150,34" String="TXT_KEY_BC_ATLAS_INSPECT" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
+   </GridButton>
+   <GridButton ID="AtlasRowLocate" Anchor="R,C" Offset="10,0" Size="100,34" String="TXT_KEY_BC_LOCATE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC2_TheBoundlessCity_Buttons.dds" />
+   </GridButton>
+  </Grid>
+ </Instance>
  <Instance Name="BoundlessPlotRow">
   <Grid ID="Root" Size="834,66" Style="GridBlackIndent8">
    <Image ID="CWC_RowSurface_BoundlessPlotRow" Anchor="L,T" Size="834,66" Texture="CWC2_TheBoundlessCity_Row_834x66.dds" ConsumeMouse="0" />

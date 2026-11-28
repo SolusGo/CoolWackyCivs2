@@ -34,6 +34,48 @@ def button(size,state=0):
     return out
 
 
+def atlas_preview(ids):
+    panel=Image.open(V/'Art/CWC2_TheBoundlessCity_Panel_900x700.dds').convert('RGBA')
+    panel.alpha_composite(Image.open(V/'Art/BoundlessIcon64.dds').convert('RGBA'),(18,18))
+    section=ids['AtlasOverview'];origin=tuple(map(int,section.get('Offset').split(',')))
+    panel.alpha_composite(Image.open(V/'Art/BC_UI_AtlasHeader.dds').convert('RGBA'),origin)
+    draw=ImageDraw.Draw(panel)
+    draw.text((92,24),'The Boundless Workforce',font=font(24),fill='#f3e0b4')
+    draw.text((92,55),'The Heart of the World',font=font(16),fill=GOLD)
+    draw.text((origin[0]+24,origin[1]+23),'Living Atlas',font=font(24),fill=GOLD)
+    draw.text((origin[0]+24,origin[1]+62),'6 wards · 146 owned tiles · 10 remote jobs',font=font(18),fill=WHITE)
+
+    def control(name,text,with_parent=(0,0),parent_width=900):
+        node=ids[name];w,h=map(int,node.get('Size').split(','));x,y=map(int,node.get('Offset').split(','))
+        if node.get('Anchor').startswith('R,'):x=parent_width-x-w
+        if node.get('Anchor').endswith(',C'):y=(66-h)//2
+        x+=with_parent[0];y+=with_parent[1]
+        panel.alpha_composite(button((w,h)),(x,y))
+        face=font(15);draw.text((x+(w-face.getlength(text))/2,y+(h-20)/2),text,font=face,fill=WHITE)
+
+    control('Atlas','Remote districts');control('Close','X');control('Previous','Previous');control('Next','Next')
+    control('CWC_Guide_Panel','?')
+    row_texture=Image.open(V/'Art/BC_UI_Row.dds').convert('RGBA')
+    icon=Image.open(V/'Art/BoundlessIcon32.dds').convert('RGBA')
+    x,y=map(int,ids['AtlasScroll'].get('Offset').split(','))
+    for i,(ward,stats) in enumerate([
+        ('Charter Ward','34 tiles · 0 remote jobs · Marker (19, 12)'),
+        ('North Gate Ward','21 tiles · 2 remote jobs · Marker (19, 16)'),
+        ('Dawnwatch Reach','28 tiles · 4 remote jobs · Marker (22, 15)'),
+    ]):
+        row_y=y+i*70
+        panel.alpha_composite(row_texture,(x,row_y));panel.alpha_composite(icon,(x+12,row_y+17))
+        draw.text((x+54,row_y+10),ward,font=font(17),fill=GOLD)
+        draw.text((x+54,row_y+35),stats,font=font(15),fill=WHITE)
+        control('AtlasRowInspect','View tiles',(x,row_y),834);control('AtlasRowLocate','Locate',(x,row_y),834)
+    draw.text((419,582),'1 / 1  (6)',font=font(16),fill=WHITE)
+    draw.text((32,626),'Open a ward to see its tiles and remote jobs.',font=font(15),fill=WHITE)
+    draw.text((32,647),'Locate closes the atlas and centers the map on the ward marker or tile.',font=font(15),fill=WHITE)
+    canvas=Image.new('RGB',(960,768),'#080f15');canvas.paste(panel,(30,28))
+    ImageDraw.Draw(canvas).text((32,739),'LAYOUT PREVIEW · Sample territory and job counts',font=font(13),fill='#a1a897')
+    canvas.save(S/'AtlasPreview.png')
+
+
 def main():
     root=ET.parse(V/'UI/BoundlessWorkforce.xml').getroot()
     ids={n.get('ID'):n for n in root.iter() if n.get('ID')}
@@ -46,7 +88,7 @@ def main():
         if n.get('Anchor','L,T').startswith('R,'):x=900-x-w
         panel.alpha_composite(button((w,h),state),(x,y))
         f=font(15);d.text((x+(w-f.getlength(text))/2,y+(h-20)/2),text,font=f,fill=WHITE if state!=3 else MUTED)
-    for name,text in [('Close','X'),('Siege','Siege demolition'),('FoodTarget','Food minimum: 2'),('Mode','Hybrid'),('Priority','Food'),('Direction','Direction: Any'),('Sort','Distance'),('Previous','Previous'),('Next','Next')]:draw_button(name,text,3 if name=='Previous' else 0)
+    for name,text in [('Close','X'),('Atlas','Living Atlas'),('Siege','Siege demolition'),('FoodTarget','Food minimum: 2'),('Mode','Hybrid'),('Priority','Food'),('Direction','Direction: Any'),('Sort','Distance'),('Previous','Previous'),('Next','Next')]:draw_button(name,text,3 if name=='Previous' else 0)
     columns=[('TerritoryStack',['Territory','Population: 34','Owned Plots: 146','Frontier Culture: 62','Next frontier claim: 84 Culture']),
              ('WorkforceStack',['Workforce','Local Workers: 18','Remote Workers: 10','Specialists: 6','Idle Labourers: 0','Unassigned Citizens: 0']),
              ('ManagementStack',['Management','Available Citizens: 28','Additional Remote Capacity: 18','Maximum Remote Capacity: 28','Pending Requests: 2','Locked Requests: 4','Original capitals subjugated: 0 / 7'])]
@@ -80,6 +122,7 @@ def main():
     canvas=Image.new('RGB',(960,768),'#080f15');canvas.paste(panel,(30,28))
     ImageDraw.Draw(canvas).text((32,739),'LAYOUT PREVIEW · Sample data · Native fonts and yield glyphs may differ',font=font(13),fill='#a1a897')
     canvas.save(S/'Preview.png')
+    atlas_preview(ids)
     print('Saved actual-texture/XML layout preview:',S/'Preview.png')
 
 

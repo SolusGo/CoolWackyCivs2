@@ -236,6 +236,7 @@ hook('TileOwnershipChanged',function(x,y,new,old)
   if B.IsBoundless(pid) then
    local s=B.State(pid);local c=B.Cache(s)
    c.owned[p:GetPlotIndex()]=new==pid and true or nil;c.territoryDirty=true;c.aiDirty=true
+   if new~=pid and c.expansionNotices then c.expansionNotices[p:GetPlotIndex()]=nil end
    B.InvalidatePlan(s,{[p:GetPlotIndex()]=true})
    if new~=pid then s.selected[p:GetPlotIndex()]=nil;s.locks[p:GetPlotIndex()]=nil;s.excluded[p:GetPlotIndex()]=nil;if c.blocked then c.blocked[p:GetPlotIndex()]=nil end end
    B.Trim(s);B.Schedule(pid,true)
@@ -248,6 +249,13 @@ hook('TileOwnershipChanged',function(x,y,new,old)
    if cache.connected and cache.connected[q:GetPlotIndex()] then cache.frontier[p:GetPlotIndex()]=new==-1 and not p:IsCity() and true or nil end
   end
  end)
+end)
+hook('CityBoughtPlot',function(pid,cityID,x,y,withGold,withCulture)
+ if withGold or not withCulture or not B.IsBoundless(pid) then return end
+ local s=B.State(pid);local city=B.City(s);local plot=Map.GetPlot(x,y)
+ if not s.incompatible and city and city:GetID()==cityID and plot and plot:GetOwner()==pid and not plot:IsCity() then
+  B.NotifyExpansion(s,plot)
+ end
 end)
 hook('PlayerBuilt',function(pid,uid,x,y,buildID)
  if not B.IsBoundless(pid) then return end

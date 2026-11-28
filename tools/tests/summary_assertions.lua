@@ -77,6 +77,27 @@ plot.owner=0;GameEvents.TileOwnershipChanged.Fire(plot.x,plot.y,0,1);Pump();refr
 assert(Controls.OwnedPlots.text=='Owned Plots: '..owned)
 s.progress=B.Cost(s);B.Busy[0]=true;B.Expand(s);B.Busy[0]=nil;Pump();refresh();fields(B.Summary(s))
 assert(Controls.OwnedPlots.text=='Owned Plots: '..(owned+1),'frontier claim must update territory summary')
+local claim=Players[0].notifications[#Players[0].notifications]
+assert(claim.title=='Border expanded ('..claim.x..', '..claim.y..')' and claim.text:find('Click to go to the tile.',1,true))
+
+-- Atlas uses live, already-credited remote yields and only moves the camera.
+assert(B.Action(0,'MODE','MANUAL'));assert(B.Action(0,'PLOT',plot.n));refresh()
+local snapshot=Players[0]:GetScriptData();local writes=mutations;local fullScans=scans
+local atlasData=B.Atlas(s);local east=assert(atlasData.byName.EAST)
+assert(east.workers==1 and east.yields[1]==5 and east.yields[2]==4)
+Controls.Atlas.callback();refresh()
+assert(not Controls.AtlasOverview.hidden and Controls.Scroll.hidden and Controls.Mode.hidden and Controls.AtlasTitle.text=='Living Atlas')
+local eastRow
+for _,row in ipairs(AtlasRows) do if row.AtlasRowText.text:find('East Causeway',1,true) then eastRow=row;break end end
+assert(eastRow and not eastRow.AtlasRowInspect.hidden)
+eastRow.AtlasRowInspect.callback();refresh()
+assert(Controls.AtlasTitle.text=='East Causeway' and Controls.AtlasYields.tooltip:find('5 Food',1,true))
+assert(not Controls.AtlasBack.hidden and AtlasRows[1].AtlasRowInspect.hidden and AtlasRows[1].AtlasRowText.text:find('Remote job',1,true))
+AtlasRows[1].AtlasRowLocate.callback();assert(LocatedPlot==plot and Controls.Panel.hidden)
+assert(Players[0]:GetScriptData()==snapshot and scans==fullScans and mutations==writes)
+Controls.Open.callback();Controls.AtlasBack.callback();refresh();assert(Controls.AtlasTitle.text=='Living Atlas')
+Controls.Atlas.callback();refresh();assert(Controls.AtlasScroll.hidden and not Controls.Scroll.hidden and not Controls.Mode.hidden)
+B.Action(0,'PLOT',plot.n);refresh()
 
 B.Save(s);local progress=math.floor(s.progress);B.States={};B.Caches={}
 Events.LoadScreenClose.Fire();Pump();assert(Controls.Panel.hidden and not Controls.Launcher.hidden)

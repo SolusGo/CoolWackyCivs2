@@ -110,7 +110,7 @@ end
 function B.Expand(s)
  local city=B.City(s);if not city then return end
  s.progress=s.progress+math.max(0,city:GetJONSCulturePerTurn())
- local cache=B.Ownership(s)
+ local cache=B.Ownership(s);local claimed={}
  while s.progress>=B.Cost(s) do
   local best,value
   for _,n in ipairs(B.Keys(cache.frontier)) do local p=Map.GetPlotByIndex(n)
@@ -126,8 +126,10 @@ function B.Expand(s)
   cache.owned[n]=true;cache.count=cache.count+1;cache.connected[n]=true;cache.frontier[n]=nil
   B.Neighbors(best,function(q) if q:GetOwner()==-1 and not q:IsCity() then cache.frontier[q:GetPlotIndex()]=true end end)
   cache.territoryDirty=false -- SetOwner's event marks it; this operation has updated the frontier itself.
+  claimed[#claimed+1]=best
  end
  B.Registry(s)
+ for _,plot in ipairs(claimed) do B.NotifyExpansion(s,plot) end
 end
 function B.Eligible(s,p)
  return p and p:GetOwner()==s.pid and not p:IsCity() and p:HasYield()
@@ -144,6 +146,7 @@ function B.LocalPlots(city)
 end
 include('BoundlessCitizens')
 include('BoundlessPlanner')
+include('BoundlessAtlas')
 include('BoundlessPersistence')
 include('BoundlessEvents')
 for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do
