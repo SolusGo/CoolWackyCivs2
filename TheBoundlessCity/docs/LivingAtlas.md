@@ -6,7 +6,7 @@ Open **The Boundless Workforce → Living Atlas**. Charter Ward covers the area 
 
 ![Living Atlas layout preview with sample data](../../art-source/TheBoundlessCity/WorkforceUI/AtlasPreview.png)
 
-The split arch appears on the Workforce launcher, in the atlas, and on the Frontier Surveyor's map pennant. Ward geography and job totals are derived from the existing map and Workforce ledger when the atlas is opened. An existing campaign can use the atlas as soon as the mod loads.
+The split arch appears on the Workforce launcher and in the atlas. Frontier Surveyors have their original compass pennant on the map. Ward geography and job totals are derived from the existing map and Workforce ledger when the atlas is opened. An existing campaign can use the atlas as soon as the mod loads.
 
 New frontier Culture claims and native Culture border gains each get a notification with the tile's coordinates, direction, distance, and ward. Clicking the entry centers the claimed tile. The Community Patch reports native cultural acquisitions through `CityBoughtPlot` and uses a plot-targeted click action for ordinary notifications. [Cultural acquisition source](https://github.com/LoneGazebo/Community-Patch-DLL/blob/dcb33a654cd9e8efb038a0733b4025e19cbcd8ba/CvGameCoreDLL_Expansion2/CvCity.cpp#L16072-L16165) · [Notification activation source](https://github.com/LoneGazebo/Community-Patch-DLL/blob/master/CvGameCoreDLL_Expansion2/CvNotifications.cpp#L1067-L1077).
 

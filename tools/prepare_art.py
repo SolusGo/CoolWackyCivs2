@@ -54,7 +54,6 @@ def prepare_civ_icon():
     silhouette.putalpha(place(mask))
     for size in SIZES:
         save(silhouette, f'BoundlessAlpha{size}.dds', (size, size))
-    save(silhouette, 'BoundlessFlag32.dds', (32, 32))
 
     preview = Image.new('RGBA', (512 * 3, 512), BLUE)
     preview.alpha_composite(seal.resize((512, 512), Image.Resampling.LANCZOS))
@@ -63,11 +62,12 @@ def prepare_civ_icon():
     preview.convert('RGB').save(SOURCE / 'InsigniaPreview.png')
 
 
-def emblem(kind):
+def emblem(kind,alpha=False):
     im=Image.new('RGBA',(512,512),(0,0,0,0));d=ImageDraw.Draw(im)
-    d.ellipse((12,12,500,500),fill=BLUE,outline=GOLD,width=14)
-    d.ellipse((34,34,478,478),outline=GOLD,width=2)
-    color=GOLD
+    if not alpha:
+        d.ellipse((12,12,500,500),fill=BLUE,outline=GOLD,width=14)
+        d.ellipse((34,34,478,478),outline=GOLD,width=2)
+    color=IVORY if alpha else GOLD
     if kind=='registry':
         d.rectangle((116,224,396,373),outline=color,width=14)
         d.polygon([(96,224),(256,106),(416,224)],outline=color,width=14)
@@ -110,6 +110,7 @@ def main():
         icon=portrait.resize((size,size),Image.Resampling.LANCZOS)
         mask=Image.new('L',(size,size),0);ImageDraw.Draw(mask).ellipse((1,1,size-2,size-2),fill=255)
         icon.putalpha(mask);icon.save(V/f'BoundlessPortrait{size}.dds')
+    save(emblem('surveyor',True),'BoundlessFlag32.dds',(32,32))
     (V/'BoundlessLeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="BoundlessLeader.dds" />\n',encoding='utf-8',newline='\n')
     print('Prepared',len(list(V.glob('*.dds'))),'real DDS textures and the 2D leader scene')
     from prepare_boundless_ui import main as prepare_workforce

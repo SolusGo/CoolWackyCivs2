@@ -1,5 +1,9 @@
 # The Boundless City changelog
 
+## Frontier Surveyor compass — 2026-11-29
+
+- Restore the original tintable compass texture for the Frontier Surveyor's map pennant.
+
 ## Living Atlas and border notices — 2026-11-28
 
 - Show named wards, their markers and tiles, and credited remote jobs and gross yields in the Workforce panel. Add the split arch to the launcher and Frontier Surveyor pennant.

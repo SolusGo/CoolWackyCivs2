@@ -1,5 +1,9 @@
 # Changelog
 
+## Frontier Surveyor compass / mod version 24 — 2026-11-29
+
+- Restore the original compass pennant on Frontier Surveyors.
+
 ## Boundless Living Atlas / mod version 24 — 2026-11-28
 
 - Add a read-only ward atlas, split-arch Workforce and Surveyor artwork, and clickable notifications for new Culture border claims. Existing saves retain their gameplay and state.
