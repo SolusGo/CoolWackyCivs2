@@ -4,6 +4,8 @@
 
 > There shall be no second city. For the first shall have no end.
 
+![The Boundless City’s gold split-arch seal](../../art-source/IconAtlasMasters/BoundlessIcon256.png)
+
 The civilization selection map now uses an original [parchment city atlas](../../TheBoundlessCity/docs/MapArtwork.md), fitted to the native map window.
 
 ![The First Architect](../../art-source/TheBoundlessCity/ArchitectAndWorld.png)

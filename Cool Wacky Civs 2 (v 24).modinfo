@@ -104,26 +104,26 @@
     <File md5="AD945FD153CEF33D0B1EBF2FD9D1F67C" import="1">TheBoundlessCity/Art/BC_UI_Panel.dds</File>
     <File md5="E6FFAA8DFDACE55BBE80D35460082502" import="1">TheBoundlessCity/Art/BC_UI_Pending.dds</File>
     <File md5="149062A3F6CCF75EF5FE8720D1DDF029" import="1">TheBoundlessCity/Art/BC_UI_Row.dds</File>
-    <File md5="D3588A7BC9AB350EACDA84921EBAF924" import="1">TheBoundlessCity/Art/BoundlessAlpha128.dds</File>
-    <File md5="AFC07018A9BAAC46FA381C936A49E74F" import="1">TheBoundlessCity/Art/BoundlessAlpha16.dds</File>
-    <File md5="989AB9944B0CB53943CDB28AB2705D51" import="1">TheBoundlessCity/Art/BoundlessAlpha24.dds</File>
-    <File md5="065907D29C8B4AD52BD2550E38A32B40" import="1">TheBoundlessCity/Art/BoundlessAlpha256.dds</File>
-    <File md5="86C749B95F98436F2CA1E6289CE959EE" import="1">TheBoundlessCity/Art/BoundlessAlpha32.dds</File>
-    <File md5="47F03741BBD3C63656E50C8A3AF2B457" import="1">TheBoundlessCity/Art/BoundlessAlpha45.dds</File>
-    <File md5="F0FB38C394F660EADE8D3E5F9143AA4C" import="1">TheBoundlessCity/Art/BoundlessAlpha48.dds</File>
-    <File md5="33FA4D42164633A35F8C6FE940AC0EED" import="1">TheBoundlessCity/Art/BoundlessAlpha64.dds</File>
-    <File md5="DDC5E1FCC52F6B2867F4649F83C4D0E6" import="1">TheBoundlessCity/Art/BoundlessAlpha80.dds</File>
+    <File md5="F19FDC11FB598366BCE9F016710D526A" import="1">TheBoundlessCity/Art/BoundlessAlpha128.dds</File>
+    <File md5="91D290FB7B1D19DFC86EE3E7E4868552" import="1">TheBoundlessCity/Art/BoundlessAlpha16.dds</File>
+    <File md5="A5A3DD033DECF2AF16169D7A3A49CF4B" import="1">TheBoundlessCity/Art/BoundlessAlpha24.dds</File>
+    <File md5="B36A6D814019000EF0F0FEAA76FB9889" import="1">TheBoundlessCity/Art/BoundlessAlpha256.dds</File>
+    <File md5="FA7D9B57658F3640BEEE3CABFC31E38F" import="1">TheBoundlessCity/Art/BoundlessAlpha32.dds</File>
+    <File md5="FEC506B2827C5E88ED652D515E4FC441" import="1">TheBoundlessCity/Art/BoundlessAlpha45.dds</File>
+    <File md5="7FF1851CB52D40D84408C4B05E549AD9" import="1">TheBoundlessCity/Art/BoundlessAlpha48.dds</File>
+    <File md5="01067AC122D3A7431E656553A8979636" import="1">TheBoundlessCity/Art/BoundlessAlpha64.dds</File>
+    <File md5="0D08372C57BCB35AB88BEEEEA979A490" import="1">TheBoundlessCity/Art/BoundlessAlpha80.dds</File>
     <File md5="B6F11D9F8CB83E7A4F4F7809DE348CFD" import="1">TheBoundlessCity/Art/BoundlessDawn.dds</File>
     <File md5="A51A77982BD11CD273F40223D9EEF195" import="1">TheBoundlessCity/Art/BoundlessFlag32.dds</File>
-    <File md5="E25BE6976AE483810035A261F880ED7D" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
-    <File md5="81A8B4FA0974F4F13E82A099DC56F945" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
-    <File md5="A6AC47C1E91A8F954D6AB91A11015FD4" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
-    <File md5="AA4086C95347A3561844414A52BF494F" import="1">TheBoundlessCity/Art/BoundlessIcon256.dds</File>
-    <File md5="4B4FAA897E4FAA5467BD93B34876A166" import="1">TheBoundlessCity/Art/BoundlessIcon32.dds</File>
-    <File md5="A9106207DC494BE7E7BD0D834ECD6144" import="1">TheBoundlessCity/Art/BoundlessIcon45.dds</File>
-    <File md5="A9E388FD20120C354FB37E1D29C32047" import="1">TheBoundlessCity/Art/BoundlessIcon48.dds</File>
-    <File md5="E3C33592035C0B59EE4A95DFDC679CB1" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
-    <File md5="C45519AB0B33B74FB81A89234B112544" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
+    <File md5="78C9D907A83DC4912DC6CBD8C2E282AD" import="1">TheBoundlessCity/Art/BoundlessIcon128.dds</File>
+    <File md5="B6EE7B25D85F6BE836AA97C3EB4E4A6F" import="1">TheBoundlessCity/Art/BoundlessIcon16.dds</File>
+    <File md5="560DE90F27DCA91BA833AB34371AA8D6" import="1">TheBoundlessCity/Art/BoundlessIcon24.dds</File>
+    <File md5="49211201F00F6DFD231E353EB1AC65DF" import="1">TheBoundlessCity/Art/BoundlessIcon256.dds</File>
+    <File md5="2AFBD5AC4C97AC453A08C4C2D53531EA" import="1">TheBoundlessCity/Art/BoundlessIcon32.dds</File>
+    <File md5="796806618C624A7B48F8E3278E35A8FF" import="1">TheBoundlessCity/Art/BoundlessIcon45.dds</File>
+    <File md5="D096DC83F0772F116B10B89691C20CFE" import="1">TheBoundlessCity/Art/BoundlessIcon48.dds</File>
+    <File md5="E48C19F0E0851615812E17CD2D4747A1" import="1">TheBoundlessCity/Art/BoundlessIcon64.dds</File>
+    <File md5="79077574575CA58414874A70AC90D0D1" import="1">TheBoundlessCity/Art/BoundlessIcon80.dds</File>
     <File md5="7EC3F5625C0ACD4FEC40FA95A9F8DD9B" import="1">TheBoundlessCity/Art/BoundlessLeader.dds</File>
     <File md5="6911E551F70C4357D0EAAE442428CF28" import="1">TheBoundlessCity/Art/BoundlessLeaderScene.xml</File>
     <File md5="E8648E4ACD5CF9CE6AC81DF9F20A126B" import="1">TheBoundlessCity/Art/BoundlessMap.dds</File>

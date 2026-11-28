@@ -1,5 +1,9 @@
 # Changelog
 
+## Boundless City emblem / mod version 24 — 2026-11-28
+
+- Replace the civilization's icon and tintable player emblem with the supplied gold split arch. The existing mod identity and save format carry over.
+
 ## Covenant skippable recall / mod version 24 — 2026-11-23
 
 - Add an always-available Skip this turn button for study, recall and whole exams. Persist dismissal across same-turn reloads without awarding passes, mastery or yields; retain completed progress and permit later reviews.

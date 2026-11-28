@@ -109,7 +109,7 @@ def frame_cell(source, size, leader=False, preserve_art=False):
     return canvas.resize((size, size), Image.Resampling.LANCZOS)
 
 
-def standardize(root=ROOT, refresh=()):
+def standardize(root=ROOT, refresh=(), only=()):
     atlases, leaders = inventory(root)
     master_dir = root / "art-source/IconAtlasMasters"
     master_dir.mkdir(parents=True, exist_ok=True)
@@ -117,7 +117,7 @@ def standardize(root=ROOT, refresh=()):
     for atlas in atlases:
         # Promotion tier badges already have gold rims and extend beyond their
         # portrait circle. Retain those intentional overlays without clipping.
-        if not atlas.monochrome and "PROMOTION" not in atlas.name:
+        if not atlas.monochrome and "PROMOTION" not in atlas.name and (not only or atlas.name in only):
             families.setdefault(atlas.name, []).append(atlas)
     changed = 0
     texconv = shutil.which("texconv") or shutil.which("texconv.exe")
@@ -161,7 +161,11 @@ def standardize(root=ROOT, refresh=()):
                         # The group emblem is reserved for readable portrait sizes.
                         from prepare_cats_art import symbol
                         cell = symbol('paw')
-                    framed = frame_cell(cell, atlas.size, (name, index) in leaders, name.startswith('THE11CATS_'))
+                    if name == 'BC_CIV_ATLAS':
+                        # The supplied Boundless seal already includes its thin rim and padding.
+                        framed = cell.resize((atlas.size, atlas.size), Image.Resampling.LANCZOS)
+                    else:
+                        framed = frame_cell(cell, atlas.size, (name, index) in leaders, name.startswith('THE11CATS_'))
                     output.alpha_composite(framed, ((index % atlas.columns) * atlas.size,
                                                      (index // atlas.columns) * atlas.size))
                 if output.width % 4 == 0 and output.height % 4 == 0:

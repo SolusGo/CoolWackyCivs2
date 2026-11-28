@@ -1,5 +1,9 @@
 # The Boundless City changelog
 
+## Gold split-arch emblem — 2026-11-28
+
+- Use the supplied navy-and-gold seal for the civilization icon and Workforce panel. Use the same arch silhouette when Civ V applies player colors. Existing saves need no migration.
+
 ## Turn 135 citizen-reassignment crash hotfix — 2026-11-02
 
 - Replace reservation release through `TASK_REMOVE_SLACKER` with checked individual returns to native local tiles. The captured CP v151 crash rejects an already-worked tile during that task's bulk governor allocation; Lua cannot catch the fatal assertion.
